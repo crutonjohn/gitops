@@ -1,0 +1,30 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: ups-edison
+  namespace: monitoring
+spec:
+  podMetricsEndpoints:
+  - interval: 15s
+    port: metrics
+  selector:
+    matchLabels:
+      component: upsd-edison
+  namespaceSelector:
+    any: true
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: ups-tesla
+  namespace: monitoring
+spec:
+  podMetricsEndpoints:
+  - interval: 15s
+    port: metrics
+  selector:
+    matchLabels:
+      component: upsd-tesla
+  namespaceSelector:
+    any: true

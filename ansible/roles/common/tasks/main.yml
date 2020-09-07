@@ -1,0 +1,19 @@
+---
+- name: preflight checks
+  include_tasks: pre_checks.yml
+  run_once: true
+
+- name: debian family specific tasks
+  include_tasks: debian.yml
+  when: ansible_os_family | lower == 'debian'
+
+- name: archlinux family specific tasks
+  include_tasks: archlinux.yml
+  when: ansible_os_family | lower == 'archlinux'
+
+- name: raspberry pi config
+  include_tasks: rpi_config.yml
+  when: ansible_architecture | regex_search('arm|aarch')
+
+- name: common tasks
+  include_tasks: common.yml

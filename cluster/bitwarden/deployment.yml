@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: bitwarden
+  name: bitwarden
+spec:
+  selector:
+    matchLabels:
+      component: bitwarden
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: bitwarden
+    spec:
+      containers:
+        - name: bitwarden
+          image: bitwardenrs/server:latest
+          ports:
+            - containerPort: 80
+          env:
+          - name: SMTP_PORT
+            value: "587"
+          - name: SMTP_EXPLICIT_TLS
+            value: "false"
+          - name: INVITATIONS_ALLOWED
+            value: "true"
+          envFrom:
+          - secretRef:
+              name: bitwarden-env
+          volumeMounts:
+            - mountPath: /data
+              name: attachments-core-storage
+      restartPolicy: Always
+      volumes:
+        - name: attachments-core-storage
+          persistentVolumeClaim:
+            claimName: bitwarden

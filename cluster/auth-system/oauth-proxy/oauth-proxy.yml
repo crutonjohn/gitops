@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: oauth-proxy
+  namespace: auth-system
+spec:
+  encryptedData:
+    values.yaml: AgBvtmJ+t8udQvCNsOkD0hpIDdZNzo/WVdTzpmJKAJehTASEPY0ScyrcWH6G9Acpq2rhuWrSDPrcU7WtqFrV+S/fRi/FD3W5fP/qmw933Sy4kK7vXEwed31DsIY6Aw6rJ2eIwvRFvUFPnODUCbfwvyMsLMbYcArmZ94gMxIY9x1yFo/ozrxtTGwnbpT1BhHHB781MfDYjm4Nm32QNBkfveWAWvN4IHKSY399Z1RDaHF+sNkMhXjs6Us3KTMRvDBUaOtrIEWMxphx9ln3XtE186UpKd1FhKp3P4WowpacxaMaoQSdMaGrtJPsJbzifggLY3ApMXnnTx6rMwrb9JjyFmhvZM0PHpboRxVCJZ95EVm7eUWKmcBjel0ASdiGOQTWQiOGuScWisAaSEWuBw0syJVMQ8qzttajjJlUfCUwYQLiyJ/rtzynq56D6QecOoMfKa/ee5Z55tMqYKZ+d5MERtTOjf4Cy2P1sgN6tjqpWecNTWbT04Well2iS5dRvEaRxaEm/OkD0EirFeH9/5KYIUJreRdlo1NfXF1J7TobcWJbHv+KO67uh6C/csoGXBIY8kDolE2fOt4Rnv1rjrJ568BjFY2iYfemaqCh0T6jk7SITMXe21b5reHBjXkNo06xxVFqQ0hDBtIw6TYyZkyi26uL9KLsxvWAxVanMd0RZqXwlgYfSRgYqBO5089faLJY7MkRsm9asXMWSEgN0+a4hFt/8B+wtMh1sdQNckmmz5NymM3JEcqWryXb+oS3vKoIBSXWxyBwcTh5b2MODnMmAL80NmI0tpcWj5R64etaeQd5e+UBxdKWcgW8zRaX9ansRWc2+rox5KulijcQJoJu3Kx1jEzLLAJz5LKNFeNzSR1qiv6iEBDUYtN3qcw8qTvkn7LBWTuQ5sMIfJqJVxyawvCkLBEotbnOPZNQc/wJ8GzfEBLcqrfp7kOrdGnR8Q==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: oauth-proxy
+      namespace: auth-system
+

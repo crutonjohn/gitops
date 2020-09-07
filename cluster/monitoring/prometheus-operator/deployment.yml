@@ -1,0 +1,269 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  namespace: monitoring
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.grafana: semver:~7
+spec:
+  releaseName: prometheus-operator
+  helmVersion: v3
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: prometheus-operator
+    version: 9.2.2
+  values:
+    defaultRules:
+      rules:
+        kubeApiserverAvailability: true
+        kubeApiserver: true
+    server:
+      resources:
+        requests:
+          memory: 1000Mi
+          cpu: 25m
+        limits:
+          memory: 2000Mi
+    prometheusOperator:
+      createCustomResource: false
+      prometheusConfigReloaderImage:
+        repository: quay.io/coreos/prometheus-config-reloader
+        tag: v0.39.0
+      configmapReloadImage:
+        repository: jimmidyson/configmap-reload
+        tag: v0.3.0
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        route:
+          group_by: ['alertname', 'job']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: 'smtp'
+          routes:
+          - receiver: 'null'
+            match:
+              alertname: Watchdog
+          - receiver: 'smtp'
+            match_re:
+              severity: critical|warning
+            continue: true
+        inhibit_rules:
+        - source_match:
+            severity: 'critical'
+          target_match:
+            severity: 'warning'
+          equal: ['alertname', 'namespace']
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+        - "alerts.crutonjohn.com"
+        tls:
+        - hosts:
+          - "alerts.crutonjohn.com"
+          secretName: alerts-crutonjohn-com
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "longhorn"
+              resources:
+                requests:
+                  storage: 10Gi
+    nodeExporter:
+      serviceMonitor:
+        relabelings:
+        - action: replace
+          regex: (.*)
+          replacement: $1
+          sourceLabels:
+          - __meta_kubernetes_pod_node_name
+          targetLabel: kubernetes_node
+    grafana:
+      image:
+        repository: grafana/grafana
+        tag: 7.1.5
+      deploymentStrategy:
+        type: Recreate
+      persistence:
+        enabled: false
+        storageClassName: "longhorn"
+        size: 10Gi
+        accessModes:
+        - ReadWriteOnce
+      # extraContainers: |
+      #   - name: renderer
+      #     image: grafana/grafana-image-renderer:latest
+      env:
+        GF_EXPLORE_ENABLED: true
+        GF_PANELS_DISABLE_SANITIZE_HTML: true
+        # GF_RENDERING_SERVER_URL: http://localhost:8081/render
+        # GF_RENDERING_CALLBACK_URL: http://localhost:3000/
+        # GF_LOG_FILTERS: rendering:debug
+      ingress:
+        enabled: false
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+        - "grafana.crutonjohn.com"
+        tls:
+        - hosts:
+          - "grafana.crutonjohn.com"
+      sidecar:
+        datasources:
+          enabled: true
+          # Disable for thanos
+          defaultDatasourceEnabled: true
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+          provider:
+            disableDelete: false
+            allowUiUpdates: true
+      plugins:
+      - natel-discrete-panel
+      - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            allowUiUpdates: true
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+      dashboards:
+        default:
+          flux:
+            url: https://raw.githubusercontent.com/fluxcd/flux/master/chart/flux/dashboards/flux-dashboard.json
+            datasource: Prometheus
+          helm-operator:
+            url: https://raw.githubusercontent.com/fluxcd/helm-operator/master/chart/helm-operator/dashboards/helm-operator-dashboard.json
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11310
+          unifi-client-dpi:
+            gnetId: 11310
+            revision: 4
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11315
+          unifi-client-insights:
+            gnetId: 11315
+            revision: 8
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11311
+          unifi-network-sites:
+            gnetId: 11311
+            revision: 4
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11314
+          unifi-uap-insights:
+            gnetId: 11314
+            revision: 9
+            datasource: Prometheus
+          # version-checker:
+          #   gnetId: 12833
+          #   revision: 1
+          #   datasource: Prometheus
+      additionalDataSources:
+      # - name: Prometheus
+      #   type: prometheus
+      #   access: proxy
+      #   url: http://thanos-query-http:10902/
+      #   isDefault: true
+      - name: loki
+        type: loki
+        access: proxy
+        url: http://loki.logging.svc.cluster.local:3100
+      grafana.ini:
+        paths:
+          data: /var/lib/grafana/data
+          logs: /var/log/grafana
+          plugins: /var/lib/grafana/plugins
+          provisioning: /etc/grafana/provisioning
+        analytics:
+          check_for_updates: true
+        log:
+          mode: console
+        grafana_net:
+          url: https://grafana.net
+    kubeEtcd:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubelet:
+      serviceMonitor:
+        metricRelabelings:
+        - action: replace
+          sourceLabels:
+          - node
+          targetLabel: instance
+    prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+        - "prometheus.crutonjohn.com"
+        tls:
+        - hosts:
+          - "prometheus.crutonjohn.com"
+          secretName: prometheus-crutonjohn-com
+      prometheusSpec:
+        # replicas: 2
+        # replicaExternalLabelName: "replica"
+        ruleSelector: {}
+        ruleNamespaceSelector: {}
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelector: {}
+        serviceMonitorNamespaceSelector: {}
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelector: {}
+        podMonitorNamespaceSelector: {}
+        podMonitorSelectorNilUsesHelmValues: false
+        retention: 60d
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "longhorn"
+              resources:
+                requests:
+                  storage: 50Gi
+        additionalScrapeConfigs: []
+        # thanos:
+        #   image: quay.io/thanos/thanos:v0.13.0
+        #   version: v0.13.0
+        #   objectStorageConfig:
+        #     name: thanos
+        #     key: object-store.yaml
+  valueFileSecrets:
+  - name: "prometheus-operator-helm-values"

@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-redis
+  namespace: nextcloud
+  labels:
+    component: nextcloud-redis
+spec:
+  ports:
+    - port: 6379
+  selector:
+    component: nextcloud-redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: nextcloud-redis
+  name: nextcloud-redis
+  namespace: nextcloud
+spec:
+  selector:
+    matchLabels:
+      component: nextcloud-redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: nextcloud-redis
+    spec:
+      containers:
+        - image: redis:alpine
+          name: nextcloud-redis
+          ports:
+            - containerPort: 6379
+      restartPolicy: Always

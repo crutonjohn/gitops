@@ -1,0 +1,8 @@
+createCRD: false
+git:
+  ssh:
+    secretName: flux-git-deploy
+chartsSyncInterval: "10m"
+statusUpdateInterval: "10m"
+helm:
+  versions: "v3"

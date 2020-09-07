@@ -1,0 +1,25 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: longhorn-minio
+  namespace: longhorn-system
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: minio
+  helmVersion: v3
+  chart:
+    repository: https://helm.min.io/
+    name: minio
+    version: 6.0.5
+  values:
+    existingSecret: minio-secrets
+    persistence:
+      enabled: true
+      existingClaim: minio-backup-nfs
+    defaultBucket:
+      enabled: true
+      name: longhorn/backups/
+      purge: false

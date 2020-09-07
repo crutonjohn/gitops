@@ -1,0 +1,3 @@
+[default]
+aws_access_key_id = ${EXTERNAL_DNS_AWS_ACCESS_KEY_ID}
+aws_secret_access_key = ${EXTERNAL_DNS_AWS_ACCESS_KEY}

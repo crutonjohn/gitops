@@ -1,0 +1,9 @@
+---
+- name: preflight checks
+  include_tasks: pre_checks.yml
+
+- name: include install tasks
+  include_tasks: install.yml
+
+- name: include configure tasks
+  include_tasks: configure.yml

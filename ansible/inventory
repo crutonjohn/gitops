@@ -1,0 +1,9 @@
+[masters]
+k-master01 hostname=k-master01 ansible_host=192.168.130.31 ansible_user=ubuntu
+k-master02 hostname=k-master02 ansible_host=192.168.130.32 ansible_user=ubuntu
+k-master03 hostname=k-master03 ansible_host=192.168.130.33 ansible_user=ubuntu
+
+[workers]
+k-node01 hostname=k-node01 ansible_host=192.168.130.41 ansible_user=root
+k-node02 hostname=k-node02 ansible_host=192.168.130.42 ansible_user=root
+k-node03 hostname=k-node03 ansible_host=192.168.130.43 ansible_user=root

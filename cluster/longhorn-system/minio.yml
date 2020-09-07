@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: minio
+  namespace: longhorn-system
+spec:
+  encryptedData:
+    values.yaml: AgCU3Aq0VBNiIcA79Bqhl1q6DsUzFz3V/RSTJSk4MdiVcOwXDCK6p/Gik8iQQTlWe1bxypqBsiMGy9VQO07o/oBUO6R9ZQUwHDM1Qd7+eZNybdQFHFdGau5haB2J5MPvJ90jpMDxSxZld9b6d16cuOE9J2jve1H8UWCbuDFUzUsqtjN7/cCkjh5jxxUtrB3a23HvEztDzfbM1xhMr/Rv11GCTOLVRBIMoh0+HA7N7fvDSAF8nrAHui67ttXXrMYUcjeMSKBW2/ho3p8CcMAQfj90Q8wNwAqQqixq/+Blm3SDGaxm0QTSZms0q5eT5nEbbcwY/UbmsxMAsDy03NvS5JUH78xjAu/V8KBt79+U8y3gfteb2bgmajqknf5DPULtRztBEtv8Z9b4MSzjx9sUb37qI/XKj7P5DZTEZSQy3v17ZXmUbaX3MK3dkbHrxpdAgQMkcBvJ/QxB/pwyJkGQVbIFG3GUPxkCKFhUeiufgNgAXaQPXVJFcvULcDuEg2IPyzrKIVpmqHSCXMPFjZTu5yMvE6emPKCGKd1a4EOflKjsGQED1LxTX+X747QhlOLI0sC4yMwxUBCtbhRdWNKpF59Yq1ltK8rIkP/pyKCHB6MXEcyhKUOOZEeYyKZcLy0HBll7oAMzWncwvipzT5KCVRRsuSLPS8ag8u5bXf/1QALSRqdoYirNZVG5ncm8c7pwz5Q=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: minio
+      namespace: longhorn-system
+
