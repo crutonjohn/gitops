@@ -24,4 +24,4 @@ gitignore/
 setup/.env
 
 # Ansible
-ansible/playbooks/output/*
+ansible/playbooks/output/k8s-config.yaml
