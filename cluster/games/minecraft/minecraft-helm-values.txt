@@ -1,0 +1,14 @@
+rcon:
+  enabled: true
+  port: 25575
+  password: "${MINECRAFT_RCON_PASSWORD}"
+  serviceType: LoadBalancer
+  loadBalancerIP: 192.168.130.111
+  ## Set the externalTrafficPolicy in the Service to either Cluster or Local
+  # externalTrafficPolicy: Cluster
+
+query:
+  # If you enable this, your server will be "published" to Gamespy
+  enabled: false
+  port: 25565
+
