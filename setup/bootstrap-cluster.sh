@@ -62,6 +62,7 @@ labelUPS() {
 
 installFlux
 labelStorageHosts
+labelUPS
 "$REPO_ROOT"/setup/bootstrap-secrets.sh
 "$REPO_ROOT"/setup/bootstrap-ingress.sh
 "$REPO_ROOT"/setup/bootstrap-pvc.sh
