@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: minecraft-helm-values
+  namespace: games
+spec:
+  encryptedData:
+    values.yaml: AgAiU9Mhp6mipHMIz0DWu31/Luk081eja/nyiDtrVRn4SZaFlNlxYCFlJqUBu22ZqFTC1qIYDi1+ZX+fchuy4hGHXHTwCt/ox6LAbwQzrCrL7NClZbtY0XaAArjmz3k9+sYokO8kuS43uMFSD8Ab8M0M9A1URCH9D1SdvSeePzkv9/jW4xscDTftuInSUB2YX+VNv+ZUj08V3otwysnIZgYg33V1ubatvqez8oOtqdTe7vyeJbMaOgUsbHQZTnuHSI/AW4VChGZaTP8VPqX4zzQMJ2rwBQNawKzLCNztI4qPyPQhAo+mQyOzdu081zDdWrc3WbmijBxrUnVho8b78/16/X2LDQ7Jq93YjO5fGSlXGzEp8a59pyYnt2z8mLMiTEnIBIOEM2akywqVKMnvvFQNUnOs0PEYtAJV1Z+B+Y8r/Z6ENkQr6TF4vkOXV0TKunT+/F7Uun2xBl5uVSzAUj3NeSE+UgZjtHtsGeSFVbEsOH6omFnR9p8dXvQbYhryUV5E1ea+HaDG9HwpbbPqsFQw0/YiFBqQfY1JALZzV6r51t3w/LMp5yvzRwatPx/nzmwtPeSFjzpm0ebYcuBM5awQdqwW9lIk5ykoddLAIoLcmqDgcVdUxLXdFYyYfMw5SixwMsHNvVymGWM+8Nn2PjZSfnD12oITksCRarQzjv9WcBENL/QIg6fTOB2DjAszqmOhB2aE0P8g95/UvxyGOP3e9An69prIUySXkC7CJ/9gesUT4Pl4cI2JCkAIUY7e+vB0DY06ILep8yh9Ve2qIOg+U883YNLp5OF4c2r/SuWngCrIBra+nGTzXoEf6QDqM/aydijrR7WN1tUnF0/OXpYo2DnYUA0LidjY4qIW6AkDnIZqs05p3pDhtjQ4s+ETkEb7UddlfZet7l/+NEZMIYDM93OFIFMDAzXHjNwN8pJEPUcuHBQFaERevsLfO0IToyiMEfFyJGpoReOY3w8v9hu97yxAVCicEG53uD2s46p/6xV+TGBvcUOaBx2IW4P/AVtiyBeujzx+nY3PJ0sPnXCIjOJdoYEsexfsGzgDfXF60Tk/aCXG+Xq3XfjVZwuUD4anzUw2V+JR5N5Csiz9w7ornVvcuizOqDHTVq3Da6zqtJwys+f99CGjsjj5OSYX9dIlYszYwLE=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: minecraft-helm-values
+      namespace: games
+
