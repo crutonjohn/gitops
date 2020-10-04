@@ -1,5 +1,10 @@
 alertmanager:
   config:
+    global:
+      smtp_smarthost: '${SMTP_HOST}:${SMTP_PORT}'
+      smtp_from: '${SMTP_FROM}'
+      smtp_auth_username: '${SMTP_USERNAME}'
+      smtp_auth_password: '${SMTP_PASSWORD}'
     receivers:
       - name: 'null'
       - name: 'smtp'
