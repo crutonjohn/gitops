@@ -111,7 +111,7 @@ spec:
         # GF_RENDERING_CALLBACK_URL: http://localhost:3000/
         # GF_LOG_FILTERS: rendering:debug
       ingress:
-        enabled: false
+        enabled: true
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.tls: "true"
