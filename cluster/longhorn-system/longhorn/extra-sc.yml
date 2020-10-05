@@ -1,0 +1,54 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: longhorn-nightly
+provisioner: driver.longhorn.io
+parameters:
+  numberOfReplicas: "3"
+  staleReplicaTimeout: "30"
+  fromBackup: ""
+  recurringJobs: '[
+    {
+      "name":"nightly", 
+      "task":"backup", 
+      "cron":"0 3 * * *", 
+      "retain":2
+    }
+  ]'
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: longhorn-weekly
+provisioner: driver.longhorn.io
+parameters:
+  numberOfReplicas: "3"
+  staleReplicaTimeout: "30"
+  fromBackup: ""
+  recurringJobs: '[
+    {
+      "name":"weekly", 
+      "task":"backup", 
+      "cron":"0 4 * * 0",
+      "retain":3
+    }
+  ]'
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: longhorn-monthly
+provisioner: driver.longhorn.io
+parameters:
+  numberOfReplicas: "3"
+  staleReplicaTimeout: "30"
+  fromBackup: ""
+  recurringJobs: '[
+    {
+      "name":"monthly", 
+      "task":"backup", 
+      "cron":"0 5 1 * *",
+      "retain":1
+    }
+  ]'
