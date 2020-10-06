@@ -62,9 +62,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+          kubernetes.io/ingress.class: "internal"
           cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
         - "alerts.crutonjohn.com"
@@ -113,9 +111,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+          kubernetes.io/ingress.class: "internal"
           cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
         - "grafana.crutonjohn.com"
@@ -226,9 +222,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+          kubernetes.io/ingress.class: "internal"
           cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
         - "prometheus.crutonjohn.com"
