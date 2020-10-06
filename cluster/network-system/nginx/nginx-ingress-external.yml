@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: nginx-ingress-external
-  namespace: networking
+  namespace: network-system
   annotations:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "false"
@@ -19,7 +19,7 @@ spec:
   values:
     controller:
       ingressClass: external
-      replicaCount: 2
+      replicaCount: 3
       service:
         type: LoadBalancer
         externalIPs:
