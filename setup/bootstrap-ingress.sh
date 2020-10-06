@@ -46,22 +46,30 @@ kapply() {
   fi
 }
 
-generateIngressRoutes() {
+generateIngress() {
   
   bigMessage "Creating Ingress Routes"
 
   message "Waiting for Traefik"
 
-  TRAEFIK_READY=1
-  while [ $TRAEFIK_READY != 0 ]; do
-    message "waiting for Traefik to be fully ready..."
-    kubectl -n network-system wait --for condition=Available deployment/traefik > /dev/null 2>&1
-    TRAEFIK_READY="$?"
+  INTERNAL_INGRESS_READY=1
+  while [ $INTERNAL_INGRESS_READY != 0 ]; do
+    message "waiting for internal ingress to be fully ready..."
+    kubectl -n network-system wait --for condition=Available deployment/nginx-ingress-internal-ingress-nginx-controller > /dev/null 2>&1
+    INTERNAL_INGRESS_READY="$?"
     sleep 5
   done
 
-  message "Traefik Ingresses"
-  # apply ingressroutes with env subs
+  EXTERNAL_INGRESS_READY=1
+  while [ $EXTERNAL_INGRESS_READY != 0 ]; do
+    message "waiting for internal ingress to be fully ready..."
+    kubectl -n network-system wait --for condition=Available deployment/nginx-ingress-external-ingress-nginx-controller > /dev/null 2>&1
+    EXTERNAL_INGRESS_READY="$?"
+    sleep 5
+  done
+
+  message "Applying Ingresses"
+  # apply ingresses with env subs
 
   for i in "$REPO_ROOT"/cluster/*/ingress.txt
   do
@@ -72,6 +80,6 @@ generateIngressRoutes() {
 
 export EXTERNAL_IP=$(curl checkip.amazonaws.com)
 export KUBECONFIG="$HOME/.kube/config"
-generateIngressRoutes
+generateIngress
 
 bigMessage "all done!"
