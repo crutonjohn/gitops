@@ -48,9 +48,9 @@ kapply() {
 
 generateIngress() {
   
-  bigMessage "Creating Ingress Routes"
+  bigMessage "Creating Ingresses"
 
-  message "Waiting for Traefik"
+  message "Waiting for Ingress Controllers"
 
   INTERNAL_INGRESS_READY=1
   while [ $INTERNAL_INGRESS_READY != 0 ]; do
