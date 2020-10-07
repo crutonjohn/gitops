@@ -94,8 +94,8 @@ spec:
       deploymentStrategy:
         type: Recreate
       persistence:
-        enabled: false
-        storageClassName: "longhorn"
+        enabled: true
+        storageClassName: "longhorn-weekly"
         size: 10Gi
         accessModes:
         - ReadWriteOnce
