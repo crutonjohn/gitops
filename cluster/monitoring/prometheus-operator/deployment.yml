@@ -153,12 +153,16 @@ spec:
       dashboards:
         default:
           flux:
-            url: https://raw.githubusercontent.com/fluxcd/flux/master/chart/flux/dashboards/flux-dashboard.json
+            url: https://raw.githubusercontent.com/fluxcd/flux/master/chart/flux/dashboards/flux.json
             datasource: Prometheus
           helm-operator:
-            url: https://raw.githubusercontent.com/fluxcd/helm-operator/master/chart/helm-operator/dashboards/helm-operator-dashboard.json
+            url: https://raw.githubusercontent.com/fluxcd/helm-operator/master/chart/helm-operator/dashboards/helm-operator.json
             datasource: Prometheus
-          # Ref: https://grafana.com/grafana/dashboards/11310
+          # Ref: https://grafana.com/grafana/dashboards/13116
+          ups-dashboard:
+            gnetId: 13116
+            revision: 1
+            datasource: Prometheus
           unifi-client-dpi:
             gnetId: 11310
             revision: 4

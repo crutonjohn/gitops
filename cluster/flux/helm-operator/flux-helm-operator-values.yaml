@@ -6,3 +6,11 @@ chartsSyncInterval: "10m"
 statusUpdateInterval: "10m"
 helm:
   versions: "v3"
+prometheus:
+  enabled: true
+  serviceMonitor:
+    # Enables ServiceMonitor creation for the Prometheus Operator
+    create: true
+    interval: 30s
+    scrapeTimeout: 10s
+    namespace: flux
