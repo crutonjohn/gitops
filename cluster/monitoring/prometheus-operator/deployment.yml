@@ -118,6 +118,7 @@ spec:
         tls:
         - hosts:
           - "grafana.crutonjohn.com"
+          secretName: grafana-crutonjohn-com
       sidecar:
         datasources:
           enabled: true
