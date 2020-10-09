@@ -364,8 +364,8 @@ spec:
         ##
         jobLabel: node-exporter
       extraArgs:
-        - --collector.filesystem.ignored-mount-points=^/(atlas|dev|proc|sys|var/lib/docker/.+)($|/)
-        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+      - --collector.filesystem.ignored-mount-points=^/(atlas|dev|proc|sys|var/lib/docker/.+)($|/)
+      - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
     prometheusOperator:
       enabled: true
 
@@ -574,7 +574,7 @@ spec:
       ##
       image:
         repository: quay.io/coreos/prometheus-operator
-        tag: v0.38.1
+        tag: v0.42.1-arm
         sha: ""
         pullPolicy: IfNotPresent
 
@@ -674,13 +674,13 @@ spec:
         remoteWriteDashboards: false
         resources: {}
         storageSpec:
-         volumeClaimTemplate:
-           spec:
-             storageClassName: "longhorn"
-             accessModes: ["ReadWriteOnce"]
-             resources:
-               requests:
-                 storage: 50Gi
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "longhorn"
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 50Gi
         additionalScrapeConfigs: []
         additionalScrapeConfigsSecret: {}
         additionalPrometheusSecretsAnnotations: {}
