@@ -52,29 +52,6 @@ spec:
     #        expr: 100 * my_record
     alertmanager:
       enabled: true
-      config:
-        global:
-          resolve_timeout: 5m
-        route:
-          group_by: ['job', 'alertname']
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 24h
-          receiver: 'smtp'
-          routes:
-          - match:
-              alertname: Watchdog
-            receiver: 'null'
-          - match_re:
-              severity: critical|warning
-            continue: true
-            receiver: 'smtp'
-        inhibit_rules:
-        - source_match:
-            severity: 'critical'
-          target_match:
-            severity: 'warning'
-          equal: ['alertname', 'namespace']
       ingress:
         enabled: true
         annotations:
@@ -694,4 +671,4 @@ spec:
       additionalServiceMonitors: []
       additionalPodMonitors: []
   valueFileSecrets:
-  - name: "prometheus-operator-helm-values"
+  - name: "kube-prometheus-stack-helm-values"
