@@ -62,7 +62,7 @@ generateIngress() {
 
   EXTERNAL_INGRESS_READY=1
   while [ $EXTERNAL_INGRESS_READY != 0 ]; do
-    message "waiting for internal ingress to be fully ready..."
+    message "waiting for external ingress to be fully ready..."
     kubectl -n network-system wait --for condition=Available deployment/nginx-ingress-external-ingress-nginx-controller > /dev/null 2>&1
     EXTERNAL_INGRESS_READY="$?"
     sleep 5
