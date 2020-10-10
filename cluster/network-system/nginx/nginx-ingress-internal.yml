@@ -34,7 +34,7 @@ spec:
         proxy-body-size: "0"
         use-forwarded-headers: "true"
       metrics:
-        enabled: true
+        enabled: false
         serviceMonitor:
           enabled: true
           namespace: network-system
