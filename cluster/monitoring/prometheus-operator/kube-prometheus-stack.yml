@@ -551,16 +551,9 @@ spec:
       ##
       image:
         repository: quay.io/coreos/prometheus-operator
-        tag: v0.42.1-arm
+        tag: v0.42.1
         sha: ""
         pullPolicy: IfNotPresent
-
-      ## Configmap-reload image to use for reloading configmaps
-      ##
-      configmapReloadImage:
-        repository: docker.io/jimmidyson/configmap-reload
-        tag: v0.3.0
-        sha: ""
 
       ## Prometheus-config-reloader image to use for config and rule reloading
       ##
