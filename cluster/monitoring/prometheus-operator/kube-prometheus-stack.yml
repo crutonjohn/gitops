@@ -551,7 +551,7 @@ spec:
       ##
       image:
         repository: quay.io/coreos/prometheus-operator
-        tag: v0.42.1
+        tag: v0.42.1-arm
         sha: ""
         pullPolicy: IfNotPresent
 
