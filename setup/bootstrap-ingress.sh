@@ -76,6 +76,11 @@ generateIngress() {
     kapply "$i"
   done
   
+  for i in "$REPO_ROOT"/cluster/*/*/ingress.txt
+  do
+    kapply "$i"
+  done
+
 }
 
 export EXTERNAL_IP=$(curl checkip.amazonaws.com)
