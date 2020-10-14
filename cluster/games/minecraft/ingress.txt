@@ -1,0 +1,18 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
+    kubernetes.io/ingress.class: "external"
+  name: minecraft-dns
+  namespace: games
+spec:
+  rules:
+  - host: minecraft.crutonjohn.com
+    http:
+      paths:
+      - backend:
+          serviceName: minecraft-minecraft
+          servicePort: 25565
+        path: /

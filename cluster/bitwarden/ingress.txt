@@ -10,7 +10,7 @@ metadata:
   namespace: bitwarden
 spec:
   rules:
-  - host: bitwarden.${EXTERNAL_DOMAIN}
+  - host: bitwarden.${INTERNAL_DOMAIN}
     http:
       paths:
       - backend:
@@ -19,5 +19,5 @@ spec:
         path: /
   tls:
   - hosts:
-    - bitwarden.${EXTERNAL_DOMAIN}
-    secretName: bitwarden-os-crutonjohn-com
+    - bitwarden.${INTERNAL_DOMAIN}
+    secretName: bitwarden-crutonjohn-com
