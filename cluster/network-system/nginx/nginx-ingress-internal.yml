@@ -26,7 +26,6 @@ spec:
       image:
         ## The image repository of the Ingress controller.
         repository: nginx/nginx-ingress
-        tag: 1.8.1
         pullPolicy: IfNotPresent
       config:
         ## The name of the ConfigMap used by the Ingress controller.
