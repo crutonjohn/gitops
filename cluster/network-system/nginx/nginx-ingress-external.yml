@@ -14,7 +14,7 @@ spec:
     enable: false
   chart:
     repository: https://helm.nginx.com/stable
-    name: nginx-stable/nginx-ingress
+    name: nginx-ingress
     version: 0.6.1
   values:
     controller:
