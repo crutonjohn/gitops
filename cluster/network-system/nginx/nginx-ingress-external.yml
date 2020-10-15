@@ -38,8 +38,7 @@ spec:
         ## The entries of the ConfigMap for customizing NGINX configuration.
         entries: {}
       ## The node selector for pod assignment for the Ingress controller pods.
-      nodeSelector:
-        node-role.kubernetes.io/master: ""
+      nodeSelector: {}
 
       ## The termination grace period of the Ingress controller pod.
       terminationGracePeriodSeconds: 30
@@ -54,9 +53,7 @@ spec:
         #   memory: 64Mi
 
       ## The tolerations of the Ingress controller pods.
-      tolerations:
-      - key: "node-role.kubernetes.io/master"
-        effect: "NoSchedule"
+      tolerations: {}
 
       ## The affinity of the Ingress controller pods.
       affinity:
