@@ -33,7 +33,7 @@ spec:
         - https://cloudflare-dns.com/dns-query
       conditional:
         mapping:
-          local: udp:10.0.7.1
+          local: udp:192.168.128.1
       blocking:
         blackLists:
           ads:
@@ -55,7 +55,7 @@ spec:
       clientLookup:
         upstream: udp:192.168.128.1
       prometheus:
-        enable: false
+        enable: true
         path: /metrics
       httpPort: 4000
       logLevel: info
@@ -85,7 +85,7 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: blocky
     serviceMonitor:
-      enabled: true
+      enabled: false
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
