@@ -1,0 +1,4 @@
+config:
+  conditional:
+    mapping:
+      ${INTERNAL_DOMAIN}: udp:192.168.128.1

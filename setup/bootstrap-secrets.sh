@@ -235,6 +235,7 @@ generateSecrets(){
   ksealhelm "${MANIFEST_ROOT}/auth-system/oauth-proxy/oauth-proxy.txt"
   ksealhelm "${MANIFEST_ROOT}/monitoring/prometheus-operator/kube-prometheus-stack-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/games/minecraft/minecraft-helm-values.txt"
+  ksealhelm "${MANIFEST_ROOT}/network-system/blocky/blocky-helm-values.txt"
 
   bigMessage "Creating Raw Kubernetes Secrets"
 
