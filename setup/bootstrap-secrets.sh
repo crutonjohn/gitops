@@ -174,7 +174,7 @@ generateSecrets(){
   message "Nextcloud Secrets"
 
   # nextcloud database stuff
-  kubectl create secret generic nextcloud-db \
+  kubectl create secret generic nextcloud-db-secrets \
     --from-literal=POSTGRES_PASSWORD="${NEXTCLOUD_DB_PASSWORD}" \
     --from-literal=POSTGRES_USER="${NEXTCLOUD_DB_USER}" \
     --from-literal=POSTGRES_HOST="${NEXTCLOUD_DB_HOST}" \
