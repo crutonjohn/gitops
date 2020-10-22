@@ -2,7 +2,6 @@ ingress:
   enabled: true
   annotations:
    nginx.ingress.kubernetes.io/proxy-body-size: 10G
-   kubernetes.io/tls-acme: "true"
    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
    kubernetes.io/ingress.class: "external"
