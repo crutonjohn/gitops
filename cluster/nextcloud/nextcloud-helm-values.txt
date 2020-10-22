@@ -59,6 +59,6 @@ externalDatabase:
   host: ${NEXTCLOUD_DB_HOST}
   existingSecret:
     enabled: true
-    secretName: nextcloud-db-secrets
+    secretName: nextcloud-db
     usernameKey: POSTGRES_USER
     passwordKey: POSTGRES_PASSWORD

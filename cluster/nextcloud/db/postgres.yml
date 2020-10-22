@@ -41,12 +41,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_PASSWORD
-                  name: nextcloud-db-secrets
+                  name: nextcloud-db
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   key: POSTGRES_USER
-                  name: nextcloud-db-secrets
+                  name: nextcloud-db
           volumeMounts:
             - mountPath: /var/lib/postgresql/
               subPath: data
