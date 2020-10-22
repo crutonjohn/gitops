@@ -29,10 +29,10 @@ ingress:
      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
        deny all;
      }
-   tls:
-     - secretName: cloud-os-crutonjohn-com
-       hosts:
-         - cloud.${EXTERNAL_DOMAIN}
+  tls:
+    - secretName: cloud-os-crutonjohn-com
+      hosts:
+        - cloud.${EXTERNAL_DOMAIN}
 nextcloud:
   host: cloud.${EXTERNAL_DOMAIN}
   username: admin
