@@ -245,6 +245,7 @@ generateSecrets(){
 }
 
 export KUBECONFIG="$HOME/.kube/config"
+export EXTERNAL_IP=$(curl checkip.amazonaws.com)
 generateSecrets
 
 bigMessage "all done!"
