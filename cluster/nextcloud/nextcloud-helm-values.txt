@@ -48,8 +48,8 @@ nextcloud:
     domain: ${SMTP_DOMAIN}
     smtp:
       host: ${SMTP_HOST}
-      secure: starttls
-      port: ${SMTP_PORT}
+      secure: ssl
+      port: ${SMTP_SSL_PORT}
       authtype: LOGIN
       name: ${SMTP_USERNAME}
       password: ${SMTP_PASSWORD}

@@ -160,7 +160,7 @@ generateSecrets(){
     --from-literal=SMTP_FROM="${SMTP_FROM}" \
     --from-literal=SMTP_HOST="${SMTP_HOST}" \
     --from-literal=SMTP_PASSWORD="${SMTP_PASSWORD}" \
-    --from-literal=SMTP_PORT="${BITWARDEN_SMTP_PORT}" \
+    --from-literal=SMTP_PORT="${SMTP_STARTTLS_PORT}" \
     --from-literal=SMTP_EXPLICIT_TLS="${BITWARDEN_SMTP_EXPLICIT_TLS}" \
     --from-literal=SMTP_USERNAME="${SMTP_USERNAME}" \
     --from-literal=SMTP_AUTH_MECHANISM="${BITWARDEN_SMTP_AUTH_MECHANISM}" \
