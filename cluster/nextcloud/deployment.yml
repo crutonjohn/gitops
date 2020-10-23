@@ -7,7 +7,7 @@ spec:
   capacity:
     storage: 1024Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   claimRef:
     namespace: nextcloud
     name: nextcloud-app
