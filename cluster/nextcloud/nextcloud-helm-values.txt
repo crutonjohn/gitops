@@ -44,11 +44,11 @@ nextcloud:
     subPath:
   mail:
     enabled: true
-    fromAddress: ${SMTP_FROM}
+    fromAddress: cloud
     domain: ${SMTP_DOMAIN}
     smtp:
       host: ${SMTP_HOST}
-      secure: ssl
+      secure: starttls
       port: ${SMTP_PORT}
       authtype: LOGIN
       name: ${SMTP_USERNAME}
