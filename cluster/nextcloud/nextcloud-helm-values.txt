@@ -8,6 +8,7 @@ ingress:
     nginx.ingress.kubernetes.io/server-snippet: |-
         server_tokens off;
         proxy_hide_header X-Powered-By;
+        client-max-body-size 10G;
 
         rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
         rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
