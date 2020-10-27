@@ -82,7 +82,7 @@ postgresql:
   volumePermissions:
     enabled: true
     securityContext:
-      runAsUser: 5432
+      runAsUser: 0
   securityContext:
     enabled: true
     fsGroup: 5432
