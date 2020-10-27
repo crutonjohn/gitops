@@ -79,3 +79,13 @@ postgresql:
     enabled: true
     existingClaim: nextcloud-db
   fullnameOverride: nextcloud-db
+  volumePermissions:
+    enabled: true
+    securityContext:
+      runAsUser: 5432
+  securityContext:
+    enabled: true
+    fsGroup: 5432
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 5432
