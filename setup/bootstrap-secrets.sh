@@ -171,19 +171,19 @@ generateSecrets(){
     >> "${GENERATED_SECRETS}"
   echo "---" >> "${GENERATED_SECRETS}"
 
-  message "Nextcloud Secrets"
+  # message "Nextcloud Secrets"
 
-  # nextcloud database stuff
-  kubectl create secret generic nextcloud-db-secrets \
-    --from-literal=POSTGRES_PASSWORD="${NEXTCLOUD_DB_PASSWORD}" \
-    --from-literal=POSTGRES_USER="${NEXTCLOUD_DB_USER}" \
-    --from-literal=POSTGRES_HOST="${NEXTCLOUD_DB_HOST}" \
-    --from-literal=POSTGRES_DB="${NEXTCLOUD_DB_NAME}" \
-    --namespace nextcloud --dry-run=client -o json \
-    | \
-  kubeseal --format=yaml --cert="${PUB_CERT}" \
-    >> "${GENERATED_SECRETS}"
-  echo "---" >> "${GENERATED_SECRETS}"
+  # # nextcloud database stuff
+  # kubectl create secret generic nextcloud-db-secrets \
+  #   --from-literal=POSTGRES_PASSWORD="${NEXTCLOUD_DB_PASSWORD}" \
+  #   --from-literal=POSTGRES_USER="${NEXTCLOUD_DB_USER}" \
+  #   --from-literal=POSTGRES_HOST="${NEXTCLOUD_DB_HOST}" \
+  #   --from-literal=POSTGRES_DB="${NEXTCLOUD_DB_NAME}" \
+  #   --namespace nextcloud --dry-run=client -o json \
+  #   | \
+  # kubeseal --format=yaml --cert="${PUB_CERT}" \
+  #   >> "${GENERATED_SECRETS}"
+  # echo "---" >> "${GENERATED_SECRETS}"
 
   message "UPS Secrets"
 
