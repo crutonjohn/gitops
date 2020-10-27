@@ -185,16 +185,6 @@ generateSecrets(){
     >> "${GENERATED_SECRETS}"
   echo "---" >> "${GENERATED_SECRETS}"
 
-  # nextcloud nginx stuff
-  kubectl create secret generic nextcloud-nginx-secrets \
-    --from-literal=VIRTUAL_HOST="${NEXTCLOUD_VIRTUAL_HOST}" \
-    --from-literal=VIRTUAL_PORT="${NEXTCLOUD_VIRTUAL_PORT}" \
-    --namespace nextcloud --dry-run=client -o json \
-    | \
-  kubeseal --format=yaml --cert="${PUB_CERT}" \
-    >> "${GENERATED_SECRETS}"
-  echo "---" >> "${GENERATED_SECRETS}"
-
   message "UPS Secrets"
 
   # Tesla UPS secrets
