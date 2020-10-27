@@ -55,7 +55,7 @@ nextcloud:
       name: ${SMTP_USERNAME}
       password: ${SMTP_PASSWORD}
 externalDatabase:
-  enabled: false
+  enabled: true
   type: postgresql
   host: nextcloud-db.nextcloud.svc.cluster.local
   user: ${NEXTCLOUD_DB_USER}
