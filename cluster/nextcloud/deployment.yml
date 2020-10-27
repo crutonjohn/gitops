@@ -51,10 +51,13 @@ spec:
       repository: nextcloud
       tag: 20.0.1-fpm
       pullPolicy: IfNotPresent
-    replicaCount: 1
     nginx:
       ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
       enabled: true
+      image:
+        repository: nginx
+        tag: 1.19.3
+        pullPolicy: IfNotPresent
     internalDatabase:
       enabled: false
     redis:
