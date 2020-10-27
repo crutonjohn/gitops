@@ -63,7 +63,7 @@ spec:
     redis:
       enabled: true
     cronjob:
-      enabled: true
+      enabled: false
       schedule: "*/5 * * * *"
       curlInsecure: false
       failedJobsHistoryLimit: 5
