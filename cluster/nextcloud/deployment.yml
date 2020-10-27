@@ -1,0 +1,63 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: nextcloud
+  helmVersion: v3
+  rollback:
+    enable: false
+  chart:
+    repository: https://nextcloud.github.io/helm/
+    name: nextcloud
+    version: 2.2.1
+  values:
+    image:
+      repository: nextcloud
+      tag: 20.0.1-fpm
+      pullPolicy: IfNotPresent
+    nginx:
+      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
+      enabled: true
+      image:
+        repository: nginx
+        tag: 1.19.3
+        pullPolicy: IfNotPresent
+    internalDatabase:
+      enabled: false
+    redis:
+      enabled: true
+    cronjob:
+      enabled: false
+      schedule: "*/5 * * * *"
+      curlInsecure: false
+      failedJobsHistoryLimit: 5
+      successfulJobsHistoryLimit: 2
+    service:
+      type: ClusterIP
+      port: 80
+      loadBalancerIP: nil
+      nodePort: nil
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-data
+    metrics:
+      enabled: false
+      replicaCount: 1
+      https: true
+      timeout: 5s
+      image:
+        repository: xperimental/nextcloud-exporter
+        tag: v0.3.0
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9205"
+  valueFileSecrets:
+  - name: "nextcloud-helm-values"
