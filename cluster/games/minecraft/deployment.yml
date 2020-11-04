@@ -13,7 +13,7 @@ spec:
   chart:
     repository: https://itzg.github.io/minecraft-server-charts/
     name: minecraft
-    version: 2.0.7
+    version: 2.0.8
   values:
     minecraftServer:
       # This must be overridden, since we can't accept this for the user.
