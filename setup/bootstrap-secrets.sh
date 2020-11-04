@@ -215,7 +215,7 @@ generateSecrets(){
     >> "${GENERATED_SECRETS}"
   echo "---" >> "${GENERATED_SECRETS}"
 
-  bigMessage "Apply All Generated Certs"
+  bigMessage "Apply All Generated Secrets"
 
   kubectl apply -f ${GENERATED_SECRETS}
 
