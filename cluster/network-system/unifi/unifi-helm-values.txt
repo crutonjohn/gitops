@@ -3,3 +3,4 @@ ingress:
   tls:
   - hosts:
     - unifi.$INTERNAL_DOMAIN
+    secretName: unifi-crutonjohn-com
