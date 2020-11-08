@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: unifi-controller
+  namespace: unifi
+  annotations:
+    kubernetes.io/ingress.class: "internal"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+spec:
+  rules:
+    - host: unifi.${INTERNAL_DOMAIN}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: unifi-controller
+              servicePort: 8443
+  tls:
+    - hosts:
+        - unifi.${INTERNAL_DOMAIN}
+      secretName: unifi-cert
