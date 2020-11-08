@@ -25,7 +25,7 @@ spec:
       size: 20Gi
       storageClass: longhorn-nightly
     timezone: "America/New_York"
-    runAsRoot: false
+    runAsRoot: true
     ingress:
       enabled: true
       annotations:
