@@ -1,0 +1,12 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: internal
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  hosts: 
+    - unifi.${INTERNAL_DOMAIN}
+  tls:
+  - hosts:
+    - unifi.${INTERNAL_DOMAIN}
+    secretName: unifi-crutonjohn-com
