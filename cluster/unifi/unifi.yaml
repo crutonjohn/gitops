@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: unifi
-  namespace: network-system
+  namespace: unifi
   annotations:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "true"
