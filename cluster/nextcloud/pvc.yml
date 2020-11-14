@@ -11,10 +11,10 @@ spec:
   claimRef:
     namespace: nextcloud
     name: nextcloud-data
-  storageClassName: atlas
+  storageClassName: pandora
   nfs:
     server: 192.168.130.43
-    path: "/atlas/k8/nextcloud-data/"
+    path: "/pandora/k8/nextcloud-data/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -24,7 +24,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: atlas
+  storageClassName: pandora
   resources:
     requests:
       storage: 1024Gi
@@ -41,10 +41,10 @@ spec:
   claimRef:
     namespace: nextcloud
     name: nextcloud-db
-  storageClassName: atlas
+  storageClassName: pandora
   nfs:
     server: 192.168.130.43
-    path: "/atlas/k8/nextcloud-db/"
+    path: "/pandora/k8/nextcloud-db/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -54,7 +54,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: atlas
+  storageClassName: pandora
   resources:
     requests:
       storage: 5Gi

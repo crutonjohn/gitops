@@ -11,10 +11,10 @@ spec:
   claimRef:
     namespace: longhorn-system
     name: minio-backup-nfs
-  storageClassName: atlas
+  storageClassName: pandora
   nfs:
     server: 192.168.130.43
-    path: "/atlas/minio/"
+    path: "/pandora/minio/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -24,7 +24,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: atlas
+  storageClassName: pandora
   resources:
     requests:
       storage: 1024Gi
