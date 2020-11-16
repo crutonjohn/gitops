@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  name: music-sftp
+spec:
+  selector:
+    matchLabels:
+      component: bitw
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: music-sftp
+    spec:
+      containers:
+        - name: music-sftp
+          image: atmoz/sftp:alpine
+          ports:
+            - containerPort: 22
+          volumeMounts:
+            - mountPath: /home/seedbox/music
+              name: music-library
+            - mountPath: /etc/sftp/
+              name: users-conf
+      restartPolicy: Always
+      volumes:
+        - name: music-library
+          persistentVolumeClaim:
+            claimName: music-library
+        - name: users-conf
+          secret:
+            secretName: music-sftp-users
+          
