@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      component: bitw
+      component: music-sftp
   replicas: 1
   strategy:
     type: Recreate
