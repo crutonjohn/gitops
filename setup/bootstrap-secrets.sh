@@ -215,6 +215,16 @@ generateSecrets(){
     >> "${GENERATED_SECRETS}"
   echo "---" >> "${GENERATED_SECRETS}"
 
+  # music sshfs secrets
+  kubectl create secret generic music-sshfs-secret \
+    --from-literal=ROOT_PASSWORD="${MUSIC_SSHFS_ROOT_PASSWORD}" \
+    --from-literal=ROOT_AUTHORIZED_KEY="${MUSIC_SSHFS_AUTHORIZED_KEY}" \
+    --namespace media --dry-run=client -o json \
+    | \
+  kubeseal --format=yaml --cert="${PUB_CERT}" \
+    >> "${GENERATED_SECRETS}"
+  echo "---" >> "${GENERATED_SECRETS}"
+
   bigMessage "Apply All Generated Secrets"
 
   kubectl apply -f ${GENERATED_SECRETS}
@@ -232,7 +242,6 @@ generateSecrets(){
   bigMessage "Creating Raw Kubernetes Secrets"
 
   ksealraw "${MANIFEST_ROOT}/network-system/aws-external-dns/aws-external-dns.txt" "credentials"
-  ksealraw "${MANIFEST_ROOT}/media/sftp/sftp-users.txt" "users.conf"
 
 }
 
