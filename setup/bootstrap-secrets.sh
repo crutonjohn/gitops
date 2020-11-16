@@ -232,7 +232,7 @@ generateSecrets(){
   bigMessage "Creating Raw Kubernetes Secrets"
 
   ksealraw "${MANIFEST_ROOT}/network-system/aws-external-dns/aws-external-dns.txt" "credentials"
-  ksealraw "${MANIFEST_ROOT}/media/sftp/users.txt" "users.conf"
+  ksealraw "${MANIFEST_ROOT}/media/sftp/sftp-users.txt" "users.conf"
 
 }
 
