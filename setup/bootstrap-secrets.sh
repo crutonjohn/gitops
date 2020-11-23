@@ -238,6 +238,7 @@ generateSecrets(){
   ksealhelm "${MANIFEST_ROOT}/network-system/blocky/blocky-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/nextcloud/nextcloud-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/unifi/unifi-helm-values.txt"
+  ksealhelm "${MANIFEST_ROOT}/blog/drupal/drupal-helm-secrets.txt"
 
   bigMessage "Creating Raw Kubernetes Secrets"
 
