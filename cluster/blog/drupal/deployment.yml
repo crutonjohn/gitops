@@ -20,7 +20,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/drupal
-      tag: 9.0.8-debian-10-r0
+      tag: '9'
       pullPolicy: IfNotPresent
       debug: false
     replicaCount: 1
@@ -34,7 +34,7 @@ spec:
           enabled: true
           storageClass: "longhorn-nightly"
           accessModes:
-            - ReadWriteOnce
+          - ReadWriteOnce
           size: 8Gi
     containerPorts:
       http: 8080
