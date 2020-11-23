@@ -11,7 +11,7 @@ spec:
   releaseName: drupal-test
   helmVersion: v3
   chart:
-    repository: https://itzg.github.io/minecraft-server-charts/
+    repository: https://charts.bitnami.com/bitnami
     name: drupal
     version: 10.0.2
   values:
