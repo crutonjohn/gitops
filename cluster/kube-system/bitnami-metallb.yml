@@ -1,0 +1,65 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: kube-system
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: metallb
+  helmVersion: v3
+  chart:
+    repository: https://charts.bitnami.com/bitnami
+    name: metallb
+    version: 1.0.1
+  values:
+    configInline:
+      address-pools:
+        - name: default
+          protocol: layer2
+          addresses:
+          - 192.168.130.100-192.168.130.200
+    rbac:
+      create: true
+    prometheus:
+      enabled: false
+      serviceMonitor:
+        enabled: false
+        jobLabel: "app.kubernetes.io/name"
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+      prometheusRule:
+        enabled: false
+    controller:
+      image:
+        registry: docker.io
+        repository: bitnami/metallb-controller
+        tag: 0.9.5-debian-10-r5
+        pullPolicy: IfNotPresent
+        pullSecrets:
+          - crutonjohnPullSecret
+      securityContext:
+        enabled: true
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+          - ALL
+      revisionHistoryLimit: 3
+      terminationGracePeriodSeconds: 0
+      containerPort:
+        metrics: 7472
+    speaker:
+      image:
+        registry: docker.io
+        repository: bitnami/metallb-speaker
+        tag: 0.9.5-debian-10-r4
+        pullPolicy: IfNotPresent
+        pullSecrets:
+          - crutonjohnPullSecret
