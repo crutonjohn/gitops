@@ -61,7 +61,5 @@ spec:
         repository: bitnami/metallb-speaker
         tag: 0.9.5-debian-10-r4
         pullPolicy: IfNotPresent
-        pullSecrets:
-          - crutonjohnPullSecret
       nodeSelector:
        - kubernetes.io/arch: amd64
