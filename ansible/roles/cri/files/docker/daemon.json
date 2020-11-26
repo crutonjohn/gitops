@@ -6,5 +6,6 @@
     "log-opts": {
         "max-size": "100m"
     },
-    "storage-driver": "overlay2"
+    "storage-driver": "overlay2",
+    "registry-mirrors": ["https://registry.crutonjohn.com"]
 }
