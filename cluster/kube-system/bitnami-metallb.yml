@@ -39,8 +39,6 @@ spec:
         repository: bitnami/metallb-controller
         tag: 0.9.5-debian-10-r5
         pullPolicy: IfNotPresent
-        pullSecrets:
-          - crutonjohnPullSecret
       securityContext:
         enabled: true
         runAsNonRoot: true
