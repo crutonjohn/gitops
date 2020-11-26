@@ -63,3 +63,5 @@ spec:
         pullPolicy: IfNotPresent
         pullSecrets:
           - crutonjohnPullSecret
+      nodeSelector:
+       - kubernetes.io/arch: amd64
