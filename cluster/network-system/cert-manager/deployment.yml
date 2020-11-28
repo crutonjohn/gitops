@@ -19,6 +19,8 @@ spec:
     #   servicemonitor:
     #     enabled: "true"
     installCRDs: true
+    webhook:
+      hostNetwork: true
     volumes:
       - name: aws-credentials
         secret:
