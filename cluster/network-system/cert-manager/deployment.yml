@@ -21,6 +21,7 @@ spec:
     installCRDs: true
     webhook:
       hostNetwork: true
+      securePort: 10253
     volumes:
       - name: aws-credentials
         secret:
