@@ -32,7 +32,7 @@ alertmanager:
         email_configs:
         - to: '${EMAIL}'
           html: '{{ template "email.alert.html" . }}'
-          headers: {'Subject': '{{ template "email.alert.subject" . }}'}
+          headers: 'Subject': '{{ template "email.alert.subject" . }}'
           send_resolved: true
 grafana:
   adminPassword: "${GRAFANA_PASSWORD}"
