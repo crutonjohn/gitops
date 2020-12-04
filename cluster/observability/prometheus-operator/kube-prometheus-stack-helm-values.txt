@@ -30,8 +30,7 @@ alertmanager:
       - name: 'null'
       - name: 'discord'
         webhook_configs:
-        - url: 'http://discord-webhook.observability.svc.cluster.local'
-        
+        - url: 'http://discord-webhook.observability.svc.cluster.local' 
 grafana:
   adminPassword: "${GRAFANA_PASSWORD}"
   grafana.ini:
