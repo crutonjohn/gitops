@@ -11,7 +11,7 @@ alertmanager:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 24h
-      receiver: 'smtp'
+      receiver: 'discord'
       routes:
       - match:
           alertname: Watchdog
@@ -28,12 +28,10 @@ alertmanager:
       equal: ['alertname', 'namespace']
     receivers:
       - name: 'null'
-      - name: 'smtp'
-        email_configs:
-        - to: '${EMAIL}'
-          html: '{{ template "email.alert.html" . }}'
-          headers: 'Subject': '{{ template "email.alert.subject" . }}'
-          send_resolved: true
+      - name: 'discord'
+        webhook_configs:
+        - url: 'http://discord-webhook.observability.svc.cluster.local'
+        
 grafana:
   adminPassword: "${GRAFANA_PASSWORD}"
   grafana.ini:

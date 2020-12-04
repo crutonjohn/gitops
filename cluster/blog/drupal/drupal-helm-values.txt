@@ -3,17 +3,13 @@ drupalPassword: ${DRUPAL_ADMIN_PASSWORD}
 drupalEmail: ${EMAIL}
 ingress:
     enabled: true
-    certManager: true
+    certManager: false
     hostname: drupal.${INTERNAL_DOMAIN}
     annotations:
       kubernetes.io/ingress.class: internal
     hosts:
     - name: drupal.${INTERNAL_DOMAIN}
       path: /
-    tls:
-    - hosts:
-        - drupal.${INTERNAL_DOMAIN}
-      secretName: drupal-crutonjohn
 ## SMTP mail delivery configuration
 ## ref: https://github.com/bitnami/bitnami-docker-drupal/#smtp-configuration
 ##

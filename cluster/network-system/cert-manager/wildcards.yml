@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: crj-wildcard-certificate
+  namespace: network-system
+spec:
+  secretName: crj-wildcard-certificate
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    organizations:
+    - CRJ Technologies LLC
+  commonName: crutonjohn.com
+  dnsNames:
+  - crutonjohn.com
+  - curtisrayjohn.com
+  - crjtechnologies.com
+  - baremetalblog.com
+  - "*.crutonjohn.com"
+  - "*.os.crutonjohn.com"
+  - "*.curtisrayjohn.com"
+  issuerRef:
+    kind: Issuer
+    name: letsencrypt-prod

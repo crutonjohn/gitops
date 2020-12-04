@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: ups-edison
-  namespace: monitoring
+  namespace: observability
 spec:
   podMetricsEndpoints:
   - interval: 15s
@@ -18,7 +18,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: ups-tesla
-  namespace: monitoring
+  namespace: observability
 spec:
   podMetricsEndpoints:
   - interval: 15s

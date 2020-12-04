@@ -195,7 +195,7 @@ generateSecrets(){
     --from-literal=UPS_PORT="/dev/ups" \
     --from-literal=API_USER="${UPS_API_USER}" \
     --from-literal=API_PASSWORD="${UPS_API_PASSWORD}" \
-    --namespace monitoring --dry-run=client -o json \
+    --namespace observability --dry-run=client -o json \
     | \
   kubeseal --format=yaml --cert="${PUB_CERT}" \
     >> "${GENERATED_SECRETS}"
@@ -209,7 +209,7 @@ generateSecrets(){
     --from-literal=UPS_PORT="/dev/ups" \
     --from-literal=API_USER="${UPS_API_USER}" \
     --from-literal=API_PASSWORD="${UPS_API_PASSWORD}" \
-    --namespace monitoring --dry-run=client -o json \
+    --namespace observability --dry-run=client -o json \
     | \
   kubeseal --format=yaml --cert="${PUB_CERT}" \
     >> "${GENERATED_SECRETS}"
@@ -225,6 +225,15 @@ generateSecrets(){
     >> "${GENERATED_SECRETS}"
   echo "---" >> "${GENERATED_SECRETS}"
 
+  # discord-webhook secrets
+  kubectl create secret generic discord-webhook-env \
+    --from-literal=DISCORD_WEBHOOK="${DISCORD_WEBHOOK_URL}" \
+    --namespace observability --dry-run=client -o json \
+    | \
+  kubeseal --format=yaml --cert="${PUB_CERT}" \
+    >> "${GENERATED_SECRETS}"
+  echo "---" >> "${GENERATED_SECRETS}"
+
   bigMessage "Apply All Generated Secrets"
 
   kubectl apply -f ${GENERATED_SECRETS}
@@ -233,7 +242,7 @@ generateSecrets(){
 
   ksealhelm "${MANIFEST_ROOT}/monitoring/botkube/botkube.txt"
   ksealhelm "${MANIFEST_ROOT}/auth-system/oauth-proxy/oauth-proxy.txt"
-  ksealhelm "${MANIFEST_ROOT}/monitoring/prometheus-operator/kube-prometheus-stack-helm-values.txt"
+  ksealhelm "${MANIFEST_ROOT}/observability/prometheus-operator/kube-prometheus-stack-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/games/minecraft/minecraft-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/network-system/blocky/blocky-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/nextcloud/nextcloud-helm-values.txt"

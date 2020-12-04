@@ -3,7 +3,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
     external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
     kubernetes.io/ingress.class: "external"
   name: bitwarden
@@ -17,7 +16,3 @@ spec:
           serviceName: bitwarden
           servicePort: 80
         path: /
-  tls:
-  - hosts:
-    - bitwarden.${INTERNAL_DOMAIN}
-    secretName: bitwarden-crutonjohn-com

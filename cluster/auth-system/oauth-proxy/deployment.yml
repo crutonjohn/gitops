@@ -19,17 +19,6 @@ spec:
       repository: quay.io/pusher/oauth2_proxy
       tag: v5.1.1
     replicaCount: 2
-    ingress:
-      enabled: false
-      path: /oauth2
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.tls: "true"
-      hosts:
-      - "auth.os.crutonjohn.com"
-      tls:
-      - hosts:
-        - "auth.os.crutonjohn.com"
     extraArgs:
       provider: oidc
       oidc-issuer-url: "https://crutonjohn.us.auth0.com/"
