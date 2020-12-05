@@ -20,5 +20,5 @@ spec:
   - "*.os.crutonjohn.com"
   - "*.curtisrayjohn.com"
   issuerRef:
-    kind: Issuer
+    kind: ClusterIssuer
     name: letsencrypt-prod
