@@ -14,7 +14,7 @@ spec:
     enable: false
   chart:
     repository: https://kubernetes.github.io/ingress-nginx
-    name: nginx-ingress
+    name: ingress-nginx
     version: 3.13.0
   values:
     controller:
@@ -25,7 +25,6 @@ spec:
         http: 80
         https: 443
       dnsPolicy: ClusterFirst
-      reportNodeInternalIp: false
       electionID: ingress-controller-leader
       ingressClass: external
       extraArgs:
