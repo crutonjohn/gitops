@@ -4,10 +4,10 @@ kind: Ingress
 metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
-    kubernetes.io/ingress.class: "external"
   name: bitwarden
   namespace: bitwarden
 spec:
+  ingressClassName: external
   rules:
   - host: bitwarden.${INTERNAL_DOMAIN}
     http:
