@@ -13,7 +13,7 @@ spec:
     name: nextcloud-data
   storageClassName: pandora
   nfs:
-    server: 192.168.130.43
+    server: 192.168.130.50
     path: "/pandora/k8/nextcloud-data/"
 ---
 apiVersion: v1
@@ -43,7 +43,7 @@ spec:
     name: nextcloud-db
   storageClassName: pandora
   nfs:
-    server: 192.168.130.43
+    server: 192.168.130.50
     path: "/pandora/k8/nextcloud-db/"
 ---
 apiVersion: v1

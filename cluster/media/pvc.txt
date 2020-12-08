@@ -13,7 +13,7 @@ spec:
     name: music-library
   storageClassName: pandora
   nfs:
-    server: 192.168.130.43
+    server: 192.168.130.50
     path: "/pandora/music-library/"
 ---
 apiVersion: v1

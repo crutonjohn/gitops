@@ -13,7 +13,7 @@ spec:
     name: minio-backup-nfs
   storageClassName: pandora
   nfs:
-    server: 192.168.130.43
+    server: 192.168.130.50
     path: "/pandora/minio/"
 ---
 apiVersion: v1
