@@ -3,6 +3,11 @@
   include_tasks: token.yml
   when: not cluster_node_configured
 
+- name: Show kubeadm-join config file
+  debug:
+    msg: "{{ lookup('template', '../templates/kubeadm-join.yml.j2') }}"
+  when: ansible_check_mode
+
 - name: generate kubeadm join configuration
   template:
     src: kubeadm-join.yml.j2

@@ -20,6 +20,11 @@
     cluster_initialized: true
   run_once: true
 
+- name: Show kubeadm-init config file
+  debug:
+    msg: "{{ lookup('template', '../templates/kubeadm-init.yml.j2') }}"
+  when: ansible_check_mode
+
 - name: generate kubeadm configuration
   template:
     src: kubeadm-init.yml.j2

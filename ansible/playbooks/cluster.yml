@@ -1,7 +1,5 @@
 ---
-- hosts:
-    - masters
-    - workers
+- hosts: k8s
   become: true
   pre_tasks:
     - name: "Add OS variables"
@@ -9,4 +7,4 @@
   roles:
     - cluster
     - cni
-    - openebs
+    - storage

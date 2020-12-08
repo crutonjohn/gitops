@@ -41,11 +41,19 @@ apiServer:
   timeoutForControlPlane: "4m0s"
 etcd:
   local:
+    {% if cluster_extra_sans | length > 0 %}
+    serverCertSANs:
+      {% for san in cluster_extra_sans %}
+      - {{ san }}
+      {% endfor %}
+    {% endif %}
     dataDir: {{ cluster_etcd_datadir }}
     extraArgs:
       client-cert-auth: "true"
       peer-client-cert-auth: "true"
       peer-auto-tls: "false"
+      heartbeat-interval: "{{ cluster_etcd_heartbeat_interval }}"
+      election-timeout: "{{ cluster_etcd_election_timeout }}"
 imageRepository: {{ cluster_image_repository }}
 networking:
   dnsDomain: cluster.local
