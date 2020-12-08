@@ -30,7 +30,7 @@ spec:
 
       ## Set this to true in order to enable TLS on the ingress record
       ## A side effect of this will be that the backend service will be connected at port 443
-      tls: false
+      tls: true
       ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
       # tlsSecret: storage-crutonjohn-com
       ## Ingress annotations done as key:value pairs
