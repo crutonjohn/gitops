@@ -743,8 +743,8 @@ spec:
         #   metrics_path is required to match upstream rules and charts
         ##
         cAdvisorRelabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
+        - sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
         # - sourceLabels: [__meta_kubernetes_pod_node_name]
         #   separator: ;
         #   regex: ^(.*)$
@@ -753,8 +753,8 @@ spec:
         #   action: replace
 
         probesRelabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
+        - sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
         # - sourceLabels: [__meta_kubernetes_pod_node_name]
         #   separator: ;
         #   regex: ^(.*)$
@@ -763,8 +763,8 @@ spec:
         #   action: replace
 
         resourceRelabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
+        - sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
         # - sourceLabels: [__meta_kubernetes_pod_node_name]
         #   separator: ;
         #   regex: ^(.*)$
@@ -788,8 +788,8 @@ spec:
         #   metrics_path is required to match upstream rules and charts
         ##
         relabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
+        - sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
         # - sourceLabels: [__meta_kubernetes_pod_node_name]
         #   separator: ;
         #   regex: ^(.*)$
@@ -828,10 +828,10 @@ spec:
         https: false
 
         # Skip TLS certificate validation when scraping
-        insecureSkipVerify: null
+        insecureSkipVerify:
 
         # Name of the server to use when validating TLS certificate
-        serverName: null
+        serverName:
 
         ## 	metric relabel configs to apply to samples before ingestion.
         ##
@@ -1020,10 +1020,10 @@ spec:
         https: false
 
         ## Skip TLS certificate validation when scraping
-        insecureSkipVerify: null
+        insecureSkipVerify:
 
         ## Name of the server to use when validating TLS certificate
-        serverName: null
+        serverName:
 
         ## 	metric relabel configs to apply to samples before ingestion.
         ##
@@ -1167,8 +1167,8 @@ spec:
         ##
         jobLabel: node-exporter
       extraArgs:
-        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
-        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+      - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
+      - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
 
     ## Manages Prometheus and Alertmanager components
     ##
@@ -1371,7 +1371,7 @@ spec:
       ##
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.44.0
+        tag: master-arm
         sha: ""
         pullPolicy: IfNotPresent
 
