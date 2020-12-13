@@ -129,3 +129,5 @@ spec:
             #   annotations:
             #     description: Too many 4XXs
             #     summary: More than 5% of all requests returned 4XX, this requires your attention
+      admissionWebhooks:
+        enabled: false

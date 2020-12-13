@@ -129,7 +129,8 @@ spec:
             #   annotations:
             #     description: Too many 4XXs
             #     summary: More than 5% of all requests returned 4XX, this requires your attention
-
+      admissionWebhooks:
+        enabled: false
       ## Improve connection draining when ingress controller pod is deleted using a lifecycle hook:
       ## With this new hook, we increased the default terminationGracePeriodSeconds from 30 seconds
       ## to 300, allowing the draining of connections up to five minutes.
