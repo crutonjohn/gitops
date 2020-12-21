@@ -20,7 +20,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/drupal
-      tag: '9.1.0-debian-10-r13'
+      tag: '9'
       pullPolicy: IfNotPresent
       debug: false
     replicaCount: 1
