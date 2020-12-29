@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -12,7 +12,10 @@ spec:
   - host: minecraft.crutonjohn.com
     http:
       paths:
-      - backend:
-          serviceName: minecraft-minecraft
-          servicePort: 25565
-        path: /
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: minecraft-minecraft
+            port:
+              number: 25565
