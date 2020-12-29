@@ -1,21 +1,24 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
+    kubernetes.io/ingress.class: "external"
   name: bitwarden
   namespace: bitwarden
 spec:
-  ingressClassName: external
   tls:
   - hosts:
-    - bitwarden.crutonjohn.com
+    - bitwarden.${INTERNAL_DOMAIN}
   rules:
   - host: bitwarden.${INTERNAL_DOMAIN}
     http:
       paths:
-      - backend:
-          serviceName: bitwarden
-          servicePort: 80
-        path: /
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: bitwarden
+            port:
+              number: 80
