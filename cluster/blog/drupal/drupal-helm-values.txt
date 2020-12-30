@@ -19,7 +19,6 @@ smtpUser: ${SMTP_USERNAME}
 smtpPassword: ${SMTP_PASSWORD}
 smtpProtocol: tls
 mariadb:
-  fullnameOverride: maria-drupal
   auth:
     username: ${DRUPAL_MARIADB_USER}
     password: ${DRUPAL_MARIADB_PASSWORD}
