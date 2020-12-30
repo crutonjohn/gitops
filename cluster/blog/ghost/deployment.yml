@@ -24,7 +24,7 @@ spec:
       image:
         registry: docker.io
         repository: bitnami/minideb
-        tag: buster
+        tag: buster-snapshot-20201230T023208Z
         pullPolicy: Always
     service:
       type: LoadBalancer
