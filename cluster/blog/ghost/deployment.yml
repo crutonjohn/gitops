@@ -1,0 +1,47 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: ghost
+  namespace: blog
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: baremetalblog
+  helmVersion: v3
+  chart:
+    repository: https://charts.bitnami.com/bitnami
+    name: ghost
+    version: 11.1.9
+  values:
+    image:
+      registry: docker.io
+      repository: bitnami/ghost
+      tag: 3.40.2-debian-10-r0
+      pullPolicy: IfNotPresent
+    volumePermissions:
+      image:
+        registry: docker.io
+        repository: bitnami/minideb
+        tag: buster
+        pullPolicy: Always
+    service:
+      type: LoadBalancer
+      port: 80
+      externalTrafficPolicy: Cluster
+      annotations: {}
+    podSecurityContext:
+      enabled: true
+      fsGroup: 2001
+      runAsUser: 2001
+    containerSecurityContext:
+      enabled: false
+      runAsUser: 2001
+      runAsNonRoot: true
+    persistence:
+      enabled: true
+      storageClass: longhorn-weekly
+      accessMode: ReadWriteOnce
+      size: 8Gi
+      path: /bitnami
