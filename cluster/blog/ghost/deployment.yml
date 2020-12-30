@@ -45,3 +45,5 @@ spec:
       accessMode: ReadWriteOnce
       size: 8Gi
       path: /bitnami
+  valueFileSecrets:
+  - name: "ghost-helm-values"
