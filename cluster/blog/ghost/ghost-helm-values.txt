@@ -12,7 +12,7 @@ smtpPassword: ${SMTP_PASSWORD}
 smtpFromAddress: ${SMTP_FROM}
 smtpService: 
 externalDatabase:
-  host: localhost
+  host: baremetalblog-mariadb
   user: ${GHOST_MARIADB_USER}
   password: ${GHOST_MARIADB_PASSWORD}
   database: ${GHOST_MARIADB_USER}
