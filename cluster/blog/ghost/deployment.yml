@@ -18,7 +18,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/ghost
-      tag: '3.40.2-debian-10-r14'
+      tag: '3-debian-10'
       pullPolicy: IfNotPresent
     volumePermissions:
       image:
