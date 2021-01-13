@@ -27,6 +27,7 @@ spec:
     domainFilters:
     - os.crutonjohn.com
     - crutonjohn.com
+    - baremetalblog.com
     interval: "1m"
     logFormat: json
     logLevel: debug
