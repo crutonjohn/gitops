@@ -6,7 +6,7 @@ metadata:
   namespace: observability
   annotations:
     fluxcd.io/ignore: "false"
-    fluxcd.io/automated: "true"
+    fluxcd.io/automated: "false"
 spec:
   releaseName: kube-prometheus-stack
   helmVersion: v3
@@ -1371,7 +1371,7 @@ spec:
       ##
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.45.0-arm
+        tag: v0.45.0
         sha: ""
         pullPolicy: IfNotPresent
 
