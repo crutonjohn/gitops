@@ -19,7 +19,7 @@ alertmanager:
       - match_re:
           severity: critical|warning
         continue: true
-        receiver: 'smtp'
+        receiver: 'discord'
     inhibit_rules:
     - source_match:
         severity: 'critical'
