@@ -27,10 +27,10 @@ alertmanager:
         severity: 'warning'
       equal: ['alertname', 'namespace']
     receivers:
-      - name: 'null'
-      - name: 'discord'
-        webhook_configs:
-        - url: 'http://discord-webhook.observability.svc.cluster.local' 
+    - name: 'null'
+    - name: 'discord'
+      webhook_configs:
+      - url: 'http://discord-webhook.observability.svc.cluster.local' 
 grafana:
   adminPassword: "${GRAFANA_PASSWORD}"
   grafana.ini:
