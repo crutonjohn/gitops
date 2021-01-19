@@ -1,0 +1,38 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: unifi-poller
+  namespace: unifi
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: unifi-poller
+  helmVersion: v3
+  rollback:
+    enable: true
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: unifi-poller
+    version: 5.2.1
+  values:
+    image:
+      repository: golift/unifi-poller
+      tag: 2.0.1
+    env:
+      TZ: "America/New_York"
+      UP_UNIFI_DEFAULT_ROLE: "homelab-controller"
+      UP_UNIFI_DEFAULT_URL: "https://192.168.130.103:8443"
+      UP_UNIFI_DEFAULT_VERIFY_SSL: false
+      UP_UNIFI_DEFAULT_USER: "unifipoller"
+      UP_UNIFI_DEFAULT_PASS: "unifipoller"
+      UP_UNIFI_DEFAULT_SAVE_SITES: true
+      UP_UNIFI_DEFAULT_SAVE_DPI: false
+      UP_INFLUXDB_DISABLE: true
+      UP_PROMETHEUS_DISABLE: false
+      UP_PROMETHEUS_NAMESPACE: "observability"
+    prometheus:
+      serviceMonitor:
+        enabled: true
+        interval: 2m
