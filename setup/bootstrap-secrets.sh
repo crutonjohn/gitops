@@ -240,7 +240,7 @@ generateSecrets(){
 
   bigMessage "Creating Helm Operator Secrets"
 
-  ksealhelm "${MANIFEST_ROOT}/monitoring/botkube/botkube.txt"
+  ksealhelm "${MANIFEST_ROOT}/observability/botkube/botkube.txt"
   ksealhelm "${MANIFEST_ROOT}/auth-system/oauth-proxy/oauth-proxy.txt"
   ksealhelm "${MANIFEST_ROOT}/observability/prometheus-operator/kube-prometheus-stack-helm-values.txt"
   ksealhelm "${MANIFEST_ROOT}/games/minecraft/minecraft-helm-values.txt"
