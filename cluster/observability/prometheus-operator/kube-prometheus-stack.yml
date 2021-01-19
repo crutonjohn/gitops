@@ -97,26 +97,6 @@ spec:
         minAvailable: 1
         maxUnavailable: ""
 
-      ## Alertmanager configuration directives
-      ## ref: https://prometheus.io/docs/alerting/configuration/#configuration-file
-      ##      https://prometheus.io/webtools/alerting/routing-tree-editor/
-      ##
-      config:
-        global:
-          resolve_timeout: 5m
-        route:
-          group_by: ['job']
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 12h
-          receiver: 'null'
-          routes:
-          - match:
-              alertname: Watchdog
-            receiver: 'null'
-        receivers:
-        - name: 'null'
-
       ## Pass the Alertmanager configuration directives through Helm's templating
       ## engine. If the Alertmanager configuration contains Alertmanager templates,
       ## they'll need to be properly escaped so that they are not interpreted by
