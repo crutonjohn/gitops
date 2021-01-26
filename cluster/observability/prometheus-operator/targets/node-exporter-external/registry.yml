@@ -6,6 +6,7 @@ metadata:
   namespace: observability
   labels:
     k8s-app: node-exporter-external
+    prometheus: kube-prometheus
 spec:
   type: ExternalName
   externalName: 192.168.130.20

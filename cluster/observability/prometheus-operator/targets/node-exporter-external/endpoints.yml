@@ -7,22 +7,23 @@ metadata:
   labels:
     k8s-app: node-exporter-external
 subsets:
-  - addresses:
-    - ip: 192.168.130.1
-      hostname: router.crutonjohn.com
-    - ip: 192.168.130.20
-      hostname: registry.crutonjohn.com
-    - ip: 192.168.130.50
-      hostname: pandora.crutonjohn.com
-    ports:
-    - name: metrics
-      port: 9100
-      protocol: TCP
+- addresses:
+  - ip: 192.168.130.1
+    hostname: router-crutonjohn-com
+  - ip: 192.168.130.20
+    hostname: registry-crutonjohn-com
+  - ip: 192.168.130.50
+    hostname: pandora-crutonjohn-com
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: node-exporter-external
+  namespace: observability
   labels:
     k8s-app: node-exporter-external
     prometheus: kube-prometheus
