@@ -10,22 +10,22 @@ metadata:
 subsets:
 - addresses:
   - ip: 192.168.130.1
-    nodeName: router.crutonjohn.com
+    # nodeName: router.crutonjohn.com
     targetRef:
-      kind: Node
-      name: router-crutonjohn-com
+      kind: Service
+      name: opnsense-external
       namespace: observability
   - ip: 192.168.130.20
-    nodeName: registry.crutonjohn.com
+    # nodeName: registry.crutonjohn.com
     targetRef:
-      kind: Node
-      name: registry-crutonjohn-com
+      kind: Service
+      name: registry-external
       namespace: observability
   - ip: 192.168.130.50
-    nodeName: pandora.crutonjohn.com
+    # nodeName: pandora.crutonjohn.com
     targetRef:
-      kind: Node
-      name: pandora-crutonjohn-com
+      kind: Service
+      name: pandora-external
       namespace: observability
   ports:
   - name: metrics
