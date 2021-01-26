@@ -123,7 +123,7 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: blocky
     serviceMonitor:
-      enabled: false
+      enabled: true
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
