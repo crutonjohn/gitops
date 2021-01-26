@@ -6,6 +6,7 @@ metadata:
   namespace: observability
   labels:
     k8s-app: node-exporter-external
+    prometheus: kube-prometheus
 subsets:
 - addresses:
   - ip: 192.168.130.1
