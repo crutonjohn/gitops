@@ -1,11 +1,53 @@
 ---
 apiVersion: v1
+kind: Endpoints
+metadata:
+  name: pandora-node-exporter-external
+  namespace: observability
+  labels:
+    k8s-app: pandora-external
+    prometheus: kube-prometheus
+subsets:
+- addresses:
+  - ip: 192.168.130.50
+    nodeName: pandora.crutonjohn.com
+    targetRef:
+      kind: Node
+      name: pandora-crutonjohn-com
+      namespace: observability
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: pandora-node-exporter-external
+  namespace: observability
+  labels:
+    k8s-app: pandora-external
+    prometheus: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      k8s-app: pandora-external
+  namespaceSelector:
+    matchNames:
+    - observability
+  endpoints:
+  - port: metrics
+    interval: 60s
+    honorLabels: true
+    path: /metrics
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: pandora-external
   namespace: observability
   labels:
-    k8s-app: node-exporter-external
+    k8s-app: pandora-external
 spec:
   type: ExternalName
   externalName: 192.168.130.50
