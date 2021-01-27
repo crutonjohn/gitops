@@ -28,7 +28,7 @@ spec:
       enabled: true
       image:
         repository: nginx
-        tag: 1.18-perl
+        tag: 1.19.3
         pullPolicy: IfNotPresent
     internalDatabase:
       enabled: false

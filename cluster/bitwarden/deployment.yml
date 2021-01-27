@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: bitwarden
-        image: bitwardenrs/server:testing-alpine
+        image: bitwardenrs/server:1.16.3
         ports:
         - containerPort: 80
         env:

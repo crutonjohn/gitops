@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: quay.io/pusher/oauth2_proxy
-      tag: master
+      tag: v5.1.1
     replicaCount: 2
     extraArgs:
       provider: oidc

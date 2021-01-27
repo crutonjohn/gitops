@@ -39,7 +39,7 @@ spec:
       image:
         registry: docker.io
         repository: bitnami/metallb-controller
-        tag: '0'
+        tag: 0.9.5-debian-10-r5
         pullPolicy: IfNotPresent
       securityContext:
         enabled: true
@@ -59,7 +59,7 @@ spec:
       image:
         registry: docker.io
         repository: bitnami/metallb-speaker
-        tag: 0.9.5-debian-10-r80
+        tag: 0.9.5-debian-10-r4
         pullPolicy: IfNotPresent
       nodeSelector:
         kubernetes.io/arch: amd64
