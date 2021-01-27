@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,25 +17,25 @@ spec:
         component: bitwarden
     spec:
       containers:
-        - name: bitwarden
-          image: bitwardenrs/server:1.16.3
-          ports:
-            - containerPort: 80
-          env:
-          - name: SMTP_PORT
-            value: "587"
-          - name: SMTP_EXPLICIT_TLS
-            value: "false"
-          - name: INVITATIONS_ALLOWED
-            value: "true"
-          envFrom:
-          - secretRef:
-              name: bitwarden-env
-          volumeMounts:
-            - mountPath: /data
-              name: attachments-core-storage
+      - name: bitwarden
+        image: bitwardenrs/server:testing-alpine
+        ports:
+        - containerPort: 80
+        env:
+        - name: SMTP_PORT
+          value: "587"
+        - name: SMTP_EXPLICIT_TLS
+          value: "false"
+        - name: INVITATIONS_ALLOWED
+          value: "true"
+        envFrom:
+        - secretRef:
+            name: bitwarden-env
+        volumeMounts:
+        - mountPath: /data
+          name: attachments-core-storage
       restartPolicy: Always
       volumes:
-        - name: attachments-core-storage
-          persistentVolumeClaim:
-            claimName: bitwarden
+      - name: attachments-core-storage
+        persistentVolumeClaim:
+          claimName: bitwarden

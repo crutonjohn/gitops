@@ -1351,7 +1351,7 @@ spec:
       ##
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.45.0
+        tag: master-arm
         sha: ""
         pullPolicy: IfNotPresent
 
