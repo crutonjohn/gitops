@@ -524,6 +524,10 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki.observability.svc.cluster.local:3100
       dashboards:
         default:
           # ingress-nginx
