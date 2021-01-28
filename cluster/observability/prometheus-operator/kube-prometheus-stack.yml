@@ -578,6 +578,10 @@ spec:
             gnetId: 328
             revision: 1
             datasource: Prometheus
+          logging-dash-loki:
+            gnetId: 12611
+            revision: 1
+            datasource: Loki
       plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
