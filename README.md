@@ -44,6 +44,7 @@ _This table is a reference to IP addresses in my deployments and may not be full
 | blocky                   | 192.168.130.102 |
 | unifi                    | 192.168.130.103 |
 | longhorn                 | 192.168.130.104 |
+| loki                     | 192.168.130.105 |
 | minecraft                | 192.168.130.110 |
 
 ---
