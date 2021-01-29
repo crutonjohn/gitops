@@ -578,6 +578,10 @@ spec:
             gnetId: 328
             revision: 1
             datasource: Prometheus
+          zfs-node-exporter:
+            gnetId: 7845
+            revision: 4
+            datasource: Prometheus
           logging-dash-loki:
             gnetId: 12611
             revision: 1
