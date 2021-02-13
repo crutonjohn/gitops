@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "external"
+    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
+  name: navidrome
+  namespace: media
+spec:
+  tls:
+  - hosts:
+    - music.${INTERNAL_DOMAIN}
+  rules:
+  - host: music.${INTERNAL_DOMAIN}
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: navidrome
+            port:
+              number: 4533
