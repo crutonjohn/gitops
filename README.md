@@ -21,15 +21,28 @@ Feel free to join our [Discord](https://discord.gg/DNCynrJ) if you have any ques
 
 ---
 
-## :computer:&nbsp; Hardware configuration
+## :computer:&nbsp; Hardware Configuration
 
-_All my Kubernetes master and worker nodes below are running bare metal Ubuntu 20.04.x_
+_All my nodes below are running bare metal Ubuntu 20.04.x_
 
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
 | Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Masters |
-| Dell R610               | 3     | 2x 120GB SSD (RAID1)    | 2x 1TB HDD (RAID0, longhorn)             | 48GB | k8s Workers |
-| Xyratex HB-1235         | 1     | N/A                     | 3x 4TB HDD (nfs)                         | N/A  | ZFS Main Storage |
+| Dell R610               | 3     | 2x 120GB SSD (RAID1)    | 2x 1TB HDD (RAID0, longhorn)             | 40GB | k8s Workers |
+
+## :computer:&nbsp; Supporting Infrastructure
+
+| Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
+|-------------------------|-------|-------------------------|------------------------------------------|------|---------|
+| Supermicro CSE-512B     | 1     | 1x 500GB Spinning Rust  | N/A                                      | 32GB | ZFS on Linux Host |
+| Xyratex HB-1235         | 1     | N/A                     | 10x 4TB HDD                              | N/A  | ZFS Disk Shelf |
+
+## :computer:&nbsp; Testing Cluster
+
+| Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose        |
+|-------------------------|-------|-------------------------|------------------------------------------|------|----------------|
+| Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Test Boxes |
+
 
 ---
 
