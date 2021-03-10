@@ -1,0 +1,47 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "internal"
+  name: librespeed-internal
+  namespace: unifi
+spec:
+  tls:
+  - hosts:
+    - internal-speed.${INTERNAL_DOMAIN}
+  rules:
+  - host: internal-speed.${INTERNAL_DOMAIN}
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: librespeed
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "external"
+    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
+  name: librespeed-external
+  namespace: unifi
+spec:
+  tls:
+  - hosts:
+    - speed.${INTERNAL_DOMAIN}
+  rules:
+  - host: speed.${INTERNAL_DOMAIN}
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: librespeed
+            port:
+              number: 80
