@@ -506,12 +506,9 @@ spec:
     grafana:
       enabled: true
       namespaceOverride: ""
-
       ## Deploy default dashboards.
       ##
       defaultDashboardsEnabled: true
-
-      adminPassword: prom-operator
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
@@ -1452,7 +1449,7 @@ spec:
 
       ## Set the prometheus config reloader side-car CPU limit
       ##
-      configReloaderCpu: 100m
+      configReloaderCpu: 300m
 
       ## Set the prometheus config reloader side-car memory limit
       ##

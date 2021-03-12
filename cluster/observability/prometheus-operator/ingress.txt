@@ -26,7 +26,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: "internal"
+    kubernetes.io/ingress.class: "external"
+    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
   name: grafana
   namespace: observability
 spec:
