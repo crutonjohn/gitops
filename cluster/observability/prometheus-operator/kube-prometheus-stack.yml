@@ -521,10 +521,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki.observability.svc.cluster.local:3100
       dashboards:
         default:
           # ingress-nginx
@@ -654,7 +650,11 @@ spec:
 
       ## Configure additional grafana datasources (passed through tpl)
       ## ref: http://docs.grafana.org/administration/provisioning/#datasources
-      additionalDataSources: []
+      additionalDataSources:
+        - name: Loki
+          type: loki
+          access: proxy
+          url: http://loki.observability.svc.cluster.local:3100
       # - name: prometheus-sample
       #   access: proxy
       #   basicAuth: true
