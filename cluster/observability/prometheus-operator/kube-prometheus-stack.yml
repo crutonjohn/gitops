@@ -1971,17 +1971,17 @@ spec:
         ## Prometheus StorageSpec for persistent data
         ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/storage.md
         ##
-        storageSpec: {}
-        ## Using PersistentVolumeClaim
-        ##
-        #  volumeClaimTemplate:
-        #    spec:
-        #      storageClassName: gluster
-        #      accessModes: ["ReadWriteOnce"]
-        #      resources:
-        #        requests:
-        #          storage: 50Gi
-        #    selector: {}
+        storageSpec:
+        # Using PersistentVolumeClaim
+        #
+         volumeClaimTemplate:
+           spec:
+             storageClassName: longhorn
+             accessModes: ["ReadWriteOnce"]
+             resources:
+               requests:
+                 storage: 50Gi
+           selector: {}
 
         ## Using tmpfs volume
         ##
