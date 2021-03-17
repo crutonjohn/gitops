@@ -1449,7 +1449,7 @@ spec:
 
       ## Set the prometheus config reloader side-car CPU limit
       ##
-      configReloaderCpu: 300m
+      configReloaderCpu: 700m
 
       ## Set the prometheus config reloader side-car memory limit
       ##
