@@ -1,7 +1,0 @@
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: internal
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-  hosts: 
-    - unifi.${INTERNAL_DOMAIN}
