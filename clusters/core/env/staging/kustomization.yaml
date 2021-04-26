@@ -1,0 +1,43 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: namespaces
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  dependsOn:
+    - core
+    - kube-prometheus-stack-crd
+    - cert-manager-crd
+    - istio
+  path: ./clusters/core/namespaces/production
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  validation: none
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/applications/istio.yaml
+  - ../../base/applications/istio-operator.yaml
+  - ../../base/crds/cert-manager
+  - ../../base/crds/kube-prometheus-stack.yaml
+  - ../../base/crds/openebs-cstor.yaml
+  - ../../base/crds/openebs-ndm.yaml
+  - ../../base/crds/sealed-secrets.yaml
+# patchesStrategicMerge:
+#   - patch.istio.yaml

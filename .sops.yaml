@@ -1,0 +1,3 @@
+creation_rules:
+        - path_regex: ./clusters/env/.*
+          kms: 'arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130'

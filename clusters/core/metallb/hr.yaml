@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: network-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: metallb
+      version: 2.3.5
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  values:
+    configInline:
+      address-pools:
+      - name: default
+        protocol: layer2
+        addresses:
+        - 192.168.130.100-192.168.130.200
+    rbac:
+      create: true
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        jobLabel: "app.kubernetes.io/name"
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+      prometheusRule:
+        enabled: true
+    controller:
+      image:
+        tag: v0.9.7
+        pullPolicy: IfNotPresent
+      securityContext:
+        enabled: true
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+          - ALL
+      revisionHistoryLimit: 3
+      terminationGracePeriodSeconds: 0
+      containerPort:
+        metrics: 7472
+    speaker:
+      image:
+        tag: v0.9.7
+        pullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/arch: amd64

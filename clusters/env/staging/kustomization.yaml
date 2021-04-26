@@ -1,0 +1,31 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: namespaces
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: core
+    - name: kube-prometheus-stack-crd
+    - name: openebs-crd
+    - name: openebs-ndm-crd
+    - name: istio
+  path: ./k8s/namespaces/overlays/production
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  validation: none
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: Secret
+        name: cluster-secrets
