@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: core
     - name: cert-manager-crd
-    - name: kube-prometheus-stack-crd
+    - name: kube-prometheus-crd
     - name: istio
   path: ./clusters/core/namespaces/production
   prune: true
