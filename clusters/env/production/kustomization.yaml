@@ -11,7 +11,7 @@ spec:
     - name: cert-manager-crd
     - name: kube-prometheus-crd
     - name: istio
-  path: ./clusters/core/namespaces/production
+  path: ./clusters/apps/env/production
   prune: true
   sourceRef:
     kind: GitRepository

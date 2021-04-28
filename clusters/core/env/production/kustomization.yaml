@@ -5,5 +5,5 @@ resources:
   - ../../base/applications/istio.yaml
   - ../../base/applications/istio-operator.yaml
   - ../../base/crds/
-# patchesStrategicMerge:
-#   - patch.istio.yaml
+patchesStrategicMerge:
+  - patch.istio.yaml
