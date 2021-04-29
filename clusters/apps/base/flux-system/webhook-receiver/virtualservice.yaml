@@ -6,13 +6,13 @@ metadata:
   name: receiver
   namespace: flux-system
   annotations:
-    external-dns.alpha.kubernetes.io/target: raspbernetes.com
+    external-dns.alpha.kubernetes.io/target: crutonjohn.com
     external-dns.alpha.kubernetes.io/external: 'true'
 spec:
   hosts:
-    - 'receiver.raspbernetes.com'
+    - 'receiver.crutonjohn.com'
   gateways:
-    - istio-system/istio-system-ingress-gateway
+    - istio-system/main
   http:
     - route:
         - destination:

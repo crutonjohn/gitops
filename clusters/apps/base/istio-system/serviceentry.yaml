@@ -1,0 +1,57 @@
+# Additional entries into Istio’s internal service registry
+---
+# Usage: oauth2-proxy
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: auth0
+  namespace: 'istio-system'
+spec:
+  hosts:
+    - '*.crutonjohn.com'
+    - 'crutonjohn.com'
+    - '*.os.crutonjohn.com'
+    - '*.curtisrayjohn.com'
+    - 'curtisrayjohn.com'
+    - 'crjtechnologies.com'
+    - '*.crjtechnologies.com'
+    - 'baremetalblog.com'
+  ports:
+    - name: https-auth0
+      number: 443
+      protocol: TLS
+  resolution: NONE
+  location: MESH_EXTERNAL
+---
+# Usage: cert-manager
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: letsencrypt
+  namespace: 'istio-system'
+spec:
+  hosts:
+    - '*.letsencrypt.org'
+  ports:
+    - name: https-letsencrypt
+      number: 443
+      protocol: TLS
+  resolution: NONE
+  location: MESH_EXTERNAL
+---
+# Usage: dex
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: github
+  namespace: 'istio-system'
+spec:
+  hosts:
+    - 'github.com'
+    - 'api.github.com'
+  ports:
+    - name: https-letsencrypt
+      number: 443
+      protocol: TLS
+  resolution: DNS
+  location: MESH_EXTERNAL

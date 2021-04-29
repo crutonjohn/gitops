@@ -7,24 +7,24 @@ export GITHUB_TOKEN="<PAT>"
 ```bash
 flux bootstrap github \
   --components=source-controller,kustomize-controller,helm-controller,notification-controller \
-  --path=cluster \
+  --path=clusters \
   --version=latest \
-  --owner=raspbernetes \
-  --repository=k8s-gitops \
-  --arch=arm64
+  --owner=crutonjohn \
+  --repository=gitops \
+  --arch=amd64
 ```
 
 ```bash
 flux create source git k8s-gitops \
-  --url=https://github.com/raspbernetes/k8s-gitops \
+  --url=https://github.com/crutonjohn/gitops \
   --branch=fluxv2-init \
   --interval=30s \
-  --export > ./k8s-gitop.yaml
+  --export > ./gitops.yaml
 ```
 
 ```bash
 flux install \
   --components=source-controller,kustomize-controller,helm-controller,notification-controller \
   --namespace=flux-system \
-  --arch=arm64
+  --arch=amd64
 ```
