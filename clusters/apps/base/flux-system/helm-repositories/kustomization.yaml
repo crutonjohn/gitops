@@ -3,17 +3,22 @@ kind: Kustomization
 resources:
   - banzaicloud-charts.yaml
   - bitnami-charts.yaml
+  - botkube-charts.yaml
   - coredns-charts.yaml
   - crossplane-charts.yaml
+  - crutonjohn-charts.yaml
   - dex-chart.yaml
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-loki.yaml
+  - itzg-minecraft-charts.yaml
   - jetstack-charts.yaml
   - k8s-at-home-charts.yaml
   - kubernetes-sigs-charts.yaml
   - kubernetes-stable-charts.yaml
   - litmuschaos-charts.yaml
+  - longhorn-charts.yaml
+  - minio-charts.yaml
   - node-feature-discovery-chart.yaml
   - oauth2-proxy-chart.yaml
   - openfaas-charts.yaml
