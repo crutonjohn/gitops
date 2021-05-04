@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  name: music-sshfs
+spec:
+  selector:
+    matchLabels:
+      component: music-sshfs
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: music-sshfs
+    spec:
+      containers:
+        - name: music-sshfs
+          image: gjyoung1974/alpine-sshd
+          ports:
+            - containerPort: 22
+          volumeMounts:
+            - mountPath: /music
+              name: music-library
+          envFrom:
+            - secretRef:
+                name: music-sshfs-secret
+      restartPolicy: Always
+      volumes:
+        - name: music-library
+          persistentVolumeClaim:
+            claimName: music-library
