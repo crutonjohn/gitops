@@ -1,0 +1,92 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: observability
+  name: upsd-tesla
+spec:
+  selector:
+    matchLabels:
+      component: upsd-tesla
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: upsd-tesla
+    spec:
+      containers:
+        - name: upsd-tesla
+          image: upshift/nut-upsd:2.7.4
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 3493
+          envFrom:
+          - secretRef:
+              name: ups-tesla-env
+          volumeMounts:
+          - mountPath: /dev/ups
+            name: ups
+        - name: exporter-tesla
+          image: jzck/upsc-exporter:latest
+          env:
+          - name: UPS_TARGET
+            value: tesla@localhost:3493
+          ports:
+            - containerPort: 9614
+              name: metrics
+      restartPolicy: Always
+      nodeSelector: 
+        ups: tesla
+      volumes:
+      - name: ups
+        hostPath: 
+          path: /dev/bus/usb/003/058
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: observability
+  name: upsd-edison
+spec:
+  selector:
+    matchLabels:
+      component: upsd-edison
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: upsd-edison
+    spec:
+      containers:
+        - name: upsd-edison
+          image: upshift/nut-upsd:2.7.4
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 3493
+          envFrom:
+          - secretRef:
+              name: ups-edison-env
+          volumeMounts:
+          - mountPath: /dev/ups
+            name: ups
+        - name: exporter-edison
+          image: jzck/upsc-exporter:latest
+          env:
+          - name: UPS_TARGET
+            value: edison@localhost:3493
+          ports:
+            - containerPort: 9614
+              name: metrics
+      restartPolicy: Always
+      nodeSelector: 
+        ups: edison
+      volumes:
+      - name: ups
+        hostPath: 
+          path: /dev/bus/usb/003/002
