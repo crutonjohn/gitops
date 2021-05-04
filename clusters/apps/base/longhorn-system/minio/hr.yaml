@@ -1,0 +1,25 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn-minio
+  namespace: longhorn-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: minio
+      version: 6.0.5
+      sourceRef:
+        kind: HelmRepository
+        name: minio-charts
+        namespace: flux-system
+  values:
+    existingSecret: minio-secrets
+    persistence:
+      enabled: true
+      existingClaim: minio-backup-nfs
+    defaultBucket:
+      enabled: true
+      name: longhorn/backups/
+      purge: false
