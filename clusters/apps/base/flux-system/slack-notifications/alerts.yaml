@@ -26,27 +26,36 @@ spec:
   eventSeverity: error
   eventSources:
     - kind: HelmRelease
-      namespace: 'backups'
+      namespace: 'auth-system'
       name: '*'
     - kind: HelmRelease
-      namespace: 'home-system'
+      namespace: 'blog'
       name: '*'
     - kind: HelmRelease
-      namespace: 'kube-system'
+      namespace: 'flux-system'
       name: '*'
     - kind: HelmRelease
-      namespace: 'litmus'
+      namespace: 'games'
       name: '*'
     - kind: HelmRelease
-      namespace: 'network'
+      namespace: 'istio-system'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'longhorn-system'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'media'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'network-system'
       name: '*'
     - kind: HelmRelease
       namespace: 'observability'
       name: '*'
     - kind: HelmRelease
-      namespace: 'openebs'
+      namespace: 'security'
       name: '*'
     - kind: HelmRelease
-      namespace: 'security'
+      namespace: 'soho'
       name: '*'
   suspend: false
