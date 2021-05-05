@@ -8,6 +8,5 @@ resources:
   - ns.yaml
   - peerauthentication.yaml
   - serviceentry.yaml
-  - serviceentry.yaml
   - servicemonitor.yaml
   - vs.yaml

@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
   - podmonitor.yaml
   - github-notifications
-  - helm-chart-repositories
+  - helm-repositories
   - slack-notifications
   - webhook-receiver
