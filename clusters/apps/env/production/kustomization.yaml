@@ -12,5 +12,5 @@ resources:
   - ../../base/observability
   - ../../base/security
   - ../../base/soho
-# patchesStrategicMerge:
-#   - patch.hr.yaml
+patchesStrategicMerge:
+  - patch.hr.yaml

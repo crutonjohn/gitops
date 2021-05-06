@@ -5,4 +5,5 @@ resources:
   - ns.yaml
   - baremetalblog
   - bitwarden
+  - nextcloud
   - node-feature-discovery
