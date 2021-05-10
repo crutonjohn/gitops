@@ -20,9 +20,9 @@ flux bootstrap github \
 ```
 
 ```bash
-flux create source git k8s-gitops \
+flux create source git gitops \
   --url=https://github.com/crutonjohn/gitops \
-  --branch=fluxv2-init \
+  --branch=main \
   --interval=30s \
   --export > ./gitops.yaml
 ```

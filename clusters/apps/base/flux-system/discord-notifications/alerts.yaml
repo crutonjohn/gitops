@@ -2,11 +2,11 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: k8s-gitops
+  name: gitops
   namespace: flux-system
 spec:
   providerRef:
-    name: slack
+    name: discord
   eventSeverity: info
   eventSources:
     - kind: GitRepository
@@ -22,7 +22,7 @@ metadata:
   namespace: flux-system
 spec:
   providerRef:
-    name: slack
+    name: discord
   eventSeverity: error
   eventSources:
     - kind: HelmRelease

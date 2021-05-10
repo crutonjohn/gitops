@@ -6,11 +6,11 @@ metadata:
   name: receiver
   namespace: flux-system
   annotations:
-    external-dns.alpha.kubernetes.io/target: crutonjohn.com
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns.alpha.kubernetes.io/external: 'true'
 spec:
   hosts:
-    - 'receiver.crutonjohn.com'
+    - 'receiver.${SECRET_DOMAIN}'
   gateways:
     - istio-system/main
   http:

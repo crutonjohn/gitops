@@ -2,10 +2,10 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Provider
 metadata:
-  name: github
+  name: discord
   namespace: flux-system
 spec:
-  type: github
-  address: https://github.com/crutonjohn/gitops
+  type: discord
+  channel: monitoring_alerts
   secretRef:
-    name: git-api-token
+    name: webhook-url
