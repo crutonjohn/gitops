@@ -12,7 +12,7 @@ spec:
       version: 3.2.2
       sourceRef:
         kind: HelmRepository
-        name: jetstack-charts
+        name: oauth2-proxy-chart
         namespace: flux-system
   values:
     config:
@@ -20,10 +20,4 @@ spec:
       clientSecret: "${AUTH0_CLIENT_SECRET}"
       cookieSecret: "${OAUTH2_PROXY_COOKIE_SECRET}"
     ingress:
-      enabled: true
-      path: /oauth2
-      annotations:
-        external-dns.alpha.kubernetes.io/target: ${EXTERNAL_IP}
-        kubernetes.io/ingress.class: "external"
-      hosts:
-      - "auth.os.crutonjohn.com"
+      enabled: false
