@@ -4,9 +4,12 @@ kind: VirtualService
 metadata:
   name: jaeger
   namespace: istio-system
+  annotations:
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns.alpha.kubernetes.io/external: 'true'
 spec:
   hosts:
-    - 'jaeger.crutonjohn.com'
+    - 'jaeger.${SECRET_DOMAIN}'
   gateways:
     - istio-system/main
   http:
