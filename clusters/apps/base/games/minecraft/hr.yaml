@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: minecraft
+  name: homecraft
   namespace: games
 spec:
   interval: 5m
   chart:
     spec:
-      chart: minecraft
+      chart: homecraft
       version: 3.1.5
       sourceRef:
         kind: HelmRepository
@@ -106,7 +106,7 @@ spec:
       jvmXXOpts: ""
       serviceAnnotations: {}
       serviceType: LoadBalancer
-      loadBalancerIP: 192.168.130.110
+      loadBalancerIP: ${CLUSTER_LB_HOMECRAFT}
       # loadBalancerSourceRanges: []
       ## Set the externalTrafficPolicy in the Service to either Cluster or Local
       # externalTrafficPolicy: Cluster
