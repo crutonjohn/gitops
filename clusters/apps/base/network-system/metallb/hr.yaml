@@ -20,7 +20,7 @@ spec:
       - name: default
         protocol: layer2
         addresses:
-        - 192.168.130.100-192.168.130.200
+        - 192.168.1.100-192.168.1.200
     rbac:
       create: true
     prometheus:
@@ -40,8 +40,8 @@ spec:
       securityContext:
         enabled: true
         runAsNonRoot: true
-        runAsUser: 1001
-        fsGroup: 1001
+        runAsUser: 1010
+        fsGroup: 1010
         allowPrivilegeEscalation: false
         readOnlyRootFilesystem: true
         capabilities:
