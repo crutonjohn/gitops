@@ -13,4 +13,4 @@ resources:
   - ../../base/security
   - ../../base/soho
 patchesStrategicMerge:
-  - patch.hr.yaml
+  - patch.metallb.yaml
