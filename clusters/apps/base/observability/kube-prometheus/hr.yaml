@@ -304,57 +304,18 @@ spec:
         metricRelabelings: []
         relabelings: []
     kubeApiServer:
-      enabled: true
-      tlsConfig:
-        serverName: kubernetes
-        insecureSkipVerify: false
-      relabelings: []
-      serviceMonitor:
-        interval: ""
-        jobLabel: component
-        selector:
-          matchLabels:
-            component: apiserver
-            provider: kubernetes
-        metricRelabelings: []
+      enabled: false
     kubelet:
-      enabled: true
-      namespace: kube-system
-      serviceMonitor:
-        interval: ""
-        https: true
-        cAdvisor: true
-        probes: true
-        resource: false
-        resourcePath: "/metrics/resource/v1alpha1"
-        cAdvisorMetricRelabelings: []
-        probesMetricRelabelings: []
-        cAdvisorRelabelings:
-        - sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
-        probesRelabelings:
-        - sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
-        resourceRelabelings:
-        - sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
-        metricRelabelings: []
-        relabelings:
-        - sourceLabels: [__metrics_path__]
-          targetLabel: metrics_path
+      enabled: false
     kubeControllerManager:
       enabled: true
-      endpoints: []
       service:
         port: 10252
         targetPort: 10252
       serviceMonitor:
         interval: ""
-        https: false
-        insecureSkipVerify:
-        serverName:
-        metricRelabelings: []
-        relabelings: []
+        https: true
+        insecureSkipVerify: true
     coreDns:
       enabled: true
       service:
@@ -366,48 +327,10 @@ spec:
         relabelings: []
     kubeDns:
       enabled: false
-      service:
-        dnsmasq:
-          port: 10054
-          targetPort: 10054
-        skydns:
-          port: 10055
-          targetPort: 10055
-      serviceMonitor:
-        interval: ""
-        metricRelabelings: []
-        relabelings: []
-        dnsmasqMetricRelabelings: []
-        dnsmasqRelabelings: []
     kubeEtcd:
-      enabled: true
-      endpoints: []
-      service:
-        port: 2381
-        targetPort: 2381
-      serviceMonitor:
-        interval: ""
-        scheme: http
-        insecureSkipVerify: false
-        serverName: ""
-        caFile: ""
-        certFile: ""
-        keyFile: ""
-        metricRelabelings: []
-        relabelings: []
+      enabled: false
     kubeScheduler:
-      enabled: true
-      endpoints: []
-      service:
-        port: 10251
-        targetPort: 10251
-      serviceMonitor:
-        interval: ""
-        https: false
-        insecureSkipVerify:
-        serverName:
-        metricRelabelings: []
-        relabelings: []
+      enabled: false
     kubeProxy:
       enabled: true
       endpoints: []
