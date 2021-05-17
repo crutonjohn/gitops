@@ -618,5 +618,3 @@ spec:
         portName: "web"
       additionalServiceMonitors: []
       additionalPodMonitors: []
-  valueFileSecrets:
-  - name: "kube-prometheus-stack-helm-values"
