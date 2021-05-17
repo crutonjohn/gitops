@@ -4,4 +4,3 @@ resources:
 - hr.yaml
 - le-prod.yaml
 - le-dev.yaml
-- secret.enc.yaml
