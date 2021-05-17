@@ -49,8 +49,6 @@ spec:
       rbac:
         create: true
         pspEnabled: true
-        pspAnnotations: {}
-      imagePullSecrets: []
     alertmanager:
       enabled: true
       apiVersion: v2
@@ -68,118 +66,45 @@ spec:
           repeat_interval: 24h
           receiver: 'discord'
           routes:
-          - match:
-              alertname: Watchdog
-            receiver: 'null'
-          - match_re:
-              severity: critical|warning
-            continue: true
-            receiver: 'discord'
+            - match:
+                alertname: Watchdog
+              receiver: 'null'
+            - match_re:
+                severity: critical|warning
+              continue: true
+              receiver: 'discord'
         inhibit_rules:
-        - source_match:
-            severity: 'critical'
-          target_match:
-            severity: 'warning'
-          equal: ['alertname', 'namespace']
+          - source_match:
+              severity: 'critical'
+            target_match:
+              severity: 'warning'
+            equal: ['alertname', 'namespace']
         receivers:
-        - name: 'null'
-        - name: 'discord'
-          webhook_configs:
-          - url: 'http://discord-webhook.observability.svc.cluster.local'
-      serviceAccount:
-        create: true
-        name: ""
-        annotations: {}
-      podDisruptionBudget:
-        enabled: false
-        minAvailable: 1
-        maxUnavailable: ""
-      tplConfig: false
-      templateFiles: {}
-      ingress:
-        enabled: false
-        annotations: {}
-        labels: {}
-        hosts: []
-        paths: []
-        tls: []
-      secret:
-        annotations: {}
-      ingressPerReplica:
-        enabled: false
-        annotations: {}
-        labels: {}
-        hostPrefix: ""
-        hostDomain: ""
-        paths: []
-        tlsSecretName: ""
-        tlsSecretPerReplica:
-          enabled: false
-          prefix: "alertmanager"
+          - name: 'null'
+          - name: 'discord'
+            slack_configs:
+              - url: '${ALERT_DISCORD_WEBHOOK_URL}/slack'
       service:
-        annotations: {}
-        labels: {}
         clusterIP: ""
         port: 9093
         targetPort: 9093
         nodePort: 30903
-        additionalPorts: []
-        externalIPs: []
-        loadBalancerIP: ""
-        loadBalancerSourceRanges: []
         type: ClusterIP
-      servicePerReplica:
-        enabled: false
-        annotations: {}
-        port: 9093
-        targetPort: 9093
-        nodePort: 30904
-        loadBalancerSourceRanges: []
-        type: ClusterIP
-      serviceMonitor:
-        interval: ""
-        selfMonitor: true
-        scheme: ""
-        tlsConfig: {}
-        bearerTokenFile:
-        metricRelabelings: []
-        relabelings: []
       alertmanagerSpec:
-        podMetadata: {}
         image:
           repository: quay.io/prometheus/alertmanager
           tag: v0.21.0
           sha: ""
-        useExistingSecret: false
-        secrets: []
-        configMaps: []
-        alertmanagerConfigSelector: {}
-        alertmanagerConfigNamespaceSelector: {}
         logFormat: logfmt
         logLevel: info
         replicas: 1
         retention: 120h
-        storage: {}
-        externalUrl:
-        routePrefix: /
-        paused: false
-        nodeSelector: {}
-        resources: {}
-        podAntiAffinity: ""
-        podAntiAffinityTopologyKey: kubernetes.io/hostname
-        affinity: {}
-        tolerations: []
         securityContext:
           runAsGroup: 2000
           runAsNonRoot: true
           runAsUser: 1000
           fsGroup: 2000
         listenLocal: false
-        containers: []
-        volumes: []
-        volumeMounts: []
-        priorityClassName: ""
-        additionalPeers: []
         portName: "web"
         clusterAdvertiseAddress: false
     grafana:
@@ -273,12 +198,12 @@ spec:
             revision: 1
             datasource: Loki
       plugins:
-      - natel-discrete-panel
-      - pr0ps-trackmap-panel
-      - grafana-piechart-panel
-      - vonage-status-panel
-      - grafana-worldmap-panel
-      - grafana-clock-panel
+        - natel-discrete-panel
+        - pr0ps-trackmap-panel
+        - grafana-piechart-panel
+        - vonage-status-panel
+        - grafana-worldmap-panel
+        - grafana-clock-panel
       ingress:
         enabled: false
       sidecar:
@@ -298,11 +223,7 @@ spec:
       service:
         portName: service
       serviceMonitor:
-        interval: ""
         selfMonitor: true
-        path: "/metrics"
-        metricRelabelings: []
-        relabelings: []
     kubeApiServer:
       enabled: false
     kubelet:
@@ -348,12 +269,6 @@ spec:
         interval: ""
         metricRelabelings: []
         relabelings: []
-    kube-state-metrics:
-      namespaceOverride: ""
-      rbac:
-        create: true
-      podSecurityPolicy:
-        enabled: true
     nodeExporter:
       enabled: true
       jobLabel: jobLabel
@@ -367,8 +282,8 @@ spec:
       podLabels:
         jobLabel: node-exporter
       extraArgs:
-      - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
-      - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
+        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
     prometheusOperator:
       enabled: true
       tls:
@@ -384,47 +299,17 @@ spec:
             tag: v1.5.0
             sha: ""
             pullPolicy: IfNotPresent
-          resources: {}
-          priorityClassName: ""
-          podAnnotations: {}
-          nodeSelector: {}
-          affinity: {}
-          tolerations: []
-      namespaces: {}
-      denyNamespaces: []
-      alertmanagerInstanceNamespaces: []
-      prometheusInstanceNamespaces: []
-      thanosRulerInstanceNamespaces: []
       serviceAccount:
         create: true
-        name: ""
       service:
-        annotations: {}
-        labels: {}
-        clusterIP: ""
         nodePort: 30080
         nodePortTls: 30443
-        additionalPorts: []
-        loadBalancerIP: ""
-        loadBalancerSourceRanges: []
         type: ClusterIP
-        externalIPs: []
-      podLabels: {}
-      podAnnotations: {}
       kubeletService:
         enabled: true
         namespace: kube-system
       serviceMonitor:
-        interval: ""
-        scrapeTimeout: ""
         selfMonitor: true
-        metricRelabelings: []
-        relabelings: []
-      resources: {}
-      hostNetwork: false
-      nodeSelector: {}
-      tolerations: []
-      affinity: {}
       securityContext:
         fsGroup: 65534
         runAsGroup: 65534
@@ -448,122 +333,21 @@ spec:
       secretFieldSelector: ""
     prometheus:
       enabled: true
-      annotations: {}
       serviceAccount:
         create: true
         name: ""
       service:
-        annotations: {}
-        labels: {}
-        clusterIP: ""
         port: 9090
         targetPort: 9090
-        externalIPs: []
         nodePort: 30090
-        loadBalancerIP: ""
-        loadBalancerSourceRanges: []
         type: ClusterIP
-        sessionAffinity: ""
-      servicePerReplica:
-        enabled: false
-        annotations: {}
-        port: 9090
-        targetPort: 9090
-        nodePort: 30091
-        loadBalancerSourceRanges: []
-        type: ClusterIP
-      podDisruptionBudget:
-        enabled: false
-        minAvailable: 1
-        maxUnavailable: ""
-      thanosIngress:
-        enabled: false
-        annotations: {}
-        labels: {}
-        servicePort: 10901
-        hosts: []
-        paths: []
-        tls: []
-      ingress:
-        enabled: false
-        annotations: {}
-        labels: {}
-        hosts: []
-        paths: []
-        tls: []
-      ingressPerReplica:
-        enabled: false
-        annotations: {}
-        labels: {}
-        hostPrefix: ""
-        hostDomain: ""
-        paths: []
-        tlsSecretName: ""
-        tlsSecretPerReplica:
-          enabled: false
-          prefix: "prometheus"
-      podSecurityPolicy:
-        allowedCapabilities: []
-      serviceMonitor:
-        interval: ""
-        selfMonitor: true
-        scheme: ""
-        tlsConfig: {}
-        bearerTokenFile:
-        metricRelabelings: []
-        relabelings: []
       prometheusSpec:
-        disableCompaction: false
-        apiserverConfig: {}
-        scrapeInterval: ""
-        scrapeTimeout: ""
-        evaluationInterval: ""
-        listenLocal: false
-        enableAdminAPI: false
         image:
           repository: quay.io/prometheus/prometheus
           tag: v2.22.1
           sha: ""
-        tolerations: []
-        alertingEndpoints: []
-        externalLabels: {}
-        replicaExternalLabelName: ""
-        replicaExternalLabelNameClear: false
-        prometheusExternalLabelName: ""
-        prometheusExternalLabelNameClear: false
-        externalUrl: ""
-        nodeSelector: {}
-        secrets: []
-        configMaps: []
-        query: {}
-        ruleNamespaceSelector: {}
-        ruleSelectorNilUsesHelmValues: true
-        ruleSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
-        serviceMonitorSelector: {}
-        serviceMonitorNamespaceSelector: {}
-        podMonitorSelectorNilUsesHelmValues: true
-        podMonitorSelector: {}
-        podMonitorNamespaceSelector: {}
-        probeSelectorNilUsesHelmValues: false
-        probeSelector: {}
-        probeNamespaceSelector: {}
         retention: 10d
-        retentionSize: ""
         walCompression: false
-        paused: false
-        replicas: 1
-        logLevel: info
-        logFormat: logfmt
-        routePrefix: /
-        podMetadata: {}
-        podAntiAffinity: ""
-        podAntiAffinityTopologyKey: kubernetes.io/hostname
-        affinity: {}
-        remoteRead: []
-        remoteWrite: []
-        remoteWriteDashboards: false
-        resources: {}
         storageSpec:
          volumeClaimTemplate:
            spec:
@@ -572,22 +356,9 @@ spec:
              resources:
                requests:
                  storage: 50Gi
-        volumes: []
-        volumeMounts: []
-        additionalScrapeConfigs: []
-        additionalScrapeConfigsSecret: {}
-        additionalPrometheusSecretsAnnotations: {}
-        additionalAlertManagerConfigs: []
-        additionalAlertRelabelConfigs: []
         securityContext:
           runAsGroup: 2000
           runAsNonRoot: true
           runAsUser: 1000
           fsGroup: 2000
-        priorityClassName: ""
-        thanos: {}
-        containers: []
-        initContainers: []
         portName: "web"
-      additionalServiceMonitors: []
-      additionalPodMonitors: []
