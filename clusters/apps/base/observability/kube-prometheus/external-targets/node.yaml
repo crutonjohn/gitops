@@ -9,10 +9,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: metrics
-    port: 9100
-    protocol: TCP
-    targetPort: 9100
+    - name: metrics
+      port: 9100
+      protocol: TCP
+      targetPort: 9100
 ---
 apiVersion: v1
 kind: Endpoints
@@ -24,13 +24,13 @@ metadata:
     prometheus: kube-prometheus
 subsets:
 - addresses:
-  - ip: 192.168.130.1
-  - ip: 192.168.130.20
-  - ip: 192.168.130.50
+    - ip: 192.168.130.1
+    - ip: 192.168.130.20
+    - ip: 192.168.130.50
   ports:
-  - name: metrics
-    port: 9100
-    protocol: TCP
+    - name: metrics
+      port: 9100
+      protocol: TCP
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -46,9 +46,9 @@ spec:
       k8s-app: node-exporter-external
   namespaceSelector:
     matchNames:
-    - observability
+      - observability
   endpoints:
-  - port: metrics
-    interval: 60s
-    # honorLabels: true
-    path: /metrics
+    - port: metrics
+      interval: 60s
+      # honorLabels: true
+      path: /metrics

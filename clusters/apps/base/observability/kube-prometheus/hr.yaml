@@ -55,10 +55,10 @@ spec:
       config:
         global:
           resolve_timeout: 5m
-          smtp_smarthost: '${SMTP_HOST}:${SMTP_STARTTLS_PORT}'
-          smtp_from: '${SMTP_FROM}'
-          smtp_auth_username: '${SMTP_USERNAME}'
-          smtp_auth_password: '${SMTP_PASSWORD}'
+          smtp_smarthost: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
+          smtp_from: "${SMTP_FROM}"
+          smtp_auth_username: "${SMTP_USERNAME}"
+          smtp_auth_password: "${SMTP_PASSWORD}"
         route:
           group_by: ['job', 'alertname']
           group_wait: 30s
@@ -83,7 +83,7 @@ spec:
           - name: 'null'
           - name: 'discord'
             slack_configs:
-              - url: '${ALERT_DISCORD_WEBHOOK_URL}/slack'
+              - url: "${ALERT_DISCORD_WEBHOOK_URL}/slack"
       service:
         clusterIP: ""
         port: 9093
@@ -141,14 +141,14 @@ spec:
         dashboardproviders.yaml:
           apiVersion: 1
           providers:
-          - name: 'default'
-            orgId: 1
-            folder: ''
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
+            - name: 'default'
+              orgId: 1
+              folder: ''
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
       dashboards:
         default:
           nginx-dashboard:
@@ -242,10 +242,6 @@ spec:
       service:
         port: 9153
         targetPort: 9153
-      serviceMonitor:
-        interval: ""
-        metricRelabelings: []
-        relabelings: []
     kubeDns:
       enabled: false
     kubeEtcd:
@@ -254,29 +250,14 @@ spec:
       enabled: false
     kubeProxy:
       enabled: true
-      endpoints: []
       service:
         port: 10249
         targetPort: 10249
-      serviceMonitor:
-        interval: ""
-        https: false
-        metricRelabelings: []
-        relabelings: []
     kubeStateMetrics:
       enabled: true
-      serviceMonitor:
-        interval: ""
-        metricRelabelings: []
-        relabelings: []
     nodeExporter:
       enabled: true
       jobLabel: jobLabel
-      serviceMonitor:
-        interval: ""
-        scrapeTimeout: ""
-        metricRelabelings: []
-        relabelings: []
     prometheus-node-exporter:
       namespaceOverride: ""
       podLabels:
