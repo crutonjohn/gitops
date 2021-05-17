@@ -25,9 +25,6 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
-    - name: cert-manager-crd
-    - name: kube-prometheus-crd
-    - name: istio
     - name: secrets
   path: ./clusters/apps/env/production
   prune: true
