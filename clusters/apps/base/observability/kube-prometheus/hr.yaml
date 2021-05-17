@@ -54,6 +54,38 @@ spec:
     alertmanager:
       enabled: true
       apiVersion: v2
+      config:
+        global:
+          resolve_timeout: 5m
+          smtp_smarthost: '${SMTP_HOST}:${SMTP_STARTTLS_PORT}'
+          smtp_from: '${SMTP_FROM}'
+          smtp_auth_username: '${SMTP_USERNAME}'
+          smtp_auth_password: '${SMTP_PASSWORD}'
+        route:
+          group_by: ['job', 'alertname']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 24h
+          receiver: 'discord'
+          routes:
+          - match:
+              alertname: Watchdog
+            receiver: 'null'
+          - match_re:
+              severity: critical|warning
+            continue: true
+            receiver: 'discord'
+        inhibit_rules:
+        - source_match:
+            severity: 'critical'
+          target_match:
+            severity: 'warning'
+          equal: ['alertname', 'namespace']
+        receivers:
+        - name: 'null'
+        - name: 'discord'
+          webhook_configs:
+          - url: 'http://discord-webhook.observability.svc.cluster.local'
       serviceAccount:
         create: true
         name: ""
@@ -152,6 +184,32 @@ spec:
         clusterAdvertiseAddress: false
     grafana:
       enabled: true
+      adminPassword: "${GRAFANA_PASSWORD}"
+      grafana.ini:
+        server:
+          root_url: "https://grafana.${INTERNAL_DOMAIN}"
+        auth.basic:
+          disable_login_form: false
+        auth.generic_oauth:
+          enabled: true
+          allow_sign_up: true
+          team_ids:
+          allowed_organizations:
+          name: Auth0
+          client_id: "${AUTH0_CLIENT_ID}"
+          client_secret: "${AUTH0_CLIENT_SECRET}"
+          scopes: openid profile email
+          auth_url: "https://${AUTH0_DOMAIN}.us.auth0.com/authorize"
+          token_url: "https://${AUTH0_DOMAIN}.us.auth0.com/oauth/token"
+          api_url: "https://${AUTH0_DOMAIN}.us.auth0.com/userinfo"
+          role_attribute_path: role
+        smtp:
+          enabled: true
+          host: "${SMTP_HOST}:${SMTP_PORT}"
+          user: "${SMTP_USERNAME}"
+          password: "${SMTP_PASSWORD}"
+          from_address: "${SMTP_FROM}"
+          from_name: Grafana
       namespaceOverride: ""
       defaultDashboardsEnabled: true
       dashboardProviders:
