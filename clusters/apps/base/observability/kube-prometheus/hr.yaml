@@ -204,8 +204,6 @@ spec:
         - vonage-status-panel
         - grafana-worldmap-panel
         - grafana-clock-panel
-      ingress:
-        enabled: false
       sidecar:
         dashboards:
           enabled: true
