@@ -35,7 +35,7 @@ spec:
         enabled: true
     controller:
       image:
-        tag: v0.9.7
+        tag: 0.9.6
         pullPolicy: IfNotPresent
       securityContext:
         enabled: true
@@ -53,7 +53,7 @@ spec:
         metrics: 7472
     speaker:
       image:
-        tag: v0.9.7
+        tag: 0.9.6
         pullPolicy: IfNotPresent
       nodeSelector:
         kubernetes.io/arch: amd64
