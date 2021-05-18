@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - ns.yaml
   - botkube
-  - kube-prometheus
+  # - kube-prometheus
   - loki
   - ups
