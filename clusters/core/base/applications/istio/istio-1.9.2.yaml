@@ -49,7 +49,6 @@ spec:
     defaultConfig:
       proxyMetadata: {}
     enablePrometheusMerge: true
-  profile: default
   tag: 1.9.2-distroless
   values:
     base:
