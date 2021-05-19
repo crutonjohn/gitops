@@ -5,36 +5,35 @@ metadata:
   name: istio
   namespace: istio-system
 spec:
+  profile: ""
+  hub: docker.io/istio
+  tag: 1.10.0
   components:
     base:
       enabled: true
-    cni:
-      enabled: false
     egressGateways:
       - enabled: false
-        name: istio-egressgateway
+        name: egress
     ingressGateways:
       - enabled: true
-        name: istio-ingressgateway
+        name: main
         k8s:
           resources:
             requests:
               cpu: 100m
               memory: 128Mi
           service:
+            type: LoadBalancer
             loadBalancerIP: '192.168.130.100'
-    istiodRemote:
-      enabled: false
     pilot:
       enabled: true
-  hub: docker.io/istio
   meshConfig:
     extensionProviders:
       - name: oauth2-proxy
         envoyExtAuthzHttp:
           service: oauth2-proxy.auth-system.svc.cluster.local
           port: 80
-          includeHeadersInCheck: ['authorization', 'cookie']
+          includeRequestHeadersInCheck: ['authorization', 'cookie']
           headersToUpstreamOnAllow:
             [
               'authorization',
@@ -48,7 +47,6 @@ spec:
     defaultConfig:
       proxyMetadata: {}
     enablePrometheusMerge: true
-  tag: 1.10.0
   values:
     base:
       enableCRDTemplates: false
@@ -70,7 +68,7 @@ spec:
       istio-ingressgateway:
         autoscaleEnabled: true
         env: {}
-        name: istio-ingressgateway
+        name: main
         secretVolumes:
           - mountPath: /etc/istio/ingressgateway-certs
             name: ingressgateway-certs
@@ -81,10 +79,6 @@ spec:
         type: LoadBalancer
         zvpn: {}
     global:
-      arch:
-        amd64: 2
-        ppc64le: 2
-        s390x: 2
       configValidation: true
       defaultNodeSelector: {}
       defaultPodDisruptionBudget:
