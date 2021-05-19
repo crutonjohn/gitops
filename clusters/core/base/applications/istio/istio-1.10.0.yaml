@@ -48,7 +48,6 @@ spec:
     defaultConfig:
       proxyMetadata: {}
     enablePrometheusMerge: true
-  profile: default
   tag: 1.10.0
   values:
     base:
