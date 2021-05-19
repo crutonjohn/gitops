@@ -13,7 +13,6 @@ spec:
     egressGateways:
       - enabled: false
         name: istio-egressgateway
-        k8s:
     ingressGateways:
       - enabled: true
         name: istio-ingressgateway
@@ -28,7 +27,7 @@ spec:
       enabled: false
     pilot:
       enabled: true
-  hub: docker.io/querycapistio
+  hub: docker.io/istio
   meshConfig:
     extensionProviders:
       - name: oauth2-proxy
@@ -49,7 +48,8 @@ spec:
     defaultConfig:
       proxyMetadata: {}
     enablePrometheusMerge: true
-  tag: 1.9.2-distroless
+  profile: default
+  tag: 1.10.0
   values:
     base:
       enableCRDTemplates: false
