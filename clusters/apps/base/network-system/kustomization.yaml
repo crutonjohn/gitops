@@ -9,3 +9,4 @@ resources:
   - unifi
   - unifi-poller
   - librespeed
+  - nginx-ingress
