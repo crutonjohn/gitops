@@ -9,4 +9,4 @@ resources:
   - peerauthentication.yaml
   - serviceentry.yaml
   - servicemonitor.yaml
-  - vs.yaml
+  # - vs.yaml

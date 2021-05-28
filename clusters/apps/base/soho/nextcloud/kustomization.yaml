@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - pvc.yaml
   - hr.yaml
-  - vs.yaml
+  # - vs.yaml
