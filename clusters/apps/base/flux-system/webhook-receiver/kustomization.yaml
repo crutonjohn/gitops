@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - receiver.yaml
   - secret.encrypted.yaml
-  - virtualservice.yaml
+  # - vs.yaml
