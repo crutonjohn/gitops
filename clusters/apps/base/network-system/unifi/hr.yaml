@@ -21,7 +21,7 @@ spec:
     persistence:
       enabled: true
       size: 5Gi
-      storageClass: longhorn-nightly
+      storageClass: longhorn
     timezone: "America/New_York"
     runAsRoot: false
     guiService:
