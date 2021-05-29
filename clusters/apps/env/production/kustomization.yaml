@@ -12,5 +12,6 @@ resources:
   - ../../base/observability
   - ../../base/security
   - ../../base/soho
+  - wildcard-cert.yaml
 patchesStrategicMerge:
   - patch.metallb.yaml
