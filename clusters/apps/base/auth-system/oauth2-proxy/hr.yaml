@@ -20,4 +20,9 @@ spec:
       clientSecret: "${AUTH0_CLIENT_SECRET}"
       cookieSecret: "${OAUTH2_PROXY_COOKIE_SECRET}"
     ingress:
-      enabled: false
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "external"
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+      hosts:
+        - auth.crutonjohn.com
