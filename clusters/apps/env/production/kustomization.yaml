@@ -5,6 +5,7 @@ resources:
   - ../../base/auth-system
   - ../../base/flux-system
   - ../../base/games
+  - ../../base/kube-system
   # - ../../base/istio-system
   - ../../base/longhorn-system
   - ../../base/media
