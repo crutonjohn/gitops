@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: 1.1.0
+      version: 1.1.1
       sourceRef:
         kind: HelmRepository
         name: longhorn-charts
@@ -20,7 +20,7 @@ spec:
       defaultClassReplicaCount: 3
     defaultSettings:
       defaultReplicaCount: 3
-      backupTarget: s3://longhorn@minio/backups
+      backupTarget: s3://longhorn@longhorn-minio/backups
       backupTargetCredentialSecret: longhorn-backup-secret
       defaultDataPath: /var/lib/longhorn
       createDefaultDiskLabeledNodes: true
