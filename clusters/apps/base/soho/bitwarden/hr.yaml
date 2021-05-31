@@ -59,4 +59,3 @@ spec:
       runAsNonRoot: true
       runAsUser: 1473
       runAsGroup: 1473
-      fsGroup: 1473
