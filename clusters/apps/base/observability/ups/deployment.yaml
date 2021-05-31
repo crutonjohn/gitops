@@ -51,7 +51,7 @@ spec:
                   operator: In
                   values:
                   - upsd-edison
-              topologyKey: feature.node.kubernetes.io/custom-cyberpower-ups
+              topologyKey: kubernetes.io/hostname
       volumes:
       - name: ups
         hostPath: 
@@ -109,7 +109,7 @@ spec:
                   operator: In
                   values:
                   - upsd-tesla
-              topologyKey: feature.node.kubernetes.io/custom-cyberpower-ups
+              topologyKey: kubernetes.io/hostname
       volumes:
       - name: ups
         hostPath: 
