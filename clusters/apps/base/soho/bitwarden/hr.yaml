@@ -49,7 +49,7 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /data
+        mountPath: /config
         storageClass: "longhorn"
         accessMode: ReadWriteOnce
         size: 10Gi
