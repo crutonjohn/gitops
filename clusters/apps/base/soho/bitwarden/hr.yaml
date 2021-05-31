@@ -55,8 +55,3 @@ spec:
         accessMode: ReadWriteOnce
         size: 10Gi
         skipuninstall: true
-    securityContext:
-      readOnlyRootFilesystem: false
-      runAsNonRoot: true
-      runAsUser: 1473
-      runAsGroup: 1473
