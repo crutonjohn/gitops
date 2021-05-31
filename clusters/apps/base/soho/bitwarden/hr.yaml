@@ -8,80 +8,52 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: bitwardenrs
-      version: 2.1.10
+      chart: vaultwarden
+      version: 1.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
   values:
     image:
-      repository: bitwardenrs/server
-      tag: ""
-    bitwardenrs:
-      domain: ""
-      signupsAllowed: false
-      admin:
-        enabled: true
-        disableAdminToken: false
-        existingSecret:
-          enabled: false
-          name: ""
-          tokenKey: ""
-      smtp:
-        enabled: false
-        # SMTP hostname, required if SMTP is enabled
-        host: ""
-        # SMTP sender e-mail address, required if SMTP is enabled
-        from: ""
-        # SMTP sender name, defaults to 'Bitwarden_RS'
-        fromName: ""
-        # Enable SSL connection
-        ssl: true
-        # SMTP port
-        port: 587
-        # SMTP username
-        user: ""
-        # SMTP password. Required is user is specified, ignored if no user provided
-        password: ""
-        # Use existing secret for SMTP authentication
-        existingSecret:
-          enabled: false
-          name: ""
-          userKey: ""
-          passwordKey: ""
-      # Enable Yubikey 2FA: https://github.com/dani-garcia/bitwarden_rs/wiki/Enabling-Yubikey-OTP-authentication
-      yubico:
-        enabled: false
-        # OTP verification server. Will use the default YubiCloud servers if not specified
-        server: ""
-        # API Client ID for OTP server. Ignored if existingSecret is provided.
-        clientId: ""
-        # API Secret Key for OTP server. Required if clientId is specified, ignored when using existingSecret.
-        secretKey: ""
-        # Use existing secret for API keys
-        existingSecret:
-          enabled: false
-          name: ""
-          clientIdKey: ""
-          secretKeyKey: ""
-
+      repository: vaultwarden/server
+      pullPolicy: IfNotPresent
+      tag: 1.21.0
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "external"
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}  
+      hosts:
+        - host: bitwarden.${SECRET_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
+            - path: /notifications/hub/negotiate
+              pathType: Prefix
+            - path: /notifications/hub
+              pathType: Prefix
+              servicePort: 3012
     env:
       INVITATIONS_ALLOWED: "true"
-    # If you plan to run the WebUI on a port other than port 80, specify that here:
-    # For example, if running the container as a non-root user.
-    #  ROCKET_PORT: "80"
-
+      DOMAIN: "${BITWARDEN_DOMAIN}"
+      SMTP_HOST: "${SMTP_HOST}"
+      SMTP_FROM: "${SMTP_FROM}"
+      SMTP_FROM_NAME: crutonjohn_Vaultwarden
+      SMTP_PORT: 587
+      SMTP_SSL: true
+      SMTP_EXPLICIT_TLS: true
+      SMTP_USERNAME: "${SMTP_USERNAME}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      SMTP_TIMEOUT: 15
     persistence:
-      type: statefulset
-      enabled: false
-      size: 10Gi
-      accessMode: ReadWriteOnce
-      ## Persistent Volume storage class
-      # storageClass: "-"
-      ## Use existing Persistent Volume Claim
-      # existingClaim:
-
+      config:
+        enabled: true
+        mountPath: /data
+        storageClass: "longhorn"
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        skipuninstall: true
     securityContext:
       capabilities:
         drop:
