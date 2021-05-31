@@ -39,7 +39,18 @@ spec:
               name: metrics
       restartPolicy: Always
       nodeSelector: 
-        ups: tesla
+        feature.node.kubernetes.io/custom-cyberpower-ups: "true"
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                  - upsd-edison
       volumes:
       - name: ups
         hostPath: 
@@ -85,7 +96,18 @@ spec:
               name: metrics
       restartPolicy: Always
       nodeSelector: 
-        ups: edison
+        feature.node.kubernetes.io/custom-cyberpower-ups: "true"
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                  - upsd-tesla
       volumes:
       - name: ups
         hostPath: 
