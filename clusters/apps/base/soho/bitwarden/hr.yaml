@@ -46,6 +46,7 @@ spec:
       SMTP_USERNAME: "${SMTP_USERNAME}"
       SMTP_PASSWORD: "${SMTP_PASSWORD}"
       SMTP_TIMEOUT: 15
+      DATA_FOLDER: "/config"
     persistence:
       config:
         enabled: true
