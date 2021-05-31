@@ -55,9 +55,6 @@ spec:
         size: 10Gi
         skipuninstall: true
     securityContext:
-      capabilities:
-        drop:
-        - ALL
-      # readOnlyRootFilesystem: true
+      readOnlyRootFilesystem: true
       runAsNonRoot: true
       runAsUser: 1473
