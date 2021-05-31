@@ -51,4 +51,9 @@ spec:
       limits:
         memory: 750Mi
     ingress:
-      enabled: false
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "internal"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      hosts:
+        - unifi.crutonjohn.com
