@@ -54,7 +54,7 @@ spec:
       volumes:
       - name: ups
         hostPath: 
-          path: /dev/bus/usb/003/058
+          path: /dev/ups_0
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -111,4 +111,4 @@ spec:
       volumes:
       - name: ups
         hostPath: 
-          path: /dev/bus/usb/003/002
+          path: /dev/ups_0
