@@ -56,8 +56,7 @@ spec:
         size: 10Gi
         skipuninstall: true
     securityContext:
-      readOnlyRootFilesystem: true
+      readOnlyRootFilesystem: false
       runAsNonRoot: true
       runAsUser: 1473
       runAsGroup: 1473
-      fsGroupChangePolicy: "OnRootMismatch"
