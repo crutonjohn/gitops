@@ -8,3 +8,4 @@ resources:
   - nextcloud
   - zigbee2mqtt
   - hassio
+  - vernemq
