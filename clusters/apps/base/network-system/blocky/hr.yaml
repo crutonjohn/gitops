@@ -125,7 +125,7 @@ spec:
         port: 4000
       additionalServices:
       - enabled: true
-        nameSuffix: dns
+        nameSuffix: tcp-dns
         type: LoadBalancer
         externalIPs:
         - "${CLUSTER_LB_BLOCKY}"
@@ -134,8 +134,16 @@ spec:
           name: dns-tcp
           protocol: TCP
           targetPort: 53
-        additionalPorts:
-        - port: 53
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
+      - enabled: true
+        nameSuffix: udp-dns
+        type: LoadBalancer
+        externalIPs:
+        - "${CLUSTER_LB_BLOCKY}"
+        port:
+          port: 53
           name: dns-udp
           protocol: UDP
           targetPort: 53
