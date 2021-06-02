@@ -10,3 +10,4 @@ resources:
   - unifi-poller
   - librespeed
   - nginx-ingress
+  - blocky
