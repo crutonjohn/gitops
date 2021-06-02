@@ -34,7 +34,7 @@ spec:
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
       serial:
-        port: 'tcp://192.168.130.120:6638'
+        port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
       advanced:
         log_output:
         - console
@@ -71,8 +71,27 @@ spec:
       tls:
       - hosts:
         - "zigbee2mqtt.${SECRET_DOMAIN}"
+    securityContext:
+      privileged: true
     persistence:
       config:
         enabled: true
         existingClaim: zigbee2mqtt-config-v1
         mountPath: "/data"
+    additionalVolumeMounts:
+    - name: usb
+      mountPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+    additionalVolumes:
+    - name: usb
+      hostPath:
+        path: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+        type: CharDevice
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: feature.node.kubernetes.io/custom-zzh
+              operator: In
+              values:
+              - "true"

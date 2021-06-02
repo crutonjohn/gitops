@@ -6,5 +6,5 @@ resources:
   - baremetalblog
   - bitwarden
   - nextcloud
-  # - zigbee2mqtt
+  - zigbee2mqtt
   - hassio
