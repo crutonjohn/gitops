@@ -1,2 +1,0 @@
-setup/.env filter=git-crypt diff=git-crypt
-.secrets/git-crypt/** filter=git-crypt diff=git-crypt

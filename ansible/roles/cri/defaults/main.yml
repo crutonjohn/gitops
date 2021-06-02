@@ -1,3 +1,0 @@
----
-cri_plugin: docker
-docker_cache_enable: false

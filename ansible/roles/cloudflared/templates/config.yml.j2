@@ -1,6 +1,0 @@
-hostname: '{{ cloudflared_kube_api_server_dns }}'
-url: 'tcp://{{ keepalived_vip }}:8443'
-lb-pool: api-pool
-logfile: /var/log/cloudflared.log
-loglevel: info
-socks5: true
