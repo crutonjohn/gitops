@@ -51,3 +51,8 @@ spec:
                 - usbId:
                     vendor: ['0764']
                     device: ['0601']
+            - name: 'zzh'
+              matchOn:
+                - usbId:
+                    vendor: ['1a86']
+                    device: ['7523']
