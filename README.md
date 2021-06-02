@@ -13,10 +13,6 @@
 
 ---
 
-# :anchor:&nbsp; k8s Distro
-
-Currently using [k0s](https://k0sproject.io/) by way of a customized [k0s-ansible](https://github.com/movd/k0s-ansible).
-
 # :book:&nbsp; Overview
 
 Welcome to my home Kubernetes cluster. This repo _is_ my Kubernetes cluster in a declarative state. [Flux](https://github.com/fluxcd/flux2) and [Helm Operator](https://github.com/fluxcd/helm-operator) watch my [clusters](./clusters/) folder and makes the changes to my cluster based on the yaml manifests.
@@ -25,6 +21,26 @@ Feel free to join our [Discord](https://discord.gg/DNCynrJ) if you have any ques
 
 ---
 
+# :anchor:&nbsp; k8s Distro
+
+Currently using [k0s](https://k0sproject.io/) by way of a customized [k0s-ansible](https://github.com/movd/k0s-ansible).
+
+---
+# :speedboat:&nbsp; Deploying
+
+1. Have a working `kubeconfig`
+2. Have `flux` installed
+
+To boostrap the cluster:
+
+        flux bootstrap github \
+        --components=source-controller,kustomize-controller,helm-controller,notification-controller \
+        --path=clusters/env/production \
+        --version=latest \
+        --owner=crutonjohn \
+        --repository=gitops
+
+---
 ## :computer:&nbsp; Hardware Configuration
 
 _All my nodes below are running bare metal Ubuntu 20.04.x_
