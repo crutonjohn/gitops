@@ -15,7 +15,9 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    replicas: 2
+    image: ghcr.io/0xerr0r/blocky
+    tag: v0.14
+    replicas: 3
     env: 
       TZ: "America/New_York"
     config: |
@@ -138,6 +140,8 @@ spec:
           protocol: UDP
           targetPort: 53
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
     serviceMonitor:
       enabled: true
     affinity:
