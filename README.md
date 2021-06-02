@@ -13,9 +13,13 @@
 
 ---
 
+# :anchor:&nbsp; k8s Distro
+
+Currently using [k0s](https://k0sproject.io/) by way of a customized [k0s-ansible](https://github.com/movd/k0s-ansible).
+
 # :book:&nbsp; Overview
 
-Welcome to my home Kubernetes cluster. This repo _is_ my Kubernetes cluster in a declarative state. [Flux](https://github.com/fluxcd/flux) and [Helm Operator](https://github.com/fluxcd/helm-operator) watch my [cluster](./cluster/) folder and makes the changes to my cluster based on the yaml manifests.
+Welcome to my home Kubernetes cluster. This repo _is_ my Kubernetes cluster in a declarative state. [Flux](https://github.com/fluxcd/flux2) and [Helm Operator](https://github.com/fluxcd/helm-operator) watch my [clusters](./clusters/) folder and makes the changes to my cluster based on the yaml manifests.
 
 Feel free to join our [Discord](https://discord.gg/DNCynrJ) if you have any questions.
 
@@ -56,11 +60,13 @@ _This table is a reference to IP addresses in my deployments and may not be full
 | nginx-ingress (internal) | 192.168.130.101 |
 | blocky                   | 192.168.130.102 |
 | unifi                    | 192.168.130.103 |
-| longhorn                 | 192.168.130.104 |
+| nothing                  | 192.168.130.104 |
 | sshfs-media              | 192.168.130.105 |
 | loki-promtail-syslog     | 192.168.130.106 |
 | syslog-ng                | 192.168.130.107 |
 | minecraft                | 192.168.130.110 |
+| home-assistant           | 192.168.130.115 |
+| vernemq                  | 192.168.130.116 |
 
 ---
 
@@ -75,4 +81,4 @@ A lot of inspiration for this repo came from the following people:
 - [blackjid/homelab-gitops](https://github.com/blackjid/homelab-gitops)
 - [bjw-s/k8s-gitops](https://github.com/bjw-s/k8s-gitops)
 - [nlopez/k8s_home](https://github.com/nlopez/k8s_home)
-- [onedr0p/k3s-gitops](https://github.com/onedr0p/k3s-gitops)
+- [onedr0p/home-cluster](https://github.com/onedr0p/home-cluster)
