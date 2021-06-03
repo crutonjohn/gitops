@@ -5,15 +5,16 @@ metadata:
     name: home-assistant
     namespace: soho
 stringData:
-    FAKE: ENC[AES256_GCM,data:W08KHsFICu8=,iv:vUwlkbu2xjsAFXMR7ohoFYLQq3C25dupbNFZusEl/YA=,tag:4FtEIUnPRI7Fg0d2TSdoug==,type:str]
+    HASS_LATITUDE: ENC[AES256_GCM,data:Tqc6pJB5K6o=,iv:9wOfvIWhYAOtC5phs2Z5/XckIgaI3Tbk/RaECaCo9GY=,tag:f1GjTYADdDGOZV8GCfmNMA==,type:float]
+    HASS_LONGITUDE: ENC[AES256_GCM,data:g/GV38sPZx64,iv:DRBhwt3POMHu1p0ORz+nVtFconhkg7+3smwxuejaiS8=,tag:/eEY37xRMZE0fZSFIOSfPw==,type:float]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-06-02T01:38:47Z"
-    mac: ENC[AES256_GCM,data:a4kQpAOkVTxgn3h2t7e3/IfKqBM2jZFpdtfResE08ti6Oc/vqh7ApXDJ780/Hwvez2/aAFVnLmgp6zv1cUIe64lgbo41+Ki9nA7waM+r+l2QkIGe0mW0J6F2lmRTnjO5YLSDs6kbMnjJaltPEj97zft+wm8IS8bqhEVDKpjQAMw=,iv:8P795kvoFXd9rrZyt/RVv1MH9X3WqAHOlUpWMAMxTKQ=,tag:nYrnCwhMg2JAm96vFWWBFg==,type:str]
+    lastmodified: "2021-06-03T00:06:39Z"
+    mac: ENC[AES256_GCM,data:hfZi5ccS8Ycu/XOgpmbBmMtkcBRrts/nowKSlMuK05sV8dfQuPvGZR1R24xwLlzAAawCFDmspk65hBALxcTRcSoLNs61v47BwuRH3ypY+WhsC0x1BU7BGpMK0yiHop3XPwx9x77u9WXg83x+DSEFD1vVLKqoBSs9gkICvAMZ5oU=,iv:0RjKEa2hAtn5aPxNFVQ1JL4+sW+8rteoNL/FWMC8xNo=,tag:ZJ5vsDNVD652HgPJ47TsWw==,type:str]
     pgp:
         - created_at: "2021-06-02T01:38:46Z"
           enc: |
