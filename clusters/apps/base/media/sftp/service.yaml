@@ -8,7 +8,7 @@ metadata:
     component: music-sshfs
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.130.105
+  loadBalancerIP: ${CLUSTER_LB_SSHFS}
   ports:
     - port: 22
   selector:

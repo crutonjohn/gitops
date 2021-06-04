@@ -129,7 +129,7 @@ spec:
         nameSuffix: tcp-dns
         type: LoadBalancer
         externalIPs:
-        - "${CLUSTER_LB_BLOCKY}"
+          - "${CLUSTER_LB_BLOCKY}"
         port:
           port: 53
           name: dns-tcp
@@ -142,7 +142,7 @@ spec:
         nameSuffix: udp-dns
         type: LoadBalancer
         externalIPs:
-        - "${CLUSTER_LB_BLOCKY}"
+          - "${CLUSTER_LB_BLOCKY}"
         port:
           port: 53
           name: dns-udp
