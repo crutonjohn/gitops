@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: 3.24.0
+      version: 3.32.0
       sourceRef:
         kind: HelmRepository
         name: kubernetes-ingress-charts
