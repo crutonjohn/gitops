@@ -9,3 +9,4 @@ resources:
   - zigbee2mqtt
   - hassio
   - vernemq
+  - frigate
