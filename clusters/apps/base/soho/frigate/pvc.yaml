@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: frigate-data
+spec:
+  capacity:
+    storage: 8192Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: soho
+    name: frigate-data
+  storageClassName: pandora
+  nfs:
+    server: 192.168.130.50
+    path: "/pandora/k8/frigate-data/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: frigate-data
+  namespace: soho
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: pandora
+  resources:
+    requests:
+      storage: 8192Gi
