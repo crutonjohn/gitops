@@ -49,7 +49,7 @@ spec:
             min_area: 1000
             max_area: 10000
             threshold: 0.7
-      ffmpeg:
+      # ffmpeg:
         # hwaccel_args:
         # - -hwaccel
         # - vaapi
@@ -126,7 +126,7 @@ spec:
       configmap.reloader.stakater.com/reload: "frigate"
     ingress:
       enabled: true
-      ingressClassName: "internal"
+      # ingressClassName: "internal"
       annotations:
         kubernetes.io/ingress.class: internal
       hosts:
