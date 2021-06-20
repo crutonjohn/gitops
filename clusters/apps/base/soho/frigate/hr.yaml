@@ -84,8 +84,8 @@ spec:
               - clips
               - record
               - rtmp
-          height: 1440
-          width: 2560
+          height: 360
+          width: 640
           fps: 25
           objects:
             filters:
@@ -116,8 +116,8 @@ spec:
               - clips
               - record
               - rtmp
-          height: 1440
-          width: 2560
+          height: 360
+          width: 640
           fps: 25
           objects:
             filters:
