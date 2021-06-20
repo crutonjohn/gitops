@@ -86,7 +86,7 @@ spec:
               - rtmp
           height: 360
           width: 640
-          fps: 25
+          fps: 7
           objects:
             filters:
               person:
@@ -118,7 +118,7 @@ spec:
               - rtmp
           height: 360
           width: 640
-          fps: 25
+          fps: 7
           objects:
             filters:
               person:
