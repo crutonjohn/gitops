@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://github.com/crutonjohn/helm-charts
+  url: https://crutonjohn.github.io/helm-charts
   timeout: 3m
