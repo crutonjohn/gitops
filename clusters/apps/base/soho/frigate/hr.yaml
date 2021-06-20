@@ -127,7 +127,8 @@ spec:
     ingress:
       enabled: true
       ingressClassName: "internal"
-      annotations: {}
+      annotations:
+        kubernetes.io/ingress.class: internal
       hosts:
       - "frigate.${SECRET_DOMAIN}"
       tls:
