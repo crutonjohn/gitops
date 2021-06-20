@@ -61,6 +61,8 @@ spec:
           - experimental
           - -fflags
           - +genpts+discardcorrupt
+          - -rw_timeout
+          - "5000000"
           - -use_wallclock_as_timestamps
           - "1"
       # ffmpeg:
@@ -84,9 +86,8 @@ spec:
               - clips
               - record
               - rtmp
-          height: 360
+          height: 352
           width: 640
-          fps: 7
           objects:
             filters:
               person:
@@ -116,9 +117,8 @@ spec:
               - clips
               - record
               - rtmp
-          height: 360
+          height: 352
           width: 640
-          fps: 7
           objects:
             filters:
               person:
