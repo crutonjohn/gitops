@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   claimRef:
     namespace: soho
-    name: frigate-data
+    name: frigate-data-pandora
   storageClassName: pandora
   nfs:
     server: 192.168.130.50
@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: frigate-data
+  name: frigate-data-pandora
   namespace: soho
 spec:
   accessModes:

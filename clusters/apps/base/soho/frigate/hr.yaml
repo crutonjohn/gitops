@@ -142,7 +142,7 @@ spec:
     extraVolumes:
     - name: frigate-pandora
       persistentVolumeClaim:
-        claimName: frigate-data
+        claimName: frigate-data-pandora
     - name: cache
       emptyDir:
         medium: Memory
