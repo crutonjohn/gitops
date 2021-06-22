@@ -56,3 +56,8 @@ spec:
                 - usbId:
                     vendor: ['1a86']
                     device: ['7523']
+            - name: 'coral-tpu'
+              matchOn:
+                - pciID:
+                    vendor: ['0300']
+                    device: ['102b']
