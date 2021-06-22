@@ -21,8 +21,7 @@ spec:
       repository: blakeblackshear/frigate
       tag: 0.8.4-amd64
     coral:
-      enabled: true
-
+      enabled: false
     shmSize: 2Gi
     timezone: "America/New_York"
     config: |
@@ -137,7 +136,6 @@ spec:
       configmap.reloader.stakater.com/reload: "frigate"
     ingress:
       enabled: true
-      # ingressClassName: "internal"
       annotations:
         kubernetes.io/ingress.class: internal
       hosts:
@@ -152,9 +150,6 @@ spec:
         size: 20Gi
         mountPath: /data
     extraVolumes:
-    # - name: coral
-    #   hostPath:
-    #     path: /proc/bus/pci/04/00.0
     - name: frigate-pandora
       persistentVolumeClaim:
         claimName: frigate-data-pandora
@@ -162,8 +157,6 @@ spec:
       emptyDir:
         medium: Memory
     extraVolumeMounts:
-    # - mountPath: /proc/bus/pci/04/00.0
-    #   name: coral
     - mountPath: /media
       name: frigate-pandora
     - mountPath: /tmp/cache
