@@ -132,6 +132,37 @@ spec:
             timestamp: False
             retain:
               default: 14
+        # --
+        living-room-e1-pro:
+          ffmpeg:
+            inputs:
+            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_sub
+              roles:
+              - detect
+            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_main
+              roles:
+              - clips
+              - record
+              - rtmp
+          height: 352
+          width: 640
+          objects:
+            filters:
+              person:
+                min_area: 1500
+                max_area: 100000
+                threshold: 0.75
+                min_score: 0.60
+          clips:
+            enabled: True
+            objects:
+            - person
+            - dog
+          snapshots:
+            enabled: True
+            timestamp: False
+            retain:
+              default: 14
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate"
     ingress:
