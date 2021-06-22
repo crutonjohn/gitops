@@ -152,9 +152,9 @@ spec:
         size: 20Gi
         mountPath: /data
     extraVolumes:
-    - name: coral
-      hostPath:
-        path: /proc/bus/pci/04/00.0
+    # - name: coral
+    #   hostPath:
+    #     path: /proc/bus/pci/04/00.0
     - name: frigate-pandora
       persistentVolumeClaim:
         claimName: frigate-data-pandora
@@ -162,8 +162,8 @@ spec:
       emptyDir:
         medium: Memory
     extraVolumeMounts:
-    - mountPath: /proc/bus/pci/04/00.0
-      name: coral
+    # - mountPath: /proc/bus/pci/04/00.0
+    #   name: coral
     - mountPath: /media
       name: frigate-pandora
     - mountPath: /tmp/cache
