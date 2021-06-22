@@ -94,8 +94,8 @@ spec:
           clips:
             enabled: True
             objects:
-              - person
-              - dog
+            - person
+            - dog
           snapshots:
             enabled: True
             timestamp: False
@@ -125,8 +125,8 @@ spec:
           clips:
             enabled: True
             objects:
-              - person
-              - dog
+            - person
+            - dog
           snapshots:
             enabled: True
             timestamp: False
