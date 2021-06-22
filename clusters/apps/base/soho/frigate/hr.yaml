@@ -76,12 +76,12 @@ spec:
             inputs:
             - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_sub
               roles:
-                - detect
+              - detect
             - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_main
               roles:
-                - clips
-                - record
-                - rtmp
+              - clips
+              - record
+              - rtmp
           height: 352
           width: 640
           objects:
@@ -107,12 +107,12 @@ spec:
             inputs:
             - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_sub
               roles:
-                - detect
+              - detect
             - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_main
               roles:
-                - clips
-                - record
-                - rtmp
+              - clips
+              - record
+              - rtmp
           height: 352
           width: 640
           objects:
