@@ -21,7 +21,8 @@ spec:
       repository: blakeblackshear/frigate
       tag: 0.8.4-amd64
     coral:
-      enabled: false
+      enabled: true
+
     shmSize: 2Gi
     timezone: "America/New_York"
     config: |
@@ -31,11 +32,9 @@ spec:
       database:
         path: /data/frigate.db
       detectors:
-        # coral:
-        #  type: edgetpu
-        #  device: usb
-        cpu1:
-          type: cpu
+        coral:
+         type: edgetpu
+         device: pci
       objects:
         track:
         - person
@@ -153,6 +152,9 @@ spec:
         size: 20Gi
         mountPath: /data
     extraVolumes:
+    - name: coral
+      hostPath:
+        path: /proc/bus/pci/04/00.0
     - name: frigate-pandora
       persistentVolumeClaim:
         claimName: frigate-data-pandora
@@ -160,19 +162,21 @@ spec:
       emptyDir:
         medium: Memory
     extraVolumeMounts:
+    - mountPath: /proc/bus/pci/04/00.0
+      name: coral
     - mountPath: /media
       name: frigate-pandora
     - mountPath: /tmp/cache
       name: cache
-    # affinity:
-    #   nodeAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       nodeSelectorTerms:
-    #       - matchExpressions:
-    #         - key: feature.node.kubernetes.io/custom-coral-tpu
-    #           operator: In
-    #           values:
-    #           - "true"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: feature.node.kubernetes.io/custom-coral-tpu
+              operator: In
+              values:
+              - "true"
     #         - key: feature.node.kubernetes.io/custom-nvidia-gpu
     #           operator: In
     #           values:
