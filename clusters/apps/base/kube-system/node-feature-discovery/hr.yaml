@@ -58,6 +58,6 @@ spec:
                     device: ['7523']
             - name: 'coral-tpu'
               matchOn:
-                - pciID:
+                - pciId:
                     vendor: ['0300']
                     device: ['102b']
