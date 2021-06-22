@@ -36,8 +36,8 @@ spec:
          device: pci
       objects:
         track:
-        - person
-        - dog
+          - person
+          - dog
         filters:
           person:
             min_area: 2500
@@ -74,14 +74,14 @@ spec:
         kitchen-e1-pro:
           ffmpeg:
             inputs:
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_sub
-              roles:
-              - detect
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_main
-              roles:
-              - clips
-              - record
-              - rtmp
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_sub
+                roles:
+                  - detect
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_main
+                roles:
+                  - clips
+                  - record
+                  - rtmp
           height: 352
           width: 640
           objects:
@@ -94,8 +94,8 @@ spec:
           clips:
             enabled: True
             objects:
-            - person
-            - dog
+              - person
+              - dog
           snapshots:
             enabled: True
             timestamp: False
@@ -105,14 +105,14 @@ spec:
         sitting-room-e1-pro:
           ffmpeg:
             inputs:
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_sub
-              roles:
-              - detect
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_main
-              roles:
-              - clips
-              - record
-              - rtmp
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_sub
+                roles:
+                  - detect
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_main
+                roles:
+                  - clips
+                  - record
+                  - rtmp
           height: 352
           width: 640
           objects:
@@ -125,8 +125,8 @@ spec:
           clips:
             enabled: True
             objects:
-            - person
-            - dog
+              - person
+              - dog
           snapshots:
             enabled: True
             timestamp: False
