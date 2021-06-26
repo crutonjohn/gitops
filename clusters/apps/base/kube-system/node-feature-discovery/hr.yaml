@@ -45,6 +45,11 @@ spec:
             deviceLabelFields:
               - 'vendor'
               - 'device'
+          pci:
+            deviceClassWhitelist: ["0300"]
+            deviceLabelFields:
+              - 'vendor'
+              - 'device'
           custom:
             - name: 'cyberpower-ups'
               matchOn:
@@ -61,3 +66,8 @@ spec:
                 - pciId:
                     vendor: ['0300']
                     device: ['102b']
+            - name: 'nvidia-gpu'
+              matchOn:
+                - pciId:
+                    vendor: ['0300']
+                    device: ['10de']
