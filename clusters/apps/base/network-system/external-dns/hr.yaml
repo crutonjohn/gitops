@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: external-dns
-      version: 4.12.3
+      version: 5.1.3
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -31,6 +31,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
+    annotationFilter: "external-dns/public in (true)"
     provider: aws
     aws:
       credentials:
@@ -38,15 +39,15 @@ spec:
         secretName: aws-external-dns
       evaluateTargetHealth: false
     domainFilters:
-    - os.crutonjohn.com
-    - crutonjohn.com
+    - os.${SECRET_DOMAIN}
+    - ${SECRET_DOMAIN}
     - baremetalblog.com
     interval: "1m"
     logFormat: json
     logLevel: debug
     txtPrefix: "_."
     replicas: 1
-    txtOwnerId: "k8s"
+    txtOwnerId: "k8s."
     crd:
       create: false
     metrics:
