@@ -43,11 +43,13 @@ spec:
               - 'fe'
               - 'ff'
             deviceLabelFields:
+              - 'class'
               - 'vendor'
               - 'device'
           pci:
             deviceClassWhitelist: ["0300"]
             deviceLabelFields:
+              - 'class'
               - 'vendor'
               - 'device'
           custom:
@@ -59,6 +61,7 @@ spec:
             - name: 'zzh'
               matchOn:
                 - usbId:
+                    class: ["ff"]
                     vendor: ['1a86']
                     device: ['7523']
             - name: 'coral-tpu'
