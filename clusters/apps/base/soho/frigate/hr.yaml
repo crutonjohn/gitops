@@ -62,13 +62,13 @@ spec:
           - -use_wallclock_as_timestamps
           - "1"
       # ffmpeg:
-        # hwaccel_args:
-        # - -hwaccel
-        # - vaapi
-        # - -hwaccel_device
-        # - /dev/dri/renderD128
-        # - -hwaccel_output_format
-        # - yuv420p
+        hwaccel_args:
+          - -hwaccel
+          - vaapi
+          - -hwaccel_device
+          - /dev/dri/renderD128
+          - -hwaccel_output_format
+          - yuv420p
       cameras:
         # --
         kitchen-e1-pro:
@@ -197,14 +197,14 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: feature.node.kubernetes.io/pci-0300_102b.present
+            - key: feature.node.kubernetes.io/pci-0300_10de_128b.present
               operator: In
               values:
               - "true"
-    #         - key: feature.node.kubernetes.io/custom-nvidia-gpu
-    #           operator: In
-    #           values:
-    #           - "true"
+            - key: feature.node.kubernetes.io/pci-0300_102b_0532.present
+              operator: In
+              values:
+              - "true"
     resources:
       requests:
         memory: 100Mi
