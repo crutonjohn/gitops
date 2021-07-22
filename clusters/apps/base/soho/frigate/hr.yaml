@@ -227,10 +227,6 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: feature.node.kubernetes.io/pci-0300_10de_128b.present
-                  operator: In
-                  values:
-                    - "true"
                 - key: feature.node.kubernetes.io/pci-0300_102b_0532.present
                   operator: In
                   values:
