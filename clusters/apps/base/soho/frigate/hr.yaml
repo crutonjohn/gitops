@@ -78,8 +78,6 @@ spec:
               - experimental
               - -fflags
               - +genpts+discardcorrupt
-              - -rw_timeout
-              - "5000000"
               - -use_wallclock_as_timestamps
               - "1"
           height: 352
@@ -124,8 +122,6 @@ spec:
               - experimental
               - -fflags
               - +genpts+discardcorrupt
-              - -rw_timeout
-              - "5000000"
               - -use_wallclock_as_timestamps
               - "1"
           height: 352
@@ -170,8 +166,6 @@ spec:
               - experimental
               - -fflags
               - +genpts+discardcorrupt
-              - -rw_timeout
-              - "5000000"
               - -use_wallclock_as_timestamps
               - "1"
           height: 352
