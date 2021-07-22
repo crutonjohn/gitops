@@ -24,6 +24,9 @@ spec:
       enabled: false
     shmSize: 2Gi
     timezone: "America/New_York"
+    env:
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
     config: |
       mqtt:
         host: vernemq
@@ -49,18 +52,8 @@ spec:
             threshold: 0.7
       ffmpeg:
         input_args:
-          - -avoid_negative_ts
-          - make_zero
-          - -fflags
-          - nobuffer
-          - -flags
-          - low_delay
-          - -strict
-          - experimental
-          - -fflags
-          - +genpts+discardcorrupt
-          - -use_wallclock_as_timestamps
-          - "1"
+          - -c:v
+          - h264_cuvid
       cameras:
         # --
         kitchen-e1-pro:
@@ -74,6 +67,21 @@ spec:
               - clips
               - record
               - rtmp
+            input_args:
+              - -avoid_negative_ts
+              - make_zero
+              - -fflags
+              - nobuffer
+              - -flags
+              - low_delay
+              - -strict
+              - experimental
+              - -fflags
+              - +genpts+discardcorrupt
+              - -rw_timeout
+              - "5000000"
+              - -use_wallclock_as_timestamps
+              - "1"
           height: 352
           width: 640
           objects:
@@ -105,6 +113,21 @@ spec:
               - clips
               - record
               - rtmp
+            input_args:
+              - -avoid_negative_ts
+              - make_zero
+              - -fflags
+              - nobuffer
+              - -flags
+              - low_delay
+              - -strict
+              - experimental
+              - -fflags
+              - +genpts+discardcorrupt
+              - -rw_timeout
+              - "5000000"
+              - -use_wallclock_as_timestamps
+              - "1"
           height: 352
           width: 640
           objects:
@@ -136,6 +159,21 @@ spec:
               - clips
               - record
               - rtmp
+            input_args:
+              - -avoid_negative_ts
+              - make_zero
+              - -fflags
+              - nobuffer
+              - -flags
+              - low_delay
+              - -strict
+              - experimental
+              - -fflags
+              - +genpts+discardcorrupt
+              - -rw_timeout
+              - "5000000"
+              - -use_wallclock_as_timestamps
+              - "1"
           height: 352
           width: 640
           objects:
@@ -162,10 +200,10 @@ spec:
       annotations:
         kubernetes.io/ingress.class: internal
       hosts:
-      - "frigate.${SECRET_DOMAIN}"
-      tls:
-      - hosts:
         - "frigate.${SECRET_DOMAIN}"
+      tls:
+        - hosts:
+            - "frigate.${SECRET_DOMAIN}"
     persistence:
       data:
         enabled: true
@@ -173,30 +211,30 @@ spec:
         size: 20Gi
         mountPath: /data
     extraVolumes:
-    - name: frigate-pandora
-      persistentVolumeClaim:
-        claimName: frigate-data-pandora
-    - name: cache
-      emptyDir:
-        medium: Memory
+      - name: frigate-pandora
+        persistentVolumeClaim:
+          claimName: frigate-data-pandora
+      - name: cache
+        emptyDir:
+          medium: Memory
     extraVolumeMounts:
-    - mountPath: /media
-      name: frigate-pandora
-    - mountPath: /tmp/cache
-      name: cache
+      - mountPath: /media
+        name: frigate-pandora
+      - mountPath: /tmp/cache
+        name: cache
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
-          - matchExpressions:
-            - key: feature.node.kubernetes.io/pci-0300_10de_128b.present
-              operator: In
-              values:
-              - "true"
-            - key: feature.node.kubernetes.io/pci-0300_102b_0532.present
-              operator: In
-              values:
-              - "true"
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/pci-0300_10de_128b.present
+                  operator: In
+                  values:
+                    - "true"
+                - key: feature.node.kubernetes.io/pci-0300_102b_0532.present
+                  operator: In
+                  values:
+                    - "true"
     resources:
       requests:
         memory: 100Mi
