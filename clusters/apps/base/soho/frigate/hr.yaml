@@ -24,9 +24,9 @@ spec:
       enabled: false
     shmSize: 2Gi
     timezone: "America/New_York"
-    env:
-      NVIDIA_VISIBLE_DEVICES: all
-      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+    # env:
+      # NVIDIA_VISIBLE_DEVICES: all
+      # NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
     config: |
       mqtt:
         host: vernemq
@@ -68,8 +68,6 @@ spec:
               - record
               - rtmp
             input_args:
-              - -c:v
-              - h264_cuvid
               - -avoid_negative_ts
               - make_zero
               - -fflags
@@ -116,8 +114,6 @@ spec:
               - record
               - rtmp
             input_args:
-              - -c:v
-              - h264_cuvid
               - -avoid_negative_ts
               - make_zero
               - -fflags
@@ -164,8 +160,6 @@ spec:
               - record
               - rtmp
             input_args:
-              - -c:v
-              - h264_cuvid
               - -avoid_negative_ts
               - make_zero
               - -fflags
