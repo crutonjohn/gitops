@@ -51,9 +51,9 @@ spec:
             max_area: 10000
             threshold: 0.7
       ffmpeg:
-        input_args:
-          - -c:v
-          - h264_cuvid
+        # input_args:
+          # - -c:v
+          # - h264_cuvid
       cameras:
         # --
         kitchen-e1-pro:
@@ -68,6 +68,8 @@ spec:
               - record
               - rtmp
             input_args:
+              - -c:v
+              - h264_cuvid
               - -avoid_negative_ts
               - make_zero
               - -fflags
@@ -114,6 +116,8 @@ spec:
               - record
               - rtmp
             input_args:
+              - -c:v
+              - h264_cuvid
               - -avoid_negative_ts
               - make_zero
               - -fflags
@@ -160,6 +164,8 @@ spec:
               - record
               - rtmp
             input_args:
+              - -c:v
+              - h264_cuvid
               - -avoid_negative_ts
               - make_zero
               - -fflags
