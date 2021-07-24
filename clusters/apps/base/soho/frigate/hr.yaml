@@ -24,9 +24,8 @@ spec:
       enabled: false
     shmSize: 2Gi
     timezone: "America/New_York"
-    # env:
-      # NVIDIA_VISIBLE_DEVICES: all
-      # NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+    env:
+      - LIBVA_DRIVER_NAME: radeonsi
     config: |
       mqtt:
         host: vernemq
@@ -67,6 +66,11 @@ spec:
               - clips
               - record
               - rtmp
+            hwaccel_args:
+              - -hwaccel
+              - vaapi
+              - -hwaccel_device
+              - /dev/dri/renderD128
             input_args:
               - -avoid_negative_ts
               - make_zero
