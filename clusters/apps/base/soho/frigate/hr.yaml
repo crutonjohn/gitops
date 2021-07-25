@@ -25,7 +25,7 @@ spec:
     shmSize: 2Gi
     timezone: "America/New_York"
     env:
-      - LIBVA_DRIVER_NAME: radeonsi
+      LIBVA_DRIVER_NAME: radeonsi
     config: |
       mqtt:
         host: vernemq
