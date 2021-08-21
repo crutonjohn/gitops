@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 14.5.0
+      version: 18.0.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
@@ -20,14 +20,14 @@ spec:
       create: true
       rules:
         alertmanager: true
-        etcd: true
+        etcd: false
         general: true
         k8s: true
         kubeApiserver: true
         kubeApiserverAvailability: true
         kubeApiserverError: true
         kubeApiserverSlos: true
-        kubelet: true
+        kubelet: false
         kubePrometheusGeneral: true
         kubePrometheusNodeAlerting: true
         kubePrometheusNodeRecording: true
@@ -43,15 +43,20 @@ spec:
         prometheus: true
         prometheusOperator: true
         time: true
-      runbookUrl: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#
       appNamespacesTarget: ".*"
+      labels: {}
+      annotations: {}
+      additionalRuleLabels: {}
+    additionalPrometheusRulesMap: {}
     global:
       rbac:
         create: true
         pspEnabled: true
+        pspAnnotations: {}
     alertmanager:
       enabled: true
-      apiVersion: v2
+      annotations:
+        k8s-app: alertmanager
       config:
         global:
           resolve_timeout: 5m
@@ -59,6 +64,7 @@ spec:
           smtp_from: "${SMTP_FROM}"
           smtp_auth_username: "${SMTP_USERNAME}"
           smtp_auth_password: "${SMTP_PASSWORD}"
+          slack_api_url: "${ALERT_DISCORD_WEBHOOK_URL}/slack"
         route:
           group_by: ['job', 'alertname']
           group_wait: 30s
@@ -73,43 +79,84 @@ spec:
                 severity: critical|warning
               continue: true
               receiver: 'discord'
-        inhibit_rules:
-          - source_match:
-              severity: 'critical'
-            target_match:
-              severity: 'warning'
-            equal: ['alertname', 'namespace']
         receivers:
           - name: 'null'
           - name: 'discord'
             slack_configs:
-              - url: "${ALERT_DISCORD_WEBHOOK_URL}/slack"
+              - channel: "#monitoring_alerts"
+                icon_url: https://avatars3.githubusercontent.com/u/3380462
+                send_resolved: true
+                title: |-
+                  [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
+                text: >-
+                  {{ range .Alerts -}}
+                    **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                  **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
+                  **Details:**
+                    {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                    {{ end }}
+                  {{ end }}
+        templates:
+        - '/etc/alertmanager/config/*.tmpl'
+      tplConfig: false
+      templateFiles: {}
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        annotations: {}
+        labels: {}
+        hosts:
+          - "alerts.${INTERNAL_DOMAIN}"
+        paths:
+          - /
+        pathType: ImplementationSpecific
+        tls: []
+      secret:
+        annotations: {}
+      ingressPerReplica:
+        enabled: false
       service:
+        annotations: {}
+        labels: {}
         clusterIP: ""
         port: 9093
         targetPort: 9093
         nodePort: 30903
+        additionalPorts: []
+        externalIPs: []
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
         type: ClusterIP
+      servicePerReplica:
+        enabled: false
+      serviceMonitor:
+        selfMonitor: true
       alertmanagerSpec:
-        image:
-          repository: quay.io/prometheus/alertmanager
-          tag: v0.21.0
-          sha: ""
         logFormat: logfmt
         logLevel: info
         replicas: 1
         retention: 120h
-        securityContext:
-          runAsGroup: 2000
-          runAsNonRoot: true
-          runAsUser: 1000
-          fsGroup: 2000
-        listenLocal: false
-        portName: "web"
-        clusterAdvertiseAddress: false
+        storage: {}
+        externalUrl: "alerts.${INTERNAL_DOMAIN}"
+        routePrefix: /
+        paused: false
+        nodeSelector: {}
+        resources: {}
     grafana:
       enabled: true
+      defaultDashboardsEnabled: true
       adminPassword: "${GRAFANA_PASSWORD}"
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: external
+          external-dns.alpha.kubernetes.io/target: dyn4.crutonjohn.com
+          external-dns/public: true
+        labels: {}
+        hosts:
+          - "grafana.${INTERNAL_DOMAIN}"
+        path: /
+        tls: []
       grafana.ini:
         server:
           root_url: "https://grafana.${INTERNAL_DOMAIN}"
@@ -135,209 +182,103 @@ spec:
           password: "${SMTP_PASSWORD}"
           from_address: "${SMTP_FROM}"
           from_name: Grafana
-      namespaceOverride: ""
-      defaultDashboardsEnabled: true
-      dashboardProviders:
-        dashboardproviders.yaml:
-          apiVersion: 1
-          providers:
-            - name: 'default'
-              orgId: 1
-              folder: ''
-              type: file
-              disableDeletion: false
-              editable: true
-              options:
-                path: /var/lib/grafana/dashboards/default
-      dashboards:
-        default:
-          nginx-dashboard:
-            url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-            datasource: Prometheus
-          blocky:
-            url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
-            datasource: Prometheus
-          unifi-client-insights:
-            gnetId: 11315
-            revision: 8
-            datasource: Prometheus
-          unifi-network-sites:
-            gnetId: 11311
-            revision: 4
-            datasource: Prometheus
-          unifi-uap-insights:
-            gnetId: 11314
-            revision: 9
-            datasource: Prometheus
-          unifi-usw-insights:
-            gnetId: 11312
-            revision: 8
-            datasource: Prometheus
-          longhorn-storage:
-            gnetId: 13032
-            revision: 6
-            datasource: Prometheus
-          node-exporter-full:
-            gnetId: 1860
-            revision: 21
-            datasource: Prometheus
-          nextcloud:
-            gnetId: 9632
-            revision: 1
-            datasource: Prometheus
-          zfs-on-linux:
-            gnetId: 328
-            revision: 1
-            datasource: Prometheus
-          zfs-node-exporter:
-            gnetId: 7845
-            revision: 4
-            datasource: Prometheus
-          logging-dash-loki:
-            gnetId: 12611
-            revision: 1
-            datasource: Loki
-      plugins:
-        - natel-discrete-panel
-        - pr0ps-trackmap-panel
-        - grafana-piechart-panel
-        - vonage-status-panel
-        - grafana-worldmap-panel
-        - grafana-clock-panel
       sidecar:
         dashboards:
           enabled: true
           label: grafana_dashboard
-        datasources:
-          enabled: true
-          defaultDatasourceEnabled: true
-          createPrometheusReplicasDatasources: false
-          label: grafana_datasource
-      additionalDataSources:
-        - name: Loki
-          type: loki
-          access: proxy
-          url: http://loki.observability.svc.cluster.local:3100
-      service:
-        portName: service
       serviceMonitor:
+        interval: ""
         selfMonitor: true
+        path: "/metrics"
     kubeApiServer:
-      enabled: false
+      enabled: true
+      tlsConfig:
+        serverName: kubernetes
+        insecureSkipVerify: true
     kubelet:
       enabled: false
     kubeControllerManager:
-      enabled: true
-      service:
-        port: 10252
-        targetPort: 10252
-      serviceMonitor:
-        interval: ""
-        https: true
-        insecureSkipVerify: true
+      enabled: false
     coreDns:
       enabled: true
       service:
         port: 9153
         targetPort: 9153
-    kubeDns:
-      enabled: false
+        selector:
+          k8s-app: kube-dns
     kubeEtcd:
       enabled: false
     kubeScheduler:
       enabled: false
     kubeProxy:
-      enabled: true
-      service:
-        port: 10249
-        targetPort: 10249
+      enabled: false
     kubeStateMetrics:
       enabled: true
+    kube-state-metrics:
+      namespaceOverride: ""
+      rbac:
+        create: true
+      podSecurityPolicy:
+        enabled: true
     nodeExporter:
       enabled: true
-      jobLabel: jobLabel
     prometheus-node-exporter:
       namespaceOverride: ""
       podLabels:
         jobLabel: node-exporter
       extraArgs:
-        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
-        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
     prometheusOperator:
       enabled: true
-      tls:
-        enabled: true
-        tlsMinVersion: VersionTLS13
-      admissionWebhooks:
-        failurePolicy: Fail
-        enabled: true
-        patch:
-          enabled: true
-          image:
-            repository: jettech/kube-webhook-certgen
-            tag: v1.5.0
-            sha: ""
-            pullPolicy: IfNotPresent
-      serviceAccount:
-        create: true
-      service:
-        nodePort: 30080
-        nodePortTls: 30443
-        type: ClusterIP
       kubeletService:
-        enabled: true
+        enabled: false
         namespace: kube-system
-      serviceMonitor:
-        selfMonitor: true
-      securityContext:
-        fsGroup: 65534
-        runAsGroup: 65534
-        runAsNonRoot: true
-        runAsUser: 65534
-      image:
-        repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.45.0
-        sha: ""
-        pullPolicy: IfNotPresent
-      configmapReloadImage:
-        repository: docker.io/jimmidyson/configmap-reload
-        tag: v0.4.0
-        sha: ""
-      prometheusConfigReloaderImage:
-        repository: quay.io/prometheus-operator/prometheus-config-reloader
-        tag: v0.44.0
-        sha: ""
-      configReloaderCpu: 700m
-      configReloaderMemory: 25Mi
-      secretFieldSelector: ""
     prometheus:
       enabled: true
-      serviceAccount:
-        create: true
-        name: ""
-      service:
-        port: 9090
-        targetPort: 9090
-        nodePort: 30090
-        type: ClusterIP
+      annotations: {}
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        annotations: {}
+        labels: {}
+        hosts:
+          - "prometheus.${INTERNAL_DOMAIN}"
+        paths:
+          - /
+        pathType: ImplementationSpecific
       prometheusSpec:
-        image:
-          repository: quay.io/prometheus/prometheus
-          tag: v2.22.1
-          sha: ""
-        retention: 10d
-        walCompression: false
+        scrapeInterval: ""
+        scrapeTimeout: ""
+        retention: 30d
+        retentionSize: "40GB"
+        replicas: 1
+        logLevel: info
+        logFormat: logfmt
+        routePrefix: /
+        podMetadata:
+          labels:
+            app: prometheus
+            k8s-app: prometheus
         storageSpec:
-         volumeClaimTemplate:
-           spec:
-             storageClassName: longhorn
-             accessModes: ["ReadWriteOnce"]
-             resources:
-               requests:
-                 storage: 50Gi
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 50Gi
+            selector: {}
+        additionalScrapeConfigs: []
+        additionalScrapeConfigsSecret: {}
+        additionalPrometheusSecretsAnnotations: {}
+        additionalAlertManagerConfigs: []
+        additionalAlertManagerConfigsSecret: {}
+        additionalAlertRelabelConfigs: []
         securityContext:
           runAsGroup: 2000
           runAsNonRoot: true
           runAsUser: 1000
           fsGroup: 2000
+        priorityClassName: ""
         portName: "web"
