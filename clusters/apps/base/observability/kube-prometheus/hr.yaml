@@ -115,18 +115,6 @@ spec:
         annotations: {}
       ingressPerReplica:
         enabled: false
-      service:
-        annotations: {}
-        labels: {}
-        clusterIP: ""
-        port: 9093
-        targetPort: 9093
-        nodePort: 30903
-        additionalPorts: []
-        externalIPs: []
-        loadBalancerIP: ""
-        loadBalancerSourceRanges: []
-        type: ClusterIP
       servicePerReplica:
         enabled: false
       serviceMonitor:
@@ -136,12 +124,9 @@ spec:
         logLevel: info
         replicas: 1
         retention: 120h
-        storage: {}
         externalUrl: "alerts.${INTERNAL_DOMAIN}"
         routePrefix: /
         paused: false
-        nodeSelector: {}
-        resources: {}
     grafana:
       enabled: true
       defaultDashboardsEnabled: true
@@ -165,8 +150,6 @@ spec:
         auth.generic_oauth:
           enabled: true
           allow_sign_up: true
-          # team_ids:
-          # allowed_organizations:
           name: Auth0
           client_id: "${AUTH0_CLIENT_ID}"
           client_secret: "${AUTH0_CLIENT_SECRET}"
