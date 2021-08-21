@@ -165,8 +165,8 @@ spec:
         auth.generic_oauth:
           enabled: true
           allow_sign_up: true
-          team_ids:
-          allowed_organizations:
+            # team_ids:
+            # allowed_organizations:
           name: Auth0
           client_id: "${AUTH0_CLIENT_ID}"
           client_secret: "${AUTH0_CLIENT_SECRET}"
@@ -174,7 +174,7 @@ spec:
           auth_url: "https://${AUTH0_DOMAIN}.us.auth0.com/authorize"
           token_url: "https://${AUTH0_DOMAIN}.us.auth0.com/oauth/token"
           api_url: "https://${AUTH0_DOMAIN}.us.auth0.com/userinfo"
-          role_attribute_path: role
+          # role_attribute_path: role
         smtp:
           enabled: true
           host: "${SMTP_HOST}:${SMTP_PORT}"
