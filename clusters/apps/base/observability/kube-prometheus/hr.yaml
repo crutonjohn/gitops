@@ -97,7 +97,7 @@ spec:
                     {{ end }}
                   {{ end }}
         templates:
-        - '/etc/alertmanager/config/*.tmpl'
+          - '/etc/alertmanager/config/*.tmpl'
       tplConfig: false
       templateFiles: {}
       ingress:
@@ -165,8 +165,8 @@ spec:
         auth.generic_oauth:
           enabled: true
           allow_sign_up: true
-            # team_ids:
-            # allowed_organizations:
+          # team_ids:
+          # allowed_organizations:
           name: Auth0
           client_id: "${AUTH0_CLIENT_ID}"
           client_secret: "${AUTH0_CLIENT_SECRET}"
@@ -269,12 +269,6 @@ spec:
                 requests:
                   storage: 50Gi
             selector: {}
-        additionalScrapeConfigs: []
-        additionalScrapeConfigsSecret: {}
-        additionalPrometheusSecretsAnnotations: {}
-        additionalAlertManagerConfigs: []
-        additionalAlertManagerConfigsSecret: {}
-        additionalAlertRelabelConfigs: []
         securityContext:
           runAsGroup: 2000
           runAsNonRoot: true
