@@ -10,6 +10,7 @@ resources:
   - dex-chart.yaml
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
+  - grafana-charts.yaml
   - grafana-loki.yaml
   - itzg-minecraft-charts.yaml
   - jetstack-charts.yaml

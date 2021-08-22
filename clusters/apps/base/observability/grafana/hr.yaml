@@ -1,0 +1,179 @@
+# https://github.com/grafana/helm-charts/blob/main/charts/grafana
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: observability
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: grafana
+      version: 6.16.00
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+  values:
+    serviceMonitor:
+      enabled: true
+      path: /metrics
+      labels: {}
+      interval: 1m
+      scheme: http
+      tlsConfig: {}
+      scrapeTimeout: 30s
+      relabelings: []
+    hostAliases: []
+      # - ip: "1.2.3.4"
+      #   hostnames:
+      #     - "my.host.com"
+    ingress:
+      enabled: true
+      ingressClassName: external
+      annotations:
+        # kubernetes.io/ingress.class: external
+        external-dns.alpha.kubernetes.io/target: dyn4.crutonjohn.com
+        external-dns/public: true
+      labels: {}
+      path: /
+      pathType: Prefix
+      hosts:
+        - "grafana.${INTERNAL_DOMAIN}"
+      extraPaths: []
+      tls: []
+    persistence:
+      type: pvc
+      enabled: false
+      storageClassName: longhorn
+      accessModes:
+        - ReadWriteOnce
+      size: 10Gi
+      finalizers:
+        - kubernetes.io/pvc-protection
+    adminUser: admin
+    adminPassword: "${GRAFANA_PASSWORD}"
+    env: {}
+    envValueFrom: {}
+    plugins:
+      - digrich-bubblechart-panel
+      - natel-discrete-panel
+      - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus.observability.svc.cluster.local:9090
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki.observability.svc.cluster.local:3100
+    dashboards:
+      default:
+        # ingress-nginx
+        nginx-dashboard:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+          datasource: Prometheus
+        # dns metrics
+        blocky:
+          url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11315
+        unifi-client-insights:
+          gnetId: 11315
+          revision: 8
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11311
+        unifi-network-sites:
+          gnetId: 11311
+          revision: 4
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11314
+        unifi-uap-insights:
+          gnetId: 11314
+          revision: 9
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11312
+        unifi-usw-insights:
+          gnetId: 11312
+          revision: 8
+          datasource: Prometheus
+        # https://longhorn.io/docs/1.1.0/monitoring/prometheus_and_grafana_setup/
+        longhorn-storage:
+          gnetId: 13032
+          revision: 6
+          datasource: Prometheus
+        # for external and cluster hosts
+        node-exporter-full:
+          gnetId: 1860
+          revision: 21
+          datasource: Prometheus
+        # hopefully https://github.com/xperimental/nextcloud-exporter
+        nextcloud:
+          gnetId: 9632
+          revision: 1
+          datasource: Prometheus
+        # https://github.com/ncabatoff/zfs-exporter
+        zfs-on-linux:
+          gnetId: 328
+          revision: 1
+          datasource: Prometheus
+        zfs-node-exporter:
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
+        logging-dash-loki:
+          gnetId: 12611
+          revision: 1
+          datasource: Loki
+    grafana.ini:
+      server:
+        root_url: "https://grafana.${INTERNAL_DOMAIN}"
+      auth.basic:
+        disable_login_form: false
+      auth.generic_oauth:
+        enabled: true
+        allow_sign_up: true
+        name: Auth0
+        client_id: "${AUTH0_CLIENT_ID}"
+        client_secret: "${AUTH0_CLIENT_SECRET}"
+        scopes: "openid profile email"
+        auth_url: "https://${AUTH0_DOMAIN}.us.auth0.com/authorize"
+        token_url: "https://${AUTH0_DOMAIN}.us.auth0.com/oauth/token"
+        api_url: "https://${AUTH0_DOMAIN}.us.auth0.com/userinfo"
+        role_attribute_path: role
+      smtp:
+        enabled: true
+        host: "${SMTP_HOST}:${SMTP_PORT}"
+        user: "${SMTP_USERNAME}"
+        password: "${SMTP_PASSWORD}"
+        from_address: "${SMTP_FROM}"
+        from_name: Grafana
+      paths:
+        data: /var/lib/grafana/
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      analytics:
+        check_for_updates: true
+      log:
+        mode: console
+      grafana_net:
+        url: https://grafana.net

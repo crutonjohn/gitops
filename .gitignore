@@ -25,3 +25,6 @@ setup/.env
 
 # Ansible
 ansible/playbooks/output/k8s-config.yaml
+
+# Vim
+*.swp
