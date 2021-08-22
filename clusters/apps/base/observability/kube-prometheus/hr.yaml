@@ -128,51 +128,7 @@ spec:
         routePrefix: /
         paused: false
     grafana:
-      enabled: true
-      defaultDashboardsEnabled: true
-      adminPassword: "${GRAFANA_PASSWORD}"
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: external
-          external-dns.alpha.kubernetes.io/target: dyn4.crutonjohn.com
-          external-dns/public: true
-        labels: {}
-        hosts:
-          - "grafana.${INTERNAL_DOMAIN}"
-        path: /
-        tls: []
-      # grafana.ini:
-        # server:
-          # root_url: "https://grafana.${INTERNAL_DOMAIN}"
-        # auth.basic:
-          # disable_login_form: false
-        # auth.generic_oauth:
-          # enabled: true
-          # allow_sign_up: true
-          # name: Auth0
-          # client_id: "${AUTH0_CLIENT_ID}"
-          # client_secret: "${AUTH0_CLIENT_SECRET}"
-          # scopes: "openid profile email"
-          # auth_url: "https://${AUTH0_DOMAIN}.us.auth0.com/authorize"
-          # token_url: "https://${AUTH0_DOMAIN}.us.auth0.com/oauth/token"
-          # api_url: "https://${AUTH0_DOMAIN}.us.auth0.com/userinfo"
-          # role_attribute_path: role
-        # smtp:
-          # enabled: true
-          # host: "${SMTP_HOST}:${SMTP_PORT}"
-          # user: "${SMTP_USERNAME}"
-          # password: "${SMTP_PASSWORD}"
-          # from_address: "${SMTP_FROM}"
-          # from_name: Grafana
-      sidecar:
-        dashboards:
-          enabled: true
-          label: grafana_dashboard
-      serviceMonitor:
-        interval: ""
-        selfMonitor: true
-        path: "/metrics"
+      enabled: false
     kubeApiServer:
       enabled: true
       tlsConfig:
