@@ -106,7 +106,7 @@ spec:
         annotations: {}
         labels: {}
         hosts:
-          - "alerts.${INTERNAL_DOMAIN}"
+          - "alerts.${SECRET_DOMAIN}"
         paths:
           - /
         pathType: ImplementationSpecific
@@ -124,7 +124,7 @@ spec:
         logLevel: info
         replicas: 1
         retention: 120h
-        externalUrl: "alerts.${INTERNAL_DOMAIN}"
+        externalUrl: "alerts.${SECRET_DOMAIN}"
         routePrefix: /
         paused: false
     grafana:
@@ -182,7 +182,7 @@ spec:
         annotations: {}
         labels: {}
         hosts:
-          - "prometheus.${INTERNAL_DOMAIN}"
+          - "prometheus.${SECRET_DOMAIN}"
         paths:
           - /
         pathType: ImplementationSpecific

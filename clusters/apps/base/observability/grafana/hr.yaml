@@ -40,7 +40,7 @@ spec:
       path: /
       pathType: Prefix
       hosts:
-        - "grafana.${INTERNAL_DOMAIN}"
+        - "grafana.${SECRET_DOMAIN}"
       extraPaths: []
       tls: []
     persistence:
@@ -145,7 +145,7 @@ spec:
           datasource: Loki
     grafana.ini:
       server:
-        root_url: "https://grafana.${INTERNAL_DOMAIN}"
+        root_url: "https://grafana.${SECRET_DOMAIN}"
       auth.basic:
         disable_login_form: false
       auth.generic_oauth:
