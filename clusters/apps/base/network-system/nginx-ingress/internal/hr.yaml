@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: 3.32.0
+      version: 3.36.0
       sourceRef:
         kind: HelmRepository
         name: kubernetes-ingress-charts
@@ -31,13 +31,13 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - nginx-ingress-internal
-            topologyKey: kubernetes.io/hostname
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nginx-ingress-internal
+              topologyKey: kubernetes.io/hostname
       replicaCount: 3
       resources:
         limits:
