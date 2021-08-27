@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: librespeed
-      version: 4.0.0
+      version: 5.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -18,8 +18,26 @@ spec:
     ingress:
       main:
         enabled: true
+        primary: true
         annotations:
-          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+          external-dns/is-public: "true"
         ingressClassName: "external"
         hosts:
-          - host: speed.${SECRET_DOMAIN}
+          - host: speedof.crutonjohn.com
+            ## Configure the paths for the host
+            paths:
+              -  # -- Path.  Helm template can be passed.
+                path: /
+                # -- Ignored if not kubeVersion >= 1.14-0
+                pathType: Prefix
+                service:
+                  # -- Overrides the service name reference for this path
+                  name:
+                  # -- Overrides the service port reference for this path
+                  port:
+        # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+        tls: []
+        #  - secretName: chart-example-tls
+        #    hosts:
+        #      - chart-example.local
