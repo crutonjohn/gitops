@@ -6,6 +6,6 @@ resources:
   - botkube
   # - drac
   # - kube-prometheus
-  - grafana
+  # - grafana
   - loki
   - ups
