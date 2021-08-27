@@ -5,7 +5,7 @@ resources:
   - ns.yaml
   - botkube
   # - drac
-  - kube-prometheus
+  # - kube-prometheus
   - grafana
   - loki
   - ups
