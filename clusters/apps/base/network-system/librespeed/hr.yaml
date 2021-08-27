@@ -21,23 +21,10 @@ spec:
         primary: true
         annotations:
           external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-          external-dns/is-public: "true"
+          external-dns/public: "true"
         ingressClassName: "external"
         hosts:
           - host: speedof.crutonjohn.com
-            ## Configure the paths for the host
-            paths:
-              -  # -- Path.  Helm template can be passed.
-                path: /
-                # -- Ignored if not kubeVersion >= 1.14-0
-                pathType: Prefix
-                service:
-                  # -- Overrides the service name reference for this path
-                  name:
-                  # -- Overrides the service port reference for this path
-                  port:
-        # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-        tls: []
-        #  - secretName: chart-example-tls
-        #    hosts:
-        #      - chart-example.local
+        tls:
+          - hosts:
+              - speedof.crutonjohn.com

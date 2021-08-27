@@ -39,9 +39,9 @@ spec:
         secretName: aws-external-dns
       evaluateTargetHealth: false
     domainFilters:
-    - os.${SECRET_DOMAIN}
-    - ${SECRET_DOMAIN}
-    - baremetalblog.com
+      - os.${SECRET_DOMAIN}
+      - ${SECRET_DOMAIN}
+      - baremetalblog.com
     interval: "1m"
     logFormat: json
     logLevel: debug
