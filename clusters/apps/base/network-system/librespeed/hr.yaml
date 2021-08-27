@@ -22,7 +22,4 @@ spec:
           external-dns/public: "true"
         ingressClassName: "external"
         hosts:
-            host: speed.${SECRET_DOMAIN}
-        tls:
-          - hosts:
-             - speed.${SECRET_DOMAIN}
+          - host: speed.${SECRET_DOMAIN}
