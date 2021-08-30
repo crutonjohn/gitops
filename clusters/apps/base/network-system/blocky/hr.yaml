@@ -9,13 +9,13 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 6.4.0
+      version: 8.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    replicas: 3
+    replicas: 2
     env:
       TZ: "America/New_York"
     config: |
@@ -122,35 +122,26 @@ spec:
         failureThreshold: 30
         periodSeconds: 10
     service:
-      port:
-        port: 4000
-      additionalServices:
-        - enabled: true
-          nameSuffix: tcp-dns
-          type: LoadBalancer
-          externalIPs:
-            - "${CLUSTER_LB_BLOCKY}"
-          port:
+      main:
+        ports:
+          http:
+            port: 4000
+      dns:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
+        ports:
+          tcp:
+            enabled: true
             port: 53
-            name: dns-tcp
             protocol: TCP
             targetPort: 53
-          externalTrafficPolicy: Local
-          annotations:
-            metallb.universe.tf/allow-shared-ip: blocky
-        - enabled: true
-          nameSuffix: udp-dns
-          type: LoadBalancer
-          externalIPs:
-            - "${CLUSTER_LB_BLOCKY}"
-          port:
+          udp:
+            enabled: true
             port: 53
-            name: dns-udp
             protocol: UDP
             targetPort: 53
-          externalTrafficPolicy: Local
-          annotations:
-            metallb.universe.tf/allow-shared-ip: blocky
+        externalTrafficPolicy: Local
     serviceMonitor:
       enabled: true
     affinity:
