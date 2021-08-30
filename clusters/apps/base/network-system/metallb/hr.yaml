@@ -9,51 +9,20 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 2.5.4
+      version: 0.10.2
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: metallb-charts
         namespace: flux-system
   values:
     configInline:
       address-pools:
-      - name: default
-        protocol: layer2
-        addresses:
-        - 192.168.1.100-192.168.1.200
-    rbac:
-      create: true
+        - name: default
+          protocol: layer2
+          addresses:
+            - 192.168.1.100-192.168.1.200
     prometheus:
-      enabled: true
-      serviceMonitor:
+      podMonitor:
         enabled: true
-        jobLabel: "app.kubernetes.io/name"
-        interval: ""
-        metricRelabelings: []
-        relabelings: []
       prometheusRule:
         enabled: true
-    controller:
-      image:
-        tag: 0.9.6
-        pullPolicy: IfNotPresent
-      securityContext:
-        enabled: true
-        runAsNonRoot: true
-        runAsUser: 1010
-        fsGroup: 1010
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop:
-          - ALL
-      revisionHistoryLimit: 3
-      terminationGracePeriodSeconds: 0
-      containerPort:
-        metrics: 7472
-    speaker:
-      image:
-        tag: 0.9.6
-        pullPolicy: IfNotPresent
-      nodeSelector:
-        kubernetes.io/arch: amd64

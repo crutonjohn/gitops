@@ -20,6 +20,7 @@ resources:
   - kubernetes-stable-charts.yaml
   - litmuschaos-charts.yaml
   - longhorn-charts.yaml
+  - metallb-charts.yaml
   - nextcloud-charts.yaml
   - node-feature-discovery-chart.yaml
   - oauth2-proxy-chart.yaml
