@@ -148,6 +148,8 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: blocky
         ports:
+          http:
+            enabled: false
           udp:
             enabled: true
             port: 53
