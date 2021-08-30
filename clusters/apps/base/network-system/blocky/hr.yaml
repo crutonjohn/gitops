@@ -15,9 +15,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    image:
-      repository: ghcr.io/0xerr0r/blocky
-      tag: v0.14
     replicas: 3
     env:
       TZ: "America/New_York"
