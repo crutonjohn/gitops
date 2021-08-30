@@ -19,13 +19,13 @@ spec:
       repository: ghcr.io/0xerr0r/blocky
       tag: v0.14
     replicas: 3
-    env: 
+    env:
       TZ: "America/New_York"
     config: |
       upstream:
         externalResolvers:
-          - udp:9.9.9.9
-          - udp:1.1.1.1
+          - 9.9.9.9
+          - 1.1.1.1
           - tcp-tls:1.0.0.1:853
           - https://cloudflare-dns.com/dns-query
       customDNS:
@@ -36,8 +36,7 @@ spec:
           prometheus.${SECRET_DOMAIN}: 192.168.130.101
           loki.${SECRET_DOMAIN}: 192.168.130.101
           alerts.${SECRET_DOMAIN}: 192.168.130.101
-          grafana.${SECRET_DOMAIN}: 192.168.130.101
-          internal-speed.${SECRET_DOMAIN}: 192.168.130.101
+          grafana.${SECRET_DOMAIN}: 192.168.130.100
           storage.${SECRET_DOMAIN}: 192.168.130.101
           frigate.${SECRET_DOMAIN}: 192.168.130.101
           traefik.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
@@ -45,9 +44,12 @@ spec:
           quay.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
           registry.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
           pandora.${SECRET_DOMAIN}: 192.168.130.50
+          hass.${SECRET_DOMAIN}: 192.168.130.100
+          hass-config.${SECRET_DOMAIN}: 192.168.130.101
+          speedof.${SECRET_DOMAIN}: 192.168.130.100
       conditional:
         mapping:
-          local: udp:192.168.128.1
+          local: 192.168.128.1
       blocking:
         blackLists:
           ads:
@@ -126,44 +128,44 @@ spec:
       port:
         port: 4000
       additionalServices:
-      - enabled: true
-        nameSuffix: tcp-dns
-        type: LoadBalancer
-        externalIPs:
-          - "${CLUSTER_LB_BLOCKY}"
-        port:
-          port: 53
-          name: dns-tcp
-          protocol: TCP
-          targetPort: 53
-        externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-      - enabled: true
-        nameSuffix: udp-dns
-        type: LoadBalancer
-        externalIPs:
-          - "${CLUSTER_LB_BLOCKY}"
-        port:
-          port: 53
-          name: dns-udp
-          protocol: UDP
-          targetPort: 53
-        externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
+        - enabled: true
+          nameSuffix: tcp-dns
+          type: LoadBalancer
+          externalIPs:
+            - "${CLUSTER_LB_BLOCKY}"
+          port:
+            port: 53
+            name: dns-tcp
+            protocol: TCP
+            targetPort: 53
+          externalTrafficPolicy: Local
+          annotations:
+            metallb.universe.tf/allow-shared-ip: blocky
+        - enabled: true
+          nameSuffix: udp-dns
+          type: LoadBalancer
+          externalIPs:
+            - "${CLUSTER_LB_BLOCKY}"
+          port:
+            port: 53
+            name: dns-udp
+            protocol: UDP
+            targetPort: 53
+          externalTrafficPolicy: Local
+          annotations:
+            metallb.universe.tf/allow-shared-ip: blocky
     serviceMonitor:
       enabled: true
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
-              values:
-              - blocky
-          topologyKey: "kubernetes.io/hostname"
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - blocky
+            topologyKey: "kubernetes.io/hostname"
     resources:
       requests:
         memory: 280Mi
