@@ -129,9 +129,8 @@ spec:
       dns:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
+        externalIPs:
+          - "${CLUSTER_LB_BLOCKY}"
         ports:
           tcp:
             enabled: true
