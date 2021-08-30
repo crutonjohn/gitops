@@ -126,20 +126,20 @@ spec:
         ports:
           http:
             port: 4000
-      dns-tcp:
-        enabled: true
-        primary: false
-        type: LoadBalancer
-        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          tcp:
-            enabled: true
-            port: 53
-            protocol: TCP
-            targetPort: 53
-        externalTrafficPolicy: Local
+              #      dns-tcp:
+              #        enabled: true
+              #        primary: false
+              #        type: LoadBalancer
+              #        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
+              #        annotations:
+              #          metallb.universe.tf/allow-shared-ip: blocky
+              #        ports:
+              #          tcp:
+              #            enabled: true
+              #            port: 53
+              #            protocol: TCP
+              #            targetPort: 53
+              #        externalTrafficPolicy: Local
       dns-udp:
         enabled: true
         primary: false
@@ -154,8 +154,6 @@ spec:
             protocol: UDP
             targetPort: 53
         externalTrafficPolicy: Local
-    serviceMonitor:
-      enabled: true
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -166,9 +164,3 @@ spec:
                   values:
                     - blocky
             topologyKey: "kubernetes.io/hostname"
-    resources:
-      requests:
-        memory: 280Mi
-        cpu: 100m
-      limits:
-        memory: 1000Mi
