@@ -138,6 +138,7 @@ spec:
             port: 53
             protocol: TCP
             targetPort: 53
+            primary: false
         externalTrafficPolicy: Local
       dns-udp:
         enabled: true
@@ -151,6 +152,7 @@ spec:
             port: 53
             protocol: UDP
             targetPort: 53
+            primary: false
         externalTrafficPolicy: Local
     serviceMonitor:
       enabled: true
