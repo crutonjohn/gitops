@@ -15,7 +15,14 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    replicas: 2
+    image:
+      repository: ghcr.io/0xerr0r/blocky
+      tag: v0.15
+    controller:
+      enabled: true
+      type: deployment
+      strategy: RollingUpdate
+      replicas: 4
     env:
       TZ: "America/New_York"
     config: |
@@ -126,52 +133,29 @@ spec:
         ports:
           http:
             port: 4000
-      dns:
+      dns-tcp:
         enabled: true
         type: LoadBalancer
         externalIPs:
           - "${CLUSTER_LB_BLOCKY}"
         ports:
-          tcp:
+          dns-tcp:
             enabled: true
             port: 53
             protocol: TCP
             targetPort: 53
-          udp:
+      dns-udp:
+        enabled: true
+        type: LoadBalancer
+        externalIPs:
+          - "${CLUSTER_LB_BLOCKY}"
+        ports:
+          dns-udp:
             enabled: true
             port: 53
             protocol: UDP
             targetPort: 53
         externalTrafficPolicy: Local
-              #      dns-tcp:
-              #        enabled: true
-              #        primary: false
-              #        type: LoadBalancer
-              #        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
-              #        annotations:
-              #          metallb.universe.tf/allow-shared-ip: blocky
-              #        ports:
-              #          tcp:
-              #            enabled: true
-              #            port: 53
-              #            protocol: TCP
-              #            targetPort: 53
-              #        externalTrafficPolicy: Local
-              #      dns-udp:
-              #        enabled: true
-              #        primary: false
-              #        type: LoadBalancer
-              #        externalIP:
-              #          - "${CLUSTER_LB_BLOCKY}"
-              #        ports:
-              #          http:
-              #            enabled: false
-              #          udp:
-              #            enabled: true
-              #            port: 53
-              #            protocol: UDP
-              #            targetPort: 53
-              #        externalTrafficPolicy: Local
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
