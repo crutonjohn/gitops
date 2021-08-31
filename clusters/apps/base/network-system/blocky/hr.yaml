@@ -136,8 +136,7 @@ spec:
       dns-tcp:
         enabled: true
         type: LoadBalancer
-        externalIPs:
-          - "${CLUSTER_LB_BLOCKY}"
+        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
         ports:
           dns-tcp:
             enabled: true
@@ -147,8 +146,7 @@ spec:
       dns-udp:
         enabled: true
         type: LoadBalancer
-        externalIPs:
-          - "${CLUSTER_LB_BLOCKY}"
+        loadBalancerIP: "${CLUSTER_LB_BLOCKY}"
         ports:
           dns-udp:
             enabled: true
