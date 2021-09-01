@@ -8,24 +8,21 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://blakeblackshear.github.io/blakeshome-charts/
       chart: frigate
-      version: 5.0.1
+      version: 6.0.0
       sourceRef:
         kind: HelmRepository
-        name: blakeshome-charts
+        name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
   values:
     image:
       repository: blakeblackshear/frigate
       tag: 0.8.4-amd64
-    coral:
-      enabled: false
-    shmSize: 2Gi
     timezone: "America/New_York"
     env:
-      LIBVA_DRIVER_NAME: radeonsi
+      LIBVA_DRIVER_NAME: "radeonsi"
+      TZ: "America/New_York"
     config: |
       mqtt:
         host: vernemq.soho.svc.cluster.local
@@ -193,32 +190,30 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate"
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: internal
-      hosts:
-        - "frigate.${SECRET_DOMAIN}"
-      tls:
-        - hosts:
-            - "frigate.${SECRET_DOMAIN}"
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - "frigate.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "frigate.${SECRET_DOMAIN}"
     persistence:
       data:
         enabled: true
         accessMode: ReadWriteOnce
         size: 20Gi
         mountPath: /data
-    extraVolumes:
-      - name: frigate-pandora
-        persistentVolumeClaim:
-          claimName: frigate-data-pandora
-      - name: cache
-        emptyDir:
-          medium: Memory
-    extraVolumeMounts:
-      - mountPath: /media
-        name: frigate-pandora
-      - mountPath: /tmp/cache
-        name: cache
+      media:
+        enabled: true
+        mountPath: /media
+        existingClaim: frigate-data-pandora
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 2Gi
+        mountPath: /dev/shm
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
