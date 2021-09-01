@@ -37,24 +37,24 @@ spec:
         port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
       advanced:
         log_output:
-        - console
+          - console
         network_key:
-        - 204
-        - 61
-        - 75
-        - 23
-        - 44
-        - 230
-        - 24
-        - 203
-        - 53
-        - 5
-        - 248
-        - 32
-        - 50
-        - 84
-        - 44
-        - 159
+          - 204
+          - 61
+          - 75
+          - 23
+          - 44
+          - 230
+          - 24
+          - 203
+          - 53
+          - 5
+          - 248
+          - 32
+          - 50
+          - 84
+          - 44
+          - 159
       frontend:
         port: 8080
       experimental:
@@ -64,13 +64,13 @@ spec:
       annotations:
         kubernetes.io/ingress.class: "internal"
       hosts:
-      - host: "zigbee2mqtt.${SECRET_DOMAIN}"
-        paths:
-        - path: /
-          pathType: Prefix
+        - host: "zigbee2mqtt.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
-      - hosts:
-        - "zigbee2mqtt.${SECRET_DOMAIN}"
+        - hosts:
+            - "zigbee2mqtt.${SECRET_DOMAIN}"
     securityContext:
       privileged: true
     persistence:
@@ -83,19 +83,19 @@ spec:
         skipuninstall: false
         mountPath: "/data"
     additionalVolumeMounts:
-    - name: usb
-      mountPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+      - name: usb
+        mountPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
     additionalVolumes:
-    - name: usb
-      hostPath:
-        path: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
-        type: CharDevice
+      - name: usb
+        hostPath:
+          path: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+          type: CharDevice
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
-          - matchExpressions:
-            - key: feature.node.kubernetes.io/custom-zzh
-              operator: In
-              values:
-              - "true"
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/custom-zzh
+                  operator: In
+                  values:
+                    - "true"
