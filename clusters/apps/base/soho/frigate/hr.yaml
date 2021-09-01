@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: blakeblackshear/frigate
-      tag: 0.8.4-amd64nvidia
+      tag: 0.8.4-amd64
     coral:
       enabled: false
     shmSize: 2Gi
@@ -28,14 +28,22 @@ spec:
       LIBVA_DRIVER_NAME: radeonsi
     config: |
       mqtt:
-        host: vernemq
+        host: vernemq.soho.svc.cluster.local
         topic_prefix: frigate
+        user: "${SECRET_MQTT_USERNAME}"
+        password: "${SECRET_MQTT_PASSWORD}"
       database:
         path: /data/frigate.db
       detectors:
         coral:
          type: edgetpu
          device: pci
+      ffmpeg:
+        hwaccel_args:
+          - -hwaccel
+          - auto
+          - -hwaccel_device
+          - /dev/dri/renderD128
       objects:
         track:
           - person
@@ -62,11 +70,6 @@ spec:
               - clips
               - record
               - rtmp
-            hwaccel_args:
-              - -hwaccel
-              - auto
-              - -hwaccel_device
-              - /dev/dri/renderD128
             input_args:
               - -avoid_negative_ts
               - make_zero
@@ -111,11 +114,6 @@ spec:
               - clips
               - record
               - rtmp
-            hwaccel_args:
-              - -hwaccel
-              - auto
-              - -hwaccel_device
-              - /dev/dri/renderD128
             input_args:
               - -avoid_negative_ts
               - make_zero
@@ -160,11 +158,6 @@ spec:
               - clips
               - record
               - rtmp
-            hwaccel_args:
-              - -hwaccel
-              - auto
-              - -hwaccel_device
-              - /dev/dri/renderD128
             input_args:
               - -avoid_negative_ts
               - make_zero
