@@ -194,7 +194,7 @@ spec:
         enabled: true
         ingressClassName: "internal"
         hosts:
-          - "frigate.${SECRET_DOMAIN}"
+          host: "frigate.${SECRET_DOMAIN}"
         tls:
           - hosts:
               - "frigate.${SECRET_DOMAIN}"
