@@ -111,6 +111,11 @@ spec:
               - clips
               - record
               - rtmp
+            hwaccel_args:
+              - -hwaccel
+              - auto
+              - -hwaccel_device
+              - /dev/dri/renderD128
             input_args:
               - -avoid_negative_ts
               - make_zero
@@ -155,6 +160,11 @@ spec:
               - clips
               - record
               - rtmp
+            hwaccel_args:
+              - -hwaccel
+              - auto
+              - -hwaccel_device
+              - /dev/dri/renderD128
             input_args:
               - -avoid_negative_ts
               - make_zero
