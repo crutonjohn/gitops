@@ -64,7 +64,7 @@ spec:
               - rtmp
             hwaccel_args:
               - -hwaccel
-              - vaapi
+              - auto
               - -hwaccel_device
               - /dev/dri/renderD128
             input_args:
