@@ -217,12 +217,12 @@ spec:
       video:
         enabled: true
         type: hostPath
-        path: /dev/dri/renderD128
+        hostPath: /dev/dri/renderD128
         mountPath: /dev/dri/renderD128
       coral:
         enabled: true
         type: hostPath
-        path: /dev/apex_0
+        hostPath: /dev/apex_0
         mountPath: /dev/apex_0
     affinity:
       nodeAffinity:
