@@ -214,16 +214,21 @@ spec:
         medium: Memory
         sizeLimit: 2Gi
         mountPath: /dev/shm
-      video:
+      dev:
         enabled: true
         type: hostPath
-        hostPath: /dev/dri/renderD128
-        mountPath: /dev/dri/renderD128
-      coral:
-        enabled: true
-        type: hostPath
-        hostPath: /dev/apex_0
-        mountPath: /dev/apex_0
+        hostPath: /dev
+        mountPath: /dev
+          #      video:
+          #        enabled: true
+          #        type: hostPath
+          #        hostPath: /dev/dri/renderD128
+          #        mountPath: /dev/dri/renderD128
+          #      coral:
+          #        enabled: true
+          #        type: hostPath
+          #        hostPath: /dev/apex_0
+          #        mountPath: /dev/apex_0
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
