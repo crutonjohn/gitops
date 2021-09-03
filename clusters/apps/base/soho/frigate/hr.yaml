@@ -34,7 +34,7 @@ spec:
       detectors:
         coral:
          type: edgetpu
-         device: pci
+         device: pci:0
       ffmpeg:
         hwaccel_args:
           - -hwaccel
@@ -214,6 +214,16 @@ spec:
         medium: Memory
         sizeLimit: 2Gi
         mountPath: /dev/shm
+      video:
+        enabled: true
+        type: hostPath
+        path: /dev/dri/renderD128
+        mountPath: /dev/dri/renderD128
+      coral:
+        enabled: true
+        type: hostPath
+        path: /dev/apex_0
+        mountPath: /dev/apex_0
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
