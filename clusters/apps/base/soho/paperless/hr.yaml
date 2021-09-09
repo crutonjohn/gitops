@@ -48,12 +48,14 @@ spec:
         enabled: true
         accessMode: ReadWriteOnce
         mountPath: /usr/src/paperless/consume
+        size: 2Gi
         emptyDir:
           enabled: true
       export:
         enabled: true
         mountPath: /usr/src/paperless/export
         accessMode: ReadWriteOnce
+        size: 2Gi
         emptyDir:
           enabled: false
     resources:
