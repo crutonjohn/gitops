@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+  namespace: soho
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: paperless
+      version: 7.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: jonaswinkler/paperless-ng
+      tag: 1.4.5
+    env:
+      COMPOSE_PROJECT_NAME: paperless
+      PAPERLESS_REDIS: redis://localhost:6379
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_TIME_ZONE: America/New_York
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "internal"
+        hosts:
+          host: "paperless.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "paperless.${SECRET_DOMAIN}"
+    persistence:
+      data:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        mountPath: /usr/src/paperless/data
+      media:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        mountPath: /usr/src/paperless/media
+      consume:
+        enabled: true
+        accessMode: ReadWriteOnce
+        mountPath: /usr/src/paperless/consume
+        emptyDir:
+          enabled: true
+      export:
+        enabled: true
+        mountPath: /usr/src/paperless/export
+        accessMode: ReadWriteOnce
+        emptyDir:
+          enabled: false
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        memory: 2000Mi
+    additionalContainers:
+      broker:
+        name: broker
+        image: redis:6.0
+        imagePullPolicy: IfNotPresent

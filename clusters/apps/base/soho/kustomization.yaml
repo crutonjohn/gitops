@@ -10,3 +10,4 @@ resources:
   - hassio
   - vernemq
   - frigate
+  - paperless
