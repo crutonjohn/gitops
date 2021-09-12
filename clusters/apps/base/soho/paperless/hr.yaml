@@ -29,7 +29,7 @@ spec:
         enabled: true
         ingressClassName: "internal"
         hosts:
-          host: "paperless.${SECRET_DOMAIN}"
+          - host: "paperless.${SECRET_DOMAIN}"
         tls:
           - hosts:
               - "paperless.${SECRET_DOMAIN}"
