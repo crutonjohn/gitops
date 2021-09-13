@@ -24,6 +24,8 @@ spec:
       PAPERLESS_REDIS: redis://localhost:6379
       PAPERLESS_OCR_LANGUAGE: eng
       PAPERLESS_TIME_ZONE: America/New_York
+      PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
+      PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
     ingress:
       main:
         enabled: true
