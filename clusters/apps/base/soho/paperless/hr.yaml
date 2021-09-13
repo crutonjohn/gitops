@@ -31,7 +31,7 @@ spec:
         hosts:
           - host: "paperless.${SECRET_DOMAIN}"
             paths:
-              - path: /*
+              - path: /
                 pathType: ImplementationSpecific
         tls:
           - hosts:

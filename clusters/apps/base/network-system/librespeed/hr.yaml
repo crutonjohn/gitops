@@ -26,7 +26,7 @@ spec:
         hosts:
           - host: speedof.crutonjohn.com
             paths:
-              - path: /*
+              - path: /
                 pathType: ImplementationSpecific
         tls:
           - hosts:
