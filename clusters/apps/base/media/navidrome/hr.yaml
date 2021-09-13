@@ -41,8 +41,16 @@ spec:
         existingClaim: "music-library"
     ingress:
       enabled: true
+      primary: true
       annotations:
-        kubernetes.io/ingress.class: "external"
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        external-dns/public: "true"
+      ingressClassName: "external"
       hosts:
-        - music.crutonjohn.com
+        - host: music.crutonjohn.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - music.crutonjohn.com
