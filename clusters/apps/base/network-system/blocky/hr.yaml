@@ -51,6 +51,7 @@ spec:
           hass.${SECRET_DOMAIN}: 192.168.130.100
           hass-config.${SECRET_DOMAIN}: 192.168.130.101
           speedof.${SECRET_DOMAIN}: 192.168.130.100
+          paperless.${SECRET_DOMAIN}: 192.168.130.101
       conditional:
         mapping:
           local: 192.168.128.1
