@@ -30,6 +30,9 @@ spec:
         ingressClassName: "internal"
         hosts:
           - host: "paperless.${SECRET_DOMAIN}"
+            paths:
+              - path: /*
+                pathType: ImplementationSpecific
         tls:
           - hosts:
               - "paperless.${SECRET_DOMAIN}"
