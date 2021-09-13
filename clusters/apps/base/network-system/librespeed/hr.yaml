@@ -25,6 +25,9 @@ spec:
         ingressClassName: "external"
         hosts:
           - host: speedof.crutonjohn.com
+            paths:
+              - path: /*
+                pathType: ImplementationSpecific
         tls:
           - hosts:
               - speedof.crutonjohn.com
