@@ -19,7 +19,6 @@ spec:
     image:
       repository: blakeblackshear/frigate
       tag: 0.8.4-amd64
-    timezone: "America/New_York"
     env:
       LIBVA_DRIVER_NAME: "radeonsi"
       TZ: "America/New_York"
@@ -214,21 +213,21 @@ spec:
         medium: Memory
         sizeLimit: 2Gi
         mountPath: /dev/shm
-      dev:
+#      dev:
+#        enabled: true
+#        type: hostPath
+#        hostPath: /dev
+#        mountPath: /dev
+      video:
         enabled: true
         type: hostPath
-        hostPath: /dev
-        mountPath: /dev
-          #      video:
-          #        enabled: true
-          #        type: hostPath
-          #        hostPath: /dev/dri/renderD128
-          #        mountPath: /dev/dri/renderD128
-          #      coral:
-          #        enabled: true
-          #        type: hostPath
-          #        hostPath: /dev/apex_0
-          #        mountPath: /dev/apex_0
+        hostPath: /dev/dri/renderD128
+        mountPath: /dev/dri/renderD128
+      coral:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/apex_0
+        mountPath: /dev/apex_0
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -248,3 +247,5 @@ spec:
         cpu: 500m
       limits:
         memory: 2000Mi
+    securityContext:
+      privileged: true
