@@ -193,7 +193,10 @@ spec:
         enabled: true
         ingressClassName: "internal"
         hosts:
-          host: "frigate.${SECRET_DOMAIN}"
+          - host: "frigate.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
         tls:
           - hosts:
               - "frigate.${SECRET_DOMAIN}"
