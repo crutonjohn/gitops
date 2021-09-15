@@ -10,23 +10,26 @@ spec:
     spec:
       # renovate: registryUrl=https://weaveworks.github.io/kured
       chart: kured
-      version: 2.6.0
+      version: 2.9.0
       sourceRef:
         kind: HelmRepository
         name: weaveworks-kured-charts
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: ghcr.io/k8s-at-home/kured
     updateStrategy: RollingUpdate
-    extraEnvVars:
-    - name: slackHookUrl
-      valueFrom:
-        secretKeyRef:
-          name: kured-discord-secret
-          key: webhook
     configuration:
-      startTime: "1:00"
-      endTime: "3:00"
       timeZone: "America/New_York"
+      startTime: "01:00"
+      endTime: "06:00"
+      notifyUrl: "${KURED_DISCORD_WEBHOOK}"
+      messageTemplateDrain: "🚽 Draining node %s"
+      messageTemplateReboot: "🥾 Rebooted node %s"
+      rebootCommand: "/usr/bin/systemctl reboot"
+    tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
     metrics:
       create: false
