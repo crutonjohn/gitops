@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: zigbee2mqtt
-      version: 7.4.0
+      version: 9.0.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -61,8 +61,7 @@ spec:
         new_api: true
     ingress:
       enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "internal"
+      ingressClassName: "internal"
       hosts:
         - host: "zigbee2mqtt.${SECRET_DOMAIN}"
           paths:
