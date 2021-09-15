@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-    external-dns/is-public: "true"
+    external-dns/public: "true"
     nginx.ingress.kubernetes.io/limit-rpm: "1"
   name: webhook-receiver
   namespace: flux-system
