@@ -193,7 +193,7 @@ spec:
             retain:
               default: 14
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate"
+      configmap.reloader.stakater.com/reload: "frigate-config"
     ingress:
       main:
         enabled: true

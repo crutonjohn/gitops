@@ -169,3 +169,5 @@ spec:
                   values:
                     - blocky
             topologyKey: "kubernetes.io/hostname"
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "blocky-config"
