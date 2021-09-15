@@ -1,3 +1,4 @@
+
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -8,9 +9,8 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://stakater.github.io/stakater-charts
       chart: reloader
-      version: v0.0.90
+      version: v0.0.99
       sourceRef:
         kind: HelmRepository
         name: stakater-charts
@@ -20,6 +20,9 @@ spec:
     nameOverride: reloader
     fullnameOverride: reloader
     reloader:
+      deployment:
+        image:
+          name: ghcr.io/k8s-at-home/reloader
       podMonitor:
-        enabled: true
+        enabled: false
         namespace: kube-system
