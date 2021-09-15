@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 21.0.1-fpm
+      tag: 21.0.4-fpm
       pullPolicy: IfNotPresent
     nextcloud:
       host: cloud.${EXTERNAL_DOMAIN}
