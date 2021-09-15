@@ -8,8 +8,8 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: homecraft
-      version: 3.1.5
+      chart: minecraft
+      version: 3.4.2
       sourceRef:
         kind: HelmRepository
         name: itzg-minecraft-charts
