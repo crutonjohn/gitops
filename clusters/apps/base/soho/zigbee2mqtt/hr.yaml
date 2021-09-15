@@ -61,8 +61,7 @@ spec:
         new_api: true
     ingress:
       enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "internal"
+      ingressClassName: "internal"
       hosts:
         - host: "zigbee2mqtt.${SECRET_DOMAIN}"
           paths:
