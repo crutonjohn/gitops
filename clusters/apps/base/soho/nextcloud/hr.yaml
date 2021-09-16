@@ -8,8 +8,9 @@ spec:
   interval: 5m
   chart:
     spec:
+      # renovate: registryUrl=https://nextcloud.github.io/helm
       chart: nextcloud
-      version: 2.6.2
+      version: 2.8.3
       sourceRef:
         kind: HelmRepository
         name: nextcloud-charts
@@ -21,13 +22,8 @@ spec:
       pullPolicy: IfNotPresent
     nextcloud:
       host: cloud.${EXTERNAL_DOMAIN}
-      username: admin
+      username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
-      update: 0
-      datadir: /var/www/html/data
-      tableprefix:
-      persistence:
-        subPath:
       mail:
         enabled: true
         fromAddress: cloud
@@ -39,6 +35,21 @@ spec:
           authtype: LOGIN
           name: ${SMTP_USERNAME}
           password: ${SMTP_PASSWORD}
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array('${CLUSTER_POD_CIDR}')
+          );
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-db.soho.svc.cluster.local
+      user: ${NEXTCLOUD_DB_USER}
+      password: ${NEXTCLOUD_DB_PASSWORD}
+      database: ${NEXTCLOUD_DB_NAME}
     ingress:
       enabled: true
       className: external
@@ -94,15 +105,7 @@ spec:
       containerSecurityContext:
         enabled: true
         runAsUser: 5432
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      host: nextcloud-db.soho.svc.cluster.local
-      user: ${NEXTCLOUD_DB_USER}
-      password: ${NEXTCLOUD_DB_PASSWORD}
-      database: ${NEXTCLOUD_DB_NAME}
     nginx:
-      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
       enabled: true
       image:
         repository: nginx
@@ -114,7 +117,6 @@ spec:
           #     server_tokens off;
           #     proxy_hide_header X-Powered-By;
           #     client-max-body-size 10G;
-
           #     rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
           #     rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
           #     rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
@@ -135,26 +137,19 @@ spec:
           #     location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
           #       deny all;
           #     }
-    internalDatabase:
-      enabled: false
     redis:
       enabled: true
     cronjob:
-      enabled: false
+      enabled: true
       schedule: "*/5 * * * *"
       curlInsecure: false
       failedJobsHistoryLimit: 5
       successfulJobsHistoryLimit: 2
-    service:
-      type: ClusterIP
-      port: 80
-      loadBalancerIP: nil
-      nodePort: nil
     persistence:
       enabled: true
       existingClaim: nextcloud-data
     metrics:
-      enabled: true
+      enabled: false
       replicaCount: 1
       https: true
       timeout: 5s
