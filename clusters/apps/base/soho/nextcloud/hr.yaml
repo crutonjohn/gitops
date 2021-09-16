@@ -86,15 +86,12 @@ spec:
             - cloud.${SECRET_DOMAIN}
     postgresql:
       enabled: true
-      global:
-        postgresql:
-          postgresqlUsername: ${NEXTCLOUD_DB_USER}
-          postgresqlPassword: ${NEXTCLOUD_DB_PASSWORD}
-          postgresqlDatabase: ${NEXTCLOUD_DB_NAME}
+      postgresqlUsername: ${NEXTCLOUD_DB_USER}
+      postgresqlPassword: ${NEXTCLOUD_DB_PASSWORD}
+      postgresqlDatabase: ${NEXTCLOUD_DB_NAME}
       persistence:
         enabled: true
         existingClaim: nextcloud-db
-      fullnameOverride: nextcloud-db
       volumePermissions:
         enabled: true
         securityContext:
