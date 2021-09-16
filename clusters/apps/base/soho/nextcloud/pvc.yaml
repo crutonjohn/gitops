@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteMany
   claimRef:
-    namespace: nextcloud
+    namespace: soho
     name: nextcloud-data
   storageClassName: pandora
   nfs:
@@ -39,7 +39,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   claimRef:
-    namespace: nextcloud
+    namespace: soho
     name: nextcloud-db
   storageClassName: pandora
   nfs:
