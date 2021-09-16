@@ -19,33 +19,36 @@ spec:
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2021.7
+      tag: 2021.9.6
     env:
       TZ: "America/New_York"
     envFrom:
-    - secretRef:
-        name: home-assistant
+      - secretRef:
+          name: home-assistant
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     service:
-      type: LoadBalancer
-      loadBalancerIP: "${CLUSTER_LB_HOME_ASSISTANT}"
-      externalTrafficPolicy: Local
+      main:
+        type: LoadBalancer
+        externalIPs:
+          - "${CLUSTER_LB_HOME_ASSISTANT}"
+        externalTrafficPolicy: Local
     ingress:
-      enabled: true
-      ingressClassName: "external"
-      annotations:
-        external-dns/public: "true"
-        external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
-        nginx.org/websocket-services: home-assistant
-      hosts:
-      - host: "hass.${SECRET_DOMAIN}"
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - hosts:
-        - "hass.${SECRET_DOMAIN}"
+      main:
+        enabled: true
+        ingressClassName: "external"
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
+          nginx.org/websocket-services: home-assistant
+        hosts:
+          - host: "hass.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+            tls:
+              - hosts:
+                  - "hass.${SECRET_DOMAIN}"
     prometheus:
       serviceMonitor:
         enabled: false
@@ -69,36 +72,36 @@ spec:
         enabled: true
         image:
           repository: codercom/code-server
-          tag: 3.10.2
+          tag: 3.11.1
         git:
           deployKeySecret: code-server
         workingDir: "/config"
         args:
-        - --auth
-        - "none"
-        - --user-data-dir
-        - "/config/.vscode"
-        - --extensions-dir
-        - "/config/.vscode"
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
         ingress:
           enabled: true
           ingressClassName: "internal"
           annotations:
             nginx.org/websocket-services: home-assistant
           hosts:
-          - host: "hass-config.${SECRET_DOMAIN}"
-            paths:
-            - path: /
-              pathType: Prefix
-          tls:
-          - hosts:
-            - "hass-config.${SECRET_DOMAIN}"
+            - host: "hass-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+              tls:
+                - hosts:
+                    - "hass-config.${SECRET_DOMAIN}"
         volumeMounts:
-        - name: config
-          mountPath: /config
+          - name: config
+            mountPath: /config
     resources:
       requests:
         cpu: 100m
         memory: 100Mi
       limits:
-        memory: 6000Mi
+        memory: 4000Mi
