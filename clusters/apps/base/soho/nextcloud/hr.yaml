@@ -21,7 +21,7 @@ spec:
       tag: 22.1.1-fpm
       pullPolicy: IfNotPresent
     nextcloud:
-      host: cloud.${EXTERNAL_DOMAIN}
+      host: cloud.${SECRET_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
       mail:
