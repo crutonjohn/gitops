@@ -84,7 +84,6 @@ spec:
       persistence:
         enabled: true
         existingClaim: nextcloud-db
-      fullnameOverride: nextcloud-db
       volumePermissions:
         enabled: true
         securityContext:
