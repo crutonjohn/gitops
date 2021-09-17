@@ -20,14 +20,10 @@ spec:
       tag: 22.1.1-fpm
       pullPolicy: IfNotPresent
     nextcloud:
-      host: cloud.${EXTERNAL_DOMAIN}
-      username: admin
+      host: cloud.${SECRET_DOMAIN}
+      username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
-      update: 0
       datadir: /var/www/html/data
-      tableprefix:
-      persistence:
-        subPath:
       mail:
         enabled: true
         fromAddress: cloud
@@ -39,8 +35,45 @@ spec:
           authtype: LOGIN
           name: ${SMTP_USERNAME}
           password: ${SMTP_PASSWORD}
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array('${CLUSTER_POD_CIDR}')
+          );
     ingress:
-      enabled: false
+      enabled: true
+      className: external
+      annotations:
+        external-dns/public: "true"
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        nginx.ingress.kubernetes.io/proxy-body-size: 5G
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+          rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+          location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+          }
+          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+            deny all;
+          }
+          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+            deny all;
+          }
+      tls:
+        - hosts:
+            - cloud.${SECRET_DOMAIN}
     postgresql:
       enabled: true
       global:
@@ -82,7 +115,6 @@ spec:
           #     server_tokens off;
           #     proxy_hide_header X-Powered-By;
           #     client-max-body-size 10G;
-
           #     rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
           #     rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
           #     rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
@@ -113,16 +145,11 @@ spec:
       curlInsecure: false
       failedJobsHistoryLimit: 5
       successfulJobsHistoryLimit: 2
-    service:
-      type: ClusterIP
-      port: 80
-      loadBalancerIP: nil
-      nodePort: nil
     persistence:
       enabled: true
       existingClaim: nextcloud-data
     metrics:
-      enabled: true
+      enabled: false
       replicaCount: 1
       https: true
       timeout: 5s

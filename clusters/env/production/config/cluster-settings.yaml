@@ -5,6 +5,8 @@ metadata:
   namespace: flux-system
   name: cluster-settings
 data:
+  CLUSTER_POD_CIDR: "10.244.0.0/16"
+  CLUSTER_SVC_CIDR: "10.96.0.0/12"
   CLUSTER_DOMAIN_CERT: crj-wildcard-certificate
   CLUSTER_LB_INGRESS_INTERNAL: "192.168.130.100"
   CLUSTER_LB_INGRESS_EXTERNAL: "192.168.130.101"
