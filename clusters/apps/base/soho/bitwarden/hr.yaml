@@ -21,9 +21,10 @@ spec:
       tag: 1.22.2
     ingress:
       enabled: true
+      ingressClassNam: "external"
       annotations:
-        kubernetes.io/ingress.class: "external"
-        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}  
+        external-dns/public: "true"
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
       hosts:
         - host: bitwarden.${SECRET_DOMAIN}
           paths:
@@ -34,6 +35,9 @@ spec:
             - path: /notifications/hub
               pathType: Prefix
               servicePort: 3012
+      tls:
+        - hosts:
+            - "bitwarden.${SECRET_DOMAIN}"
     env:
       INVITATIONS_ALLOWED: "true"
       DOMAIN: "${BITWARDEN_DOMAIN}"
