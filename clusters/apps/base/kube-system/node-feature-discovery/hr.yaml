@@ -47,7 +47,9 @@ spec:
               - 'vendor'
               - 'device'
           pci:
-            deviceClassWhitelist: ["0300"]
+            deviceClassWhitelist:
+              - "0300"
+              - "0880"
             deviceLabelFields:
               - 'class'
               - 'vendor'
@@ -56,21 +58,22 @@ spec:
             - name: 'cyberpower-ups'
               matchOn:
                 - usbId:
+                    class: ['03']
                     vendor: ['0764']
                     device: ['0601']
             - name: 'zzh'
               matchOn:
                 - usbId:
-                    class: ["ff"]
-                    vendor: ['1a86']
-                    device: ['7523']
+                    class: ['03']
+                    vendor: ['0624']
+                    device: ['0248']
             - name: 'coral-tpu'
               matchOn:
                 - pciId:
-                    vendor: ['0300']
-                    device: ['102b']
-            - name: 'nvidia-gpu'
+                    vendor: ['8086']
+                    device: ['1912']
+            - name: 'intel-gpu'
               matchOn:
                 - pciId:
-                    vendor: ['0300']
-                    device: ['10de']
+                    class: ['0300']
+                    vendor: ['8086']
