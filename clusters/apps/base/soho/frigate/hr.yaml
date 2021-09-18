@@ -222,11 +222,6 @@ spec:
         medium: Memory
         sizeLimit: 2Gi
         mountPath: /dev/shm
-#      dev:
-#        enabled: true
-#        type: hostPath
-#        hostPath: /dev
-#        mountPath: /dev
       video:
         enabled: true
         type: hostPath
@@ -242,11 +237,11 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: feature.node.kubernetes.io/pci-0300_102b_0532.present
+                - key: feature.node.kubernetes.io/custom-coral-tpu
                   operator: In
                   values:
                     - "true"
-                - key: feature.node.kubernetes.io/pci-0300_1002_68f9.present
+                - key: feature.node.kubernetes.io/custom-intel-gpu
                   operator: In
                   values:
                     - "true"

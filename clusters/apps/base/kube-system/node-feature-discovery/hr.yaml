@@ -20,12 +20,6 @@ spec:
     master:
       replicaCount: 2
     worker:
-      ## Tolerations to run daemonset on master nodes
-      # tolerations:
-      #   - effect: 'NoExecute'
-      #     operator: 'Exists'
-      #   - effect: 'NoSchedule'
-      #     operator: 'Exists'
       config: |-
         core:
           sleepInterval: 60s
