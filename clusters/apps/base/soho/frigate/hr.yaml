@@ -20,7 +20,6 @@ spec:
       repository: blakeblackshear/frigate
       tag: 0.8.4-amd64
     env:
-      LIBVA_DRIVER_NAME: "radeonsi"
       TZ: "America/New_York"
     config: |
       mqtt:
