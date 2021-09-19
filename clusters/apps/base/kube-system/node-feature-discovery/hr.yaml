@@ -64,10 +64,10 @@ spec:
             - name: 'coral-tpu'
               matchOn:
                 - pciId:
-                    vendor: ['8086']
-                    device: ['1912']
+                    vendor: ['1ac1']
+                    device: ['089a']
             - name: 'intel-gpu'
               matchOn:
                 - pciId:
-                    class: ['0300']
                     vendor: ['8086']
+                    device: ['1912']
