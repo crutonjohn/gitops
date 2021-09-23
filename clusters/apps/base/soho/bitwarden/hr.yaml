@@ -25,6 +25,10 @@ spec:
       annotations:
         external-dns/public: "true"
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "lock"
+        hajimari.io/appName: "Bitwarden"
+        hajimari.io/group: "Home"
       hosts:
         - host: bitwarden.${SECRET_DOMAIN}
           paths:

@@ -30,6 +30,11 @@ spec:
       main:
         enabled: true
         ingressClassName: "internal"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "file-outline"
+          hajimari.io/appName: "Paperless"
+          hajimari.io/group: "Home"
         hosts:
           - host: "paperless.${SECRET_DOMAIN}"
             paths:
