@@ -20,19 +20,20 @@ spec:
       pullPolicy: IfNotPresent
       tag: v0.1.0
     ingress:
-      enabled: true
-      ingressClassName: "external"
-      annotations:
-        external-dns/public: "true"
-        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-      hosts:
-        - host: start.${SECRET_DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - "start.${SECRET_DOMAIN}"
+      main:
+        enabled: true
+        ingressClassName: "external"
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        hosts:
+          - host: start.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "start.${SECRET_DOMAIN}"
     env:
       TZ: "America/New_York"
     hajimari:
