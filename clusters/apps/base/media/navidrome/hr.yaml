@@ -45,6 +45,10 @@ spec:
       annotations:
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
         external-dns/public: "true"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "music"
+        hajimari.io/appName: "Navidrome"
+        hajimari.io/group: "Media"
       ingressClassName: "external"
       hosts:
         - host: music.crutonjohn.com

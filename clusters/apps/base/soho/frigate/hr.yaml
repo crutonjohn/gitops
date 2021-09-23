@@ -193,6 +193,11 @@ spec:
       main:
         enabled: true
         ingressClassName: "internal"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "cctv"
+          hajimari.io/appName: "Frigate"
+          hajimari.io/group: "Home"
         hosts:
           - host: "frigate.${SECRET_DOMAIN}"
             paths:

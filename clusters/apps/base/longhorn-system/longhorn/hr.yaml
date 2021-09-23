@@ -27,19 +27,10 @@ spec:
     ingress:
       enabled: true
       host: "storage.crutonjohn.com"
-
-      ## Set this to true in order to enable TLS on the ingress record
-      ## A side effect of this will be that the backend service will be connected at port 443
       tls: true
-      ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-      # tlsSecret: storage-crutonjohn-com
-      ## Ingress annotations done as key:value pairs
-      ## If you're using kube-lego, you will want to add:
-      ## kubernetes.io/tls-acme: true
-      ##
-      ## For a full list of possible ingress annotations, please see
-      ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md
-      ##
-      ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
       annotations:
-       kubernetes.io/ingress.class: "internal"
+        kubernetes.io/ingress.class: "internal"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "harddisk"
+        hajimari.io/appName: "Longhorn Storage"
+        hajimari.io/group: "Cluster"

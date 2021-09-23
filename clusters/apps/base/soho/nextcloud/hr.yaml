@@ -71,6 +71,10 @@ spec:
           location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
             deny all;
           }
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "cloud-upload"
+        hajimari.io/appName: "Nextcloud"
+        hajimari.io/group: "Home"
       tls:
         - hosts:
             - cloud.${SECRET_DOMAIN}

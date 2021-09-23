@@ -51,6 +51,10 @@ spec:
             proxy_set_header Connection "upgrade";
             proxy_cache_bypass $http_upgrade;
             }
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "home-assistant"
+          hajimari.io/appName: "Home Assistant"
+          hajimari.io/group: "Home"
         hosts:
           - host: "hass.${SECRET_DOMAIN}"
             paths:
