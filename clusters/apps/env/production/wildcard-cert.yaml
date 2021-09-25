@@ -9,16 +9,16 @@ spec:
   renewBefore: 360h
   subject:
     organizations:
-    - CRJ Technologies LLC
+      - CRJ Technologies LLC
   commonName: crutonjohn.com
   dnsNames:
-  - crutonjohn.com
-  - curtisrayjohn.com
-  - crjtechnologies.com
-  - baremetalblog.com
-  - "*.crutonjohn.com"
-  - "*.os.crutonjohn.com"
-  - "*.curtisrayjohn.com"
+    - crutonjohn.com
+    - curtisrayjohn.com
+    - crjtechnologies.com
+    - baremetalblog.com
+    - "*.crutonjohn.com"
+    - "*.os.crutonjohn.com"
+    - "*.curtisrayjohn.com"
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-production
