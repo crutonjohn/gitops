@@ -7,14 +7,27 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: longhorn
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: frigate-data-pandora
 spec:
+  capacity:
+    storage: 8192Gi
   accessModes:
     - ReadWriteMany
+  claimRef:
+    namespace: soho
+    name: frigate-data-pandora
+  storageClassName: pandora
+  nfs:
+    server: 192.168.130.50
+    path: "/pandora/k8/frigate-data/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -24,3 +37,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  storageClassName: pandora
+  resources:
+    requests:
+      storage: 8192Gi

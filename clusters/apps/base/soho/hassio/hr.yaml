@@ -76,10 +76,9 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 25Gi
-        ## Do not delete the pvc upon helm uninstall
+        mountPath: /data
+        existingClaim: home-assistant-config
+        accessMode: ReadWriteMany
         skipuninstall: false
     addons:
       codeserver:

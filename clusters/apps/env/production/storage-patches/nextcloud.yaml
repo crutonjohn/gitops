@@ -4,8 +4,17 @@ kind: PersistentVolume
 metadata:
   name: nextcloud-data
 spec:
+  capacity:
+    storage: 1024Gi
   accessModes:
     - ReadWriteMany
+  claimRef:
+    namespace: soho
+    name: nextcloud-data
+  storageClassName: pandora
+  nfs:
+    server: 192.168.130.50
+    path: "/pandora/k8/nextcloud-data/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -15,6 +24,10 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  storageClassName: pandora
+  resources:
+    requests:
+      storage: 1024Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -24,3 +37,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 5Gi
