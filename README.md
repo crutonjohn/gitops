@@ -7,7 +7,7 @@
 <br />
 <div align="center">
 
-[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60&style=flat-square)](https://discord.gg/DNCynrJ)
+[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60&style=flat-square)](https://discord.gg/k8s-at-home)
 
 </div>
 
@@ -31,9 +31,8 @@ Currently using [k3s](https://k3s.io) by way of a customized [template-cluster-k
 1. `pip install pipenv`
 2. `pipenv install`
 3. `pipenv run gilt overlay`
-4. `pipenv run ansible-playbook -i ansible/inventory/inventory.yaml ansible/playbooks/k3s-install.yaml`
-5. `scp root@192.168.130.31:/etc/rancher/k3s/k3s.yaml ~/.kube/config`
-6. `sops -d sops-secret.enc.yaml | kubectl apply -f -`
+4. `pipenv run ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yaml`
+5. `sops -d sops-secret.enc.yaml | kubectl apply -f -`
 
 1. Have a working `kubeconfig`
 2. Have `flux` installed
