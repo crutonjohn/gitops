@@ -1,0 +1,10 @@
+---
+- git: https://github.com/k8s-at-home/template-cluster-k3s.git
+  version: main
+  files:
+    - src: "provision/ansible"
+      dst: ansible/
+      post_commands:
+        - ansible-galaxy install -r requirements.yml --force
+        - cp ../vars/inventory.yaml inventory/inventory.yaml
+        - cp ../vars/kube-vip.yaml inventory/group_vars/kubernetes/kube-vip.yaml
