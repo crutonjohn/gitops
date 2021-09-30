@@ -8,8 +8,9 @@ spec:
   interval: 5m
   chart:
     spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: unifi
-      version: 2.0.2
+      version: 4.2.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -17,43 +18,38 @@ spec:
   values:
     image:
       repository: jacobalberty/unifi
-      tag: 5.12.35
+      tag: 5.14.23
     persistence:
-      enabled: true
-      size: 5Gi
-      storageClass: longhorn
-    timezone: "America/New_York"
-    runAsRoot: false
-    guiService:
-      type: LoadBalancer
-      loadBalancerIP: 192.168.130.103
-      annotations:
-        metallb.universe.tf/allow-shared-ip: unifi
-    controllerService:
-      type: LoadBalancer
-      loadBalancerIP: 192.168.130.103
-      annotations:
-        metallb.universe.tf/allow-shared-ip: unifi
-    stunService:
-      type: LoadBalancer
-      loadBalancerIP: 192.168.130.103
-      annotations:
-        metallb.universe.tf/allow-shared-ip: unifi
-    discoveryService:
-      type: LoadBalancer
-      loadBalancerIP: 192.168.130.103
-      annotations:
-        metallb.universe.tf/allow-shared-ip: unifi
+      data:
+        enabled: true
+        mountPath: /unifi
+        existingClaim: unifi-config
+    env:
+      TZ: "America/New_York"
+    service:
+      main:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: unifi
+        loadBalancerIP: ${CLUSTER_LB_UNIFI}
+        externalTrafficPolicy: Local
     resources:
       requests:
-        memory: 500Mi
-        cpu: 15m
+        memory: 1024M
+        cpu: 30m
       limits:
-        memory: 750Mi
+        memory: 1536M
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "internal"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      hosts:
-        - unifi.crutonjohn.com
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "internal"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        hosts:
+          - host: unifi.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - unifi.${SECRET_DOMAIN}

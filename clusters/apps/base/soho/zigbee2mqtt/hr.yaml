@@ -76,12 +76,9 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
         accessMode: ReadWriteOnce
-        size: 1Gi
-        ## Do not delete the pvc upon helm uninstall
-        skipuninstall: false
         mountPath: "/data"
+        existingClaim: zigbee2mqtt-config
       usb:
         enabled: true
         type: hostPath

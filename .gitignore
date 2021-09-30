@@ -16,15 +16,12 @@
 auth
 master.key
 *.snap
-setup/cluster/*cluster.yml
 *.rkestate
 kubeconfig
 gitignore/
-# temporary
-setup/.env
 
 # Ansible
-ansible/playbooks/output/k8s-config.yaml
+ansible/*
 
 # Vim
 *.swp
