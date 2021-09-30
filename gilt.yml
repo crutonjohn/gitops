@@ -3,7 +3,7 @@
   version: main
   files:
     - src: "provision/ansible"
-      dst: ansible/
+      dst: provision/ansible/
       post_commands:
         - ansible-galaxy install -r requirements.yml --force
         - cp ../vars/inventory.yaml inventory/inventory.yaml
