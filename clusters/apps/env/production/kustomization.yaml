@@ -16,13 +16,3 @@ resources:
   - wildcard-cert.yaml
 patchesStrategicMerge:
   - patch.metallb.yaml
-  # - patch.pvc.yaml
-  - ./storage-patches/bitwarden.yaml
-  - ./storage-patches/frigate.yaml
-  - ./storage-patches/hassio.yaml
-  - ./storage-patches/minecraft.yaml
-  - ./storage-patches/music.yaml
-  - ./storage-patches/nextcloud.yaml
-  - ./storage-patches/paperless.yaml
-  - ./storage-patches/unifi.yaml
-  - ./storage-patches/zigbee2mqtt.yaml

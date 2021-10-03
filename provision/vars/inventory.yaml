@@ -13,12 +13,6 @@ kubernetes:
         ansible_user: ubuntu
     worker:
       hosts:
-        k-node01:
-          ansible_host: 192.168.130.41
-        k-node02:
-          ansible_host: 192.168.130.42
-        k-node03:
-          ansible_host: 192.168.130.43
         k-node1:
           ansible_host: 192.168.130.51
         k-node2:
