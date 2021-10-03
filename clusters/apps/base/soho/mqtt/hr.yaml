@@ -44,3 +44,5 @@ spec:
       size: 100Mi
       storageClass: "longhorn"
       accessMode: ReadWriteOnce
+    nodeSelector:
+      kubernetes.io/arch: amd64
