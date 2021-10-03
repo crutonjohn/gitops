@@ -23,8 +23,7 @@ spec:
     recreatePods: true
     service:
       type: LoadBalancer
-      externalIPs:
-        - "${CLUSTER_LB_MQTT}"
+      loadBalancerIP: "${CLUSTER_LB_MQTT}"
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_ADMIN_PASSWORD: "${MQTT_ADMIN_PASSWORD}"
