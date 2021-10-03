@@ -58,9 +58,9 @@ spec:
             - name: 'zzh'
               matchOn:
                 - usbId:
-                    class: ['03']
-                    vendor: ['0624']
-                    device: ['0248']
+                    class: ['ff']
+                    vendor: ['1a86']
+                    device: ['7523']
             - name: 'coral-tpu'
               matchOn:
                 - pciId:

@@ -5,4 +5,3 @@ resources:
   - hr.yaml
   - code.enc.yaml
   - hass.enc.yaml
-  - pvc.yaml

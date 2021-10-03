@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - hr.yaml
   # - vs.yaml
-  - pvc.yaml
