@@ -8,6 +8,7 @@ resources:
   - crossplane-charts.yaml
   - crutonjohn-charts.yaml
   - dex-chart.yaml
+  - emqx-charts.yaml
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
