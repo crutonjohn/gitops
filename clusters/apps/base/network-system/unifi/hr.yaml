@@ -23,7 +23,7 @@ spec:
       data:
         enabled: true
         mountPath: /unifi
-        existingClaim: unifi-config
+        existingClaim: unifi
     env:
       TZ: "America/New_York"
     service:
