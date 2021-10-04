@@ -85,7 +85,7 @@ spec:
               - "1"
           height: 352
           width: 640
-          fps: 29.97
+          fps: 30
           objects:
             filters:
               person:
@@ -132,7 +132,7 @@ spec:
               - "1"
           height: 352
           width: 640
-          fps: 29.97
+          fps: 30
           objects:
             filters:
               person:
@@ -179,7 +179,7 @@ spec:
               - "1"
           height: 352
           width: 640
-          fps: 29.97
+          fps: 30
           objects:
             filters:
               person:
