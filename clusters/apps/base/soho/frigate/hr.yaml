@@ -23,7 +23,7 @@ spec:
       TZ: "America/New_York"
     config: |
       mqtt:
-        host: vernemq.soho.svc.cluster.local
+        host: emqx.soho.svc.cluster.local
         topic_prefix: frigate
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
