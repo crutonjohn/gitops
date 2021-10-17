@@ -13,3 +13,4 @@ patchesStrategicMerge:
   - ./storage-patches/paperless.yaml
   - ./storage-patches/unifi.yaml
   - ./storage-patches/zigbee2mqtt.yaml
+  - ./storage-patches/hajimari.yaml

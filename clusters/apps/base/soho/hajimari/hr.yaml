@@ -36,6 +36,12 @@ spec:
               - "start.${SECRET_DOMAIN}"
     env:
       TZ: "America/New_York"
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "hajimari-settings"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: hajimari-config
     hajimari:
       instanceName: cruton
       defaultEnable: false
