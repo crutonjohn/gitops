@@ -75,7 +75,7 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /data
+        mountPath: /config
         existingClaim: home-assistant-config
         accessMode: ReadWriteMany
         skipuninstall: false
