@@ -220,7 +220,8 @@ spec:
       ## Node labels for default backend pod assignment
       ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
       ##
-      nodeSelector: {}
+      nodeSelector:
+        kubernetes.io/arch: amd64
 
       ## Annotations to be added to default backend pods
       ##
