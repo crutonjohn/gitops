@@ -34,6 +34,10 @@ kind: Ingress
 metadata:
   name: cjs-server
   namespace: network-system
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: external
   rules:
