@@ -28,6 +28,8 @@ spec:
       ingressClass: external
       extraArgs:
         default-ssl-certificate: "network-system/crj-wildcard-certificate"
+      nodeSelector:
+        kubernetes.io/arch: amd64
       kind: Deployment
       affinity:
         podAntiAffinity:
