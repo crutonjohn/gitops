@@ -40,7 +40,10 @@ spec:
     - host: "*.randomgamers.gg"
       http:
         paths:
-          - path: /
-            backend:
-              serviceName: cjs-server
-              servicePort: 443
+        - backend:
+            service:
+              name: cjs-server
+              port:
+                number: 443
+          path: /
+          pathType: ImplementationSpecific
