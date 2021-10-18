@@ -53,3 +53,5 @@ spec:
         tls:
           - hosts:
               - unifi.${SECRET_DOMAIN}
+    nodeSelector:
+      kubernetes.io/arch: amd64
