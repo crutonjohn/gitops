@@ -29,7 +29,7 @@ subsets:
       - name: https
         port: 443
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cjs-server
