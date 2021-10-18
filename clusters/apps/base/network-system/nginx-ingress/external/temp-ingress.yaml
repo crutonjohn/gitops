@@ -51,3 +51,6 @@ spec:
                 number: 443
           path: /
           pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - "*.randomgamers.gg"
