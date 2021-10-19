@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - hr.yaml
   - temp-ingress.yaml
+  - temp-cert.enc.yaml
