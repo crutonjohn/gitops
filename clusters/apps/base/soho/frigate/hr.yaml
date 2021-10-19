@@ -60,14 +60,14 @@ spec:
         kitchen-e1-pro:
           ffmpeg:
             inputs:
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_sub
-              roles:
-              - detect
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_main
-              roles:
-              - clips
-              - record
-              - rtmp
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_sub
+                roles:
+                  - detect
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_main
+                roles:
+                  - clips
+                  - record
+                  - rtmp
             input_args:
               - -avoid_negative_ts
               - make_zero
@@ -81,9 +81,10 @@ spec:
               - +genpts+discardcorrupt
               - -use_wallclock_as_timestamps
               - "1"
-          height: 352
-          width: 640
-          fps: 30
+          detect:
+            height: 352
+            width: 640
+            fps: 30
           objects:
             filters:
               person:
@@ -91,11 +92,14 @@ spec:
                 max_area: 100000
                 threshold: 0.75
                 min_score: 0.60
-          clips:
+          record:
             enabled: True
-            objects:
-            - person
-            - dog
+            retain_days: 2
+            events:
+              retain: 50
+              objects:
+                - person
+                - dog
           snapshots:
             enabled: True
             timestamp: False
@@ -105,14 +109,14 @@ spec:
         sitting-room-e1-pro:
           ffmpeg:
             inputs:
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_sub
-              roles:
-              - detect
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_main
-              roles:
-              - clips
-              - record
-              - rtmp
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_sub
+                roles:
+                  - detect
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_main
+                roles:
+                  - clips
+                  - record
+                  - rtmp
             input_args:
               - -avoid_negative_ts
               - make_zero
@@ -126,9 +130,10 @@ spec:
               - +genpts+discardcorrupt
               - -use_wallclock_as_timestamps
               - "1"
-          height: 352
-          width: 640
-          fps: 30
+          detect:
+            height: 352
+            width: 640
+            fps: 30
           objects:
             filters:
               person:
@@ -136,11 +141,14 @@ spec:
                 max_area: 100000
                 threshold: 0.75
                 min_score: 0.60
-          clips:
+          record:
             enabled: True
-            objects:
-            - person
-            - dog
+            retain_days: 2
+            events:
+              retain: 50
+              objects:
+                - person
+                - dog
           snapshots:
             enabled: True
             timestamp: False
@@ -150,14 +158,14 @@ spec:
         living-room-e1-pro:
           ffmpeg:
             inputs:
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_sub
-              roles:
-              - detect
-            - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_main
-              roles:
-              - clips
-              - record
-              - rtmp
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_sub
+                roles:
+                  - detect
+              - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_main
+                roles:
+                  - clips
+                  - record
+                  - rtmp
             input_args:
               - -avoid_negative_ts
               - make_zero
@@ -171,9 +179,10 @@ spec:
               - +genpts+discardcorrupt
               - -use_wallclock_as_timestamps
               - "1"
-          height: 352
-          width: 640
-          fps: 30
+          detect:
+            height: 352
+            width: 640
+            fps: 30
           objects:
             filters:
               person:
@@ -181,11 +190,14 @@ spec:
                 max_area: 100000
                 threshold: 0.75
                 min_score: 0.60
-          clips:
+          record:
             enabled: True
-            objects:
-            - person
-            - dog
+            retain_days: 2
+            events:
+              retain: 50
+              objects:
+                - person
+                - dog
           snapshots:
             enabled: True
             timestamp: False
