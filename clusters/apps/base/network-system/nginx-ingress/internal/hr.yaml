@@ -25,7 +25,11 @@ spec:
         https: 443
       dnsPolicy: ClusterFirst
       electionID: ingress-controller-leader
-      ingressClass: internal
+      ingressClassResource:
+        name: internal
+        controllerValue: k8s.io/internal
+        enabled: true
+      ingressClassByName: true
       extraArgs:
         default-ssl-certificate: "network-system/crj-wildcard-certificate"
       kind: Deployment
