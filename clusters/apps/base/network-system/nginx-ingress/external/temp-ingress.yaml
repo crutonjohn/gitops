@@ -34,6 +34,8 @@ kind: Ingress
 metadata:
   name: cjs-server
   namespace: network-system
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   ingressClassName: external
   rules:
@@ -50,4 +52,4 @@ spec:
   tls:
     - hosts:
         - "*.randomgamers.gg"
-      secretName: cj-wildcard-certificate
+      secretName: "cj-wildcard-certificate"
