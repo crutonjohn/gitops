@@ -60,3 +60,5 @@ spec:
         cpu: 25m
       limits:
         memory: 500Mi
+    nodeSelector:
+      kubernetes.io/arch: amd64
