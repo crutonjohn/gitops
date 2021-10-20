@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: flux-system
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: longhorn-system
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: auth-system
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: observability
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: soho
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: media
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""

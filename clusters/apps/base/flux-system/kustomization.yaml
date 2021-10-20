@@ -5,4 +5,3 @@ resources:
   - helm-repositories
   - discord-notifications
   - webhook-receiver
-  - wildcard-cert.yaml
