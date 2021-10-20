@@ -19,6 +19,8 @@ spec:
   values:
     master:
       replicaCount: 2
+      nodeSelector:
+        kubernetes.io/arch: amd64
     worker:
       config: |-
         core:
