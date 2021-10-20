@@ -42,6 +42,7 @@ spec:
       tls:
         - hosts:
             - "bitwarden.${SECRET_DOMAIN}"
+          secretName: "crj-wildcard-certificate"
     env:
       INVITATIONS_ALLOWED: "true"
       DOMAIN: "${BITWARDEN_DOMAIN}"

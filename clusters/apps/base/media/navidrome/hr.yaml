@@ -51,10 +51,11 @@ spec:
         hajimari.io/group: "Media"
       ingressClassName: "external"
       hosts:
-        - host: music.crutonjohn.com
+        - host: "music.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: ImplementationSpecific
       tls:
         - hosts:
-            - music.crutonjohn.com
+            - "music.${SECRET_DOMAIN}"
+          secretName: "crj-wildcard-certificate"

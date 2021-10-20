@@ -53,5 +53,6 @@ spec:
         tls:
           - hosts:
               - unifi.${SECRET_DOMAIN}
+            secretName: "crj-wildcard-certificate"
     nodeSelector:
       kubernetes.io/arch: amd64
