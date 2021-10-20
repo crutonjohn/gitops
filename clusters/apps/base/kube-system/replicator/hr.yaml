@@ -29,12 +29,9 @@ spec:
       privileges:
         - apiGroups: [""]
           resources: ["namespaces"]
-          verbs: ["get", "watch", "list"]
         - apiGroups: [""]
           resources: ["secrets", "configmaps"]
-          verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
         - apiGroups: ["rbac.authorization.k8s.io"]
           resources: ["roles", "rolebindings"]
-          verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
     nodeSelector:
       kubernetes.io/arch: amd64
