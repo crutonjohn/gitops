@@ -5,6 +5,10 @@ metadata:
   namespace: network-system
 spec:
   secretName: crj-wildcard-certificate
+  secretTemplate:
+    annotations:
+      replicator.v1.mittwald.de/replication-allowed: "true"
+      replicator.v1.mittwald.de/replication-allowed-namespaces: "auth-system,flux-system,longhorn-system,media,network-system,observability,soho"
   duration: 2160h
   renewBefore: 360h
   subject:

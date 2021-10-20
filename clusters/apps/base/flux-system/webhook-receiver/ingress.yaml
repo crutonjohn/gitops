@@ -10,16 +10,17 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-  - host: receiver.${SECRET_DOMAIN}
-    http:
-      paths:
-      - backend:
-          service:
-            name: webhook-receiver
-            port:
-              number: 80
-        path: /
-        pathType: ImplementationSpecific
+    - host: receiver.${SECRET_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
   tls:
-  - hosts:
-    - receiver.${SECRET_DOMAIN}
+    - hosts:
+        - receiver.${SECRET_DOMAIN}
+      secretName: "crj-wildcard-certificate"

@@ -28,6 +28,7 @@ resources:
   - oauth2-proxy-chart.yaml
   - openfaas-charts.yaml
   - prometheus-community-charts.yaml
+  - replicator-charts.yaml
   - stakater-charts.yaml
   - vernemq-charts.yaml
   - weaveworks-kured-charts.yaml

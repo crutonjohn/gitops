@@ -78,6 +78,7 @@ spec:
       tls:
         - hosts:
             - cloud.${SECRET_DOMAIN}
+          secretName: "crj-wildcard-certificate"
     postgresql:
       enabled: true
       global:

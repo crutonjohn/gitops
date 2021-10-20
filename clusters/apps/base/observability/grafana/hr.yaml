@@ -34,16 +34,17 @@ spec:
       enabled: true
       ingressClassName: external
       annotations:
-        # kubernetes.io/ingress.class: external
-        external-dns.alpha.kubernetes.io/target: dyn4.crutonjohn.com
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
         external-dns/public: true
       labels: {}
       path: /
       pathType: Prefix
       hosts:
         - "grafana.${SECRET_DOMAIN}"
-      extraPaths: []
-      tls: []
+      tls:
+        - hosts:
+            - "grafana.${SECRET_DOMAIN}"
+          secretName: "crj-wildcard-certificate"
     persistence:
       type: pvc
       enabled: false

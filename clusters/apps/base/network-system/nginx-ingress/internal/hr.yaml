@@ -31,8 +31,10 @@ spec:
         enabled: true
       ingressClassByName: true
       extraArgs:
-        default-ssl-certificate: "network-system/crj-wildcard-certificate"
+        # default-ssl-certificate: "network-system/crj-wildcard-certificate"
       kind: Deployment
+      nodeSelector:
+        kubernetes.io/arch: amd64
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

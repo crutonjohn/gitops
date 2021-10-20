@@ -31,7 +31,7 @@ spec:
         enabled: true
       ingressClassByName: true
       extraArgs:
-        default-ssl-certificate: "network-system/crj-wildcard-certificate"
+        # default-ssl-certificate: "network-system/crj-wildcard-certificate"
         enable-ssl-passthrough: ""
       nodeSelector:
         kubernetes.io/arch: amd64

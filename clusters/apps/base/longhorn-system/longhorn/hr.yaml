@@ -28,6 +28,7 @@ spec:
       enabled: true
       host: "storage.crutonjohn.com"
       tls: true
+      tlsSecret: "crj-wildcard-certificate"
       annotations:
         kubernetes.io/ingress.class: "internal"
         hajimari.io/enable: "true"

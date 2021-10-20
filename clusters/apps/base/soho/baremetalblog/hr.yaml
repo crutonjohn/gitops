@@ -30,3 +30,4 @@ spec:
       tls:
         - hosts:
             - "baremetalblog.com"
+          secretName: "crj-wildcard-certificate"
