@@ -39,7 +39,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: "*.randomgamers.gg"
+    - host: "bitwarden.randomgamers.gg"
       http:
         paths:
           - backend:
@@ -51,5 +51,5 @@ spec:
             pathType: ImplementationSpecific
   tls:
     - hosts:
-        - "*.randomgamers.gg"
+        - "bitwarden.randomgamers.gg"
       secretName: "cj-wildcard-certificate"
