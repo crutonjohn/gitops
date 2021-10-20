@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - node-feature-discovery
   - reloader
+  - replicator
   - kured
   - intel-gpu-plugin
