@@ -27,9 +27,14 @@ spec:
       create: true
       name: replicator
       privileges:
-        - apiGroups: ["", "apps", "extensions"]
-          resources: ["secrets", "configmaps", "roles", "rolebindings", "cronjobs", "deployments", "events", "ingresses", "jobs", "pods", "pods/attach", "pods/exec", "pods/log", "pods/portforward", "services"]
-        - apiGroups: ["batch"]
-          resources: ["configmaps", "cronjobs", "deployments", "events", "ingresses", "jobs", "pods", "pods/attach", "pods/exec", "pods/log", "pods/portforward", "services"]
+        - apiGroups: [""]
+          resources: ["namespaces"]
+          verbs: ["get", "watch", "list"]
+        - apiGroups: [""]
+          resources: ["secrets", "configmaps"]
+          verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
+        - apiGroups: ["rbac.authorization.k8s.io"]
+          resources: ["roles", "rolebindings"]
+          verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
     nodeSelector:
       kubernetes.io/arch: amd64
