@@ -25,7 +25,7 @@ spec:
       - -resync-period=5m
     serviceAccount:
       create: true
-      name: replicator
+      name: replicator-kubernetes-replicator
       privileges:
         - apiGroups: [""]
           resources: ["namespaces"]
