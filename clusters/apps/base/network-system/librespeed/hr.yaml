@@ -32,3 +32,4 @@ spec:
         tls:
           - hosts:
               - speedof.${SECRET_DOMAIN}
+            secretName: crj-wildcard-certificate
