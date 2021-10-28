@@ -27,6 +27,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
  name: cjs-server
+ namespace: network-system
  annotations:
    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
