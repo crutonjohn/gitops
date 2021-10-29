@@ -7,6 +7,9 @@ metadata:
 spec:
   type: ExternalName
   externalName: cjs-server.${SECRET_DOMAIN}
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
 #---
 #apiVersion: v1
 #kind: Service
