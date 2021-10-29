@@ -5,13 +5,22 @@ metadata:
   name: cjs-server
   namespace: network-system
 spec:
-  ports:
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
-  clusterIP: None
-  type: ClusterIP
+  type: ExternalName
+  externalName: cjs-server.${SECRET_DOMAIN}
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: cjs-server
+#  namespace: network-system
+#spec:
+#  ports:
+#    - name: https
+#      protocol: TCP
+#      port: 443
+#      targetPort: 443
+#  clusterIP: None
+#  type: ClusterIP
 ---
 apiVersion: v1
 kind: Endpoints
