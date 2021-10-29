@@ -7,9 +7,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: cjs-server.${SECRET_DOMAIN}
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
 #---
 #apiVersion: v1
 #kind: Service
@@ -24,6 +21,9 @@ spec:
 #      targetPort: 443
 #  clusterIP: None
 #  type: ClusterIP
+#  ipFamilies:
+#  - IPv4
+#  ipFamilyPolicy: SingleStack
 ---
 apiVersion: v1
 kind: Endpoints
