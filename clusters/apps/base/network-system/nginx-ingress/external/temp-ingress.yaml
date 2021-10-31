@@ -19,11 +19,11 @@ spec:
       protocol: TCP
       port: 443
       targetPort: 443
-  clusterIP: None
+#  clusterIP: None
   type: ClusterIP
-    #  ipFamilies:
-    #  - IPv4
-    #  ipFamilyPolicy: SingleStack
+#  ipFamilies:
+#  - IPv4
+#  ipFamilyPolicy: SingleStack
 ---
 apiVersion: v1
 kind: Endpoints
