@@ -166,3 +166,5 @@ spec:
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "9205"
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
