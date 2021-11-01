@@ -42,14 +42,16 @@ spec:
         feature.node.kubernetes.io/custom-cyberpower-ups: "true"
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: component
-                operator: In
-                values:
-                - upsd
-            topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                  - upsd
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       volumes:
       - name: ups
         hostPath:
@@ -99,13 +101,15 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: component
-                operator: In
-                values:
-                - upsd
-            topologyKey: kubernetes.io/hostname
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                  - upsd
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       volumes:
       - name: ups
         hostPath:
