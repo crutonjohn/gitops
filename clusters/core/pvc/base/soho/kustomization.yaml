@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - bitwarden.yaml
   - frigate.yaml
+  - hajimari.yaml
   - hassio.yaml
   - nextcloud.yaml
   - paperless.yaml
