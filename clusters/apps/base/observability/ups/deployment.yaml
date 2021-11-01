@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      component: upsd-tesla
+      component: upsd
   replicas: 1
   strategy:
     type: Recreate
@@ -65,7 +65,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      component: upsd-edison
+      component: upsd
   replicas: 1
   strategy:
     type: Recreate
