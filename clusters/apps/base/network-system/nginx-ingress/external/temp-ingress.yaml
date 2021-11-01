@@ -49,10 +49,10 @@ spec:
   ingressClassName: external
   tls:
   - hosts:
-    - bitwarden.randomgamers.gg
+    - "*.randomgamers.gg"
     secretName: cj-wildcard-certificate
   rules:
-  - host: bitwarden.randomgamers.gg
+  - host: "*.randomgamers.gg"
     http:
       paths:
       - path: /
