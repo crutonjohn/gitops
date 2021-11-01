@@ -12,7 +12,6 @@ resources:
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
-  - grafana-loki.yaml
   - hajimari-charts.yaml
   - itzg-minecraft-charts.yaml
   - jetstack-charts.yaml
