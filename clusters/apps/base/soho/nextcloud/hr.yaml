@@ -99,6 +99,8 @@ spec:
       containerSecurityContext:
         enabled: true
         runAsUser: 5432
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
     externalDatabase:
       enabled: true
       type: postgresql
