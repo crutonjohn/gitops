@@ -53,7 +53,7 @@ spec:
           hass-config.${SECRET_DOMAIN}: 192.168.130.101
           speedof.${SECRET_DOMAIN}: 192.168.130.100
           paperless.${SECRET_DOMAIN}: 192.168.130.101
-          cjs-server.${SECRET_DOMAIN}: 192.168.128.82
+          cloud.${CJS_DOMAIN}: 192.168.128.82
       conditional:
         mapping:
           local: 192.168.128.1
