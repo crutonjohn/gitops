@@ -182,7 +182,7 @@ spec:
                   storage: 50Gi
         ## The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name. string  false
         ##
-        externalUrl: "alerts.${SECRET_DOMAIN}"
+      externalUrl: "https://alerts.${SECRET_DOMAIN}"
         nodeSelector:
           kubernetes.io/arch: "amd64"
         resources:
