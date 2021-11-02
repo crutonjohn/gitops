@@ -98,7 +98,7 @@ spec:
       config:
         global:
           resolve_timeout: 5m
-          smtp_smarthost: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
+          smtp_smarthost: "${GRAFANA_SMTP_HOST_STRING}"
           smtp_from: "${SMTP_FROM}"
           smtp_auth_username: "${SMTP_USERNAME}"
           smtp_auth_password: "${SMTP_PASSWORD}"
