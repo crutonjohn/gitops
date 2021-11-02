@@ -26,11 +26,11 @@ spec:
       createDefaultDiskLabeledNodes: true
     ingress:
       enabled: true
+      ingressClassName: internal
       host: "storage.crutonjohn.com"
       tls: true
       tlsSecret: "crj-wildcard-certificate"
       annotations:
-        kubernetes.io/ingress.class: "internal"
         hajimari.io/enable: "true"
         hajimari.io/icon: "harddisk"
         hajimari.io/appName: "Longhorn Storage"
