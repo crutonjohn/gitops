@@ -163,7 +163,7 @@ spec:
         role_attribute_path: role
       smtp:
         enabled: true
-        host: "${SMTP_HOST}:${SMTP_PORT}"
+        host: "${SMTP_HOST}":"${SMTP_PORT}"
         user: "${SMTP_USERNAME}"
         password: "${SMTP_PASSWORD}"
         from_address: "${SMTP_FROM}"
