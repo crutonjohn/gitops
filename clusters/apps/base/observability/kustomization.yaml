@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - botkube
   # - drac
-  - kube-prometheus
-  - grafana
+  # - kube-prometheus
+  # - grafana
   - loki
   - ups
