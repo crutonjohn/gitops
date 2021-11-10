@@ -114,7 +114,7 @@ spec:
       enabled: true
       image:
         repository: nginx
-        tag: 1.21.3
+        tag: 1.21.4
         pullPolicy: IfNotPresent
         config:
           default: true
