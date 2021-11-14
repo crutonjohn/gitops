@@ -1,0 +1,74 @@
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: cjs-unraid-server
+#  namespace: network-system
+#spec:
+#  type: ExternalName
+#  externalName: cjs-unraid-server.${SECRET_DOMAIN}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cjs-unraid-server
+  namespace: network-system
+spec:
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  clusterIP: None
+  type: ClusterIP
+#  ipFamilies:
+#  - IPv4
+#  ipFamilyPolicy: SingleStack
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: cjs-unraid-server
+  namespace: network-system
+subsets:
+  - addresses:
+      - ip: 192.168.128.82
+    ports:
+      - name: https
+        port: 443
+        protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: cjs-unraid-server
+ namespace: network-system
+ annotations:
+   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  ingressClassName: external
+  tls:
+  - hosts:
+    - "*.randomgamers.gg"
+    secretName: cj-wildcard-certificate
+  rules:
+  - host: "bitwarden.randomgamers.gg"
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: cjs-unraid-server
+            port:
+              number: 443
+  - host: "cloud.randomgamers.gg"
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: cjs-unraid-server
+            port:
+              number: 443
