@@ -2,16 +2,16 @@
 #apiVersion: v1
 #kind: Service
 #metadata:
-#  name: cjs-server
+#  name: cjs-cluster
 #  namespace: network-system
 #spec:
 #  type: ExternalName
-#  externalName: cjs-server.${SECRET_DOMAIN}
+#  externalName: cjs-cluster.${SECRET_DOMAIN}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: cjs-server
+  name: cjs-cluster
   namespace: network-system
 spec:
   ports:
@@ -28,11 +28,11 @@ spec:
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: cjs-server
+  name: cjs-cluster
   namespace: network-system
 subsets:
   - addresses:
-      - ip: 192.168.128.82
+      - ip: 192.168.130.210
     ports:
       - name: https
         port: 443
@@ -41,7 +41,7 @@ subsets:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
- name: cjs-server
+ name: cjs-cluster
  namespace: network-system
  annotations:
    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -52,13 +52,13 @@ spec:
     - "*.randomgamers.gg"
     secretName: cj-wildcard-certificate
   rules:
-  - host: "*.randomgamers.gg"
+  - host: "hajimari.randomgamers.gg"
     http:
       paths:
       - path: /
         pathType: ImplementationSpecific
         backend:
           service:
-            name: cjs-server
+            name: cjs-cluster
             port:
               number: 443
