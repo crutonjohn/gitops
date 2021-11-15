@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cjs-unraid-server
+  name: cjs-server
   namespace: network-system
 spec:
   ports:
@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: cjs-unraid-server
+  name: cjs-server
   namespace: network-system
 subsets:
   - addresses:
@@ -26,75 +26,27 @@ subsets:
         port: 443
         protocol: TCP
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: cjs-cluster
-  namespace: network-system
-spec:
-  ports:
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
-  clusterIP: None
-  type: ClusterIP
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: cjs-cluster
-  namespace: network-system
-subsets:
-  - addresses:
-      - ip: 192.168.130.210
-    ports:
-      - name: https
-        port: 443
-        protocol: TCP
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
- name: cjs-ingress
- namespace: network-system
- annotations:
-   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-   nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+  name: cjs-server
+  namespace: network-system
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: external
   tls:
-  - hosts:
-    - "*.randomgamers.gg"
-    secretName: cj-wildcard-certificate
+    - hosts:
+        - "*.randomgamers.gg"
+      secretName: cj-wildcard-certificate
   rules:
-  - host: "bitwarden.randomgamers.gg"
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: cjs-unraid-server
-            port:
-              number: 443
-  - host: "cloud.randomgamers.gg"
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: cjs-unraid-server
-            port:
-              number: 443
-  - host: "hajimari.randomgamers.gg"
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: cjs-cluster
-            port:
-              number: 443
+    - host: "*.randomgamers.gg"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cjs-server
+                port:
+                  number: 443
