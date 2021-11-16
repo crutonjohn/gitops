@@ -1,6 +1,6 @@
 ---
 - git: https://github.com/k8s-at-home/template-cluster-k3s.git
-  version: main
+  version: "7f406b8d395c939b7883d80b2845325702c082bd"
   files:
     - src: "provision/ansible"
       dst: provision/ansible/
