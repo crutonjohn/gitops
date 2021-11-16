@@ -745,14 +745,14 @@ spec:
       ## Defaults to a random 10-character alphanumeric string if not set
       ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
       ##
-      postgresqlPassword: ""
+      postgresqlPassword: "${KEYCLOAK_DATABASE_PASSWORD}"
       ## @param postgresql.postgresqlDatabase Name of the database to create
       ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#creating-a-database-on-first-run
       ##
       postgresqlDatabase: bitnami_keycloak
       ## @param postgresql.existingSecret Use an existing secret file with the PostgreSQL password
       ##
-      existingSecret: "keycloak-secrets"
+      existingSecret: ""
       ## Enable persistence using Persistent Volume Claims
       ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes
       ##
