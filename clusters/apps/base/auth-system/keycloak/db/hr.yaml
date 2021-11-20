@@ -503,7 +503,8 @@ spec:
       ## @param primary.nodeSelector Node labels for PostgreSQL primary pods assignment
       ## ref: https://kubernetes.io/docs/user-guide/node-selection/
       ##
-      nodeSelector: {}
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
       ## @param primary.tolerations Tolerations for PostgreSQL primary pods assignment
       ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
       ##
