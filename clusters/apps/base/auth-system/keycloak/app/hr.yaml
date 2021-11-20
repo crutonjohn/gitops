@@ -734,38 +734,19 @@ spec:
     ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
     ##
     postgresql:
-      ## @param postgresql.enabled Deploy a PostgreSQL server to satisfy the applications database requirements
-      ##
-      enabled: true
-      ## @param postgresql.postgresqlUsername Keycloak PostgreSQL user (has superuser privileges if username is `postgres`)
-      ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
-      ##
-      postgresqlUsername: bn_keycloak
-      ## @param postgresql.postgresqlPassword Keycloak PostgreSQL password - ignored if existingSecret is provided
-      ## Defaults to a random 10-character alphanumeric string if not set
-      ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
-      ##
+      enabled: false
+      postgresqlUsername: keycloak
       postgresqlPassword: "${KEYCLOAK_DATABASE_PASSWORD}"
-      ## @param postgresql.postgresqlDatabase Name of the database to create
-      ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#creating-a-database-on-first-run
-      ##
       postgresqlDatabase: bitnami_keycloak
-      ## @param postgresql.existingSecret Use an existing secret file with the PostgreSQL password
-      ##
       existingSecret: ""
-      ## Enable persistence using Persistent Volume Claims
-      ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes
-      ##
       persistence:
-        ## @param postgresql.persistence.enabled Enable PostgreSQL persistence using PVC
-        ##
         enabled: true
     ## External database configuration
     ##
     externalDatabase:
       ## @param externalDatabase.host Host of the external database
       ##
-      host: ""
+      host: "keycloak-psql"
       ## @param externalDatabase.port Database port
       ##
       port: 5432
