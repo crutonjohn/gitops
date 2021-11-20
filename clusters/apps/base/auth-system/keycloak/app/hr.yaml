@@ -748,13 +748,13 @@ spec:
     externalDatabase:
       ## @param externalDatabase.host Host of the external database
       ##
-      host: "keycloak-psql"
+      host: "keycloak-db-postgresql"
       ## @param externalDatabase.port Database port
       ##
       port: 5432
       ## @param externalDatabase.user non admin username for Keycloak Database
       ##
-      user: bn_keycloak
+      user: keycloak
       ## @param externalDatabase.password Database password
       ##
       password: "${KEYCLOAK_DATABASE_PASSWORD}"
