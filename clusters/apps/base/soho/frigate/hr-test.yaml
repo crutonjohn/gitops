@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: frigate
+  namespace: soho
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: frigate
+      version: 6.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: blakeblackshear/frigate
+      tag: 0.9.1-amd64
+    env:
+      TZ: "America/New_York"
+    config: |
+      database:
+        path: /data/frigate.db
+      detectors:
+        cpu:
+         type: cpu
+         num_threads: 1
+      objects:
+        track:
+          - person
+          - dog
+        filters:
+          person:
+            min_area: 2500
+            max_area: 100000
+            threshold: 0.7
+          dog:
+            min_area: 1000
+            max_area: 10000
+            threshold: 0.7
+      cameras:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "internal"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "cctv"
+          hajimari.io/appName: "Frigate"
+          hajimari.io/group: "Home"
+        hosts:
+          - host: "frigate-test.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - "frigate-test.${SECRET_DOMAIN}"
+            secretName: "crj-wildcard-certificate"
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        memory: 2000Mi
