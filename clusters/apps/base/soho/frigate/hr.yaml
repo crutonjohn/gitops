@@ -29,7 +29,7 @@ spec:
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
       database:
-        path: /opt/frigate.db
+        path: /data/frigate.db
       detectors:
         coral:
          type: edgetpu
