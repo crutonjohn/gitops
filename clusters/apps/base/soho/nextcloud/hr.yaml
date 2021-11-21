@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 22.2.0-fpm
+      tag: 22.2.3-fpm
       pullPolicy: IfNotPresent
     nextcloud:
       host: cloud.${SECRET_DOMAIN}
