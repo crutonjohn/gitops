@@ -33,6 +33,7 @@ Currently using [k3s](https://k3s.io) by way of a customized [template-cluster-k
 3. `pipenv run gilt overlay`
 4. `pipenv run ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yaml`
 5. `sops -d sops-secret.enc.yaml | kubectl apply -f -`
+6. `k label nodes k-node1.crutonjohn.com k-node2.crutonjohn.com k-node3.crutonjohn.com crutonjohn.com/storage=true`
 
 1. Have a working `kubeconfig`
 2. Have `flux` installed
