@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minecraft
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: minecraft
+      version: 3.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: itzg-minecraft-charts
+        namespace: flux-system
+  values:
+    minecraftServer:
+      eula: "TRUE"
+      version: "LATEST"
+      type: "VANILLA"
+      ftbLegacyJavaFixer: false
+      difficulty: easy
+      ops: crutonjohn
+      maxPlayers: 20
+      maxWorldSize: 10000
+      allowNether: true
+      announcePlayerAchievements: true
+      enableCommandBlock: true
+      forcegameMode: false
+      generateStructures: true
+      hardcore: false
+      maxBuildHeight: 256
+      maxTickTime: 60000
+      spawnAnimals: true
+      spawnMonsters: true
+      spawnNPCs: true
+      viewDistance: 25
+      gameMode: survival
+      motd: "Homecraft by crutonjohn"
+      pvp: false
+      levelType: DEFAULT
+      generatorSettings:
+      worldSaveName: homecraft
+      forceReDownload: false
+      removeOldMods: false
+      onlineMode: true
+      memory: 1024M
+      jvmOpts: ""
+      jvmXXOpts: ""
+      serviceType: LoadBalancer
+      loadBalancerIP: ${CLUSTER_LB_HOMECRAFT}
+    persistence:
+      storageClass: "longhorn"
+      dataDir:
+        enabled: true
+        existingClaim: homecraft-data

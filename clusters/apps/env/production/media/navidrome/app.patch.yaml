@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: navidrome
+spec:
+  values:
+    service:
+      port:
+        port: 4533
+    env:
+      ND_SCANINTERVAL: 15m
+      ND_LOGLEVEL: info
+      ND_SESSIONTIMEOUT: 24h
+      ND_ENABLETRANSCODINGCONFIG: "true"
+      ND_MUSICFOLDER: /music
+    persistence:
+      config:
+        enabled: true
+        emptyDir: false
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        storageClass: "longhorn"
+        size: 5Gi
+      music:
+        enabled: true
+        emptyDir: false
+        mountPath: /music
+        accessMode: ReadWriteOnce
+        skipuninstall: false
+        existingClaim: "music-library"
+    ingress:
+      enabled: true
+      primary: true
+      annotations:
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        external-dns/public: "true"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "music"
+        hajimari.io/appName: "Navidrome"
+        hajimari.io/group: "Media"
+      ingressClassName: "external"
+      hosts:
+        - host: "music.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - "music.${SECRET_DOMAIN}"
+          secretName: "crj-wildcard-certificate"

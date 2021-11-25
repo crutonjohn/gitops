@@ -3,62 +3,38 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: auth-system
-  labels:
-    namespace: auth-system
-    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: games
-  labels:
-    namespace: games
-    istio-injection: disabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: longhorn-system
-  labels:
-    namespace: longhorn-system
-    istio-injection: disabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: media
-  labels:
-    namespace: media
-    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: network-system
-  labels:
-    namespace: network-system
-    istio-injection: disabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: observability
-  labels:
-    namespace: observability
-    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: security
-  labels:
-    namespace: security
-    istio-injection: enabled
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: soho
-  labels:
-    namespace: soho
-    istio-injection: enabled

@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: keycloak-db
+spec:
+  values:
+    diagnosticMode:
+      enabled: false
+      command:
+        - sleep
+      args:
+        - infinity
+      debug: false
+    volumePermissions:
+      enabled: false
+    securityContext:
+      enabled: true
+      fsGroup: 5600
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 5600
+    postgresqlUsername: keycloak
+    existingSecret: "keycloak-secrets"
+    usePasswordFile: false
+    postgresqlDatabase: "bitnami_keycloak"
+    postgresqlDataDir: /bitnami/postgresql/data
+    persistence:
+      enabled: true
+      existingClaim: "keycloak-db"
+      subPath: ""
+      storageClass: "-"
+      accessModes:
+        - ReadWriteOnce
+      size: 8Gi
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 250m
+    metrics:
+      enabled: false
+      resources: {}
+      service:
+        type: ClusterIP
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9187"
+        loadBalancerIP: ""
+      serviceMonitor:
+        enabled: false
+        additionalLabels: {}
+        namespace: ""
+        interval: ""
+        scrapeTimeout: ""
+        relabelings: []
+        metricRelabelings: []
+      prometheusRule:
+        enabled: false
+        additionalLabels: {}
+        namespace: ""
+        rules: []
+      image:
+        registry: docker.io
+        repository: bitnami/postgres-exporter
+        tag: 0.10.0-debian-10-r116
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+      customMetrics: {}
+      extraEnvVars: []
+      securityContext:
+        enabled: false
+        runAsUser: 1001
+      livenessProbe:
+        enabled: true
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+        successThreshold: 1
+      readinessProbe:
+        enabled: true
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+        successThreshold: 1

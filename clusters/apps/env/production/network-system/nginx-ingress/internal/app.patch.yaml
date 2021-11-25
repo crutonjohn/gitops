@@ -1,0 +1,126 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nginx
+spec:
+  interval: 5m
+  values:
+    controller:
+      name: controller-internal
+      containerPort:
+        http: 80
+        https: 443
+      dnsPolicy: ClusterFirst
+      electionID: ingress-controller-leader
+      ingressClassResource:
+        name: internal
+        controllerValue: k8s.io/internal
+        enabled: true
+      ingressClassByName: true
+      extraArgs:
+      # default-ssl-certificate: "network-system/crj-wildcard-certificate"
+      kind: Deployment
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nginx-ingress-internal
+              topologyKey: kubernetes.io/hostname
+      replicaCount: 3
+      resources:
+        limits:
+          cpu: 100m
+          memory: 90Mi
+        requests:
+          cpu: 100m
+          memory: 90Mi
+      service:
+        enabled: true
+        loadBalancerIP: 192.168.130.101
+        externalTrafficPolicy: Local
+        ports:
+          http: 80
+          https: 443
+        targetPorts:
+          http: http
+          https: https
+        type: LoadBalancer
+      metrics:
+        port: 10254
+        # if this port is changed, change healthz-port: in extraArgs: accordingly
+        enabled: true
+        service:
+          annotations: {}
+          # prometheus.io/scrape: "true"
+          # prometheus.io/port: "10254"
+          # clusterIP: ""
+          ## List of IP addresses at which the stats-exporter service is available
+          ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+          ##
+          externalIPs: []
+          # loadBalancerIP: ""
+          loadBalancerSourceRanges: []
+          servicePort: 9913
+          type: ClusterIP
+          # externalTrafficPolicy: ""
+          # nodePort: ""
+        serviceMonitor:
+          enabled: true
+          additionalLabels: {}
+          namespace: ""
+          namespaceSelector: {}
+          # Default: scrape .Release.Namespace only
+          # To scrape all, use the following:
+          # namespaceSelector:
+          #   any: true
+          scrapeInterval: 30s
+          # honorLabels: true
+          targetLabels: []
+          metricRelabelings: []
+        prometheusRule:
+          enabled: false
+          additionalLabels: {}
+          # namespace: ""
+          rules: []
+          #   These are just examples rules, please adapt them to your needs
+          #   - alert: NGINXConfigFailed
+          #     expr: count(nginx_ingress_controller_config_last_reload_successful == 0) > 0
+          #     for: 1s
+          #     labels:
+          #       severity: critical
+          #     annotations:
+          #       description: bad ingress config - nginx config test failed
+          #       summary: uninstall the latest ingress changes to allow config reloads to resume
+          #   - alert: NGINXCertificateExpiry
+          #     expr: (avg(nginx_ingress_controller_ssl_expire_time_seconds) by (host) - time()) < 604800
+          #     for: 1s
+          #     labels:
+          #       severity: critical
+          #     annotations:
+          #       description: ssl certificate(s) will expire in less then a week
+          #       summary: renew expiring certificates to avoid downtime
+          #   - alert: NGINXTooMany500s
+          #     expr: 100 * ( sum( nginx_ingress_controller_requests{status=~"5.+"} ) / sum(nginx_ingress_controller_requests) ) > 5
+          #     for: 1m
+          #     labels:
+          #       severity: warning
+          #     annotations:
+          #       description: Too many 5XXs
+          #       summary: More than 5% of all requests returned 5XX, this requires your attention
+          #   - alert: NGINXTooMany400s
+          #     expr: 100 * ( sum( nginx_ingress_controller_requests{status=~"4.+"} ) / sum(nginx_ingress_controller_requests) ) > 5
+          #     for: 1m
+          #     labels:
+          #       severity: warning
+          #     annotations:
+          #       description: Too many 4XXs
+          #       summary: More than 5% of all requests returned 4XX, this requires your attention
+      admissionWebhooks:
+        enabled: false

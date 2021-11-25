@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: longhorn
-  namespace: longhorn-system
 spec:
   interval: 5m
   chart:
@@ -16,23 +15,3 @@ spec:
         name: longhorn-charts
         namespace: flux-system
   values:
-    persistence:
-      defaultClass: true
-      defaultClassReplicaCount: 3
-    defaultSettings:
-      defaultReplicaCount: 3
-      backupTarget: s3://longhorn@longhorn-minio/backups
-      backupTargetCredentialSecret: longhorn-backup-secret
-      defaultDataPath: /var/lib/longhorn
-      createDefaultDiskLabeledNodes: true
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      host: "storage.crutonjohn.com"
-      tls: true
-      tlsSecret: "crj-wildcard-certificate"
-      annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "harddisk"
-        hajimari.io/appName: "Longhorn Storage"
-        hajimari.io/group: "Cluster"

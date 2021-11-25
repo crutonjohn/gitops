@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unifi-poller
+spec:
+  values:
+    env:
+      TZ: "America/New_York"
+      UP_UNIFI_DEFAULT_ROLE: "homelab-controller"
+      UP_UNIFI_DEFAULT_URL: "https://${CLUSTER_LB_UNIFI}:8443"
+      UP_UNIFI_DEFAULT_VERIFY_SSL: false
+      UP_UNIFI_DEFAULT_USER: "unifipoller"
+      UP_UNIFI_DEFAULT_PASS: "unifipoller"
+      UP_UNIFI_DEFAULT_SAVE_SITES: true
+      UP_UNIFI_DEFAULT_SAVE_DPI: false
+      UP_INFLUXDB_DISABLE: true
+      UP_PROMETHEUS_DISABLE: false
+      UP_PROMETHEUS_NAMESPACE: "unifipoller"
+    prometheus:
+      serviceMonitor:
+        enabled: true
+        interval: 2m

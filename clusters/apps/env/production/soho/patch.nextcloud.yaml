@@ -1,0 +1,152 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+spec:
+  values:
+    nextcloud:
+      host: cloud.${SECRET_DOMAIN}
+      username: ${NEXTCLOUD_APP_ADMIN_USER}
+      password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
+      datadir: /var/www/html/data
+      extraVolumeMounts:
+        - name: nfs-data
+          path:
+      mail:
+        enabled: true
+        fromAddress: cloud
+        domain: ${SMTP_DOMAIN}
+        smtp:
+          host: ${SMTP_HOST}
+          secure: ssl
+          port: ${SMTP_SSL_PORT}
+          authtype: LOGIN
+          name: ${SMTP_USERNAME}
+          password: ${SMTP_PASSWORD}
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 5G
+          post_max_size = 5G
+          max_input_time = 3600
+          max_execution_time = 3600
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array
+            (
+            '${CLUSTER_POD_CIDR}',
+            '${CLUSTER_SVC_CIDR}',
+            '${NODE1_ADDRESS}',
+            '${NODE2_ADDRESS}',
+            '${NODE3_ADDRESS}'
+            )
+          );
+
+    ingress:
+      enabled: true
+      className: external
+      annotations:
+        external-dns/public: "true"
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        nginx.ingress.kubernetes.io/proxy-body-size: 5G
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+          rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+          location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+          }
+          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+            deny all;
+          }
+          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+            deny all;
+          }
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "cloud-upload"
+        hajimari.io/appName: "Nextcloud"
+        hajimari.io/group: "Home"
+      tls:
+        - hosts:
+            - cloud.${SECRET_DOMAIN}
+          secretName: "crj-wildcard-certificate"
+    postgresql:
+      enabled: true
+      global:
+        postgresql:
+          postgresqlUsername: ${NEXTCLOUD_DB_USER}
+          postgresqlPassword: ${NEXTCLOUD_DB_PASSWORD}
+          postgresqlDatabase: ${NEXTCLOUD_DB_NAME}
+      persistence:
+        enabled: true
+        existingClaim: nextcloud-db
+      volumePermissions:
+        enabled: true
+        securityContext:
+          runAsUser: 0
+      securityContext:
+        enabled: true
+        fsGroup: 5432
+      containerSecurityContext:
+        enabled: true
+        runAsUser: 5432
+      primary:
+        nodeSelector:
+          kubernetes.io/arch: "amd64"
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-db.soho.svc.cluster.local
+      user: ${NEXTCLOUD_DB_USER}
+      password: ${NEXTCLOUD_DB_PASSWORD}
+      database: ${NEXTCLOUD_DB_NAME}
+    nginx:
+      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
+      enabled: true
+      image:
+        repository: nginx
+        tag: 1.21.4
+        pullPolicy: IfNotPresent
+        config:
+          default: true
+    internalDatabase:
+      enabled: false
+    redis:
+      enabled: true
+    cronjob:
+      enabled: false
+      schedule: "*/5 * * * *"
+      curlInsecure: false
+      failedJobsHistoryLimit: 5
+      successfulJobsHistoryLimit: 2
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-data
+    metrics:
+      enabled: false
+      replicaCount: 1
+      https: true
+      timeout: 5s
+      image:
+        repository: xperimental/nextcloud-exporter
+        tag: v0.4.0
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9205"
+    nodeSelector:
+      kubernetes.io/arch: "amd64"

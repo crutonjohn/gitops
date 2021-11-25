@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: metallb
-  namespace: network-system
 spec:
   interval: 5m
   chart:
@@ -22,8 +21,3 @@ spec:
           protocol: layer2
           addresses:
             - 192.168.1.100-192.168.1.200
-    prometheus:
-      podMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: true

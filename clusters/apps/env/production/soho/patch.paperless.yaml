@@ -1,0 +1,68 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+spec:
+  values:
+    env:
+      COMPOSE_PROJECT_NAME: paperless
+      PAPERLESS_REDIS: redis://localhost:6379
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_TIME_ZONE: America/New_York
+      PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
+      PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "internal"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "file-outline"
+          hajimari.io/appName: "Paperless"
+          hajimari.io/group: "Home"
+        hosts:
+          - host: "paperless.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - "paperless.${SECRET_DOMAIN}"
+            secretName: "crj-wildcard-certificate"
+    persistence:
+      data:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        mountPath: /usr/src/paperless/data
+      media:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        mountPath: /usr/src/paperless/media
+      consume:
+        enabled: true
+        accessMode: ReadWriteOnce
+        mountPath: /usr/src/paperless/consume
+        size: 2Gi
+        emptyDir:
+          enabled: true
+      export:
+        enabled: true
+        mountPath: /usr/src/paperless/export
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        emptyDir:
+          enabled: false
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        memory: 2000Mi
+    additionalContainers:
+      broker:
+        name: broker
+        image: redis:6.2
+        imagePullPolicy: IfNotPresent

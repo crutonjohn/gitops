@@ -1,0 +1,20 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin+letsencrypt@curtisrayjohn.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+      - dns01:
+          route53:
+            region: us-east-1
+        selector:
+          dnsZones:
+            - ${SECRET_DOMAIN}
+            - os.${SECRET_DOMAIN}
+            - baremetalblog.com
