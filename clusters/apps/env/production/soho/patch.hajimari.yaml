@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hajimari
+spec:
+  values:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "external"
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        hosts:
+          - host: start.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "start.${SECRET_DOMAIN}"
+            secretName: "crj-wildcard-certificate"
+    env:
+      TZ: "America/New_York"
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: "hajimari-settings"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: hajimari-config
+    hajimari:
+      instanceName: cruton
+      defaultEnable: false
+      namespaceSelector:
+        matchNames:
+          - media
+          - soho
+          - longhorn-system
+          - observability
+          - network-system
+      name: "Curtis"
+      customApps: []
+      #  - name:
+      #    url: https://example.com
+      #    icon: test-tube
+      groups:
+        - name: Cloud
+          links:
+            - name: Bytesized Hosting
+              url: 'https://bytesized-hosting.com'
+            - name: AWS Console
+              url: 'https://console.aws.amazon.com'

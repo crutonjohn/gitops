@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: cert-manager
-  namespace: network-system
 spec:
   interval: 5m
   chart:
@@ -19,22 +18,4 @@ spec:
   dependsOn:
     - name: external-dns
       namespace: network-system
-  ## end hack
-  values:
-    fullnameOverride: cert-manager
-    prometheus:
-      servicemonitor:
-        enabled: "true"
-    installCRDs: false
-    webhook:
-      hostNetwork: true
-      securePort: 10253
-    volumes:
-      - name: aws-credentials
-        secret:
-          defaultMode: 420
-          secretName: aws-external-dns
-    volumeMounts:
-      - mountPath: /.aws
-        name: aws-credentials
-        readOnly: true
+# end hack

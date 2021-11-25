@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: unifi
-  namespace: network-system
 spec:
   interval: 5m
   chart:
@@ -19,41 +18,3 @@ spec:
     image:
       repository: jacobalberty/unifi
       tag: 5.14.23
-    persistence:
-      data:
-        enabled: true
-        mountPath: /unifi
-        existingClaim: unifi
-    env:
-      TZ: "America/New_York"
-    service:
-      main:
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/allow-shared-ip: unifi
-        loadBalancerIP: ${CLUSTER_LB_UNIFI}
-        externalTrafficPolicy: Local
-    resources:
-      requests:
-        memory: 1024M
-        cpu: 30m
-      limits:
-        memory: 1536M
-    ingress:
-      main:
-        enabled: true
-        primary: true
-        ingressClassName: "internal"
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        hosts:
-          - host: unifi.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - unifi.${SECRET_DOMAIN}
-            secretName: "crj-wildcard-certificate"
-    nodeSelector:
-      kubernetes.io/arch: amd64

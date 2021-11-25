@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: network-system
+resources:
+  - wildcard-cert.yaml
+  - ../../../base/network-system/blocky
+  - ../../../base/network-system/external-dns
+  - ../../../base/network-system/librespeed
+  - ../../../base/network-system/unifi
+  - ../../../base/network-system/unifi-poller
+  - ../../../base/network-system/metallb
+  - cert-manager
+  - nginx-ingress/external
+  - nginx-ingress/internal
+patchesStrategicMerge:
+  - patch.metallb.yaml
+  - patch.blocky.yaml
+  - patch.external-dns.yaml
+  - patch.unifi.yaml
+  - patch.unifi-poller.yaml

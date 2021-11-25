@@ -1,0 +1,13 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: reloader
+spec:
+  values:
+    nameOverride: reloader
+    fullnameOverride: reloader
+    reloader:
+      podMonitor:
+        enabled: false
+        namespace: kube-system

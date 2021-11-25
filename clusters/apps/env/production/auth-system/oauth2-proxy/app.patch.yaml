@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+spec:
+  values:
+    extraArgs:
+      - --provider=keycloak-oidc
+      - --redirect-url=https://myapp.com/oauth2/callback
+      - --oidc-issuer-url=https://keycloak.${SECRET_DOMAIN}/auth/realms/crutonjohn
+      - --allowed-role=<realm role name>
+      - --allowed-role=<client id>:<client role name>
+    config:
+      clientID: "${AUTH0_CLIENT_ID}"
+      clientSecret: "${AUTH0_CLIENT_SECRET}"
+      cookieSecret: "${OAUTH2_PROXY_COOKIE_SECRET}"
+    ingress:
+      enabled: true
+      className: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        external-dns/public: "true"
+      hosts:
+        - "auth.${SECRET_DOMAIN}"
+      tls:
+        - hosts:
+            - "auth.${SECRET_DOMAIN}"
+          secretName: "crj-wildcard-certificate"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 300Mi
+      requests:
+        cpu: 100m
+        memory: 300Mi
+    nodeSelector:
+      kubernetes.io/arch: "amd64"

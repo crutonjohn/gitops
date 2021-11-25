@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: replicator
-  namespace: kube-system
 spec:
   interval: 5m
   chart:
@@ -33,5 +32,3 @@ spec:
           resources: ["secrets", "configmaps"]
         - apiGroups: ["rbac.authorization.k8s.io"]
           resources: ["roles", "rolebindings"]
-    nodeSelector:
-      kubernetes.io/arch: amd64
