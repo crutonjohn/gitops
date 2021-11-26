@@ -21,3 +21,4 @@ patchesStrategicMerge:
   - patch.external-dns.yaml
   - patch.unifi.yaml
   - patch.unifi-poller.yaml
+  - patch.librespeed.yaml

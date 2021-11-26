@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: librespeed
+spec:
+  values:
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+          external-dns/public: "true"
+        ingressClassName: "traefik-external"
+        hosts:
+          - host: speedof.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - speedof.${SECRET_DOMAIN}
+            secretName: crj-wildcard-certificate
