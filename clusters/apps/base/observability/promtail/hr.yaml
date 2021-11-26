@@ -20,6 +20,6 @@ spec:
   values:
     image:
       registry: ghcr.io
-      repository: k8s-at-hom/promtail
+      repository: k8s-at-home/promtail
       tag: v2.4.1
       pullPolicy: IfNotPresent
