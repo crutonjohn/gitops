@@ -11,8 +11,10 @@ resources:
   - ../../../base/network-system/unifi-poller
   - ../../../base/network-system/metallb
   - cert-manager
-  - nginx-ingress/external
-  - nginx-ingress/internal
+  - traefik/internal
+  - traefik/external
+  # - nginx-ingress/external
+  # - nginx-ingress/internal
 patchesStrategicMerge:
   - patch.metallb.yaml
   - patch.blocky.yaml
