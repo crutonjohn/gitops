@@ -16,3 +16,9 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+    controller:
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
+    speaker:
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
