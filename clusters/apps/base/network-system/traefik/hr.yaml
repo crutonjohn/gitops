@@ -14,6 +14,9 @@ spec:
         kind: HelmRepository
         name: traefik-charts
         namespace: flux-system
+  dependsOn:
+    - name: cert-manager
+      namespace: network-system
   values:
     image:
       name: traefik
