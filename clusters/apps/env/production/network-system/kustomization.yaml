@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: network-system
 resources:
   - wildcard-cert.yaml
+  - aws-creds.enc.yaml
   - ../../../base/network-system/blocky
   - ../../../base/network-system/external-dns
   - ../../../base/network-system/librespeed
