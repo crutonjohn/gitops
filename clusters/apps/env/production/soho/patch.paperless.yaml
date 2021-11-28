@@ -59,3 +59,5 @@ spec:
         name: broker
         image: redis:6.2
         imagePullPolicy: IfNotPresent
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
