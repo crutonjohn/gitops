@@ -46,7 +46,4 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        skipuninstall: true
+        existingClaim: bitwarden-vaultwarden-config
