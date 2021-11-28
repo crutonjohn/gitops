@@ -42,3 +42,5 @@ spec:
         port: 1514
         externalIPs:
           - ${CLUSTER_LB_LOKI}
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
