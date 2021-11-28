@@ -94,7 +94,7 @@ spec:
       templateFiles: {}
       ingress:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: traefik-internal
         annotations: {}
         labels: {}
         hosts:

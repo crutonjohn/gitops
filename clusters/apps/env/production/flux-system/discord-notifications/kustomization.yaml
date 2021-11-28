@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - alerts.yaml
   - provider.yaml
+  - secret.enc.yaml

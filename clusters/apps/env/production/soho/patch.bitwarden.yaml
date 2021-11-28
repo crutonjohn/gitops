@@ -7,7 +7,7 @@ spec:
   values:
     ingress:
       enabled: true
-      ingressClassName: "external"
+      ingressClassName: "traefik-external"
       annotations:
         external-dns/public: "true"
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}

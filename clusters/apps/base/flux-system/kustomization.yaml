@@ -5,5 +5,3 @@ namespace: flux-system
 resources:
   - podmonitor.yaml
   - helm-repositories
-  - discord-notifications
-  - webhook-receiver

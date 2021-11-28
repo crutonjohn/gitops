@@ -47,7 +47,7 @@ spec:
       enabled: true
       hostname: keycloak.${SECRET_DOMAIN}
       apiVersion: ""
-      ingressClassName: "external"
+      ingressClassName: "traefik-external"
       path: /
       pathType: ImplementationSpecific
       annotations:

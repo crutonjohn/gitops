@@ -39,7 +39,7 @@ spec:
         hajimari.io/icon: "music"
         hajimari.io/appName: "Navidrome"
         hajimari.io/group: "Media"
-      ingressClassName: "external"
+      ingressClassName: "traefik-external"
       hosts:
         - host: "music.${SECRET_DOMAIN}"
           paths:

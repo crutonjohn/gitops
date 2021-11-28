@@ -16,7 +16,7 @@ spec:
       createDefaultDiskLabeledNodes: true
     ingress:
       enabled: true
-      ingressClassName: internal
+      ingressClassName: traefik-internal
       host: "storage.${SECRET_DOMAIN}"
       tls: true
       tlsSecret: "crj-wildcard-certificate"

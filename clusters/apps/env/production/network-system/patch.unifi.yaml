@@ -29,7 +29,7 @@ spec:
       main:
         enabled: true
         primary: true
-        ingressClassName: "internal"
+        ingressClassName: "traefik-internal"
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
