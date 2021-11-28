@@ -5,6 +5,10 @@ metadata:
   name: frigate
 spec:
   values:
+    image:
+      repository: blakeblackshear/frigate
+      tag: 0.9.4-amd64
+      pullPolicy: IfNotPresent
     env:
       TZ: "America/New_York"
     config: |
