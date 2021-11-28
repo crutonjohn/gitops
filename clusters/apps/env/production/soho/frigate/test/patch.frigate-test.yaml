@@ -112,7 +112,7 @@ spec:
             secretName: "crj-wildcard-certificate"
       auth:
         enabled: true
-        ingressClassName: "external"
+        ingressClassName: "traefik-external"
         annotations:
           external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
           external-dns/public: "true"
@@ -122,7 +122,7 @@ spec:
               - path: /oauth2
                 pathType: Prefix
                 service:
-                  name: oauth2-proxy.auth-system.svc.cluster.local
+                  name: oauth2-proxy
                   port: 80
         tls:
           - hosts:

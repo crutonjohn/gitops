@@ -3,5 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: media
 resources:
+  - ../../../base/auth-system/oauth2-proxy/service
   - navidrome
   - sftp
