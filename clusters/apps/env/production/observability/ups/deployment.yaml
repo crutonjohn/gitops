@@ -15,6 +15,18 @@ spec:
     metadata:
       labels:
         component: upsd
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd
+              topologyKey: kubernetes.io/hostname
+            weight: 100
     spec:
       containers:
         - name: upsd-tesla
@@ -40,18 +52,6 @@ spec:
       restartPolicy: Always
       nodeSelector:
         feature.node.kubernetes.io/custom-cyberpower-ups: "true"
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: component
-                      operator: In
-                      values:
-                        - upsd
-                topologyKey: kubernetes.io/hostname
-              weight: 100
       volumes:
         - name: ups
           hostPath:
@@ -73,6 +73,18 @@ spec:
     metadata:
       labels:
         component: upsd
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd
+              topologyKey: kubernetes.io/hostname
+            weight: 100
     spec:
       containers:
         - name: upsd-edison
@@ -98,18 +110,6 @@ spec:
       restartPolicy: Always
       nodeSelector:
         feature.node.kubernetes.io/custom-cyberpower-ups: "true"
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: component
-                      operator: In
-                      values:
-                        - upsd
-                topologyKey: kubernetes.io/hostname
-              weight: 100
       volumes:
         - name: ups
           hostPath:
