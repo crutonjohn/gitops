@@ -68,7 +68,6 @@ spec:
           detect:
             height: 352
             width: 640
-            fps: 30
           objects:
             filters:
               person:
@@ -119,7 +118,6 @@ spec:
           detect:
             height: 352
             width: 640
-            fps: 30
           objects:
             filters:
               person:
@@ -170,7 +168,6 @@ spec:
           detect:
             height: 352
             width: 640
-            fps: 30
           objects:
             filters:
               person:
