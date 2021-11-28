@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../../base/network-system/traefik
   - temp-cert.enc.yaml
-  - temp-ingres.yaml
+  - temp-ingress.yaml
 patchesStrategicMerge:
   - app.patch.yaml
 nameSuffix: -external
