@@ -68,13 +68,6 @@ spec:
           detect:
             height: 352
             width: 640
-          objects:
-            filters:
-              person:
-                min_area: 1500
-                max_area: 100000
-                threshold: 0.75
-                min_score: 0.60
           record:
             enabled: True
             retain_days: 2
@@ -118,13 +111,6 @@ spec:
           detect:
             height: 352
             width: 640
-          objects:
-            filters:
-              person:
-                min_area: 1500
-                max_area: 100000
-                threshold: 0.75
-                min_score: 0.60
           record:
             enabled: True
             retain_days: 2
@@ -168,13 +154,6 @@ spec:
           detect:
             height: 352
             width: 640
-          objects:
-            filters:
-              person:
-                min_area: 1500
-                max_area: 100000
-                threshold: 0.75
-                min_score: 0.60
           record:
             enabled: True
             retain_days: 2
@@ -192,7 +171,7 @@ spec:
             retain:
               default: 14
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate-config"
+      configmap.reloader.stakater.com/reload: "frigate-prod-config"
     ingress:
       main:
         enabled: true
