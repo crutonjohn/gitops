@@ -8,6 +8,8 @@ spec:
     env:
       TZ: "America/New_York"
     config: |
+      logger:
+        default: debug
       mqtt:
         host: emqx.soho.svc.cluster.local
         topic_prefix: frigate
