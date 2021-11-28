@@ -34,7 +34,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
-  ingressClassName: external
+  ingressClassName: traefik-external
   tls:
     - hosts:
         - "*.randomgamers.gg"
