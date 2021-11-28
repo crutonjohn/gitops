@@ -19,3 +19,5 @@ spec:
       repository: ghcr.io/toboshii/hajimari
       pullPolicy: IfNotPresent
       tag: v0.2.0
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
