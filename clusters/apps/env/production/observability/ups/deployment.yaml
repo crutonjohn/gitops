@@ -15,19 +15,19 @@ spec:
     metadata:
       labels:
         component: upsd
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: component
-                    operator: In
-                    values:
-                      - upsd
-              topologyKey: kubernetes.io/hostname
-            weight: 100
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: component
+                      operator: In
+                      values:
+                        - upsd
+                topologyKey: kubernetes.io/hostname
+              weight: 100
       containers:
         - name: upsd-tesla
           image: upshift/nut-upsd:2.7.4
@@ -73,19 +73,19 @@ spec:
     metadata:
       labels:
         component: upsd
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: component
-                    operator: In
-                    values:
-                      - upsd
-              topologyKey: kubernetes.io/hostname
-            weight: 100
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: component
+                      operator: In
+                      values:
+                        - upsd
+                topologyKey: kubernetes.io/hostname
+              weight: 100
       containers:
         - name: upsd-edison
           image: upshift/nut-upsd:2.7.4
