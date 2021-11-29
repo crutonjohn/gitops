@@ -34,7 +34,7 @@ spec:
         memory: 256Mi
         cpu: 250m
     metrics:
-      enabled: true
+      enabled: false
       resources: {}
       service:
         type: ClusterIP
