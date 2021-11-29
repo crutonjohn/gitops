@@ -28,17 +28,13 @@ spec:
     persistence:
       enabled: true
       existingClaim: "keycloak-db"
-      subPath: ""
       storageClass: "-"
-      accessModes:
-        - ReadWriteOnce
-      size: 8Gi
     resources:
       requests:
         memory: 256Mi
         cpu: 250m
     metrics:
-      enabled: false
+      enabled: true
       resources: {}
       service:
         type: ClusterIP
@@ -47,7 +43,7 @@ spec:
           prometheus.io/port: "9187"
         loadBalancerIP: ""
       serviceMonitor:
-        enabled: false
+        enabled: true
         additionalLabels: {}
         namespace: ""
         interval: ""
@@ -55,7 +51,7 @@ spec:
         relabelings: []
         metricRelabelings: []
       prometheusRule:
-        enabled: false
+        enabled: true
         additionalLabels: {}
         namespace: ""
         rules: []
