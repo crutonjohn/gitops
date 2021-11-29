@@ -54,7 +54,7 @@ spec:
         ingress.kubernetes.io/protocol: https
         external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
         external-dns/public: "true"
-      tls: true
+      tls: false
       extraHosts: []
       extraTls:
         - hosts:
