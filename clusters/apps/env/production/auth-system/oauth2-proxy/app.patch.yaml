@@ -6,8 +6,10 @@ metadata:
 spec:
   values:
     extraEnv:
-      - OAUTH2_PROXY_PROVIDER: "keycloak-oidc"
-      - OAUTH2_PROXY_OIDC_ISSUER_URL: "https://keycloak.crutonjohn.com/auth/realms/crutonjohn"
+      - name: OAUTH2_PROXY_PROVIDER
+        value: "keycloak-oidc"
+      - name: OAUTH2_PROXY_OIDC_ISSUER_URL
+        value: "https://keycloak.crutonjohn.com/auth/realms/crutonjohn"
     config:
       clientID: "${AUTH0_CLIENT_ID}"
       clientSecret: "${AUTH0_CLIENT_SECRET}"
