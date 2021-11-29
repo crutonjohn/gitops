@@ -6,9 +6,9 @@ metadata:
 spec:
   values:
     extraArgs:
-      - --provider=keycloak-oidc
-      - --redirect-url=https://myapp.com/oauth2/callback
-      - --oidc-issuer-url=https://keycloak.${SECRET_DOMAIN}/auth/realms/crutonjohn
+      - "--provider=keycloak-oidc"
+      - "--redirect-url=https://myapp.com/oauth2/callback"
+      - "--oidc-issuer-url=https://keycloak.${SECRET_DOMAIN}/auth/realms/crutonjohn"
       # - --allowed-role=<realm role name>
       # - --allowed-role=<client id>:<client role name>
     config:
