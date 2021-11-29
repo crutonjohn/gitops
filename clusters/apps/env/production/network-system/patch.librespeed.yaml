@@ -5,6 +5,11 @@ metadata:
   name: librespeed
 spec:
   values:
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
     ingress:
       main:
         enabled: true

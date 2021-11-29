@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: librespeed
+  name: openspeedtest
 spec:
   interval: 5m
   chart:
@@ -14,3 +14,7 @@ spec:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
+  values:
+    image:
+    repository: openspeedtest/latest
+    tag: latest
