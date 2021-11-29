@@ -31,7 +31,7 @@ spec:
         primary: true
         ingressClassName: "traefik-internal"
         annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          ingress.kubernetes.io/protocol: https
         hosts:
           - host: unifi.${SECRET_DOMAIN}
             paths:
