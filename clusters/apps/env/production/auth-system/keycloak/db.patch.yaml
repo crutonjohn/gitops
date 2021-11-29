@@ -80,3 +80,5 @@ spec:
         timeoutSeconds: 5
         failureThreshold: 6
         successThreshold: 1
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
