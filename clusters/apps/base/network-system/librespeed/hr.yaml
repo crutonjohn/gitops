@@ -15,5 +15,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    image: openspeedtest/latest
-    tag: latest
+    image:
+      repository: openspeedtest/latest
+      tag: latest
