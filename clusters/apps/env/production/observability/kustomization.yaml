@@ -5,15 +5,14 @@ namespace: observability
 resources:
   - ../../../base/auth-system/oauth2-proxy/service
   - ../../../base/observability/botkube
-  - ../../../base/observability/grafana
   - ../../../base/observability/loki
   - ../../../base/observability/promtail
   - ../../../base/observability/kube-prometheus
   - external-prom-targets
   - ups
+  - grafana
 patchesStrategicMerge:
   - patch.botkube.yaml
-  - patch.grafana.yaml
   - patch.loki.yaml
   - patch.promtail.yaml
   - patch.kube-prom.yaml

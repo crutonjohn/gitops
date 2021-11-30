@@ -5,47 +5,85 @@ metadata:
   name: grafana
 spec:
   values:
+    replicas: 1
+    downloadDashboardsImage:
+      repository: curlimages/curl
+      tag: 7.73.0
+      sha: ""
+      pullPolicy: IfNotPresent
     serviceMonitor:
       enabled: true
       path: /metrics
-      labels: {}
-      interval: 1m
-      scheme: http
-      tlsConfig: {}
-      scrapeTimeout: 30s
-      relabelings: []
-    hostAliases: []
-    # - ip: "1.2.3.4"
-    #   hostnames:
-    #     - "my.host.com"
+    extraExposePorts: []
+     # - name: keycloak
+     #   port: 8080
+     #   targetPort: 8080
+     #   type: ClusterIP
     ingress:
       enabled: true
       ingressClassName: traefik-external
       annotations:
-        external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
         external-dns/public: "true"
-      labels: {}
+        external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "cctv"
+        hajimari.io/appName: "Frigate"
+        hajimari.io/group: "Home"
       path: /
+      # pathType is only for k8s >= 1.1=
       pathType: Prefix
       hosts:
-        - "grafana.${SECRET_DOMAIN}"
+        - grafana.${SECRET_DOMAIN}
+      extraPaths: []
+      # - path: /*
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: ssl-redirect
+      #       port:
+      #         name: use-annotation
       tls:
-        - hosts:
-            - "grafana.${SECRET_DOMAIN}"
-          secretName: "crj-wildcard-certificate"
+        - secretName: crj-wildcard-certificate
+          hosts:
+            - grafana.${SECRET_DOMAIN}
+
+    resources: {}
+    #  limits:
+    #    cpu: 100m
+    #    memory: 128Mi
+    #  requests:
+    #    cpu: 100m
+    #    memory: 128Mi
+
+    ## Node labels for pod assignment
+    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+    #
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
+    ## Enable an Specify container in extraContainers. This is meant to allow adding an authentication proxy to a grafana pod
+    extraContainers: ""
+    # extraContainers: |
+    # - name: proxy
+    #   image: quay.io/gambol99/keycloak-proxy:latest
+    #   args:
+    #   - -provider=github
+    #   - -client-id=
+    #   - -client-secret=
+    #   - -github-org=<ORG_NAME>
+    #   - -email-domain=*
+    #   - -cookie-secret=
+    #   - -http-address=http://0.0.0.0:4181
+    #   - -upstream-url=http://127.0.0.1:3000
+    #   ports:
+    #     - name: proxy-web
+    #       containerPort: 4181
     persistence:
-      type: pvc
-      enabled: false
-      storageClassName: longhorn
-      accessModes:
-        - ReadWriteOnce
-      size: 10Gi
-      finalizers:
-        - kubernetes.io/pvc-protection
-    adminUser: admin
-    adminPassword: "${GRAFANA_PASSWORD}"
-    env: {}
-    envValueFrom: {}
+      enabled: true
+      existingClaim: grafana-data
+    admin:
+      existingSecret: "grafana-admin-secrets"
+      userKey: admin-user
+      passwordKey: admin-password
     plugins:
       - digrich-bubblechart-panel
       - natel-discrete-panel
@@ -54,6 +92,19 @@ spec:
       - vonage-status-panel
       - grafana-worldmap-panel
       - grafana-clock-panel
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://prometheus.observability.svc.cluster.local:9090
+            access: proxy
+            isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki.observability.svc.cluster.local:3100
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -66,21 +117,11 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-    datasources:
-      - name: Prometheus
-        type: prometheus
-        access: proxy
-        url: http://prometheus.observability.svc.cluster.local:9090
-      - name: Loki
-        type: loki
-        access: proxy
-        url: http://loki.observability.svc.cluster.local:3100
     dashboards:
       default:
-        # ingress-nginx
-        nginx-dashboard:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
+        ##############
+        # Prometheus #
+        ##############
         # dns metrics
         blocky:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
@@ -105,15 +146,17 @@ spec:
           gnetId: 11312
           revision: 8
           datasource: Prometheus
+        # Ref: Longhorn
         # https://longhorn.io/docs/1.1.0/monitoring/prometheus_and_grafana_setup/
+        # https://grafana.com/grafana/dashboards/13032
         longhorn-storage:
           gnetId: 13032
           revision: 6
           datasource: Prometheus
-        # for external and cluster hosts
+        # https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
-          revision: 21
+          revision: 23
           datasource: Prometheus
         # hopefully https://github.com/xperimental/nextcloud-exporter
         nextcloud:
@@ -129,26 +172,26 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        ###################
+        # Loki Dashboards #
+        ###################
         logging-dash-loki:
           gnetId: 12611
           revision: 1
+          datasource: Loki
+        logging-traefik:
+          gnetId: 13713
+          revision: 2
+          datasource: Loki
+        logging-troubleshoot-k8s:
+          gnetId: 15196
+          revision: 3
           datasource: Loki
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
       auth.basic:
         disable_login_form: false
-      auth.generic_oauth:
-        enabled: true
-        allow_sign_up: true
-        name: Auth0
-        client_id: "${AUTH0_CLIENT_ID}"
-        client_secret: "${AUTH0_CLIENT_SECRET}"
-        scopes: "openid profile email"
-        auth_url: "https://${AUTH0_DOMAIN}.us.auth0.com/authorize"
-        token_url: "https://${AUTH0_DOMAIN}.us.auth0.com/oauth/token"
-        api_url: "https://${AUTH0_DOMAIN}.us.auth0.com/userinfo"
-        role_attribute_path: role
       smtp:
         enabled: true
         host: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
@@ -167,3 +210,4 @@ spec:
         mode: console
       grafana_net:
         url: https://grafana.net
+    revisionHistoryLimit: 3

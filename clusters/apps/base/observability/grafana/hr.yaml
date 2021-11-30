@@ -9,8 +9,14 @@ spec:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
-      version: 6.16.00
+      version: 6.17.8
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
+  values:
+    image:
+      repository: grafana/grafana
+      tag: 8.2.5
+      sha: ""
+      pullPolicy: IfNotPresent
