@@ -15,3 +15,4 @@ patchesStrategicMerge:
   - ./storage-patches/unifi.yaml
   - ./storage-patches/zigbee2mqtt.yaml
   - ./storage-patches/hajimari.yaml
+  - ./storage-patches/grafana.yaml
