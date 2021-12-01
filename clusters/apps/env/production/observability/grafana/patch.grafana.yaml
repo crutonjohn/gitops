@@ -176,7 +176,7 @@ spec:
         # Loki Dashboards #
         ###################
         logging-dash-loki:
-          gnetId: 12611
+          gnetId: 13186
           revision: 1
           datasource: Loki
         logging-traefik:
