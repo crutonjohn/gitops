@@ -436,7 +436,7 @@ spec:
         data: {}
       ingress:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: traefik-internal
         annotations: {}
         labels: {}
         hosts:
