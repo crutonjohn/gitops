@@ -98,7 +98,7 @@ spec:
         datasources:
           - name: Prometheus
             type: prometheus
-            url: http://prometheus.observability.svc.cluster.local:9090
+            url: http://kube-prometheus-kube-prome-prometheus.observability.svc.cluster.local:9090
             access: proxy
             isDefault: true
           - name: Loki
