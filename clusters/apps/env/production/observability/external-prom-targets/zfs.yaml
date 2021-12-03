@@ -19,7 +19,6 @@ metadata:
   name: zfs-exporter
   labels:
     k8s-app: zfs-exporter-external
-    prometheus: kube-prometheus
 subsets:
   - addresses:
       - ip: 192.168.130.50
@@ -34,7 +33,6 @@ metadata:
   name: zfs-exporter
   labels:
     k8s-app: zfs-exporter-external
-    prometheus: kube-prometheus
 spec:
   selector:
     matchLabels:
