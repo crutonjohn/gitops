@@ -491,15 +491,15 @@ spec:
         configMaps: []
         query: {}
         ruleNamespaceSelector: {}
-        ruleSelectorNilUsesHelmValues: true
+        ruleSelectorNilUsesHelmValues: false
         ruleSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: true
+        serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
-        podMonitorSelectorNilUsesHelmValues: true
+        podMonitorSelectorNilUsesHelmValues: false
         podMonitorSelector: {}
         podMonitorNamespaceSelector: {}
-        probeSelectorNilUsesHelmValues: true
+        probeSelectorNilUsesHelmValues: false
         probeSelector: {}
         probeNamespaceSelector: {}
         retention: 10d

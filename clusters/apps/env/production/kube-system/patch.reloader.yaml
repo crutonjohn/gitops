@@ -9,5 +9,8 @@ spec:
     fullnameOverride: reloader
     reloader:
       podMonitor:
-        enabled: false
+        enabled: true
         namespace: kube-system
+        labels:
+          app: kube-prometheus-stack
+          release: kube-prometheus

@@ -160,3 +160,26 @@ spec:
             topologyKey: "kubernetes.io/hostname"
     podAnnotations:
       configmap.reloader.stakater.com/reload: "blocky-config"
+    metrics:
+      enabled: false
+      serviceMonitor:
+        interval: 30s
+        scrapeTimeout: 10s
+        labels:
+          release: kube-prometheus
+      prometheusRule:
+        enabled: true
+        labels:
+          release: kube-prometheus
+          app: kube-prometheus-stack
+        rules:
+          - alert: BlockyDisabled
+            annotations:
+              description: Blocky's ad blocking has been disabled for 15min.
+                Please re-enable protection.
+              summary: Blocky is disabled.
+            expr: |
+              blocky_blocking_enabled == 0
+            for: 15m
+            labels:
+              severity: critical

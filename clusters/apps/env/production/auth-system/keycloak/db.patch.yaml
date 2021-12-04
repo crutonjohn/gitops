@@ -37,7 +37,7 @@ spec:
         memory: 256Mi
         cpu: 250m
     metrics:
-      enabled: false
+      enabled: true
       resources: {}
       service:
         type: ClusterIP
@@ -47,7 +47,8 @@ spec:
         loadBalancerIP: ""
       serviceMonitor:
         enabled: true
-        additionalLabels: {}
+        additionalLabels:
+          release: kube-prometheus
         namespace: ""
         interval: ""
         scrapeTimeout: ""
@@ -55,7 +56,9 @@ spec:
         metricRelabelings: []
       prometheusRule:
         enabled: true
-        additionalLabels: {}
+        additionalLabels:
+          release: kube-prometheus
+          app: kube-prometheus-stack
         namespace: ""
         rules: []
       image:

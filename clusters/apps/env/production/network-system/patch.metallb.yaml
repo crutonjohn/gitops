@@ -16,9 +16,17 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+        labels:
     controller:
       nodeSelector:
         kubernetes.io/arch: "amd64"
+      prometheus:
+        serviceMonitor:
+          enabled: true
+          jobLabel: "app.kubernetes.io/name"
+          interval: ""
+          metricRelabelings: []
+          relabelings: []
     speaker:
       nodeSelector:
         kubernetes.io/arch: "amd64"

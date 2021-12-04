@@ -7,9 +7,6 @@ spec:
   interval: 5m
   values:
     fullnameOverride: cert-manager
-    prometheus:
-      servicemonitor:
-        enabled: "true"
     installCRDs: false
     webhook:
       hostNetwork: true
@@ -23,3 +20,14 @@ spec:
       - mountPath: /.aws
         name: aws-credentials
         readOnly: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+        prometheusInstance: default
+        targetPort: 9402
+        path: /metrics
+        interval: 60s
+        scrapeTimeout: 30s
+        labels:
+          release: kube-prometheus

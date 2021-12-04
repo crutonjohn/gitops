@@ -67,20 +67,21 @@ spec:
       create: true
       name: ""
     metrics:
-      enabled: false
+      enabled: true
       service:
         port: 9990
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "{{ .Values.metrics.service.port }}"
       serviceMonitor:
-        enabled: false
+        enabled: true
         namespace: ""
         interval: 30s
         scrapeTimeout: ""
         relabellings: []
         honorLabels: false
-        additionalLabels: {}
+        additionalLabels:
+          release: kube-prometheus
     postgresql:
       enabled: false
     externalDatabase:
