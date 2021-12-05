@@ -161,7 +161,7 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: "blocky-config"
     metrics:
-      enabled: false
+      enabled: true
       serviceMonitor:
         interval: 30s
         scrapeTimeout: 10s
