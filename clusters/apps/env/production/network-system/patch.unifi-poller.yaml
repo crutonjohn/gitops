@@ -5,6 +5,8 @@ metadata:
   name: unifi-poller
 spec:
   values:
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
     env:
       TZ: "America/New_York"
       UP_UNIFI_DEFAULT_ROLE: "homelab-controller"
