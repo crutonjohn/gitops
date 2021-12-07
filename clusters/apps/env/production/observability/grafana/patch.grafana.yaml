@@ -153,6 +153,11 @@ spec:
           gnetId: 13032
           revision: 6
           datasource: Prometheus
+        # https://grafana.com/grafana/dashboards/14055
+        loki-stack-monitoring:
+          gnetId: 14055
+          revision: 5
+          datasource: Prometheus
         # https://grafana.com/grafana/dashboards/1860
         node-exporter-full:
           gnetId: 1860
