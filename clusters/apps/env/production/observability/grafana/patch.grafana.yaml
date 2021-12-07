@@ -177,6 +177,14 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        upsc-dashboard:
+          gnetId: 13116
+          revision: 1
+          datasource: Prometheus
+        nextcloud-exporter-dashboard:
+          gnetId: 11033
+          revision: 1
+          datasource: Prometheus
         ###################
         # Loki Dashboards #
         ###################
