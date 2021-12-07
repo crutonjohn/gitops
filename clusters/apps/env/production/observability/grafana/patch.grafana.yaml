@@ -189,9 +189,8 @@ spec:
         # Loki Dashboards #
         ###################
         logging-dash-loki:
-          gnetId: 13186
-          revision: 1
-          datasource: Loki
+          url: https://raw.githubusercontent.com/crutonjohn/gitops/main/clusters/apps/env/production/observability/grafana/dashboards/loki-logging.json
+          token: ''
         logging-traefik:
           gnetId: 13713
           revision: 2
