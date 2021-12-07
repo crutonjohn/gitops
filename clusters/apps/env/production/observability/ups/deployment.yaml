@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   namespace: observability
   name: upsd-tesla
+  labels:
+    component: upsd
 spec:
   selector:
     matchLabels:
@@ -19,7 +21,8 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
+            - weight: 100
+              podAffinityTerm:
                 labelSelector:
                   matchExpressions:
                     - key: component
@@ -27,7 +30,6 @@ spec:
                       values:
                         - upsd
                 topologyKey: kubernetes.io/hostname
-              weight: 100
       containers:
         - name: upsd-tesla
           image: upshift/nut-upsd:2.7.4
@@ -62,6 +64,8 @@ kind: Deployment
 metadata:
   namespace: observability
   name: upsd-edison
+  labels:
+    component: upsd
 spec:
   selector:
     matchLabels:
