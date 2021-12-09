@@ -54,3 +54,5 @@ spec:
       dataDir:
         enabled: true
         existingClaim: homecraft-data
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
