@@ -83,7 +83,7 @@ spec:
           - "/config/.vscode"
         ingress:
           enabled: true
-          ingressClassName: "internal"
+          ingressClassName: "traefik-internal"
           annotations:
             nginx.org/websocket-services: home-assistant
           hosts:
