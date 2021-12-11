@@ -11,6 +11,3 @@ spec:
       podMonitor:
         enabled: true
         namespace: kube-system
-        labels:
-          app: kube-prometheus-stack
-          release: kube-prometheus
