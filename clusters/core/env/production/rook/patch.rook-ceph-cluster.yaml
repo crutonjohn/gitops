@@ -37,6 +37,16 @@ spec:
           - name: "k-node5.${SECRET_DOMAIN}"
             devices:
               - name: "nvme0n1"
+      placement:
+        all:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: ${SECRET_DOMAIN}/rook
+                      operator: In
+                      values:
+                        - true
     cephBlockPools:
       - name: ceph-blockpool
         spec:
