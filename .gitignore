@@ -21,7 +21,7 @@ kubeconfig
 gitignore/
 
 # Ansible
-provision/ansible
+provision/*
 
 # Vim
 *.swp
