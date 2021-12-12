@@ -46,7 +46,7 @@ spec:
                     - key: ${SECRET_DOMAIN}/rook
                       operator: In
                       values:
-                        - true
+                        - "true"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
