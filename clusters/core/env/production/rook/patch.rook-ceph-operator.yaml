@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph
+spec:
+  values:
+    csi:
+      enableCephfsDriver: false
+      enableCephfsSnapshotter: false
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 1000m
+        memory: 256Mi
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
