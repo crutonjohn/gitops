@@ -16,3 +16,7 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: rook-ceph
+  values:
+    cephClusterSpec:
+      cephVersion:
+        image: quay.io/ceph/ceph:v16.2.7

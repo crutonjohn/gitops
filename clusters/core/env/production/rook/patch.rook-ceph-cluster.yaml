@@ -19,6 +19,9 @@ spec:
               - "rook.${SECRET_DOMAIN}"
             secretName: crj-wildcard-certificate
     cephClusterSpec:
+      mon:
+        count: 2
+        allowMultiplePerNode: false
       mgr:
         count: 1
       dashboard:
@@ -37,6 +40,25 @@ spec:
           - name: "k-node5.${SECRET_DOMAIN}"
             devices:
               - name: "nvme0n1"
+      cleanupPolicy:
+        confirmation: ""
+        sanitizeDisks:
+          method: quick
+          dataSource: zero
+          iteration: 1
+      resources:
+        mon:
+          requests:
+            cpu: 35m
+            memory: 800Mi
+          limits:
+            memory: 1024Mi
+        osd:
+          requests:
+            cpu: 35m
+            memory: 2048Mi
+          limits:
+            memory: 4096Mi
       placement:
         all:
           nodeAffinity:
