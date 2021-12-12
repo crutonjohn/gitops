@@ -24,7 +24,6 @@ metadata:
 spec:
   interval: 15m
   prune: false
-  wait: true
   sourceRef:
     kind: GitRepository
     name: rook-ceph-source
