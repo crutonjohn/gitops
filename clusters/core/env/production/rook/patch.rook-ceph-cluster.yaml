@@ -9,7 +9,8 @@ spec:
       enabled: true
     ingress:
       dashboard:
-        ingressClassName: "traefik-internal"
+        annotations:
+          kubernetes.io/ingress.class: "traefik-internal"
         host:
           name: "rook.${SECRET_DOMAIN}"
           path: "/"
