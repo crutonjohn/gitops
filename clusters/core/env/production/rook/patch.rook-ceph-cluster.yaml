@@ -9,7 +9,7 @@ spec:
       enabled: true
     ingress:
       dashboard:
-        ingressClassName: "traefik-external"
+        ingressClassName: "traefik-internal"
         host:
           name: "rook.${SECRET_DOMAIN}"
           path: "/"
