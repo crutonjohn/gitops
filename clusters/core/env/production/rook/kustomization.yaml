@@ -1,0 +1,10 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rook-ceph
+resources:
+  - ../../../base/applications/rook-ceph/cluster/
+  - ../../../base/applications/rook-ceph/operator/
+patchesStrategicMerge:
+  - patch.rook-ceph-operator.yaml
+  - patch.rook-ceph-cluster.yaml

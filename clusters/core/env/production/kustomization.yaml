@@ -3,18 +3,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/namespaces/
-  - ../../base/applications/
   - ../../base/crds/
+  - ../../base/applications/istio/
+  - ../../base/applications/istio-operator/
+  - ../../base/applications/flux-system/
+  - rook
+# This should be applied manually :)
+# You can use this command to apply them in one fell swoop:
+# kustomize build clusters/core/pvc/ | k apply -f -
 #  - ../../base/pvc/
 patchesStrategicMerge:
   - patch.istio.yaml
-  # - patch.pvc.yaml
-  #  - ./storage-patches/bitwarden.yaml
-  #  - ./storage-patches/frigate.yaml
-  #  - ./storage-patches/hassio.yaml
-  #  - ./storage-patches/minecraft.yaml
-  #  - ./storage-patches/music.yaml
-  #  - ./storage-patches/nextcloud.yaml
-  #  - ./storage-patches/paperless.yaml
-  #  - ./storage-patches/unifi.yaml
-  #  - ./storage-patches/zigbee2mqtt.yaml
