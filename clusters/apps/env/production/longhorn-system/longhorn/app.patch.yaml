@@ -27,10 +27,10 @@ spec:
         hajimari.io/group: "Cluster"
     longhornManager:
       nodeSelector:
-        crutonjohn.com/storage: "true"
+        crutonjohn.com/storage: "longhorn"
     longhornDriver:
       nodeSelector:
-        crutonjohn.com/storage: "true"
+        crutonjohn.com/storage: "longhorn"
     longhornUI:
       nodeSelector:
-        crutonjohn.com/storage: "true"
+        crutonjohn.com/storage: "longhorn"
