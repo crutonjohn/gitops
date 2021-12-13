@@ -65,10 +65,23 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: ${SECRET_DOMAIN}/rook
+                    - key: ${SECRET_DOMAIN}/storage
                       operator: In
                       values:
-                        - "true"
+                        - rook
+                    - key: kubernetes.io/arch
+                      operator: In
+                      values:
+                        - amd64
+        mon:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/arch
+                      operator: In
+                      values:
+                        - amd64
     cephBlockPools:
       - name: ceph-blockpool
         spec:
