@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: velero
 resources:
   - ../../../base/applications/velero/
-  - minio-secret.yaml
+  - minio-secret.enc.yaml
 patchesStrategicMerge:
   - patch.velero.yaml
