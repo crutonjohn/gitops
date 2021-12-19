@@ -31,6 +31,7 @@ resources:
   - replicator-charts.yaml
   - rook-ceph-charts.yaml
   - stakater-charts.yaml
+  - tanzu-charts.yaml
   - traefik-charts.yaml
   - vernemq-charts.yaml
   - weaveworks-kured-charts.yaml
