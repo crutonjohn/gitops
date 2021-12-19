@@ -52,7 +52,7 @@ spec:
       provider: aws
       backupStorageLocation:
         name: local-minio
-        bucket: velero
+        bucket: prod
         prefix: backups
         default: true
         config:
