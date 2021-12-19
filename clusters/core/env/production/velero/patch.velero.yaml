@@ -60,7 +60,7 @@ spec:
           s3ForcePathStyle: true
           s3Url: http://192.168.130.50:9001
           publicUrl: http://192.168.130.50:9001
-      features: EnableCSI, EnableUploadProgress
+      # features: EnableCSI, EnableUploadProgress
       logLevel: info
       logFormat: json
       defaultVolumesToRestic:
