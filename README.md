@@ -57,7 +57,7 @@ _All my nodes below are running bare metal Ubuntu 20.04.x_
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
 | Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Control Plane |
-| Dell R610 (decom soon)  | 3     | 2x 120GB SSD (RAID1)    | 2x 1TB HDD (RAID0, longhorn)             | 40GB | k8s Workers |
+| HP 800 G3 Mini          | 2     | 1x 120GB SSD (RAID1)    | 1x 1TB M.2 (rook-ceph)                   | 32GB | k8s Workers |
 | Dell 7040 Micro         | 3     | 1x 500B HDD             | 1x 1TB M.2 SSD (longhorn)                | 32GB | k8s Workers |
 
 ## :computer:&nbsp; Supporting Infrastructure
