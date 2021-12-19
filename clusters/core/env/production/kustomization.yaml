@@ -8,6 +8,7 @@ resources:
   - ../../base/applications/istio-operator/
   - ../../base/applications/flux-system/
   - rook
+  - velero
 # This should be applied manually :)
 # You can use this command to apply them in one fell swoop:
 # kustomize build clusters/core/pvc/ | k apply -f -
