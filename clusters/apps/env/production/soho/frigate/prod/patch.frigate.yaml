@@ -118,6 +118,10 @@ spec:
               - +genpts+discardcorrupt
               - -use_wallclock_as_timestamps
               - "1"
+              - -analyzeduration
+              - 1000M
+              - -probesize
+              - 1000M
           detect:
             height: 352
             width: 640
@@ -161,6 +165,10 @@ spec:
               - +genpts+discardcorrupt
               - -use_wallclock_as_timestamps
               - "1"
+              - -analyzeduration
+              - 1000M
+              - -probesize
+              - 1000M
           detect:
             height: 352
             width: 640
