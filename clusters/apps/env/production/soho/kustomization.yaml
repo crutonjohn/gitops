@@ -12,6 +12,7 @@ resources:
   # - ../../../base/soho/nextcloud
   - ../../../base/soho/paperless
   - ../../../base/soho/zigbee2mqtt
+  - amcrest2mqtt
   - frigate
   - hassio
 patchesStrategicMerge:
