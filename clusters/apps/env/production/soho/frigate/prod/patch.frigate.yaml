@@ -176,6 +176,49 @@ spec:
             timestamp: False
             retain:
               default: 14
+        # --
+        front-doorbell-ad410:
+          ffmpeg:
+            inputs:
+              - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+            input_args:
+              - -avoid_negative_ts
+              - make_zero
+              - -fflags
+              - nobuffer
+              - -flags
+              - low_delay
+              - -strict
+              - experimental
+              - -fflags
+              - +genpts+discardcorrupt
+              - -use_wallclock_as_timestamps
+              - "1"
+          detect:
+            height: 1920
+            width: 2560
+          record:
+            enabled: True
+            retain_days: 2
+            events:
+              retain:
+                objects:
+                  person: 50
+                  dog: 20
+                  car: 30
+              objects:
+                - car
+                - person
+                - dog
+          snapshots:
+            enabled: True
+            timestamp: True
+            retain:
+              default: 30
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-prod-config"
     ingress:
