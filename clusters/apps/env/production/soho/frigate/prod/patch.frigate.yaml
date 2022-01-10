@@ -238,6 +238,15 @@ spec:
           - hosts:
               - "frigate.${SECRET_DOMAIN}"
             secretName: "crj-wildcard-certificate"
+    service:
+      main:
+        ports:
+          rtmp:
+            enabled: true
+            primary: false
+            port: 1935
+            protocol: TCP
+            targetPort: 1935
     persistence:
       data:
         enabled: true
