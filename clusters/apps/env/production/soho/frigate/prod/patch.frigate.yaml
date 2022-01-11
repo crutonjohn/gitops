@@ -218,6 +218,36 @@ spec:
             timestamp: True
             retain:
               default: 30
+        # --
+        kitchen-doorbell-ad410:
+          ffmpeg:
+            inputs:
+              - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554
+                roles:
+                  - detect
+                  - record
+                  - rtmp
+          detect:
+            height: 1920
+            width: 2560
+          record:
+            enabled: True
+            retain_days: 2
+            events:
+              retain:
+                objects:
+                  person: 50
+                  dog: 20
+                  car: 30
+              objects:
+                - car
+                - person
+                - dog
+          snapshots:
+            enabled: True
+            timestamp: True
+            retain:
+              default: 30
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-prod-config"
     ingress:
