@@ -17,6 +17,6 @@ spec:
   values:
     image:
       repository: rook/ceph
-      tag: "v1.8.0"
+      tag: "v1.8.2"
     crds:
       enabled: false
