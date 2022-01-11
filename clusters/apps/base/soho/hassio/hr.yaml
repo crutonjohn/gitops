@@ -18,4 +18,4 @@ spec:
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2021.11.5
+      tag: 2021.12.9
