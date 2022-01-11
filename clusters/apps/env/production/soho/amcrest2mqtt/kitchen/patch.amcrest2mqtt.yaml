@@ -15,7 +15,7 @@ spec:
       MQTT_PORT: 1883
       MQTT_USERNAME: "${SECRET_MQTT_USERNAME}"
       MQTT_PASSWORD: "${SECRET_MQTT_PASSWORD}"
-      HOME_ASSISTANT: false
+      HOME_ASSISTANT: true
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
