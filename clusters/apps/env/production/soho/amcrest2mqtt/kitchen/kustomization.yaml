@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../../../../base/soho/frigate
+  - ../../../../../base/soho/amcrest2mqtt
 patchesStrategicMerge:
-  - patch.frigate.yaml
+  - patch.amcrest2mqtt.yaml
 nameSuffix: -kitchen
