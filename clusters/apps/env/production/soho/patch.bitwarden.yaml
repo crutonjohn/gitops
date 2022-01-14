@@ -5,6 +5,8 @@ metadata:
   name: bitwarden
 spec:
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     ingress:
       enabled: true
       ingressClassName: "traefik-external"

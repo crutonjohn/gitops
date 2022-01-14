@@ -5,6 +5,9 @@ metadata:
   name: frigate
 spec:
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: data
+      configmap.reloader.stakater.com/reload: "frigate-prod-config"
     image:
       repository: blakeblackshear/frigate
       tag: 0.9.4-amd64
@@ -248,8 +251,6 @@ spec:
             timestamp: True
             retain:
               default: 30
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate-prod-config"
     ingress:
       main:
         enabled: true

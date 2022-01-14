@@ -5,6 +5,8 @@ metadata:
   name: navidrome
 spec:
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     service:
       port:
         port: 4533

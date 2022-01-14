@@ -5,6 +5,8 @@ metadata:
   name: unifi
 spec:
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: data
     persistence:
       data:
         enabled: true

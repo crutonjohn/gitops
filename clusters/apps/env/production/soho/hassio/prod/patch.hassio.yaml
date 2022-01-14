@@ -5,6 +5,8 @@ metadata:
   name: home-assistant
 spec:
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     env:
       TZ: "America/New_York"
     envFrom:

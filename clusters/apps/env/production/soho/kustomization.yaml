@@ -18,7 +18,7 @@ resources:
 patchesStrategicMerge:
   - patch.baremetalblog.yaml
   - patch.bitwarden.yaml
-  - patch.double-take.yaml
+  # - patch.double-take.yaml
   - patch.hajimari.yaml
   - patch.emqx.yaml
   # - patch.nextcloud.yaml

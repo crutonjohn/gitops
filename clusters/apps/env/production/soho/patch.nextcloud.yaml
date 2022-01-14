@@ -5,6 +5,8 @@ metadata:
   name: nextcloud
 spec:
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     nextcloud:
       host: cloud.${SECRET_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
@@ -84,6 +86,8 @@ spec:
           secretName: "crj-wildcard-certificate"
     postgresql:
       enabled: true
+      podAnnotations:
+        backup.velero.io/backup-volumes: config
       global:
         postgresql:
           postgresqlUsername: ${NEXTCLOUD_DB_USER}
