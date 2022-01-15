@@ -53,7 +53,7 @@ spec:
       backupStorageLocation:
         name: local-minio
         bucket: prod
-        prefix: backups
+        prefix: ""
         default: true
         config:
           region: minio
