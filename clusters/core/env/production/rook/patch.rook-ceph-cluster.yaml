@@ -79,10 +79,6 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: ${SECRET_DOMAIN}/storage
-                      operator: In
-                      values:
-                        - rook
                     - key: kubernetes.io/arch
                       operator: In
                       values:
