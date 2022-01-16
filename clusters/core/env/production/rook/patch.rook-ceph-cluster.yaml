@@ -20,10 +20,10 @@ spec:
             secretName: crj-wildcard-certificate
     cephClusterSpec:
       mon:
-        count: 2
+        count: 5
         allowMultiplePerNode: false
       mgr:
-        count: 2
+        count: 3
       dashboard:
         enabled: true
         urlPrefix: /
