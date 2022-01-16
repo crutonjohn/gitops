@@ -12,7 +12,7 @@ spec:
     solvers:
       - dns01:
           route53:
-            region: us-east-1
+            region: us-east-2
         selector:
           dnsZones:
             - ${SECRET_DOMAIN}
