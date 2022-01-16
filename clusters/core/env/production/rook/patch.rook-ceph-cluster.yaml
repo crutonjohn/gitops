@@ -23,7 +23,7 @@ spec:
         count: 5
         allowMultiplePerNode: false
       mgr:
-        count: 3
+        count: 2
       dashboard:
         enabled: true
         urlPrefix: /
