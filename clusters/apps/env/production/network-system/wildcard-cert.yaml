@@ -18,10 +18,10 @@ spec:
   dnsNames:
     - crutonjohn.com
     - curtisrayjohn.com
-    - crjtechnologies.com
-    - baremetalblog.com
+    # - crjtechnologies.com
+    # - baremetalblog.com
     - "*.crutonjohn.com"
-    - "*.os.crutonjohn.com"
+    # - "*.os.crutonjohn.com"
     - "*.curtisrayjohn.com"
   issuerRef:
     kind: ClusterIssuer
