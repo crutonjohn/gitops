@@ -5,7 +5,8 @@ metadata:
   name: letsencrypt-production
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
+    #server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: admin+letsencrypt@curtisrayjohn.com
     privateKeySecretRef:
       name: letsencrypt-production
