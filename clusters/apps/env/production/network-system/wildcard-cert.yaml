@@ -15,7 +15,6 @@ spec:
   subject:
     organizations:
       - CRJ Technologies LLC
-  commonName: crutonjohn.com
   dnsNames:
     - crutonjohn.com
     - curtisrayjohn.com

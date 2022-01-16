@@ -10,11 +10,7 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
-      - dns01:
+      - selector: {}
+        dns01:
           route53:
             region: us-east-2
-        selector:
-          dnsZones:
-            - ${SECRET_DOMAIN}
-            - os.${SECRET_DOMAIN}
-            - baremetalblog.com
