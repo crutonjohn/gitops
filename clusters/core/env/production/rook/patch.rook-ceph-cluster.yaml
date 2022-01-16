@@ -85,21 +85,17 @@ spec:
                       operator: In
                       values:
                         - amd64
-        mon:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
                 - matchExpressions:
-                    - key: kubernetes.io/arch
+                    - key: crutonjohn.com/rook
                       operator: In
                       values:
-                        - amd64
+                        - "true"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
           failureDomain: host
           replicated:
-            size: 5
+            size: 3
         storageClass:
           enabled: true
           name: ceph-block
@@ -121,13 +117,13 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 5
+              size: 3
           dataPools:
             - failureDomain: host
               replicated:
-                size: 5
+                size: 3
           metadataServer:
-            activeCount: 5
+            activeCount: 1
             activeStandby: true
         storageClass:
           enabled: true
