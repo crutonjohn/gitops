@@ -64,7 +64,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: home-assistant-config
+        existingClaim: home-assistant-config-rook
         accessMode: ReadWriteMany
         skipuninstall: false
     addons:

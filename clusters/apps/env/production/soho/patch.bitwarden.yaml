@@ -48,4 +48,4 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: bitwarden-vaultwarden-config
+        existingClaim: bitwarden-vaultwarden-config-rook
