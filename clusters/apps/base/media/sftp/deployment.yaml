@@ -39,4 +39,4 @@ spec:
       volumes:
         - name: music-library
           persistentVolumeClaim:
-            claimName: music-library
+            claimName: music-library-pandora
