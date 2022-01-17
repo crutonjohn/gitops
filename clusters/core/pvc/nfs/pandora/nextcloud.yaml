@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   claimRef:
     namespace: soho
-    name: nextcloud-data
+    name: nextcloud-data-pandora
   storageClassName: pandora
   nfs:
     server: 192.168.130.50

@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   claimRef:
     namespace: media
-    name: music-library
+    name: music-library-pandora
   storageClassName: pandora
   nfs:
     server: 192.168.130.50
