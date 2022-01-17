@@ -79,7 +79,7 @@ spec:
     #       containerPort: 4181
     persistence:
       enabled: true
-      existingClaim: grafana-data
+      existingClaim: grafana-data-rook
     admin:
       existingSecret: "grafana-admin-secrets"
       userKey: admin-user

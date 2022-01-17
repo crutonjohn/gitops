@@ -28,7 +28,7 @@ spec:
     persistence:
       enabled: true
       size: 100Mi
-      storageClass: "longhorn"
+      storageClass: "ceph-block"
       accessMode: ReadWriteOnce
     nodeSelector:
       kubernetes.io/arch: amd64

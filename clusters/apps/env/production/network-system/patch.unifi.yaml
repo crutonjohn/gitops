@@ -11,7 +11,7 @@ spec:
       data:
         enabled: true
         mountPath: /unifi
-        existingClaim: unifi
+        existingClaim: unifi-rook
     env:
       TZ: "America/New_York"
     service:

@@ -37,19 +37,19 @@ spec:
       data:
         enabled: true
         mountPath: /usr/src/paperless/data
-        existingClaim: paperless-data
+        existingClaim: paperless-data-rook
       media:
         enabled: true
         mountPath: /usr/src/paperless/media
-        existingClaim: paperless-media
+        existingClaim: paperless-media-rook
       consume:
         enabled: true
         mountPath: /usr/src/paperless/consume
-        existingClaim: paperless-consume
+        existingClaim: paperless-consume-rook
       export:
         enabled: true
         mountPath: /usr/src/paperless/export
-        existingClaim: paperless-export
+        existingClaim: paperless-export-rook
     resources:
       requests:
         memory: 100Mi

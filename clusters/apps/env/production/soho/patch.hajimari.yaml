@@ -27,8 +27,9 @@ spec:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
     persistence:
       data:
-        enabled: true
+        enabled: false
         existingClaim: hajimari-config
+        storageClass: "ceph-block"
     hajimari:
       instanceName: cruton
       defaultEnable: false

@@ -124,7 +124,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: longhorn
+              storageClassName: ceph-block
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
@@ -528,7 +528,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: longhorn
+              storageClassName: ceph-block
               accessModes: ["ReadWriteOnce"]
               resources:
                 requests:

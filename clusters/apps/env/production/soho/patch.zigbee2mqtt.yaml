@@ -63,7 +63,7 @@ spec:
         enabled: true
         accessMode: ReadWriteOnce
         mountPath: "/data"
-        existingClaim: zigbee2mqtt-config
+        existingClaim: zigbee2mqtt-config-rook
       usb:
         enabled: true
         type: hostPath
