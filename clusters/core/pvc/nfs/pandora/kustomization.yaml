@@ -6,3 +6,4 @@ resources:
   - frigate.yaml
   - music.yaml
   - nextcloud.yaml
+  - kasten.yaml
