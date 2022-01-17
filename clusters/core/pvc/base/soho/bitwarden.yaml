@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: bitwarden-vaultwarden-config
-  namespace: soho
-spec:
-  accessModes:
-    - ReadWriteOnce

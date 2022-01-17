@@ -4,8 +4,11 @@ kind: Kustomization
 resources:
   - bitwarden.yaml
   - frigate.yaml
-  - hajimari.yaml
-  - hassio.yaml
+  - keycloak-db.yaml
+  - minecraft.yaml
   - nextcloud.yaml
   - paperless.yaml
+  - unifi.yaml
   - zigbee2mqtt.yaml
+  - hajimari.yaml
+  - grafana.yaml
