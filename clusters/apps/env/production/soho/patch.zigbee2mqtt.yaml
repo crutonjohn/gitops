@@ -18,6 +18,7 @@ spec:
         server: "mqtt://emqx"
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
+        include_device_information: true
       serial:
         port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
       advanced:
