@@ -56,6 +56,6 @@ spec:
   backoffLimit: 1
 EOF
 
-kubectl create -f migrate-job.yaml
+kubectl create -f migrate-job-$1.yaml
 kubectl get jobs -o wide
 kubectl get pods | grep migrate
