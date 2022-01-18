@@ -27,7 +27,7 @@ spec:
         mountPath: /music
         accessMode: ReadWriteOnce
         skipuninstall: false
-        existingClaim: "music-library"
+        existingClaim: "music-library-pandora"
     ingress:
       main:
         enabled: true
