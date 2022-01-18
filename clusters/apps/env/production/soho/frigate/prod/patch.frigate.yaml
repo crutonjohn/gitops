@@ -318,9 +318,9 @@ spec:
                     - "true"
     resources:
       requests:
-        memory: 100Mi
-        cpu: 500m
-      limits:
         memory: 2000Mi
+        cpu: 2
+      limits:
+        memory: 4000Mi
     securityContext:
       privileged: true
