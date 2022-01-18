@@ -18,9 +18,7 @@ spec:
         enabled: true
         emptyDir: false
         mountPath: /data
-        accessMode: ReadWriteOnce
-        storageClass: "longhorn"
-        size: 5Gi
+        existingClaim: "navidrome-config-rook"
       music:
         enabled: true
         emptyDir: false

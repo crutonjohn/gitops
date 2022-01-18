@@ -12,3 +12,4 @@ resources:
   - zigbee2mqtt.yaml
   - hajimari.yaml
   - grafana.yaml
+  - navidrome.yaml
