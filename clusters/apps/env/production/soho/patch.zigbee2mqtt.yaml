@@ -57,6 +57,37 @@ spec:
         tls:
           - hosts:
               - "zigbee2mqtt.${SECRET_DOMAIN}"
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 3.12.0
+        git:
+          deployKeySecret: code-server
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          enabled: true
+          ingressClassName: "traefik-internal"
+          hosts:
+            - host: "zigbee-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - "zigbee-config.${SECRET_DOMAIN}"
+              secretName: "crj-wildcard-certificate"
+        volumeMounts:
+          - name: config
+            mountPath: /config
     securityContext:
       privileged: true
     persistence:
