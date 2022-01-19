@@ -4,7 +4,7 @@
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "commitBody": "Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>",
+  "commitBody": "Signed-off-by: Curtis John <admin@curtisrayjohn.com>",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "commitMessageTopic": "{{depName}}",
