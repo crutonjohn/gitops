@@ -7,7 +7,6 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://helm.mittwald.de
       chart: kubernetes-replicator
       version: 2.7.3
       sourceRef:

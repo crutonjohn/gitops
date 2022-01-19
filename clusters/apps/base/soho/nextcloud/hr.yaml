@@ -7,7 +7,6 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://nextcloud.github.io/helm/
       chart: nextcloud
       version: 2.11.3
       sourceRef:
