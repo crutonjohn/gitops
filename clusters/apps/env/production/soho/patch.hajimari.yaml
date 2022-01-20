@@ -27,11 +27,10 @@ spec:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
     persistence:
       data:
-        enabled: false
+        enabled: true
         existingClaim: hajimari-config
         storageClass: "ceph-block"
     hajimari:
-      instanceName: cruton
       defaultEnable: false
       namespaceSelector:
         matchNames:
@@ -40,15 +39,38 @@ spec:
           - longhorn-system
           - observability
           - network-system
-      name: "Curtis"
-      customApps: []
-      #  - name:
-      #    url: https://example.com
-      #    icon: test-tube
+      name: "curtis"
+      customApps:
+        - name: OpnSense
+          url: 'https://router.${SECRET_DOMAIN}'
+          icon: "router-network"
+        - name: OctoPrint
+          url: 'http://octopi.${SECRET_DOMAIN}'
+          icon: "printer-3d"
       groups:
+        - name: Communication
+          links:
+            - name: Discord
+              url: 'https://discord.gg'
+            - name: E-Mail
+              url: 'https://beta.protonmail.com'
         - name: Cloud
           links:
             - name: Bytesized Hosting
               url: 'https://bytesized-hosting.com'
             - name: AWS Console
               url: 'https://console.aws.amazon.com'
+            - name: Gandi
+              url: 'https://gandi.net'
+        - name: Reading
+          links:
+            - name: Reddit
+              url: 'https://old.reddit.com'
+        - name: Social Media
+          links:
+            - name: Twitter
+              url: 'https://twitter.com'
+        - name: News
+          links:
+            - name: Hacker News
+              url: "https://news.ycombinator.com/"
