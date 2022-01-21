@@ -21,8 +21,7 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
+            - podAffinityTerm:
                 labelSelector:
                   matchExpressions:
                     - key: component
@@ -89,7 +88,6 @@ spec:
                       values:
                         - upsd
                 topologyKey: kubernetes.io/arch
-              weight: 100
       containers:
         - name: upsd-edison
           image: upshift/nut-upsd:2.7.4
