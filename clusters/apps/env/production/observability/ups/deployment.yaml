@@ -21,14 +21,13 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: component
-                      operator: In
-                      values:
-                        - upsd
-                topologyKey: kubernetes.io/arch
+            - labelSelector:
+              matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                    - upsd
+              topologyKey: kubernetes.io/arch
       containers:
         - name: upsd-tesla
           image: upshift/nut-upsd:2.7.4
@@ -80,14 +79,13 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: component
-                      operator: In
-                      values:
-                        - upsd
-                topologyKey: kubernetes.io/arch
+            - labelSelector:
+              matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                    - upsd
+              topologyKey: kubernetes.io/arch
       containers:
         - name: upsd-edison
           image: upshift/nut-upsd:2.7.4
