@@ -22,11 +22,11 @@ spec:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
-              matchExpressions:
-                - key: component
-                  operator: In
-                  values:
-                    - upsd
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd
               topologyKey: kubernetes.io/arch
       containers:
         - name: upsd-tesla
@@ -80,11 +80,11 @@ spec:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
-              matchExpressions:
-                - key: component
-                  operator: In
-                  values:
-                    - upsd
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd
               topologyKey: kubernetes.io/arch
       containers:
         - name: upsd-edison
