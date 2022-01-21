@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     image:
-      repository: ghcr.io/k8s-at-home/kured
+      repository: weaveworks/kured
       tag: 1.9.1
     nodeSelector:
       kubernetes.io/arch: "amd64"
