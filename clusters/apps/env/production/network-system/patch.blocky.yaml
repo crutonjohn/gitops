@@ -53,7 +53,6 @@ spec:
           ads:
           - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
           - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-          - https://mirror1.malwaredomains.com/files/justdomains
           - http://sysctl.org/cameleon/hosts
           - https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist
           - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
@@ -68,8 +67,8 @@ spec:
           - https://v.firebog.net/hosts/AdguardDNS.txt
           - https://v.firebog.net/hosts/Admiral.txt
           - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
-          - https://adaway.org/hosts.txthttps://v.firebog.net/hosts/AdguardDNS.txt
-          - https://v.firebog.net/hosts/Admiral.txthttps://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
+          - https://v.firebog.net/hosts/Admiral.txt
+          - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
           - https://v.firebog.net/hosts/Easylist.txt
           - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&amp;showintro=0&amp;mimetype=plaintext
           - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
@@ -82,7 +81,6 @@ spec:
           - https://phishing.army/download/phishing_army_blocklist_extended.txt
           - https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt
           - https://www.malwaredomainlist.com/hostslist/hosts.txt
-          - https://mirror.cedia.org.ec/malwaredomains/immortal_domains.txt
           - https://v.firebog.net/hosts/Prigent-Malware.txt
           - https://v.firebog.net/hosts/Prigent-Crypto.txt
           - https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
@@ -97,6 +95,7 @@ spec:
           - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
           kids:
           - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
+          tv_special: []
         whiteLists:
           ads:
           - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
@@ -104,6 +103,8 @@ spec:
         clientGroupsBlock:
           default:
           - ads
+          192.168.131.14:
+          - tv_special
       clientLookup:
         upstream: udp:192.168.128.1
       prometheus:
