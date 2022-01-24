@@ -113,14 +113,13 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: true
+      enabled: false
       name: ceph-block
       isDefault: true
       deletionPolicy: Delete
       parameters:
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
         csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-        k10.kasten.io/is-snapshot-class: "true"
     cephFileSystems:
       - name: ceph-filesystem
         spec:
@@ -150,12 +149,11 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephFileSystemVolumeSnapshotClass:
-      enabled: true
+      enabled: false
       name: ceph-filesystem
       isDefault: true
       deletionPolicy: Delete
       parameters:
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
         csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-        k10.kasten.io/is-snapshot-class: "true"
     cephObjectStores: []
