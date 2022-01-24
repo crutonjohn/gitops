@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../base/applications/rook-ceph/cluster/
   - ../../../../base/applications/rook-ceph/operator/
+  - volumesnapshotclass.yaml
 patchesStrategicMerge:
   - patch.rook-ceph-operator.yaml
   - patch.rook-ceph-cluster.yaml
