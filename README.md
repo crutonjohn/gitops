@@ -33,6 +33,7 @@ Currently using [k3s](https://k3s.io) by way of a customized [template-cluster-k
 3. `pipenv run gilt overlay`
 4. `pipenv run ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yaml`
 6. `k label nodes k-node1.crutonjohn.com k-node2.crutonjohn.com k-node3.crutonjohn.com k-node4.crutonjohn.com k-node5.crutonjohn.com crutonjohn.com/rook=true`
+7. `kubectl taint nodes k-master01.crutonjohn.com k-master02.crutonjohn.com k-master03.crutonjohn.com crutonjohn=control-plane:NoSchedule`
 
 ## Installing and bootstrapping flux
 
@@ -62,8 +63,8 @@ _All my nodes below are running bare metal Ubuntu 20.04.x_
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
 | Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Control Plane |
-| HP 800 G3 Mini          | 2     | 1x 120GB SSD (RAID1)    | 1x 1TB M.2 (rook-ceph)                   | 32GB | k8s Workers |
-| Dell 7040 Micro         | 3     | 1x 500B HDD             | 1x 1TB M.2 SSD (longhorn)                | 32GB | k8s Workers |
+| HP 800 G3 Mini          | 2     | 1x 120GB SSD            | 1x 1TB M.2 (rook-ceph)                   | 32GB | k8s Workers |
+| Dell 7040 Micro         | 3     | 1x 500B HDD             | 1x 1TB M.2 SSD (rook-ceph)               | 32GB | k8s Workers |
 
 ## :computer:&nbsp; Supporting Infrastructure
 
@@ -96,9 +97,11 @@ _This table is a reference to IP addresses in my deployments and may not be full
 | syslog-ng                | 192.168.130.106 |
 | minecraft                | 192.168.130.107 |
 | home-assistant           | 192.168.130.108 |
-| vernemq                  | 192.168.130.109 |
+| emqx                     | 192.168.130.109 |
 
 ---
 ## :handshake:&nbsp; Community
 
 Thanks to all the people who donate their time to the [Kubernetes @Home](https://github.com/k8s-at-home/) community. Join us at https://discord.gg/k8s-at-home
+
+A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes)
