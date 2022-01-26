@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="author" content="Curtis John">
+    <link rel="canonical" href="https://crutonjohn.github.io/gitops/k3s/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Install k3s - crutonjohn | homelab</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Install k3s", url: "#_top", children: [
+              {title: "provision/vars/", url: "#provisionvars" },
+              {title: "Permit direnv to load env", url: "#permit-direnv-to-load-env" },
+              {title: "Activate the pipenv", url: "#activate-the-pipenv" },
+              {title: "Overlaying the required repos", url: "#overlaying-the-required-repos" },
+              {title: "Bootstrapping the k3s cluster", url: "#bootstrapping-the-k3s-cluster" },
+              {title: "Verify cluster status", url: "#verify-cluster-status" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script>
+      <script src="../search/main.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../flux/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../flux/" class="btn btn-xs btn-link">
+        Install flux
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../prereqs/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../prereqs/" class="btn btn-xs btn-link">
+        Prerequisites
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="install-k3s">Install k3s</h1>
+<h2 id="provisionvars">provision/vars/</h2>
+<h3 id="inventoryyaml">inventory.yaml</h3>
+<ul>
+<li>Update inventory to reflect your target hosts</li>
+<li>mind the <code>ansible_user</code> variable</li>
+<li>Make sure your ssh keys are installed to the target machines in <a href="https://github.com/crutonjohn/gitops/blob/main/provision/vars/inventory.yaml">inventory.yaml</a></li>
+</ul>
+<h3 id="kube-vipyaml">kube-vip.yaml</h3>
+<ul>
+<li>update the VIP for the control plane</li>
+<li>align interface name to be that of the control plane nodes</li>
+</ul>
+<h3 id="others">others</h3>
+<ul>
+<li>review the files for any applicable edits</li>
+</ul>
+<h2 id="permit-direnv-to-load-env">Permit direnv to load env</h2>
+<pre><code>direnv allow .envrc
+</code></pre>
+<h2 id="activate-the-pipenv">Activate the pipenv</h2>
+<p>This will install the required pip packages and create a virtual python environment.</p>
+<pre><code>pipenv shell
+</code></pre>
+<h2 id="overlaying-the-required-repos">Overlaying the required repos</h2>
+<pre><code>gilt overlay
+</code></pre>
+<ul>
+<li><code>gilt</code> will copy the required files from the <a href="https://github.com/k8s-at-home/template-cluster-k3s">k8s-at-home cluster template</a> and use <code>ansible-galaxy</code> to install the required ansible roles.</li>
+<li>this will essentially create a rough-in "mirror" of the cluster template repo with some of our own mixins/customizations.</li>
+</ul>
+<h2 id="bootstrapping-the-k3s-cluster">Bootstrapping the k3s cluster</h2>
+<pre><code>ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yaml
+</code></pre>
+<ul>
+<li>The playbook will run and dump a <code>kubeconfig</code> in <code>provision/kubeconfig</code>, which will automatically be sourced by our <code>direnv</code>.</li>
+</ul>
+<p>Now your cluster should be running.</p>
+<h2 id="verify-cluster-status">Verify cluster status</h2>
+<pre><code>kubectl get nodes -o wide
+</code></pre>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../flux/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../flux/" class="btn btn-xs btn-link">
+        Install flux
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../prereqs/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../prereqs/" class="btn btn-xs btn-link">
+        Prerequisites
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+      <p>
+        <a href="https://github.com/crutonjohn/gitops/edit/master/docs/k3s.md">Edit on crutonjohn/gitops</a>
+      </p>
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/crutonjohn/gitops/">Windmill Dark</a> theme by Curtis John (noraj).</p>
+</footer>
+
+</body>
+</html>
