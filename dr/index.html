@@ -73,10 +73,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <h1 id="disaster-recovery">Disaster Recovery</h1>
+    <h1 id="disaster-recovery">Disaster Recovery<a class="headerlink" href="#disaster-recovery" title="Permanent link">#</a></h1>
 <p>Currently my DR plan is backed by <a href="https://docs.kasten.io/latest/index.html">kasten k10</a>, but I am also running <a href="https://velero.io/docs">velero</a> just because.</p>
 <p>This doc is respectfully borrowed from <a href="https://toboshii.github.io/home-cluster/restore/">Toboshii's Restore Process</a>, and slightly adapted.</p>
-<h2 id="flux">Flux</h2>
+<h2 id="flux">Flux<a class="headerlink" href="#flux" title="Permanent link">#</a></h2>
 <ul>
 <li>First, create the <code>flux-system</code> namespace:</li>
 </ul>
@@ -92,7 +92,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 <pre><code>kubectl apply --kustomize=./clusters/env/production/flux-system
 </code></pre>
-<h2 id="k10-pvc-restore">K10 PVC Restore</h2>
+<h2 id="k10-pvc-restore">K10 PVC Restore<a class="headerlink" href="#k10-pvc-restore" title="Permanent link">#</a></h2>
 <ul>
 <li>Create secret by using the DR token provided by your previously working K10 installation.</li>
 <li>Mine is stored in my cluster-secrets.yaml</li>

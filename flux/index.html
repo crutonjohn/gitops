@@ -83,8 +83,8 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <h1 id="install-flux">Install Flux</h1>
-<h2 id="sops">SOPS</h2>
+    <h1 id="install-flux">Install Flux<a class="headerlink" href="#install-flux" title="Permanent link">#</a></h1>
+<h2 id="sops">SOPS<a class="headerlink" href="#sops" title="Permanent link">#</a></h2>
 <ul>
 <li>Make sure that your <code>.sops.yml</code> is valid.</li>
 <li>Pre-create the <code>flux-system</code> namespace:</li>
@@ -97,7 +97,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 <pre><code>AWS_PROFILE=personal sops -d sops-secret.enc.yaml | kubectl apply -f -
 </code></pre>
-<h2 id="flux-bootstrap">Flux Bootstrap</h2>
+<h2 id="flux-bootstrap">Flux Bootstrap<a class="headerlink" href="#flux-bootstrap" title="Permanent link">#</a></h2>
 <ul>
 <li>Firstly we need to set our <code>GITHUB_TOKEN</code> variable. To do this one needs to be generated in Github. See <a href="https://fluxcd.io/docs/installation/#github-and-github-enterprise">these flux docs</a> for more info.</li>
 <li>I typically set this for my session, but it can also be set solely for the command.</li>

@@ -87,45 +87,45 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     
 
-    <h1 id="install-k3s">Install k3s</h1>
-<h2 id="provisionvars">provision/vars/</h2>
-<h3 id="inventoryyaml">inventory.yaml</h3>
+    <h1 id="install-k3s">Install k3s<a class="headerlink" href="#install-k3s" title="Permanent link">#</a></h1>
+<h2 id="provisionvars">provision/vars/<a class="headerlink" href="#provisionvars" title="Permanent link">#</a></h2>
+<h3 id="inventoryyaml">inventory.yaml<a class="headerlink" href="#inventoryyaml" title="Permanent link">#</a></h3>
 <ul>
 <li>Update inventory to reflect your target hosts</li>
 <li>mind the <code>ansible_user</code> variable</li>
 <li>Make sure your ssh keys are installed to the target machines in <a href="https://github.com/crutonjohn/gitops/blob/main/provision/vars/inventory.yaml">inventory.yaml</a></li>
 </ul>
-<h3 id="kube-vipyaml">kube-vip.yaml</h3>
+<h3 id="kube-vipyaml">kube-vip.yaml<a class="headerlink" href="#kube-vipyaml" title="Permanent link">#</a></h3>
 <ul>
 <li>update the VIP for the control plane</li>
 <li>align interface name to be that of the control plane nodes</li>
 </ul>
-<h3 id="others">others</h3>
+<h3 id="others">others<a class="headerlink" href="#others" title="Permanent link">#</a></h3>
 <ul>
 <li>review the files for any applicable edits</li>
 </ul>
-<h2 id="permit-direnv-to-load-env">Permit direnv to load env</h2>
+<h2 id="permit-direnv-to-load-env">Permit direnv to load env<a class="headerlink" href="#permit-direnv-to-load-env" title="Permanent link">#</a></h2>
 <pre><code>direnv allow .envrc
 </code></pre>
-<h2 id="activate-the-pipenv">Activate the pipenv</h2>
+<h2 id="activate-the-pipenv">Activate the pipenv<a class="headerlink" href="#activate-the-pipenv" title="Permanent link">#</a></h2>
 <p>This will install the required pip packages and create a virtual python environment.</p>
 <pre><code>pipenv shell
 </code></pre>
-<h2 id="overlaying-the-required-repos">Overlaying the required repos</h2>
+<h2 id="overlaying-the-required-repos">Overlaying the required repos<a class="headerlink" href="#overlaying-the-required-repos" title="Permanent link">#</a></h2>
 <pre><code>gilt overlay
 </code></pre>
 <ul>
 <li><code>gilt</code> will copy the required files from the <a href="https://github.com/k8s-at-home/template-cluster-k3s">k8s-at-home cluster template</a> and use <code>ansible-galaxy</code> to install the required ansible roles.</li>
 <li>this will essentially create a rough-in "mirror" of the cluster template repo with some of our own mixins/customizations.</li>
 </ul>
-<h2 id="bootstrapping-the-k3s-cluster">Bootstrapping the k3s cluster</h2>
+<h2 id="bootstrapping-the-k3s-cluster">Bootstrapping the k3s cluster<a class="headerlink" href="#bootstrapping-the-k3s-cluster" title="Permanent link">#</a></h2>
 <pre><code>ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yaml
 </code></pre>
 <ul>
 <li>The playbook will run and dump a <code>kubeconfig</code> in <code>provision/kubeconfig</code>, which will automatically be sourced by our <code>direnv</code>.</li>
 </ul>
 <p>Now your cluster should be running.</p>
-<h2 id="verify-cluster-status">Verify cluster status</h2>
+<h2 id="verify-cluster-status">Verify cluster status<a class="headerlink" href="#verify-cluster-status" title="Permanent link">#</a></h2>
 <pre><code>kubectl get nodes -o wide
 </code></pre>
 
