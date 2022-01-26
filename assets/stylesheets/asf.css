@@ -1,0 +1,95 @@
+body {
+  background: rgba(248, 248, 248, 100);
+}
+
+a {
+  color: #236192;
+}
+
+.md-header a, .md-footer a {
+  color: rgba(248, 248, 248, 100);
+}
+
+.md-header, .md-footer {
+  background: rgb(101, 102, 92);
+  background: linear-gradient(180deg, rgba(101, 102, 92, 1) 0%, rgba(106, 106, 106, 1) 100%);
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.5);
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+
+}
+
+.md-header-nav__button.md-logo img {
+  height: 2.0rem;
+  width: auto;
+  display: inline-block;
+  margin-top: -7px;
+}
+
+.md-footer-nav {
+  background-image: url("../images/map.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  min-height: 510px;
+  border-top: 58px solid #ffcd00;
+}
+
+.md-footer-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+}
+
+.md-footer-container-item {
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: auto;
+  min-width: 200px;
+  max-width: 400px;
+  margin: 0 5px 25px 0;
+}
+
+.md-footer-container-item p {
+  font-family: "Helvetica",sans-serif;
+  font-size: 14px;
+  color: white;
+  line-height: 1.5;
+}
+
+.md-footer-container-item h1 {
+  color: white;
+}
+
+.md-footer-logo {
+  width: 225px;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.md-about-us {
+ max-width: 250px;
+}
+
+.md-contact-info {
+  max-width: 200px;
+}
+
+.md-footer-meta {
+  background-color: black;
+}
+
+.md-footer-copyright-link {
+  color: #1bb0ce !important;
+}
+
+.md-footer-copyright {
+  margin-left: 0;
+}
+
+.expert-rec-search {
+  margin-top: 10px;
+}
