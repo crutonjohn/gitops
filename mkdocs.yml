@@ -16,4 +16,8 @@ nav:
   - Install flux: flux.md
   - Disaster Recovery: dr.md
 
-theme: windmill-dark
+theme: 'windmill-dark'
+
+markdown_extensions:
+  - toc:
+      permalink: '#'
