@@ -61,7 +61,7 @@ spec:
       default:
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
-        sniStrict: false
+        sniStrict: true
     service:
       enabled: true
       type: LoadBalancer
