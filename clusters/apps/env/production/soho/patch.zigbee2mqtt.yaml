@@ -99,7 +99,7 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+        hostPath: /dev/ttyUSB0
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
