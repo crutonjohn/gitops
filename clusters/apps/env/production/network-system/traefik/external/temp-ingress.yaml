@@ -37,32 +37,10 @@ spec:
   ingressClassName: traefik-external
   tls:
     - hosts:
-        - "bitwarden.randomgamers.gg"
-        - "cloud.randomgamers.gg"
-        - "office.randomgamers.gg"
-      secretName: cj-wildcard-certificate
+        - "*.randomgamers.gg"
+      secretName: cj-wildcard-certificate-external
   rules:
-    - host: "bitwarden.randomgamers.gg"
-      http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: cjs-server
-                port:
-                  number: 443
-    - host: "cloud.randomgamers.gg"
-      http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: cjs-server
-                port:
-                  number: 443
-    - host: "office.randomgamers.gg"
+    - host: "*.randomgamers.gg"
       http:
         paths:
           - path: /
