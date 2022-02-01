@@ -5,16 +5,15 @@ metadata:
   name: nextcloud
 spec:
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+    image:
+      repository: nextcloud
+      tag: 23.0.0-fpm
+      pullPolicy: IfNotPresent
     nextcloud:
       host: cloud.${SECRET_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
       datadir: /var/www/html/data
-      extraVolumeMounts:
-        - name: nfs-data
-          path:
       mail:
         enabled: true
         fromAddress: cloud
@@ -42,40 +41,17 @@ spec:
             '${CLUSTER_SVC_CIDR}',
             '${NODE1_ADDRESS}',
             '${NODE2_ADDRESS}',
-            '${NODE3_ADDRESS}'
+            '${NODE3_ADDRESS}',
+            '${NODE4_ADDRESS}',
+            '${NODE5_ADDRESS}'
             )
           );
-
     ingress:
       enabled: true
       className: traefik-external
       annotations:
         external-dns/public: "true"
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-        nginx.ingress.kubernetes.io/proxy-body-size: 5G
-        nginx.ingress.kubernetes.io/server-snippet: |-
-          server_tokens off;
-          proxy_hide_header X-Powered-By;
-          rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
-          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-          location = /.well-known/carddav {
-            return 301 $scheme://$host/remote.php/dav;
-          }
-          location = /.well-known/caldav {
-            return 301 $scheme://$host/remote.php/dav;
-          }
-          location = /robots.txt {
-            allow all;
-            log_not_found off;
-            access_log off;
-          }
-          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-            deny all;
-          }
-          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-            deny all;
-          }
         hajimari.io/enable: "true"
         hajimari.io/icon: "cloud-upload"
         hajimari.io/appName: "Nextcloud"
@@ -95,7 +71,7 @@ spec:
           postgresqlDatabase: ${NEXTCLOUD_DB_NAME}
       persistence:
         enabled: true
-        existingClaim: nextcloud-db
+        existingClaim: nextcloud-db-rook
       volumePermissions:
         enabled: true
         securityContext:
@@ -137,9 +113,9 @@ spec:
       successfulJobsHistoryLimit: 2
     persistence:
       enabled: true
-      existingClaim: nextcloud-data
+      existingClaim: nextcloud-data-pandora
     metrics:
-      enabled: false
+      enabled: true
       replicaCount: 1
       https: true
       timeout: 5s
