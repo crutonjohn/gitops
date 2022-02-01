@@ -503,7 +503,7 @@ spec:
         probeSelector: {}
         probeNamespaceSelector: {}
         retention: 7d
-        retentionSize: "40Gi"
+        retentionSize: "40GB"
         walCompression: true
         paused: false
         replicas: 1
