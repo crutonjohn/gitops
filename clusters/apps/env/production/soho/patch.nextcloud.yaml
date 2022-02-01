@@ -88,7 +88,7 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      host: nextcloud-db.soho.svc.cluster.local
+      host: nextcloud-postgresql
       user: ${NEXTCLOUD_DB_USER}
       password: ${NEXTCLOUD_DB_PASSWORD}
       database: ${NEXTCLOUD_DB_NAME}
