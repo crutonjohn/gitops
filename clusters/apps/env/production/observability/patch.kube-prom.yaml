@@ -95,7 +95,11 @@ spec:
       ingress:
         enabled: true
         ingressClassName: traefik-internal
-        annotations: {}
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "bell-alert-outline"
+          hajimari.io/appName: "Alertmanager"
+          hajimari.io/group: "Observability"
         labels: {}
         hosts:
           - "alerts.${SECRET_DOMAIN}"
@@ -437,7 +441,11 @@ spec:
       ingress:
         enabled: true
         ingressClassName: traefik-internal
-        annotations: {}
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "fire"
+          hajimari.io/appName: "Prometheus"
+          hajimari.io/group: "Observability"
         labels: {}
         hosts:
           - prometheus.${SECRET_DOMAIN}

@@ -39,7 +39,7 @@ spec:
           - longhorn-system
           - observability
           - network-system
-      name: "curtis"
+      name: "Curtis"
       customApps:
         - name: OpnSense
           url: 'https://router.${SECRET_DOMAIN}'
@@ -48,6 +48,14 @@ spec:
           url: 'http://octopi.${SECRET_DOMAIN}'
           icon: "printer-3d"
       groups:
+        - name: Development
+          links:
+            - name: Github
+              url: 'https://github.com'
+            - name: Rennovate Dashboard
+              url: 'https://github.com/crutonjohn/gitops/issues/216'
+            - name: Cluster Repo
+              url: 'https://github.com/crutonjohn/gitops'
         - name: Communication
           links:
             - name: Discord
