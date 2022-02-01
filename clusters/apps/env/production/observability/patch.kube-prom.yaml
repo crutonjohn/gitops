@@ -502,9 +502,9 @@ spec:
         probeSelectorNilUsesHelmValues: false
         probeSelector: {}
         probeNamespaceSelector: {}
-        retention: 10d
-        retentionSize: ""
-        walCompression: false
+        retention: 7d
+        retentionSize: "40Gi"
+        walCompression: true
         paused: false
         replicas: 1
         shards: 1
@@ -522,7 +522,7 @@ spec:
         remoteWriteDashboards: false
         resources:
           requests:
-            memory: 400Mi
+            memory: 1024Mi
           limits:
             memory: 5120Mi
         storageSpec:
