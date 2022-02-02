@@ -33,7 +33,6 @@ spec:
               - "paperless.${SECRET_DOMAIN}"
             secretName: "crj-wildcard-certificate"
     persistence:
-
       data:
         enabled: true
         mountPath: /usr/src/paperless/data
@@ -45,11 +44,11 @@ spec:
       consume:
         enabled: true
         mountPath: /usr/src/paperless/consume
-        existingClaim: paperless-consume-rook
+        existingClaim: paperless-consume-pandora
       export:
         enabled: true
         mountPath: /usr/src/paperless/export
-        existingClaim: paperless-export-rook
+        existingClaim: paperless-export-pandora
     resources:
       requests:
         memory: 100Mi
