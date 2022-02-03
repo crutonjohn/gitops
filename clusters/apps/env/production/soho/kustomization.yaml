@@ -9,7 +9,7 @@ resources:
   #  - ../../../base/soho/double-take
   - ../../../base/soho/hajimari
   - ../../../base/soho/emqx
-  # - ../../../base/soho/nextcloud
+  - ../../../base/soho/nextcloud
   - ../../../base/soho/paperless
   - ../../../base/soho/zigbee2mqtt
   - amcrest2mqtt
@@ -21,6 +21,6 @@ patchesStrategicMerge:
   # - patch.double-take.yaml
   - patch.hajimari.yaml
   - patch.emqx.yaml
-  # - patch.nextcloud.yaml
+  - patch.nextcloud.yaml
   - patch.paperless.yaml
   - patch.zigbee2mqtt.yaml
