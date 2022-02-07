@@ -17,4 +17,4 @@ spec:
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.2.0
+      tag: 2022.2.3
