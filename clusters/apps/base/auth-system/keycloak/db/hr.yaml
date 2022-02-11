@@ -17,5 +17,5 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/postgresql
-      tag: 14.1.0-debian-10-r0
+      tag: 14.2.0-debian-10-r0
       pullPolicy: IfNotPresent
