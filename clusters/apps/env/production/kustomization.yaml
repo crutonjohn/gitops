@@ -11,4 +11,5 @@ resources:
   - media
   - network-system
   - observability
+  - security
   - soho

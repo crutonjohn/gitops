@@ -1,0 +1,246 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: falco
+spec:
+  values:
+    docker:
+      enabled: false
+    containerd:
+      enabled: true
+      socket: /run/containerd/containerd.sock
+    kubernetesSupport:
+      # Enables Kubernetes meta data collection via a connection to the Kubernetes API server.
+      enabled: true
+      # The apiAuth value is to provide the authentication method Falco should use to connect to the Kubernetes API.
+      # The argument's documentation from Falco is provided here for reference:
+      #
+      #  <bt_file> | <cert_file>:<key_file[#password]>[:<ca_cert_file>], --k8s-api-cert <bt_file> | <cert_file>:<key_file[#password]>[:<ca_cert_file>]
+      #     Use the provided files names to authenticate user and (optionally) verify the K8S API server identity.
+      #     Each entry must specify full (absolute, or relative to the current directory) path to the respective file.
+      #     Private key password is optional (needed only if key is password protected).
+      #     CA certificate is optional. For all files, only PEM file format is supported.
+      #     Specifying CA certificate only is obsoleted - when single entry is provided
+      #     for this option, it will be interpreted as the name of a file containing bearer token.
+      #     Note that the format of this command-line option prohibits use of files whose names contain
+      #     ':' or '#' characters in the file name.
+      apiAuth: /var/run/secrets/kubernetes.io/serviceaccount/token
+      apiUrl: "https://$(KUBERNETES_SERVICE_HOST)"
+      # If true, only the current node (on which Falco is running) will be considered when requesting metadata of pods
+      # to the API server. Disabling this option may have a performance penalty on large clusters.
+      enableNodeFilter: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+    extraArgs: []
+    nodeSelector: {}
+    affinity: {}
+    rbac:
+      # Create and use rbac resources
+      create: true
+    podSecurityPolicy:
+      # Create a podSecurityPolicy
+      create: false
+    serviceAccount:
+      # Create and use serviceAccount resources
+      create: true
+      # Use this value as serviceAccountName
+      name:
+      annotations: {}
+    fakeEventGenerator:
+      enabled: false
+      args:
+        - run
+        - --loop
+        - ^syscall
+      replicas: 1
+    daemonset:
+      # Perform rolling updates by default in the DaemonSet agent
+      # ref: https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/
+      updateStrategy:
+        # You can also customize maxUnavailable or minReadySeconds if you
+        # need it
+        type: RollingUpdate
+      ## Extra environment variables that will be pass onto deployment pods
+      env: {}
+      ## Add aditional pod annotations on pods created by DaemonSet
+      podAnnotations: {}
+    # Additional labels to add to the pods:
+    # podLabels:
+    #   key: value
+    podLabels: {}
+    # If is behind a proxy you can set the proxy server
+    proxy:
+      httpProxy:
+      httpsProxy:
+      noProxy:
+    # Set daemonset timezone
+    timezone: America/New_York
+    # Set daemonset priorityClassName
+    priorityClassName:
+    ebpf:
+      # Enable eBPF support for Falco
+      enabled: false
+      path:
+      settings:
+        # Needed to enable eBPF JIT at runtime for performance reasons.
+        # Can be skipped if eBPF JIT is enabled from outside the container
+        hostNetwork: true
+    auditLog:
+      # true here activates the K8s Audit Log feature for Falco
+      enabled: true
+      dynamicBackend:
+        # true here configures an AuditSink who will receive the K8s audit logs
+        enabled: false
+        # define if auditsink client config should point to a fixed url, not the
+        # default webserver service
+        url: ""
+    falco:
+      # The location of the rules file(s). This can contain one or more paths to
+      # separate rules files.
+      rulesFile:
+        - /etc/falco/falco_rules.yaml
+        - /etc/falco/falco_rules.local.yaml
+        - /etc/falco/k8s_audit_rules.yaml
+        # - /etc/falco/aws_cloudtrail_rules.yaml
+        - /etc/falco/rules.d
+      # - /etc/falco/rules.optional.d
+      plugins:
+        - name: cloudtrail
+          library_path: libcloudtrail.so
+          init_config: ""
+          open_params: ""
+        - name: json
+          library_path: libjson.so
+          init_config: ""
+
+      # Setting this list to empty ensures that the above plugins are *not*
+      # loaded and enabled by default. If you want to use the above plugins,
+      # set a meaningful init_config/open_params for the cloudtrail plugin
+      # and then change this to:
+      # load_plugins: [cloudtrail, json]
+      loadPlugins: []
+
+      # If true, the times displayed in log messages and output messages
+      # will be in ISO 8601. By default, times are displayed in the local
+      # time zone, as governed by /etc/localtime.
+      timeFormatISO8601: false
+
+      # Whether to output events in json or text
+      jsonOutput: false
+
+      # When using json output, whether or not to include the "output" property
+      # itself (e.g. "File below a known binary directory opened for writing
+      # (user=root ....") in the json output.
+      jsonIncludeOutputProperty: true
+
+      # When using json output, whether or not to include the "tags" property
+      # itself in the json output. If set to true, outputs caused by rules
+      # with no tags will have a "tags" field set to an empty array. If set to
+      # false, the "tags" field will not be included in the json output at all.
+      jsonIncludeTagsProperty: true
+
+      # Send information logs to stderr and/or syslog Note these are *not* security
+      # notification logs! These are just Falco lifecycle (and possibly error) logs.
+      logStderr: true
+      logSyslog: true
+
+      # Minimum log level to include in logs. Note: these levels are
+      # separate from the priority field of rules. This refers only to the
+      # log level of Falco's internal logging. Can be one of "emergency",
+      # "alert", "critical", "error", "warning", "notice", "info", "debug".
+      logLevel: info
+      priority: debug
+      bufferedOutputs: false
+      syscallEventDrops:
+        threshold: .1
+        actions:
+          - log
+          - alert
+        rate: .03333
+        maxBurst: 1
+      syscallEventTimeouts:
+        maxConsecutives: 1000
+      output_timeout: 2000
+      outputs:
+        rate: 1
+        maxBurst: 1000
+      syslogOutput:
+        enabled: true
+      fileOutput:
+        enabled: false
+        keepAlive: false
+        filename: ./events.txt
+      stdoutOutput:
+        enabled: true
+      webserver:
+        enabled: true
+        listenPort: 8765
+        nodePort: false
+        k8sAuditEndpoint: /k8s-audit
+        k8sHealthzEndpoint: /healthz
+        sslEnabled: false
+        sslCertificate: /etc/falco/certs/server.pem
+      livenessProbe:
+        initialDelaySeconds: 60
+        timeoutSeconds: 5
+        periodSeconds: 15
+      readinessProbe:
+        initialDelaySeconds: 30
+        timeoutSeconds: 5
+        periodSeconds: 15
+      programOutput:
+        enabled: false
+        keepAlive: false
+        program: |
+          "\"jq '{text: .output}' | curl -d @- -X POST ${FALCO_SLACK_WEBHOOK_URL}\""
+      httpOutput:
+        enabled: false
+        url: http://some.url
+        userAgent: "falcosecurity/falco"
+      grpc:
+        enabled: false
+      grpcOutput:
+        enabled: false
+      metadataDownload:
+        maxMb: 100
+        chunkWaitUs: 1000
+        watchFreqSec: 1
+    customRules:
+      rules-traefik.yaml: |-
+        - macro: traefik_consider_syscalls
+          condition: (evt.num < 0)
+        - macro: app_traefik
+          condition: container and container.image startswith "traefik"
+        - list: traefik_allowed_inbound_ports_tcp
+          items: [443, 80, 8080, 9000]
+        - rule: Unexpected inbound tcp connection traefik
+          desc: Detect inbound traffic to traefik using tcp on a port outside of expected set
+          condition: inbound and evt.rawres >= 0 and not fd.sport in (traefik_allowed_inbound_ports_tcp) and app_traefik
+          output: Inbound network connection to traefik on unexpected port (command=%proc.cmdline pid=%proc.pid connection=%fd.name sport=%fd.sport user=%user.name %container.info image=%container.image)
+          priority: NOTICE
+        - list: traefik_allowed_processes
+          items: ["traefik"]
+        - rule: Unexpected spawned process traefik
+          desc: Detect a process started in a traefik container outside of an expected set
+          condition: spawned_process and not proc.name in (traefik_allowed_processes) and app_traefik
+          output: Unexpected process spawned in traefik container (command=%proc.cmdline pid=%proc.pid user=%user.name %container.info image=%container.image)
+          priority: NOTICE
+    # certificates used by webserver and grpc server
+    # paste certificate content or use helm with --set-file
+    # or use existing secret containing key, crt, ca as well as pem bundle
+    certs:
+      existingSecret: "crj-wildcard-certificate"
+    tolerations:
+      - effect: NoSchedule
+        key: crutonjohn
+        value: control-plane
+    scc:
+      create: false
+    falcosidekick:
+      enabled: false
