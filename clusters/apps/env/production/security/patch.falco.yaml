@@ -38,7 +38,8 @@ spec:
         cpu: 1000m
         memory: 1024Mi
     extraArgs: []
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/arch: amd64
     affinity: {}
     rbac:
       # Create and use rbac resources
