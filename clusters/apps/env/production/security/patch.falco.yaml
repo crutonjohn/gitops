@@ -9,7 +9,7 @@ spec:
       enabled: false
     containerd:
       enabled: true
-      socket: /run/containerd/containerd.sock
+      socket: /var/run/k3s/containerd/containerd.sock
     kubernetesSupport:
       # Enables Kubernetes meta data collection via a connection to the Kubernetes API server.
       enabled: true
