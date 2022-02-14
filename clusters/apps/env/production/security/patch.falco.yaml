@@ -35,8 +35,8 @@ spec:
         cpu: 100m
         memory: 512Mi
       limits:
-        cpu: 300m
-        memory: 800Mi
+        cpu: 500m
+        memory: 1024Mi
     extraArgs: []
     nodeSelector:
       kubernetes.io/arch: amd64
