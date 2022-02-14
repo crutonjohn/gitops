@@ -19,3 +19,17 @@ spec:
       repository: falcosecurity/falco
       tag: 0.31.0
       pullPolicy: IfNotPresent
+    falcosidekick:
+      image:
+        registry: public.ecr.aws
+        repository: falcosecurity/falcosidekick
+        tag: 2.24.0
+        pullPolicy: IfNotPresent
+      webui:
+        enabled: true
+        darkmode: true
+        image:
+          registry: public.ecr.aws
+          repository: falcosecurity/falcosidekick-ui
+          tag: latest # the only tag available at https://gallery.ecr.aws/falcosecurity/falcosidekick-ui
+          pullPolicy: IfNotPresent

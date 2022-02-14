@@ -244,4 +244,80 @@ spec:
     scc:
       create: false
     falcosidekick:
-      enabled: false
+      enabled: true
+      replicaCount: 2
+      podSecurityContext:
+        runAsUser: 1234
+        fsGroup: 1234
+      podSecurityPolicy:
+        create: false
+      config:
+        existingSecret: ""
+        extraEnv: []
+        debug: false
+        ##
+        ## a list of escaped comma separated custom fields to add to falco events, syntax is "key:value\,key:value"
+        customfields: ""
+        mutualtlsfilespath: "/etc/certs"  # folder which will used to store client.crt, client.key and ca.crt files for mutual tls (default: "/etc/certs")
+        discord:
+          webhookurl: "${FALCO_DISCORD_WEBHOOK_URL}"
+          icon: "https://p1.hiclipart.com/preview/482/808/926/super-smash-bros-ultimate-all-icon-s-falco-png-clipart.jpg"
+          minimumpriority: ""
+      service:
+        type: ClusterIP
+        port: 2801
+        annotations: {}
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: traefik-internal
+        hosts:
+          - host: falco.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: crj-wildcard-certificate
+            hosts:
+              - falco.${SECRET_DOMAIN}
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      webui:
+        podSecurityContext:
+          runAsUser: 1234
+          fsGroup: 1234
+        retention: 200
+        service:
+          type: ClusterIP
+          port: 2802
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: traefik-internal
+          hosts:
+            - host: falco.${SECRET_DOMAIN}
+              paths:
+                - path: /ui
+                  pathType: Prefix
+                - path: /events
+                  pathType: Prefix
+                - path: /healthz
+                  pathType: Prefix
+                - path: /ws
+                  pathType: Prefix
+          tls:
+            - secretName: crj-wildcard-certificate
+              hosts:
+                - falco.${SECRET_DOMAIN}
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
