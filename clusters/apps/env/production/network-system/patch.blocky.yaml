@@ -45,6 +45,7 @@ spec:
           octopi.${SECRET_DOMAIN}: 192.168.134.80
           k10.${SECRET_DOMAIN}: 192.168.130.101
           zigbee-config.${SECRET_DOMAIN}: 192.168.130.101
+          falco.${SECRET_DOMAIN}: 192.168.130.101
       conditional:
         mapping:
           local: 192.168.128.1
