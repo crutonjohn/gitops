@@ -10,5 +10,12 @@ configMapGenerator:
   - name: default-rules-override
     files:
       - falco-rules/default_rules.yaml
+  - name: bonus-rules
+    files:
+      - falco-rules/etcd_rules.yaml
+      - falco-rules/fip_rules.yaml
+      - falco-rules/fpm_rules.yaml
+      - falco-rules/rook_rules.yaml
+      - falco-rules/ssh_rules.yaml
 generatorOptions:
   disableNameSuffixHash: true

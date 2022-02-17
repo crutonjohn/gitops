@@ -102,16 +102,33 @@ spec:
         # default webserver service
         url: ""
     extraVolumes:
-      - name: custom-rules
+      - name: custom-default-rules
         configMap:
           name: default-rules-override
           optional: true
           items:
             - key: default_rules.yaml
               path: default_rules.yaml
+      - name: bonus-rules
+        configMap:
+          name: bonus-rules
+          optional: true
+          items:
+            - key: etcd_rules.yaml
+              path: etcd_rules.yaml
+            - key: fip_rules.yaml
+              path: fip_rules.yaml
+            - key: fpm_rules.yaml
+              path: fpm_rules.yaml
+            - key: rook_rules.yaml
+              path: rook_rules.yaml
+            - key: ssh_rules.yaml
+              path: ssh_rules.yaml
     extraVolumeMounts:
       - mountPath: /etc/falco/default_rules.yaml
-        name: custom-rules
+        name: custom-default-rules
+      - mountPath: /etc/falco/bonus-rules.d/
+        name: bonus-rules
     falco:
       # The location of the rules file(s). This can contain one or more paths to
       # separate rules files.
@@ -121,6 +138,7 @@ spec:
         - /etc/falco/falco_rules.local.yaml
         - /etc/falco/k8s_audit_rules.yaml
         # - /etc/falco/aws_cloudtrail_rules.yaml
+        - /etc/falco/bonus-rules.d
         - /etc/falco/rules.d
       plugins:
         - name: cloudtrail
