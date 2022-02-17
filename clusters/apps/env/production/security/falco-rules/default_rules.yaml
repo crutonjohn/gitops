@@ -1946,7 +1946,9 @@
   condition: >
     (container.image.repository in (docker.io/bitnami/external-dns, quay.io/metallb/speaker,
      gcr.io/kasten-images/aggregatedapis, quay.io/prometheus/prometheus, docker.io/velero/velero,
-     k8s.gcr.io/sig-storage/snapshot-controller))
+     k8s.gcr.io/sig-storage/snapshot-controller, gcr.io/kasten-images/metering,
+     ghcr.io/infracloudio/botkube, ghcr.io/fluxcd/kustomize-controller,
+     quay.io/prometheus-operator/prometheus-operator, ghcr.io/fluxcd/helm-controller))
 - macro: k8s_api_server
   condition: (fd.sip.name="kubernetes.default.svc.cluster.local")
 - macro: user_known_contact_k8s_api_server_activities
