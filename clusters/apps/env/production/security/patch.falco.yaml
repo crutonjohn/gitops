@@ -110,18 +110,18 @@ spec:
             - key: default_rules.yaml
               path: default_rules.yaml
     extraVolumeMounts:
-      - mountPath: /etc/falco/rules.optional.d
+      - mountPath: /etc/falco/default_rules.yaml
         name: custom-rules
     falco:
       # The location of the rules file(s). This can contain one or more paths to
       # separate rules files.
       rulesFile:
         # - /etc/falco/falco_rules.yaml
+        - /etc/falco/default_rules.yaml
         - /etc/falco/falco_rules.local.yaml
         - /etc/falco/k8s_audit_rules.yaml
         # - /etc/falco/aws_cloudtrail_rules.yaml
         - /etc/falco/rules.d
-        - /etc/falco/rules.optional.d
       plugins:
         - name: cloudtrail
           library_path: libcloudtrail.so
