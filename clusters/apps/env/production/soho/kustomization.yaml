@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: soho
 resources:
   - ../../../base/auth-system/oauth2-proxy/service
-  - ../../../base/soho/baremetalblog
+  # - ../../../base/soho/baremetalblog
   - ../../../base/soho/bitwarden
   #  - ../../../base/soho/double-take
   - ../../../base/soho/hajimari
@@ -16,7 +16,7 @@ resources:
   - frigate
   - hassio
 patchesStrategicMerge:
-  - patch.baremetalblog.yaml
+  # - patch.baremetalblog.yaml
   - patch.bitwarden.yaml
   # - patch.double-take.yaml
   - patch.hajimari.yaml
