@@ -6,3 +6,9 @@ resources:
   - ../../../base/security/falco
 patchesStrategicMerge:
   - patch.falco.yaml
+configMapGenerator:
+  - name: default-rules-override
+    files:
+      - falco-rules/default_rules.yaml
+generatorOptions:
+  disableNameSuffixHash: true
