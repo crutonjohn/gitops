@@ -12,7 +12,7 @@ spec:
     worker:
       nodeSelector:
         kubernetes.io/arch: "amd64"
-      config: |-
+      config:
         core:
           sleepInterval: 60s
           sources:
