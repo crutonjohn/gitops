@@ -22,6 +22,7 @@ spec:
       customDNS:
         mapping:
           router.${SECRET_DOMAIN}: 192.168.130.1
+          bitwarden.${SECRET_DOMAIN}: 192.168.130.100
           unifi.${SECRET_DOMAIN}: 192.168.130.101
           join-unifi.${SECRET_DOMAIN}: 192.168.130.103
           prometheus.${SECRET_DOMAIN}: 192.168.130.101
