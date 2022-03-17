@@ -10,7 +10,7 @@ spec:
       configmap.reloader.stakater.com/reload: "frigate-prod-config"
     image:
       repository: blakeblackshear/frigate
-      tag: 0.9.4-amd64
+      tag: 0.10.1-amd64
       pullPolicy: IfNotPresent
     env:
       TZ: "America/New_York"
@@ -18,8 +18,8 @@ spec:
       logger:
         default: debug
       mqtt:
-        # host: emqx.soho.svc.cluster.local
-        host: 192.168.130.109
+        host: emqx.soho.svc.cluster.local
+        # host: 192.168.130.109
         topic_prefix: frigate
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
