@@ -12,6 +12,7 @@ spec:
           addresses:
             - 192.168.130.100-192.168.130.200
     prometheus:
+      serviceAccount: "kube-prometheus-kube-prome-prometheus"
       podMonitor:
         enabled: true
       prometheusRule:
