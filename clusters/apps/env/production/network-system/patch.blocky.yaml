@@ -105,7 +105,7 @@ spec:
           192.168.131.14:
           - tv_special
       clientLookup:
-        upstream: udp+tcp:192.168.130.1
+        upstream: 192.168.130.1
       prometheus:
         enable: true
         path: /metrics
