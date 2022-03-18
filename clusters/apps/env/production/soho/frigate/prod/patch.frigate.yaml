@@ -18,8 +18,8 @@ spec:
       logger:
         default: debug
       mqtt:
-        # host: emqx.soho.svc.cluster.local
-        host: 192.168.130.109
+        host: emqx
+        # host: 192.168.130.109
         topic_prefix: frigate
         user: "${SECRET_MQTT_USERNAME}"
         password: "${SECRET_MQTT_PASSWORD}"
