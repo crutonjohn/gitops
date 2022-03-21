@@ -8,6 +8,7 @@ resources:
   - ../../../base/observability/loki
   - ../../../base/observability/promtail
   - ../../../base/observability/kube-prometheus
+  - ../../../base/observability/changedetection-io
   - external-prom-targets
   - ups
   - grafana
@@ -16,3 +17,4 @@ patchesStrategicMerge:
   - patch.loki.yaml
   - patch.promtail.yaml
   - patch.kube-prom.yaml
+  - patch.changedetection.yaml

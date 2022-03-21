@@ -47,6 +47,7 @@ spec:
           k10.${SECRET_DOMAIN}: 192.168.130.101
           zigbee-config.${SECRET_DOMAIN}: 192.168.130.101
           falco.${SECRET_DOMAIN}: 192.168.130.101
+          status.${SECRET_DOMAIN}: 192.168.130.101
       conditional:
         mapping:
           local: 192.168.128.1

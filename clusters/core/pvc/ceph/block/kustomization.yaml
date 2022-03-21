@@ -13,3 +13,4 @@ resources:
   - hajimari.yaml
   - grafana.yaml
   - navidrome.yaml
+  - changedetection.yaml
