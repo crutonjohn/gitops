@@ -17,4 +17,4 @@ spec:
   values:
     image:
       repository: dchesterton/amcrest2mqtt
-      tag: 1.0.15
+      tag: 1.0.16
