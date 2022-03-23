@@ -15,6 +15,7 @@ resources:
   - amcrest2mqtt
   - frigate
   - hassio
+  - restart.zigbee2mqtt.yaml
 patchesStrategicMerge:
   # - patch.baremetalblog.yaml
   - patch.bitwarden.yaml
