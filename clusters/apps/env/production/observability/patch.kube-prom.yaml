@@ -80,12 +80,12 @@ spec:
               title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
               text: |
                 '{{ range .Alerts -}}
-                  **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
-                  **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
-                  **Details:**
-                  {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                  {{ end }}
-                {{ end }}'
+                 **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                 **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
+                 **Details:**
+                 {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                 {{ end }}
+                 {{ end }}'
         templates:
           - '/etc/alertmanager/config/*.tmpl'
       tplConfig: false
