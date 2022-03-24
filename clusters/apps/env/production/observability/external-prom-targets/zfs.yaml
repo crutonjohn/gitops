@@ -34,14 +34,10 @@ metadata:
   labels:
     k8s-app: zfs-exporter-external
 spec:
+  endpoints:
+    - port: metrics
+      scheme: http
+  jobLabel: jobLabel
   selector:
     matchLabels:
       k8s-app: zfs-exporter-external
-  namespaceSelector:
-    matchNames:
-      - observability
-  endpoints:
-    - port: metrics
-      interval: 60s
-      # honorLabels: true
-      path: /metrics
