@@ -113,7 +113,7 @@ spec:
       alertmanagerSpec:
         image:
           repository: quay.io/prometheus/alertmanager
-          tag: v0.22.2
+          tag: v0.23.0
           sha: ""
         logLevel: info
         replicas: 1
@@ -337,12 +337,12 @@ spec:
         runAsUser: 65534
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.50.0
+        tag: v0.55.0
         sha: ""
         pullPolicy: IfNotPresent
       prometheusConfigReloaderImage:
         repository: quay.io/prometheus-operator/prometheus-config-reloader
-        tag: v0.50.0
+        tag: v0.55.0
         sha: ""
       configReloaderCpu: 100m
       configReloaderMemory: 50Mi
