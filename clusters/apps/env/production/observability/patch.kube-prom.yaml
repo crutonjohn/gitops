@@ -64,11 +64,11 @@ spec:
           repeat_interval: 24h
           receiver: 'discord'
           routes:
-            - match:
-                alertname: Watchdog
+            - matchers:
+                - alertname="Watchdog"
               receiver: 'null'
-            - match_re:
-                severity: critical|warning
+            - matchers:
+                - severity=~"critical|warning"
               continue: true
               receiver: 'discord'
         receivers:
@@ -77,16 +77,15 @@ spec:
             slack_configs:
               icon_url: https://avatars3.githubusercontent.com/u/3380462
               send_resolved: true
-              title: |
-                [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
+              title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
               text: |
-                {{ range .Alerts -}}
+                '{{ range .Alerts -}}
                   **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
                   **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
                   **Details:**
                   {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                   {{ end }}
-                {{ end }}
+                {{ end }}'
         templates:
           - '/etc/alertmanager/config/*.tmpl'
       tplConfig: false
