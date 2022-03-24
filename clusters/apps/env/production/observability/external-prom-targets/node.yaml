@@ -22,7 +22,6 @@ metadata:
 subsets:
   - addresses:
       - ip: 192.168.130.1
-      - ip: 192.168.130.20
       - ip: 192.168.130.50
     ports:
       - name: metrics
