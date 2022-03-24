@@ -49,7 +49,6 @@ spec:
       imagePullSecrets: []
     alertmanager:
       enabled: true
-      annotations: {}
       config:
         global:
           resolve_timeout: 5m
@@ -110,14 +109,9 @@ spec:
           - secretName: crj-wildcard-certificate
             hosts:
               - "alerts.${SECRET_DOMAIN}"
-      secret:
-        annotations: {}
-      ingressPerReplica:
-        enabled: false
       serviceMonitor:
         selfMonitor: true
       alertmanagerSpec:
-        podMetadata: {}
         image:
           repository: quay.io/prometheus/alertmanager
           tag: v0.22.2
@@ -133,14 +127,14 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
-      externalUrl: "https://alerts.${SECRET_DOMAIN}"
-      nodeSelector:
-        kubernetes.io/arch: "amd64"
-      resources:
-        requests:
-          memory: 400Mi
-        limits:
-          memory: 1024Mi
+        externalUrl: "https://alerts.${SECRET_DOMAIN}"
+        nodeSelector:
+          kubernetes.io/arch: "amd64"
+        resources:
+          requests:
+            memory: 400Mi
+          limits:
+            memory: 1024Mi
     grafana:
       enabled: false
     kubeApiServer:
