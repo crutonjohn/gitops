@@ -17,6 +17,7 @@
   condition: >
     evt.type = chmod or evt.type = fchmod and
     not k3s_pcmdline_exempt and
+    not k3s_pname_exempt and
     not k3s_cmdline_exempt
   output: >
     File below a known directory opened for writing (user=%user.name
@@ -28,6 +29,7 @@
   condition: >
     mkdir and
     not k3s_pcmdline_exempt and
+    not k3s_pname_exempt and
     not k3s_cmdline_exempt
   output: >
     File below a known directory opened for writing (user=%user.name
