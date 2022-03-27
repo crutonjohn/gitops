@@ -3,11 +3,11 @@
 - macro: k3s_pcmdline_exempt
   condition: >
     (proc.pcmdline in (k3s-agent, containerd) and
-    proc.aname in (systemd, runc)
+    proc.aname in (systemd, runc))
 - macro: k3s_cmdline_exempt
   condition: >
     (proc.cmdline in (k3s-agent, containerd) and
-    proc.aname in (systemd, runc)
+    proc.aname in (systemd, runc))
 - rule: Detect New File
   desc: detect new file created
   condition: >
