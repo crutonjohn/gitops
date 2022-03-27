@@ -1,8 +1,15 @@
 ---
+  ## custom k3s exemptions
+- macro: k3s_fip_exempt
+  condition: >
+    (proc.pcmdline in (k3s-agent) or
+     proc.cmdline in (k3s-agent, containerd) and
+     gparent in (systemd))
 - rule: Detect New File
   desc: detect new file created
   condition: >
-    evt.type = chmod or evt.type = fchmod
+    evt.type = chmod or evt.type = fchmod and
+    not k3s_fip_exempt
   output: >
     File below a known directory opened for writing (user=%user.name
     command=%proc.cmdline file=%fd.name parent=%proc.pname pcmdline=%proc.pcmdline gparent=%proc.aname[2])
@@ -11,7 +18,8 @@
 - rule: Detect New Directory
   desc: detect new directory created
   condition: >
-    mkdir
+    mkdir and
+    not k3s_fip_exempt
   output: >
     File below a known directory opened for writing (user=%user.name
     command=%proc.cmdline file=%fd.name parent=%proc.pname pcmdline=%proc.pcmdline gparent=%proc.aname[2])
