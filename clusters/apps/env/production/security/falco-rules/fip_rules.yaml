@@ -4,6 +4,10 @@
   condition: >
     (proc.pcmdline in (k3s-agent, containerd) and
     proc.aname in (systemd, runc))
+- macro: k3s_pname_exempt
+  condition: >
+    (proc.pname in (k3s-agent, containerd) and
+    proc.aname in (systemd, runc))
 - macro: k3s_cmdline_exempt
   condition: >
     (proc.cmdline in (k3s-agent, containerd) and
