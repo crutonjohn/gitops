@@ -70,7 +70,8 @@ spec:
       ## Extra environment variables that will be pass onto deployment pods
       env: {}
       ## Add aditional pod annotations on pods created by DaemonSet
-      podAnnotations: {}
+      podAnnotations:
+        configmap.reloader.stakater.com/reload: "bonus-rules,falco-rules,default-rules-overrides"
     # Additional labels to add to the pods:
     # podLabels:
     #   key: value
