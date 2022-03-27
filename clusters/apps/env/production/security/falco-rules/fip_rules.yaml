@@ -2,7 +2,7 @@
   ## custom k3s exemptions
 - macro: k3s_pcmdline_exempt
   condition: >
-    (proc.pcmdline in (k3s-agent) and
+    (proc.pcmdline in (k3s-agent, containerd) and
     proc.aname = systemd)
 - macro: k3s_cmdline_exempt
   condition: >
