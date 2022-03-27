@@ -2,9 +2,9 @@
   ## custom k3s exemptions
 - macro: k3s_fip_exempt
   condition: >
-    (proc.pcmdline in (k3s-agent) or
+    (proc.pcmdline = k3s-agent and
      proc.cmdline in (k3s-agent, containerd) and
-     gparent in (systemd))
+     gparent = systemd)
 - rule: Detect New File
   desc: detect new file created
   condition: >
