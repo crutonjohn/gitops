@@ -6,6 +6,7 @@ resources:
   - ../../../base/auth-system/oauth2-proxy/service
   # - ../../../base/soho/baremetalblog
   - ../../../base/soho/bitwarden
+  - ../../../base/soho/bookstack
   #  - ../../../base/soho/double-take
   - ../../../base/soho/hajimari
   - ../../../base/soho/emqx
