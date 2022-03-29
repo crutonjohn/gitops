@@ -12,6 +12,7 @@ spec:
       DB_USER: ${BOOKSTACK_DB_USER}
       DB_PASS: ${BOOKSTACK_DB_PASSWORD}
       DB_DATABASE: bookstack
+      APP_URL: docs.${SECRET_DOMAIN}
     # -- Configures service settings for the chart.
     # @default -- See values.yaml
     service:
