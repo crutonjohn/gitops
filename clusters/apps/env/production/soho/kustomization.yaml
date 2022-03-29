@@ -19,6 +19,7 @@ resources:
   - restart.zigbee2mqtt.yaml
 patchesStrategicMerge:
   # - patch.baremetalblog.yaml
+  - patch.bookstack.yaml
   - patch.bitwarden.yaml
   # - patch.double-take.yaml
   - patch.hajimari.yaml
