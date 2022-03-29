@@ -8,7 +8,7 @@ spec:
     env:
       # -- Set the container timezone
       TZ: America/New_York
-      # DB_HOST:
+      DB_HOST: bookstack-mariadb
       DB_USER: ${BOOKSTACK_DB_USER}
       DB_PASS: ${BOOKSTACK_DB_PASSWORD}
       DB_DATABASE: bookstack
