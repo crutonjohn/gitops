@@ -50,6 +50,7 @@ spec:
           status.${SECRET_DOMAIN}: 192.168.130.101
           start.${SECRET_DOMAIN}: 192.168.130.100
           music.${SECRET_DOMAIN}: 192.168.130.100
+          docs.${SECRET_DOMAIN}: 192.168.130.100
       conditional:
         mapping:
           local: 192.168.128.1
