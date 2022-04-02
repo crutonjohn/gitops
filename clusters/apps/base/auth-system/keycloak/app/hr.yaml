@@ -19,4 +19,4 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/keycloak
-      tag: 15.0.2-debian-10-r66
+      tag: 16.1.1-debian-10-r66
