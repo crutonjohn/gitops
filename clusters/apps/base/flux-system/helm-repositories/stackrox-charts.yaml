@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: stackrox-charts
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://mirror.openshift.com/pub/rhacs/charts
+  timeout: 3m

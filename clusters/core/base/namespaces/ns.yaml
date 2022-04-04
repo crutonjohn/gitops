@@ -53,3 +53,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: kasten-io
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stackrox
