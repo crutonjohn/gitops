@@ -14,6 +14,8 @@ spec:
         name: stackrox-charts
         namespace: flux-system
   values:
+    image:
+      registry: quay.io/stackrox-io
     imagePullSecrets:
       allowNone: true
     env:

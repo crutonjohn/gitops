@@ -22,7 +22,6 @@ spec:
     image:
       # The image registry to use. Unless overridden in the more specific configs, this
       # determines the base registry for each image referenced in this config file.
-      registry: stackrox.io
       main:
         registry: null  # if set to null, use `image.registry`
         name: main      # the final image name is composed of the registry and the name, plus the tag below

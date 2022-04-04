@@ -17,7 +17,7 @@ spec:
     imagePullSecrets:
       allowNone: true
     image:
-      registry: stackrox.io
+      registry: quay.io/stackrox-io
     env:
       openshift: false
       istio: false
