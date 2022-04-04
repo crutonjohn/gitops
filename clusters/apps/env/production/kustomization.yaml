@@ -11,6 +11,6 @@ resources:
   - media
   - network-system
   - observability
-  - security
+  # - security
   - soho
   - stackrox
