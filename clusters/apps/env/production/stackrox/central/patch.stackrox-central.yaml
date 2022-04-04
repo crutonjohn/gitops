@@ -1,0 +1,42 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: stackrox-central-services
+spec:
+  values:
+    central:
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "200m"
+        limits:
+          memory: "4Gi"
+          cpu: "1500m"
+      adminPassword:
+        value: ${STACKROX_ADMIN_PASSWORD}
+      persistence:
+        persistentVolumeClaim:
+          claimName: stackrox-central-rook
+          createClaim: false
+    scanner:
+      replicas: 2
+      logLevel: INFO
+      autoscaling:
+        disable: true
+      resources:
+        requests:
+          memory: "200Mi"
+          cpu: "500m"
+        limits:
+          memory: "2Gi"
+          cpu: "2000m"
+      dbResources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 200m
+          memory: 200Mi
+      dbPassword:
+        value: ${STACKROX_DB_PASSWORD}

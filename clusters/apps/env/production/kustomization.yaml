@@ -13,3 +13,4 @@ resources:
   - observability
   - security
   - soho
+  - stackrox

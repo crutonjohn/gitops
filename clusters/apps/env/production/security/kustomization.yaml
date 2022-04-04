@@ -3,19 +3,20 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: security
 resources:
-  - ../../../base/security/falco
-patchesStrategicMerge:
-  - patch.falco.yaml
+  # - ../../../base/security/falco
+  - stackrox/central
+# patchesStrategicMerge:
+  # - patch.falco.yaml
 configMapGenerator:
-  - name: default-rules-override
-    files:
-      - falco-rules/default_rules.yaml
-  - name: bonus-rules
-    files:
-      - falco-rules/etcd_rules.yaml
-      - falco-rules/fip_rules.yaml
-      - falco-rules/fpm_rules.yaml
-      - falco-rules/rook_rules.yaml
-      - falco-rules/ssh_rules.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+  # - name: default-rules-override
+  #   files:
+  #     - falco-rules/default_rules.yaml
+  # - name: bonus-rules
+  #   files:
+  #     - falco-rules/etcd_rules.yaml
+  #     - falco-rules/fip_rules.yaml
+  #     - falco-rules/fpm_rules.yaml
+  #     - falco-rules/rook_rules.yaml
+  #     - falco-rules/ssh_rules.yaml
+# generatorOptions:
+  # disableNameSuffixHash: true
