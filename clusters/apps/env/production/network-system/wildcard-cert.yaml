@@ -9,7 +9,7 @@ spec:
   secretTemplate:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
-      replicator.v1.mittwald.de/replication-allowed-namespaces: "auth-system,flux-system,kasten-io,rook-ceph,media,network-system,observability,soho,security"
+      replicator.v1.mittwald.de/replication-allowed-namespaces: "auth-system,flux-system,kasten-io,rook-ceph,media,network-system,observability,soho,security,stackrox"
   duration: 2160h
   renewBefore: 360h
   subject:
