@@ -20,6 +20,8 @@ spec:
           claimName: stackrox-central-rook
           createClaim: false
     scanner:
+      enable: true
+      nodeSelector: {}
       replicas: 2
       logLevel: INFO
       autoscaling:
