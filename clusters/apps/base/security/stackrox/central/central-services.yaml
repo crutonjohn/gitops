@@ -26,6 +26,7 @@ spec:
     central:
       image:
         name: main
+        tag: 3.69.x-377-g3ee325b18e
       resources:
         requests:
           memory: "1Gi"
@@ -36,5 +37,7 @@ spec:
     scanner:
       image:
         name: scanner
+        tag: 3.69.x-295-g502086b950
       dbImage:
         name: scanner-db
+        tag: 3.69.x-378-g16ad8395aa
