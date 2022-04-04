@@ -24,6 +24,8 @@ spec:
       platform: default
       offlineMode: false
     central:
+      image:
+        name: main
       resources:
         requests:
           memory: "1Gi"
@@ -31,3 +33,8 @@ spec:
         limits:
           memory: "4Gi"
           cpu: "1500m"
+    scanner:
+      image:
+        name: scanner
+      dbImage:
+        name: scanner-db

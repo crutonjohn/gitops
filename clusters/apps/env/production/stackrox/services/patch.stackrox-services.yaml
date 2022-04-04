@@ -19,21 +19,6 @@ spec:
     env:
       openshift: false
       istio: false
-    image:
-      # The image registry to use. Unless overridden in the more specific configs, this
-      # determines the base registry for each image referenced in this config file.
-      main:
-        registry: null  # if set to null, use `image.registry`
-        name: main      # the final image name is composed of the registry and the name, plus the tag below
-        tag: null       # should be left as null - will get picked up from the Chart version.
-        fullRef: null   # you can set a full image reference such as stackrox.io/main:1.2.3.4 here, but this is not
-        pullPolicy: IfNotPresent
-      collector:
-        registry: null
-        name: collector
-        tag: null
-        fullRef: null
-        pullPolicy: IfNotPresent
     # Sensor specific configuration.
     sensor:
       # Kubernetes image pull policy for Sensor.

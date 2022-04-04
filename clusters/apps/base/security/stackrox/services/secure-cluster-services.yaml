@@ -16,6 +16,10 @@ spec:
   values:
     image:
       registry: quay.io/stackrox-io
+      main:
+        name: main
+      collector:
+        name: collector
     imagePullSecrets:
       allowNone: true
     env:
