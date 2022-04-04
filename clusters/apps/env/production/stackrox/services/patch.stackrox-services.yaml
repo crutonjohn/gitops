@@ -32,7 +32,8 @@ spec:
           memory: "4Gi"
           cpu: "2"
       # Use a nodeSelector for sensor
-      nodeSelector: {}
+      nodeSelector:
+        kubernetes.io/arch: amd64
       # Address of the Sensor endpoint including port number. No trailing slash.
       # Rarely needs to be changed.
       endpoint: sensor.stackrox.svc:443
@@ -52,7 +53,8 @@ spec:
       # Defaults to `false` on OpenShift, to `true` otherwise.
       listenOnEvents: true
       # Use a nodeSelector for admission control pods
-      nodeSelector: {}
+      nodeSelector:
+        kubernetes.io/arch: amd64
       # Dynamic part of the configuration which is retrieved from Central and can be modified through
       # the frontend.
       dynamic:

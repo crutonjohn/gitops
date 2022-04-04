@@ -18,8 +18,10 @@ spec:
       registry: quay.io/stackrox-io
       main:
         name: main
+        tag: 3.69.x-377-g3ee325b18e
       collector:
         name: collector
+        tag: 3.69.x-291-g741e29dd62
     imagePullSecrets:
       allowNone: true
     env:
