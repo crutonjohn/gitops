@@ -5,6 +5,11 @@ metadata:
   name: stackrox-central-services
 spec:
   values:
+    exposure:
+      loadBalancer:
+        enabled: true
+        port: 443
+        ip: ${CLUSTER_LB_STACKROX}
     central:
       resources:
         requests:
