@@ -7,7 +7,7 @@ spec:
   values:
     podAnnotations:
       backup.velero.io/backup-volumes: config
-    securityContext:
+    podSecurityContext:
       fsGroup: 1177
       runAsNonRoot: true
       runAsUser: 1177

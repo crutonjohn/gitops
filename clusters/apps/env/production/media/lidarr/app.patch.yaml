@@ -14,7 +14,7 @@ spec:
         ports:
           http:
             port: 8686
-    securityContext:
+    podSecurityContext:
       fsGroup: 1177
       runAsNonRoot: true
       runAsUser: 1177
