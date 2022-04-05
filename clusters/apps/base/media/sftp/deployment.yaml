@@ -18,8 +18,8 @@ spec:
       securityContext:
         fsGroup: 0
         runAsNonRoot: false
-        runAsUser: 1177
-        runAsGroup: 1177
+        runAsUser: 0
+        runAsGroup: 0
       containers:
         - name: music-sshfs
           image: gjyoung1974/alpine-sshd
