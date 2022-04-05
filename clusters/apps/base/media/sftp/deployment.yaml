@@ -17,7 +17,7 @@ spec:
     spec:
       securityContext:
         fsGroup: 0
-        runAsNonRoot: true
+        runAsNonRoot: false
         runAsUser: 1177
         runAsGroup: 1177
       containers:
