@@ -6,4 +6,4 @@ resources:
   # - ../../../base/auth-system/oauth2-proxy/service
   - lidarr
   - navidrome
-  - sftp
+  # - sftp
