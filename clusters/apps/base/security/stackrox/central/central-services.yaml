@@ -26,7 +26,7 @@ spec:
     central:
       image:
         name: main
-        tag: 3.69.x-377-g3ee325b18e
+        tag: 3.69.x-291-g15d19c3ad8
       resources:
         requests:
           memory: "1Gi"
