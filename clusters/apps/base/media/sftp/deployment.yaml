@@ -16,7 +16,7 @@ spec:
         component: music-sshfs
     spec:
       securityContext:
-        fsGroup: 1177
+        fsGroup: 0
         runAsNonRoot: true
         runAsUser: 1177
         runAsGroup: 1177
