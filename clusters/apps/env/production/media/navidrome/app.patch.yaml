@@ -7,6 +7,11 @@ spec:
   values:
     podAnnotations:
       backup.velero.io/backup-volumes: config
+    securityContext:
+      fsGroup: 1177
+      runAsNonRoot: true
+      runAsUser: 1177
+      runAsGroup: 1177
     env:
       ND_SCANINTERVAL: 15m
       ND_LOGLEVEL: info

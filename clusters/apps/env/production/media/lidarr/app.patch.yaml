@@ -14,6 +14,11 @@ spec:
         ports:
           http:
             port: 8686
+    securityContext:
+      fsGroup: 1177
+      runAsNonRoot: true
+      runAsUser: 1177
+      runAsGroup: 1177
     ingress:
       main:
         enabled: true
@@ -61,16 +66,10 @@ spec:
               severity: critical
       exporter:
         image:
-          # -- image repository
           repository: ghcr.io/onedr0p/exportarr
-          # -- image tag
           tag: v1.0.0
-          # -- image pull policy
           pullPolicy: IfNotPresent
         env:
-          # -- metrics port
           port: 9792
-          # -- Set to true to enable gathering of additional metrics (slow)
           additionalMetrics: false
-          # -- Set to true to enable gathering unknown queue items
           unknownQueueItems: false

@@ -15,15 +15,11 @@ spec:
       labels:
         component: music-sshfs
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/arch
-                    operator: In
-                    values:
-                      - "amd64"
+      securityContext:
+        fsGroup: 1177
+        runAsNonRoot: true
+        runAsUser: 1177
+        runAsGroup: 1177
       containers:
         - name: music-sshfs
           image: gjyoung1974/alpine-sshd
