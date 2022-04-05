@@ -16,3 +16,4 @@ resources:
   - navidrome.yaml
   - changedetection.yaml
   - stackrox.yaml
+  - lidarr.yaml
