@@ -52,6 +52,7 @@ spec:
           music.${SECRET_DOMAIN}: 192.168.130.100
           docs.${SECRET_DOMAIN}: 192.168.130.100
           stackrox.${SECRET_DOMAIN}: 192.168.130.101
+          lidarr.${SECRET_DOMAIN}: 192.168.130.101
       conditional:
         mapping:
           local: 192.168.128.1

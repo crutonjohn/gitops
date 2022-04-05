@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: lidarr
+spec:
+  values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    env:
+      TZ: America/New_York
+    service:
+      main:
+        ports:
+          http:
+            port: 8686
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik-internal"
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "archive-music"
+          hajimari.io/appName: "Lidarr"
+          hajimari.io/group: "Media"
+        hosts:
+          - host: "lidarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - "lidarr.${SECRET_DOMAIN}"
+            secretName: "crj-wildcard-certificate"
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: "lidarr-config-rook"
+      media:
+        enabled: true
+        mountPath: /media
+        existingClaim: "music-library-pandora"
+    metrics:
+      enabled: true
+      serviceMonitor:
+        interval: 3m
+        scrapeTimeout: 1m
+        labels: {}
+      prometheusRule:
+        enabled: true
+        rules:
+          - alert: LidarrDown
+            annotations:
+              description: Lidarr service is down.
+              summary: Lidarr is down.
+            expr: |
+              lidarr_system_status == 0
+            for: 5m
+            labels:
+              severity: critical
+      exporter:
+        image:
+          # -- image repository
+          repository: ghcr.io/onedr0p/exportarr
+          # -- image tag
+          tag: v1.0.0
+          # -- image pull policy
+          pullPolicy: IfNotPresent
+        env:
+          # -- metrics port
+          port: 9792
+          # -- Set to true to enable gathering of additional metrics (slow)
+          additionalMetrics: false
+          # -- Set to true to enable gathering unknown queue items
+          unknownQueueItems: false
