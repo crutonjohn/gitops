@@ -48,7 +48,7 @@ spec:
           secretName: crj-wildcard-certificate
     postgresql:
       enabled: true
-      postgresqlPassword: ${AUTHENTIK_POSTGRES_PASSWORD}
+      postgresqlPassword: "${AUTHENTIK_POSTGRES_PASSWORD}"
       metrics:
         enabled: true
         serviceMonitor:
