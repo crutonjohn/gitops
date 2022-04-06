@@ -34,14 +34,17 @@ spec:
     ingress:
       enabled: true
       ingressClassName: traefik-external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        external-dns/public: "true"
       hosts:
-        - host: sso.${SECRET_DOMAIN}
+        - host: "sso.${SECRET_DOMAIN}"
           paths:
             - path: "/"
               pathType: Prefix
       tls:
         - hosts:
-            - sso.${SECRET_DOMAIN}
+            - "sso.${SECRET_DOMAIN}"
           secretName: crj-wildcard-certificate
     postgresql:
       enabled: true
@@ -62,20 +65,20 @@ spec:
         create: true
     geoip:
       enabled: true
-      accountId: ${MAXMIND_GEOIP_ACCOUNT_ID}
-      licenseKey: ${MAXMIND_GEOIP_LICENSE_KEY}
+      accountId: "${MAXMIND_GEOIP_ACCOUNT_ID}"
+      licenseKey: "${MAXMIND_GEOIP_LICENSE_KEY}"
     authentik:
       postgresql:
         name: "authentik"
         user: "authentik"
-        password: ${AUTHENTIK_POSTGRES_PASSWORD}
+        password: "${AUTHENTIK_POSTGRES_PASSWORD}"
       log_level: debug
       email:
-        from: ${SMTP_FROM}
-        host: ${SMTP_HOST}
-        port: ${SMTP_STARTTLS_PORT}
-        password: ${SMTP_PASSWORD}
-        username: ${SMTP_FROM}
+        from: "${SMTP_FROM}"
+        host: "${SMTP_HOST}"
+        port: "${SMTP_STARTTLS_PORT}"
+        password: "${SMTP_PASSWORD}"
+        username: "${SMTP_FROM}"
         use_tls: true
       error_reporting:
         enabled: true
