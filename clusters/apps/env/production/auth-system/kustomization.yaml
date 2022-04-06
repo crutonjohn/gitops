@@ -4,9 +4,11 @@ kind: Kustomization
 namespace: auth-system
 resources:
   # - ../../../base/auth-system/keycloak
-  - ../../../base/auth-system/oauth2-proxy
+  # - ../../../base/auth-system/oauth2-proxy
   # - keycloak/secret.enc.yaml
+  - ../../../base/auth-system/authentik
 patchesStrategicMerge:
   # - keycloak/db.patch.yaml
   # - keycloak/app.patch.yaml
-  - oauth2-proxy/app.patch.yaml
+  # - oauth2-proxy/app.patch.yaml
+  - patch.authentik.yaml

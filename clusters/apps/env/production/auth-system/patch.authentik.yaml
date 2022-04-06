@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: authentik-charts
+      version: 2022.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+  values:
+    fullnameOverride: authentik
+    resources:
+      server:
+        requests:
+          memory: "400M"
+          cpu: "0.3"
+        limits:
+          memory: "600M"
+          cpu: "1"
+      worker:
+        requests:
+          memory: "250M"
+          cpu: "300m"
+        limits:
+          memory: "500M"
+          cpu: "700m"
+    replicas: 2
+    ingress:
+      enabled: true
+      ingressClassName: traefik-external
+      hosts:
+        - host: sso.${SECRET_DOMAIN}
+          paths:
+            - path: "/"
+              pathType: Prefix
+      tls:
+        - hosts:
+            - sso.${SECRET_DOMAIN}
+          secretName: crj-wildcard-certificate
+    postgresql:
+      enabled: true
+      postgresqlPassword: ${AUTHENTIK_POSTGRES_PASSWORD}
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    redis:
+      enabled: true
+      architecture: standalone
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    prometheus:
+      serviceMonitor:
+        create: true
+    geoip:
+      enabled: true
+      accountId: ${MAXMIND_GEOIP_ACCOUNT_ID}
+      licenseKey: ${MAXMIND_GEOIP_LICENSE_KEY}
+    authentik:
+      postgresql:
+        name: "authentik"
+        user: "authentik"
+        password: ${AUTHENTIK_POSTGRES_PASSWORD}
+      log_level: debug
+      email:
+        from: ${SMTP_FROM}
+        host: ${SMTP_HOST}
+        port: ${SMTP_STARTTLS_PORT}
+        password: ${SMTP_PASSWORD}
+        username: ${SMTP_FROM}
+        use_tls: true
+      error_reporting:
+        enabled: true
+        environment: crutonjohn-prod
+        send_pii: false
+        sample_rate: 1
