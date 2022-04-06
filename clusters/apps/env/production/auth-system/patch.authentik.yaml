@@ -59,6 +59,7 @@ spec:
       accountId: "${MAXMIND_GEOIP_ACCOUNT_ID}"
       licenseKey: "${MAXMIND_GEOIP_LICENSE_KEY}"
     authentik:
+      secret_key: "${AUTHENTIK_SECRET_KEY}"
       postgresql:
         name: "authentik"
         user: "authentik"
