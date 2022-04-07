@@ -21,7 +21,7 @@ spec:
           port: 8686
   tls:
     secretName: crj-wildcard-certificate
-    domain:
+    domains:
       - main: ${SECRET_DOMAIN}
         sans:
           - lidarr.${SECRET_DOMAIN}
