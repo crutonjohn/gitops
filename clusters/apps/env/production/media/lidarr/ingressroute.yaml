@@ -5,6 +5,7 @@ metadata:
   name: lidarr
   labels:
     kubernetes.io/ingress.class: "traefik-external"
+    boundary: external
 spec:
   entryPoints:
     - web
