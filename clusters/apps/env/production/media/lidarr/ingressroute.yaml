@@ -1,0 +1,27 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lidarr
+  labels:
+    kubernetes.io/ingress.class: "traefik-external"
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`lidarr.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: authentik
+          namespace: authentik
+      priority: 10
+      services:
+        - name: lidarr
+          port: 8686
+  tls:
+    secretName: crj-wildcard-certificate
+    domain:
+      - main: ${SECRET_DOMAIN}
+        sans:
+          - lidarr.${SECRET_DOMAIN}

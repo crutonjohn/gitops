@@ -21,7 +21,7 @@ spec:
       runAsGroup: 1177
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "traefik-internal"
         annotations:
           hajimari.io/enable: "true"
