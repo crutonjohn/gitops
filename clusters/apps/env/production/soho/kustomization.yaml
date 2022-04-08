@@ -3,7 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: soho
 resources:
-  - ../../../base/auth-system/oauth2-proxy/service
   # - ../../../base/soho/baremetalblog
   - ../../../base/soho/bitwarden
   - ../../../base/soho/bookstack

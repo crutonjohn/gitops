@@ -7,7 +7,6 @@ resources:
   # - games
   #  - istio-system
   - kube-system
-  # - longhorn-system
   - media
   - network-system
   - observability
