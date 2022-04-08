@@ -6,12 +6,11 @@ metadata:
 spec:
   values:
     fullnameOverride: "authentik-db"
-    postgresql:
-      auth:
-        postgresPassword: "${AUTHENTIK_POSTGRES_ROOT_PASSWORD}"
-        username: "authentik"
-        password: "${AUTHENTIK_POSTGRES_PASSWORD}"
-        database: "authentik"
+    auth:
+      postgresPassword: "${AUTHENTIK_POSTGRES_ROOT_PASSWORD}"
+      username: "authentik"
+      password: "${AUTHENTIK_POSTGRES_PASSWORD}"
+      database: "authentik"
     primary:
       resources:
         limits:
