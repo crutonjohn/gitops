@@ -13,7 +13,7 @@ spec:
       match: "Host(`lidarr.${SECRET_DOMAIN}`)"
       middlewares:
         - name: authentik
-          namespace: authentik
+          namespace: auth-system
       priority: 10
       services:
         - name: lidarr
