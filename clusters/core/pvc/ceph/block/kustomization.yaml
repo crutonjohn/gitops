@@ -2,10 +2,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - authentik.yaml
   - bookstack.yaml
   - bitwarden.yaml
   - frigate.yaml
-  - keycloak-db.yaml
   - minecraft.yaml
   - nextcloud.yaml
   - paperless.yaml
