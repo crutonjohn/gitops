@@ -18,6 +18,16 @@ spec:
       services:
         - name: lidarr
           port: 8686
+    - kind: Rule
+      match: "Host(`lidarr.crutonjohn.com`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      priority: 15
+      services:
+        - kind: Service
+          # Or, to use an external Outpost, create an ExternalName service and reference that here.
+          # See https://kubernetes.io/docs/concepts/services-networking/service/#externalname
+          name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
+          port: 9000
   tls:
     secretName: crj-wildcard-certificate
     domains:
