@@ -43,43 +43,7 @@ spec:
             - "sso.${SECRET_DOMAIN}"
           secretName: crj-wildcard-certificate
     postgresql:
-      enabled: true
-      postgresqlPassword: "${AUTHENTIK_POSTGRES_PASSWORD}"
-      primary:
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: 500m
-          requests:
-            memory: 256Mi
-            cpu: 250m
-        podSecurityContext:
-          enabled: true
-          runAsNonRoot: true
-          fsGroup: 1100
-        containerSecurityContext:
-          enabled: true
-          runAsUser: 1100
-        ## @param primary.labels Map of labels to add to the statefulset (postgresql primary)
-        ##
-        labels: {}
-        ## @param primary.annotations Annotations for PostgreSQL primary pods
-        ##
-        annotations: {}
-        ## @param primary.podLabels Map of labels to add to the pods (postgresql primary)
-        ##
-        podLabels: {}
-        ## @param primary.podAnnotations Map of annotations to add to the pods (postgresql primary)
-        ##
-        podAnnotations:
-          backup.velero.io/backup-volumes: data
-        persistence:
-          enabled: true
-          existingClaim: "authentik-db-rook"
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
+      enabled: false
     redis:
       enabled: true
       architecture: standalone
@@ -97,6 +61,7 @@ spec:
     authentik:
       secret_key: "${AUTHENTIK_SECRET_KEY}"
       postgresql:
+        host: "authentik-db"
         name: "authentik"
         user: "authentik"
         password: "${AUTHENTIK_POSTGRES_PASSWORD}"

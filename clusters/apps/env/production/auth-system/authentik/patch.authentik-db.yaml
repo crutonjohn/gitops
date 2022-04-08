@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik-db
+spec:
+  values:
+    fullnameOverride: "authentik-db"
+    postgresql:
+      auth:
+        postgresPassword: "${AUTHENTIK_POSTGRES_ROOT_PASSWORD}"
+        username: "authentik"
+        password: "${AUTHENTIK_POSTGRES_PASSWORD}"
+        database: "authentik"
+    primary:
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: 500m
+        requests:
+          memory: 256Mi
+          cpu: 250m
+      podSecurityContext:
+        enabled: true
+        runAsNonRoot: true
+        fsGroup: 1100
+      containerSecurityContext:
+        enabled: true
+        runAsUser: 1100
+      podAnnotations:
+        backup.velero.io/backup-volumes: data
+      persistence:
+        enabled: true
+        existingClaim: "authentik-db-rook"
