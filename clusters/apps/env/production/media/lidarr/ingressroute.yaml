@@ -21,6 +21,4 @@ spec:
   tls:
     secretName: crj-wildcard-certificate
     domains:
-      - main: ${SECRET_DOMAIN}
-        sans:
-          - lidarr.${SECRET_DOMAIN}
+      - main: lidarr.${SECRET_DOMAIN}
