@@ -3,8 +3,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: authentik
-  labels:
-    boundary: external
 spec:
   forwardAuth:
     address: sso.${SECRET_DOMAIN}/outpost.goauthentik.io/auth/traefik

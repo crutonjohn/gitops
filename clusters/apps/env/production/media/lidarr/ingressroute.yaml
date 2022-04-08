@@ -3,12 +3,10 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: lidarr
-  labels:
+  annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    boundary: external
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - kind: Rule
