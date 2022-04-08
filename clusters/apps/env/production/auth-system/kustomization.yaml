@@ -7,7 +7,6 @@ resources:
   # - ../../../base/auth-system/oauth2-proxy
   # - keycloak/secret.enc.yaml
   - ../../../base/auth-system/authentik
-  - traefik-middleware.yaml
 patchesStrategicMerge:
   # - keycloak/db.patch.yaml
   # - keycloak/app.patch.yaml
