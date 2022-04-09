@@ -34,5 +34,6 @@ resources:
   - stackrox-charts.yaml
   - stakater-charts.yaml
   - traefik-charts.yaml
+  - trilio-charts.yaml
   - vernemq-charts.yaml
   - weaveworks-kured-charts.yaml
