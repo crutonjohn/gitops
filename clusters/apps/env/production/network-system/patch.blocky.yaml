@@ -30,7 +30,7 @@ spec:
           alerts.${SECRET_DOMAIN}: 192.168.130.101
           grafana.${SECRET_DOMAIN}: 192.168.130.100
           storage.${SECRET_DOMAIN}: 192.168.130.101
-          frigate.${SECRET_DOMAIN}: 192.168.130.101
+          frigate.${SECRET_DOMAIN}: 192.168.130.100
           frigate-test.${SECRET_DOMAIN}: 192.168.130.101
           traefik.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
           ghcr.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440

@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: lidarr
+  name: frigate
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
 spec:
@@ -10,7 +10,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`lidarr.${SECRET_DOMAIN}`)"
+      match: "Host(`frigate.${SECRET_DOMAIN}`)"
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
@@ -19,7 +19,7 @@ spec:
         - name: lidarr
           port: 8686
     - kind: Rule
-      match: "Host(`lidarr.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`frigate.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
       services:
         - kind: Service
@@ -31,4 +31,4 @@ spec:
   tls:
     secretName: crj-wildcard-certificate
     domains:
-      - main: lidarr.${SECRET_DOMAIN}
+      - main: frigate.${SECRET_DOMAIN}
