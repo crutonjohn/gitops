@@ -18,7 +18,7 @@ spec:
       pvcStorageRequest: "2Gi"
       requests: "cpu=300m,memory=128Mi"
       storageClass: "ceph-block"
-      volumeSnapshotClass: "csi-cephfs-snapclass"
+      volumeSnapshotClass: "csi-rbdplugin-snapclass"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
