@@ -16,6 +16,9 @@ resources:
   - frigate
   - hassio
   - restart.zigbee2mqtt.yaml
+  - ingressroute.zigbee.yaml
+  - ingressroute.zigbee-config.yaml
+  - ingressroute.emqx.yaml
 patchesStrategicMerge:
   # - patch.baremetalblog.yaml
   - patch.bookstack.yaml

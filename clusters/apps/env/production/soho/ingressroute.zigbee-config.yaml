@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: frigate
+  name: zigbee-config
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
 spec:
@@ -10,16 +10,16 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`frigate.${SECRET_DOMAIN}`)"
+      match: "Host(`zigbee-config.${SECRET_DOMAIN}`)"
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       priority: 10
       services:
-        - name: frigate-prod
-          port: 5000
+        - name: zigbee2mqtt-codeserver
+          port: 12321
     - kind: Rule
-      match: "Host(`frigate.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`zigbee-config.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
       services:
         - kind: Service
@@ -31,4 +31,4 @@ spec:
   tls:
     secretName: crj-wildcard-certificate
     domains:
-      - main: frigate.${SECRET_DOMAIN}
+      - main: zigbee-config.${SECRET_DOMAIN}

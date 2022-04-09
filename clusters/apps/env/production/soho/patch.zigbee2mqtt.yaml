@@ -47,7 +47,7 @@ spec:
         new_api: true
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "internal"
         hosts:
           - host: "zigbee2mqtt.${SECRET_DOMAIN}"
@@ -74,7 +74,7 @@ spec:
           - --extensions-dir
           - "/config/.vscode"
         ingress:
-          enabled: true
+          enabled: false
           ingressClassName: "traefik-internal"
           hosts:
             - host: "zigbee-config.${SECRET_DOMAIN}"
