@@ -7,18 +7,7 @@ spec:
   values:
     tvkHelmRepo: ""
     preflight:
-      enabled: true
-      repository: preflight
-      logLevel: "INFO"
-      cleanupOnFailure: false
-      imagePullSecret: ""
-      limits: "cpu=600m,memory=256Mi"
-      localRegistry: ""
-      nodeSelector: ""
-      pvcStorageRequest: "2Gi"
-      requests: "cpu=300m,memory=128Mi"
-      storageClass: "ceph-block"
-      volumeSnapshotClass: "csi-rbdplugin-snapclass"
+      enabled: false
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -73,6 +62,6 @@ spec:
         ingressClass: "traefik-internal"
       ComponentConfiguration:
         ingressController:
-          enabled: true
+          enabled: false
           service:
-            type: ClusterIP
+            type: LoadBalancer
