@@ -1,0 +1,94 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: trilio-operator
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: trilio-vault-operator/k8s-triliovault-operator
+      version: 2.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: trilio-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    registry: "eu.gcr.io/amazing-chalice-243510"
+    operator-webhook-init:
+      repository: operator-webhook-init
+    k8s-triliovault-operator:
+      repository: k8s-triliovault-operator
+    tag: "2.8.0"
+    tvkHelmRepo: ""
+    preflight:
+      enabled: true
+      repository: preflight
+      logLevel: "INFO"
+      cleanupOnFailure: false
+      imagePullSecret: ""
+      limits: "cpu=600m,memory=256Mi"
+      localRegistry: ""
+      nodeSelector: ""
+      pvcStorageRequest: "2Gi"
+      requests: "cpu=300m,memory=128Mi"
+      storageClass: "ceph-block"
+      volumeSnapshotClass: "csi-cephfs-snapclass"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                    - amd64
+    image:
+      pullPolicy: Always
+    tls:
+      secretName: "helm-client-certs"
+      verify: false
+      enable: false
+      keyFile: "tls.key"
+      certFile: "tls.crt"
+      caContent: ""
+      hostname: ""
+    nameOverride: ""
+    replicaCount: 1
+    proxySettings:
+      PROXY_ENABLED: false
+      NO_PROXY: ""
+      HTTP_PROXY: ""
+      HTTPS_PROXY: ""
+      CA_BUNDLE_CONFIGMAP: ""
+    podSpec:
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1180
+    securityContext:
+      allowPrivilegeEscalation: false
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsNonRoot: true
+      runAsUser: 1180
+      capabilities:
+        drop:
+          - ALL
+    installTVK:
+      enabled: true
+      applicationScope: Cluster
+      tvkInstanceName: "home-cluster"
+      ingressConfig:
+        host: "trilio.${SECRET_DOMAIN}"
+        tlsSecretName: "crj-wildcard-certificate"
+        annotations: {}
+        ingressClass: "traefik-internal"
+      ComponentConfiguration:
+        ingressController:
+          enabled: true
+          service:
+            type: ClusterIP
