@@ -5394,7 +5394,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: tigera-operator
-          image: quay.io/tigera/operator:release-v1.22-arm64
+          image: quay.io/tigera/operator:release-v1.25-arm64
           imagePullPolicy: IfNotPresent
           command:
             - operator
@@ -5412,7 +5412,7 @@ spec:
             - name: OPERATOR_NAME
               value: "tigera-operator"
             - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
-              value: release-v1.22-arm64
+              value: release-v1.25-arm64
           envFrom:
             - configMapRef:
                 name: kubernetes-services-endpoint
@@ -5421,4 +5421,3 @@ spec:
         - name: var-lib-calico
           hostPath:
             path: /var/lib/calico
-

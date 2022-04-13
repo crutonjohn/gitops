@@ -11,3 +11,4 @@
         - cp ../vars/k3s-master.yaml inventory/group_vars/master/k3s.yml
         - cp ../vars/kubernetes-k3s.yml inventory/group_vars/kubernetes/k3s.yml
         - cp ../templates/kube-calico-manifest.yaml.j2 playbooks/templates/
+        - cp ../vars/ubuntu/tasks/filesystem.yml roles/ubuntu/tasks/
