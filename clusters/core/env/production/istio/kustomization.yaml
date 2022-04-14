@@ -7,3 +7,4 @@ resources:
 patchesStrategicMerge:
   - patch.istiod.yaml
   - patch.istio-gateway.yaml
+  - patch.priorityclass.yaml

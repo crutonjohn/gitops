@@ -1,0 +1,7 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: istio-priority
+value: 1500000
+globalDefault: false
+description: "This priority class should be used for istio service pods only."

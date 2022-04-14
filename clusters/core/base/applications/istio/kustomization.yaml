@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - istiod.yaml
   - gateway.yaml
+  - priorityclass.yaml
