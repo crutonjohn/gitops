@@ -13,6 +13,6 @@ spec:
         kind: HelmRepository
         name: istio-charts
         namespace: flux-system
-      dependsOn:
-        - name: istio-base
-          namespace: istio-system
+  dependsOn:
+    - name: istio-base
+      namespace: istio-system
