@@ -10,9 +10,9 @@ spec:
       # always skip the injection on pods that match that label selector, regardless of the global policy.
       # See https://istio.io/docs/setup/kubernetes/additional-setup/sidecar-injection/#more-control-adding-exceptions
       neverInjectSelector:
-        istioInjection: "disabled"
+        - istioInjection: "disabled"
       alwaysInjectSelector:
-        istioInjection: "enabled"
+        - istioInjection: "enabled"
       enableNamespacesByDefault: false
       objectSelector:
         enabled: true
