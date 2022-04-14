@@ -5,18 +5,6 @@ metadata:
   name: gateway
 spec:
   values:
-    # Name allows overriding the release name. Generally this should not be set
-    name: ""
-    # revision declares which revision this gateway is a part of
-    revision: ""
-
-    replicaCount: 1
-
-    rbac:
-      # If enabled, roles will be created to enable accessing certificates from Gateways. This is not needed
-      # when using http://gateway-api.org/.
-      enabled: true
-
     serviceAccount:
       # If set, a service account will be created. Otherwise, the default is used
       create: true
@@ -25,7 +13,6 @@ spec:
       # The name of the service account to use.
       # If not set, the release name is used
       name: ""
-
     podAnnotations:
       prometheus.io/port: "15020"
       prometheus.io/scrape: "true"
@@ -41,6 +28,9 @@ spec:
       runAsNonRoot: true
       runAsUser: 1122
       runAsGroup: 1122
+      sysctls:
+        - name: net.ipv4.ip_unprivileged_port_start
+          value: "0"
     containerSecurityContext:
       runAsNonRoot: true
       runAsGroup: 1122
