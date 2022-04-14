@@ -8,3 +8,4 @@ resources:
   - external-dns
   - external-snapshotter
   - rook-ceph
+  - system-upgrade-controller

@@ -65,3 +65,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: trilio
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: system-upgrade
