@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: istio-system
 resources:
   - ../../../base/applications/istio/
+  - ingress
 patchesStrategicMerge:
   - patch.istiod.yaml
   - patch.istio-gateway.yaml
