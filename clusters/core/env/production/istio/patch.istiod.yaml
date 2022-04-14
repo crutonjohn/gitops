@@ -154,7 +154,7 @@ spec:
       # will not be killed because of low priority class.
       # Refer to https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
       # for more detail.
-      priorityClassName: "standard-cluster"
+      priorityClassName: "istio-priority"
       proxy:
         image: proxyv2
         # This controls the 'policy' in the sidecar injector.
