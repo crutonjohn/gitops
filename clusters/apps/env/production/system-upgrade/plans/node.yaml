@@ -20,6 +20,6 @@ spec:
     image: rancher/k3s-upgrade
     args:
       - "prepare"
-      - "k3s-node"
+      - "k3s-controlplane"
   upgrade:
     image: rancher/k3s-upgrade
