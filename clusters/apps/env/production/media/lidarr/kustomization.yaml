@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - ../../../../base/media/lidarr
   - ingressroute.yaml
+  - virtualservice.yaml
 patchesStrategicMerge:
   - app.patch.yaml
