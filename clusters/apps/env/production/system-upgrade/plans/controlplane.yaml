@@ -20,5 +20,7 @@ spec:
   tolerations:
     - key: "node-role.kubernetes.io/master"
       operator: "Exists"
+    - key: "crutonjohn"
+      operator: "Exists"
   upgrade:
     image: rancher/k3s-upgrade
