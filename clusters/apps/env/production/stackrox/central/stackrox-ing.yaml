@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/protocol: https
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  name: central-services
+spec:
+  ingressClassName: traefik-internal
+  rules:
+    - host: stackrox.${SECRET_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: central
+                port:
+                  name: https
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - stackrox.${SECRET_DOMAIN}
+      secretName: crj-wildcard-certificate

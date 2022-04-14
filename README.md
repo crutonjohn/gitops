@@ -92,12 +92,10 @@ _This table is a reference to IP addresses in my deployments and may not be full
 | nginx-ingress (internal) | 192.168.130.101 |
 | blocky                   | 192.168.130.102 |
 | unifi                    | 192.168.130.103 |
-| sshfs-media              | 192.168.130.104 |
-| loki-promtail-syslog     | 192.168.130.105 |
-| syslog-ng                | 192.168.130.106 |
-| minecraft                | 192.168.130.107 |
 | home-assistant           | 192.168.130.108 |
 | emqx                     | 192.168.130.109 |
+| stackrox                 | 192.168.130.111 |
+| istio-test               | 192.168.130.112 |
 
 ---
 ## :handshake:&nbsp; Community
