@@ -130,3 +130,15 @@ type: kubernetes.io/tls
 data:
   tls.key: ""
   tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crj-wildcard-certificate
+  namespace: istio-system
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""
