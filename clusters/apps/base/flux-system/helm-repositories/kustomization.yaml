@@ -16,6 +16,7 @@ resources:
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
   - hajimari-charts.yaml
+  - istio-charts.yaml
   - itzg-minecraft-charts.yaml
   - jetstack-charts.yaml
   - k8s-at-home-charts.yaml

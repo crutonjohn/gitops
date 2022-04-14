@@ -19,13 +19,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: namespaces
+  name: apps
   namespace: flux-system
 spec:
   interval: 10m0s
   dependsOn:
     - name: core
     - name: secrets
+    - name: namespaces
+    - name: crds
   path: ./clusters/apps/env/production
   prune: true
   sourceRef:
@@ -53,6 +55,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: secrets
+    - name: namespaces
   path: ./clusters/core/env/production
   prune: false
   sourceRef:
@@ -69,3 +72,31 @@ spec:
         name: cluster-settings
       - kind: Secret
         name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: crds
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  dependsOn:
+    - name: namespaces
+  path: ./clusters/core/base/crds
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: namespaces
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  path: ./clusters/core/base/namespaces
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

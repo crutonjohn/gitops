@@ -5,36 +5,30 @@ metadata:
   name: trilio-operator
 spec:
   values:
+    registry: "eu.gcr.io/amazing-chalice-243510"
+    operator-webhook-init:
+      repository: operator-webhook-init
+    k8s-triliovault-operator:
+      repository: k8s-triliovault-operator
+    tag: "2.8.0"
     tvkHelmRepo: ""
     preflight:
       enabled: false
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/arch
-                  operator: In
-                  values:
-                    - amd64
+      repository: preflight
+      logLevel: "INFO"
+      cleanupOnFailure: false
+      imagePullSecret: ""
+      limits: "cpu=600m,memory=256Mi"
+      localRegistry: ""
+      nodeSelector: ""
+      pvcStorageRequest: "2Gi"
+      requests: "cpu=300m,memory=128Mi"
+      storageClass: "ceph-block"
+      volumeSnapshotClass: "csi-cephfs-snapclass"
     image:
       pullPolicy: Always
-    tls:
-      secretName: "helm-client-certs"
-      verify: false
-      enable: false
-      keyFile: "tls.key"
-      certFile: "tls.crt"
-      caContent: ""
-      hostname: ""
     nameOverride: ""
     replicaCount: 1
-    proxySettings:
-      PROXY_ENABLED: false
-      NO_PROXY: ""
-      HTTP_PROXY: ""
-      HTTPS_PROXY: ""
-      CA_BUNDLE_CONFIGMAP: ""
     podSpec:
       hostIPC: false
       hostNetwork: false
@@ -63,5 +57,3 @@ spec:
       ComponentConfiguration:
         ingressController:
           enabled: false
-          service:
-            type: LoadBalancer
