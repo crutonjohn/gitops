@@ -4,6 +4,7 @@ kind: Kustomization
 nameSuffix: -pandora
 commonLabels:
   k10: exempt
+  backup: exempt
 resources:
   - frigate.yaml
   - music.yaml
