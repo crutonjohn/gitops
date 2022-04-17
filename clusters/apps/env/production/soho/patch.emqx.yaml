@@ -35,17 +35,17 @@ spec:
   postRenderers:
     - kustomize:
         patchesStrategicMerge:
-          apiVersion: apps/v1
-          kind: StatefulSet
-          metadata:
-            name: emqx
-            namespace: soho
-          spec:
-            volumeClaimTemplates:
-              - apiVersion: v1
-                kind: PersistentVolumeClaim
-                metadata:
-                  labels:
-                    backup: exempt
-                  name: emqx-data
-                  namespace: soho
+          - apiVersion: apps/v1
+            kind: StatefulSet
+            metadata:
+              name: emqx
+              namespace: soho
+            spec:
+              volumeClaimTemplates:
+                - apiVersion: v1
+                  kind: PersistentVolumeClaim
+                  metadata:
+                    labels:
+                      backup: exempt
+                    name: emqx-data
+                    namespace: soho
