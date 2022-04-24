@@ -10,7 +10,7 @@ spec:
       repository: operator-webhook-init
     k8s-triliovault-operator:
       repository: k8s-triliovault-operator
-    tag: "2.8.0"
+    tag: "2.8.2"
     tvkHelmRepo: ""
     preflight:
       enabled: false

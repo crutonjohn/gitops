@@ -11,6 +11,7 @@ spec:
       # See https://istio.io/docs/setup/kubernetes/additional-setup/sidecar-injection/#more-control-adding-exceptions
       neverInjectSelector:
         - istioInjection: "disabled"
+        - app.kubernetes.io/name: " k8s-triliovault*"
       alwaysInjectSelector:
         - istioInjection: "enabled"
       enableNamespacesByDefault: false
