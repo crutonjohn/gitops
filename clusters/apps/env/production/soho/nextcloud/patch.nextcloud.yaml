@@ -68,7 +68,7 @@ spec:
       failureThreshold: 30
       successThreshold: 1
     ingress:
-      enabled: true
+      enabled: false
       className: traefik-external
       annotations:
         external-dns/public: "true"

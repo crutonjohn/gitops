@@ -30,8 +30,6 @@ spec:
       size: 100Mi
       storageClass: "ceph-block"
       accessMode: ReadWriteOnce
-    nodeSelector:
-      kubernetes.io/arch: amd64
   postRenderers:
     - kustomize:
         patchesStrategicMerge:
@@ -40,6 +38,8 @@ spec:
             metadata:
               name: emqx
               namespace: soho
+              annotations:
+                sidecar.istio.io/inject: "true"
             spec:
               volumeClaimTemplates:
                 - apiVersion: v1

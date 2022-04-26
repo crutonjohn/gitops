@@ -5,5 +5,11 @@ resources:
   - ../../../../../base/soho/hassio
   - code.enc.yaml
   - hass.enc.yaml
+  - vs.yaml
 patchesStrategicMerge:
   - patch.hassio.yaml
+patches:
+  - path: patch.istio-label-hr.yaml
+    target:
+      kind: HelmRelease
+      labelSelector: istioInject=true

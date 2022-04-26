@@ -1,0 +1,5 @@
+patches:
+  - path: patch.istio-label-hr.yaml
+    target:
+      kind: HelmRelease
+      labelSelector: istioInject=true

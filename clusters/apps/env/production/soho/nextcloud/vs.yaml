@@ -1,0 +1,17 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: nextcloud
+spec:
+  hosts:
+    - 'cloud.${SECRET_DOMAIN}'
+  gateways:
+    - istio-system/istio-ingressgateway
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8080
+            host: nextcloud.soho.svc.cluster.local
+          weight: 100
