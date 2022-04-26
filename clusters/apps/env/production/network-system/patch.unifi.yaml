@@ -7,6 +7,8 @@ spec:
   values:
     podAnnotations:
       backup.velero.io/backup-volumes: data
+    podLabels:
+      sidecar.istio.io/inject: "true"
     persistence:
       data:
         enabled: true
@@ -43,5 +45,3 @@ spec:
           - hosts:
               - unifi.${SECRET_DOMAIN}
             secretName: "crj-wildcard-certificate"
-    nodeSelector:
-      kubernetes.io/arch: amd64

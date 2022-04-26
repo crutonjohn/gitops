@@ -20,8 +20,8 @@ spec:
         enabled: true
         labels:
     controller:
-      nodeSelector:
-        kubernetes.io/arch: "amd64"
+      podLabels:
+        sidecar.istio.io/inject: "true"
       prometheus:
         serviceMonitor:
           enabled: true
@@ -30,5 +30,5 @@ spec:
           metricRelabelings: []
           relabelings: []
     speaker:
-      nodeSelector:
-        kubernetes.io/arch: "amd64"
+      podLabels:
+        sidecar.istio.io/inject: "true"

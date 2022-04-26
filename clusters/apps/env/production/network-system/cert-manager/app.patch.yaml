@@ -6,6 +6,8 @@ metadata:
 spec:
   interval: 5m
   values:
+    podLabels:
+      sidecar.istio.io/inject: "true"
     fullnameOverride: cert-manager
     installCRDs: false
     webhook:
