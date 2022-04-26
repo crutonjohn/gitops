@@ -41,7 +41,8 @@ spec:
             spec:
               template:
                 metadata:
-                  sidecar.istio.io/inject: "true"
+                  annotations:
+                    sidecar.istio.io/inject: "true"
               volumeClaimTemplates:
                 - apiVersion: v1
                   kind: PersistentVolumeClaim
