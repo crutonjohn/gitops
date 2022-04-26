@@ -41,7 +41,7 @@ spec:
             spec:
               template:
                 metadata:
-                  annotations:
+                  labels:
                     sidecar.istio.io/inject: "true"
               volumeClaimTemplates:
                 - apiVersion: v1
