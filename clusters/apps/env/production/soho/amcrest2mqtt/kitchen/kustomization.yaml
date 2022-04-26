@@ -6,3 +6,8 @@ resources:
 patchesStrategicMerge:
   - patch.amcrest2mqtt.yaml
 nameSuffix: -kitchen
+patches:
+  - path: patch.istio-label-hr.yaml
+    target:
+      kind: HelmRelease
+      labelSelector: istioInject=true
