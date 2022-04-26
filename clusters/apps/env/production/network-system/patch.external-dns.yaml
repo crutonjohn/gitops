@@ -5,14 +5,14 @@ metadata:
   name: external-dns
 spec:
   test:
-    enable: false # Enable helm test
+    enable: false
   install:
-    remediation: # perform remediation when helm install fails
+    remediation:
       retries: 3
   upgrade:
-    remediation: # perform remediation when helm upgrade fails
+    remediation:
       retries: 3
-      remediateLastFailure: true # remediate the last failure, when no retries remain
+      remediateLastFailure: true
     cleanupOnFail: true
   rollback:
     timeout: 10m
@@ -27,7 +27,6 @@ spec:
         secretName: aws-external-dns
       evaluateTargetHealth: false
     domainFilters:
-      - os.${SECRET_DOMAIN}
       - ${SECRET_DOMAIN}
       - baremetalblog.com
     interval: "1m"
@@ -35,6 +34,11 @@ spec:
     logLevel: debug
     txtPrefix: "_."
     replicas: 1
+    sources:
+      - ingress
+      - service
+      - istio-virtualservice
+      - istio-gateway
     txtOwnerId: "k8s."
     crd:
       create: false
@@ -42,11 +46,11 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+    podLabels:
+      sidecar.istio.io/inject: "true"
     resources:
       requests:
         memory: 250Mi
         cpu: 25m
       limits:
         memory: 500Mi
-    nodeSelector:
-      kubernetes.io/arch: amd64
