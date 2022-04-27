@@ -92,17 +92,12 @@ spec:
         existingClaim: nextcloud-db-rook
       volumePermissions:
         enabled: true
-        securityContext:
-          runAsUser: 5432
       securityContext:
         enabled: true
         fsGroup: 5432
       containerSecurityContext:
         enabled: true
         runAsUser: 5432
-      primary:
-        nodeSelector:
-          kubernetes.io/arch: "amd64"
     externalDatabase:
       enabled: true
       type: postgresql
