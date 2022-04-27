@@ -30,7 +30,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
         - name: upsd-tesla
-          image: upshift/nut-upsd:2.7.4
+          image: upshift/nut-upsd:2.8.0
           securityContext:
             privileged: true
           ports:
@@ -88,7 +88,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
         - name: upsd-edison
-          image: upshift/nut-upsd:2.7.4
+          image: upshift/nut-upsd:2.8.0
           securityContext:
             privileged: true
           ports:
