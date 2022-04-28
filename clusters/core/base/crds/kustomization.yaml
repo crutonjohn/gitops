@@ -9,3 +9,4 @@ resources:
   - external-snapshotter
   - rook-ceph
   - system-upgrade-controller
+  - traefik
