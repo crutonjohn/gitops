@@ -17,7 +17,8 @@ k3s_server:
     - traefik
     - servicelb
     - metrics-server
-  disable-network-policy: true
+    - local-storage
+  disable-network-policy: false
   disable-cloud-controller: true
   write-kubeconfig-mode: "644"
   # Network CIDR to use for pod IPs

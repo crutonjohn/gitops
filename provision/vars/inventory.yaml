@@ -19,5 +19,9 @@ kubernetes:
           ansible_host: 192.168.130.52
         k-node3:
           ansible_host: 192.168.130.53
+        k-node4:
+          ansible_host: 192.168.130.54
+        k-node5:
+          ansible_host: 192.168.130.55
       vars:
         ansible_user: root
