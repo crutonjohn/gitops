@@ -1,7 +1,9 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: flux-system
 resources:
+  - authentik-charts.yaml
   - banzaicloud-charts.yaml
   - bitnami-charts.yaml
   - botkube-charts.yaml
@@ -10,14 +12,13 @@ resources:
   - crutonjohn-charts.yaml
   - dex-chart.yaml
   - emqx-charts.yaml
-  - falco-charts.yaml
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
   - hajimari-charts.yaml
+  - istio-charts.yaml
   - itzg-minecraft-charts.yaml
   - jetstack-charts.yaml
-  - kasten-charts.yaml
   - k8s-at-home-charts.yaml
   - kubernetes-nginx-ingress.yaml
   - kubernetes-sigs-charts.yaml
@@ -31,9 +32,9 @@ resources:
   - openfaas-charts.yaml
   - prometheus-community-charts.yaml
   - replicator-charts.yaml
-  - rook-ceph-charts.yaml
+  - stackrox-charts.yaml
   - stakater-charts.yaml
-  - tanzu-charts.yaml
   - traefik-charts.yaml
+  - trilio-charts.yaml
   - vernemq-charts.yaml
   - weaveworks-kured-charts.yaml
