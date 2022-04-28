@@ -10,10 +10,10 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
-    - dns01:
-        route53:
+      - dns01:
+          route53:
             region: us-east-1
-      selector:
+        selector:
           dnsZones:
             - crutonjohn.com
             - os.crutonjohn.com
