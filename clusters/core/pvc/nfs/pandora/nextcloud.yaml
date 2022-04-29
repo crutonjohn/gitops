@@ -12,6 +12,8 @@ spec:
     namespace: soho
     name: nextcloud-data-pandora
   storageClassName: pandora
+  mountOptions:
+    - async
   nfs:
     server: 192.168.130.50
     path: "/pandora/nextcloud"
