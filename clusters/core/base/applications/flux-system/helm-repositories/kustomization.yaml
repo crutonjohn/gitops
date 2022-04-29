@@ -32,8 +32,10 @@ resources:
   - openfaas-charts.yaml
   - prometheus-community-charts.yaml
   - replicator-charts.yaml
+  - rook-ceph-charts.yaml
   - stackrox-charts.yaml
   - stakater-charts.yaml
+  - tanzu-charts.yaml
   - traefik-charts.yaml
   - trilio-charts.yaml
   - vernemq-charts.yaml
