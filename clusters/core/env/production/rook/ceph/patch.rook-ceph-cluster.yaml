@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     monitoring:
-      enabled: false
+      enabled: true
     nodeSelector:
       kubernetes.io/arch: "amd64"
     ingress:
@@ -22,7 +22,7 @@ spec:
             secretName: crj-wildcard-certificate
     cephClusterSpec:
       mon:
-        count: 3
+        count: 5
         allowMultiplePerNode: false
       mgr:
         count: 2
