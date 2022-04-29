@@ -22,7 +22,7 @@ spec:
             secretName: crj-wildcard-certificate
     cephClusterSpec:
       mon:
-        count: 5
+        count: 3
         allowMultiplePerNode: false
       mgr:
         count: 2
@@ -113,13 +113,13 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: false
-      name: ceph-block
-      isDefault: true
-      deletionPolicy: Delete
+      enabled: true
+      name: csi-rbdplugin-snapclass
       parameters:
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
         csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+      annotations:
+        k10.kasten.io/is-snapshot-class: "true"
     cephFileSystems:
       - name: ceph-filesystem
         spec:
@@ -149,11 +149,11 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephFileSystemVolumeSnapshotClass:
-      enabled: false
-      name: ceph-filesystem
-      isDefault: true
-      deletionPolicy: Delete
+      enabled: true
+      name: csi-cephfs-snapclass
       parameters:
         csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
         csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+      annotations:
+        k10.kasten.io/is-snapshot-class: "true"
     cephObjectStores: []
