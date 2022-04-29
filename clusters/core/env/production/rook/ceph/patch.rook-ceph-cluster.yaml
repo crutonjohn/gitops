@@ -95,7 +95,7 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 3
+            size: 5
         storageClass:
           enabled: true
           name: ceph-block
@@ -115,9 +115,6 @@ spec:
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-rbdplugin-snapclass
-      parameters:
-        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
       annotations:
         k10.kasten.io/is-snapshot-class: "true"
     cephFileSystems:
@@ -125,11 +122,12 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 3
+              size: 5
           dataPools:
             - failureDomain: host
               replicated:
-                size: 3
+                size: 5
+              name: pool0
           metadataServer:
             activeCount: 1
             activeStandby: true
@@ -137,6 +135,7 @@ spec:
           enabled: true
           isDefault: false
           name: ceph-filesystem
+          pool: pool0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           mountOptions: []
@@ -151,9 +150,6 @@ spec:
     cephFileSystemVolumeSnapshotClass:
       enabled: true
       name: csi-cephfs-snapclass
-      parameters:
-        csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
       annotations:
         k10.kasten.io/is-snapshot-class: "true"
     cephObjectStores: []
