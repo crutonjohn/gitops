@@ -26,7 +26,7 @@ spec:
       bdev_async_discard = true
     cephClusterSpec:
       mon:
-        count: 5
+        count: 3
         allowMultiplePerNode: false
       mgr:
         count: 2
