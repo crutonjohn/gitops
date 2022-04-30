@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     monitoring:
-      enabled: true
+      enabled: false
     nodeSelector:
       kubernetes.io/arch: "amd64"
     ingress:
@@ -20,6 +20,10 @@ spec:
           - hosts:
               - "rook.${SECRET_DOMAIN}"
             secretName: crj-wildcard-certificate
+    configOverride: |
+      [global]
+      bdev_enable_discard = true
+      bdev_async_discard = true
     cephClusterSpec:
       mon:
         count: 5
@@ -38,38 +42,19 @@ spec:
         nodes:
           - name: "k-node1.${SECRET_DOMAIN}"
             devices:
-              - name: "sdb"
+              - name: "/dev/disk/by-id/ata-TEAM_TM8PS7001T_TPBF2106110130800134"
           - name: "k-node2.${SECRET_DOMAIN}"
             devices:
-              - name: "sdb"
+              - name: "/dev/disk/by-id/ata-TEAM_TM8PS7001T_TPBF2106110130800763"
           - name: "k-node3.${SECRET_DOMAIN}"
             devices:
-              - name: "sdb"
+              - name: "/dev/disk/by-id/ata-TEAM_TM8PS7001T_TPBF2106110130800502"
           - name: "k-node4.${SECRET_DOMAIN}"
             devices:
-              - name: "nvme0n1"
+              - name: "/dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200713"
           - name: "k-node5.${SECRET_DOMAIN}"
             devices:
-              - name: "nvme0n1"
-      cleanupPolicy:
-        confirmation: ""
-        sanitizeDisks:
-          method: quick
-          dataSource: zero
-          iteration: 1
-      resources:
-        mon:
-          requests:
-            cpu: 35m
-            memory: 800Mi
-          limits:
-            memory: 1024Mi
-        osd:
-          requests:
-            cpu: 35m
-            memory: 2048Mi
-          limits:
-            memory: 4096Mi
+              - name: "/dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200660"
       placement:
         all:
           tolerations:
@@ -102,16 +87,6 @@ spec:
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
-          parameters:
-            imageFormat: "2"
-            imageFeatures: layering
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-            csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.k8s.io/fstype: ext4
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-rbdplugin-snapclass
@@ -139,14 +114,6 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           mountOptions: []
-          parameters:
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-            csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.k8s.io/fstype: ext4
     cephFileSystemVolumeSnapshotClass:
       enabled: true
       name: csi-cephfs-snapclass
