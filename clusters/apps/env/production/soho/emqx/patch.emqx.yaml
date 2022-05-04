@@ -43,11 +43,3 @@ spec:
                 metadata:
                   labels:
                     sidecar.istio.io/inject: "true"
-              volumeClaimTemplates:
-                - apiVersion: v1
-                  kind: PersistentVolumeClaim
-                  metadata:
-                    labels:
-                      backup: exempt
-                    name: emqx-data
-                    namespace: soho
