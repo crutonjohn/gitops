@@ -25,4 +25,4 @@ spec:
     - "*.curtisrayjohn.com"
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging
+    name: letsencrypt-production
