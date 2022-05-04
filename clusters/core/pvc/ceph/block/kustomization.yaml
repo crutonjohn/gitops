@@ -12,6 +12,7 @@ resources:
   - unifi.yaml
   - zigbee2mqtt.yaml
   - hajimari.yaml
+  - hassio.yaml
   - grafana.yaml
   - navidrome.yaml
   - changedetection.yaml
