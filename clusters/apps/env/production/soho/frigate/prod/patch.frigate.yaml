@@ -331,8 +331,8 @@ spec:
                     - "true"
     resources:
       requests:
-        memory: 2000Mi
-        cpu: 1000m
+        memory: 1024Mi
+        cpu: 500m
       limits:
         memory: 4000Mi
     securityContext:
