@@ -10,17 +10,17 @@ spec:
       server:
         requests:
           memory: "400M"
-          cpu: "0.3"
+          cpu: "50m"
         limits:
           memory: "600M"
-          cpu: "1"
+          cpu: "200m"
       worker:
         requests:
-          memory: "250M"
-          cpu: "300m"
+          memory: "100M"
+          cpu: "50m"
         limits:
-          memory: "500M"
-          cpu: "700m"
+          memory: "200M"
+          cpu: "100m"
     podSecurityContext:
       fsGroup: 1101
       runAsNonRoot: true
