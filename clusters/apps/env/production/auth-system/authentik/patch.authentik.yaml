@@ -9,7 +9,7 @@ spec:
     resources:
       server:
         requests:
-          memory: "400M"
+          memory: "100M"
           cpu: "50m"
         limits:
           memory: "600M"
@@ -19,14 +19,14 @@ spec:
           memory: "100M"
           cpu: "50m"
         limits:
-          memory: "200M"
+          memory: "400M"
           cpu: "100m"
     podSecurityContext:
       fsGroup: 1101
       runAsNonRoot: true
       runAsUser: 1101
       runAsGroup: 1101
-    replicas: 2
+    replicas: 1
     ingress:
       enabled: true
       ingressClassName: traefik-external
