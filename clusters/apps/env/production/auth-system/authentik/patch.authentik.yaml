@@ -13,7 +13,7 @@ spec:
           cpu: "50m"
         limits:
           memory: "600M"
-          cpu: "200m"
+          cpu: "300m"
       worker:
         requests:
           memory: "100M"
