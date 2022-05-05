@@ -19,7 +19,7 @@ spec:
           memory: "100M"
           cpu: "50m"
         limits:
-          memory: "400M"
+          memory: "900M"
           cpu: "100m"
     podSecurityContext:
       fsGroup: 1101
