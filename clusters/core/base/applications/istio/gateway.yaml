@@ -18,3 +18,5 @@ spec:
       namespace: istio-system
     - name: istiod
       namespace: istio-system
+    - name: metallb
+      namespace: network-system
