@@ -7,9 +7,12 @@ resources:
   - ../../../base/kube-system/reloader
   - ../../../base/kube-system/node-feature-discovery
   - ../../../base/kube-system/intel-gpu-plugin
+  - ../../../base/goldilocks
   - kured
 patchesStrategicMerge:
   - patch.intel.yaml
   - patch.nfd.yaml
   - patch.reloader.yaml
   - patch.replicator.yaml
+  - patch.goldilocks.yaml
+  - patch.vpa.yaml

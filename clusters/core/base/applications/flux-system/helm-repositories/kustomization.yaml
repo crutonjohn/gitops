@@ -12,6 +12,7 @@ resources:
   - crutonjohn-charts.yaml
   - dex-chart.yaml
   - emqx-charts.yaml
+  - fairwinds-charts.yaml
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
