@@ -27,3 +27,10 @@ spec:
                   operator: In
                   values:
                     - "true"
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 11m
+      limits:
+        memory: 100Mi
+        cpu: 50m

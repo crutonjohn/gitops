@@ -11,3 +11,10 @@ spec:
       podMonitor:
         enabled: true
         namespace: kube-system
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 32m
+          memory: 145M

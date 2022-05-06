@@ -58,10 +58,15 @@ spec:
       limits:
         memory: 1000Mi
         cpu: 200m
-    additionalContainers:
-      broker:
-        name: broker
-        image: redis:6.2
-        imagePullPolicy: IfNotPresent
-    nodeSelector:
-      kubernetes.io/arch: "amd64"
+    redis:
+      enabled: true
+      auth:
+        enabled: false
+      master:
+        resources:
+          requests:
+            memory: 10Mi
+            cpu: 20m
+          limits:
+            memory: 200Mi
+            cpu: 50m

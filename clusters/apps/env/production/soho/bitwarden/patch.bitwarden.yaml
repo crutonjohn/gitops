@@ -54,8 +54,8 @@ spec:
         existingClaim: bitwarden-vaultwarden-config-rook
     resources:
       requests:
-        memory: 100Mi
-        cpu: 20m
+        memory: 50Mi
+        cpu: 11m
       limits:
-        memory: 200Mi
-        cpu: 100m
+        memory: 100Mi
+        cpu: 50m

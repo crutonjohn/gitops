@@ -72,6 +72,13 @@ spec:
     addons:
       codeserver:
         enabled: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100Mi
+          limits:
+            memory: 300Mi
+            cpu: 50m
         image:
           repository: codercom/code-server
           tag: 3.12.0
@@ -104,9 +111,10 @@ spec:
             mountPath: /config
     resources:
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 100Mi
       limits:
-        memory: 4000Mi
+        memory: 2048Mi
+        cpu: 200m
     nodeSelector:
       kubernetes.io/arch: amd64

@@ -84,11 +84,11 @@ spec:
             targetAverageUtilization: 60
     resources:
       requests:
-        cpu: "50m"
-        memory: "100Mi"
+        cpu: 15m
+        memory: 64M
       limits:
-        cpu: "100m"
-        memory: "500Mi"
+        cpu: 32m
+        memory: 189M
     nodeSelector:
       kubernetes.io/arch: "amd64"
     securityContext:

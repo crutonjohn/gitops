@@ -29,3 +29,10 @@ spec:
           - hosts:
               - speedof.${SECRET_DOMAIN}
             secretName: crj-wildcard-certificate
+    resources:
+      requests:
+        cpu: 10m
+        memory: 27Mi
+      limits:
+        cpu: 32m
+        memory: 35Mi

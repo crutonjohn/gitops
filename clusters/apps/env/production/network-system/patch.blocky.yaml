@@ -6,12 +6,12 @@ metadata:
 spec:
   values:
     resources:
-      limits:
-        cpu: 150m
-        memory: 256Mi
       requests:
-        cpu: 50m
-        memory: 128Mi
+        cpu: 22m
+        memory: 27M
+      limits:
+        cpu: 187m
+        memory: 486M
     podLabels:
       sidecar.istio.io/inject: "true"
     controller:

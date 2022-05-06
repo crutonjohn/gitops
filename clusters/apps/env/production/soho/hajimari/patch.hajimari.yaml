@@ -7,6 +7,13 @@ metadata:
     istioInject: "true"
 spec:
   values:
+    resources:
+      requests:
+        memory: 20Mi
+        cpu: 11m
+      limits:
+        memory: 50Mi
+        cpu: 50m
     ingress:
       main:
         enabled: true

@@ -8,7 +8,7 @@ resources:
   - kube-system
   - media
   - network-system
-  - observability
+  # - observability
   - soho
   - stackrox
   - trilio

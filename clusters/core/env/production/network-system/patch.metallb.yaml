@@ -29,6 +29,20 @@ spec:
           interval: ""
           metricRelabelings: []
           relabelings: []
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 32m
+          memory: 71M
     speaker:
       podLabels:
         sidecar.istio.io/inject: "true"
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 68m
+          memory: 108M

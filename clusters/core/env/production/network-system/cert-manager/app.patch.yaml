@@ -10,7 +10,22 @@ spec:
       sidecar.istio.io/inject: "true"
     fullnameOverride: cert-manager
     installCRDs: false
+    cainjector:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 127M
+        limits:
+          cpu: 32m
+          memory: 377M
     webhook:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 32m
+          memory: 71M
       hostNetwork: true
       securePort: 10253
     volumes:
@@ -33,3 +48,10 @@ spec:
         scrapeTimeout: 30s
         labels:
           release: kube-prometheus
+    resources:
+      requests:
+        cpu: 10m
+        memory: 78M
+      limits:
+        cpu: 32m
+        memory: 233M

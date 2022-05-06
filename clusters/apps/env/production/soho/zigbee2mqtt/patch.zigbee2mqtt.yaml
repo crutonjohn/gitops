@@ -10,6 +10,13 @@ spec:
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 200Mi
+        cpu: 200m
     config:
       homeassistant: true
       device_options:
@@ -62,6 +69,13 @@ spec:
     addons:
       codeserver:
         enabled: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100Mi
+          limits:
+            memory: 300Mi
+            cpu: 50m
         image:
           repository: codercom/code-server
           tag: 3.12.0

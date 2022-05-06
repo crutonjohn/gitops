@@ -50,7 +50,8 @@ spec:
       sidecar.istio.io/inject: "true"
     resources:
       requests:
-        memory: 250Mi
-        cpu: 25m
+        cpu: 10m
+        memory: 50M
       limits:
-        memory: 500Mi
+        cpu: 32m
+        memory: 148M

@@ -11,6 +11,13 @@ spec:
       backup.velero.io/backup-volumes: config
     env:
       TZ: America/New_York
+    resources:
+      requests:
+        cpu: 10m
+        memory: 863M
+      limits:
+        cpu: 32m
+        memory: 2538M
     service:
       main:
         ports:
@@ -75,3 +82,10 @@ spec:
           port: 9792
           additionalMetrics: false
           unknownQueueItems: false
+        resources:
+          requests:
+            cpu: 10m
+            memory: 24M
+          limits:
+            cpu: 32m
+            memory: 70M

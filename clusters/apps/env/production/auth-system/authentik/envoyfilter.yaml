@@ -1,0 +1,91 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: authentik-sso
+  namespace: istio-system
+spec:
+  workloadSelector:
+    labels:
+      app: gateway
+      istio: gateway
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: GATEWAY
+        listener:
+          filterChain:
+            filter:
+              name: envoy.filters.network.http_connection_manager
+              subFilter:
+                name: istio.metadata_exchange
+            sni: lidarr.crutonjohn.com
+        proxy:
+          proxyVersion: ^1\.6.*
+      patch:
+        operation: INSERT_AFTER
+        value:
+          name: envoy.filters.http.ext_authz
+          typed_config:
+            '@type': type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+            http_service:
+              authorizationRequest:
+                allowedHeaders:
+                  patterns:
+                    - exact: accept
+                    - exact: authorization
+                    - exact: cookie
+                    - exact: from
+                    - exact: proxy-authorization
+                    - exact: user-agent
+                    - exact: x-forwarded-access-token
+                    - exact: x-forwarded-email
+                    - exact: x-forwarded-for
+                    - exact: x-forwarded-host
+                    - exact: x-forwarded-proto
+                    - exact: x-forwarded-user
+                    - exact: X-authentik-username
+                    - exact: X-authentik-groups
+                    - exact: X-authentik-email
+                    - exact: X-authentik-name
+                    - exact: X-authentik-uid
+                    - exact: X-authentik-jwt
+                    - exact: X-authentik-meta-jwks
+                    - exact: X-authentik-meta-outpost
+                    - exact: X-authentik-meta-provider
+                    - exact: X-authentik-meta-app
+                    - exact: X-authentik-meta-version
+                    - prefix: x-auth-request
+                    - prefix: x-forwarded
+              authorizationResponse:
+                allowedClientHeaders:
+                  patterns:
+                    - exact: X-authentik-groups
+                    - exact: X-authentik-email
+                    - exact: X-authentik-name
+                    - exact: X-authentik-uid
+                    - exact: X-authentik-jwt
+                    - exact: X-authentik-meta-jwks
+                    - exact: X-authentik-meta-outpost
+                    - exact: X-authentik-meta-provider
+                    - exact: X-authentik-meta-app
+                    - exact: X-authentik-meta-version
+                    - prefix: x-auth-request
+                    - prefix: x-forwarded
+                allowedUpstreamHeaders:
+                  patterns:
+                    - exact: X-authentik-groups
+                    - exact: X-authentik-email
+                    - exact: X-authentik-name
+                    - exact: X-authentik-uid
+                    - exact: X-authentik-jwt
+                    - exact: X-authentik-meta-jwks
+                    - exact: X-authentik-meta-outpost
+                    - exact: X-authentik-meta-provider
+                    - exact: X-authentik-meta-app
+                    - exact: X-authentik-meta-version
+                    - prefix: x-auth-request
+                    - prefix: x-forwarded
+              server_uri:
+                cluster: outbound|9000||ak-outpost-authentik-embedded-outpost.auth-system.svc.cluster.local
+                timeout: 5s
+                uri: http://ak-outpost-authentik-embedded-outpost.auth-system.svc.cluster.local

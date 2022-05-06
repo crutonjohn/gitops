@@ -53,3 +53,10 @@ spec:
           - hosts:
               - "music.${SECRET_DOMAIN}"
             secretName: "crj-wildcard-certificate"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 78M
+      limits:
+        cpu: 143m
+        memory: 230M
