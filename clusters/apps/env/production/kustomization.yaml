@@ -14,3 +14,4 @@ resources:
   - soho
   - stackrox
   # - system-upgrade
+  - trilio/backups

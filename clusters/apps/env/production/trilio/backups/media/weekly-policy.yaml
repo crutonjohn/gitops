@@ -1,0 +1,11 @@
+---
+apiVersion: triliovault.trilio.io/v1
+kind: Policy
+metadata:
+  name: weekly-schedule
+spec:
+  default: false
+  scheduleConfig:
+    schedule:
+      - 0 4 * * 5
+  type: Schedule

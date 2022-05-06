@@ -1,0 +1,12 @@
+---
+apiVersion: triliovault.trilio.io/v1
+kind: Target
+metadata:
+  name: trilio-pandora
+spec:
+  enableBrowsing: true
+  nfsCredentials:
+    nfsOptions: nfsvers=4,rsize=8192,wsize=8192,nosuid
+  thresholdCapacity: 2Ti
+  type: NFS
+  vendor: Other

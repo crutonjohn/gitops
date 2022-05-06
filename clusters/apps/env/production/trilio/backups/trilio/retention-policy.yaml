@@ -1,0 +1,10 @@
+---
+apiVersion: triliovault.trilio.io/v1
+kind: Policy
+metadata:
+  name: latest-retention
+spec:
+  default: true
+  retentionConfig:
+    latest: 3
+  type: Retention
