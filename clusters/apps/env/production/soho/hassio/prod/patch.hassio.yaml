@@ -78,7 +78,7 @@ spec:
             memory: 100Mi
           limits:
             memory: 300Mi
-            cpu: 50m
+            cpu: 100m
         image:
           repository: codercom/code-server
           tag: 3.12.0
