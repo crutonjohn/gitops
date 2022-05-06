@@ -5,13 +5,10 @@ resources:
   - auth-system
   - flux-system
   # - games
-  #  - istio-system
   - kube-system
   - media
   - network-system
   - observability
-  # - security
   - soho
   - stackrox
-  # - system-upgrade
-  - trilio/backups
+  - trilio

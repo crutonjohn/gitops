@@ -3,9 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: trilio
 resources:
-  - ../../base
-  - retention-policy.yaml
-patchesStrategicMerge:
-  - patch.target.yaml
+  - policy.retention.yaml
 commonLabels:
   trilio.backup/namespace: trilio

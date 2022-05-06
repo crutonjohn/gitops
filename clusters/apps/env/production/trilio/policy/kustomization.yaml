@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - auth-system
+  - media
+  - network-system
+  - soho
+  - trilio
+commonLabels:
+  app.kubernetes.io/managed-by: k8s-triliovault-flux
+  app.kubernetes.io/name: k8s-triliovault
+  app.kubernetes.io/part-of: k8s-triliovault
