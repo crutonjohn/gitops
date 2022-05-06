@@ -7,6 +7,7 @@ resources:
   - media
   - network-system
   - soho
+  - trilio
 commonLabels:
   app.kubernetes.io/managed-by: k8s-triliovault-flux
   app.kubernetes.io/name: k8s-triliovault
