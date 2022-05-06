@@ -18,15 +18,6 @@ spec:
       MQTT_USERNAME: "${SECRET_MQTT_USERNAME}"
       MQTT_PASSWORD: "${SECRET_MQTT_PASSWORD}"
       HOME_ASSISTANT: true
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-zzh
-                  operator: In
-                  values:
-                    - "true"
     resources:
       requests:
         memory: 50Mi
