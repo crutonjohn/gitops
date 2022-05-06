@@ -34,3 +34,5 @@ spec:
     labelSelector:
       - matchLabels:
           backup: exempt
+      - matchLabels:
+          app.kubernetes.io/instance: emqx
