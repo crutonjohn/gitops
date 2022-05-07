@@ -78,32 +78,15 @@ spec:
     # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
     meshConfig:
       enablePrometheusMerge: true
-      # Config for the default ProxyConfig.
-      # Initially using directly the proxy metadata - can also be activated using annotations
-      # on the pod. This is an unsupported low-level API, pending review and decisions on
-      # enabling the feature. Enabling the DNS listener is safe - and allows further testing
-      # and gradual adoption by setting capture only on specific workloads. It also allows
-      # VMs to use other DNS options, like dnsmasq or unbound.
-
-      # The namespace to treat as the administrative root namespace for Istio configuration.
-      # When processing a leaf namespace Istio will search for declarations in that namespace first
-      # and if none are found it will search in the root namespace. Any matching declaration found in the root namespace
-      # is processed as if it were declared in the leaf namespace.
-
-      rootNamespace:
-
-      # The trust domain corresponds to the trust root of a system
-      # Refer to https://github.com/spiffe/spiffe/blob/master/standards/SPIFFE-ID.md#21-trust-domain
       trustDomain: "cluster.local"
-
-      # TODO: the intent is to eventually have this enabled by default when security is used.
-      # It is not clear if user should normally need to configure - the metadata is typically
-      # used as an escape and to control testing and rollout, but it is not intended as a long-term
-      # stable API.
-
-      # What we may configure in mesh config is the ".global" - and use of other suffixes.
-      # No hurry to do this in 1.6, we're trying to prove the code.
-
+        #      extensionProviders:
+        #        - name: authentik
+        #          envoyExtAuthzHttp:
+        #            service: ak-outpost-authentik-embedded-outpost.auth-system.svc.cluster.local
+        #            port: 9000
+        #            includeHeadersInCheck: ["authorization", "cookie"]
+        #            headersToUpstreamOnAllow: ["authorization", "path", "x-auth-request-user", "x-auth-request-email", "x-auth-request-access-token"]
+        #            headersToDownstreamOnDeny: ["content-type", "set-cookie"]
     global:
       # Used to locate istiod.
       istioNamespace: istio-system
@@ -195,11 +178,11 @@ spec:
         # Resources for the sidecar.
         resources:
           requests:
-            cpu: 100m
+            cpu: 25m
             memory: 128Mi
           limits:
-            cpu: 2000m
-            memory: 1024Mi
+            cpu: 100m
+            memory: 250Mi
         # Default port for Pilot agent health checks. A value of 0 will disable health checking.
         statusPort: 15020
         # Specify which tracer to use. One of: zipkin, lightstep, datadog, stackdriver.
@@ -212,8 +195,8 @@ spec:
         image: proxyv2
         resources:
           limits:
-            cpu: 2000m
-            memory: 1024Mi
+            cpu: 100m
+            memory: 250Mi
           requests:
             cpu: 10m
             memory: 10Mi
