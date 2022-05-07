@@ -1,0 +1,57 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    annotationFilter: "external-dns/public in (true)"
+    provider: aws
+    aws:
+      credentials:
+        mountPath: "/.aws"
+        secretName: aws-external-dns
+      evaluateTargetHealth: false
+    domainFilters:
+      - ${SECRET_DOMAIN}
+      - baremetalblog.com
+    interval: "1m"
+    logFormat: json
+    logLevel: debug
+    txtPrefix: "_."
+    replicas: 1
+    sources:
+      - ingress
+      - service
+      - istio-virtualservice
+      - istio-gateway
+    txtOwnerId: "k8s."
+    crd:
+      create: false
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    podLabels:
+      sidecar.istio.io/inject: "true"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50M
+      limits:
+        cpu: 32m
+        memory: 148M

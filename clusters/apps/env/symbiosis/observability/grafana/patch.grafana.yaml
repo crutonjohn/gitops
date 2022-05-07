@@ -1,0 +1,225 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+spec:
+  values:
+    replicas: 1
+    downloadDashboardsImage:
+      repository: curlimages/curl
+      tag: 7.73.0
+      sha: ""
+      pullPolicy: IfNotPresent
+    serviceMonitor:
+      enabled: true
+      path: /metrics
+    extraExposePorts: []
+     # - name: keycloak
+     #   port: 8080
+     #   targetPort: 8080
+     #   type: ClusterIP
+    ingress:
+      enabled: true
+      ingressClassName: traefik-external
+      annotations:
+        external-dns/public: "true"
+        external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "chart-bar-stacked"
+        hajimari.io/appName: "Grafana"
+        hajimari.io/group: "Home"
+      path: /
+      # pathType is only for k8s >= 1.1=
+      pathType: Prefix
+      hosts:
+        - grafana.${SECRET_DOMAIN}
+      extraPaths: []
+      # - path: /*
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: ssl-redirect
+      #       port:
+      #         name: use-annotation
+      tls:
+        - secretName: crj-wildcard-certificate
+          hosts:
+            - grafana.${SECRET_DOMAIN}
+
+    resources: {}
+    #  limits:
+    #    cpu: 100m
+    #    memory: 128Mi
+    #  requests:
+    #    cpu: 100m
+    #    memory: 128Mi
+
+    ## Node labels for pod assignment
+    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+    #
+    nodeSelector:
+      kubernetes.io/arch: "amd64"
+    ## Enable an Specify container in extraContainers. This is meant to allow adding an authentication proxy to a grafana pod
+    extraContainers: ""
+    # extraContainers: |
+    # - name: proxy
+    #   image: quay.io/gambol99/keycloak-proxy:latest
+    #   args:
+    #   - -provider=github
+    #   - -client-id=
+    #   - -client-secret=
+    #   - -github-org=<ORG_NAME>
+    #   - -email-domain=*
+    #   - -cookie-secret=
+    #   - -http-address=http://0.0.0.0:4181
+    #   - -upstream-url=http://127.0.0.1:3000
+    #   ports:
+    #     - name: proxy-web
+    #       containerPort: 4181
+    persistence:
+      enabled: true
+      existingClaim: grafana-data-rook
+    admin:
+      existingSecret: "grafana-admin-secrets"
+      userKey: admin-user
+      passwordKey: admin-password
+    plugins:
+      - digrich-bubblechart-panel
+      - natel-discrete-panel
+      - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://kube-prometheus-kube-prome-prometheus.observability.svc.cluster.local:9090
+            access: proxy
+            isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki.observability.svc.cluster.local:3100
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        ##############
+        # Prometheus #
+        ##############
+        # dns metrics
+        blocky:
+          url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11315
+        unifi-client-insights:
+          gnetId: 11315
+          revision: 8
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11311
+        unifi-network-sites:
+          gnetId: 11311
+          revision: 4
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11314
+        unifi-uap-insights:
+          gnetId: 11314
+          revision: 9
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/11312
+        unifi-usw-insights:
+          gnetId: 11312
+          revision: 8
+          datasource: Prometheus
+        # Ref: Longhorn
+        # https://longhorn.io/docs/1.1.0/monitoring/prometheus_and_grafana_setup/
+        # https://grafana.com/grafana/dashboards/13032
+        longhorn-storage:
+          gnetId: 13032
+          revision: 6
+          datasource: Prometheus
+        # https://grafana.com/grafana/dashboards/14055
+        loki-stack-monitoring:
+          gnetId: 14055
+          revision: 5
+          datasource: Prometheus
+        # https://grafana.com/grafana/dashboards/1860
+        node-exporter-full:
+          gnetId: 1860
+          revision: 23
+          datasource: Prometheus
+        # hopefully https://github.com/xperimental/nextcloud-exporter
+        nextcloud:
+          gnetId: 9632
+          revision: 1
+          datasource: Prometheus
+        # https://github.com/ncabatoff/zfs-exporter
+        zfs-on-linux:
+          gnetId: 328
+          revision: 1
+          datasource: Prometheus
+        zfs-node-exporter:
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
+        upsc-dashboard:
+          gnetId: 13116
+          revision: 1
+          datasource: Prometheus
+        nextcloud-exporter-dashboard:
+          gnetId: 11033
+          revision: 1
+          datasource: Prometheus
+        ###################
+        # Loki Dashboards #
+        ###################
+        logging-dash-loki:
+          url: https://raw.githubusercontent.com/crutonjohn/gitops/main/clusters/apps/env/production/observability/grafana/dashboards/loki-logging.json
+          token: ''
+        logging-traefik:
+          gnetId: 13713
+          revision: 2
+          datasource: Loki
+        logging-troubleshoot-k8s:
+          gnetId: 15196
+          revision: 3
+          datasource: Loki
+    grafana.ini:
+      server:
+        root_url: "https://grafana.${SECRET_DOMAIN}"
+      auth.basic:
+        disable_login_form: false
+      smtp:
+        enabled: true
+        host: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
+        user: "${SMTP_USERNAME}"
+        password: "${SMTP_PASSWORD}"
+        from_address: "${SMTP_FROM}"
+        from_name: Grafana
+      paths:
+        data: /var/lib/grafana/
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      analytics:
+        check_for_updates: true
+      log:
+        mode: console
+      grafana_net:
+        url: https://grafana.net
+    revisionHistoryLimit: 3

@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: changedetection
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: changedetection-io
+      version: 1.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  values:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik-internal"
+        hosts:
+          - host: status.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "status.${SECRET_DOMAIN}"
+            secretName: "crj-wildcard-certificate"
+    persistence:
+      data:
+        enabled: true
+        mountPath: /datastore
+        existingClaim: changedetection-config-rook

@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gateway
+spec:
+  values:
+    serviceAccount:
+      # If set, a service account will be created. Otherwise, the default is used
+      create: true
+      # Annotations to add to the service account
+      annotations: {}
+      # The name of the service account to use.
+      # If not set, the release name is used
+      name: ""
+    podAnnotations:
+      prometheus.io/port: "15020"
+      prometheus.io/scrape: "true"
+      prometheus.io/path: "/stats/prometheus"
+      inject.istio.io/templates: "gateway"
+      sidecar.istio.io/inject: "true"
+
+    # Define the security context for the pod.
+    # If unset, this will be automatically set to the minimum privileges required to bind to port 80 and 443.
+    # On Kubernetes 1.22+, this only requires the `net.ipv4.ip_unprivileged_port_start` sysctl.
+    securityContext:
+      fsGroup: 1122
+      runAsNonRoot: true
+      runAsUser: 1122
+      runAsGroup: 1122
+      sysctls:
+        - name: net.ipv4.ip_unprivileged_port_start
+          value: "0"
+    containerSecurityContext:
+      runAsNonRoot: true
+      runAsGroup: 1122
+      runAsUser: 1122
+      readOnlyRootFilesystem: true
+    service:
+      type: LoadBalancer
+      ports:
+        - name: status-port
+          port: 15021
+          protocol: TCP
+          targetPort: 15021
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443
+      annotations: {}
+      loadBalancerIP: "192.168.130.112"
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: "Local"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 2000m
+        memory: 1024Mi
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 80

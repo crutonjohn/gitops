@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+    nginx.ingress.kubernetes.io/limit-rpm: "1"
+  name: webhook-receiver
+  namespace: flux-system
+spec:
+  ingressClassName: traefik-external
+  rules:
+    - host: receiver.${SECRET_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - receiver.${SECRET_DOMAIN}
+      secretName: "crj-wildcard-certificate"
