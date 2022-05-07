@@ -11,6 +11,8 @@ spec:
           enabled: true
           port: 443
           ip: ${CLUSTER_LB_STACKROX}
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
       resources:
         requests:
           memory: "512Mi"
