@@ -4,6 +4,11 @@ kind: HelmRelease
 metadata:
   name: gateway
 spec:
+  dependsOn:
+    - name: istio-base
+      namespace: istio-system
+    - name: istiod
+      namespace: istio-system
   values:
     serviceAccount:
       # If set, a service account will be created. Otherwise, the default is used
