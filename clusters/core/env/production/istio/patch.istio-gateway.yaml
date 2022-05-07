@@ -4,6 +4,7 @@ kind: HelmRelease
 metadata:
   name: gateway
 spec:
+  dependsOn: []
   values:
     serviceAccount:
       # If set, a service account will be created. Otherwise, the default is used
