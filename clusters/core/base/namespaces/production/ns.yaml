@@ -37,13 +37,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: istio-system
-  labels:
-    topology.istio.io/network: network1
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: stackrox
 ---
 apiVersion: v1
