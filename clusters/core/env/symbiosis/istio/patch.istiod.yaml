@@ -201,7 +201,7 @@ spec:
             cpu: 10m
             memory: 10Mi
       jwtPolicy: "third-party-jwt"
-      meshID: "${SECRET_DOMAIN}"
+      meshID: "mesh1"
 
       # Configure the mesh networks to be used by the Split Horizon EDS.
       #
@@ -229,8 +229,20 @@ spec:
       #     gateways:
       #     - registryServiceName: istio-ingressgateway.istio-system.svc.cluster.local
       #       port: 443
-      #
-      meshNetworks: {}
+      #    10.124.0.0/14
+      meshNetworks:
+        network1:
+          endpoints:
+            - fromCidr: "10.43.0.0/16"
+          gateways:
+            - address: ${DYNAMIC_DOMAIN}
+              port: 15443
+        network2:
+          endpoints:
+            - fromCidr: "10.124.0.0/14"
+          gateways:
+            - registryServiceName: gateway-east-west.istio-system.svc.cluster.local
+              port: 15443
 
       # Use the user-specified, secret volume mounted key and certs for Pilot and workloads.
       mountMtlsCerts: false
@@ -240,14 +252,14 @@ spec:
         # ingressgateway services when pods in each cluster cannot directly
         # talk to one another. All clusters should be using Istio mTLS and must
         # have a shared root CA for this model to work.
-        enabled: false
+        enabled: true
         # Should be set to the name of the cluster this installation will run in. This is required for sidecar injection
         # to properly label proxies
-        clusterName: "crutonjohn-home"
+        clusterName: "cloud-one"
 
       # Network defines the network this cluster belong to. This name
       # corresponds to the networks in the map of mesh networks.
-      network: ""
+      network: "network2"
 
       # Configure the certificate provider for control plane communication.
       # Currently, two providers are supported: "kubernetes" and "istiod".

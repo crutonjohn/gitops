@@ -15,10 +15,6 @@ spec:
         namespace: flux-system
       interval: 5m
   dependsOn:
-    - name: istio-base
-      namespace: istio-system
-    - name: istiod
-      namespace: istio-system
     - name: traefik-external
       namespace: network-system
     - name: ceph-cluster

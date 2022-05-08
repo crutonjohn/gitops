@@ -17,10 +17,6 @@ spec:
   dependsOn:
     - name: traefik-internal
       namespace: network-system
-    - name: istio-base
-      namespace: istio-system
-    - name: istiod
-      namespace: istio-system
     - name: ceph-cluster
       namespace: rook-ceph
   values:

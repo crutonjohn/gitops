@@ -14,10 +14,6 @@ spec:
         name: crutonjohn-charts
         namespace: flux-system
   dependsOn:
-    - name: istio-base
-      namespace: istio-system
-    - name: istiod
-      namespace: istio-system
     - name: traefik-internal
       namespace: network-system
     - name: ceph-cluster

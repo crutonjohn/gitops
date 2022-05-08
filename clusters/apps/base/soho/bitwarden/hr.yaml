@@ -14,10 +14,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   dependsOn:
-    - name: istio-base
-      namespace: istio-system
-    - name: istiod
-      namespace: istio-system
     - name: traefik-external
       namespace: network-system
     - name: ceph-cluster
