@@ -7,6 +7,6 @@ metadata:
 spec:
   type: discord
   channel: cluster-notifications
-  username: Flux -- Symbiosis
+  username: Flux -- LKE
   secretRef:
     name: webhook-url

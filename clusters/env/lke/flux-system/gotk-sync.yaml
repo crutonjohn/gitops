@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/env/symbiosis
+  path: ./clusters/env/lke
   prune: true
   sourceRef:
     kind: GitRepository
