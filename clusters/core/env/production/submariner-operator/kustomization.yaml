@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: submariner-operator
 resources:
   - ../../../base/applications/submariner/operator
-  - ../../../base/applications/submariner/broker
+  # - ../../../base/applications/submariner/broker
   - calico-patch.yaml
 patchesStrategicMerge:
   - patch.submariner-operator.yaml
