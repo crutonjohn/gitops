@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: submariner-charts
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://submariner-io.github.io/submariner-charts/charts
+  timeout: 3m

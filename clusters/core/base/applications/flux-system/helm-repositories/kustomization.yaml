@@ -36,6 +36,7 @@ resources:
   - rook-ceph-charts.yaml
   - stackrox-charts.yaml
   - stakater-charts.yaml
+  - submariner-charts.yaml
   - tanzu-charts.yaml
   - traefik-charts.yaml
   - trilio-charts.yaml

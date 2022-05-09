@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: submariner-operator
+spec:
+  values:
+    ipsec:
+      psk: "${SUBMARINER_PSK}"
+    broker:
+      server: "${SUBMARINER_BROKER_URL}"
+      token: "${SUBMARINER_BROKER_TOKEN}"
+      namespace: "submariner-operator"
+      ca: "${SUBMARINER_BROKER_CA}"
+      globalnet: "true"
+    submariner:
+      serviceDiscovery: true
+      cableDriver: libreswan # or wireguard or vxlan
+      clusterId: "cloud-one"
+      clusterCidr: "10.42.0.0/16"
+      serviceCidr: "10.43.0.0/16"
+      globalCidr: "${SUBMARINER_GLOBAL_CIDR_HOME_PROD}"
+      natEnabled: "true"
+    serviceAccounts:
+      globalnet:
+        create: "true"
+      lighthouseAgent:
+        create: true
+      lighthouseCoreDns:
+        create: true
