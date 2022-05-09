@@ -6,12 +6,12 @@ metadata:
 spec:
   values:
     ipsec:
-      psk: "${SUBMARINER_PSK}"
+      psk: ${SUBMARINER_PSK}
     broker:
-      server: "${SUBMARINER_BROKER_URL}"
-      token: "${SUBMARINER_BROKER_TOKEN}"
+      server: ${SUBMARINER_BROKER_URL}
+      token: ${SUBMARINER_BROKER_TOKEN}
       namespace: "submariner-operator"
-      ca: "${SUBMARINER_BROKER_CA}"
+      ca: ${SUBMARINER_BROKER_CA}
       globalnet: "true"
     submariner:
       serviceDiscovery: true
@@ -19,7 +19,7 @@ spec:
       clusterId: "cloud-one"
       clusterCidr: "10.129.0.0/16"
       serviceCidr: "10.124.0.0/14"
-      globalCidr: "${SUBMARINER_GLOBAL_CIDR_CLOUD_ONE}"
+      globalCidr: ${SUBMARINER_GLOBAL_CIDR_CLOUD_ONE}
       natEnabled: "true"
     serviceAccounts:
       globalnet:
