@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - network-system
   - submariner-broker
+  - submariner-operator
