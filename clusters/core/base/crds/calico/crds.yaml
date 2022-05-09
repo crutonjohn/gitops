@@ -14,7 +14,7 @@ spec:
     # exclude all
     /*
     # include deploy crds dir
-    !/calico/manifests/crds.yaml
+    !/calico/_includes/charts/calico/crds/kdd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
