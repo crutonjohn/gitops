@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - calico
   - cert-manager
-  - istio-base
   - kube-prometheus
   - external-dns
   - external-snapshotter
