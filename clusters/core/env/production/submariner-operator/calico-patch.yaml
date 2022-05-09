@@ -1,5 +1,5 @@
 ---
-apiVersion: crd.projectcalico.org/v1
+apiVersion: projectcalico.org/v3
 kind: IPPool
 metadata:
   name: svc-cloud-one-subnet
@@ -8,7 +8,7 @@ spec:
   natOutgoing: false
   disabled: true
 ---
-apiVersion: crd.projectcalico.org/v1
+apiVersion: projectcalico.org/v3
 kind: IPPool
 metadata:
   name: pod-cloud-one-subnet
