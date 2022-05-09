@@ -9,7 +9,7 @@ spec:
   # renovate: datasource=github-releases
   url: https://github.com/submariner-io/submariner-charts.git
   ref:
-    tag: release-0.11
+    tag: v0.12.0
   ignore: |
     # exclude all
     /*

@@ -9,7 +9,7 @@ spec:
   # renovate: datasource=github-releases
   url: https://github.com/projectcalico/calico.git
   ref:
-    tag: release-v3.22
+    tag: v3.22.2
   ignore: |
     # exclude all
     /*
