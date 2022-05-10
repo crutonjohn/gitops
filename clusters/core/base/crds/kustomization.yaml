@@ -2,12 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - calico
   - cert-manager
   - kube-prometheus
+  - linkerd
   - external-dns
   - external-snapshotter
   - rook-ceph
-  - submariner
   - system-upgrade-controller
   - traefik

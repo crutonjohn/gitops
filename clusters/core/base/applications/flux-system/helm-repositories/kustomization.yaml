@@ -24,6 +24,7 @@ resources:
   - kubernetes-nginx-ingress.yaml
   - kubernetes-sigs-charts.yaml
   - kubernetes-stable-charts.yaml
+  - linkerd-charts.yaml
   - litmuschaos-charts.yaml
   - longhorn-charts.yaml
   - metallb-charts.yaml

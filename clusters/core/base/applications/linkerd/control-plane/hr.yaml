@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd
+spec:
+  interval: 5m
+  install:
+    createNamespace: true
+  chart:
+    spec:
+      chart: linkerd2
+      version: 2.11.2
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd-charts
+        namespace: flux-system
+  dependsOn:
+    - name: linkerd-crds
+      namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: linkerd-certs
+      valuesKey: ca.crt
+      targetPath: identityTrustAnchorsPEM
+      optional: false
+    - kind: Secret
+      name: linkerd-certs
+      valuesKey: issuer.crt
+      targetPath: identity.issuer.tls.crtPEM
+      optional: false
+    - kind: Secret
+      name: linkerd-certs
+      valuesKey: issuer.key
+      targetPath: identity.issuer.tls.keyPEM
+      optional: false

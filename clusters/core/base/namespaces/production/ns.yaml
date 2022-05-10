@@ -12,6 +12,13 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: linkerd
+  labels:
+    config.linkerd.io/admission-webhooks: disabled
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: media
 ---
 apiVersion: v1
@@ -27,12 +34,12 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: soho
+  name: rook-ceph
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rook-ceph
+  name: soho
 ---
 apiVersion: v1
 kind: Namespace

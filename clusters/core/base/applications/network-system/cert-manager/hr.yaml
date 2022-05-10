@@ -13,8 +13,6 @@ spec:
         kind: HelmRepository
         name: jetstack-charts
         namespace: flux-system
-  ## hack to wait on AWS credentials
   dependsOn:
     - name: external-dns
       namespace: network-system
-# end hack
