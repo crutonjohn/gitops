@@ -15,9 +15,9 @@ spec:
         kind: HelmRepository
         name: linkerd-charts
         namespace: flux-system
-  dependsOn:
-    - name: linkerd-crds
-      namespace: flux-system
+  # dependsOn:
+  #   - name: linkerd-crds
+  #     namespace: flux-system
   valuesFrom:
     - kind: Secret
       name: linkerd-certs
