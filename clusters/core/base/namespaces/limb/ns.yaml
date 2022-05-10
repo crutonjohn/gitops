@@ -10,3 +10,8 @@ metadata:
   name: linkerd
   labels:
     config.linkerd.io/admission-webhooks: disabled
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: linkerd-multicluster

@@ -1,0 +1,11 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd-multi-cluster
+  namespace: linkerd-multicluster
+spec:
+  values:
+    gateway:
+      serviceType: LoadBalancer
+      loadBalancerIP: ${CLUSTER_LB_LINKERD}
