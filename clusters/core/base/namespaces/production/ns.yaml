@@ -42,9 +42,4 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: submariner-operator
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: trilio
