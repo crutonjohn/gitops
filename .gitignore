@@ -26,3 +26,8 @@ provision/kubeconfig
 
 # Vim
 *.swp
+
+# Terraform
+.terraform
+*.tfstate
+vars.tf
