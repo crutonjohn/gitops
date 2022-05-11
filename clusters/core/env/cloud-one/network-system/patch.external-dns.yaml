@@ -37,8 +37,6 @@ spec:
     sources:
       - ingress
       - service
-      - istio-virtualservice
-      - istio-gateway
     txtOwnerId: "k8s."
     crd:
       create: false
