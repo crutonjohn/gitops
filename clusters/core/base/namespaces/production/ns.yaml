@@ -19,11 +19,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: linkerd-multicluster
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: media
 ---
 apiVersion: v1
