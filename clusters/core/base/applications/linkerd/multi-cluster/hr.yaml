@@ -5,12 +5,10 @@ metadata:
   name: linkerd-multicluster
 spec:
   interval: 5m
-  install:
-    createNamespace: true
   chart:
     spec:
-      chart: linkerd2-multicluster
-      version: 2.9.6
+      chart: linkerd-multicluster
+      version: 2.11.2
       sourceRef:
         kind: HelmRepository
         name: linkerd-charts
