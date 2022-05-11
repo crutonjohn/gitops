@@ -43,6 +43,6 @@ spec:
           limit: 100Mi
           request: 50Mi
     grafana:
-      enabled: false
+      enabled: true
     prometheus:
-      enabled: false
+      enabled: true
