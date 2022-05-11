@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - ../../../base/applications/linkerd/control-plane
   - ../../../base/applications/linkerd/multi-cluster
+  - ../../../base/applications/linkerd/viz
 patchesStrategicMerge:
   - patch.control-plane.yaml
   - patch.multi-cluster.yaml
+  - patch.viz.yaml
