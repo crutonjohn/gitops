@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/env/limb/config
+  path: ./clusters/env/cloud-one/config
   prune: false
   sourceRef:
     kind: GitRepository
@@ -28,7 +28,7 @@ spec:
     - name: secrets
     - name: namespaces
     - name: crds
-  path: ./clusters/apps/env/limb
+  path: ./clusters/apps/env/cloud-one
   prune: true
   sourceRef:
     kind: GitRepository
@@ -57,7 +57,7 @@ spec:
     - name: secrets
     - name: namespaces
     - name: crds
-  path: ./clusters/core/env/limb
+  path: ./clusters/core/env/cloud-one
   prune: false
   sourceRef:
     kind: GitRepository
@@ -97,7 +97,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h0m0s
-  path: ./clusters/core/base/namespaces/limb
+  path: ./clusters/core/base/namespaces/cloud-one
   prune: false
   sourceRef:
     kind: GitRepository

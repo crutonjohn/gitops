@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/env/limb
+  path: ./clusters/env/cloud-one
   prune: true
   sourceRef:
     kind: GitRepository
