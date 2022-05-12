@@ -15,11 +15,10 @@ spec:
         namespace: flux-system
   values:
     replicaCount: 1
-    inletsProLicense: ""
+    inletsProLicense: "${INLETS_PRO_LICENSE}"
     provider: "digitalocean"
     region: "nyc3"
     accessKeyFile: "/var/secrets/inlets/inlets-access-key"
-    # Only provide LoadBalancers for Services annotated with "dev.inlets.manage=true"
     annotatedOnly: true
     resources:
       requests:
