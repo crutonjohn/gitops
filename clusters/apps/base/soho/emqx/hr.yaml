@@ -21,7 +21,7 @@ spec:
       namespace: network-system
     - name: ceph-cluster
       namespace: rook-ceph
-  timout: 10m0s
+  timeout: 10m0s
   values:
     image:
       repository: public.ecr.aws/emqx/emqx
