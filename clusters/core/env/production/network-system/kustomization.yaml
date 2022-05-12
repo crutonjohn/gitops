@@ -7,6 +7,7 @@ resources:
   - aws-creds.enc.yaml
   - ../../../base/applications/network-system/external-dns
   - ../../../base/applications/network-system/metallb
+  - ../../../base/applications/network-system/inlets-operator
   - cert-manager
 patchesStrategicMerge:
   - patch.metallb.yaml
