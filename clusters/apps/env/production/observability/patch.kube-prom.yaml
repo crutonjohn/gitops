@@ -65,7 +65,8 @@ spec:
               - "alerts.${SECRET_DOMAIN}"
       alertmanagerSpec:
         podMetadata:
-          linkerd.io/inject: enabled
+          annotations:
+            linkerd.io/inject: enabled
         storage:
           volumeClaimTemplate:
             spec:
@@ -225,7 +226,8 @@ spec:
                 requests:
                   storage: 10Gi
         podMetadata:
-          linkerd.io/inject: enabled
+          annotations:
+            linkerd.io/inject: enabled
         resources:
           requests:
             cpu: 587m
