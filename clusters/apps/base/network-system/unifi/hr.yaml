@@ -16,4 +16,4 @@ spec:
   values:
     image:
       repository: jacobalberty/unifi
-      tag: v7.1.61
+      tag: v7.1.65
