@@ -64,6 +64,8 @@ spec:
             hosts:
               - "alerts.${SECRET_DOMAIN}"
       alertmanagerSpec:
+        podMetadata:
+          linkerd.io/inject: enabled
         storage:
           volumeClaimTemplate:
             spec:
@@ -153,6 +155,11 @@ spec:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
 
+    prometheus-node-exporter:
+      podAnnotations:
+        linkerd.io/inject: enabled
+    ## Prometheus Operator
+    #
     prometheusOperator:
       admissionWebhooks:
         patch:
@@ -178,6 +185,8 @@ spec:
           limits:
             cpu: 100m
             memory: 50Mi
+    ## Prometheus instance
+    #
     prometheus:
       ingress:
         enabled: true
@@ -215,6 +224,8 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
+        podMetadata:
+          linkerd.io/inject: enabled
         resources:
           requests:
             cpu: 587m
