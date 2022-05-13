@@ -108,8 +108,12 @@ spec:
         - 192.168.130.33
       service:
         enabled: true
-        port: 10252
-        targetPort: 10252
+        port: 10257
+        targetPort: 10257
+      serviceMonitor:
+        enabled: true
+        https: true
+        insecureSkipVerify: true
 
     coreDns:
       enabled: true
