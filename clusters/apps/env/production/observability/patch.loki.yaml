@@ -42,5 +42,10 @@ spec:
         port: 1514
         externalIPs:
           - ${CLUSTER_LB_LOKI}
-    nodeSelector:
-      kubernetes.io/arch: "amd64"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
