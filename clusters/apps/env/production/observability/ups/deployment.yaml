@@ -41,6 +41,13 @@ spec:
           volumeMounts:
             - mountPath: /dev/ups
               name: ups
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
         - name: exporter-tesla
           image: jzck/upsc-exporter:latest
           env:
@@ -49,6 +56,13 @@ spec:
           ports:
             - containerPort: 9614
               name: metrics
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
       restartPolicy: Always
       nodeSelector:
         feature.node.kubernetes.io/custom-cyberpower-ups: "true"
@@ -99,6 +113,13 @@ spec:
           volumeMounts:
             - mountPath: /dev/ups
               name: ups
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
         - name: exporter-edison
           image: jzck/upsc-exporter:latest
           env:
@@ -107,6 +128,13 @@ spec:
           ports:
             - containerPort: 9614
               name: metrics
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
       restartPolicy: Always
       nodeSelector:
         feature.node.kubernetes.io/custom-cyberpower-ups: "true"

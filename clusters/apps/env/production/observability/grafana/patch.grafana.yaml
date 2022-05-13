@@ -5,6 +5,8 @@ metadata:
   name: grafana
 spec:
   values:
+    podAnnotations:
+      linkerd.io/inject: enabled
     replicas: 1
     downloadDashboardsImage:
       repository: curlimages/curl
@@ -46,20 +48,13 @@ spec:
         - secretName: crj-wildcard-certificate
           hosts:
             - grafana.${SECRET_DOMAIN}
-
-    resources: {}
-    #  limits:
-    #    cpu: 100m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 128Mi
-
-    ## Node labels for pod assignment
-    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
-    #
-    nodeSelector:
-      kubernetes.io/arch: "amd64"
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 150m
+        memory: 128Mi
     ## Enable an Specify container in extraContainers. This is meant to allow adding an authentication proxy to a grafana pod
     extraContainers: ""
     # extraContainers: |
@@ -146,13 +141,6 @@ spec:
           gnetId: 11312
           revision: 8
           datasource: Prometheus
-        # Ref: Longhorn
-        # https://longhorn.io/docs/1.1.0/monitoring/prometheus_and_grafana_setup/
-        # https://grafana.com/grafana/dashboards/13032
-        longhorn-storage:
-          gnetId: 13032
-          revision: 6
-          datasource: Prometheus
         # https://grafana.com/grafana/dashboards/14055
         loki-stack-monitoring:
           gnetId: 14055
@@ -168,6 +156,7 @@ spec:
           gnetId: 9632
           revision: 1
           datasource: Prometheus
+        ## ZFS
         # https://github.com/ncabatoff/zfs-exporter
         zfs-on-linux:
           gnetId: 328
@@ -185,7 +174,87 @@ spec:
           gnetId: 11033
           revision: 1
           datasource: Prometheus
-        ###################
+        ## rook-ceph
+        # https://grafana.com/grafana/dashboards/2842
+        rook-ceph-dashboard:
+          gnetId: 2842
+          revision: 14
+          datasource: Prometheus
+        ######################
+        # Linkerd Dashboards #
+        ######################
+        top-line:
+          gnetId: 15474
+          revision: 3
+          datasource: prometheus
+        health:
+          gnetId: 15486
+          revision: 2
+          datasource: prometheus
+        kubernetes:
+          gnetId: 15479
+          revision: 2
+          datasource: prometheus
+        namespace:
+          gnetId: 15478
+          revision: 2
+          datasource: prometheus
+        deployment:
+          gnetId: 15475
+          revision: 5
+          datasource: prometheus
+        pod:
+          gnetId: 15477
+          revision: 2
+          datasource: prometheus
+        service:
+          gnetId: 15480
+          revision: 2
+          datasource: prometheus
+        route:
+          gnetId: 15481
+          revision: 2
+          datasource: prometheus
+        authority:
+          gnetId: 15482
+          revision: 2
+          datasource: prometheus
+        cronjob:
+          gnetId: 15483
+          revision: 2
+          datasource: prometheus
+        job:
+          gnetId: 15487
+          revision: 2
+          datasource: prometheus
+        daemonset:
+          gnetId: 15484
+          revision: 2
+          datasource: prometheus
+        replicaset:
+          gnetId: 15491
+          revision: 2
+          datasource: prometheus
+        statefulset:
+          gnetId: 15493
+          revision: 2
+          datasource: prometheus
+        replicationcontroller:
+          gnetId: 15492
+          revision: 2
+          datasource: prometheus
+        prometheus:
+          gnetId: 15489
+          revision: 2
+          datasource: prometheus
+        prometheus-benchmark:
+          gnetId: 15490
+          revision: 2
+          datasource: prometheus
+        multicluster:
+          gnetId: 15488
+          revision: 2
+          datasource: prometheus
         # Loki Dashboards #
         ###################
         logging-dash-loki:
