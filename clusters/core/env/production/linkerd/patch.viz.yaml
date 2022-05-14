@@ -7,8 +7,8 @@ spec:
   values:
     nodeSelector:
       kubernetes.io/arch: amd64
-    prometheusUrl: "https://prometheus.${SECRET_DOMAIN}"
-    grafanaUrl: "http://grafana.${SECRET_DOMAIN}"
+    prometheusUrl: "http://kube-prometheus-kube-prome-prometheus:9090"
+    grafanaUrl: "http://grafana:80"
     jaegerUrl: ""
     # metrics API configuration
     metricsAPI:
