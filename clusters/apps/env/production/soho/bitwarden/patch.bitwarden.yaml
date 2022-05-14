@@ -5,7 +5,7 @@ metadata:
   name: bitwarden
 spec:
   values:
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     ingress:
       main:
