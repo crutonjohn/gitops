@@ -18,10 +18,9 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
-        labels:
     controller:
       podLabels:
-        sidecar.istio.io/inject: "true"
+        linkerd.io/inject: enabled
       prometheus:
         serviceMonitor:
           enabled: true
