@@ -138,11 +138,17 @@ spec:
         targetPort: 2381
 
     kubeScheduler:
-      enabled: false
-
+      enabled: true
+      endpoints:
+        - 192.168.130.31
+        - 192.168.130.32
+        - 192.168.130.33
     kubeProxy:
-      enabled: false
-
+      enabled: true
+      endpoints:
+        - 192.168.130.31
+        - 192.168.130.32
+        - 192.168.130.33
     kubeStateMetrics:
       enabled: true
 
