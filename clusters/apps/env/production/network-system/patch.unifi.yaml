@@ -23,10 +23,10 @@ spec:
         externalTrafficPolicy: Local
     resources:
       requests:
-        cpu: 10m
+        cpu: 300m
         memory: 762M
       limits:
-        cpu: 200m
+        cpu: 500m
         memory: 2274M
     ingress:
       main:
