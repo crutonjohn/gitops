@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     podLabels:
-      sidecar.istio.io/inject: "true"
+      linkerd.io/inject: enabled
     service:
       main:
         ports:
