@@ -5,8 +5,6 @@ metadata:
   name: navidrome
 spec:
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     podSecurityContext:
       fsGroup: 1177
       runAsNonRoot: true
