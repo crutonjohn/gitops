@@ -1,0 +1,32 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bitwarden-vaultwarden
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`bitwarden.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-bitwarden-middleware
+          namespace: soho
+      services:
+        - name: bitwarden-vaultwarden
+          port: 80
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: bitwarden.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-bitwarden-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "bitwarden-vaultwarden.soho.svc.cluster.local:80"
