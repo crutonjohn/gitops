@@ -14,3 +14,5 @@ spec:
         memory: 256Mi
     nodeSelector:
       kubernetes.io/arch: "amd64"
+    monitoring:
+      enabled: true
