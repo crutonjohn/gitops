@@ -5,8 +5,8 @@ metadata:
   name: bitwarden
 spec:
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+    podLabels:
+      linkerd.io/inject: enabled
     ingress:
       main:
         enabled: true

@@ -5,6 +5,8 @@ metadata:
   name: hajimari
 spec:
   values:
+    podLabels:
+      linkerd.io/inject: enabled
     resources:
       requests:
         memory: 20Mi
