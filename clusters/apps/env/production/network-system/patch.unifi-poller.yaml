@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     podLabels:
-      sidecar.istio.io/inject: "true"
+      linkerd.io/inject: enabled
     env:
       TZ: "America/New_York"
       UP_UNIFI_DEFAULT_ROLE: "homelab-controller"
@@ -28,5 +28,5 @@ spec:
         cpu: 10m
         memory: 27M
       limits:
-        cpu: 32m
+        cpu: 50m
         memory: 71M
