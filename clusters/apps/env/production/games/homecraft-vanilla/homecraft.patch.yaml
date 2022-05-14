@@ -19,13 +19,14 @@ spec:
         memory: 512Mi
         cpu: 500m
       limits:
-        cpu: 1
+        cpu: 2
+        memory: 8192
     securityContext:
       # Security context settings
       runAsUser: 5506
       fsGroup: 5506
-    podAnnotations:
-      linkerd.io/inject: enabled
+    # podAnnotations:
+    #   linkerd.io/inject: enabled
     minecraftServer:
       eula: "TRUE"
       version: "LATEST"
@@ -56,7 +57,7 @@ spec:
       forceReDownload: false
       removeOldMods: false
       onlineMode: true
-      memory: 4096M
+      memory: 6144M
       jvmOpts: ""
       jvmXXOpts: ""
       serviceType: LoadBalancer
