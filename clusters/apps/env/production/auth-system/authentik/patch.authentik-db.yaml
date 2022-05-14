@@ -28,8 +28,6 @@ spec:
       containerSecurityContext:
         enabled: true
         runAsUser: 1100
-      podAnnotations:
-        backup.velero.io/backup-volumes: data
       persistence:
         enabled: true
         existingClaim: "authentik-db-rook"
