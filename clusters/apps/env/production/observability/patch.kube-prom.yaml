@@ -120,11 +120,6 @@ spec:
       service:
         port: 9153
         targetPort: 9153
-      serviceMonitor:
-        interval: ""
-        proxyUrl: ""
-        metricRelabelings: []
-        relabelings: []
 
     kubeEtcd:
       enabled: true
@@ -143,12 +138,18 @@ spec:
         - 192.168.130.31
         - 192.168.130.32
         - 192.168.130.33
+      service:
+        enabled: true
+        port: 10249
+        targetPort: 10249
+
     kubeProxy:
-      enabled: true
+      enabled: false
       endpoints:
         - 192.168.130.31
         - 192.168.130.32
         - 192.168.130.33
+
     kubeStateMetrics:
       enabled: true
 
@@ -248,31 +249,6 @@ spec:
           - job_name: 'prometheus'
             static_configs:
               - targets: ['localhost:9090']
-          #  Required for: https://grafana.com/grafana/dashboards/315
-          - job_name: 'kubernetes-nodes-cadvisor'
-            scheme: https
-            tls_config:
-              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-              insecure_skip_verify: true
-            bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
-            kubernetes_sd_configs:
-              - role: node
-            relabel_configs:
-              - action: labelmap
-                regex: __meta_kubernetes_node_label_(.+)
-              - target_label: __address__
-                replacement: kubernetes.default.svc:443
-              - source_labels: [__meta_kubernetes_node_name]
-                regex: (.+)
-                target_label: __metrics_path__
-                replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
-            metric_relabel_configs:
-              - source_labels: [__name__]
-                regex: '(container|machine)_(cpu|memory|network|fs)_(.+)'
-                action: keep
-              - source_labels: [__name__]
-                regex: 'container_memory_failures_total' # unneeded large metric
-                action: drop
           - job_name: 'linkerd-controller'
             kubernetes_sd_configs:
               - role: pod
