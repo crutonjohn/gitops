@@ -7,7 +7,7 @@ spec:
   interval: 5m
   values:
     podLabels:
-      sidecar.istio.io/inject: "true"
+      linkerd.io/inject: enabled
     fullnameOverride: cert-manager
     installCRDs: false
     cainjector:
