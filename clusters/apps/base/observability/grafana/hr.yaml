@@ -18,6 +18,7 @@ spec:
       namespace: network-system
     - name: ceph-cluster
       namespace: rook-ceph
+  timeout: 10m0s
   values:
     image:
       repository: grafana/grafana
