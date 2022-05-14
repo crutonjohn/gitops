@@ -13,7 +13,7 @@ spec:
       match: "Host(`start.${SECRET_DOMAIN}`)"
       middlewares:
         - name: l5d-hajimari-middleware
-          namespace: network-system
+          namespace: soho
       services:
         - name: hajimari
           port: 3000
