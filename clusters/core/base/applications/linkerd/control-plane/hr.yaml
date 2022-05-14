@@ -19,6 +19,10 @@ spec:
   # dependsOn:
   #   - name: linkerd-crds
   #     namespace: flux-system
+  values:
+    identity:
+      issuer:
+        crtExpiry: "2023-05-10T02:52:54Z"
   valuesFrom:
     - kind: Secret
       name: linkerd-certs
