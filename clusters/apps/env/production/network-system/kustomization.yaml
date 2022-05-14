@@ -9,6 +9,8 @@ resources:
   - ../../../base/network-system/unifi-poller
   - traefik/internal
   - traefik/external
+  - ingressroute.librespeed.yaml
+  - ingressroute.unifi.yaml
 patchesStrategicMerge:
   - patch.blocky.yaml
   - patch.unifi.yaml

@@ -1,0 +1,32 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hajimari
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`start.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-hajimari-middleware
+          namespace: network-system
+      services:
+        - name: hajimari
+          port: 3000
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: start.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-hajimari-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "navidrome.media.svc.cluster.local:3000"

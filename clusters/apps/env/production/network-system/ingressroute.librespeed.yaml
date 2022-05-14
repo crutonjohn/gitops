@@ -1,0 +1,32 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: librespeed
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`speedof.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-librespeed-middleware
+          namespace: network-system
+      services:
+        - name: openspeedtest-librespeed
+          port: 3000
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: speedof.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-librespeed-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "openspeedtest-librespeed.network-system.svc.cluster.local:3000"

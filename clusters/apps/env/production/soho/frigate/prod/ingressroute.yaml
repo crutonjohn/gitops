@@ -14,6 +14,8 @@ spec:
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
+        - name: l5d-frigate-middleware-prod
+          namespace: soho
       priority: 10
       services:
         - name: frigate-prod
@@ -23,12 +25,22 @@ spec:
       priority: 15
       services:
         - kind: Service
-          # Or, to use an external Outpost, create an ExternalName service and reference that here.
-          # See https://kubernetes.io/docs/concepts/services-networking/service/#externalname
           name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
           port: 9000
+      middlewares:
+        - name: l5d-authentik-middleware
+          namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
       - main: frigate.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-frigate-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "frigate-prod.soho.svc.cluster.local:5000"

@@ -1,0 +1,33 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: unifi
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`unifi.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-unifi-middleware
+          namespace: network-system
+      services:
+        - name: unifi
+          port: 8443
+          scheme: https
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: unifi.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-unifi-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "unifi.network-system.svc.cluster.local:8443"

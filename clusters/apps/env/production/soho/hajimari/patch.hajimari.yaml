@@ -14,7 +14,7 @@ spec:
         cpu: 50m
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "traefik-external"
         annotations:
           external-dns/public: "true"

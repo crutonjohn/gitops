@@ -30,7 +30,7 @@ spec:
         memory: 2274M
     ingress:
       main:
-        enabled: true
+        enabled: false
         primary: true
         ingressClassName: "traefik-internal"
         annotations:

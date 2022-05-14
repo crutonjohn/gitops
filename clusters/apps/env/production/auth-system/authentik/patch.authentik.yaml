@@ -28,7 +28,7 @@ spec:
       runAsGroup: 1101
     replicas: 1
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: traefik-external
       annotations:
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}

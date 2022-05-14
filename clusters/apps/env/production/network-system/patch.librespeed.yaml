@@ -14,7 +14,7 @@ spec:
             port: 3000
     ingress:
       main:
-        enabled: true
+        enabled: false
         primary: true
         annotations:
           external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
