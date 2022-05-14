@@ -5,7 +5,7 @@ metadata:
   name: openspeedtest
 spec:
   values:
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     service:
       main:

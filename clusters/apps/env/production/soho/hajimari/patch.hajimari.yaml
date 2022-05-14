@@ -5,8 +5,6 @@ metadata:
   name: hajimari
 spec:
   values:
-    podLabels:
-      linkerd.io/inject: enabled
     resources:
       requests:
         memory: 20Mi
@@ -34,6 +32,7 @@ spec:
       TZ: "America/New_York"
     podAnnotations:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
+      linkerd.io/inject: enabled
     persistence:
       data:
         enabled: true

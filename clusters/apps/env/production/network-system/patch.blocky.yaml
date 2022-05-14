@@ -12,8 +12,6 @@ spec:
       limits:
         cpu: 187m
         memory: 486M
-    podLabels:
-      linkerd.io/inject: enabled
     controller:
       enabled: true
       type: deployment
@@ -182,6 +180,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
     podAnnotations:
       configmap.reloader.stakater.com/reload: "blocky-config"
+      linkerd.io/inject: enabled
     metrics:
       enabled: true
       serviceMonitor:

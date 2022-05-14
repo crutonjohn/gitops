@@ -5,7 +5,7 @@ metadata:
   name: unifi
 spec:
   values:
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     persistence:
       data:

@@ -5,7 +5,7 @@ metadata:
   name: lidarr
 spec:
   values:
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     env:
       TZ: America/New_York

@@ -5,7 +5,7 @@ metadata:
   name: unifi-poller
 spec:
   values:
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     env:
       TZ: "America/New_York"
