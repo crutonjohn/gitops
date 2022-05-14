@@ -11,6 +11,7 @@ resources:
   - external-prom-targets
   - ups
   - grafana
+  - linkerd
 patchesStrategicMerge:
   - patch.botkube.yaml
   - patch.loki.yaml
