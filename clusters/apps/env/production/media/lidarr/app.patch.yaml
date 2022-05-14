@@ -11,10 +11,10 @@ spec:
       TZ: America/New_York
     resources:
       requests:
-        cpu: 10m
+        cpu: 20m
         memory: 863M
       limits:
-        cpu: 32m
+        cpu: 100m
         memory: 2538M
     service:
       main:
@@ -81,8 +81,8 @@ spec:
           unknownQueueItems: false
         resources:
           requests:
-            cpu: 10m
+            cpu: 20m
             memory: 24M
           limits:
-            cpu: 32m
+            cpu: 50m
             memory: 70M
