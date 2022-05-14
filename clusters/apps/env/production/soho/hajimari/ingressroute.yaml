@@ -29,4 +29,4 @@ metadata:
 spec:
   headers:
     customRequestHeaders:
-      l5d-dst-override: "navidrome.media.svc.cluster.local:3000"
+      l5d-dst-override: "hajimari.soho.svc.cluster.local:3000"
