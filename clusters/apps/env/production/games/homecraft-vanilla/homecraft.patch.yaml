@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: minecraft
+  name: minecraft-vanilla
 spec:
   interval: 5m
   chart:
@@ -14,8 +14,18 @@ spec:
         name: itzg-minecraft-charts
         namespace: flux-system
   values:
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+      limits:
+        cpu: 1
+    securityContext:
+      # Security context settings
+      runAsUser: 5506
+      fsGroup: 5506
     podAnnotations:
-      backup.velero.io/backup-volumes: datadir
+      linkerd.io/inject: enabled
     minecraftServer:
       eula: "TRUE"
       version: "LATEST"
@@ -24,7 +34,7 @@ spec:
       difficulty: easy
       ops: crutonjohn
       maxPlayers: 20
-      maxWorldSize: 10000
+      maxWorldSize: 15000
       allowNether: true
       announcePlayerAchievements: true
       enableCommandBlock: true
@@ -36,9 +46,9 @@ spec:
       spawnAnimals: true
       spawnMonsters: true
       spawnNPCs: true
-      viewDistance: 25
+      viewDistance: 40
       gameMode: survival
-      motd: "Homecraft by crutonjohn"
+      motd: "Homecraft - Vanilla"
       pvp: false
       levelType: DEFAULT
       generatorSettings:
@@ -46,7 +56,7 @@ spec:
       forceReDownload: false
       removeOldMods: false
       onlineMode: true
-      memory: 1024M
+      memory: 4096M
       jvmOpts: ""
       jvmXXOpts: ""
       serviceType: LoadBalancer
@@ -55,5 +65,3 @@ spec:
       dataDir:
         enabled: true
         existingClaim: homecraft-data-rook
-    nodeSelector:
-      kubernetes.io/arch: "amd64"
