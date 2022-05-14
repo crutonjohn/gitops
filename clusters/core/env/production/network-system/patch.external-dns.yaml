@@ -45,7 +45,7 @@ spec:
       serviceMonitor:
         enabled: true
     podLabels:
-      sidecar.istio.io/inject: "true"
+      linkerd.io/inject: enabled
     resources:
       requests:
         cpu: 10m
