@@ -7,8 +7,8 @@ spec:
   values:
     nodeSelector:
       kubernetes.io/arch: amd64
-    prometheusUrl: "http://kube-prometheus-kube-prome-prometheus:9090"
-    grafanaUrl: "http://grafana:80"
+    prometheusUrl: ""
+    grafanaUrl: "http://grafana.observability.svc.cluster.local:80"
     jaegerUrl: ""
     # metrics API configuration
     metricsAPI:
@@ -46,4 +46,4 @@ spec:
     grafana:
       enabled: false
     prometheus:
-      enabled: false
+      enabled: true
