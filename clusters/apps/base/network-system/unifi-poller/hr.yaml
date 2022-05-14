@@ -16,4 +16,4 @@ spec:
   values:
     image:
       repository: golift/unifi-poller
-      tag: master_linux_i386
+      tag: 2.1.3

@@ -19,14 +19,26 @@ spec:
       UP_INFLUXDB_DISABLE: true
       UP_PROMETHEUS_DISABLE: false
       UP_PROMETHEUS_NAMESPACE: "unifipoller"
-    prometheus:
+    metrics:
+      enabled: true
       serviceMonitor:
-        enabled: true
         interval: 2m
+      prometheusRule:
+        enabled: true
+        rules:
+          - alert: UnifiPollerAbsent
+            annotations:
+              description: Unifi Poller has disappeared from Prometheus service discovery.
+              summary: Unifi Poller is down.
+            expr: |
+              absent(up{job=~".*unifi-poller.*"} == 1)
+            for: 5m
+            labels:
+              severity: critical
     resources:
       requests:
         cpu: 10m
-        memory: 27M
+        memory: 27Mi
       limits:
-        cpu: 50m
-        memory: 71M
+        cpu: 100m
+        memory: 100Mi
