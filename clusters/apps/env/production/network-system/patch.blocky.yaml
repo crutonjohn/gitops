@@ -13,7 +13,7 @@ spec:
         cpu: 187m
         memory: 486M
     podLabels:
-      sidecar.istio.io/inject: "true"
+      linkerd.io/inject: enabled
     controller:
       enabled: true
       type: deployment
@@ -187,13 +187,8 @@ spec:
       serviceMonitor:
         interval: 30s
         scrapeTimeout: 10s
-        labels:
-          release: kube-prometheus
       prometheusRule:
         enabled: true
-        labels:
-          release: kube-prometheus
-          app: kube-prometheus-stack
         rules:
           - alert: BlockyDisabled
             annotations:
