@@ -6,7 +6,8 @@ metadata:
 spec:
   values:
     monitoring:
-      enabled: false
+      enabled: true
+      createPrometheusRules: true
     nodeSelector:
       kubernetes.io/arch: "amd64"
     ingress:
