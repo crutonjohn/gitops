@@ -5,6 +5,8 @@ metadata:
   name: zigbee2mqtt
 spec:
   values:
+    podAnnotations:
+      linkerd.io/inject: enabled
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data

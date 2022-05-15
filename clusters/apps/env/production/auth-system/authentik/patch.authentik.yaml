@@ -78,3 +78,26 @@ spec:
         environment: crutonjohn-prod
         send_pii: false
         sample_rate: 1
+  postRenderers:
+    - kustomize:
+        patchesStrategicMerge:
+          - apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: authentik-server
+              namespace: auth-system
+            spec:
+              template:
+                metadata:
+                  annotations:
+                    linkerd.io/inject: enable
+          - apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: authentik-worker
+              namespace: auth-system
+            spec:
+              template:
+                metadata:
+                  annotations:
+                    linkerd.io/inject: enable

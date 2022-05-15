@@ -74,5 +74,5 @@ spec:
             spec:
               template:
                 metadata:
-                  labels:
-                    sidecar.istio.io/inject: "true"
+                  annotations:
+                    linkerd.io/inject: enabled

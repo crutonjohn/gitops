@@ -14,6 +14,8 @@ spec:
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
+        - name: l5d-zigbee-codeserver-middleware
+          namespace: soho
       priority: 10
       services:
         - name: zigbee2mqtt-codeserver
@@ -28,7 +30,19 @@ spec:
           name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
           port: 9000
+      middlewares:
+        - name: l5d-authentik-middleware
+          namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
       - main: zigbee-config.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-zigbee-codeserver-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "zigbee2mqtt-codeserver.soho.svc.cluster.local:12321"

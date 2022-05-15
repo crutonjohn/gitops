@@ -1,0 +1,33 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: paperless
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`paperless.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-paperless-middleware
+          namespace: soho
+      priority: 10
+      services:
+        - name: paperless
+          port: 8000
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: paperless.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-paperless-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "paperless.soho.svc.cluster.local:8000"

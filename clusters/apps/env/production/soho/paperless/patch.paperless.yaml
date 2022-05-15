@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     podAnnotations:
-      backup.velero.io/backup-volumes: data,media
+      linkerd.io/inject: enabled
     env:
       COMPOSE_PROJECT_NAME: paperless
       PAPERLESS_REDIS: redis://localhost:6379
@@ -16,7 +16,7 @@ spec:
       PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "traefik-internal"
         annotations:
           hajimari.io/enable: "true"

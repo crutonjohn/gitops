@@ -11,8 +11,6 @@ spec:
       replicas: 1
       labels:
         app: "external-ingress"
-      podAnnotations:
-        linkerd.io/inject: ingress
     ingressClass:
       enabled: true
       isDefaultClass: false
