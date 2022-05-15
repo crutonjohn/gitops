@@ -1,0 +1,46 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: linkerd-viz
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`linkerd.${SECRET_DOMAIN}`)"
+      middlewares:
+        # - name: ak-outpost-authentik-embedded-outpost
+        #   namespace: auth-system
+        - name: l5d-linkerd-middleware
+          namespace: linkerd-viz
+      priority: 10
+      services:
+        - name: web
+          port: 8084
+    # - kind: Rule
+    #   match: "Host(`lidarr.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+    #   priority: 15
+    #   services:
+    #     - kind: Service
+    #       name: ak-outpost-authentik-embedded-outpost
+    #       namespace: auth-system
+    #       port: 9000
+    #   middlewares:
+    #     - name: l5d-authentik-middleware
+    #       namespace: auth-system
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: linkerd.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-linkerd-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "web.linkerd-viz.svc.cluster.local:8084"

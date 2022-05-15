@@ -6,6 +6,7 @@ resources:
   - flux-system
   - games
   - kube-system
+  - linkerd-viz
   - media
   - network-system
   - observability
