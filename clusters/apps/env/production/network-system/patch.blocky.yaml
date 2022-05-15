@@ -32,33 +32,25 @@ spec:
           bitwarden.${SECRET_DOMAIN}: 192.168.130.100
           unifi.${SECRET_DOMAIN}: 192.168.130.101
           join-unifi.${SECRET_DOMAIN}: 192.168.130.103
-          prometheus.${SECRET_DOMAIN}: 192.168.130.101
+          prometheus.${SECRET_DOMAIN}: 192.168.130.100
           loki.${SECRET_DOMAIN}: 192.168.130.101
-          alerts.${SECRET_DOMAIN}: 192.168.130.101
+          alerts.${SECRET_DOMAIN}: 192.168.130.100
           grafana.${SECRET_DOMAIN}: 192.168.130.100
-          storage.${SECRET_DOMAIN}: 192.168.130.101
           frigate.${SECRET_DOMAIN}: 192.168.130.100
-          frigate-test.${SECRET_DOMAIN}: 192.168.130.101
-          traefik.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
-          ghcr.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
-          quay.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
-          registry.${SECRET_DOMAIN}: 192.168.130.20,2601:5c6:8100:e894:ba27:ebff:fe09:3440
           pandora.${SECRET_DOMAIN}: 192.168.130.50
           hass.${SECRET_DOMAIN}: 192.168.130.100
-          hass-config.${SECRET_DOMAIN}: 192.168.130.101
+          hass-config.${SECRET_DOMAIN}: 192.168.130.100
           speedof.${SECRET_DOMAIN}: 192.168.130.100
-          paperless.${SECRET_DOMAIN}: 192.168.130.101
+          paperless.${SECRET_DOMAIN}: 192.168.130.100
           rook.${SECRET_DOMAIN}: 192.168.130.101
           cloud.${CJS_DOMAIN}: 192.168.128.82
           octopi.${SECRET_DOMAIN}: 192.168.134.80
-          k10.${SECRET_DOMAIN}: 192.168.130.101
           zigbee-config.${SECRET_DOMAIN}: 192.168.130.100
-          falco.${SECRET_DOMAIN}: 192.168.130.101
-          status.${SECRET_DOMAIN}: 192.168.130.101
+          status.${SECRET_DOMAIN}: 192.168.130.100
           start.${SECRET_DOMAIN}: 192.168.130.100
           music.${SECRET_DOMAIN}: 192.168.130.100
           docs.${SECRET_DOMAIN}: 192.168.130.100
-          stackrox.${SECRET_DOMAIN}: 192.168.130.101
+          stackrox.${SECRET_DOMAIN}: 192.168.130.100
           lidarr.${SECRET_DOMAIN}: 192.168.130.100
           sso.${SECRET_DOMAIN}: 192.168.130.100
           trilio.${SECRET_DOMAIN}: 192.168.130.101
