@@ -22,7 +22,7 @@ spec:
      #   targetPort: 8080
      #   type: ClusterIP
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: traefik-external
       annotations:
         external-dns/public: "true"

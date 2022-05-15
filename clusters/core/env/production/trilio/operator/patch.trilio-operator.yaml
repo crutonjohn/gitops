@@ -50,10 +50,10 @@ spec:
       applicationScope: Cluster
       tvkInstanceName: "home-cluster"
       ingressConfig:
-        host: "trilio.${SECRET_DOMAIN}"
-        tlsSecretName: "crj-wildcard-certificate"
+        host: "trilio"
+        tlsSecretName: ""
         annotations: {}
-        ingressClass: "traefik-internal"
+        ingressClass: ""
       ComponentConfiguration:
         ingressController:
           enabled: false

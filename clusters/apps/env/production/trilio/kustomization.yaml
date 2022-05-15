@@ -5,3 +5,4 @@ resources:
   - policy.yaml
   - target.yaml
   - backupplan.yaml
+  - ingressroute.yaml

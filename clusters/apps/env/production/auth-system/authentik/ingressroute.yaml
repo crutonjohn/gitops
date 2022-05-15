@@ -5,6 +5,8 @@ metadata:
   name: authentik
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
 spec:
   entryPoints:
     - websecure

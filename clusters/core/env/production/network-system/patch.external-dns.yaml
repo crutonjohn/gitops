@@ -37,6 +37,7 @@ spec:
     sources:
       - ingress
       - service
+      - ingressroute
     txtOwnerId: "k8s."
     crd:
       create: false
