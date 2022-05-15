@@ -33,3 +33,17 @@ spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "openspeedtest-librespeed.network-system.svc.cluster.local:3000"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: librespeed
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: speedof.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

@@ -15,7 +15,7 @@ spec:
     - kind: Rule
       match: "Host(`hass.${SECRET_DOMAIN}`)"
       middlewares:
-        - name: l5d-hassio-middleware
+        - name: l5d-home-assistant-middleware
           namespace: soho
       services:
         - name: home-assistant
@@ -28,8 +28,22 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: l5d-hassio-middleware
+  name: l5d-home-assistant-middleware
 spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "home-assistant.soho.svc.cluster.local:8123"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: home-assistant
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: hass.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

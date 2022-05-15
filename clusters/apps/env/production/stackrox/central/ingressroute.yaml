@@ -14,9 +14,9 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`stackrox.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-stackrox-middleware
-          namespace: stackrox
+      # middlewares:
+      #   - name: l5d-stackrox-middleware
+      #     namespace: stackrox
       services:
         - name: central
           port: 443
@@ -24,12 +24,26 @@ spec:
     secretName: crj-wildcard-certificate
     domains:
       - main: stackrox.${SECRET_DOMAIN}
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: l5d-stackrox-middleware
+# spec:
+#   headers:
+#     customRequestHeaders:
+#       l5d-dst-override: "central.stackrox.svc.cluster.local:443"
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
 metadata:
-  name: l5d-stackrox-middleware
+  name: stackrox
+  annotations:
+    external-dns/public: "true"
 spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "central.stackrox.svc.cluster.local:443"
+  endpoints:
+    - dnsName: stackrox.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

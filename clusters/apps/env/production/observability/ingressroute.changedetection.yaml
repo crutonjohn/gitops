@@ -46,3 +46,17 @@ spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "changedetection-changedetection-io.observability.svc.cluster.local:5000"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: change-detection
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: status.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

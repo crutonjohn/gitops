@@ -46,3 +46,17 @@ spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "kube-prometheus-kube-prome-prometheus.observability.svc.cluster.local:9090"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: prometheus
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: prometheus.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

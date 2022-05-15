@@ -33,3 +33,17 @@ spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "authentik.auth-system.svc.cluster.local:80"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: authentik
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: sso.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

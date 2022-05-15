@@ -34,3 +34,17 @@ spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "unifi.network-system.svc.cluster.local:8443"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: unifi
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: unifi.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

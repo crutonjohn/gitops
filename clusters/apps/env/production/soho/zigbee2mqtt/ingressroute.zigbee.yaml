@@ -49,3 +49,17 @@ spec:
   headers:
     customRequestHeaders:
       l5d-dst-override: "zigbee2mqtt.soho.svc.cluster.local:8080"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: zigbee
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: zigbee.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

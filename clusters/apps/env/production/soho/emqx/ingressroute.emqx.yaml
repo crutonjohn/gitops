@@ -17,6 +17,8 @@ spec:
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
+        - name: l5d-emqx-middleware
+          namespace: soho
       priority: 10
       services:
         - name: emqx
@@ -26,12 +28,36 @@ spec:
       priority: 15
       services:
         - kind: Service
-          # Or, to use an external Outpost, create an ExternalName service and reference that here.
-          # See https://kubernetes.io/docs/concepts/services-networking/service/#externalname
           name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
           port: 9000
+      middlewares:
+        - name: l5d-authentik-middleware
+          namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
       - main: emqx.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-emqx-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "emqx.soho.svc.cluster.local:18083"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: emqx
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: emqx.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
