@@ -45,7 +45,7 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     resources:
       requests:

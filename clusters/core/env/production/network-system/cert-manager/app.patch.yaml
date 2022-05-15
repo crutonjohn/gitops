@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 5m
   values:
-    podLabels:
+    podAnnotations:
       linkerd.io/inject: enabled
     fullnameOverride: cert-manager
     installCRDs: false
