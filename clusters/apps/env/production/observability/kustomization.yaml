@@ -12,6 +12,9 @@ resources:
   - ups
   - grafana
   - linkerd
+  - ingressroute.alertmanager.yaml
+  - ingressroute.prom.yaml
+  - ingressroute.changedetection.yaml
 patchesStrategicMerge:
   - patch.botkube.yaml
   - patch.loki.yaml

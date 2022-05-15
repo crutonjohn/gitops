@@ -7,7 +7,7 @@ spec:
   values:
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "traefik-internal"
         hosts:
           - host: status.${SECRET_DOMAIN}

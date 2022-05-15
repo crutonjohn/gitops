@@ -46,7 +46,7 @@ spec:
         templates:
           - '/etc/alertmanager/config/*.tmpl'
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: traefik-internal
         annotations:
           hajimari.io/enable: "true"
@@ -204,7 +204,7 @@ spec:
     #
     prometheus:
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: traefik-internal
         annotations:
           hajimari.io/enable: "true"

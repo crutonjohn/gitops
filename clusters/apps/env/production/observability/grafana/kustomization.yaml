@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - ../../../../base/observability/grafana
   - grafana.enc.yaml
+  - ingressroute.grafana.yaml
 patchesStrategicMerge:
   - patch.grafana.yaml

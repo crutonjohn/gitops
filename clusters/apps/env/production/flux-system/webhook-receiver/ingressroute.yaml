@@ -1,0 +1,35 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: webhook-receiver
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`receiver.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-webhook-receiver-middleware
+          namespace: flux-system
+      priority: 10
+      services:
+        - name: webhook-receiver
+          port: 80
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: receiver.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-webhook-receiver-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "webhook-receiver.flux-system.svc.cluster.local:80"

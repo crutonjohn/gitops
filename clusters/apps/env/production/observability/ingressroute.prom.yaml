@@ -2,26 +2,27 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: linkerd-viz
+  name: prometheus
   annotations:
-    kubernetes.io/ingress.class: "traefik-internal"
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`linkerd.${SECRET_DOMAIN}`)"
+      match: "Host(`prometheus.${SECRET_DOMAIN}`)"
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
-        - name: l5d-linkerd-middleware
-          namespace: linkerd-viz
-      priority: 10
+        - name: l5d-prometheus-middleware
+          namespace: observability
       services:
-        - name: web
-          port: 8084
+        - name: kube-prometheus-kube-prome-prometheus
+          port: 9090
     - kind: Rule
-      match: "Host(`lidarr.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`prometheus.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
       services:
         - kind: Service
@@ -34,13 +35,13 @@ spec:
   tls:
     secretName: crj-wildcard-certificate
     domains:
-      - main: linkerd.${SECRET_DOMAIN}
+      - main: prometheus.${SECRET_DOMAIN}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: l5d-linkerd-middleware
+  name: l5d-prometheus-middleware
 spec:
   headers:
     customRequestHeaders:
-      l5d-dst-override: "web.linkerd-viz.svc.cluster.local:8084"
+      l5d-dst-override: "kube-prometheus-kube-prome-prometheus.observability.svc.cluster.local:9090"
