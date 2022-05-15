@@ -36,6 +36,7 @@ spec:
           limit: 100Mi
           request: 50Mi
     dashboard:
+      enforcedHostRegexp: "^linkerd.${SECRET_DOMAIN}$"
       resources:
         cpu:
           limit: 50m
