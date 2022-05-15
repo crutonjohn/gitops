@@ -8,10 +8,14 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 6.4.0
+      version: 1.9.0
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: k8s-sigs-external-dns-charts
         namespace: flux-system
       interval: 10m
   timeout: 10m0s
+  values:
+    image:
+      repository: k8s.gcr.io/external-dns/external-dns
+      tag: 0.11.0
