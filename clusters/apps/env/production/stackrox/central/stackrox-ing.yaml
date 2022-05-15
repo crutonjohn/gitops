@@ -1,25 +1,35 @@
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
+  name: stackrox
   annotations:
-    ingress.kubernetes.io/protocol: https
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-  name: central-services
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: stackrox.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
 spec:
-  ingressClassName: traefik-internal
-  rules:
-    - host: stackrox.${SECRET_DOMAIN}
-      http:
-        paths:
-          - backend:
-              service:
-                name: central
-                port:
-                  name: https
-            path: /
-            pathType: Prefix
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`stackrox.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-stackrox-middleware
+          namespace: stackrox
+      services:
+        - name: central
+          port: 443
   tls:
-    - hosts:
-        - stackrox.${SECRET_DOMAIN}
-      secretName: crj-wildcard-certificate
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: stackrox.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-stackrox-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "central.stackrox.svc.cluster.local:443"

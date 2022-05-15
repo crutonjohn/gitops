@@ -4,7 +4,10 @@ kind: IngressRoute
 metadata:
   name: linkerd-viz
   annotations:
-    kubernetes.io/ingress.class: "traefik-internal"
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: linkerd.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
 spec:
   entryPoints:
     - websecure

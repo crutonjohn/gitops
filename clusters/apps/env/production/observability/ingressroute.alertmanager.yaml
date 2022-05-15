@@ -5,6 +5,7 @@ metadata:
   name: alertmanager
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: alerts.${SECRET_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
