@@ -24,7 +24,7 @@ spec:
         - name: web
           port: 8084
     - kind: Rule
-      match: "Host(`lidarr.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`linkerd.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
       services:
         - kind: Service
