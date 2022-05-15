@@ -14,3 +14,4 @@ spec:
         name: bitnami-charts
         namespace: flux-system
       interval: 10m
+  timeout: 10m0s
