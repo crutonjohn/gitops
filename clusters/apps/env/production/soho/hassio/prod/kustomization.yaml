@@ -5,6 +5,7 @@ resources:
   - ../../../../../base/soho/hassio
   - code.enc.yaml
   - hass.enc.yaml
-  - ingressroute.yaml
+  - ingressroute.hass.yaml
+  - ingressroute.hass-codeserver.yaml
 patchesStrategicMerge:
   - patch.hassio.yaml
