@@ -24,7 +24,7 @@ spec:
         - name: home-assistant-codeserver
           port: 12321
     - kind: Rule
-      match: "Host(`zigbee-config.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`hass-config.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
       services:
         - kind: Service
