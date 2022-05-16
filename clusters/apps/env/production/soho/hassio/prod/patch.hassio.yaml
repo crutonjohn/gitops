@@ -21,7 +21,7 @@ spec:
         externalTrafficPolicy: Local
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "traefik-external"
         annotations:
           external-dns/public: "true"
@@ -91,7 +91,7 @@ spec:
           - --extensions-dir
           - "/config/.vscode"
         ingress:
-          enabled: true
+          enabled: false
           ingressClassName: "traefik-internal"
           annotations:
             nginx.org/websocket-services: home-assistant
