@@ -17,8 +17,8 @@ spec:
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
-        # - name: l5d-lidarr-middleware
-        #   namespace: media
+        - name: l5d-lidarr-middleware
+          namespace: media
       priority: 10
       services:
         - name: lidarr
