@@ -33,7 +33,7 @@ spec:
         existingClaim: "music-library-pandora"
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: "traefik-external"
         annotations:
           external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
@@ -53,8 +53,8 @@ spec:
             secretName: "crj-wildcard-certificate"
     resources:
       requests:
-        cpu: 10m
-        memory: 78M
+        cpu: 50m
+        memory: 100Mi
       limits:
-        cpu: 143m
-        memory: 230M
+        cpu: 300m
+        memory: 512Mi
