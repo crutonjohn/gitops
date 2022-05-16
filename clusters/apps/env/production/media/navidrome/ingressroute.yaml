@@ -16,7 +16,7 @@ spec:
       match: "Host(`music.${SECRET_DOMAIN}`)"
       middlewares:
         - name: l5d-navidrome-middleware
-          namespace: network-system
+          namespace: media
       services:
         - name: navidrome
           port: 4533
