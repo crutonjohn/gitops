@@ -5,6 +5,7 @@ metadata:
   name: grafana
 spec:
   values:
+    revisionHistoryLimit: 2
     podAnnotations:
       linkerd.io/inject: enabled
     replicas: 1
@@ -16,38 +17,29 @@ spec:
     serviceMonitor:
       enabled: true
       path: /metrics
-    extraExposePorts: []
-     # - name: keycloak
-     #   port: 8080
-     #   targetPort: 8080
-     #   type: ClusterIP
+    grafana.ini:
+      server:
+        root_url: "https://grafana.${SECRET_DOMAIN}"
+      auth.basic:
+        disable_login_form: false
+      auth.generic_oauth:
+        enabled: true
+        name: Authentik
+        icon: signin
+        client_id: ${AUTHENTIK_GRAFANA_CLIENT_ID}
+        client_secret: ${AUTHENTIK_GRAFANA_CLIENT_SECRET}
+        scopes: user:email, grafana-user
+        empty_scopes: false
+        auth_url: https://sso.${SECRET_DOMAIN}/application/o/authorize/
+        token_url: https://sso.${SECRET_DOMAIN}/application/o/token/
+        api_url: https://sso.${SECRET_DOMAIN/application/o/userinfo/
+        allowed_domains: grafana.${SECRET_DOMAIN}, sso.${SECRET_DOMAIN}, ${SECRET_DOMAIN}
+        allowed_groups: grafana
+        allow_sign_up: true
+        tls_skip_verify_insecure: true
+        use_pkce: true
     ingress:
       enabled: false
-      ingressClassName: traefik-external
-      annotations:
-        external-dns/public: "true"
-        external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "chart-bar-stacked"
-        hajimari.io/appName: "Grafana"
-        hajimari.io/group: "Home"
-      path: /
-      # pathType is only for k8s >= 1.1=
-      pathType: Prefix
-      hosts:
-        - grafana.${SECRET_DOMAIN}
-      extraPaths: []
-      # - path: /*
-      #   pathType: Prefix
-      #   backend:
-      #     service:
-      #       name: ssl-redirect
-      #       port:
-      #         name: use-annotation
-      tls:
-        - secretName: crj-wildcard-certificate
-          hosts:
-            - grafana.${SECRET_DOMAIN}
     resources:
       limits:
         cpu: 500m
@@ -55,23 +47,6 @@ spec:
       requests:
         cpu: 150m
         memory: 128Mi
-    ## Enable an Specify container in extraContainers. This is meant to allow adding an authentication proxy to a grafana pod
-    extraContainers: ""
-    # extraContainers: |
-    # - name: proxy
-    #   image: quay.io/gambol99/keycloak-proxy:latest
-    #   args:
-    #   - -provider=github
-    #   - -client-id=
-    #   - -client-secret=
-    #   - -github-org=<ORG_NAME>
-    #   - -email-domain=*
-    #   - -cookie-secret=
-    #   - -http-address=http://0.0.0.0:4181
-    #   - -upstream-url=http://127.0.0.1:3000
-    #   ports:
-    #     - name: proxy-web
-    #       containerPort: 4181
     persistence:
       enabled: true
       existingClaim: grafana-data-rook
@@ -268,11 +243,6 @@ spec:
           gnetId: 15196
           revision: 3
           datasource: Loki
-    grafana.ini:
-      server:
-        root_url: "https://grafana.${SECRET_DOMAIN}"
-      auth.basic:
-        disable_login_form: false
       smtp:
         enabled: true
         host: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
@@ -286,9 +256,8 @@ spec:
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
       analytics:
-        check_for_updates: true
+        check_for_updates: false
       log:
         mode: console
       grafana_net:
         url: https://grafana.net
-    revisionHistoryLimit: 3
