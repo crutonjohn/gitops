@@ -23,20 +23,20 @@ spec:
       auth.basic:
         disable_login_form: false
       auth.generic_oauth:
-        enabled: true
+        enabled: "true"
         name: Authentik
         icon: signin
         client_id: "${AUTHENTIK_GRAFANA_CLIENT_ID}"
         client_secret: "${AUTHENTIK_GRAFANA_CLIENT_SECRET}"
         scopes: user:email, grafana-user
-        empty_scopes: false
+        empty_scopes: "false"
         auth_url: "https://sso.${SECRET_DOMAIN}/application/o/authorize/"
         token_url: "https://sso.${SECRET_DOMAIN}/application/o/token/"
         api_url: "https://sso.${SECRET_DOMAIN}/application/o/userinfo/"
         allowed_groups: grafana
-        allow_sign_up: true
-        tls_skip_verify_insecure: true
-        use_pkce: true
+        allow_sign_up: "true"
+        tls_skip_verify_insecure: "true"
+        use_pkce: "true"
     ingress:
       enabled: false
     resources:
