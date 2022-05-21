@@ -17,11 +17,27 @@ spec:
     serviceMonitor:
       enabled: true
       path: /metrics
-        # grafana.ini:
-        #   server:
-        #     root_url: "https://grafana.${SECRET_DOMAIN}"
-        #   auth.basic:
-        #     disable_login_form: false
+    grafana.ini:
+      smtp:
+        enabled: true
+        host: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
+        user: "${SMTP_USERNAME}"
+        password: "${SMTP_PASSWORD}"
+        from_address: "${SMTP_FROM}"
+        from_name: Grafana
+      paths:
+        data: /var/lib/grafana/
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      analytics:
+        check_for_updates: false
+      log:
+        mode: console
+      server:
+        root_url: "https://grafana.${SECRET_DOMAIN}"
+      auth.basic:
+        disable_login_form: false
         #   auth.generic_oauth:
         #     enabled: true
         #     name: Authentik
@@ -242,21 +258,3 @@ spec:
           gnetId: 15196
           revision: 3
           datasource: Loki
-      smtp:
-        enabled: true
-        host: "${SMTP_HOST}:${SMTP_STARTTLS_PORT}"
-        user: "${SMTP_USERNAME}"
-        password: "${SMTP_PASSWORD}"
-        from_address: "${SMTP_FROM}"
-        from_name: Grafana
-      paths:
-        data: /var/lib/grafana/
-        logs: /var/log/grafana
-        plugins: /var/lib/grafana/plugins
-        provisioning: /etc/grafana/provisioning
-      analytics:
-        check_for_updates: false
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
