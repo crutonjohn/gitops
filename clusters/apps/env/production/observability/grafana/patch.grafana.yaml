@@ -33,7 +33,6 @@ spec:
         auth_url: "https://sso.${SECRET_DOMAIN}/application/o/authorize/"
         token_url: "https://sso.${SECRET_DOMAIN}/application/o/token/"
         api_url: "https://sso.${SECRET_DOMAIN/application/o/userinfo/"
-        allowed_domains: grafana.${SECRET_DOMAIN}, sso.${SECRET_DOMAIN}, ${SECRET_DOMAIN}
         allowed_groups: grafana
         allow_sign_up: true
         tls_skip_verify_insecure: true
