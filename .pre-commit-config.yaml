@@ -27,7 +27,13 @@ repos:
     rev: v2.1.0
     hooks:
       - id: forbid-secrets
-  - repo: https://github.com/crutonjohn/flux-kustomize-hook
-    rev: v0.0.4
+#  - repo: https://github.com/crutonjohn/flux-kustomize-hook
+#    rev: v0.0.4
+#    hooks:
+#      - id: run-kustomize
+  - repo: https://github.com/Truxnell/pre-commit
+    rev: v0.0.9
     hooks:
-      - id: run-kustomize
+      - id: kustomize_build
+        files: ^k8s/
+        args: [--dry-run=server]
