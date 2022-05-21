@@ -63,8 +63,8 @@ spec:
         cpu: 150m
         memory: 128Mi
     persistence:
-      enabled: true
-      existingClaim: grafana-data-rook
+      enabled: false
+      # existingClaim: grafana-data-rook
     admin:
       existingSecret: "grafana-admin-secrets"
       userKey: admin-user
