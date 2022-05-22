@@ -49,7 +49,7 @@ spec:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://sso.${SECRET_DOMAIN}/application/o/token/"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://sso.${SECRET_DOMAIN}/application/o/userinfo/"
       GF_AUTH_SIGNOUT_REDIRECT_URL: "https://sso.${SECRET_DOMAIN}/application/o/grafana/end-session/"
-      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      GF_AUTH_OAUTH_AUTO_LOGIN: "false"
     ingress:
       enabled: false
     resources:
