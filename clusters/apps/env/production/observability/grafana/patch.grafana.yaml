@@ -38,21 +38,18 @@ spec:
         root_url: "https://grafana.${SECRET_DOMAIN}"
       auth.basic:
         disable_login_form: false
-      auth.generic_oauth:
-        enabled: true
-        name: Authentik
-        icon: signin
-        client_id: "${AUTHENTIK_GRAFANA_CLIENT_ID}"
-        client_secret: "${AUTHENTIK_GRAFANA_CLIENT_SECRET}"
-        scopes: user:email, grafana-user
-        empty_scopes: false
-        auth_url: "https://sso.${SECRET_DOMAIN}/application/o/authorize/"
-        token_url: "https://sso.${SECRET_DOMAIN}/application/o/token/"
-        api_url: "https://sso.${SECRET_DOMAIN}/application/o/userinfo/"
-        allowed_groups: grafana
-        allow_sign_up: true
-        tls_skip_verify_insecure: true
-        use_pkce: true
+    env:
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "${AUTHENTIK_GRAFANA_CLIENT_ID}"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "${AUTHENTIK_GRAFANA_CLIENT_SECRET}"
+      GF_PLUGINS_ENABLE_ALPHA: "true"
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_NAME: "Authentik"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://sso.${SECRET_DOMAIN}/application/o/authorize/"
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://sso.${SECRET_DOMAIN}/application/o/token/"
+      GF_AUTH_GENERIC_OAUTH_API_URL: "https://sso.${SECRET_DOMAIN}/application/o/userinfo/"
+      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://sso.${SECRET_DOMAIN}/application/o/grafana/end-session/"
+      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
     ingress:
       enabled: false
     resources:
