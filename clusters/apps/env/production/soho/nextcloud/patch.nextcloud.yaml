@@ -9,7 +9,7 @@ spec:
       repository: nextcloud
       tag: 24.0.1-fpm
       pullPolicy: IfNotPresent
-    deploymentAnnotations:
+    podAnnotations:
       linkerd.io/inject: "disabled"
     nextcloud:
       #  extraSecurityContext:
@@ -79,13 +79,13 @@ spec:
     postgresql:
       enabled: true
       podAnnotations:
-        backup.velero.io/backup-volumes: config
         linkerd.io/inject: "disabled"
       global:
         postgresql:
-          postgresqlUsername: ${NEXTCLOUD_DB_USER}
-          postgresqlPassword: ${NEXTCLOUD_DB_PASSWORD}
-          postgresqlDatabase: ${NEXTCLOUD_DB_NAME}
+          auth:
+            username: ${NEXTCLOUD_DB_USER}
+            password: ${NEXTCLOUD_DB_PASSWORD}
+            database: ${NEXTCLOUD_DB_NAME}
       persistence:
         enabled: true
         existingClaim: nextcloud-db-rook
