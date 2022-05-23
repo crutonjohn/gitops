@@ -86,9 +86,10 @@ spec:
             username: ${NEXTCLOUD_DB_USER}
             password: ${NEXTCLOUD_DB_PASSWORD}
             database: ${NEXTCLOUD_DB_NAME}
-      persistence:
-        enabled: true
-        existingClaim: nextcloud-db-rook
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: nextcloud-db-rook
       volumePermissions:
         enabled: true
       securityContext:
