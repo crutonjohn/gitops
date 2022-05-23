@@ -7,9 +7,9 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 23.0.0-fpm
+      tag: 24.0.1-fpm
       pullPolicy: IfNotPresent
-    deploymentLabels:
+    deploymentAnnotations:
       linkerd.io/inject: "disabled"
     nextcloud:
       #  extraSecurityContext:
@@ -80,7 +80,6 @@ spec:
       enabled: true
       podAnnotations:
         backup.velero.io/backup-volumes: config
-      podLabels:
         linkerd.io/inject: "disabled"
       global:
         postgresql:
@@ -116,7 +115,7 @@ spec:
     internalDatabase:
       enabled: false
     redis:
-      podLabels:
+      podAnnotations:
         linkerd.io/inject: "disabled"
       enabled: true
     persistence:
