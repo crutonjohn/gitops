@@ -10,13 +10,13 @@ spec:
       tag: 23.0.0-fpm
       pullPolicy: IfNotPresent
     deploymentLabels:
-      sidecar.istio.io/inject: "true"
+      linkerd.io/inject: "disabled"
     nextcloud:
       extraSecurityContext:
         runAsUser: "82"
         runAsGroup: "82"
         runAsNonRoot: true
-        readOnlyRootFilesystem: true
+        readOnlyRootFilesystem: false
       host: cloud.${SECRET_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
@@ -81,7 +81,7 @@ spec:
       podAnnotations:
         backup.velero.io/backup-volumes: config
       podLabels:
-        sidecar.istio.io/inject: "true"
+        linkerd.io/inject: "disabled"
       global:
         postgresql:
           postgresqlUsername: ${NEXTCLOUD_DB_USER}
@@ -117,11 +117,14 @@ spec:
       enabled: false
     redis:
       podLabels:
-        sidecar.istio.io/inject: "true"
+        linkerd.io/inject: "disabled"
       enabled: true
     persistence:
       enabled: true
-      existingClaim: nextcloud-data-pandora
+      existingClaim: nextcloud-data-rook
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data-pandora
     metrics:
       enabled: true
       replicaCount: 1
