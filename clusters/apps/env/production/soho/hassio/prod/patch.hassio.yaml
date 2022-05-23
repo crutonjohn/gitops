@@ -4,6 +4,7 @@ kind: HelmRelease
 metadata:
   name: home-assistant
 spec:
+  timeout: 15m0s
   values:
     podAnnotations:
       backup.velero.io/backup-volumes: config
