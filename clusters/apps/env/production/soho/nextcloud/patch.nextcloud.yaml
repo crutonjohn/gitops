@@ -12,11 +12,11 @@ spec:
     podAnnotations:
       linkerd.io/inject: "disabled"
     nextcloud:
-      #  extraSecurityContext:
-      #    runAsUser: "82"
-      #    runAsGroup: "82"
-      #    runAsNonRoot: true
-      #    readOnlyRootFilesystem: false
+      extraSecurityContext:
+        runAsUser: "82"
+        runAsGroup: "82"
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
       host: cloud.${SECRET_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
@@ -33,11 +33,11 @@ spec:
           name: ${SMTP_USERNAME}
           password: ${SMTP_PASSWORD}
       phpConfigs:
-      # uploadLimit.ini: |
-      #   upload_max_filesize = 5G
-      #   post_max_size = 5G
-      #   max_input_time = 3600
-      #   max_execution_time = 3600
+        uploadLimit.ini: |
+          upload_max_filesize = 5G
+          post_max_size = 5G
+          max_input_time = 3600
+          max_execution_time = 3600
       configs:
         proxy.config.php: |-
           <?php
