@@ -14,6 +14,7 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`prometheus.${SECRET_DOMAIN}`)"
+      priority: 10
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
