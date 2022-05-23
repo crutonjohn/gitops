@@ -12,6 +12,6 @@ resources:
   - frigate
   - hajimari
   - hassio
-  # - nextcloud
+  - nextcloud
   - paperless
   - zigbee2mqtt
