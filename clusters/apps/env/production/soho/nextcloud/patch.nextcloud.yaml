@@ -7,7 +7,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 24.0.1-fpm
+      tag: 24.0.1-apache
       pullPolicy: IfNotPresent
     podAnnotations:
       linkerd.io/inject: "disabled"
@@ -16,7 +16,7 @@ spec:
         runAsUser: "82"
         runAsGroup: "82"
         runAsNonRoot: true
-        readOnlyRootFilesystem: false
+        readOnlyRootFilesystem: true
       host: cloud.${SECRET_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
@@ -106,13 +106,7 @@ spec:
       password: ${NEXTCLOUD_DB_PASSWORD}
       database: ${NEXTCLOUD_DB_NAME}
     nginx:
-      enabled: true
-      image:
-        repository: nginx
-        tag: 1.21.6
-        pullPolicy: IfNotPresent
-        config:
-          default: true
+      enabled: false
     internalDatabase:
       enabled: false
     redis:
@@ -139,5 +133,5 @@ spec:
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "9205"
-      podLabels:
+      podAnnotations:
         sidecar.istio.io/inject: "true"
