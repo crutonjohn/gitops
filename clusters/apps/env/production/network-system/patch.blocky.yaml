@@ -36,7 +36,7 @@ spec:
           loki.${SECRET_DOMAIN}: 192.168.130.101
           alerts.${SECRET_DOMAIN}: 192.168.130.100
           grafana.${SECRET_DOMAIN}: 192.168.130.100
-          frigate.${SECRET_DOMAIN}: 192.168.130.100
+          frigate.${SECRET_DOMAIN}: 192.168.130.101
           pandora.${SECRET_DOMAIN}: 192.168.130.50
           hass.${SECRET_DOMAIN}: 192.168.130.100
           hass-config.${SECRET_DOMAIN}: 192.168.130.100
@@ -54,6 +54,7 @@ spec:
           lidarr.${SECRET_DOMAIN}: 192.168.130.100
           sso.${SECRET_DOMAIN}: 192.168.130.100
           trilio.${SECRET_DOMAIN}: 192.168.130.101
+          cloud.${SECRET_DOMAIN}: 192.168.130.100
       conditional:
         mapping:
           local: 192.168.128.1
