@@ -44,7 +44,7 @@ spec:
       GF_PLUGINS_ENABLE_ALPHA: "true"
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
       GF_AUTH_GENERIC_OAUTH_NAME: "Authentik"
-      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email grafana-user"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://sso.${SECRET_DOMAIN}/application/o/authorize/"
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://sso.${SECRET_DOMAIN}/application/o/token/"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://sso.${SECRET_DOMAIN}/application/o/userinfo/"
