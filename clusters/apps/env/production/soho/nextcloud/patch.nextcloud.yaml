@@ -10,7 +10,7 @@ spec:
       tag: 24.0.1-apache
       pullPolicy: IfNotPresent
     podAnnotations:
-      linkerd.io/inject: "disabled"
+      linkerd.io/inject: "enabled"
     nextcloud:
       extraSecurityContext:
         runAsUser: "82"
@@ -58,22 +58,22 @@ spec:
             ),
           );
     livenessProbe:
-      enabled: false
-      initialDelaySeconds: 60
+      enabled: true
+      initialDelaySeconds: 90
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
     readinessProbe:
-      enabled: false
-      initialDelaySeconds: 60
+      enabled: true
+      initialDelaySeconds: 90
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
     startupProbe:
       enabled: false
-      initialDelaySeconds: 60
+      initialDelaySeconds: 90
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 30
@@ -83,7 +83,7 @@ spec:
     postgresql:
       enabled: true
       podAnnotations:
-        linkerd.io/inject: "disabled"
+        linkerd.io/inject: "enabled"
       global:
         postgresql:
           auth:
@@ -115,7 +115,7 @@ spec:
       enabled: false
     redis:
       podAnnotations:
-        linkerd.io/inject: "disabled"
+        linkerd.io/inject: "enabled"
       enabled: true
     persistence:
       enabled: true
@@ -138,4 +138,4 @@ spec:
           prometheus.io/scrape: "true"
           prometheus.io/port: "9205"
       podAnnotations:
-        sidecar.istio.io/inject: "true"
+        linkerd.io/inject: "enabled"

@@ -14,6 +14,9 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`cloud.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-nextcloud-middleware
+          namespace: soho
       services:
         - name: nextcloud
           port: 8080
@@ -21,15 +24,15 @@ spec:
     secretName: crj-wildcard-certificate
     domains:
       - main: cloud.${SECRET_DOMAIN}
-# ---
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: Middleware
-# metadata:
-#   name: l5d-bitwarden-middleware
-# spec:
-#   headers:
-#     customRequestHeaders:
-#       l5d-dst-override: "bitwarden-vaultwarden.soho.svc.cluster.local:80"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-nextcloud-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "nextcloud.soho.svc.cluster.local:8080"
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
