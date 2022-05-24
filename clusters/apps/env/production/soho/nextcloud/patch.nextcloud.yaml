@@ -51,7 +51,11 @@ spec:
             '${NODE3_ADDRESS}',
             '${NODE4_ADDRESS}',
             '${NODE5_ADDRESS}'
-            )
+            ),
+            'forwarded_for_headers' =>
+            array (
+              0 => 'HTTP_X_FORWARDED_FOR',
+            ),
           );
     livenessProbe:
       enabled: false
