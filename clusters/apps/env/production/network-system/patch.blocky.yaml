@@ -133,6 +133,7 @@ spec:
         periodSeconds: 10
     service:
       main:
+        enabled: true
         ports:
           http:
             port: 4000
