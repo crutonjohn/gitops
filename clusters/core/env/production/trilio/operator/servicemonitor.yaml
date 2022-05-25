@@ -1,0 +1,30 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: triliovault
+spec:
+  endpoints:
+    - interval: 3m
+      path: /metrics
+      port: metrics
+      scrapeTimeout: 1m
+  selector:
+    matchLabels:
+      app: k8s-triliovault-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-triliovault-exporter
+  labels:
+    app: k8s-triliovault-exporter
+spec:
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: k8s-triliovault-exporter
+  type: ClusterIP
