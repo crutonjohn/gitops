@@ -2,23 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: observability
   name: upsd-tesla
   labels:
-    component: upsd
+    component: upsd-tesla
   annotations:
     linkerd.io/inject: enabled
 spec:
   selector:
     matchLabels:
-      component: upsd
+      component: upsd-tesla
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        component: upsd
+        component: upsd-tesla
     spec:
       affinity:
         podAntiAffinity:
@@ -28,7 +27,7 @@ spec:
                   - key: component
                     operator: In
                     values:
-                      - upsd
+                      - upsd-edison
               topologyKey: kubernetes.io/hostname
       containers:
         - name: upsd-tesla
@@ -76,23 +75,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: observability
   name: upsd-edison
   labels:
-    component: upsd
+    component: upsd-edison
   annotations:
     linkerd.io/inject: enabled
 spec:
   selector:
     matchLabels:
-      component: upsd
+      component: upsd-edison
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        component: upsd
+        component: upsd-edison
     spec:
       affinity:
         podAntiAffinity:
@@ -102,7 +100,7 @@ spec:
                   - key: component
                     operator: In
                     values:
-                      - upsd
+                      - upsd-tesla
               topologyKey: kubernetes.io/hostname
       containers:
         - name: upsd-edison
