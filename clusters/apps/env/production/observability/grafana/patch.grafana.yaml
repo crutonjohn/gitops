@@ -174,75 +174,75 @@ spec:
         top-line:
           gnetId: 15474
           revision: 3
-          datasource: prometheus
+          datasource: Prometheus
         health:
           gnetId: 15486
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         kubernetes:
           gnetId: 15479
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         namespace:
           gnetId: 15478
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         deployment:
           gnetId: 15475
           revision: 5
-          datasource: prometheus
+          datasource: Prometheus
         pod:
           gnetId: 15477
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         service:
           gnetId: 15480
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         route:
           gnetId: 15481
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         authority:
           gnetId: 15482
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         cronjob:
           gnetId: 15483
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         job:
           gnetId: 15487
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         daemonset:
           gnetId: 15484
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         replicaset:
           gnetId: 15491
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         statefulset:
           gnetId: 15493
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         replicationcontroller:
           gnetId: 15492
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         prometheus:
           gnetId: 15489
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         prometheus-benchmark:
           gnetId: 15490
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         multicluster:
           gnetId: 15488
           revision: 2
-          datasource: prometheus
+          datasource: Prometheus
         ###################
         # Loki Dashboards #
         ###################
@@ -263,20 +263,20 @@ spec:
         backup-detail:
           gnetId: 12601
           revision: 4
-          datasource: prometheus
+          datasource: Prometheus
         backup-overview:
           gnetId: 12600
           revision: 4
-          datasource: prometheus
+          datasource: Prometheus
         backupplan-detail:
           gnetId: 12605
           revision: 4
-          datasource: prometheus
+          datasource: Prometheus
         backupplan-overview:
           gnetId: 12604
           revision: 4
-          datasource: prometheus
+          datasource: Prometheus
         metadata-detail:
           gnetId: 12607
           revision: 5
-          datasource: prometheus
+          datasource: Prometheus
