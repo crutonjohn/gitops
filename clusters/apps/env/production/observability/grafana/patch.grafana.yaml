@@ -243,6 +243,7 @@ spec:
           gnetId: 15488
           revision: 2
           datasource: prometheus
+        ###################
         # Loki Dashboards #
         ###################
         logging-dash-loki:
@@ -256,3 +257,26 @@ spec:
           gnetId: 15196
           revision: 3
           datasource: Loki
+        ################
+        # TVK Operator #
+        ################
+        backup-detail:
+          gnetId: 12601
+          revision: 4
+          datasource: prometheus
+        backup-overview:
+          gnetId: 12600
+          revision: 4
+          datasource: prometheus
+        backupplan-detail:
+          gnetId: 12605
+          revision: 4
+          datasource: prometheus
+        backupplan-overview:
+          gnetId: 12604
+          revision: 4
+          datasource: prometheus
+        metadata-detail:
+          gnetId: 12607
+          revision: 5
+          datasource: prometheus
