@@ -55,6 +55,14 @@ spec:
           sso.${SECRET_DOMAIN}: 192.168.130.100
           trilio.${SECRET_DOMAIN}: 192.168.130.101
           cloud.${SECRET_DOMAIN}: 192.168.130.100
+          k-master01.${SECRET_DOMAIN}: 192.168.130.31
+          k-master02.${SECRET_DOMAIN}: 192.168.130.32
+          k-master03.${SECRET_DOMAIN}: 192.168.130.33
+          k-node1.${SECRET_DOMAIN}: 192.168.130.51
+          k-node2.${SECRET_DOMAIN}: 192.168.130.52
+          k-node3.${SECRET_DOMAIN}: 192.168.130.53
+          k-node4.${SECRET_DOMAIN}: 192.168.130.54
+          k-node5.${SECRET_DOMAIN}: 192.168.130.55
       conditional:
         mapping:
           local: 192.168.128.1
