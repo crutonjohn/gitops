@@ -5,6 +5,8 @@ metadata:
   name: syncthing
 spec:
   values:
+    podAnnotations:
+      linkerd.io/inject: enabled
     persistence:
       data:
         enabled: true
