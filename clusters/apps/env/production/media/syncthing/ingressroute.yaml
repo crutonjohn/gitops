@@ -14,12 +14,26 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`bs-sync.${SECRET_DOMAIN}`)"
+      priority: 10
       middlewares:
+        - name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
         - name: l5d-syncthing-middleware
           namespace: media
       services:
         - name: syncthing
           port: 8384
+    - kind: Rule
+      match: "Host(`bs-sync.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      priority: 15
+      services:
+        - kind: Service
+          name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
+          port: 9000
+      middlewares:
+        - name: l5d-authentik-middleware
+          namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
