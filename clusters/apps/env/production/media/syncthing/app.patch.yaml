@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: syncthing
+spec:
+  values:
+    persistence:
+      data:
+        enabled: true
+        mountPath: /var/syncthing
+        existingClaim: "music-sync-pandora"
+    service:
+      main:
+        ports:
+          http:
+            port: 8384
+      discovery:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: music-sync
+        loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
+        externalTrafficPolicy: Local
+      listen:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: music-sync
+        loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
+        externalTrafficPolicy: Local

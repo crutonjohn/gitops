@@ -1,0 +1,49 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: syncthing
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: music.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`bs-sync.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-syncthing-middleware
+          namespace: media
+      services:
+        - name: syncthing
+          port: 4533
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: bs-sync.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-syncthing-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "syncthing.media.svc.cluster.local:4533"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: syncthing
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: bs-sync.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
