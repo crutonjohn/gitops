@@ -32,7 +32,7 @@ metadata:
 spec:
   headers:
     customRequestHeaders:
-      l5d-dst-override: "syncthing.media.svc.cluster.local:4533"
+      l5d-dst-override: "syncthing.media.svc.cluster.local:8384"
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
