@@ -11,3 +11,4 @@ resources:
   - nextcloud.yaml
   - kasten.yaml
   - paperless.yaml
+  - syncthing.yaml
