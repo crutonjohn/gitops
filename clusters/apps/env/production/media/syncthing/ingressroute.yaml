@@ -19,7 +19,7 @@ spec:
           namespace: media
       services:
         - name: syncthing
-          port: 4533
+          port: 8384
   tls:
     secretName: crj-wildcard-certificate
     domains:
