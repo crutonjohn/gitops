@@ -18,8 +18,8 @@ spec:
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
-        - name: l5d-syncthing-middleware
-          namespace: media
+      #  - name: l5d-syncthing-middleware
+      #    namespace: media
       services:
         - name: syncthing
           port: 8384
@@ -32,8 +32,8 @@ spec:
           namespace: auth-system
           port: 9000
       middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
+      #  - name: l5d-authentik-middleware
+      #    namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
