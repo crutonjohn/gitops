@@ -7,6 +7,11 @@ spec:
   values:
     podAnnotations:
       linkerd.io/inject: disabled
+    podSecurityContext:
+      fsGroup: 1177
+      runAsNonRoot: true
+      runAsUser: 1177
+      runAsGroup: 1177
     persistence:
       data:
         enabled: true
