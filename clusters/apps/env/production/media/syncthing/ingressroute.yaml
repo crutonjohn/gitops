@@ -31,7 +31,7 @@ spec:
           name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
           port: 9000
-      middlewares:
+      # middlewares:
       #  - name: l5d-authentik-middleware
       #    namespace: auth-system
   tls:
