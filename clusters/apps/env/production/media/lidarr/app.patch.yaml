@@ -29,21 +29,6 @@ spec:
     ingress:
       main:
         enabled: false
-        ingressClassName: "traefik-internal"
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "archive-music"
-          hajimari.io/appName: "Lidarr"
-          hajimari.io/group: "Media"
-        hosts:
-          - host: "lidarr.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - "lidarr.${SECRET_DOMAIN}"
-            secretName: "crj-wildcard-certificate"
     persistence:
       config:
         enabled: true
@@ -53,6 +38,10 @@ spec:
         enabled: true
         mountPath: /media
         existingClaim: "music-library-pandora"
+      import:
+        enabled: true
+        mountPath: /import
+        existingClaim: "music-sync-pandora"
     metrics:
       enabled: true
       serviceMonitor:
