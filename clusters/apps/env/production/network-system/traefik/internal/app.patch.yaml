@@ -32,8 +32,6 @@ spec:
       prometheus:
         entryPoint: metrics
     globalArguments:
-      - "--global.checknewversion"
-      - "--global.sendanonymoususage"
       - "--api.insecure=true"
       - "--serverstransport.insecureskipverify=true"
       - "--providers.kubernetesingress.ingressclass=traefik-internal"
@@ -44,6 +42,7 @@ spec:
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=${CLUSTER_LB_INGRESS_INTERNAL}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
+      - "--providers.kubernetescrd.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
     ports:
       traefik:

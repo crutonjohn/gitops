@@ -32,8 +32,6 @@ spec:
       prometheus:
         entryPoint: metrics
     globalArguments:
-      - "--global.checknewversion"
-      - "--global.sendanonymoususage"
       - "--api.insecure=true"
       - "--serverstransport.insecureskipverify=true"
       - "--providers.kubernetesingress.ingressclass=traefik-external"
