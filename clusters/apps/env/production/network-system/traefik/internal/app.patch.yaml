@@ -43,7 +43,7 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${CLUSTER_LB_INGRESS_INTERNAL}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
-      - "--providers.kubernetescrd.allowexternalnameservices=true"
+      - "--providers.kubernetescrd.allowCrossNamespace=true"
     ports:
       traefik:
         expose: true
