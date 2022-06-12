@@ -78,8 +78,6 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                    - -rw_timeout
-                    - "5000000"
                 detect:
                   height: 360
                   width: 640
@@ -123,8 +121,6 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                    - -rw_timeout
-                    - "5000000"
                 detect:
                   height: 360
                   width: 640
@@ -168,8 +164,6 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                    - -rw_timeout
-                    - "5000000"
                 detect:
                   height: 360
                   width: 640
@@ -273,8 +267,6 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                    - -rw_timeout
-                    - "5000000"
                 detect:
                   height: 360
                   width: 640
@@ -318,8 +310,6 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                    - -rw_timeout
-                    - "5000000"
                 detect:
                   height: 360
                   width: 640
@@ -363,8 +353,6 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                    - -rw_timeout
-                    - "5000000"
                 detect:
                   height: 360
                   width: 640
