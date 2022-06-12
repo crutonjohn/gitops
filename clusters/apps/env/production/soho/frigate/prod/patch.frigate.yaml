@@ -353,6 +353,15 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
+                  output_args:
+                    - -c:v
+                    - h264_vaapi
+                    - -c:a
+                    - copy
+                    - -vf
+                    - format=nv12|vaapi,hwupload
+                    - -f
+                    - flv
                 detect:
                   height: 360
                   width: 640
