@@ -259,10 +259,10 @@ spec:
               south-west-1:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67:554/h265Preview_01_sub
+                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67:554/h264Preview_01_sub
                       roles:
                         - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67:554/h265Preview_01_main
+                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67:554/h264Preview_01_main
                       roles:
                         - record
                         - rtmp
