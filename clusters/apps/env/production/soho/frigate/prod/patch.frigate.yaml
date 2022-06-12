@@ -336,7 +336,7 @@ spec:
                     - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69:554/h264Preview_01_sub
                       roles:
                         - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69:554/h265Preview_01_main
+                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69:554/h264Preview_01_main
                       roles:
                         - record
                         - rtmp
@@ -353,7 +353,9 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                  hwaccel_args: []
+                  output_args:
+                    rtmp: -c:v h264_vaapi -c:a copy -vf format=nv12|vaapi,hwupload -f flv
+                    clips: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v h264_vaapi -c:a copy -vf format=nv12|vaapi,hwupload -b:v 2M -r 25 -an
                 detect:
                   height: 360
                   width: 640
