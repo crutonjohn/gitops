@@ -40,6 +40,8 @@ spec:
                 - /dev/dri/renderD128
                 - -hwaccel_output_format
                 - yuv420p
+              output_args:
+                record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
             objects:
               track:
                 - person
@@ -247,10 +249,10 @@ spec:
               south-west-1:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67:554/h264Preview_01_sub
+                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67:554/h264Preview_01_main
+                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - record
                         - rtmp
@@ -268,8 +270,8 @@ spec:
                     - -probesize
                     - 1000M
                 detect:
-                  height: 360
-                  width: 640
+                  width: 896
+                  height: 512
                 record:
                   enabled: True
                   retain_days: 2
@@ -290,10 +292,10 @@ spec:
               south-west-2:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68:554/h264Preview_01_sub
+                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68:554/h264Preview_01_main
+                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - record
                         - rtmp
@@ -311,8 +313,8 @@ spec:
                     - -probesize
                     - 1000M
                 detect:
-                  height: 360
-                  width: 640
+                  width: 896
+                  height: 512
                 record:
                   enabled: True
                   retain_days: 2
@@ -333,11 +335,9 @@ spec:
               north-door-1:
                 ffmpeg:
                   inputs:
-                  # - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69:554/h264Preview_01_sub
                     - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - detect
-                  # - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69:554/h265Preview_01_main
                     - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - record
@@ -355,11 +355,9 @@ spec:
                     - 1000M
                     - -probesize
                     - 1000M
-                  output_args:
-                    record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c copy -an
                 detect:
-                  height: 360
-                  width: 640
+                  width: 896
+                  height: 512
                 record:
                   enabled: True
                   retain_days: 2
