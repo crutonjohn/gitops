@@ -189,9 +189,11 @@ spec:
               front-doorbell-ad410:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554
+                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01
                       roles:
                         - detect
+                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0
+                      roles:
                         - record
                         - rtmp
                 detect:
@@ -219,9 +221,11 @@ spec:
               kitchen-doorbell-ad410:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554
+                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01
                       roles:
                         - detect
+                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0
+                      roles:
                         - record
                         - rtmp
                 detect:
