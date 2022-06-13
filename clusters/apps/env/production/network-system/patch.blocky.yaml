@@ -21,7 +21,7 @@ spec:
       TZ: "America/New_York"
     config: |
       upstream:
-        externalResolvers:
+        default:
           - 9.9.9.9
           - 1.1.1.1
           - tcp-tls:1.0.0.1:853
