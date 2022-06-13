@@ -28,6 +28,12 @@ spec:
               password: "${SECRET_MQTT_PASSWORD}"
             database:
               path: /data/frigate.db
+            birdseye:
+              enabled: True
+              width: 2560
+              height: 1440
+              quality: 8
+              mode: continuous
             detectors:
               coral:
                type: edgetpu
