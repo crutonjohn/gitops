@@ -110,10 +110,10 @@ spec:
             mountPath: /config
     resources:
       requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 2048Mi
         cpu: 200m
+        memory: 512Mi
+      limits:
+        memory: 4096Mi
+        cpu: 1
     nodeSelector:
       kubernetes.io/arch: amd64
