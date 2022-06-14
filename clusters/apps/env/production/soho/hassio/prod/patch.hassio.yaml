@@ -73,11 +73,11 @@ spec:
         enabled: true
         resources:
           requests:
-            cpu: 10m
+            cpu: 30m
             memory: 100Mi
           limits:
             memory: 300Mi
-            cpu: 100m
+            cpu: 200m
         image:
           repository: codercom/code-server
           tag: 3.12.0
