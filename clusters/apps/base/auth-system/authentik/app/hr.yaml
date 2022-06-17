@@ -13,6 +13,7 @@ spec:
         kind: HelmRepository
         name: authentik-charts
         namespace: flux-system
+  timeout: 10m0s
   values:
     image:
       repository: ghcr.io/goauthentik/server
