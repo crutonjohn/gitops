@@ -23,3 +23,5 @@ spec:
       tag: 1.0.16
     podAnnotations:
       linkerd.io/inject: enabled
+    env:
+      STORAGE_POLL_INTERVAL: 0
