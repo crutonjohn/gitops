@@ -2,7 +2,7 @@ terraform {
   required_providers {
     symbiosis = {
       source = "symbiosis-cloud/symbiosis"
-      version = "0.2.0"
+      version = "0.3.0"
     }
   }
 }
