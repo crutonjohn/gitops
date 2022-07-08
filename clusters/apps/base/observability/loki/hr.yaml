@@ -19,5 +19,5 @@ spec:
   values:
     image:
       repository: grafana/loki
-      tag: 2.5.0
+      tag: 2.6.0
       pullPolicy: IfNotPresent
