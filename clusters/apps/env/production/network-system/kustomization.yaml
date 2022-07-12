@@ -11,6 +11,7 @@ resources:
   - traefik/external
   - ingressroute.librespeed.yaml
   - ingressroute.unifi.yaml
+  - metallb.l2-range.yaml
 patchesStrategicMerge:
   - patch.blocky.yaml
   - patch.unifi.yaml
