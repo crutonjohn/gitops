@@ -5,12 +5,6 @@ metadata:
   name: metallb
 spec:
   values:
-    configInline:
-      address-pools:
-        - name: default
-          protocol: layer2
-          addresses:
-            - 192.168.130.100-192.168.130.200
     prometheus:
       serviceAccount: "kube-prometheus-kube-prome-prometheus"
       namespace: "observability"
@@ -45,3 +39,5 @@ spec:
         limits:
           cpu: 68m
           memory: 108M
+    crds:
+      enabled: false

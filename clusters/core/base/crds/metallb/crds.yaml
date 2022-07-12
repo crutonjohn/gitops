@@ -2,13 +2,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: metallb
+  name: metallb-crds
 spec:
-  interval: 5m
+  interval: 60m
   chart:
     spec:
-      chart: metallb
-      version: 0.13.3
+      chart: crds
       sourceRef:
         kind: HelmRepository
         name: metallb-charts
