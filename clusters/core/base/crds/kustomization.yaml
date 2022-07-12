@@ -5,7 +5,7 @@ resources:
   - cert-manager
   - kube-prometheus
   # - linkerd
-  - metallb
+  # - metallb
   - inlets-operator
   - external-dns
   - external-snapshotter

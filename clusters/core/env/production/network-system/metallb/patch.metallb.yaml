@@ -40,4 +40,4 @@ spec:
           cpu: 68m
           memory: 108M
     crds:
-      enabled: false
+      enabled: true
