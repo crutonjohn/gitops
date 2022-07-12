@@ -13,3 +13,6 @@ spec:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
+  dependsOn:
+    - name: metallb-crds
+      namespace: network-system
