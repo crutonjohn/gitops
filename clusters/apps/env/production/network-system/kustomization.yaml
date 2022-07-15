@@ -3,7 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: network-system
 resources:
-  - ../../../base/network-system/blocky
   - ../../../base/network-system/librespeed
   - ../../../base/network-system/unifi
   - ../../../base/network-system/unifi-poller
@@ -13,7 +12,6 @@ resources:
   - ingressroute.unifi.yaml
   - metallb.l2-range.yaml
 patchesStrategicMerge:
-  - patch.blocky.yaml
   - patch.unifi.yaml
   - patch.unifi-poller.yaml
   - patch.librespeed.yaml
