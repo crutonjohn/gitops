@@ -57,11 +57,10 @@ spec:
       forceReDownload: false
       removeOldMods: false
       onlineMode: true
-      memory: 6144M
-      jvmOpts: ""
+      memory: 3072M
+      jvmOpts: "-Xmx3G -Xms3G -Xmn768m -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+UseNUMA -XX:+CMSParallelRemarkEnabled -XX:MaxTenuringThreshold=15 -XX:MaxGCPauseMillis=30 -XX:GCPauseIntervalMillis=150 -XX:+UseAdaptiveGCBoundary -XX:-UseGCOverheadLimit -XX:+UseBiasedLocking -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=15 -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:+UseFastAccessorMethods -XX:+UseCompressedOops -XX:+OptimizeStringConcat -XX:+AggressiveOpts -XX:ReservedCodeCacheSize=2048m -XX:+UseCodeCacheFlushing -XX:SoftRefLRUPolicyMSPerMB=10000 -XX:ParallelGCThreads=10"
       jvmXXOpts: ""
-      serviceType: LoadBalancer
-      loadBalancerIP: ${CLUSTER_LB_HOMECRAFT}
+      serviceType: ClusterIP
     persistence:
       dataDir:
         enabled: true
