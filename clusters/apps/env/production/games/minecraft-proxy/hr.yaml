@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: minecraft
+  name: minecraft-proxy
 spec:
   interval: 5m
   chart:
@@ -28,9 +28,9 @@ spec:
     minecraftProxy:
       type: BUNGEECORD
       onlineMode: false
-      memory: 1024M
+      memory: 512M
       serviceType: loadBalancer
-      loadBalancerIP:
+      loadBalancerIP: ${CLUSTER_LB_MINECRAFT}
       # loadBalancerSourceRanges: []
       ## Set the externalTrafficPolicy in the Service to either Cluster or Local
       # externalTrafficPolicy: Cluster
@@ -38,126 +38,74 @@ spec:
       # If set, this overrides the default config file path
       configFilePath: /server/config.yml
       # This can be set to the contents of your config file (only works with yaml currently)
-      # config: |
-      #  player_limit: -1
-      #  ip_forward: false
-      #  permissions:
-      #    default:
-      #    - bungeecord.command.server
-      #    - bungeecord.command.list
-      #    admin:
-      #    - bungeecord.command.alert
-      #    - bungeecord.command.end
-      #    - bungeecord.command.ip
-      #    - bungeecord.command.reload
-      #  timeout: 30000
-      #  log_pings: true
-      #  log_commands: false
-      #  online_mode: true
-      #  servers:
-      #    lobby:
-      #      motd: '&1Just another BungeeCord - Forced Host'
-      #      address: localhost:25565
-      #      restricted: false
-      #  listeners:
-      #  - query_port: 25577
-      #    motd: '&1Another Bungee server'
-      #    priorities:
-      #    - lobby
-      #    bind_local_address: true
-      #    tab_list: GLOBAL_PING
-      #    query_enabled: false
-      #    host: 0.0.0.0:25577
-      #    forced_hosts:
-      #      pvp.md-5.net: pvp
-      #    max_players: 1
-      #    tab_size: 60
-      #    ping_passthrough: false
-      #    force_default_server: false
-      #    proxy_protocol: false
-      #  disabled_commands:
-      #  - disabledcommandhere
-      #  network_compression_threshold: 256
-      #  groups:
-      #    md_5:
-      #    - admin
-      #  connection_throttle: 4000
-      #  connection_throttle_limit: 3
-      #  stats: f2876aa6-74d2-468c-90ee-1377111f1c9f
-      #  forge_support: false
-      #  inject_commands: false
-
+      config: |
+       player_limit: 25
+       ip_forward: false
+       permissions:
+         default:
+         - bungeecord.command.server
+         - bungeecord.command.list
+         admin:
+         - bungeecord.command.alert
+         - bungeecord.command.end
+         - bungeecord.command.ip
+         - bungeecord.command.reload
+       timeout: 30000
+       log_pings: true
+       log_commands: false
+       online_mode: true
+       servers:
+         lobby:
+           motd: '&1Just another BungeeCord - Forced Host'
+           address: localhost:25565
+           restricted: false
+       listeners:
+       - query_port: 25577
+         motd: '&1Another Bungee server'
+         priorities:
+         - lobby
+         bind_local_address: true
+         tab_list: GLOBAL_PING
+         query_enabled: false
+         host: 0.0.0.0:25577
+         forced_hosts:
+           pvp.${SECRET_DOMAIN}: pvp
+         max_players: 1
+         tab_size: 60
+         ping_passthrough: false
+         force_default_server: false
+         proxy_protocol: false
+       disabled_commands:
+       - disabledcommandhere
+       network_compression_threshold: 256
+       groups:
+         crutonjohn:
+         - admin
+       connection_throttle: 4000
+       connection_throttle_limit: 3
+       stats: f2876aa6-74d2-468c-90ee-1377111f1c9f
+       forge_support: false
+       inject_commands: false
       rcon:
         # If you enable this, make SURE to change your password below.
         enabled: false
         port: 25575
-        password: "CHANGEME!"
+        password: "${MINECRAFT_BUNGEE_RCON_PASSWORD}"
         serviceType: LoadBalancer
-        loadBalancerIP:
+        loadBalancerIP: ${CLUSTER_LB_MINECRAFT}
         # loadBalancerSourceRanges: []
         ## Set the externalTrafficPolicy in the Service to either Cluster or Local
         # externalTrafficPolicy: Cluster
-
       extraPorts: []
-        # These options allow you to expose another port from the Minecraft proxy, plugins such
-        # as NuVotifier (8192) will require this for incoming webhooks
-        #
-        # - name: vote
-        #   containerPort: 8192
-        #   protocol: TCP
-        #   service:
-        #     enabled: false
-        #     embedded: false
-        #     annotations: {}
-        #     type: ClusterIP
-        #     ## Set the external port if the rcon serviceType is NodePort
-        ##     nodePort:
-        #     loadBalancerIP: ""
-        #     loadBalancerSourceRanges: []
-        #     externalTrafficPolicy: Cluster
-        #     port: 8192
-        #   ingress:
-        #     ingressClassName: nginx
-        #     enabled: false
-        #     annotations:
-        ## Deprecated way for specifying the ingressClass. Kube.version < 1.18
-        ##       kubernetes.io/ingress.class: nginx
-        #       kubernetes.io/tls-acme: "true"
-        #     hosts:
-        #       - name: vote.local
-        #         path: /
-        #     tls:
-        #       - secretName: vote-tls
-        #         hosts:
-        #           - vote.local
-
-    ## Additional minecraft container environment variables
-    ##
     extraEnv: {}
-
     persistence:
-      ## minecraft data Persistent Volume Storage Class
-      ## If defined, storageClassName: <storageClass>
-      ## If set to "-", storageClassName: "", which disables dynamic provisioning
-      ## If undefined (the default) or set to null, no storageClassName spec is
-      ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-      ##   GKE, AWS & OpenStack)
-      ##
-      # storageClass: "-"
       dataDir:
-        # Set this to false if you don't care to persist state between restarts.
-        enabled: false
-        # existingClaim: nil
-        Size: 1Gi
-
+        enabled: true
+        existingClaim: bungee-data-rook
     podAnnotations: {}
-
     deploymentAnnotations: {}
-
     serviceAnnotations: {}
-
     rconServiceAnnotations: {}
-
     # Can allow plugins access to the kubernetes api using a service account
     # https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
     serviceAccountName:
