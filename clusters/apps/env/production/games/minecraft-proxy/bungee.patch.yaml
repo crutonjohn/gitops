@@ -20,7 +20,7 @@ spec:
       type: BUNGEECORD
       onlineMode: false
       memory: 512M
-      serviceType: loadBalancer
+      serviceType: LoadBalancer
       loadBalancerIP: ${CLUSTER_LB_MINECRAFT}
       # loadBalancerSourceRanges: []
       ## Set the externalTrafficPolicy in the Service to either Cluster or Local
