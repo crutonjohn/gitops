@@ -52,13 +52,13 @@ spec:
            restricted: false
        listeners:
        - query_port: 25577
-         motd: '&1Another Bungee server'
+         motd: '&1Vanilla server'
          priorities:
          - lobby
          bind_local_address: true
          tab_list: GLOBAL_PING
          query_enabled: false
-         host: 0.0.0.0:25577
+         host: homecraft-vanilla-minecraft:25565
          forced_hosts:
            pvp.${SECRET_DOMAIN}: pvp
          max_players: 1
