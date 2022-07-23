@@ -10,7 +10,7 @@ spec:
       protocol: TCP
       port: 443
       targetPort: 443
-  externalName: 192.168.128.82
+  externalName: 192.168.137.2
   type: ExternalName
 #  ---
 #  apiVersion: v1
