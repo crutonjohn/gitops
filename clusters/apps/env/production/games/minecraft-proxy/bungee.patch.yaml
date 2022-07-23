@@ -14,7 +14,6 @@ spec:
         cpu: 750m
     securityContext:
       runAsUser: 5506
-      runAsGroup: 5506
       fsGroup: 5506
     minecraftProxy:
       type: BUNGEECORD
@@ -30,60 +29,60 @@ spec:
       configFilePath: /server/config.yml
       # This can be set to the contents of your config file (only works with yaml currently)
       config: |
-       player_limit: -1
-       ip_forward: true
-       permissions:
-         default:
-         - bungeecord.command.server
-         - bungeecord.command.list
-         admin:
-         - bungeecord.command.alert
-         - bungeecord.command.end
-         - bungeecord.command.ip
-         - bungeecord.command.reload
-       timeout: 30000
-       log_pings: true
-       log_commands: false
-       online_mode: true
-       servers:
-         vanilla:
-           motd: '&1Just another BungeeCord - Forced Host'
-           address: homecraft-vanilla-minecraft.games.svc.cluster.local:25565
-           restricted: false
-         jacob:
-           motd: '&1Happy Birthday Jacob'
-           address: jacob-minecraft.games.svc.cluster.local:25565
-           restricted: false
-       listeners:
-       - query_port: 25565
-         motd: '&1Happy Birthday Jacob'
-         priorities:
-         - vanilla
-         - jacob
-         bind_local_address: true
-         tab_list: GLOBAL_PING
-         query_enabled: false
-         host: 0.0.0.0:25565
-         forced_hosts:
-           jacob-mc.${SECRET_DOMAIN}: jacob
-           vanilla.${SECRET_DOMAIN}: vanilla
-         max_players: 1
-         tab_size: 60
-         ping_passthrough: false
-         force_default_server: true
-         proxy_protocol: false
-         default_server: vanilla
-       disabled_commands:
-       - disabledcommandhere
-       network_compression_threshold: 256
-       groups:
-         crutonjohn:
-         - admin
-       connection_throttle: 4000
-       connection_throttle_limit: 3
-       stats: f2876aa6-74d2-468c-90ee-1377111f1c9f
-       forge_support: false
-       inject_commands: false
+        player_limit: -1
+        ip_forward: true
+        permissions:
+          default:
+            - bungeecord.command.server
+            - bungeecord.command.list
+          admin:
+            - bungeecord.command.alert
+            - bungeecord.command.end
+            - bungeecord.command.ip
+            - bungeecord.command.reload
+        timeout: 30000
+        log_pings: true
+        log_commands: false
+        online_mode: true
+        servers:
+          vanilla:
+            motd: '&1Just another BungeeCord - Forced Host'
+            address: homecraft-vanilla-minecraft.games.svc.cluster.local:25565
+            restricted: false
+          jacob:
+            motd: '&1Happy Birthday Jacob'
+            address: jacob-minecraft.games.svc.cluster.local:25565
+            restricted: false
+        listeners:
+          - query_port: 25577
+            motd: '&1Happy Birthday Jacob'
+            priorities:
+              - vanilla
+              - jacob
+            bind_local_address: true
+            tab_list: GLOBAL_PING
+            query_enabled: false
+            host: 0.0.0.0:25577
+            forced_hosts:
+              jacob-mc.${SECRET_DOMAIN}: jacob
+              vanilla.${SECRET_DOMAIN}: vanilla
+            max_players: 1
+            tab_size: 60
+            ping_passthrough: false
+            force_default_server: true
+            proxy_protocol: false
+            default_server: vanilla
+        disabled_commands:
+          - disabledcommandhere
+        network_compression_threshold: 256
+        groups:
+          crutonjohn:
+            - admin
+        connection_throttle: 4000
+        connection_throttle_limit: 3
+        stats: f2876aa6-74d2-468c-90ee-1377111f1c9f
+        forge_support: false
+        inject_commands: false
       rcon:
         # If you enable this, make SURE to change your password below.
         enabled: false
