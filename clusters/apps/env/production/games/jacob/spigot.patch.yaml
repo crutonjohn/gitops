@@ -63,4 +63,4 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: jacob-mc-data-rook
+        existingClaim: jacob-mc-rook
