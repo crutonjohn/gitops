@@ -98,7 +98,7 @@ spec:
     extraEnv: {}
     persistence:
       dataDir:
-        enabled: false
+        enabled: true
         existingClaim: bungee-data-rook
     podAnnotations: {}
     deploymentAnnotations: {}
