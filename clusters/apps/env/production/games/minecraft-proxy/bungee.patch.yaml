@@ -43,7 +43,7 @@ spec:
         timeout: 30000
         log_pings: true
         log_commands: false
-        online_mode: true
+        online_mode: false
         servers:
           vanilla:
             motd: '&1HomeCraft - Vanilla'
