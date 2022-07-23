@@ -55,7 +55,7 @@ spec:
       worldSaveName: jacob-mc
       forceReDownload: false
       removeOldMods: false
-      onlineMode: true
+      onlineMode: false
       memory: 3072M
       jvmOpts: "-Xmx3G -Xms3G -Xmn768m"
       jvmXXOpts: ""
