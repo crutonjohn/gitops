@@ -35,7 +35,7 @@ spec:
       ftbLegacyJavaFixer: false
       spigotDownloadUrl:
       difficulty: easy
-      ops: crutonjohn
+      ops: aflyingcougar,crutonjohn
       maxPlayers: 20
       maxWorldSize: 15000
       allowNether: true
