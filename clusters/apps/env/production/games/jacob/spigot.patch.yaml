@@ -27,7 +27,7 @@ spec:
       fsGroup: 5506
     minecraftServer:
       eula: "TRUE"
-      version: "1.19"
+      version: "1.18"
       type: "SPIGOT"
       ftbLegacyJavaFixer: false
       spigotDownloadUrl:
