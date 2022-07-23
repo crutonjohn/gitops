@@ -63,6 +63,9 @@ spec:
       jvmOpts: "-Xmx3G -Xms3G -Xmn768m"
       jvmXXOpts: ""
       serviceType: ClusterIP
+      rcon:
+        enabled: true
+        password: "${MINECRAFT_BUNGEE_RCON_PASSWORD}"
     persistence:
       dataDir:
         enabled: true
