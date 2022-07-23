@@ -14,6 +14,9 @@ spec:
         name: itzg-minecraft-charts
         namespace: flux-system
   values:
+    image:
+      repository: itzg/minecraft-server
+      tag: "java16-openj9"
     resources:
       requests:
         memory: 512Mi
