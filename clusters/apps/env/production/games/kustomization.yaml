@@ -5,4 +5,5 @@ namespace: games
 resources:
   - homecraft-vanilla
   - minecraft-proxy
+  - jacob
   # - test

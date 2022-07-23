@@ -22,13 +22,15 @@ spec:
         cpu: 1
         memory: 3072Mi
     securityContext:
+      # Security context settings
       runAsUser: 5506
       fsGroup: 5506
     minecraftServer:
       eula: "TRUE"
-      version: "LATEST"
-      type: "VANILLA"
+      version: "1.19"
+      type: "SPIGOT"
       ftbLegacyJavaFixer: false
+      spigotDownloadUrl:
       difficulty: easy
       ops: crutonjohn
       maxPlayers: 20
@@ -46,11 +48,11 @@ spec:
       spawnNPCs: true
       viewDistance: 40
       gameMode: survival
-      motd: "Homecraft - Vanilla"
+      motd: "Jacob's Birthday Server"
       pvp: false
       levelType: DEFAULT
       generatorSettings:
-      worldSaveName: homecraft
+      worldSaveName: jacob-mc
       forceReDownload: false
       removeOldMods: false
       onlineMode: true
@@ -61,4 +63,4 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: homecraft-data-rook
+        existingClaim: jacob-mc-data-rook
