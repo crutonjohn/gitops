@@ -5,6 +5,7 @@ commonLabels:
   minecraft: spigot
 resources:
   - ../../../../base/games/minecraft
+  - dns.yaml
 patchesStrategicMerge:
   - spigot.patch.yaml
 # https://github.com/kubernetes-sigs/kustomize/issues/2645#issuecomment-920320839

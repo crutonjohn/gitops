@@ -1,0 +1,14 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: jacob-mc
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: jacob.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
