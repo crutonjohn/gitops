@@ -20,7 +20,7 @@ spec:
         cpu: 500m
       limits:
         cpu: 1
-        memory: 3072Mi
+        memory: 6144Mi
     securityContext:
       runAsUser: 5506
       fsGroup: 5506
@@ -44,7 +44,7 @@ spec:
       spawnAnimals: true
       spawnMonsters: true
       spawnNPCs: true
-      viewDistance: 40
+      viewDistance: 8
       gameMode: survival
       motd: "Homecraft - Vanilla"
       pvp: false
@@ -54,9 +54,9 @@ spec:
       forceReDownload: false
       removeOldMods: false
       onlineMode: false
-      memory: 3072M
-      jvmOpts: "-Xmx3G -Xms3G -Xmn768m"
-      jvmXXOpts: ""
+      memory: 4098M
+      jvmOpts: "-Xmx4G -Xms4G -Xmn768m"
+      jvmXXOpts: "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1"
       serviceType: ClusterIP
     persistence:
       dataDir:
