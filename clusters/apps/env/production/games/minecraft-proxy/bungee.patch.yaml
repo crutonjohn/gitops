@@ -10,15 +10,15 @@ spec:
         memory: 512Mi
         cpu: 500m
       limits:
-        memory: 1024Mi
-        cpu: 750m
+        memory: 2048Mi
+        cpu: 1
     securityContext:
       runAsUser: 5506
       fsGroup: 5506
     minecraftProxy:
       type: BUNGEECORD
       onlineMode: false
-      memory: 512M
+      memory: 1024M
       serviceType: LoadBalancer
       loadBalancerIP: ${CLUSTER_LB_MINECRAFT}
       # loadBalancerSourceRanges: []
@@ -66,7 +66,7 @@ spec:
             forced_hosts:
               jacob.${SECRET_DOMAIN}: jacob
               vanilla.${SECRET_DOMAIN}: vanilla
-            max_players: 1
+            max_players: 20
             tab_size: 60
             ping_passthrough: false
             force_default_server: true
