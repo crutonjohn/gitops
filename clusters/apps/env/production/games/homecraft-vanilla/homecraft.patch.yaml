@@ -27,7 +27,7 @@ spec:
     minecraftServer:
       eula: "TRUE"
       version: "LATEST"
-      type: "VANILLA"
+      type: "PAPER"
       ftbLegacyJavaFixer: false
       difficulty: easy
       ops: crutonjohn
