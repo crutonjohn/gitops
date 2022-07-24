@@ -50,12 +50,12 @@ spec:
             address: homecraft-vanilla-minecraft.games.svc.cluster.local:25565
             restricted: false
           jacob:
-            motd: '&1Happy Birthday Jacob'
+            motd: '&1Jacob's BR Server'
             address: jacob-minecraft.games.svc.cluster.local:25565
             restricted: false
         listeners:
           - query_port: 25577
-            motd: '&1Happy Birthday Jacob'
+            motd: '&1Minecraft in K8s'
             priorities:
               - vanilla
               - jacob
