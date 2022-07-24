@@ -50,7 +50,7 @@ spec:
             address: homecraft-vanilla-minecraft.games.svc.cluster.local:25565
             restricted: false
           jacob:
-            motd: '&1Jacob's BR Server'
+            motd: "&1Jacob's BR Server"
             address: jacob-minecraft.games.svc.cluster.local:25565
             restricted: false
         listeners:
