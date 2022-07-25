@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: itzg/minecraft-server
-      tag: java17-openj9
+      tag: java8
       pullPolicy: IfNotPresent
     resources:
       requests:
