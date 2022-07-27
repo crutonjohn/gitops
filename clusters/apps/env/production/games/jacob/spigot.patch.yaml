@@ -24,7 +24,7 @@ spec:
         cpu: 500m
       limits:
         cpu: 1
-        memory: 3072Mi
+        memory: 4096Mi
     securityContext:
       # Security context settings
       runAsUser: 5506
