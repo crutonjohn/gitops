@@ -7,7 +7,7 @@ resources:
   - ../../../../base/games/minecraft
   - dns.yaml
 patchesStrategicMerge:
-  - spigot.patch.yaml
+  - paper.patch.yaml
 # https://github.com/kubernetes-sigs/kustomize/issues/2645#issuecomment-920320839
 patchesJson6902:
   - target:
