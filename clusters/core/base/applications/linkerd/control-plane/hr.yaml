@@ -16,9 +16,6 @@ spec:
         name: linkerd-charts
         namespace: flux-system
   timeout: 10m0s
-  # dependsOn:
-  #   - name: linkerd-crds
-  #     namespace: flux-system
   values:
     identity:
       issuer:

@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd-cni
+spec:
+  interval: 5m
+  install:
+    createNamespace: true
+  chart:
+    spec:
+      chart: linkerd2-cni
+      version: 2.10.2
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd-charts
+        namespace: flux-system
+  timeout: 10m0s
+  values:
+    inboundProxyPort: 4143
+    outboundProxyPort: 4140
+    ignoreInboundPorts: ""
+    ignoreOutboundPorts: ""
+    proxyAdminPort: 4191
+    proxyControlPort: 4190
+    cniPluginImage: "cr.l5d.io/linkerd/cni-plugin"
+    cniPluginVersion: linkerdVersionValue
+    logLevel: info
+    portsToRedirect: ""
+    proxyUID: 2102
+    destCNINetDir: "/etc/cni/net.d"
+    destCNIBinDir: "/opt/cni/bin"
+    useWaitFlag: false
+    priorityClassName: ""
+    privileged: false
+    extraInitContainers:
+      - name: wait-for-other-cni
+        image: busybox:1.33
+        command:
+          - /bin/sh
+          - -xc
+          - |
+            for i in $(seq 1 180); do
+              test -f /host/etc/cni/net.d/10-calico.conflist && exit 0
+              sleep 1
+            done
+            exit 1
+        volumeMounts:
+          - mountPath: /host/etc/cni/net.d
+            name: cni-net-dir
