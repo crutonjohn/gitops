@@ -10,7 +10,7 @@ spec:
       tag: 24.0.1-apache
       pullPolicy: IfNotPresent
     podAnnotations:
-      linkerd.io/inject: "enabled"
+      #linkerd.io/inject: "enabled"
     nextcloud:
       extraSecurityContext:
         runAsUser: "82"
