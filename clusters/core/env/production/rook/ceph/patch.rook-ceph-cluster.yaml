@@ -44,7 +44,7 @@ spec:
           - name: "k-node1.${SECRET_DOMAIN}"
             devices:
               - name: "/dev/disk/by-id/ata-TEAM_TM8PS7001T_TPBF2106110130800134"
-          - name: "k-node2.${SECRET_DOMAIN}"
+          - name: "k-node2"
             devices:
               - name: "/dev/disk/by-id/ata-TEAM_TM8PS7001T_TPBF2106110130800763"
           - name: "k-node3.${SECRET_DOMAIN}"
@@ -79,56 +79,48 @@ spec:
       resources:
         mgr:
           limits:
-            cpu: "1000m"
             memory: "1Gi"
           requests:
             cpu: "150m"
             memory: "512Mi"
         mon:
           limits:
-            cpu: "1000m"
             memory: "2Gi"
           requests:
             cpu: "150m"
             memory: "1Gi"
         osd:
           limits:
-            cpu: "1000m"
             memory: "4Gi"
           requests:
             cpu: "150m"
             memory: "4Gi"
         prepareosd:
           limits:
-            cpu: "500m"
             memory: "200Mi"
           requests:
             cpu: "250m"
             memory: "50Mi"
         mgr-sidecar:
           limits:
-            cpu: "500m"
             memory: "100Mi"
           requests:
             cpu: "100m"
             memory: "40Mi"
         crashcollector:
           limits:
-            cpu: "500m"
             memory: "60Mi"
           requests:
             cpu: "100m"
             memory: "60Mi"
         logcollector:
           limits:
-            cpu: "500m"
             memory: "512Mi"
           requests:
             cpu: "100m"
             memory: "100Mi"
         cleanup:
           limits:
-            cpu: "500m"
             memory: "1Gi"
           requests:
             cpu: "500m"
