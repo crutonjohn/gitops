@@ -5,6 +5,8 @@ metadata:
   name: affine
 spec:
   values:
+    global:
+      nameOverride: affine
     podAnnotations:
       linkerd.io/inject: enabled
     ingress:
