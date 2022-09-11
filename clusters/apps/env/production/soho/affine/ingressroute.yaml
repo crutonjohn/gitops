@@ -1,0 +1,50 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: affine
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: notes.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`notes.${SECRET_DOMAIN}`)"
+      middlewares:
+        - name: l5d-affine-middleware
+          namespace: soho
+      priority: 10
+      services:
+        - name: affine
+          port: 3000
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: notes.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-affine-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "affine.soho.svc.cluster.local:8000"
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: affine
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: notes.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
