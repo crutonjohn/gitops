@@ -9,6 +9,10 @@ spec:
       nameOverride: affine
     podAnnotations:
       linkerd.io/inject: enabled
+    service:
+      ports:
+        http:
+          port: 3000
     ingress:
       main:
         enabled: false
