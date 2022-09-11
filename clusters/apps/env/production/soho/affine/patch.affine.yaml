@@ -14,6 +14,10 @@ spec:
         ports:
           http:
             port: 3000
+      admin:
+        ports:
+          http:
+            port: 2019
     ingress:
       main:
         enabled: false
