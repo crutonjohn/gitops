@@ -15,12 +15,25 @@ spec:
     - kind: Rule
       match: "Host(`notes.${SECRET_DOMAIN}`)"
       middlewares:
+        - name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
         - name: l5d-affine-middleware
           namespace: soho
       priority: 10
       services:
         - name: affine
           port: 3000
+    - kind: Rule
+      match: "Host(`notes.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      priority: 15
+      services:
+        - kind: Service
+          name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
+          port: 9000
+      middlewares:
+        - name: l5d-authentik-middleware
+          namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
@@ -33,7 +46,7 @@ metadata:
 spec:
   headers:
     customRequestHeaders:
-      l5d-dst-override: "affine.soho.svc.cluster.local:8000"
+      l5d-dst-override: "affine.soho.svc.cluster.local:3000"
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint

@@ -19,6 +19,16 @@ spec:
             primary: false
             port: 2019
             protocol: HTTP
+          caddy-http:
+            enabled: true
+            primary: false
+            port: 80
+            protocol: HTTP
+          caddy-https:
+            enabled: true
+            primary: false
+            port: 443
+            protocol: HTTPS
     ingress:
       main:
         enabled: false
