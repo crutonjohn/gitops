@@ -1,4 +1,0 @@
----
-- op: replace
-  path: /spec/values/image/repository
-  value: raspbernetes/kured

@@ -11,5 +11,4 @@ resources:
   - network-system
   - observability
   - soho
-  - stackrox
   - trilio
