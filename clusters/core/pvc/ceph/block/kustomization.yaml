@@ -10,7 +10,6 @@ resources:
   - minecraft.yaml
   - nextcloud.yaml
   - paperless.yaml
-  - unifi.yaml
   - zigbee2mqtt.yaml
   - hajimari.yaml
   - hassio.yaml

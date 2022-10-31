@@ -4,14 +4,9 @@ kind: Kustomization
 namespace: network-system
 resources:
   - ../../../base/network-system/librespeed
-  - ../../../base/network-system/unifi
-  - ../../../base/network-system/unifi-poller
   - traefik/internal
   - traefik/external
   - ingressroute.librespeed.yaml
-  - ingressroute.unifi.yaml
   - metallb.l2-range.yaml
 patchesStrategicMerge:
-  - patch.unifi.yaml
-  - patch.unifi-poller.yaml
   - patch.librespeed.yaml
