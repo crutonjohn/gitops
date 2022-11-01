@@ -6,8 +6,6 @@ metadata:
 spec:
   values:
     revisionHistoryLimit: 2
-    podAnnotations:
-      linkerd.io/inject: enabled
     replicas: 1
     downloadDashboardsImage:
       repository: curlimages/curl
@@ -167,81 +165,6 @@ spec:
         rook-ceph-dashboard:
           gnetId: 2842
           revision: 14
-          datasource: Prometheus
-        ######################
-        # Linkerd Dashboards #
-        ######################
-        top-line:
-          gnetId: 15474
-          revision: 3
-          datasource: Prometheus
-        health:
-          gnetId: 15486
-          revision: 2
-          datasource: Prometheus
-        kubernetes:
-          gnetId: 15479
-          revision: 2
-          datasource: Prometheus
-        namespace:
-          gnetId: 15478
-          revision: 2
-          datasource: Prometheus
-        deployment:
-          gnetId: 15475
-          revision: 5
-          datasource: Prometheus
-        pod:
-          gnetId: 15477
-          revision: 2
-          datasource: Prometheus
-        service:
-          gnetId: 15480
-          revision: 2
-          datasource: Prometheus
-        route:
-          gnetId: 15481
-          revision: 2
-          datasource: Prometheus
-        authority:
-          gnetId: 15482
-          revision: 2
-          datasource: Prometheus
-        cronjob:
-          gnetId: 15483
-          revision: 2
-          datasource: Prometheus
-        job:
-          gnetId: 15487
-          revision: 2
-          datasource: Prometheus
-        daemonset:
-          gnetId: 15484
-          revision: 2
-          datasource: Prometheus
-        replicaset:
-          gnetId: 15491
-          revision: 2
-          datasource: Prometheus
-        statefulset:
-          gnetId: 15493
-          revision: 2
-          datasource: Prometheus
-        replicationcontroller:
-          gnetId: 15492
-          revision: 2
-          datasource: Prometheus
-        prometheus:
-          gnetId: 15489
-          revision: 2
-          datasource: Prometheus
-        prometheus-benchmark:
-          gnetId: 15490
-          revision: 2
-          datasource: Prometheus
-        multicluster:
-          gnetId: 15488
-          revision: 2
           datasource: Prometheus
         ###################
         # Loki Dashboards #

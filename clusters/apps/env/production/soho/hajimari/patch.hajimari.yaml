@@ -32,7 +32,6 @@ spec:
       TZ: "America/New_York"
     podAnnotations:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
-      linkerd.io/inject: enabled
     persistence:
       data:
         enabled: true

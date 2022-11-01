@@ -9,8 +9,6 @@ spec:
     fullnameOverride: cert-manager
     installCRDs: false
     cainjector:
-      podAnnotations:
-        linkerd.io/inject: enabled
       resources:
         requests:
           cpu: 15m

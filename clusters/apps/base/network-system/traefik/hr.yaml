@@ -16,13 +16,8 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: network-system
-    - name: linkerd
-      namespace: linkerd
   values:
     image:
       name: traefik
       tag: 2.6.0
       pullPolicy: IfNotPresent
-    deployment:
-      podAnnotations:
-        linkerd.io/inject: ingress

@@ -13,8 +13,6 @@ spec:
       prometheusRule:
         enabled: true
     controller:
-      podAnnotations:
-        linkerd.io/inject: enabled
       prometheus:
         serviceMonitor:
           enabled: true
@@ -30,8 +28,6 @@ spec:
           cpu: 32m
           memory: 71M
     speaker:
-      podAnnotations:
-        linkerd.io/inject: enabled
       resources:
         requests:
           cpu: 15m

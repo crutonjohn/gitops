@@ -7,7 +7,6 @@ spec:
   values:
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-prod-config"
-      linkerd.io/inject: enabled
     image:
       repository: ghcr.io/k8s-at-home/frigate
       tag: 0.10.1-amd64

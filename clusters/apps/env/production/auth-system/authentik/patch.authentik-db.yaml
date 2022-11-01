@@ -21,8 +21,6 @@ spec:
         requests:
           memory: 256Mi
           cpu: 250m
-      podAnnotations:
-        linkerd.io/inject: enabled
       podSecurityContext:
         enabled: true
         runAsNonRoot: true

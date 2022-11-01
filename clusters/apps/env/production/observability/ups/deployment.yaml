@@ -5,8 +5,6 @@ metadata:
   name: upsd-tesla
   labels:
     component: upsd-tesla
-  annotations:
-    linkerd.io/inject: enabled
 spec:
   selector:
     matchLabels:
@@ -78,8 +76,6 @@ metadata:
   name: upsd-edison
   labels:
     component: upsd-edison
-  annotations:
-    linkerd.io/inject: enabled
 spec:
   selector:
     matchLabels:

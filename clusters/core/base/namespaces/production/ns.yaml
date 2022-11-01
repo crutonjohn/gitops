@@ -7,14 +7,12 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: games
+  name: bitwarden
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: linkerd
-  labels:
-    config.linkerd.io/admission-webhooks: disabled
+  name: games
 ---
 apiVersion: v1
 kind: Namespace
@@ -40,15 +38,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: soho
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: stackrox
-  # Can't be enabled because stackrox drops NET_RAW capability
-  # https://github.com/stackrox/helm-charts/commit/ed01821cfceb5a4079aa00fdd65dbb582819dded#diff-9c86ce7e805281021cc72dd5977e8570f7f281c495a44c62f12307f85741aa25R93
-  # annotations:
-  #   linkerd.io/inject: enabled
 ---
 apiVersion: v1
 kind: Namespace

@@ -6,8 +6,6 @@ metadata:
 spec:
   values:
     fullnameOverride: authentik
-    podAnnotations:
-      linkerd.io/inject: enabled
     resources:
       server:
         requests:
@@ -53,8 +51,6 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      podAnnotations:
-        linkerd.io/inject: enabled
     prometheus:
       serviceMonitor:
         create: true

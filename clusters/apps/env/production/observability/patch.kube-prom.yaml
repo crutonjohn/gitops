@@ -64,9 +64,6 @@ spec:
             hosts:
               - "alerts.${SECRET_DOMAIN}"
       alertmanagerSpec:
-        podMetadata:
-          annotations:
-            linkerd.io/inject: enabled
         storage:
           volumeClaimTemplate:
             spec:
@@ -171,8 +168,6 @@ spec:
               targetLabel: kubernetes_node
 
     prometheus-node-exporter:
-      podAnnotations:
-        linkerd.io/inject: enabled
     ## Prometheus Operator
     #
     prometheusOperator:
@@ -239,9 +234,6 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-        podMetadata:
-          annotations:
-            linkerd.io/inject: enabled
         resources:
           requests:
             cpu: 587m

@@ -9,8 +9,6 @@ spec:
       repository: nextcloud
       tag: 24.0.1-apache
       pullPolicy: IfNotPresent
-    podAnnotations:
-      #linkerd.io/inject: "enabled"
     nextcloud:
       extraSecurityContext:
         runAsUser: "82"
@@ -82,8 +80,6 @@ spec:
       enabled: false
     postgresql:
       enabled: true
-      podAnnotations:
-        linkerd.io/inject: "enabled"
       global:
         postgresql:
           auth:
@@ -114,8 +110,6 @@ spec:
     internalDatabase:
       enabled: false
     redis:
-      podAnnotations:
-        linkerd.io/inject: "enabled"
       enabled: true
     persistence:
       enabled: true
@@ -137,5 +131,3 @@ spec:
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "9205"
-      podAnnotations:
-        linkerd.io/inject: "enabled"

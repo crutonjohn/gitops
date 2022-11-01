@@ -5,8 +5,6 @@ metadata:
   name: navidrome
 spec:
   values:
-    podAnnotations:
-      linkerd.io/inject: enabled
     podSecurityContext:
       fsGroup: 1177
       runAsNonRoot: true

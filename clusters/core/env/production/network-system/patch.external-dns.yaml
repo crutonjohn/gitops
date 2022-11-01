@@ -19,8 +19,6 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    podAnnotations:
-      linkerd.io/inject: enabled
 
     serviceMonitor:
       enabled: true

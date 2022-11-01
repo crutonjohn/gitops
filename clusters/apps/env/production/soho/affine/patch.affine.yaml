@@ -7,8 +7,6 @@ spec:
   values:
     global:
       nameOverride: affine
-    podAnnotations:
-      linkerd.io/inject: enabled
     service:
       main:
         ports:

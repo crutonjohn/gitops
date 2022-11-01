@@ -71,8 +71,3 @@ spec:
             metadata:
               name: emqx
               namespace: soho
-            spec:
-              template:
-                metadata:
-                  annotations:
-                    linkerd.io/inject: enabled

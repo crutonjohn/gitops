@@ -16,7 +16,6 @@ spec:
       enabled: true
     extraAnnotations:
       secret.reloader.stakater.com/reload: botkube-configmap
-      linkerd.io/inject: enabled
     config:
       settings:
         clustername: crutonjohn-k8s

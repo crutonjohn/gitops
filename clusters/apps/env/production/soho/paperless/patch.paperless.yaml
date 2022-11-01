@@ -5,8 +5,6 @@ metadata:
   name: paperless
 spec:
   values:
-    podAnnotations:
-      linkerd.io/inject: enabled
     env:
       COMPOSE_PROJECT_NAME: paperless
       PAPERLESS_REDIS: redis://localhost:6379

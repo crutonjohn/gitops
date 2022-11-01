@@ -23,8 +23,6 @@ spec:
         enabled: true
         mountPath: /datastore
         existingClaim: changedetection-config-rook
-    podAnnotations:
-      linkerd.io/inject: enabled
     resources:
       limits:
         cpu: 100m
