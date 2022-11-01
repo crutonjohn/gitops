@@ -10,7 +10,6 @@ resources:
   - coredns-charts.yaml
   - crossplane-charts.yaml
   - crutonjohn-charts.yaml
-  - custom-bitwarden.yaml
   - dex-chart.yaml
   - emqx-charts.yaml
   - fairwinds-charts.yaml
