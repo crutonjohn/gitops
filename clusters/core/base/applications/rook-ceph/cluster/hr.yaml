@@ -18,4 +18,4 @@ spec:
   values:
     cephClusterSpec:
       cephVersion:
-        image: quay.io/ceph/ceph:v16.2.7
+        image: quay.io/ceph/ceph:v16.2.10
