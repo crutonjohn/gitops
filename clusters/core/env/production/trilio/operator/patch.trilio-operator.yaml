@@ -5,7 +5,7 @@ metadata:
   name: trilio-operator
 spec:
   values:
-    registry: "eu.gcr.io/amazing-chalice-243510"
+    registry: "eu.gcr.io/triliovault"
     operator-webhook-init:
       repository: operator-webhook-init
     k8s-triliovault-operator:
