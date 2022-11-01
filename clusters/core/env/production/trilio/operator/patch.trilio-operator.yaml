@@ -5,12 +5,12 @@ metadata:
   name: trilio-operator
 spec:
   values:
-    registry: "eu.gcr.io/triliovault"
+    registry: "eu.gcr.io/amazing-chalice-243510"
     operator-webhook-init:
       repository: operator-webhook-init
     k8s-triliovault-operator:
       repository: k8s-triliovault-operator
-    tag: "3.0.0"
+    tag: "2.8.2"
     tvkHelmRepo: ""
     preflight:
       enabled: false
@@ -30,21 +30,11 @@ spec:
     nameOverride: ""
     replicaCount: 1
     podSpec:
-      hostIPC: false
-      hostNetwork: false
-      hostPID: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 1180
     securityContext:
-      allowPrivilegeEscalation: false
-      privileged: false
-      readOnlyRootFilesystem: false
-      runAsNonRoot: true
       runAsUser: 1180
-      capabilities:
-        drop:
-          - ALL
     installTVK:
       enabled: true
       applicationScope: Cluster
