@@ -14,7 +14,7 @@ spec:
   storageClassName: pandora
   nfs:
     server: 192.168.130.50
-    path: "/pandora/paperless/export"
+    path: "/mnt/pandora/paperless/export"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -44,7 +44,7 @@ spec:
   storageClassName: pandora
   nfs:
     server: 192.168.130.50
-    path: "/pandora/paperless/consume"
+    path: "/mnt/pandora/paperless/consume"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

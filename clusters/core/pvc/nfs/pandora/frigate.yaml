@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 192.168.130.50
-    path: "/pandora/k8/frigate-data/"
+    path: "/mnt/pandora/k8/frigate-data/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -16,7 +16,7 @@ spec:
     - async
   nfs:
     server: 192.168.130.50
-    path: "/pandora/nextcloud"
+    path: "/mnt/pandora/nextcloud"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

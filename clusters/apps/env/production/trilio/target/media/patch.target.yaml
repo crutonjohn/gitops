@@ -5,5 +5,5 @@ metadata:
   name: trilio-pandora
 spec:
   nfsCredentials:
-    nfsExport: 192.168.130.50:/pandora/trilio/media
+    nfsExport: 192.168.130.50/mnt/pandora/trilio/media
     nfsOptions: nfsvers=4,rsize=32768,wsize=32768,nosuid
