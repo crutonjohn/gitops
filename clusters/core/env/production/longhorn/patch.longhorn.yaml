@@ -1,0 +1,14 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn
+spec:
+  values:
+    defaultSettings:
+      backupTarget: nfs://192.168.130.50:/mnt/apollo/longhorn
+      allowRecurringJobWhileVolumeDetached: ~
+      createDefaultDiskLabeledNodes: true
+      defaultDataPath: /var/lib/longhorn
+      allowVolumeCreationWithDegradedAvailability: true
+    enablePSP: false

@@ -8,6 +8,5 @@ resources:
   - inlets-operator
   - external-dns
   - external-snapshotter
-  - rook-ceph
   - system-upgrade-controller
   - traefik

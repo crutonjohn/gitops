@@ -32,7 +32,7 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rook-ceph
+  name: longhorn-system
 ---
 apiVersion: v1
 kind: Namespace
