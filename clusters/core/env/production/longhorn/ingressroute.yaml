@@ -1,0 +1,46 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`longhorn.${SECRET_DOMAIN}`)"
+      #  middlewares:
+      #    - name: l5d-longhorn-middleware
+      #      namespace: longhorn-system
+      services:
+        - name: longhorn-frontend
+          port: 80
+  tls:
+    secretName: crj-wildcard-certificate
+    domains:
+      - main: longhorn.${SECRET_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-longhorn-middleware
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "longhorn-frontend.longhorn-system.svc.cluster.local:80"
+# ---
+# apiVersion: externaldns.k8s.io/v1alpha1
+# kind: DNSEndpoint
+# metadata:
+#   name: navidrome
+#   annotations:
+#     external-dns/public: "true"
+# spec:
+#   endpoints:
+#     - dnsName: music.${SECRET_DOMAIN}
+#       recordTTL: 300
+#       recordType: CNAME
+#       targets:
+#         - ${DYNAMIC_DOMAIN}

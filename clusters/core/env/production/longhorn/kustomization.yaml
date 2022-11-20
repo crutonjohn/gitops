@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - ../../../base/applications/longhorn
+  - ingressroute.yaml
 patchesStrategicMerge:
   - patch.longhorn.yaml

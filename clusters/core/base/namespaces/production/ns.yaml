@@ -38,8 +38,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: soho
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: trilio
