@@ -5,6 +5,8 @@ metadata:
   name: longhorn
 spec:
   values:
+    csi:
+      kubeletRootDir: /var/lib/kubelet
     defaultSettings:
       backupTarget: nfs://192.168.130.50:/mnt/apollo/longhorn
       allowRecurringJobWhileVolumeDetached: ~
