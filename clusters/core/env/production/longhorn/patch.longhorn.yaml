@@ -11,4 +11,5 @@ spec:
       createDefaultDiskLabeledNodes: true
       defaultDataPath: /var/lib/longhorn
       allowVolumeCreationWithDegradedAvailability: true
+      defaultReplicaCount: 5
     enablePSP: false
