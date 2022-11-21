@@ -50,7 +50,7 @@ spec:
       serviceType: LoadBalancer
       loadBalancerIP: 192.168.130.110
     persistence:
-      storageClass: "ceph-block"
+      storageClass: "longhorn"
       dataDir:
         enabled: true
         existingClaim: test-data
