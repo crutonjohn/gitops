@@ -47,7 +47,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: bitwarden-vaultwarden-config-rook
+        existingClaim: bitwarden-vaultwarden-config-longhorn
     resources:
       requests:
         memory: 50Mi

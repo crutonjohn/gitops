@@ -31,7 +31,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: "lidarr-config-rook"
+        existingClaim: "lidarr-config-longhorn"
       media:
         enabled: true
         mountPath: /media

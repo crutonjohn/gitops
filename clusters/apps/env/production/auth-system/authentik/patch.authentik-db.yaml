@@ -30,4 +30,4 @@ spec:
         runAsUser: 1100
       persistence:
         enabled: true
-        existingClaim: "authentik-db-rook"
+        existingClaim: "authentik-db-longhorn"

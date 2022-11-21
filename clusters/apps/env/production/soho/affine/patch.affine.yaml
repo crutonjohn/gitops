@@ -34,7 +34,7 @@ spec:
       data:
         enabled: true
         mountPath: /app
-        existingClaim: affine-data-rook
+        existingClaim: affine-data-longhorn
     resources:
       requests:
         memory: 100Mi

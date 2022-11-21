@@ -109,7 +109,7 @@ spec:
         enabled: true
         accessMode: ReadWriteOnce
         mountPath: "/data"
-        existingClaim: zigbee2mqtt-config-rook
+        existingClaim: zigbee2mqtt-config-longhorn
       usb:
         enabled: true
         type: hostPath

@@ -35,7 +35,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: hajimari-config-rook
+        existingClaim: hajimari-config-longhorn
         storageClass: "ceph-block"
     hajimari:
       defaultEnable: false

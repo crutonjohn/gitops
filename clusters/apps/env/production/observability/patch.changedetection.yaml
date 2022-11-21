@@ -22,7 +22,7 @@ spec:
       data:
         enabled: true
         mountPath: /datastore
-        existingClaim: changedetection-config-rook
+        existingClaim: changedetection-config-longhorn
     resources:
       limits:
         cpu: 100m

@@ -89,7 +89,7 @@ spec:
       primary:
         persistence:
           enabled: true
-          existingClaim: nextcloud-db-rook
+          existingClaim: nextcloud-db-longhorn
       volumePermissions:
         enabled: true
       securityContext:
@@ -113,7 +113,7 @@ spec:
       enabled: true
     persistence:
       enabled: true
-      existingClaim: nextcloud-data-rook
+      existingClaim: nextcloud-data-longhorn
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data-pandora

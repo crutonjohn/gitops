@@ -70,4 +70,4 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: jacob-mc-rook
+        existingClaim: jacob-mc-longhorn

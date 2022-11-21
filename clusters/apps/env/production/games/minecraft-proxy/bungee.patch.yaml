@@ -98,7 +98,7 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: bungee-data-rook
+        existingClaim: bungee-data-longhorn
     podAnnotations: {}
     deploymentAnnotations: {}
     serviceAnnotations: {}

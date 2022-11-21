@@ -420,7 +420,7 @@ spec:
       data:
         enabled: true
         mountPath: /data
-        existingClaim: frigate-data-rook
+        existingClaim: frigate-data-longhorn
       media:
         enabled: true
         mountPath: /media
