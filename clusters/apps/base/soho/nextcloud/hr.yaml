@@ -16,8 +16,8 @@ spec:
   dependsOn:
     - name: traefik-external
       namespace: network-system
-    - name: ceph-cluster
-      namespace: rook-ceph
+    - name: longhorn
+      namespace: longhorn-system
   values:
     image:
       repository: nextcloud

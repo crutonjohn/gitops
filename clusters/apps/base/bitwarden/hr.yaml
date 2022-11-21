@@ -1,0 +1,287 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: intel-gpu-plugin
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./charts/bitwarden
+      version: 4.4.2
+      sourceRef:
+        kind: GitRepository
+        name: custom-bitwarden-chart
+        namespace: flux-system
+      interval: 5m
+  values:
+    mssql:
+      enabled: true
+      image:
+        repository: bitwarden/mssql
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      persistence:
+        data:
+          enabled: true
+          accessMode: ReadWriteOnce
+          size: 10Gi
+          storageClass: ~
+        backups:
+          enabled: false
+          accessMode: ReadWriteOnce
+          size: 10Gi
+          storageClass: ~
+      saPassword: ""
+      resources:
+        requests:
+          cpu: 100m
+          memory: 1Gi
+        limits:
+          cpu: 500m
+          memory: 2Gi
+      tolerations: []
+      affinity: {}
+      pdb:
+        enabled: false
+        maxUnavailable: 0
+      vpa:
+        enabled: true
+        updateMode: 'Off'
+
+    web:
+      enabled: true
+      replicaCount: 1
+      image:
+        repository: bitwarden/web
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: 25m
+          memory: 30Mi
+        limits:
+          cpu: 200m
+          memory: 60Mi
+      tolerations: []
+      affinity: {}
+      pdb:
+        enabled: true
+        maxUnavailable: 20%
+      vpa:
+        enabled: true
+        updateMode: 'Off'
+
+    core:
+      persistence:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        storageClass: ~
+      tolerations: []
+      affinity: {}
+      pdb:
+        enabled: false
+        maxUnavailable: 0
+      vpa:
+        enabled: true
+        updateMode: 'Off'
+
+    attachments:
+      enabled: true
+      image:
+        repository: bitwarden/attachments
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: 25m
+          memory: 25Mi
+        limits:
+          cpu: 200m
+          memory: 100Mi
+
+    api:
+      enabled: true
+      image:
+        repository: bitwarden/api
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: 200m
+          memory: 200Mi
+        limits:
+          cpu: 500m
+          memory: 400Mi
+
+    identity:
+      enabled: true
+      image:
+        repository: bitwarden/identity
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      pfx: ""
+      certificatePassword: ""
+      resources:
+        requests:
+          cpu: 200m
+          memory: 200Mi
+        limits:
+          cpu: 500m
+          memory: 400Mi
+
+    admin:
+      enabled: true
+      image:
+        repository: bitwarden/admin
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
+        limits:
+          cpu: 200m
+          memory: 200Mi
+
+    setup:
+      enabled: false
+      image:
+        repository: bitwarden/setup
+        tag: ~
+        pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 500m
+          memory: 200Mi
+        limits:
+          cpu: 10000m
+          memory: 400Mi
+
+    icons:
+      enabled: true
+      replicaCount: 1
+      image:
+        repository: bitwarden/icons
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: 25m
+          memory: 400Mi
+        limits:
+          cpu: 200m
+          memory: 500Mi
+      tolerations: []
+      affinity: {}
+      pdb:
+        enabled: true
+        maxUnavailable: 20%
+      vpa:
+        enabled: true
+        updateMode: 'Off'
+
+    notifications:
+      enabled: true
+      replicaCount: 1
+      image:
+        repository: bitwarden/notifications
+        tag: ~
+        pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
+        limits:
+          cpu: 200m
+          memory: 200Mi
+      tolerations: []
+      affinity: {}
+      pdb:
+        enabled: true
+        maxUnavailable: 20%
+      vpa:
+        enabled: true
+        updateMode: 'Off'
+
+    nginx:
+      enabled: true
+      replicaCount: 1
+      image:
+    #    repository: bitwarden/nginx
+    #    tag: 1.29.0
+        repository: nginx
+        tag: 1
+        pullPolicy: IfNotPresent
+      service:
+        type: NodePort
+      resources:
+        requests:
+          cpu: 25m
+          memory: 25Mi
+        limits:
+          cpu: 200m
+          memory: 100Mi
+      tolerations: []
+      affinity: {}
+      pdb:
+        enabled: true
+        maxUnavailable: 20%
+      vpa:
+        enabled: true
+        updateMode: 'Off'
+
+    ingress:
+      enabled: true
+      ip: ~
+      class: ~
+
+    certificates:
+      enabled: true
+      issuer: letsencrypt-prod
+      kind: ClusterIssuer
+
+    global:
+      coreVersion: 1.35.1
+      webVersion: 2.15.1
+      host: bitwarden.example.com
+      internalIdentityKey: ""
+      duoKey: ""
+      installationId: ""
+      installationKey: ""
+      yubicoClientId: ""
+      yubicoKey: ""
+      mail:
+        replyToEmail: bitwarden@example.com
+        host: mail.example.com
+        username: bitwarden@example.com
+        password: ""
+        ssl: "true"
+        port: "587"
+        useDefaultCredentials: "false"
+      disableUserRegistration: "false"
+      admins: "admin@example.com"
+      healthchecks: true
+      pdb: true
+      resources: true
+      vpa: false
+
+    nameOverride: ""
+    fullnameOverride: ""
