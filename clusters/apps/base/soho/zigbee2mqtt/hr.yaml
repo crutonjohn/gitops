@@ -17,8 +17,6 @@ spec:
   dependsOn:
     - name: traefik-internal
       namespace: network-system
-    - name: longhorn
-      namespace: longhorn-system
   values:
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt

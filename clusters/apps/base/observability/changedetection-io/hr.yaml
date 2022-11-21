@@ -16,8 +16,6 @@ spec:
   dependsOn:
     - name: traefik-internal
       namespace: network-system
-    - name: longhorn
-      namespace: longhorn-system
   timeout: 10m0s
   values:
     image:
