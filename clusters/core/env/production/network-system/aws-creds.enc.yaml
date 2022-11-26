@@ -1,39 +1,23 @@
 apiVersion: v1
-data:
-    credentials: ENC[AES256_GCM,data:betHikZ8P/Zs0WCl8YJs8VLuULIGmwTFisaL5TVPinsEbI7lwqoGWVuDb1Q1jJkayPDG4KAWhdeEEnYujdrXX/B4FHoTUwKWOHYb+f/5lGKgLx9YklenKCSJ4X3qg9850f6Q0fqmYhPGIGXiw74dCymoJNPM3HBelMWQA+lkXrg3UyO1fz7nw7+nVH24jWhNtgpjZ0NnAi/hPmjy,iv:0PtW2Cg7ZK9begj2XZWl1PBubCtjRQZSEmudw+RIcII=,tag:SnxELNbdM7Y6TICVRKNCHQ==,type:str]
+stringData:
+    credentials: ENC[AES256_GCM,data:PpugCYdGWcnz4NSMp3bh5yMBYbVVJwnWLDhOc9l9wJWnnWXD/31TMcCno0lBJy90eKmDP+FtxRwHc5glAVxIFPwzCLd6eijiuXXb7TVgI7nAKZUqSvCISuSwQ+xA/1VHsftvHuUt7s5BV4vGwdiUn3JH3Kw=,iv:AG+mF+40pLr+UC/4ParXIIiukrU65PxrWOMulk0P/sY=,tag:gy0cyCsEWEyU+sqxtKgWJA==,type:str]
 kind: Secret
 metadata:
-    creationTimestamp: null
     name: aws-external-dns
     namespace: network-system
+type: Opaque
 sops:
-    kms: []
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2022-11-26T04:24:50Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEQUiY+kPlyoESrlzllmwsIAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMY5RyEquWiRV2zBAvAgEQgDt8My5cjGvnyVDMvWzXeVwW5hGzVOi8g3PAVJdKpv8Yqe24boO+FKqP5WgmcyHGFgRagzffjBdBEny3mA==
+          aws_profile: ""
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-05-17T01:31:17Z"
-    mac: ENC[AES256_GCM,data:K30cecH6vINXWKyb/qyeJjuPcsnVuWUIC3HSHMq/tOL88mG3y5D6epbm31Oi31AoRB9u9t8OJw2oTBPW5PbNcMCSu621dNkvZ7Ky+rBEJY6nYCMMvCRZGOQR1qz61gOEJny1eaMMM8zFqevNxDtJCNcEEIMHGeZ//cuZNPDe/eA=,iv:LpIbGeRc1pDjYgcqJYIiygOGCytvsHtC9aOSAVrL2DE=,tag:ryQK/iYHkzFCx1XAWi6JXQ==,type:str]
-    pgp:
-        - created_at: "2021-05-17T01:31:15Z"
-          enc: |
-            -----BEGIN PGP MESSAGE-----
-
-            hQIMA6Lt/Ny8H9gcAQ//b5W9YfE0q6rMJKYwCyAgy5z52utfucMDgcWLDNpQK8wR
-            /QtEAA16a34GLRdL7SDpHp8D6HDoyWQpp3RJmAlvxVh5974Gl78mc7jKJOkANs7V
-            0q2vBe1GAzaOoNBI+jnrqCRTXEffNfUnYNDuk8JOhKVWFQLx8wR+y5i1j+OubmyB
-            M/MkLLErxcerlzqaYfdDDorgI8qEzh3ZdeyriJaLnWj3XWNToiCI3noMtxUkmSmA
-            vYJ4/7UAcmVpAFf1N/Gg/AbkjWIwFKlYdVQbluxrgv2oBnvXrjZ4Q6C4xdGZ8TZZ
-            wu2eitYrqAAYxznnZRqS5uPMsk7JjfG1ucotz0bcrwrZqCdiQCt5BLRgnSPp7rE0
-            NpWSjtaHdRR10S32OFoJbcWpZ7+2i6IMeqCyZr1rqBdDTXEL6ociXj56Fbz7ye+u
-            eMTd8kQ9EooqW5eBxZuiM7KD0KP0g412Zg0sAh4moZy02czPNgbNtI8k/Wqk4gOI
-            tMNQavYphtk/PGaj99FDQmX8xpOWPJ1NXMaH7bz2B/4nOtozUYIORtsUGjq1MB/Q
-            iK217TGaUY/HEONfhUdhSKUeI47lVWav6egPHGUViMkvwYLQxAjYzYi/PU7Ct+9t
-            9vANL/cgYdkFjC23+ShUqvlulUrVo7sp4TAU3Inv1Q5ruT2ujotKoSbHp6TqDd3S
-            XgGabSaJbzmW2INuTYraS1lTy3/sKeW4mwxnKygmbuHjKEA4Ho1TsRAhjx7+dK19
-            qRBzcq+0gkQXXwPBkHUO2u29IKS/npgJWHxXZmtBsF5K1iQDtdk1TD5zIDm9b6o=
-            =h9l2
-            -----END PGP MESSAGE-----
-          fp: EA2F0F6D8EB5237C84E9FD0091AE38325D5344BE
+    lastmodified: "2022-11-26T04:24:51Z"
+    mac: ENC[AES256_GCM,data:XtLhuNTaSzmfW1KO7D9EZhEb2hlnElhzC6Sy9fJbor1isL5F7MwxTwoQPgfnY1zP3DByyl8CLIdtM9AbkUeJt7FrbepU8urWF5+DKy4/SiRJ3AZfOm+ZZBM1JRXy6KwdbS1IAiX4HdjoqV9pJPMkP23tKTeJrtH63IE8s6dWSnY=,iv:/8QsOfr7u61K8jkRU4Tugy9toBbZbY6BpuAuLuDKY3E=,tag:LwQEK7nQqFq3O9qw9DGRPg==,type:str]
+    pgp: []
     encrypted_regex: ^(data|stringData)$
-    version: 3.7.0
+    version: 3.7.3

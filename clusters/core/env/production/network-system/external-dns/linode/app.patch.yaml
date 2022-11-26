@@ -19,22 +19,10 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-
     serviceMonitor:
       enabled: true
       interval: 2m
       scrapeTimeout: 20s
-
-    extraVolumes:
-      - name: aws-credentials
-        secret:
-          defaultMode: 420
-          secretName: aws-external-dns
-
-    extraVolumeMounts:
-      - mountPath: /.aws
-        name: aws-credentials
-        readOnly: true
 
     resources:
       requests:
@@ -50,6 +38,7 @@ spec:
     sources:
       - service
       - ingress
+      - ingressroute
       - crd
 
     policy: upsert-only
@@ -59,12 +48,10 @@ spec:
     txtPrefix: "_."
 
     domainFilters:
-      - ${SECRET_DOMAIN}
-      - baremetalblog.com
+      - ${FAMILY_DOMAIN}
 
-    provider: aws
+    provider: linode
 
-    extraArgs:
-      - --annotation-filter=external-dns/public in (true)
-      - --aws-batch-change-size=1000
-      - --no-aws-evaluate-target-health
+    env:
+      - name: LINODE_TOKEN
+        value: "${EXTERNAL_DNS_LINODE_API_TOKEN}"

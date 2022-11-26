@@ -1,39 +1,27 @@
 apiVersion: v1
+data:
+    HASS_LATITUDE: ENC[AES256_GCM,data:4RkdJjKFeCw=,iv:C1aSIH2+WTyoEqSpD1WdroJlS1Flp8VAGn6Ewj912CE=,tag:Caeisp+l4davAL0uLQ93ew==,type:float]
+    HASS_LONGITUDE: ENC[AES256_GCM,data:F4LGcEAXq8MO,iv:cs1KK80QMSlkdIQE37Bbp3oQ03DzzyFr5UL8lvsZZY8=,tag:5jaW3ppGQWZFKeNnsGOGZg==,type:float]
 kind: Secret
-type: Opaque
 metadata:
+    labels:
+        kustomize.toolkit.fluxcd.io/name: apps
+        kustomize.toolkit.fluxcd.io/namespace: flux-system
     name: home-assistant
-stringData:
-    HASS_LATITUDE: ENC[AES256_GCM,data:jz3vWjPE43s=,iv:L6TbwoVmwaCPCtl5UFVg9uHK/NHHvz8X6eQkpDt7dnI=,tag:Wu0qSZ4eV7s0aGTY+8Ohkg==,type:str]
-    HASS_LONGITUDE: ENC[AES256_GCM,data:PO7h06I9PWiW,iv:vbqxPfTiuYrhjzXOMxUV4XJfKg4kRKIrt2EhfTVT9tw=,tag:7aODdKaXZTu2xw6r3VWoTQ==,type:str]
+    namespace: soho
+type: Opaque
 sops:
-    kms: []
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2022-11-26T04:11:08Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEDxztCmHgtNa9Ya0P6Vu5WAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM7LjyPj0Htdw+mCA2AgEQgDueGD0ZBaUlMSgt+Oba7Rkt8Y9qf8XIZuUYqo9lWTTqROSBg42fq1klYWd3pWVcvVhxnC04eZtBXMWIbg==
+          aws_profile: ""
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-11-25T05:40:49Z"
-    mac: ENC[AES256_GCM,data:XEy/moBksu1yGCDc0PHrAYkv8ij4dP1+4eQy2MctM/NX5pdJX5iGdq0dgxUTXy3sy8wrcdqehKRIgUJZr6rIzU2F8Kb2aoPTr3ts+VS7HH6HcB8NEtpRslr7yXCdT30+7qKZerH0rqhrbGMAt39fhQa2q7GVccOjvTHD5Y/AviQ=,iv:kWUvE8Orv/RaBF37f+wO7OwbgM6GaHcIB15l0fijHGE=,tag:5zyYKdn7Qy5NsbHEz4VxEA==,type:str]
-    pgp:
-        - created_at: "2021-06-02T01:38:46Z"
-          enc: |
-            -----BEGIN PGP MESSAGE-----
-
-            hQIMA6Lt/Ny8H9gcAQ//V4F3Nlk7Ly1cE66jbWfj1b8Qukzpu8tN6hWFAFkAdjj6
-            x+rQXtLouit+BWdTBcL9BKQtSmfaFP+rZ5YkpUmukzUh33EfYHBEJpbxyFBRbdhI
-            m/uWKU0N539g7ctCJTLqVH957RL7KW+lmtKyILagv1+icsJPRILjuI/XPLvQNOmW
-            dIS5hClIbYYDvHNLhMdPa49F4q+0bo/YnAugSkfRn0p5yTsLNode+SI0T+IqY/zS
-            tjDsvmj0iam8zYhjei9TK4VRP+qHx1q76qtxk/2Xaz2bojD+ZsMIeVN8M0MGRJeq
-            YsC8Kyb1nZfEf6uyEM003yu1UraXQyeFKaoRaYb8ctnjkum2ccXlXWaHKOKdv60Y
-            Z7rWDUns1Y2vtEi3C/Ede6eFGOYvuJK63TmK5WXmv+7MI9AwuTV21DC8YihX5Cy2
-            1ZLXAvhS7JZjnpNzMx2T3eOwXH4izSekwBCWJR8D+AFMw9R0XBShUrWx9rIg2EfD
-            n90tf0s/y0Nu4SSRlhuHBlSrDE+Z/C+z44zVFzsdr8zr3qSQwzw3Ae4B5wyKuzxg
-            +QZKk3uwPQaggxgJ3Bc49CytJPqvBJmSCS0Aj1L4BPjij3qpMdNzSSkzrwJfwUUZ
-            QB9RdKNF8a3QL3po9fWIZJiEWzDL0bEoXuoczWv7Rlw9gQP7GwUskqh7hY7YSXjS
-            XgFUVGsONsewRs3/PB1LrfbRREa7bdc42k9ecG9ygsbylH6SAoBHii9vL4tfCRwS
-            xiz/miiP6m7Xe9YF5MUGIur+CmCb3O9eIrQhljcADy7/d19aim1/SKFFmU/61Oo=
-            =We9e
-            -----END PGP MESSAGE-----
-          fp: EA2F0F6D8EB5237C84E9FD0091AE38325D5344BE
+    lastmodified: "2022-11-26T04:11:08Z"
+    mac: ENC[AES256_GCM,data:4eVK+BF1JuPBQ4mrMfsi6qqrPpEdqIca4OV7pJ22EDAMf/ySZW9PCVRyTzxJp5mSlMpEO8Lgb/wd98Db7zCMCb6IN5vJmD+BE5Bg+na9CAIisUR7Tm4BQawwwxJ5qQHjxZo5jFn4LgkDJdwlbpPRzjYcqsZPtp4ug38bNgEA7gM=,iv:wF8MSyqiS09PYUKNwTtizOIz2sqWMpYnAguowavG4ms=,tag:LXueOJsXKO7sfJU+N9UwDA==,type:str]
+    pgp: []
     encrypted_regex: ^(data|stringData)$
-    version: 3.7.0
+    version: 3.7.3

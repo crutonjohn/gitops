@@ -1,39 +1,27 @@
 apiVersion: v1
-stringData:
-    admin-user: ENC[AES256_GCM,data:lQafNlQ=,iv:NgkmOPhHjnn1jPQGQH1iIshfSiEM726QVQX7B3IhhbM=,tag:K2lg3iO7IfmTcHD4xlI9fg==,type:str]
-    admin-password: ENC[AES256_GCM,data:GmZKLs9nDRRVJfiEXVQNrW4eN8Q=,iv:VuwDQMZeyL7LV1/OLg3iYnO+KlhLIFnwuVV0jXUSmvY=,tag:WF8wL1JVu3D5glKSk99wDg==,type:str]
+data:
+    admin-password: ENC[AES256_GCM,data:vAJRQI80EJeQhF1GDT5aRS63eVk=,iv:OVKEbmcQaxHF0xl+HKnwv2I3pbSsSdsIfRsjgaHDIdw=,tag:GGjgog+MT8Oi8Bn79LnVSw==,type:str]
+    admin-user: ENC[AES256_GCM,data:f6w2mvY=,iv:G0YhkcYr5ePmRH7vCe57VcdtD/9vn6ynQj1jq+8VVyE=,tag:gRt7ATM+N1tOovIOvd9aYg==,type:str]
 kind: Secret
 metadata:
-    creationTimestamp: null
+    labels:
+        kustomize.toolkit.fluxcd.io/name: apps
+        kustomize.toolkit.fluxcd.io/namespace: flux-system
     name: grafana-admin-secrets
+    namespace: observability
+type: Opaque
 sops:
-    kms: []
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2022-11-26T04:14:30Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwElzJ50U/gw5jKBM7FNL8KmAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMiZsJtPVB78zZX1f8AgEQgDs86OGnPJqqQvFDXCnQt+agqZXi9sv8uIu8bVW0t696J2dAG1E3M8+CNckP7oGPfkHZMGZuwUg8KYofbg==
+          aws_profile: ""
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-11-30T04:45:38Z"
-    mac: ENC[AES256_GCM,data:n+SJcVJCqYAUkOjqRuacSM4JEZFk+4p2Efe7LSjVYvIcxTwbXjb8ZZlth1spJrc92JL4I8Adw/V8qAcGDcJis3bSTzp9CFqKm30j+QQWaKA9v7AIiaXH7jUzlk288QNeXsOsLlcu8HRPAEdatUYt1ZLyOK54cjpg0X0PUdZJtj0=,iv:5EC8Mjq/qtHRg4+uwbIj5Mh79coRgSur8+XlF7ycSM4=,tag:Zz6O5wRyWx6Bry3MOX4FJQ==,type:str]
-    pgp:
-        - created_at: "2021-11-30T04:12:06Z"
-          enc: |
-            -----BEGIN PGP MESSAGE-----
-
-            hQIMA6Lt/Ny8H9gcAQ//YU+Zeh9K5rucDpXX+X7BHSjCkZy/7q/agNBeocpM3mkB
-            eZelSFZdX9FMK4T4JqYdKURQ/VHgqR7qajb7VvZ8TwHAsTbk4td73g9+z/49KmMe
-            ubsXhgtpHON7zvO8Qdyu1FCXr1OFeqgw+EEmUBotqzxNeDRvptvLXhOuYY9LwzLG
-            TZaUQ9tbyLgeBt9fJYe9WxyyLAZtIR6NOXGVBzu3ASsb5vM0os9PVmklotf0wCU4
-            u9ylcPtfm71QIVndQkvPrp8jd3T2iqHv24M9OA3ZVJpvH+iAyiLSYlfdGeDEEBST
-            m1slbP8k8VanUVlFkquWhglSOXxu+Nq5i9xMcsSrM0zYyAiPUO7aLy0yldEttlFa
-            3in82rjXvkYgs/k11m394Mr1tp1sddADGSozGY4WA1EC22dHz/Hgf8hNjs1+BWfM
-            o1hg5VKnCHX13vaPZU7uhhnvHSkAKOzMZfXXEx3i6oifjJ775J87oukLifEo2wy7
-            VRr1QHRtA1PEll+E65arQFH8vxTpJWu2yC2mZR26VOMzrZVIxTc3ApQ1fAK9tOrb
-            N27DqewVFSm9rng+z7n+30H5WnwHSFvs2pK6PenLmIqL5L7ugvtwVRQhuqmdMViZ
-            QHOFBuFLdbtY7C9fqH8h1EiH9zxN83b7E18IFLCyUQhHBlU51J0+ffQAMhk7QjHS
-            XgHD+YECLYpESPoxY9J2yG3okiExtfa54CGOkB1xBDEA/iZbkCYTwqkhBXsGhaLw
-            bkXtAZGNioioU/FrWvoJ8Df9Y8EWYVmgs4X5mD6r7ZA9IGR0m7cgjbv91thlG3U=
-            =WFy5
-            -----END PGP MESSAGE-----
-          fp: EA2F0F6D8EB5237C84E9FD0091AE38325D5344BE
+    lastmodified: "2022-11-26T04:14:31Z"
+    mac: ENC[AES256_GCM,data:p7vTXfiKb5ORWoLRJs9gHXmAHCHtvF+OTuSNoZCypleRVor0w3SWl6914HRmUqsVAbl6MNdjJUMyB1YX8Gxz7MWCKL26lGeHQ5hLMwAHQamYVVRZSphpUMcU8w73nwPV8NOGu8JdQr9FK74fFiPy0dL410eVQc5VjcsazavoChk=,iv:ixIxIfuk/kqCbR18zuvpGFLXFsSUOQBKfb7WL0VMVxA=,tag:p2rsB53QUkce+JyYyYGSqA==,type:str]
+    pgp: []
     encrypted_regex: ^(data|stringData)$
-    version: 3.7.0
+    version: 3.7.3

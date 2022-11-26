@@ -17,12 +17,7 @@ spec:
       - CRJ Technologies LLC
   dnsNames:
     - crutonjohn.com
-    - curtisrayjohn.com
-    # - crjtechnologies.com
-    # - baremetalblog.com
     - "*.crutonjohn.com"
-    # - "*.os.crutonjohn.com"
-    - "*.curtisrayjohn.com"
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-production

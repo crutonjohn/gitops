@@ -3,11 +3,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: network-system
 resources:
-  - wildcard-cert.yaml
+  - crj-wildcard-cert.yaml
+  - heyjohn-wildcard-cert.yaml
   - aws-creds.enc.yaml
   - ../../../base/applications/network-system/external-dns
   - ../../../base/applications/network-system/inlets-operator
   - cert-manager
   - metallb
-patchesStrategicMerge:
-  - patch.external-dns.yaml
+  - external-dns/aws
+  - external-dns/linode

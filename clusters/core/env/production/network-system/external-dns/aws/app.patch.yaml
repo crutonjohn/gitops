@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    serviceMonitor:
+      enabled: true
+      interval: 2m
+      scrapeTimeout: 20s
+
+    extraVolumes:
+      - name: aws-credentials
+        secret:
+          defaultMode: 420
+          secretName: aws-external-dns
+
+    extraVolumeMounts:
+      - mountPath: /.aws
+        name: aws-credentials
+        readOnly: true
+
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50M
+      limits:
+        cpu: 32m
+        memory: 148M
+
+    logLevel: debug
+    logFormat: json
+
+    sources:
+      - service
+      - ingress
+      - crd
+
+    policy: upsert-only
+
+    registry: txt
+    txtOwnerId: "k8s."
+    txtPrefix: "_."
+
+    domainFilters:
+      - ${SECRET_DOMAIN}
+      - ${FAMILY_DOMAIN}
+
+    provider: aws
+
+    extraArgs:
+      - --annotation-filter=external-dns/public in (true)
+      - --aws-batch-change-size=1000
+      - --no-aws-evaluate-target-health
