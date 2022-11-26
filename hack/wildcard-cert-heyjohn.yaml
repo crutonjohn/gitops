@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: flux-system
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
@@ -14,10 +14,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: longhorn-system
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
@@ -26,10 +26,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: auth-system
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
@@ -38,10 +38,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: observability
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
@@ -50,10 +50,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: soho
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
@@ -62,10 +62,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: media
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
@@ -74,10 +74,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: crj-wildcard-certificate
+  name: heyjohn-wildcard-certificate
   namespace: kube-system
   annotations:
-    replicator.v1.mittwald.de/replicate-from: network-system/crj-wildcard-certificate
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
 type: kubernetes.io/tls
 data:
   tls.key: ""
