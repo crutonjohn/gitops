@@ -1,12 +1,9 @@
 apiVersion: v1
-data:
-    admin-password: ENC[AES256_GCM,data:vAJRQI80EJeQhF1GDT5aRS63eVk=,iv:OVKEbmcQaxHF0xl+HKnwv2I3pbSsSdsIfRsjgaHDIdw=,tag:GGjgog+MT8Oi8Bn79LnVSw==,type:str]
-    admin-user: ENC[AES256_GCM,data:f6w2mvY=,iv:G0YhkcYr5ePmRH7vCe57VcdtD/9vn6ynQj1jq+8VVyE=,tag:gRt7ATM+N1tOovIOvd9aYg==,type:str]
+stringData:
+    admin-password: ENC[AES256_GCM,data:KyZsai48PXw49t9WyGxBLD75PCY=,iv:PBMuAHeAC9aVY17CE6C2KQwgkdq2LIszVJ+NgXT5A4A=,tag:+t83WgyNlWVxm6hMTtdd1A==,type:str]
+    admin-user: ENC[AES256_GCM,data:AhVqQfA=,iv:ULVJQiAfgiV/NIrYmsjDyAa0ugF7CKZ3GI1QQMyqpkw=,tag:6MaMaw+1OdxBtiMzCyLYxQ==,type:str]
 kind: Secret
 metadata:
-    labels:
-        kustomize.toolkit.fluxcd.io/name: apps
-        kustomize.toolkit.fluxcd.io/namespace: flux-system
     name: grafana-admin-secrets
     namespace: observability
 type: Opaque
@@ -20,8 +17,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-11-26T04:14:31Z"
-    mac: ENC[AES256_GCM,data:p7vTXfiKb5ORWoLRJs9gHXmAHCHtvF+OTuSNoZCypleRVor0w3SWl6914HRmUqsVAbl6MNdjJUMyB1YX8Gxz7MWCKL26lGeHQ5hLMwAHQamYVVRZSphpUMcU8w73nwPV8NOGu8JdQr9FK74fFiPy0dL410eVQc5VjcsazavoChk=,iv:ixIxIfuk/kqCbR18zuvpGFLXFsSUOQBKfb7WL0VMVxA=,tag:p2rsB53QUkce+JyYyYGSqA==,type:str]
+    lastmodified: "2022-11-27T18:51:58Z"
+    mac: ENC[AES256_GCM,data:b4+XCcb9DbM7gfONcBK2uRI+V9xDDHdpnxES/OYAZ5w48J4L1UyGQNa4xMz1yrivGcGxXw9oXynCE6TjFnadh+y6tua7m4EkDG9nOLZBMNFiCv7HnzalolnHIa9G1A+HrsC+PrJgQ6ImJeNXGpmafzKUKhmeqk/yEtPnFj2HDss=,iv:MQhaqocsM2Lu4U36/gaAZ/AXDNyteL/IbFaQy/dS3+4=,tag:liA0nIoCdphwzVPPUU8ABw==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3
