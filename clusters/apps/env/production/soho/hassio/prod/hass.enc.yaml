@@ -1,12 +1,9 @@
 apiVersion: v1
-data:
-    HASS_LATITUDE: ENC[AES256_GCM,data:4RkdJjKFeCw=,iv:C1aSIH2+WTyoEqSpD1WdroJlS1Flp8VAGn6Ewj912CE=,tag:Caeisp+l4davAL0uLQ93ew==,type:float]
-    HASS_LONGITUDE: ENC[AES256_GCM,data:F4LGcEAXq8MO,iv:cs1KK80QMSlkdIQE37Bbp3oQ03DzzyFr5UL8lvsZZY8=,tag:5jaW3ppGQWZFKeNnsGOGZg==,type:float]
+stringData:
+    HASS_LATITUDE: ENC[AES256_GCM,data:I9vyLwSif/w=,iv:2gk3fyOQHxF/gOn93T3Gu2vUB1VQoKE8DN7qeT77UfE=,tag:Vtl+fJbFqlwWgziX5+bt7w==,type:float]
+    HASS_LONGITUDE: ENC[AES256_GCM,data:QQTbugJjUYDK,iv:Yyn0M5QmnkudaefFumOVj5q2jzt367oMbghSra9t0n8=,tag:NUhAfCyjLmjXjpJPc/ZGjA==,type:float]
 kind: Secret
 metadata:
-    labels:
-        kustomize.toolkit.fluxcd.io/name: apps
-        kustomize.toolkit.fluxcd.io/namespace: flux-system
     name: home-assistant
     namespace: soho
 type: Opaque
@@ -20,8 +17,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-11-26T04:11:08Z"
-    mac: ENC[AES256_GCM,data:4eVK+BF1JuPBQ4mrMfsi6qqrPpEdqIca4OV7pJ22EDAMf/ySZW9PCVRyTzxJp5mSlMpEO8Lgb/wd98Db7zCMCb6IN5vJmD+BE5Bg+na9CAIisUR7Tm4BQawwwxJ5qQHjxZo5jFn4LgkDJdwlbpPRzjYcqsZPtp4ug38bNgEA7gM=,iv:wF8MSyqiS09PYUKNwTtizOIz2sqWMpYnAguowavG4ms=,tag:LXueOJsXKO7sfJU+N9UwDA==,type:str]
+    lastmodified: "2022-11-27T19:01:34Z"
+    mac: ENC[AES256_GCM,data:ZAgL4pENLK/t38plBoUEMuSFrSYJIcEwO5mx0zbtyVI5dKKGp+JXnRLvKAnxoT0vJguin+paK+eNAQCln/TzM0J6GMHIaceuO2Ye+AHGtYttdHQLIEcQodO3aZZJjW8K3chn3E3CLACcHFcLkGNO0BZfeHA8cv0p2ec35DxzXHs=,iv:heTNJxgFjX2E+RS9Qw+ygZ5jihpZih36x5Et+/WsaMs=,tag:0BN8maLp9QA6iV97B4J6YA==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3
