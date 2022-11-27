@@ -1,7 +1,7 @@
 apiVersion: v1
 stringData:
-    HASS_LATITUDE: ENC[AES256_GCM,data:I9vyLwSif/w=,iv:2gk3fyOQHxF/gOn93T3Gu2vUB1VQoKE8DN7qeT77UfE=,tag:Vtl+fJbFqlwWgziX5+bt7w==,type:float]
-    HASS_LONGITUDE: ENC[AES256_GCM,data:QQTbugJjUYDK,iv:Yyn0M5QmnkudaefFumOVj5q2jzt367oMbghSra9t0n8=,tag:NUhAfCyjLmjXjpJPc/ZGjA==,type:float]
+    HASS_LATITUDE: ENC[AES256_GCM,data:6Lfw8i+M4N0=,iv:mubYv+d5L+pFIb7BSYNMH73i0o1WDQjaUdWDOfdpCkk=,tag:DjZLXhn/i2MZjE3XZ7LScA==,type:str]
+    HASS_LONGITUDE: ENC[AES256_GCM,data:HkTXL0Adnip7,iv:cNEkLL8xd5bA75Hapijf+ZEjI/4Ej4s0Wm9DA0kM2w8=,tag:WcasS+5OAJbbINvMPAvZSA==,type:str]
 kind: Secret
 metadata:
     name: home-assistant
@@ -17,8 +17,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-11-27T19:01:34Z"
-    mac: ENC[AES256_GCM,data:ZAgL4pENLK/t38plBoUEMuSFrSYJIcEwO5mx0zbtyVI5dKKGp+JXnRLvKAnxoT0vJguin+paK+eNAQCln/TzM0J6GMHIaceuO2Ye+AHGtYttdHQLIEcQodO3aZZJjW8K3chn3E3CLACcHFcLkGNO0BZfeHA8cv0p2ec35DxzXHs=,iv:heTNJxgFjX2E+RS9Qw+ygZ5jihpZih36x5Et+/WsaMs=,tag:0BN8maLp9QA6iV97B4J6YA==,type:str]
+    lastmodified: "2022-11-27T19:03:39Z"
+    mac: ENC[AES256_GCM,data:UhufJu4DjHAmAaOed6+maxXORTYtt9vrmgJJRLJMCeaJFbMEJbDgUlB14iKell4FEaj5BBeMnsZD5rRMaUNiHIpDbhzRTn/CeKI7/fsC3bJU4L3xfwnD4kq6d0RoLqDt1Fzr9ZMAbY3SIuZ2cvmbhVTTp4JbpGIYgzVkaMAmwkQ=,iv:5oomv/jEZbd+jnoVoBIMc7MyegJMTtf2DpTraF4iQPM=,tag:vRZworM0tfbxlRnWaIj78w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3
