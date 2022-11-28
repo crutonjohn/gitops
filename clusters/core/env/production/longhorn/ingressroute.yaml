@@ -11,9 +11,6 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`longhorn.${SECRET_DOMAIN}`)"
-      #  middlewares:
-      #    - name: l5d-longhorn-middleware
-      #      namespace: longhorn-system
       services:
         - name: longhorn-frontend
           port: 80
@@ -21,15 +18,6 @@ spec:
     secretName: crj-wildcard-certificate
     domains:
       - main: longhorn.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-longhorn-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "longhorn-frontend.longhorn-system.svc.cluster.local:80"
 # ---
 # apiVersion: externaldns.k8s.io/v1alpha1
 # kind: DNSEndpoint

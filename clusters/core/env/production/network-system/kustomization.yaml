@@ -12,3 +12,4 @@ resources:
   - metallb
   - external-dns/aws
   - external-dns/linode
+  - linode-cert-manager

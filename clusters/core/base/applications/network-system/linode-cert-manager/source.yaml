@@ -1,0 +1,18 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: cert-manager-linode-source
+  namespace: flux-system
+spec:
+  gitImplementation: go-git
+  ignore: |
+    # exclude all
+    /*
+    # path to chart
+    !/chart
+  interval: 30m
+  ref:
+    commit: 428e12f4a3dc47ef1d1925ae527003347afcc7f3
+  timeout: 60s
+  url: https://github.com/monostream/cert-manager-linode.git

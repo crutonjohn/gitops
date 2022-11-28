@@ -10,7 +10,10 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
-      - selector: {}
+      - selector:
+          dnsNames:
+            - "*.${SECRET_DOMAIN}"
+            - "${SECRET_DOMAIN}"
         dns01:
           route53:
             region: us-east-2
