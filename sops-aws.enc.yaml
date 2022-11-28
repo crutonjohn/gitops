@@ -4,7 +4,7 @@ metadata:
     name: sops-aws
     namespace: flux-system
 stringData:
-    sops.aws-kms: ENC[AES256_GCM,data:lhITVKDTIKnGsE/teH0dVX3kQWQj0A30mlKBKANG4yfpEvsYICN5IlgM1h+BLEEEM4OHIx6dif6bS+P2cQKcWJagSpCS5wdx/RWeE6W5oqk0PjG0D3nslLlJHGAV89JHBj9DzUm8x7+eEKo/CZ8jeQygwfDXB/O5zoPKpg==,iv:SzQLsEuehfMmWS7oYnVnyfbuPYUPI0qlepCKKSpfyJs=,tag:Ufg0YEb1Mc1cTMIr1OqvYA==,type:str]
+    sops.aws-kms: ENC[AES256_GCM,data:5zpddOVTe5esiC0IH89XuNQmY9XfucicZ99VsGXEB3AnDj2JcnAxBd1tuVOyAyarL5x42TgLXtiCHyBYii+pLNE3lyctTIp6UX65pWe82eO4pPP6tIN/+hVvvLZMsRDDEgRitpm/Al0=,iv:dLnlQ9la0WdA7/r6hFp1LrkV8qC3NMcJ542lH3n1Vak=,tag:J3u4LZKSfFQKnrwYOqv9hg==,type:str]
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
@@ -15,8 +15,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-11-26T06:42:09Z"
-    mac: ENC[AES256_GCM,data:Yg7FMVageGtaGddchO7EdsyaEQmFOEvqHomjKNR/BY73e1ZMmUq66VSaX5MgTEWX+OH4hLkIaR5NVODFZHxm9Qp13ZzB62ocNcJ5NEs1UdZOVCq4R95lu6fbaO4E6Y3vd4Xcj15EK0qeukJvguFXOFuoGh3SP+XKhNZ3VWPhmEw=,iv:Af4xwLbOBeK1c6Qcz7yuklkq22APW9XEkVU9Hikipsc=,tag:WUrXNGAE8yCnZtZBo2MoMg==,type:str]
+    lastmodified: "2022-11-27T17:53:02Z"
+    mac: ENC[AES256_GCM,data:9+GCxAWb1PjMi0TcQfRxyu8u9UMcB7q1Qhz1lfdRLIN6gbC5+pTleOKizC5V0Sn4zHsM6kXqr9WjAlgzNqRW1L+QhJvx4fcl99vuXvy2m52AgX2H5UH+vGe7zOSHCLvziVeYkeNSaGQsvuCxHr2zyThnFnX+S0L/Z5tx07WUcco=,iv:pNElz+KkLfvJbFPs+OkfHPIZn2WKqk24h6dKPUObHTk=,tag:RnXLt/fZP1cZBLDQ4CJObQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3
