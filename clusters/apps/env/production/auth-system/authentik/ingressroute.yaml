@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: authentik
+  name: authentik-crj
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: sso.${SECRET_DOMAIN}
@@ -25,7 +25,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: authentik
+  name: authentik-hj
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: sso.${FAMILY_DOMAIN}
