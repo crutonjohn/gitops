@@ -17,3 +17,13 @@ spec:
         dns01:
           route53:
             region: us-east-2
+      - selector:
+          dnsNames:
+            - "*.${FAMILY_DOMAIN}"
+            - "${FAMILY_DOMAIN}"
+        dns01:
+          webhook:
+            groupName: linode-dns.cluster.local
+            solverName: linode
+            config:
+              apiKey: ${CERT_MANAGER_LINODE_API_TOKEN}
