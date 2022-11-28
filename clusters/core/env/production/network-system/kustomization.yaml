@@ -6,7 +6,6 @@ resources:
   - crj-wildcard-cert.yaml
   - heyjohn-wildcard-cert.yaml
   - aws-creds.enc.yaml
-  - ../../../base/applications/network-system/external-dns
   - ../../../base/applications/network-system/inlets-operator
   - cert-manager
   - metallb
