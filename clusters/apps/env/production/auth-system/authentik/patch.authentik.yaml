@@ -29,19 +29,6 @@ spec:
     replicas: 1
     ingress:
       enabled: false
-      ingressClassName: traefik-external
-      annotations:
-        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-        external-dns/public: "true"
-      hosts:
-        - host: "sso.${SECRET_DOMAIN}"
-          paths:
-            - path: "/"
-              pathType: Prefix
-      tls:
-        - hosts:
-            - "sso.${SECRET_DOMAIN}"
-          secretName: crj-wildcard-certificate
     postgresql:
       enabled: false
     redis:

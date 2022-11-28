@@ -14,9 +14,6 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`sso.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
       services:
         - name: authentik
           port: 80
@@ -26,13 +23,27 @@ spec:
       - main: sso.${SECRET_DOMAIN}
 ---
 apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
+kind: IngressRoute
 metadata:
-  name: l5d-authentik-middleware
+  name: authentik
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: sso.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
 spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "authentik.auth-system.svc.cluster.local:80"
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`sso.${FAMILY_DOMAIN}`)"
+      services:
+        - name: authentik
+          port: 80
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: sso.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -43,6 +54,11 @@ metadata:
 spec:
   endpoints:
     - dnsName: sso.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
+    - dnsName: sso.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:
