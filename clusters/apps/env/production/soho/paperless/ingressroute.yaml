@@ -5,7 +5,7 @@ metadata:
   name: paperless
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: paperless.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: paperless.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,27 +13,15 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`paperless.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-paperless-middleware
-          namespace: soho
+      match: "Host(`paperless.${FAMILY_DOMAIN}`)"
       priority: 10
       services:
         - name: paperless
           port: 8000
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: paperless.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-paperless-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "paperless.soho.svc.cluster.local:8000"
+      - main: paperless.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -43,7 +31,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: paperless.${SECRET_DOMAIN}
+    - dnsName: paperless.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

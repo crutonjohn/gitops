@@ -5,7 +5,7 @@ metadata:
   name: webhook-receiver
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: receiver.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: receiver.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,27 +13,15 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`receiver.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-webhook-receiver-middleware
-          namespace: flux-system
+      match: "Host(`receiver.${FAMILY_DOMAIN}`)"
       priority: 10
       services:
         - name: webhook-receiver
           port: 80
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: receiver.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-webhook-receiver-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "webhook-receiver.flux-system.svc.cluster.local:80"
+      - main: receiver.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -43,7 +31,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: receiver.${SECRET_DOMAIN}
+    - dnsName: receiver.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

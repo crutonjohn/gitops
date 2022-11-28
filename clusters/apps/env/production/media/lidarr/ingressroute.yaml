@@ -5,7 +5,7 @@ metadata:
   name: lidarr
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: lidarr.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: lidarr.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,40 +13,18 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`lidarr.${SECRET_DOMAIN}`)"
+      match: "Host(`lidarr.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: authentik
           namespace: auth-system
-        - name: l5d-lidarr-middleware
-          namespace: media
       priority: 10
       services:
         - name: lidarr
           port: 8686
-    - kind: Rule
-      match: "Host(`lidarr.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      priority: 15
-      services:
-        - kind: Service
-          name: ak-outpost-authentik-embedded-outpost
-          namespace: auth-system
-          port: 9000
-      middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
   tls:
     secretName: crj-wildcard-certificate
     domains:
-      - main: lidarr.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-lidarr-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "lidarr.media.svc.cluster.local:8686"
+      - main: lidarr.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -56,7 +34,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: lidarr.${SECRET_DOMAIN}
+    - dnsName: lidarr.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

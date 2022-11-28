@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: hajimari
+  name: hajimari-crj
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: start.${SECRET_DOMAIN}
@@ -14,9 +14,6 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`start.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-hajimari-middleware
-          namespace: soho
       services:
         - name: hajimari
           port: 3000
@@ -25,11 +22,16 @@ spec:
     domains:
       - main: start.${SECRET_DOMAIN}
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
 metadata:
-  name: l5d-hajimari-middleware
+  name: hajimari-crj
+  annotations:
+    external-dns/public: "true"
 spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "hajimari.soho.svc.cluster.local:3000"
+  endpoints:
+    - dnsName: start.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

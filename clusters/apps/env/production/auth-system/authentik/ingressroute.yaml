@@ -2,30 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: authentik-crj
-  annotations:
-    kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: sso.${SECRET_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-    external-dns/public: "true"
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: "Host(`sso.${SECRET_DOMAIN}`)"
-      services:
-        - name: authentik
-          port: 80
-  tls:
-    secretName: crj-wildcard-certificate
-    domains:
-      - main: sso.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: authentik-hj
+  name: authentik
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: sso.${FAMILY_DOMAIN}
@@ -53,13 +30,29 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: sso.${SECRET_DOMAIN}
-      recordTTL: 300
-      recordType: CNAME
-      targets:
-        - ${DYNAMIC_DOMAIN}
     - dnsName: sso.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:
         - ${DYNAMIC_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authentik
+spec:
+  forwardAuth:
+    address: http://sso.${FAMILY_DOMAIN}/outpost.goauthentik.io/auth/traefik
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-authentik-username
+      - X-authentik-groups
+      - X-authentik-email
+      - X-authentik-name
+      - X-authentik-uid
+      - X-authentik-jwt
+      - X-authentik-meta-jwks
+      - X-authentik-meta-outpost
+      - X-authentik-meta-provider
+      - X-authentik-meta-app
+      - X-authentik-meta-version

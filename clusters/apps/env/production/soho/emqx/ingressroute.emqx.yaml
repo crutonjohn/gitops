@@ -5,7 +5,7 @@ metadata:
   name: emqx
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: emqx.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: emqx.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,40 +13,18 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`emqx.${SECRET_DOMAIN}`)"
+      match: "Host(`emqx.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: authentik
           namespace: auth-system
-        - name: l5d-emqx-middleware
-          namespace: soho
       priority: 10
       services:
         - name: emqx
           port: 18083
-    - kind: Rule
-      match: "Host(`emqx.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      priority: 15
-      services:
-        - kind: Service
-          name: ak-outpost-authentik-embedded-outpost
-          namespace: auth-system
-          port: 9000
-      middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: emqx.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-emqx-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "emqx.soho.svc.cluster.local:18083"
+      - main: emqx.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -56,7 +34,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: emqx.${SECRET_DOMAIN}
+    - dnsName: emqx.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

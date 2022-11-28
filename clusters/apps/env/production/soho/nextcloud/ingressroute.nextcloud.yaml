@@ -5,7 +5,7 @@ metadata:
   name: nextcloud
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: cloud.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: cloud.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,26 +13,14 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`cloud.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-nextcloud-middleware
-          namespace: soho
+      match: "Host(`cloud.${FAMILY_DOMAIN}`)"
       services:
         - name: nextcloud
           port: 8080
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: cloud.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-nextcloud-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "nextcloud.soho.svc.cluster.local:8080"
+      - main: cloud.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -42,7 +30,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: cloud.${SECRET_DOMAIN}
+    - dnsName: cloud.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

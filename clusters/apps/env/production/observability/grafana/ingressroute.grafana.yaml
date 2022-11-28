@@ -5,7 +5,7 @@ metadata:
   name: grafana
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: grafana.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: grafana.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,39 +13,14 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`grafana.${SECRET_DOMAIN}`)"
-      middlewares:
-        # - name: ak-outpost-authentik-embedded-outpost
-        #   namespace: auth-system
-        - name: l5d-grafana-middleware
-          namespace: observability
+      match: "Host(`grafana.${FAMILY_DOMAIN}`)"
       services:
         - name: grafana
           port: 80
-    # - kind: Rule
-    #   match: "Host(`grafana.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-    #   priority: 15
-    #   services:
-    #     - kind: Service
-    #       name: ak-outpost-authentik-embedded-outpost
-    #       namespace: auth-system
-    #       port: 9000
-    #   middlewares:
-    #     - name: l5d-authentik-middleware
-    #       namespace: auth-system
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: grafana.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-grafana-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "grafana.observability.svc.cluster.local:80"
+      - main: grafana.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -55,7 +30,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: grafana.${SECRET_DOMAIN}
+    - dnsName: grafana.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

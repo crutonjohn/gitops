@@ -5,7 +5,7 @@ metadata:
   name: navidrome
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: music.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: music.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,26 +13,14 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`music.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-navidrome-middleware
-          namespace: media
+      match: "Host(`music.${FAMILY_DOMAIN}`)"
       services:
         - name: navidrome
           port: 4533
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: music.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-navidrome-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "navidrome.media.svc.cluster.local:4533"
+      - main: music.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -42,7 +30,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: music.${SECRET_DOMAIN}
+    - dnsName: music.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

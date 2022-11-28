@@ -2,10 +2,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: zigbee
+  name: zigbee-hj
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: zigbee.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: zigbee.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,42 +13,18 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`zigbee.${SECRET_DOMAIN}`)"
+      match: "Host(`zigbee.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: authentik
           namespace: auth-system
-        - name: l5d-zigbee-middleware
-          namespace: soho
       priority: 10
       services:
         - name: zigbee2mqtt
           port: 8080
-    - kind: Rule
-      match: "Host(`zigbee.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      priority: 15
-      services:
-        - kind: Service
-          # Or, to use an external Outpost, create an ExternalName service and reference that here.
-          # See https://kubernetes.io/docs/concepts/services-networking/service/#externalname
-          name: ak-outpost-authentik-embedded-outpost
-          namespace: auth-system
-          port: 9000
-      middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: zigbee.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-zigbee-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "zigbee2mqtt.soho.svc.cluster.local:8080"
+      - main: zigbee.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -58,7 +34,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: zigbee.${SECRET_DOMAIN}
+    - dnsName: zigbee.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

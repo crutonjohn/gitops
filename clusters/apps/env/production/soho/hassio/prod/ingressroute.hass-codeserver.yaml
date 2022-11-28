@@ -5,7 +5,7 @@ metadata:
   name: home-assistant-codeserver
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: hass.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: hass.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,40 +13,18 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`hass-config.${SECRET_DOMAIN}`)"
+      match: "Host(`hass-config.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: authentik
           namespace: auth-system
-        - name: l5d-home-assistant-codeserver-middleware
-          namespace: soho
       priority: 10
       services:
         - name: home-assistant-codeserver
           port: 12321
-    - kind: Rule
-      match: "Host(`hass-config.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      priority: 15
-      services:
-        - kind: Service
-          name: ak-outpost-authentik-embedded-outpost
-          namespace: auth-system
-          port: 9000
-      middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: hass-config.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-home-assistant-codeserver-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "home-assistant-codeserver.soho.svc.cluster.local:12321"
+      - main: hass-config.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -56,7 +34,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: hass-config.${SECRET_DOMAIN}
+    - dnsName: hass-config.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

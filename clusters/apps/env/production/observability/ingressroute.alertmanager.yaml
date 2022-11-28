@@ -5,7 +5,7 @@ metadata:
   name: alertmanager
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: alerts.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: alerts.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,39 +13,17 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`alerts.${SECRET_DOMAIN}`)"
+      match: "Host(`alerts.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: authentik
           namespace: auth-system
-        - name: l5d-alertmanager-middleware
-          namespace: observability
       services:
         - name: kube-prometheus-kube-prome-alertmanager
           port: 9093
-    - kind: Rule
-      match: "Host(`alerts.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      priority: 15
-      services:
-        - kind: Service
-          name: ak-outpost-authentik-embedded-outpost
-          namespace: auth-system
-          port: 9000
-      middlewares:
-        - name: l5d-authentik-middleware
-          namespace: auth-system
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
-      - main: alerts.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-alertmanager-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "kube-prometheus-kube-prome-alertmanager.observability.svc.cluster.local:9093"
+      - main: alerts.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -55,7 +33,7 @@ metadata:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: alerts.${SECRET_DOMAIN}
+    - dnsName: alerts.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:
