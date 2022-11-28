@@ -23,18 +23,15 @@ spec:
       enabled: true
       interval: 2m
       scrapeTimeout: 20s
-
     extraVolumes:
       - name: aws-credentials
         secret:
           defaultMode: 420
           secretName: aws-external-dns
-
     extraVolumeMounts:
       - mountPath: /.aws
         name: aws-credentials
         readOnly: true
-
     resources:
       requests:
         cpu: 10m
@@ -42,27 +39,20 @@ spec:
       limits:
         cpu: 32m
         memory: 148M
-
     logLevel: debug
     logFormat: json
-
     sources:
       - service
       - ingress
       - crd
-
     policy: upsert-only
-
     registry: txt
     txtOwnerId: "k8s."
     txtPrefix: "_."
-
     domainFilters:
       - ${SECRET_DOMAIN}
       - ${FAMILY_DOMAIN}
-
     provider: aws
-
     extraArgs:
       - --annotation-filter=external-dns/public in (true)
       - --aws-batch-change-size=1000

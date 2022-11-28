@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: bitwarden-vaultwarden
+  name: bitwarden-crj
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: bitwarden.${SECRET_DOMAIN}
@@ -14,9 +14,6 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`bitwarden.${SECRET_DOMAIN}`)"
-      middlewares:
-        - name: l5d-bitwarden-middleware
-          namespace: soho
       services:
         - name: bitwarden-vaultwarden
           port: 80
@@ -24,15 +21,6 @@ spec:
     secretName: crj-wildcard-certificate
     domains:
       - main: bitwarden.${SECRET_DOMAIN}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: l5d-bitwarden-middleware
-spec:
-  headers:
-    customRequestHeaders:
-      l5d-dst-override: "bitwarden-vaultwarden.soho.svc.cluster.local:80"
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
@@ -43,6 +31,11 @@ metadata:
 spec:
   endpoints:
     - dnsName: bitwarden.${SECRET_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
+    - dnsName: bitwarden.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:

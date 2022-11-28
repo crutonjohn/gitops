@@ -23,7 +23,6 @@ spec:
       enabled: true
       interval: 2m
       scrapeTimeout: 20s
-
     resources:
       requests:
         cpu: 10m
@@ -31,26 +30,19 @@ spec:
       limits:
         cpu: 32m
         memory: 148M
-
     logLevel: debug
     logFormat: json
-
     sources:
       - service
       - ingress
       - crd
-
     policy: upsert-only
-
     registry: txt
     txtOwnerId: "k8s."
     txtPrefix: "_."
-
     domainFilters:
       - ${FAMILY_DOMAIN}
-
     provider: linode
-
     env:
       - name: LINODE_TOKEN
         value: "${EXTERNAL_DNS_LINODE_API_TOKEN}"
