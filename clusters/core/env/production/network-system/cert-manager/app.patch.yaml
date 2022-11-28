@@ -24,7 +24,7 @@ spec:
         limits:
           cpu: 32m
           memory: 71M
-      hostNetwork: true
+      # hostNetwork: true
       securePort: 10253
     volumes:
       - name: aws-credentials
