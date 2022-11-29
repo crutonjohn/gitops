@@ -16,7 +16,7 @@ spec:
       match: "Host(`bs-sync.${FAMILY_DOMAIN}`)"
       priority: 10
       middlewares:
-        - name: authentik
+        - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       services:
         - name: syncthing
@@ -30,7 +30,7 @@ spec:
           namespace: auth-system
           port: 9000
   tls:
-    secretName: crj-wildcard-certificate
+    secretName: heyjohn-wildcard-certificate
     domains:
       - main: bs-sync.${FAMILY_DOMAIN}
 ---

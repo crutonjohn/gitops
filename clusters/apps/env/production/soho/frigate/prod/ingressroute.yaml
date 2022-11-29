@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: "Host(`frigate.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: authentik
+        - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       priority: 10
       services:

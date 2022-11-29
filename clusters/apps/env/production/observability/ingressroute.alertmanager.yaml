@@ -15,7 +15,7 @@ spec:
     - kind: Rule
       match: "Host(`alerts.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: authentik
+        - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       services:
         - name: kube-prometheus-kube-prome-alertmanager

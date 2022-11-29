@@ -16,7 +16,7 @@ spec:
       match: "Host(`prometheus.${FAMILY_DOMAIN}`)"
       priority: 10
       middlewares:
-        - name: authentik
+        - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       services:
         - name: kube-prometheus-kube-prome-prometheus

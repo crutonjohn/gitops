@@ -14,8 +14,9 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`status.${FAMILY_DOMAIN}`)"
+      priority: 10
       middlewares:
-        - name: authentik
+        - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       services:
         - name: changedetection-changedetection-io
