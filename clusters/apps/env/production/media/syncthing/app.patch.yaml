@@ -14,7 +14,7 @@ spec:
       data:
         enabled: true
         mountPath: /var/syncthing
-        existingClaim: "music-sync-pandora"
+        existingClaim: "music-sync-apollo"
     service:
       main:
         ports:

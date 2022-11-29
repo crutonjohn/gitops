@@ -35,11 +35,11 @@ spec:
       media:
         enabled: true
         mountPath: /media
-        existingClaim: "music-library-pandora"
+        existingClaim: "music-library-apollo"
       import:
         enabled: true
         mountPath: /import
-        existingClaim: "music-sync-pandora"
+        existingClaim: "music-sync-apollo"
     metrics:
       enabled: true
       serviceMonitor:

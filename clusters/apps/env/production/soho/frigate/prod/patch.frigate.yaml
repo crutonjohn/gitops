@@ -424,7 +424,7 @@ spec:
       media:
         enabled: true
         mountPath: /media
-        existingClaim: frigate-data-pandora
+        existingClaim: frigate-data-apollo
       cache:
         enabled: true
         type: emptyDir

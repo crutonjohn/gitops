@@ -2,27 +2,31 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: frigate-data
+  name: nextcloud-data
 spec:
   capacity:
-    storage: 8192Gi
+    storage: 1024Gi
   accessModes:
     - ReadWriteMany
-  storageClassName: pandora
-  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: soho
+    name: nextcloud-data-apollo
+  storageClassName: apollo
+  mountOptions:
+    - async
   nfs:
     server: 192.168.130.50
-    path: "/mnt/pandora/k8/frigate-data/"
+    path: "/mnt/apollo/nextcloud"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: frigate-data
+  name: nextcloud-data
   namespace: soho
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: pandora
+  storageClassName: apollo
   resources:
     requests:
-      storage: 8192Gi
+      storage: 1024Gi

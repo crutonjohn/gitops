@@ -10,11 +10,11 @@ spec:
     - ReadWriteMany
   claimRef:
     namespace: soho
-    name: paperless-export-pandora
-  storageClassName: pandora
+    name: paperless-export-apollo
+  storageClassName: apollo
   nfs:
     server: 192.168.130.50
-    path: "/mnt/pandora/paperless/export"
+    path: "/mnt/apollo/paperless/export"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -27,7 +27,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: pandora
+  storageClassName: apollo
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -40,11 +40,11 @@ spec:
     - ReadWriteMany
   claimRef:
     namespace: soho
-    name: paperless-consume-pandora
-  storageClassName: pandora
+    name: paperless-consume-apollo
+  storageClassName: apollo
   nfs:
     server: 192.168.130.50
-    path: "/mnt/pandora/paperless/consume"
+    path: "/mnt/apollo/paperless/consume"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -57,4 +57,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: pandora
+  storageClassName: apollo

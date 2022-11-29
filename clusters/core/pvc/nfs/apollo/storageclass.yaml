@@ -2,7 +2,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: pandora
+  name: apollo
 provisioner: example.com/external-nfs
 parameters:
   server: 192.168.130.50

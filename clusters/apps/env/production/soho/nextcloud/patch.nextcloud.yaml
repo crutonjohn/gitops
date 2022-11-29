@@ -116,7 +116,7 @@ spec:
       existingClaim: nextcloud-data-longhorn
       nextcloudData:
         enabled: true
-        existingClaim: nextcloud-data-pandora
+        existingClaim: nextcloud-data-apollo
     metrics:
       enabled: true
       replicaCount: 1

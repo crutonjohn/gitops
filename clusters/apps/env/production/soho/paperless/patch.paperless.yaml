@@ -42,11 +42,11 @@ spec:
       consume:
         enabled: true
         mountPath: /usr/src/paperless/consume
-        existingClaim: paperless-consume-pandora
+        existingClaim: paperless-consume-apollo
       export:
         enabled: true
         mountPath: /usr/src/paperless/export
-        existingClaim: paperless-export-pandora
+        existingClaim: paperless-export-apollo
     resources:
       requests:
         memory: 100Mi
