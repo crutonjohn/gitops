@@ -24,6 +24,7 @@ spec:
       services:
         - kind: Service
           name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
           port: 9000
   tls:
     secretName: heyjohn-wildcard-certificate

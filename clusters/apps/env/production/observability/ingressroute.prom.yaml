@@ -21,6 +21,14 @@ spec:
       services:
         - name: kube-prometheus-kube-prome-prometheus
           port: 9090
+    - kind: Rule
+      match: "Host(`prometheus.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      priority: 15
+      services:
+        - kind: Service
+          name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
+          port: 9000
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
