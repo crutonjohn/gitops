@@ -14,5 +14,7 @@ spec:
         name: jetstack-charts
         namespace: flux-system
   dependsOn:
-    - name: external-dns
+    - name: external-dns-aws
+      namespace: network-system
+    - name: external-dns-linode
       namespace: network-system
