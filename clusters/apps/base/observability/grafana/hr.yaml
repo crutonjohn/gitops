@@ -20,6 +20,6 @@ spec:
   values:
     image:
       repository: grafana/grafana
-      tag: 9.1.5
+      tag: 9.2.6
       sha: ""
       pullPolicy: IfNotPresent
