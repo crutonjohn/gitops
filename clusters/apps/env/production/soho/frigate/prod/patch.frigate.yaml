@@ -258,10 +258,10 @@ spec:
               south-west-1:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - detect
-                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - record
                         - rtmp
@@ -301,10 +301,10 @@ spec:
               south-west-2:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - detect
-                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - record
                         - rtmp
@@ -344,10 +344,10 @@ spec:
               north-door-1:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - detect
-                    - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
                       roles:
                         - record
                         - rtmp
