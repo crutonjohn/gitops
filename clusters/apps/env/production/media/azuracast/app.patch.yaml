@@ -43,31 +43,37 @@ spec:
         emptyDir: true
         mountPath: /var/azuracast/sftpgo/persist
         accessMode: ReadWriteOnce
+        size: 1Gi
       geolite:
         enabled: true
         emptyDir: true
         mountPath: /var/azuracast/geoip
         accessMode: ReadWriteOnce
+        size: 1Gi
       stereotool:
         enabled: true
         emptyDir: true
         mountPath: /var/azuracast/servers/stereo_tool
         accessMode: ReadWriteOnce
+        size: 1Gi
       shoutcast:
         enabled: true
         emptyDir: true
         mountPath: /var/azuracast/servers/shoutcast2
         accessMode: ReadWriteOnce
+        size: 1Gi
       station:
         enabled: true
         emptyDir: true
         mountPath: /var/azuracast/stations
         accessMode: ReadWriteOnce
+        size: 1Gi
       uploads:
         enabled: true
         emptyDir: true
         mountPath: /var/azuracast/uploads
         accessMode: ReadWriteOnce
+        size: 1Gi
     ingress:
       main:
         enabled: false
