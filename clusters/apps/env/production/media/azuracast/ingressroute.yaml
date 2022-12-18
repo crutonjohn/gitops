@@ -15,7 +15,7 @@ spec:
     - kind: Rule
       match: "Host(`radio.${FAMILY_DOMAIN}`)"
       services:
-        - name: azuracast
+        - name: azuracast-navidrome
           port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
