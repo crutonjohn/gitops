@@ -16,4 +16,4 @@ spec:
   values:
     image:
       repository: azuracast.docker.scarf.sh/azuracast/azuracast
-      tag: 0.48.0
+      tag: 0.17.5
