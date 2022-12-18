@@ -4,6 +4,7 @@ kind: Kustomization
 nameSuffix: -longhorn
 resources:
   - authentik.yaml
+  - azuracast.yaml
   - bitwarden.yaml
   - frigate.yaml
   - minecraft.yaml

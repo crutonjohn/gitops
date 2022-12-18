@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: azuracast
+spec:
+  values:
+    podSecurityContext:
+      fsGroup: 1177
+      runAsNonRoot: true
+      runAsUser: 1177
+      runAsGroup: 1177
+    env:
+      LANG: en_US.UTF-8
+      AZURACAST_DC_REVISION: "14"
+      AZURACAST_VERSION: "0.48.0"
+      AZURACAST_SFTP_PORT: "2022"
+      NGINX_TIMEOUT: "1800"
+      PUID: "1177"
+      PGID: "1177"
+      APPLICATION_ENV: production
+      COMPOSER_PLUGIN_MODE: "false"
+      AUTO_ASSIGN_PORT_MIN: "8000"
+      AUTO_ASSIGN_PORT_MAX: "8005"
+      MYSQL_PASSWORD: ${AZURACAST_DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    persistence:
+      music:
+        enabled: true
+        emptyDir: false
+        mountPath: /music
+        skipuninstall: false
+        existingClaim: "music-library-apollo"
+      database:
+        enabled: true
+        emptyDir: false
+        mountPath: /var/lib/mysql
+        accessMode: ReadWriteOnce
+        skipuninstall: false
+        existingClaim: "radio-db-longhorn"
+      sftp:
+        enabled: true
+        emptyDir: true
+        mountPath: /var/azuracast/sftpgo/persist
+        accessMode: ReadWriteOnce
+      geolite:
+        enabled: true
+        emptyDir: true
+        mountPath: /var/azuracast/geoip
+        accessMode: ReadWriteOnce
+      stereotool:
+        enabled: true
+        emptyDir: true
+        mountPath: /var/azuracast/servers/stereo_tool
+        accessMode: ReadWriteOnce
+      shoutcast:
+        enabled: true
+        emptyDir: true
+        mountPath: /var/azuracast/servers/shoutcast2
+        accessMode: ReadWriteOnce
+      station:
+        enabled: true
+        emptyDir: true
+        mountPath: /var/azuracast/stations
+        accessMode: ReadWriteOnce
+      uploads:
+        enabled: true
+        emptyDir: true
+        mountPath: /var/azuracast/uploads
+        accessMode: ReadWriteOnce
+    ingress:
+      main:
+        enabled: false
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+          https:
+            port: 443
+          radio:
+            port: 8000
+          sftp:
+            port: 2022
+    resources:
+      requests:
+        cpu: 50m
+        memory: 100Mi
+      limits:
+        cpu: 500m
+        memory: 1024Mi
