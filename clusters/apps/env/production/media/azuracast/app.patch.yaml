@@ -6,10 +6,10 @@ metadata:
 spec:
   values:
     podSecurityContext:
-      fsGroup: 1177
-      runAsNonRoot: true
-      runAsUser: 1177
-      runAsGroup: 1177
+      # fsGroup: 1177
+      runAsNonRoot: false
+      # runAsUser: 1177
+      # runAsGroup: 1177
     env:
       LANG: en_US.UTF-8
       AZURACAST_DC_REVISION: "14"
