@@ -16,8 +16,8 @@ spec:
       AZURACAST_VERSION: "0.48.0"
       AZURACAST_SFTP_PORT: "2022"
       NGINX_TIMEOUT: "1800"
-      PUID: "1177"
-      PGID: "1177"
+      PUID: "0"
+      PGID: "0"
       APPLICATION_ENV: production
       COMPOSER_PLUGIN_MODE: "false"
       AUTO_ASSIGN_PORT_MIN: "8000"
