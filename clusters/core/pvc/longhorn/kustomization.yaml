@@ -15,5 +15,6 @@ resources:
   - hassio.yaml
   - grafana.yaml
   - navidrome.yaml
+  - owncast.yaml
   - changedetection.yaml
   - lidarr.yaml

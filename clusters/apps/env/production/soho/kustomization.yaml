@@ -12,5 +12,6 @@ resources:
   - hajimari
   - hassio
   - nextcloud
+  - owncast
   - paperless
   - zigbee2mqtt
