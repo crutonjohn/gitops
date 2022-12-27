@@ -15,6 +15,7 @@ spec:
         ports:
           http:
             port: 8080
+            targetPort: 8080
           rtmp-tcp:
             enabled: true
             primary: false
