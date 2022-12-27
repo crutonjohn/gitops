@@ -18,7 +18,8 @@ spec:
     - name: traefik-internal
       namespace: network-system
   values:
-    fullNameOverride: owncast
+    global:
+      fullnameOverride: owncast
     image:
       repository: gabekangas/owncast
       tag: 0.0.13

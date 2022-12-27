@@ -13,7 +13,7 @@ spec:
       match: "Host(`owncast.${FAMILY_DOMAIN}`)"
       priority: 10
       services:
-        - name: owncast-frigate
+        - name: owncast
           port: 8080
   tls:
     secretName: heyjohn-wildcard-certificate

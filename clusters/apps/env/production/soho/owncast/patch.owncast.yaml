@@ -13,6 +13,8 @@ spec:
     service:
       main:
         ports:
+          http:
+            port: 8080
           rtmp-tcp:
             enabled: true
             primary: false
@@ -25,12 +27,6 @@ spec:
             port: 1935
             protocol: UDP
             targetPort: 1935
-          web:
-            enabled: true
-            primary: false
-            port: 8080
-            protocol: TCP
-            targetPort: 8080
     persistence:
       data:
         enabled: true
