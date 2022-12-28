@@ -5,6 +5,13 @@ metadata:
   name: restreamer
 spec:
   values:
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     args:
       - '-hide_banner'
       - '-hwaccel'
@@ -28,7 +35,6 @@ spec:
       - '-f'
       - 'flv'
       - 'rtmp://owncast.soho.svc.cluster.local/live/${OWNCAST_STREAM_KEY}'
-
     env:
       TZ: "America/New_York"
     ingress:
