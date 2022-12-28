@@ -8,9 +8,26 @@ spec:
     args:
       - '-i'
       - 'rtmp://frigate-prod/live/puppy-cam-1'
+      - '-hwaccel'
+      - 'vaapi'
+      - '-hwaccel_device'
+      - '/dev/dri/renderD128'
+      - '-hwaccel_output_format'
+      - 'yuv420p'
+      - '-fflags'
+      - '+genpts+discardcorrupt'
+      - '-rtsp_transport'
+      - 'tcp'
+      - '-c:v'
+      - 'copy'
+      - '-c:a'
+      - 'aac'
       - '-c'
       - 'copy'
-      - 'rtmp://owncast/live/${OWNCAST_STREAM_KEY}'
+      - '-f'
+      - 'flv'
+      - 'rtmp://owncast.soho.svc.cluster.local/live/${OWNCAST_STREAM_KEY}'
+
     env:
       TZ: "America/New_York"
     ingress:
