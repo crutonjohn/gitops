@@ -28,9 +28,7 @@ spec:
       - '-probesize'
       - '1000M'
       - '-i'
-      - 'rtmp://frigate-prod/live/puppy-cam-1'
-      # - '-rtsp_transport'
-      # - 'tcp'
+      - 'https://192.168.134.70/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}'
       - '-f'
       - 'segment'
       - '-segment_time'
@@ -43,9 +41,8 @@ spec:
       - '1'
       - '-c:v'
       - 'copy'
-      - '-c:a'
-      - 'aac'
-      - '/tmp/puppy-cam'
+      - '-an'
+      - '/tmp/cache/puppy-cam'
       - '-c'
       - 'copy'
       - '-f'
@@ -69,7 +66,7 @@ spec:
         type: emptyDir
         medium: Memory
         sizeLimit: 2Gi
-        mountPath: /tmp
+        mountPath: /tmp/cache
       video:
         enabled: true
         type: hostPath
