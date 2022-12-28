@@ -7,8 +7,6 @@ spec:
   values:
     args:
       - '-hide_banner'
-      - '-loglevel'
-      - 'warning'
       - '-hwaccel'
       - 'vaapi'
       - '-hwaccel_device'
