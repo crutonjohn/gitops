@@ -6,8 +6,6 @@ metadata:
 spec:
   values:
     args:
-      - '-i'
-      - 'rtmp://frigate-prod/live/puppy-cam-1'
       - '-hwaccel'
       - 'vaapi'
       - '-hwaccel_device'
@@ -16,6 +14,8 @@ spec:
       - 'yuv420p'
       - '-fflags'
       - '+genpts+discardcorrupt'
+      - '-i'
+      - 'rtmp://frigate-prod/live/puppy-cam-1'
       - '-rtsp_transport'
       - 'tcp'
       # - '-c:v'
