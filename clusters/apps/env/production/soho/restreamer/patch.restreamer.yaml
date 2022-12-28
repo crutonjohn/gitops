@@ -54,6 +54,16 @@ spec:
                   operator: In
                   values:
                     - "true"
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                    - frigate-prod
+                    - owncast
+            topologyKey: kubernetes.io/hostname
     resources:
       requests:
         memory: 1024Mi
