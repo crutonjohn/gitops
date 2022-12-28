@@ -14,4 +14,5 @@ resources:
   - nextcloud
   - owncast
   - paperless
+  - restreamer
   - zigbee2mqtt
