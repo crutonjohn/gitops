@@ -18,13 +18,23 @@ spec:
       - 'rtmp://frigate-prod/live/puppy-cam-1'
       - '-rtsp_transport'
       - 'tcp'
-      # - '-c:v'
-      # - 'copy'
-      # - '-c:a'
-      # - 'aac'
+      - '-f'
+      - 'segment'
+      - '-segment_time'
+      - '10'
+      - '-segment_format'
+      - 'mp4'
+      - '-reset_timestamps'
+      - '1'
+      - '-strftime'
+      - '1'
       - '-c:v'
       - 'copy'
-      - '-an'
+      - '-c:a'
+      - 'aac'
+      - '/tmp/puppy-cam'
+      - '-c'
+      - 'copy'
       - '-f'
       - 'flv'
       - 'rtmp://owncast.soho.svc.cluster.local/live/${OWNCAST_STREAM_KEY}'
@@ -41,6 +51,12 @@ spec:
             port: 8080
             targetPort: 8080
     persistence:
+      cache:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 2Gi
+        mountPath: /tmp
       video:
         enabled: true
         type: hostPath
