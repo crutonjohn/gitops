@@ -24,7 +24,7 @@ spec:
       # - 'aac'
       - '-c:v'
       - 'copy'
-      # - '-an'
+      - '-an'
       - '-f'
       - 'flv'
       - 'rtmp://owncast.soho.svc.cluster.local/live/${OWNCAST_STREAM_KEY}'
