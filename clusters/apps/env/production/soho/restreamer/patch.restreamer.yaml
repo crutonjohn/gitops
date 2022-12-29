@@ -76,4 +76,4 @@ spec:
       limits:
         memory: 4000Mi
     securityContext:
-      privileged: false
+      privileged: true
