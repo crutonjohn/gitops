@@ -42,8 +42,6 @@ spec:
       - 'copy'
       - '-f'
       - 'flv'
-      - '-rtsp_transport'
-      - 'tcp'
       - 'rtmp://owncast/live/${OWNCAST_STREAM_KEY}'
     env:
       TZ: "America/New_York"
