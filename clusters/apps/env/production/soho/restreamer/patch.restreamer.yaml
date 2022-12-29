@@ -48,8 +48,8 @@ spec:
       video:
         enabled: true
         type: hostPath
-        hostPath: /dev/dri/renderD128
-        mountPath: /dev/dri/renderD128
+        hostPath: /dev/dri
+        mountPath: /dev/dri
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
