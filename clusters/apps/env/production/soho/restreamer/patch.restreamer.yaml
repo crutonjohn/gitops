@@ -23,12 +23,12 @@ spec:
       - '-hwaccel_output_format'
       - 'yuv420p'
       - '-i'
-      - 'rtmp://frigate-prod.soho.svc.cluster.local/live/puppy-cam-1'
+      - 'rtmp://frigate-prod/live/puppy-cam-1'
       - '-c'
       - 'copy'
       - '-f'
       - 'flv'
-      - 'rtmp://owncast.soho.svc.cluster.local/live/${OWNCAST_STREAM_KEY}'
+      - 'rtmp://owncast/live/${OWNCAST_STREAM_KEY}'
     env:
       TZ: "America/New_York"
     ingress:
