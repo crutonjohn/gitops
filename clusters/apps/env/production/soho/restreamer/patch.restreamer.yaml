@@ -34,8 +34,6 @@ spec:
       - '1000M'
       - '-probesize'
       - '1000M'
-      - '-rtsp_transport'
-      - 'tcp'
       - '-i'
       - 'rtmp://frigate-prod/live/puppy-cam-1'
       - '-c'
