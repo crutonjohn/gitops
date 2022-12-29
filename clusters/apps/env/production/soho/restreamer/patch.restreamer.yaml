@@ -39,12 +39,6 @@ spec:
             port: 8080
             targetPort: 8080
     persistence:
-      cache:
-        enabled: true
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 2Gi
-        mountPath: /tmp/cache
       video:
         enabled: true
         type: hostPath

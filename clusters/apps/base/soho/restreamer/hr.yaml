@@ -21,6 +21,6 @@ spec:
     global:
       fullnameOverride: doggy-restreamer
     image:
-      repository: quay.io/linuxserver.io/ffmpeg
-      tag: 5.1.2
+      repository: jrottenberg/ffmpeg
+      tag: 4.1-vaapi
       pullPolicy: IfNotPresent
