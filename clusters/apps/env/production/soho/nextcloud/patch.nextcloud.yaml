@@ -15,7 +15,7 @@ spec:
         runAsGroup: "82"
         runAsNonRoot: true
         readOnlyRootFilesystem: true
-      host: cloud.${SECRET_DOMAIN}
+      host: cloud.${FAMILY_DOMAIN}
       username: ${NEXTCLOUD_APP_ADMIN_USER}
       password: ${NEXTCLOUD_APP_ADMIN_PASSWORD}
       datadir: /var/www/html/data
