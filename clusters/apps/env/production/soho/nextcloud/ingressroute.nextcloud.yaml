@@ -31,7 +31,7 @@ metadata:
   name: nextcloud-dav
 spec:
   redirectRegex:
-    permanant: "true"
+    permanent: "true"
     regex: ^https://(.*)/.well-known/(card|cal)dav
     replacement: https://${1}/remote.php/dav/
 ---
