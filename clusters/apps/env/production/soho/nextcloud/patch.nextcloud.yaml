@@ -7,7 +7,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 25.0.2-apache
+      tag: 24.0.1-apache
       pullPolicy: IfNotPresent
     nextcloud:
       extraSecurityContext:
