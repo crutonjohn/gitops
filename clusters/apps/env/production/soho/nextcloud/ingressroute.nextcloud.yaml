@@ -17,10 +17,23 @@ spec:
       services:
         - name: nextcloud
           port: 8080
+      middlewares:
+        - name: nextcloud-dav
+          namespace: soho
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
       - main: cloud.${FAMILY_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nextcloud-dav
+spec:
+  redirectRegex:
+    permanant: "true"
+    regex: ^https://(.*)/.well-known/(card|cal)dav
+    replacement: https://${1}/remote.php/dav/
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint

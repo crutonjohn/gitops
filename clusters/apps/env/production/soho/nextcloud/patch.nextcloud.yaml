@@ -54,6 +54,7 @@ spec:
             array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
+            'overwriteprotocol' => 'https',
           );
     livenessProbe:
       enabled: true
