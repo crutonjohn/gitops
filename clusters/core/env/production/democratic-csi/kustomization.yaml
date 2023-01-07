@@ -1,0 +1,8 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: democratic-csi
+resources:
+  - ../../../base/applications/democratic-csi
+patchesStrategicMerge:
+  - patch.iscsi.yaml

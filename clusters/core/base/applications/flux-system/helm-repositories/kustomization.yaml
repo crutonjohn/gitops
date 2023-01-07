@@ -10,6 +10,7 @@ resources:
   - coredns-charts.yaml
   - crossplane-charts.yaml
   - crutonjohn-charts.yaml
+  - democratic-csi-charts.yaml
   - dex-chart.yaml
   - emqx-charts.yaml
   - fairwinds-charts.yaml
