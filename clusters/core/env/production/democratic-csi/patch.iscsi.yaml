@@ -131,7 +131,7 @@ spec:
           # add as many as needed
           targetGroups:
             # get the correct ID from the "portal" section in the UI
-            - targetGroupPortalGroup: 2
+            - targetGroupPortalGroup: 3
               # get the correct ID from the "initiators" section in the UI
               targetGroupInitiatorGroup: 9
               # None, CHAP, or CHAP Mutual
