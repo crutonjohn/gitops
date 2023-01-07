@@ -58,7 +58,7 @@ spec:
         # please see the most up-to-date example of the corresponding config here:
         # https://github.com/democratic-csi/democratic-csi/tree/master/examples
         # YOU MUST COPY THE DATA HERE INLINE!
-        driver: freenas-iscsi
+        driver: freenas-api-iscsi
         # instance_id:
         httpConnection:
           protocol: http
