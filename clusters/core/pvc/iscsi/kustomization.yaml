@@ -18,3 +18,4 @@ resources:
   - owncast.yaml
   - changedetection.yaml
   - lidarr.yaml
+  - syslog.yaml

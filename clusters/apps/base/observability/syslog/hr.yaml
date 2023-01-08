@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: syslog-ng
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: syslog-ng
+      version: 1.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  timeout: 10m0s
+  values:
+    image:
+      repository: ghcr.io/linuxserver/syslog-ng
+      tag: 3.38.1
+      pullPolicy: IfNotPresent

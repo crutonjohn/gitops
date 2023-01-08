@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: syslog-ng
+spec:
+  values:
+    env:
+      TZ: America/New_York
+      PUID: "10001"
+      PGID: "10001"
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: ${CLUSTER_LB_SYSLOGNG}
+        ports:
+          http:
+            enabled: false
+            primary: false
+          syslog-tcp:
+            primary: true
+            enabled: true
+            port: 601
+            targetPort: 6601
+          syslog-udp:
+            enabled: true
+            port: 514
+            targetPort: 5514
+            protocol: UDP
+          syslog-tls:
+            enabled: false
+            port: 6514
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        memory: 4096Mi
+        cpu: 1
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: "syslog-config-iscsi"
+      logs:
+        enabled: false
+        mountPath: /var/log
+    addons:
+      codeserver:
+        enabled: true
+        resources:
+          requests:
+            cpu: 30m
+            memory: 100Mi
+          limits:
+            memory: 500Mi
+            cpu: 300m
+        image:
+          repository: codercom/code-server
+          tag: 4.4.0
+        git:
+          deployKeySecret: code-server
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          enabled: false
+          ingressClassName: "traefik-internal"
+          annotations:
+            nginx.org/websocket-services: home-assistant
+          hosts:
+            - host: "syslog-config.${FAMILY_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - "syslog-config.${FAMILY_DOMAIN}"
+              secretName: "heyjohn-wildcard-certificate"
+        volumeMounts:
+          - name: config
+            mountPath: /config
