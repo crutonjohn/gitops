@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+nameSuffix: -iscsi
+resources:
+  - authentik.yaml
+  - azuracast.yaml
+  - bitwarden.yaml
+  - frigate.yaml
+  - minecraft.yaml
+  - nextcloud.yaml
+  - paperless.yaml
+  - zigbee2mqtt.yaml
+  - hajimari.yaml
+  - hassio.yaml
+  - grafana.yaml
+  - navidrome.yaml
+  - owncast.yaml
+  - changedetection.yaml
+  - lidarr.yaml
