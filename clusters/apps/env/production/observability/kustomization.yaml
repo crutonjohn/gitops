@@ -15,6 +15,7 @@ resources:
   - ingressroute.alertmanager.yaml
   - ingressroute.prom.yaml
   - ingressroute.changedetection.yaml
+  - ingressroute.syslog-config.yaml
 patchesStrategicMerge:
   - patch.botkube.yaml
   - patch.loki.yaml
