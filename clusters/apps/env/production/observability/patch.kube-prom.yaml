@@ -47,22 +47,6 @@ spec:
           - '/etc/alertmanager/config/*.tmpl'
       ingress:
         enabled: false
-        ingressClassName: traefik-internal
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "bell-alert-outline"
-          hajimari.io/appName: "Alertmanager"
-          hajimari.io/group: "Observability"
-        labels: {}
-        hosts:
-          - "alerts.${SECRET_DOMAIN}"
-        paths:
-          - /
-        pathType: ImplementationSpecific
-        tls:
-          - secretName: crj-wildcard-certificate
-            hosts:
-              - "alerts.${SECRET_DOMAIN}"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -200,22 +184,6 @@ spec:
     prometheus:
       ingress:
         enabled: false
-        ingressClassName: traefik-internal
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "fire"
-          hajimari.io/appName: "Prometheus"
-          hajimari.io/group: "Observability"
-        labels: {}
-        hosts:
-          - prometheus.${SECRET_DOMAIN}
-        paths:
-          - /
-        pathType: ImplementationSpecific
-        tls:
-          - secretName: crj-wildcard-certificate
-            hosts:
-              - prometheus.${SECRET_DOMAIN}
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
@@ -223,7 +191,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retentionSize: "6GB"
+        retentionSize: "20GB"
         retention: 2d
         enableAdminAPI: true
         walCompression: true
@@ -233,7 +201,7 @@ spec:
               storageClassName: longhorn
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 30Gi
         resources:
           requests:
             cpu: 587m
