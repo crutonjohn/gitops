@@ -51,22 +51,22 @@ spec:
 
     # -- Configure additional ports and services. For each configured port, a corresponding service is created.
     # See values.yaml for details
-    extraPorts: {}
-    #  syslog:
-    #    name: tcp-syslog
-    #    containerPort: 1514
-    #    protocol: TCP
-    #    service:
-    #      type: ClusterIP
-    #      clusterIP: null
-    #      port: 1514
-    #      externalIPs: []
-    #      nodePort: null
-    #      annotations: {}
-    #      labels: {}
-    #      loadBalancerIP: null
-    #      loadBalancerSourceRanges: []
-    #      externalTrafficPolicy: null
+    extraPorts:
+      syslog:
+        name: tcp-syslog
+        containerPort: 1514
+        protocol: TCP
+        service:
+          type: ClusterIP
+          clusterIP: null
+          port: 1514
+          externalIPs: []
+          nodePort: null
+          annotations: {}
+          labels: {}
+          loadBalancerIP: null
+          loadBalancerSourceRanges: []
+          externalTrafficPolicy: null
     config:
       # -- The log level of the Promtail server
       # Must be reference in `config.file` to configure `server.log_level`
@@ -173,6 +173,14 @@ spec:
               {{- with .Values.config.snippets.extraRelabelConfigs }}
               {{- toYaml . | nindent 4 }}
               {{- end }}
+          - job_name: syslog
+            syslog:
+              listen_address: 0.0.0.0:1514
+              labels:
+                job: "syslog"
+            relabel_configs:
+              - source_labels: ['__syslog_message_hostname']
+                target_label: 'host'
       file: |
         server:
           log_level: {{ .Values.config.logLevel }}
