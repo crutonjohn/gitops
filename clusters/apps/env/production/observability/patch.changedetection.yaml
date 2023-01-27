@@ -22,7 +22,7 @@ spec:
       data:
         enabled: true
         mountPath: /datastore
-        existingClaim: changedetection-config-longhorn
+        existingClaim: changedetection-config-iscsi
     resources:
       limits:
         cpu: 100m
