@@ -265,5 +265,5 @@ spec:
                 - source_labels: [ __meta_kubernetes_pod_name ]
                   action: replace
                   target_label: kubernetes_pod_name
-          # -- Extra scrape configs that will be appended to `server.scrape.config`
-          extraScrapeConfigs: []
+        # -- Extra scrape configs that will be appended to `server.scrape.config`
+        extraScrapeConfigs: []
