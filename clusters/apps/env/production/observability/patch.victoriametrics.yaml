@@ -12,8 +12,6 @@ spec:
         config:
           global:
             scrape_interval: 15s
-            remote_write:
-              - url: http://localhost:8428/api/v1/write
           scrape_configs:
             - job_name: victoriametrics
               static_configs:
