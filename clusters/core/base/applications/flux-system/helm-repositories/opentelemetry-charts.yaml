@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: rook-ceph-charts
+  name: opentelemetry-charts
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://charts.rook.io/release
+  url: https://open-telemetry.github.io/opentelemetry-helm-charts
   timeout: 3m

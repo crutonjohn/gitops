@@ -34,14 +34,11 @@ resources:
   - node-feature-discovery-chart.yaml
   - oauth2-proxy-chart.yaml
   - openfaas-charts.yaml
-  - prometheus-community-charts.yaml
+  - opentelemetry-charts.yaml
   - replicator-charts.yaml
-  - rook-ceph-charts.yaml
-  - stackrox-charts.yaml
   - stakater-charts.yaml
-  - submariner-charts.yaml
   - tanzu-charts.yaml
   - traefik-charts.yaml
-  - trilio-charts.yaml
   - vernemq-charts.yaml
+  - victoriametrics-charts.yaml
   - weaveworks-kured-charts.yaml

@@ -9,7 +9,7 @@ spec:
       commonConfig:
         replication_factor: 1
       storage:
-        type: filesystem
+        type: 'filesystem'
     singleBinary:
       replicas: 1
       persistence:

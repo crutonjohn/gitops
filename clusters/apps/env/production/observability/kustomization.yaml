@@ -6,20 +6,21 @@ resources:
   - ../../../base/observability/botkube
   - ../../../base/observability/loki
   - ../../../base/observability/promtail
-  - ../../../base/observability/kube-prometheus
   - ../../../base/observability/changedetection-io
   - ../../../base/observability/syslog
+  - ../../../base/observability/otel-collector
+  - ../../../base/observability/victoriametrics
   - external-prom-targets
   - ups
   - grafana
   - ingressroute.alertmanager.yaml
-  - ingressroute.prom.yaml
   - ingressroute.changedetection.yaml
   - ingressroute.syslog-config.yaml
 patchesStrategicMerge:
   - patch.botkube.yaml
   - patch.loki.yaml
   - patch.promtail.yaml
-  - patch.kube-prom.yaml
   - patch.changedetection.yaml
   - patch.syslog.yaml
+  - patch.otel-collector.yaml
+  - patch.victoriametrics.yaml

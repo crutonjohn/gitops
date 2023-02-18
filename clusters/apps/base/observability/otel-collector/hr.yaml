@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: otel-collector
+spec:
+  interval: 5m
+  timeout: 10m
+  install:
+    timeout: 10m
+  chart:
+    spec:
+      chart: opentelemetry-collector
+      version: 0.48.2
+      sourceRef:
+        kind: HelmRepository
+        name: opentelemetry-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: grafana/loki
+      tag: 2.7.1
+      pullPolicy: IfNotPresent

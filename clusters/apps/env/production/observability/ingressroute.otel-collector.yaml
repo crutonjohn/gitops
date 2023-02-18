@@ -1,0 +1,49 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: otel-collector
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: otel-collector.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`otel-collector.${FAMILY_DOMAIN}`)"
+      priority: 10
+      middlewares:
+        - name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
+      services:
+        - name: collector-tls
+          port: 4318
+    - kind: Rule
+      match: "Host(`otel-collector.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      priority: 15
+      services:
+        - kind: Service
+          name: ak-outpost-authentik-embedded-outpost
+          namespace: auth-system
+          port: 9000
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: otel-collector.${FAMILY_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: otel-collector
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: otel-collector.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

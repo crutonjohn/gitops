@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: stackrox-charts
+  name: victoriametrics-charts
   namespace: flux-system
 spec:
-  interval: 10m
-  url: https://mirror.openshift.com/pub/rhacs/charts
+  interval: 30m
+  url: https://victoriametrics.github.io/helm-charts/
   timeout: 3m
