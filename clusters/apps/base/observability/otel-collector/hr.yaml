@@ -18,6 +18,6 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: grafana/loki
-      tag: 2.7.1
-      pullPolicy: IfNotPresent
+      # If you want to use the core image `otel/opentelemetry-collector`, you also need to change `command.name` value to `otelcol`.
+      repository: otel/opentelemetry-collector-contrib
+      tag: "0.71.0"
