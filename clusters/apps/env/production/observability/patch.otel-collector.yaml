@@ -216,7 +216,9 @@ spec:
         cpu: 256m
         memory: 512Mi
 
-    podAnnotations: {}
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8888"
 
     podLabels: {}
 
