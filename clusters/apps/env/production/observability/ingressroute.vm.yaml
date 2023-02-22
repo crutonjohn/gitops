@@ -2,10 +2,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: prometheus
+  name: victoria
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: prometheus.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: metrics.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,16 +13,16 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`prometheus.${FAMILY_DOMAIN}`)"
+      match: "Host(`metrics.${FAMILY_DOMAIN}`)"
       priority: 10
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
           namespace: auth-system
       services:
-        - name: kube-prometheus-kube-prome-prometheus
-          port: 9090
+        - name: vm-single-victoria-metrics-single-server
+          port: 8428
     - kind: Rule
-      match: "Host(`prometheus.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`metrics.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
       services:
         - kind: Service
@@ -32,17 +32,17 @@ spec:
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
-      - main: prometheus.${FAMILY_DOMAIN}
+      - main: metrics.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: prometheus
+  name: victoria
   annotations:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: prometheus.${FAMILY_DOMAIN}
+    - dnsName: metrics.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:
