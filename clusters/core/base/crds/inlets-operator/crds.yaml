@@ -9,7 +9,7 @@ spec:
   url: https://github.com/inlets/inlets-operator.git
   ref:
     # renovate: registryUrl=https://charts.rook.io/release chart=rook-ceph
-    tag: 0.16.3
+    tag: 0.17.0
   ignore: |
     # exclude all
     /*
