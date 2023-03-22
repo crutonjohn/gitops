@@ -8,6 +8,7 @@ resources:
   - ../../../base/observability/changedetection-io
   - ../../../base/observability/syslog
   - ../../../base/observability/otel-collector
+  - ../../../base/observability/snmp-exporter
   - ../../../base/observability/victoriametrics
   - external-prom-targets
   - ups
@@ -22,4 +23,5 @@ patchesStrategicMerge:
   - patch.changedetection.yaml
   - patch.syslog.yaml
   - patch.otel-collector.yaml
+  - patch.snmp-exporter.yaml
   - patch.victoriametrics.yaml

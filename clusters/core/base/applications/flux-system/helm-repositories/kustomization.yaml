@@ -35,6 +35,7 @@ resources:
   - oauth2-proxy-chart.yaml
   - openfaas-charts.yaml
   - opentelemetry-charts.yaml
+  - prometheus-community.yaml
   - replicator-charts.yaml
   - stakater-charts.yaml
   - tanzu-charts.yaml
