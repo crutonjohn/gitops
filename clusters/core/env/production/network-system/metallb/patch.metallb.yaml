@@ -9,9 +9,9 @@ spec:
       serviceAccount: "kube-prometheus-kube-prome-prometheus"
       namespace: "observability"
       podMonitor:
-        enabled: true
+        enabled: false
       prometheusRule:
-        enabled: true
+        enabled: false
     controller:
       prometheus:
         serviceMonitor:
