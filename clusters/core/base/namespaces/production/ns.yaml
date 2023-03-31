@@ -32,11 +32,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: longhorn-system
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: soho
 ---
 apiVersion: v1
