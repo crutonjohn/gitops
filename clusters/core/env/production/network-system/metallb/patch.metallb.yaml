@@ -15,11 +15,7 @@ spec:
     controller:
       prometheus:
         serviceMonitor:
-          enabled: true
-          jobLabel: "app.kubernetes.io/name"
-          interval: ""
-          metricRelabelings: []
-          relabelings: []
+          enabled: false
       resources:
         requests:
           cpu: 15m
