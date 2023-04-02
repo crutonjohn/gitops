@@ -13,7 +13,7 @@ spec:
       sha: ""
       pullPolicy: IfNotPresent
     serviceMonitor:
-      enabled: true
+      enabled: false
       path: /metrics
     grafana.ini:
       smtp:
