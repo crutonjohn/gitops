@@ -9,7 +9,6 @@ resources:
   - ../../../base/observability/syslog
   - ../../../base/observability/otel-collector
   - ../../../base/observability/victoriametrics
-  - external-prom-targets
   - ups
   - grafana
   - ingressroute.alertmanager.yaml
