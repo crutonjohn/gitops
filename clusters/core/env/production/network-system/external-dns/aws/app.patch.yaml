@@ -20,7 +20,7 @@ spec:
     cleanupOnFail: true
   values:
     serviceMonitor:
-      enabled: true
+      enabled: false
       interval: 2m
       scrapeTimeout: 20s
     extraVolumes:
