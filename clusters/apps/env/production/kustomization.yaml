@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - auth-system
   - flux-system
-  - games
+#  - games
   - kube-system
   - media
   - network-system

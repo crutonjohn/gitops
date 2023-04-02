@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: soho
 resources:
   - amcrest2mqtt
-  - bitwarden
+  # - bitwarden
   # - blog
   # - double-take
   - emqx
@@ -12,7 +12,5 @@ resources:
   - hajimari
   - hassio
   - nextcloud
-  - owncast
   - paperless
-  - restreamer
   - zigbee2mqtt

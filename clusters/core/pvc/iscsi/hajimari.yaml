@@ -1,13 +1,30 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hajimari-config
+spec:
+  storageClassName: "iscsi"
+  capacity:
+    storage: 200M
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 192.168.130.50:3260
+    iqn: iqn.2005-10.org.freenas.ctl:hajimari
+    lun: 0
+    fsType: 'ext4'
+    readOnly: false
+---
 kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
   name: hajimari-config
   namespace: soho
 spec:
+  storageClassName: "iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 200M
-  storageClassName: freenas-iscsi-csi

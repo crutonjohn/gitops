@@ -1,13 +1,30 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zigbee2mqtt-config
+spec:
+  storageClassName: "iscsi"
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 192.168.130.50:3260
+    iqn: iqn.2005-10.org.freenas.ctl:zigbee2mqtt
+    lun: 0
+    fsType: 'ext4'
+    readOnly: false
+---
 kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
   name: zigbee2mqtt-config
   namespace: soho
 spec:
+  storageClassName: "iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: freenas-iscsi-csi

@@ -1,13 +1,30 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: navidrome-config
+spec:
+  storageClassName: "iscsi"
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 192.168.130.50:3260
+    iqn: iqn.2005-10.org.freenas.ctl:navidrome
+    lun: 0
+    fsType: 'ext4'
+    readOnly: false
+---
 kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
   name: navidrome-config
   namespace: media
 spec:
+  storageClassName: "iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: freenas-iscsi-csi
+      storage: 2Gi

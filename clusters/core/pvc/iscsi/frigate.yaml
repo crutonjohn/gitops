@@ -1,13 +1,30 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: frigate-data
+spec:
+  storageClassName: "iscsi"
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 192.168.130.50:3260
+    iqn: iqn.2005-10.org.freenas.ctl:frigate
+    lun: 0
+    fsType: 'ext4'
+    readOnly: false
+---
 kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
   name: frigate-data
   namespace: soho
 spec:
+  storageClassName: "iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 20Gi
-  storageClassName: freenas-iscsi-csi
