@@ -31,7 +31,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: "lidarr-config-longhorn"
+        existingClaim: "lidarr-config-iscsi"
       media:
         enabled: true
         mountPath: /media
@@ -43,10 +43,9 @@ spec:
     metrics:
       enabled: true
       serviceMonitor:
-        interval: 3m
-        scrapeTimeout: 1m
+        enabled: false
       prometheusRule:
-        enabled: true
+        enabled: false
         rules:
           - alert: LidarrDown
             annotations:

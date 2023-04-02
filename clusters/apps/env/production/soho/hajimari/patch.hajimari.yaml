@@ -35,7 +35,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: hajimari-config-longhorn
+        existingClaim: hajimari-config-iscsi
         storageClass: "longhorn"
     hajimari:
       defaultEnable: false

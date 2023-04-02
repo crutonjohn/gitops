@@ -65,7 +65,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: home-assistant-config-longhorn
+        existingClaim: home-assistant-config-iscsi
         accessMode: ReadWriteMany
         skipuninstall: false
     addons:

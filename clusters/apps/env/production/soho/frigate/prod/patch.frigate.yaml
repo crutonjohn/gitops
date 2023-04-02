@@ -463,7 +463,7 @@ spec:
       data:
         enabled: true
         mountPath: /data
-        existingClaim: frigate-data-longhorn
+        existingClaim: frigate-data-iscsi
       media:
         enabled: true
         mountPath: /media

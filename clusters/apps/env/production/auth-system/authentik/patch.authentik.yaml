@@ -37,10 +37,10 @@ spec:
       metrics:
         enabled: true
         serviceMonitor:
-          enabled: true
+          enabled: false
     prometheus:
       serviceMonitor:
-        create: true
+        create: false
     geoip:
       enabled: true
       accountId: "${MAXMIND_GEOIP_ACCOUNT_ID}"
