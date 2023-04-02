@@ -21,7 +21,7 @@ spec:
         enabled: true
         emptyDir: false
         mountPath: /data
-        existingClaim: "navidrome-config-longhorn"
+        existingClaim: "navidrome-config-iscsi"
       music:
         enabled: true
         emptyDir: false
