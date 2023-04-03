@@ -48,7 +48,7 @@ spec:
           metrics:
             port: 9792
         annotations:
-          prometheus.io/scrape: "true"
+          prometheus.io/scrape: true
           prometheus.io/port: 9792
     podSecurityContext:
       fsGroup: 1177
