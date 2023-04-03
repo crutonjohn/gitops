@@ -10,6 +10,29 @@ spec:
       tag: latest
     env:
       TZ: America/New_York
+      PUID: 1177
+      PGID: 1177
+      enableAudioScript: true
+      enableVideoScript: true
+      scriptInterval: 15m
+      configureLidarrWithOptimalSettings: true
+      searchSort: date
+      audioFormat: mp3
+      audioBitrate: high
+      requireQuality: true
+      enableReplaygainTags: true
+      audioLyricType: explicit
+      dlClientSource: deezer
+      arlToken: "${DEEZER_ARL}"
+      addDeezerTopArtists: false
+      addDeezerTopAlbumArtists: false
+      addDeezerTopTrackArtists: false
+      lidarrSearchForMissing: true
+      enableQueueCleaner: true
+      matchDistance: 5
+      retryNotFound: 90
+      enableBeetsTagging: true
+      beetsMatchPercentage: 90
     resources:
       requests:
         cpu: 20m
@@ -43,35 +66,37 @@ spec:
         enabled: true
         mountPath: /import
         existingClaim: "music-sync-apollo"
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: false
-      prometheusRule:
-        enabled: false
-        rules:
-          - alert: LidarrDown
-            annotations:
-              description: Lidarr service is down.
-              summary: Lidarr is down.
-            expr: |
-              lidarr_system_status == 0
-            for: 5m
-            labels:
-              severity: critical
+    additionalContainers:
       exporter:
-        image:
-          repository: ghcr.io/onedr0p/exportarr
-          tag: v1.0.0
-          pullPolicy: IfNotPresent
+        image: "ghcr.io/onedr0p/exportarr:v1.0.0"
+        imagePullPolicy: IfNotPresent
+        args: ["lidarr"]
         env:
-          port: 9792
-          additionalMetrics: false
-          unknownQueueItems: false
-        resources:
-          requests:
-            cpu: 20m
-            memory: 24M
-          limits:
-            cpu: 50m
-            memory: 70M
+          - name: URL
+            value: "http://localhost"
+          - name: CONFIG
+            value: "/config/config.xml"
+          - name: PORT
+            value: "9792"
+          - name: ENABLE_ADDITIONAL_METRICS
+            value: "false"
+          - name: ENABLE_UNKNOWN_QUEUE_ITEMS
+            value: "false"
+        ports:
+          - name: metrics
+            containerPort: 9792
+        volumeMounts:
+          - name: config
+            mountPath: /config
+            readOnly: true
+        service:
+          metrics:
+            enabled: true
+            annotations:
+              prometheus.io/scrape: "true"
+              prometheus.io/port: 9792
+            ports:
+              metrics:
+                enabled: true
+                protocol: TCP
+                port: 9792
