@@ -14,7 +14,7 @@ spec:
       replicas: 1
       persistence:
         size: 50Gi
-        storageClass: "longhorn"
+        storageClass: "freenas-iscsi-csi"
       resources:
         limits:
           cpu: 200m
