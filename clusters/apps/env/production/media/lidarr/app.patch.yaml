@@ -46,6 +46,9 @@ spec:
           http:
             port: 8686
           metrics:
+            enabled: true
+            primary: false
+            protocol: HTTP
             port: 9792
         annotations:
           prometheus.io/scrape: true
