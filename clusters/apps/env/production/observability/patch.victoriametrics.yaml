@@ -6,6 +6,15 @@ metadata:
 spec:
   values:
     server:
+      persistentVolume:
+        enabled: true
+        accessModes:
+          - ReadWriteOnce
+        storageClass: ""
+        existingClaim: "victoria-metrics-iscsi"
+        mountPath: /storage
+        subPath: ""
+        size: 53Gi
       scrape:
         enabled: true
         configMap: ""
@@ -27,9 +36,9 @@ spec:
               relabel_configs:
                 - source_labels:
                     [
-                        __meta_kubernetes_namespace,
-                        __meta_kubernetes_service_name,
-                        __meta_kubernetes_endpoint_port_name,
+                      __meta_kubernetes_namespace,
+                      __meta_kubernetes_service_name,
+                      __meta_kubernetes_endpoint_port_name,
                     ]
                   action: keep
                   regex: default;kubernetes;https
@@ -123,8 +132,8 @@ spec:
                   regex: (.+)
                 - source_labels:
                     [
-                        __address__,
-                        __meta_kubernetes_service_annotation_prometheus_io_port,
+                      __address__,
+                      __meta_kubernetes_service_annotation_prometheus_io_port,
                     ]
                   action: replace
                   target_label: __address__
@@ -180,8 +189,8 @@ spec:
                   regex: (.+)
                 - source_labels:
                     [
-                        __address__,
-                        __meta_kubernetes_service_annotation_prometheus_io_port,
+                      __address__,
+                      __meta_kubernetes_service_annotation_prometheus_io_port,
                     ]
                   action: replace
                   target_label: __address__
