@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: victoria-metrics
+spec:
+  storageClassName: "iscsi"
+  capacity:
+    storage: 53Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 192.168.130.50:3260
+    iqn: iqn.2005-10.org.freenas.ctl:victoriametrics
+    lun: 0
+    fsType: 'ext4'
+    readOnly: false
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: victoria-metrics
+  namespace: observability
+spec:
+  storageClassName: "iscsi"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 53Gi
