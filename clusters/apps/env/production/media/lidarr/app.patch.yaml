@@ -5,6 +5,9 @@ metadata:
   name: lidarr
 spec:
   values:
+    image:
+      repository: randomninjaatk/lidarr-extended
+      tag: latest
     env:
       TZ: America/New_York
     resources:
