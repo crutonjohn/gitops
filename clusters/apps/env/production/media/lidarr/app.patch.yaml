@@ -45,6 +45,11 @@ spec:
         ports:
           http:
             port: 8686
+          metrics:
+            port: 9792
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: 9792
     podSecurityContext:
       fsGroup: 1177
       runAsNonRoot: true
@@ -89,14 +94,3 @@ spec:
           - name: config
             mountPath: /config
             readOnly: true
-        service:
-          metrics:
-            enabled: true
-            annotations:
-              prometheus.io/scrape: "true"
-              prometheus.io/port: 9792
-            ports:
-              metrics:
-                enabled: true
-                protocol: TCP
-                port: 9792
