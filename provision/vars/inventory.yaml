@@ -3,25 +3,26 @@ kubernetes:
   children:
     master:
       hosts:
-        k-master01:
-          ansible_host: 192.168.130.31
-        k-master02:
-          ansible_host: 192.168.130.32
-        k-master03:
-          ansible_host: 192.168.130.33
+        k-master1:
+          ansible_host: 192.168.130.131
+        k-master2:
+          ansible_host: 192.168.130.132
+        k-master3:
+          ansible_host: 192.168.130.133
       vars:
-        ansible_user: ubuntu
+        ansible_user: root
+        ansible_python_interpreter: /usr/bin/python3
     worker:
       hosts:
         k-node1:
-          ansible_host: 192.168.130.51
+          ansible_host: 192.168.130.151
         k-node2:
-          ansible_host: 192.168.130.52
+          ansible_host: 192.168.130.152
         k-node3:
-          ansible_host: 192.168.130.53
+          ansible_host: 192.168.130.153
         k-node4:
-          ansible_host: 192.168.130.54
+          ansible_host: 192.168.130.154
         k-node5:
-          ansible_host: 192.168.130.55
+          ansible_host: 192.168.130.155
       vars:
         ansible_user: root

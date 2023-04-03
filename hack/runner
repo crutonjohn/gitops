@@ -1,0 +1,126 @@
+set -euo pipefail
+
+git_root=$(git rev-parse --show-toplevel)
+
+init() {
+  gilt_install
+  gilt_overlay
+  nix_shell
+}
+
+nix_shell() {
+  nix-shell $@
+}
+
+gilt_install() {
+  go install github.com/retr0h/go-gilt@latest
+}
+
+gilt_overlay() {
+  /home/crutonjohn/go/bin/go-gilt overlay
+  src_dir=$git_root/provision
+  dest_dir=$src_dir/ansible
+  echo "copying customizations from $src_dir to $dest_dir locations"
+  sleep 3
+
+  echo "copying $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml"
+  sleep 3
+  cp $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml
+
+  echo "copying $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml"
+  sleep 3
+  cp $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml
+
+  echo "copying $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml"
+  sleep 3
+  cp $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml
+
+  echo "copying $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml"
+  sleep 3
+  cp $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml
+
+  echo "copying $src_dir/templates/kube-calico-manifest.yaml.j2 $dest_dir/playbooks/templates/"
+  sleep 3
+  cp $src_dir/templates/kube-calico-manifest.yaml.j2 $dest_dir/playbooks/templates/
+
+  echo "copying $src_dir/vars/ubuntu/tasks/filesystem.yml $dest_dir/roles/ubuntu/tasks/"
+  sleep 3
+  cp $src_dir/vars/ubuntu/tasks/filesystem.yml $dest_dir/roles/ubuntu/tasks/
+
+  echo "Done!"
+
+}
+
+ansible_galaxy_install() {
+  nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
+}
+
+ansible_install_cluster() {
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
+}
+
+ansible_prep_cluster() {
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml'
+}
+
+ansible_nix() {
+  nix-shell --run './hack/runner.sh ansible_nix_commands'
+}
+
+ansible_nix_commands() {
+  ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force
+  ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force
+  ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml
+  ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml
+}
+
+ansible() {
+  ansible_nix
+}
+
+nuke() {
+  ansible_nuke_cluster
+}
+
+ansible_nuke_cluster() {
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-nuke.yml'
+}
+
+flux_bootstrap_cluster() {
+  flux bootstrap github \
+    --components=source-controller,kustomize-controller,helm-controller,notification-controller \
+    --path=clusters/env/production \
+    --version=latest \
+    --owner=crutonjohn \
+    --repository=gitops
+}
+
+sops_create_secret() {
+  sops -d sops-aws.enc.yaml | kubectl apply -f -
+}
+
+create_storage_volumes() {
+  kustomize build clusters/core/pvc/
+}
+
+shutdown() {
+  echo "Shutting down workers"
+
+  for i in $(seq 1 5);
+  do
+      echo "Shutting Down k-node${i}"
+      sleep 1
+      ssh root@192.168.130.15${i} shutdown now
+  done
+
+  sleep 20
+
+  for i in $(seq 1 3);
+  do
+      echo "Shutting Down k-master0${i}"
+      sleep 1
+      ssh root@192.168.130.13${i} shutdown now
+  done
+}
+
+"$@"
