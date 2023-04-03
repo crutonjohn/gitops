@@ -6,7 +6,7 @@ metadata:
 spec:
   storageClassName: "iscsi"
   capacity:
-    storage: 50Gi
+    storage: 51Gi
   accessModes:
     - ReadWriteOnce
   iscsi:
@@ -27,7 +27,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 51Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -36,7 +36,7 @@ metadata:
 spec:
   storageClassName: "iscsi"
   capacity:
-    storage: 50Gi
+    storage: 52Gi
   accessModes:
     - ReadWriteOnce
   iscsi:
@@ -57,4 +57,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 52Gi

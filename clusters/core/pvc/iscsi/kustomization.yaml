@@ -4,7 +4,7 @@ kind: Kustomization
 nameSuffix: -iscsi
 resources:
   - authentik.yaml
-  - azuracast.yaml
+  # - azuracast.yaml
   - frigate.yaml
   - nextcloud.yaml
   - paperless.yaml

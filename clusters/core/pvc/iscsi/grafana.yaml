@@ -6,7 +6,7 @@ metadata:
 spec:
   storageClassName: "iscsi"
   capacity:
-    storage: 2Gi
+    storage: 3Gi
   accessModes:
     - ReadWriteOnce
   iscsi:
@@ -27,4 +27,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 3Gi
