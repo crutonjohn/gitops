@@ -13,7 +13,7 @@ spec:
       PUID: 1177
       PGID: 1177
       enableAudioScript: true
-      enableVideoScript: true
+      enableVideoScript: false
       scriptInterval: 15m
       configureLidarrWithOptimalSettings: true
       searchSort: date
