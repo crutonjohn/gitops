@@ -53,11 +53,11 @@ spec:
         annotations:
           prometheus.io/scrape: 'true'
           prometheus.io/port: '9792'
-    podSecurityContext:
-      fsGroup: 1177
-      runAsNonRoot: true
-      runAsUser: 1177
-      runAsGroup: 1177
+#    podSecurityContext:
+#      fsGroup: 1177
+#      runAsNonRoot: true
+#      runAsUser: 1177
+#      runAsGroup: 1177
     ingress:
       main:
         enabled: false
