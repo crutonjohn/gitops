@@ -20,5 +20,5 @@ spec:
     server:
       image:
         repository: victoriametrics/victoria-metrics
-        tag: v1.87.1
+        tag: v1.90.0
         pullPolicy: IfNotPresent
