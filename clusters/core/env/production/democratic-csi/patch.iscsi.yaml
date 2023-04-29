@@ -115,17 +115,17 @@ spec:
           # 512, 1K, 2K, 4K, 8K, 16K, 64K, 128K default is 16K
           zvolBlocksize: 16K
         iscsi:
-          targetPortal: "192.168.130.46:3260"
+          targetPortal: "192.168.130.50:3260"
           # for multipath
-          targetPortals: [ "192.168.130.47:3260", "192.168.130.48:3260" ]
+          targetPortals: [ "192.168.130.46:3260", "192.168.130.47:3260", "192.168.130.48:3260", "192.168.130.49:3260" ]
           # leave empty to omit usage of -I with iscsiadm
           interface: ""
 
           # MUST ensure uniqueness
           # full iqn limit is 223 bytes, plan accordingly
           # default is "{{ name }}"
-          nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
-          namePrefix: csi-
+          nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+          # namePrefix: csi-
           # nameSuffix: "-k3s"
 
           # add as many as needed
@@ -140,7 +140,7 @@ spec:
               # only required if using Chap
               targetGroupAuthGroup:
 
-          extentCommentTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+          extentCommentTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
           extentInsecureTpc: true
           extentXenCompat: false
           extentDisablePhysicalBlocksize: true
