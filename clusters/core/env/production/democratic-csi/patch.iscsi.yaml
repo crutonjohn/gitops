@@ -117,7 +117,7 @@ spec:
         iscsi:
           targetPortal: "192.168.130.46:3260"
           # for multipath
-          targetPortals: [ "192.168.130.46:3260", "192.168.130.47:3260", "192.168.130.48:3260" ]
+          targetPortals: [ "192.168.130.47:3260", "192.168.130.48:3260" ]
           # leave empty to omit usage of -I with iscsiadm
           interface: ""
 
