@@ -39,7 +39,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: authentik
+  name: ak-outpost-authentik-embedded-outpost
 spec:
   forwardAuth:
     address: http://sso.${FAMILY_DOMAIN}/outpost.goauthentik.io/auth/traefik
