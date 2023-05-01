@@ -10,7 +10,8 @@ spec:
   accessModes:
     - ReadWriteOnce
   iscsi:
-    targetPortal: 192.168.130.50:3260
+    targetPortal: 192.168.130.46:3260
+    portals: [ '192.168.130.47:3260', '192.168.130.48:3260' ]
     iqn: iqn.2005-10.org.freenas.ctl:nextclouddb
     lun: 0
     fsType: 'ext4'
@@ -40,7 +41,8 @@ spec:
   accessModes:
     - ReadWriteOnce
   iscsi:
-    targetPortal: 192.168.130.50:3260
+    targetPortal: 192.168.130.46:3260
+    portals: [ '192.168.130.47:3260', '192.168.130.48:3260' ]
     iqn: iqn.2005-10.org.freenas.ctl:nextclouddata
     lun: 0
     fsType: 'ext4'

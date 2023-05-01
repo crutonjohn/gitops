@@ -16,3 +16,4 @@ resources:
   - changedetection.yaml
   - lidarr.yaml
   - syslog.yaml
+  - victoriametrics.yaml
