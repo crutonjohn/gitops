@@ -21,14 +21,14 @@ spec:
       services:
         - name: zigbee2mqtt
           port: 8080
-    - kind: Rule
-      match: "Host(`zigbee.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      priority: 15
-      services:
-        - kind: Service
-          name: ak-outpost-authentik-embedded-outpost
-          namespace: auth-system
-          port: 9000
+    # - kind: Rule
+    #   match: "Host(`zigbee.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+    #   priority: 15
+    #   services:
+    #     - kind: Service
+    #       name: ak-outpost-authentik-embedded-outpost
+    #       namespace: auth-system
+    #       port: 9000
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
