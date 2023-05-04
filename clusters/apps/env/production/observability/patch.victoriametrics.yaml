@@ -274,4 +274,10 @@ spec:
                 - source_labels: [ __meta_kubernetes_pod_name ]
                   action: replace
                   target_label: kubernetes_pod_name
+            - job_name: "node-exporter"
+              static_configs:
+                - targets:
+                    - 192.168.130.1:9100
+                    - 192.168.130.50:9100
+
     extraScrapeConfigs: []
