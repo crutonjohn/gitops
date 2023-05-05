@@ -43,10 +43,10 @@ spec:
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
       GF_AUTH_GENERIC_OAUTH_NAME: "Authentik"
       GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://sso.${SECRET_DOMAIN}/application/o/authorize/"
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://sso.${SECRET_DOMAIN}/application/o/token/"
-      GF_AUTH_GENERIC_OAUTH_API_URL: "https://sso.${SECRET_DOMAIN}/application/o/userinfo/"
-      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://sso.${SECRET_DOMAIN}/application/o/grafana/end-session/"
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://sso.${FAMILY_DOMAIN}/application/o/authorize/"
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://sso.${FAMILY_DOMAIN}/application/o/token/"
+      GF_AUTH_GENERIC_OAUTH_API_URL: "https://sso.${FAMILY_DOMAIN}/application/o/userinfo/"
+      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://sso.${FAMILY_DOMAIN}/application/o/grafana/end-session/"
       GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-editor') && 'Editor' || 'Viewer'"
       GF_AUTH_OAUTH_AUTO_LOGIN: "false"
     ingress:
@@ -60,7 +60,7 @@ spec:
         memory: 128Mi
     persistence:
       enabled: false
-      # existingClaim: grafana-data-longhorn
+      # existingClaim: grafana-data-iscsi
     admin:
       existingSecret: "grafana-admin-secrets"
       userKey: admin-user
@@ -98,35 +98,31 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
+    extraInitContainers:
+      - name: "load-vm-ds-plugin"
+        image: "curlimages/curl:7.85.0"
+        command: ["/bin/sh"]
+        workingDir: "/var/lib/grafana/plugins"
+        securityContext:
+          runAsUser: 0
+        args:
+          - "-c"
+          - |
+            set -ex
+            mkdir -p /var/lib/grafana/plugins/
+            ver=$(curl -s https://api.github.com/repos/VictoriaMetrics/grafana-datasource/releases/latest | grep -oE 'v\d+\.\d+\.\d+' | head -1)
+            curl -L https://github.com/VictoriaMetrics/grafana-datasource/releases/download/$ver/victoriametrics-datasource-$ver.tar.gz -o /var/lib/grafana/plugins/plugin.tar.gz
+            tar -xf /var/lib/grafana/plugins/plugin.tar.gz -C /var/lib/grafana/plugins/
+            rm /var/lib/grafana/plugins/plugin.tar.gz
+            chown -R 472:472 /var/lib/grafana/plugins/
+        volumeMounts:
+          - name: storage
+            mountPath: /var/lib/grafana
     dashboards:
       default:
         ##############
         # Prometheus #
         ##############
-        # dns metrics
-        blocky:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11315
-        unifi-client-insights:
-          gnetId: 11315
-          revision: 8
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11311
-        unifi-network-sites:
-          gnetId: 11311
-          revision: 4
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11314
-        unifi-uap-insights:
-          gnetId: 11314
-          revision: 9
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11312
-        unifi-usw-insights:
-          gnetId: 11312
-          revision: 8
-          datasource: Prometheus
         # https://grafana.com/grafana/dashboards/14055
         loki-stack-monitoring:
           gnetId: 14055
@@ -160,12 +156,6 @@ spec:
           gnetId: 11033
           revision: 1
           datasource: Prometheus
-        ## rook-ceph
-        # https://grafana.com/grafana/dashboards/2842
-        rook-ceph-dashboard:
-          gnetId: 2842
-          revision: 14
-          datasource: Prometheus
         ###################
         # Loki Dashboards #
         ###################
@@ -180,26 +170,3 @@ spec:
           gnetId: 15196
           revision: 3
           datasource: Loki
-        ################
-        # TVK Operator #
-        ################
-        backup-detail:
-          gnetId: 12601
-          revision: 4
-          datasource: Prometheus
-        backup-overview:
-          gnetId: 12600
-          revision: 4
-          datasource: Prometheus
-        backupplan-detail:
-          gnetId: 12605
-          revision: 4
-          datasource: Prometheus
-        backupplan-overview:
-          gnetId: 12604
-          revision: 4
-          datasource: Prometheus
-        metadata-detail:
-          gnetId: 12607
-          revision: 5
-          datasource: Prometheus
