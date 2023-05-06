@@ -114,7 +114,7 @@ spec:
             curl -L https://github.com/VictoriaMetrics/grafana-datasource/releases/download/$ver/victoriametrics-datasource-$ver.tar.gz -o /var/lib/grafana/plugins/plugin.tar.gz
             tar -xf /var/lib/grafana/plugins/plugin.tar.gz -C /var/lib/grafana/plugins/
             rm /var/lib/grafana/plugins/plugin.tar.gz
-            chown -R 472:472 /var/lib/grafana/plugins/
+        # chown -R 472:472 /var/lib/grafana/plugins/
         volumeMounts:
           - name: storage
             mountPath: /var/lib/grafana
