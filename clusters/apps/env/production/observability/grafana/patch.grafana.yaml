@@ -61,8 +61,8 @@ spec:
         cpu: 150m
         memory: 128Mi
     persistence:
-      enabled: false
-      # existingClaim: grafana-data-iscsi
+      enabled: true
+      existingClaim: grafana-data-iscsi
     admin:
       existingSecret: "grafana-admin-secrets"
       userKey: admin-user
