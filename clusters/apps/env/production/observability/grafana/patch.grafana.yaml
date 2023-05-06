@@ -36,6 +36,8 @@ spec:
         root_url: "https://grafana.${FAMILY_DOMAIN}"
       auth.basic:
         disable_login_form: false
+      plugins:
+        allow_loading_unsigned_plugins: victoriametrics-datasource
     env:
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "${AUTHENTIK_GRAFANA_CLIENT_ID}"
       GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "${AUTHENTIK_GRAFANA_CLIENT_SECRET}"
