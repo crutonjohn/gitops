@@ -33,7 +33,7 @@ spec:
       log:
         mode: console
       server:
-        root_url: "https://grafana.${SECRET_DOMAIN}"
+        root_url: "https://grafana.${FAMILY_DOMAIN}"
       auth.basic:
         disable_login_form: false
     env:
