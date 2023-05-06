@@ -100,13 +100,16 @@ spec:
               path: /var/lib/grafana/dashboards/default
     securityContext:
       runAsNonRoot: false
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
     extraInitContainers:
       - name: "load-vm-ds-plugin"
         image: "curlimages/curl:7.85.0"
         command: ["/bin/sh"]
         workingDir: "/var/lib/grafana/plugins"
         securityContext:
-          runAsUser: 472
+          runAsUser: 0
         args:
           - "-c"
           - |
