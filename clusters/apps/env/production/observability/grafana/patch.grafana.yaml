@@ -98,6 +98,8 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
+    securityContext:
+      runAsNonRoot: false
     extraInitContainers:
       - name: "load-vm-ds-plugin"
         image: "curlimages/curl:7.85.0"
