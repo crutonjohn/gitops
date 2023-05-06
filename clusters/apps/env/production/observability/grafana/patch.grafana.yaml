@@ -79,11 +79,20 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
+          - name: VictoriaMetrics
+            type: victoriametrics-datasource
+              # <string, required> Sets the access mode, either
+              # proxy or direct (Server or Browser in the UI).
+              # Some data sources are incompatible with any setting
+              # but proxy (Server).
+            access: proxy
+            url: http://vm-single-victoria-metrics-single-server:8428
+            isDefault: true
           - name: Prometheus
             type: prometheus
             url: http://kube-prometheus-kube-prome-prometheus.observability.svc.cluster.local:9090
             access: proxy
-            isDefault: true
+            isDefault: false
           - name: Loki
             type: loki
             access: proxy
