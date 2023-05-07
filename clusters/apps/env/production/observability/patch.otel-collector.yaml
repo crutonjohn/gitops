@@ -88,8 +88,8 @@ spec:
           detectors:
             - env
             - system
-        timestamp:
-          round_to_nearest: 1s
+        # timestamp:
+        #   round_to_nearest: 1s
         # If set to null, will be overridden with values based on k8s resource limits
         memory_limiter: null
         filter:
@@ -812,7 +812,7 @@ spec:
             processors:
               - metricstransform
               - filter
-              - timestamp
+              # - timestamp
               - resourcedetection
               - batch
             exporters:
