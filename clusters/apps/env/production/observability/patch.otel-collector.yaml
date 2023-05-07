@@ -755,6 +755,17 @@ spec:
                   aggregation_type: sum
                   label_set: []
       receivers:
+        hostmetrics:
+          collection_interval: 10s
+          scrapers:
+            memory: {}
+            cpu: {}
+            load: {}
+            disk: {}
+            filesystem: {}
+            network: {}
+            paging: {}
+            processes: {}
         jaeger:
           protocols:
             grpc:
@@ -779,17 +790,6 @@ spec:
                       - ${MY_POD_IP}:8888
         zipkin:
           endpoint: ${MY_POD_IP}:9411
-        hostmetrics:
-        collection_interval: 60s
-        scrapers:
-          cpu:
-          disk:
-          load:
-          filesystem:
-          memory:
-          network:
-          paging:
-          processes:
       service:
         telemetry:
           metrics:
@@ -828,21 +828,6 @@ spec:
               - otlp
               - jaeger
               - zipkin
-    podSecurityContext: {}
-    securityContext: {}
-
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-    topologySpreadConstraints: {}
-
-    # Allows for pod scheduler prioritisation
-    priorityClassName: ""
-
-    extraEnvs: []
-    extraVolumes: []
-    extraVolumeMounts: []
-
     # Configuration for ports
     # nodePort is also allowed
     ports:
