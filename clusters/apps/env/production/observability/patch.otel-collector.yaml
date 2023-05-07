@@ -154,8 +154,6 @@ spec:
     nodeSelector: {}
     tolerations: []
     affinity: {}
-    topologySpreadConstraints: {}
-
     # Allows for pod scheduler prioritisation
     priorityClassName: ""
 
