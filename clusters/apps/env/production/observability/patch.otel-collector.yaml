@@ -817,7 +817,6 @@ spec:
               - batch
             exporters:
               - logging
-              - otlp
           traces:
             exporters:
               - logging

@@ -36,6 +36,7 @@ resources:
   - openfaas-charts.yaml
   - opentelemetry-charts.yaml
   - replicator-charts.yaml
+  - signoz-charts.yaml
   - stakater-charts.yaml
   - tanzu-charts.yaml
   - traefik-charts.yaml

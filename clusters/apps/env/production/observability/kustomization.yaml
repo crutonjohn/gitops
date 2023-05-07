@@ -4,21 +4,12 @@ kind: Kustomization
 namespace: observability
 resources:
   - ../../../base/observability/botkube
-  - ../../../base/observability/loki
   - ../../../base/observability/changedetection-io
   - ../../../base/observability/syslog
-  - ../../../base/observability/otel-collector
-  - ../../../base/observability/victoriametrics
-  - ups
-  - grafana
-  - ingressroute.alertmanager.yaml
+  - signoz
   - ingressroute.changedetection.yaml
   - ingressroute.syslog-config.yaml
-  - ingressroute.vm.yaml
 patchesStrategicMerge:
   - patch.botkube.yaml
-  - patch.loki.yaml
   - patch.changedetection.yaml
   - patch.syslog.yaml
-  - patch.otel-collector.yaml
-  - patch.victoriametrics.yaml
