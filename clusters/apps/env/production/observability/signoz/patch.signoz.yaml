@@ -283,16 +283,15 @@ spec:
         telemetryEnabled: true
         deploymentType: kubernetes-helm
 
-      podSecurityContext: {}
-        # fsGroup: 2000
-
-      securityContext:
+      podSecurityContext:
         capabilities:
           drop:
             - ALL
         runAsUser: 7843
         runAsGroup: 7843
         fsGroup: 7843
+
+      securityContext: {}
         # capabilities:
         #   drop:
         #   - ALL
@@ -446,18 +445,17 @@ spec:
 
       configVars: {}
 
-      podSecurityContext: {}
-        # fsGroup: 2000
-
-      securityContext:
-        runAsUser: 7843
-        runAsGroup: 7843
-        fsGroup: 7843
+      podSecurityContext:
         capabilities:
           drop:
             - ALL
+        runAsUser: 7843
+        runAsGroup: 7843
+        fsGroup: 7843
+
+      securityContext: {}
         # readOnlyRootFilesystem: true
-        runAsNonRoot: true
+        # runAsNonRoot: true
         # runAsUser: 1000
 
       ingress:
@@ -578,6 +576,11 @@ spec:
             #   memory: 100Mi
 
       podSecurityContext:
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: 7843
+        runAsGroup: 7843
         fsGroup: 7843
       dnsConfig:
         nameservers:
@@ -589,14 +592,7 @@ spec:
           - name: ndots
             value: "2"
           - name: edns0
-      securityContext:
-        capabilities:
-          drop:
-            - ALL
-        # readOnlyRootFilesystem: true
-        runAsUser: 7843
-        runAsNonRoot: true
-        runAsGroup: 7843
+      securityContext: {}
 
       additionalPeers: []
 
@@ -1051,8 +1047,13 @@ spec:
             matchLabels:
               app.kubernetes.io/component: otel-collector
 
-      podSecurityContext: {}
-        # fsGroup: 2000
+      podSecurityContext:
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: 7843
+        runAsGroup: 7843
+        fsGroup: 7843
 
       securityContext: {}
         # capabilities:
@@ -1321,8 +1322,13 @@ spec:
         signoz.io/port: '8888'
         signoz.io/path: /metrics
 
-      podSecurityContext: {}
-        # fsGroup: 2000
+      podSecurityContext:
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: 7843
+        runAsGroup: 7843
+        fsGroup: 7843
 
       securityContext: {}
         # capabilities:
