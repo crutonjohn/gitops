@@ -284,9 +284,6 @@ spec:
         deploymentType: kubernetes-helm
 
       podSecurityContext:
-        capabilities:
-          drop:
-            - ALL
         runAsUser: 7843
         runAsGroup: 7843
         fsGroup: 7843
@@ -446,9 +443,6 @@ spec:
       configVars: {}
 
       podSecurityContext:
-        capabilities:
-          drop:
-            - ALL
         runAsUser: 7843
         runAsGroup: 7843
         fsGroup: 7843
@@ -576,12 +570,12 @@ spec:
             #   memory: 100Mi
 
       podSecurityContext:
-        capabilities:
-          drop:
-            - ALL
         runAsUser: 7843
         runAsGroup: 7843
         fsGroup: 7843
+
+      securityContext: {}
+
       dnsConfig:
         nameservers:
           - 192.168.130.1
@@ -592,7 +586,6 @@ spec:
           - name: ndots
             value: "2"
           - name: edns0
-      securityContext: {}
 
       additionalPeers: []
 
@@ -1048,9 +1041,6 @@ spec:
               app.kubernetes.io/component: otel-collector
 
       podSecurityContext:
-        capabilities:
-          drop:
-            - ALL
         runAsUser: 7843
         runAsGroup: 7843
         fsGroup: 7843
@@ -1323,9 +1313,6 @@ spec:
         signoz.io/path: /metrics
 
       podSecurityContext:
-        capabilities:
-          drop:
-            - ALL
         runAsUser: 7843
         runAsGroup: 7843
         fsGroup: 7843
