@@ -4,16 +4,15 @@ kind: Kustomization
 nameSuffix: -iscsi
 resources:
   - authentik.yaml
-  # - azuracast.yaml
   - frigate.yaml
   - nextcloud.yaml
   - paperless.yaml
   - zigbee2mqtt.yaml
   - hajimari.yaml
   - hassio.yaml
-  - grafana.yaml
   - navidrome.yaml
   - changedetection.yaml
   - lidarr.yaml
   - syslog.yaml
-  - victoriametrics.yaml
+  - signoz-clickhouse.yaml
+  - signoz-querysvc.yaml

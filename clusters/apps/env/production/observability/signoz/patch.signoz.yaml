@@ -152,7 +152,7 @@ spec:
         - "192.168.0.0/16"
       persistence:
         enabled: true
-        existingClaim: "clickhouse"
+        existingClaim: "signoz-clickhouse-iscsi"
 
       # -- Clickhouse user profile configuration.
       # You can use this to override profile settings, for example
@@ -348,26 +348,8 @@ spec:
       topologySpreadConstraints: []
 
       persistence:
-        # -- Enable data persistence using PVC for SQLiteDB data.
         enabled: true
-
-        # -- Name of an existing PVC to use (only when deploying a single replica)
         existingClaim: "signoz-querysvc-iscsi"
-
-        # -- Persistent Volume Storage Class to use.
-        # If defined, `storageClassName: <storageClass>`.
-        # If set to "-", `storageClassName: ""`, which disables dynamic provisioning
-        # If undefined (the default) or set to `null`, no storageClassName spec is
-        # set, choosing the default provisioner.
-        #
-        storageClass: null
-
-        # -- Access Modes for persistent volume
-        accessModes:
-          - ReadWriteOnce
-
-        # -- Persistent Volume size
-        size: 1Gi
 
 
     # Default values for frontend
