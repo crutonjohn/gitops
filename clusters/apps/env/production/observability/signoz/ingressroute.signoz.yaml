@@ -16,8 +16,8 @@ spec:
       match: "Host(`signoz.${FAMILY_DOMAIN}`)"
       priority: 10
       services:
-        - name: vm-single-victoria-metrics-single-server
-          port: 8428
+        - name: signoz-frontend
+          port: 3301
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
