@@ -443,9 +443,9 @@ spec:
       configVars: {}
 
       podSecurityContext:
-        runAsUser: 7843
-        runAsGroup: 7843
-        fsGroup: 7843
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
 
       securityContext: {}
         # readOnlyRootFilesystem: true
