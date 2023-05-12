@@ -6,7 +6,7 @@ resources:
   - ../../../base/observability/botkube
   - ../../../base/observability/changedetection-io
   - ../../../base/observability/syslog
-  - signoz
+  # - prometheus
   - ingressroute.changedetection.yaml
   - ingressroute.syslog-config.yaml
 patchesStrategicMerge:
