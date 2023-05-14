@@ -14,3 +14,4 @@ resources:
   - nextcloud
   - paperless
   - zigbee2mqtt
+  - scrypted
