@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: scrypted
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+    external-dns/public: "false"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`scrypted.${FAMILY_DOMAIN}`)"
+      services:
+        - name: scrypted
+          port: 8123
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: scrypted.${FAMILY_DOMAIN}

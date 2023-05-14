@@ -14,5 +14,4 @@ resources:
   - changedetection.yaml
   - lidarr.yaml
   - syslog.yaml
-  - signoz-clickhouse.yaml
-  - signoz-querysvc.yaml
+  - scrypted.yaml
