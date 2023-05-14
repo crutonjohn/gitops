@@ -25,7 +25,7 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 10444
+            port: 10443
     prometheus:
       serviceMonitor:
         enabled: false
