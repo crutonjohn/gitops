@@ -13,8 +13,8 @@ spec:
     - kind: Rule
       match: "Host(`scrypted.${FAMILY_DOMAIN}`)"
       services:
-        - name: scrypted
-          port: 8123
+        - name: scrypted-home-assistant
+          port: 8080
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:

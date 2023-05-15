@@ -9,7 +9,9 @@ spec:
     env:
       TZ: "America/New_York"
       SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION: "Bearer ${SCRYPTED_RANDOM_TEXT}"
-      SCRYPTED_WEBHOOK_UPDATE: http://${CLUSTER_LB_SCRYPTED}:10444/v1/update
+      SCRYPTED_WEBHOOK_UPDATE: "http://${CLUSTER_LB_SCRYPTED}:8443/v1/update"
+      SCRYPTED_SECURE_PORT: "8443"
+      SCRYPTED_INSECURE_PORT: "8080"
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     dnsConfig:
@@ -25,7 +27,9 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 10443
+            port: 8080
+          https:
+            port: 8443
     prometheus:
       serviceMonitor:
         enabled: false
