@@ -33,23 +33,6 @@ spec:
     ingress:
       main:
         enabled: false
-        ingressClassName: "traefik-external"
-        annotations:
-          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-          external-dns/public: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "music"
-          hajimari.io/appName: "Navidrome"
-          hajimari.io/group: "Media"
-        hosts:
-          - host: "music.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - "music.${SECRET_DOMAIN}"
-            secretName: "crj-wildcard-certificate"
     resources:
       requests:
         cpu: 50m

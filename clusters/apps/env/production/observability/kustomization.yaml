@@ -9,6 +9,7 @@ resources:
   # - prometheus
   - ingressroute.changedetection.yaml
   - ingressroute.syslog-config.yaml
+  - ntfy
 patchesStrategicMerge:
   - patch.botkube.yaml
   - patch.changedetection.yaml

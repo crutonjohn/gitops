@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ntfy-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: freenas-iscsi-csi
+  resources:
+    requests:
+      storage: 1Gi
