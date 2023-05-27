@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ntfy-pvc
+  name: ntfy-cache
 spec:
   accessModes:
     - ReadWriteOnce
