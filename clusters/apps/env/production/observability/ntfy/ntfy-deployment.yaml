@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: ntfy
-          image: binwiederhier/ntfy:v1.28.0
+          image: binwiederhier/ntfy:v2.5.0
           args: ["serve"]
           env:
             - name: TZ
@@ -28,7 +28,7 @@ spec:
             - name: NTFY_LOG_LEVEL
               value: INFO
             - name: NTFY_BASE_URL
-              value: ntfy.${FAMILY_DOMAIN}
+              value: https://ntfy.${FAMILY_DOMAIN}
           ports:
             - containerPort: 80
               name: http-ntfy
