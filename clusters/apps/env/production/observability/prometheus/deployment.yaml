@@ -36,10 +36,6 @@ spec:
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus
-            - name: prometheus-file-sd-volume
-              mountPath: /etc/prometheus/targets
-            - name: prometheus-alerts-volume
-              mountPath: /etc/prometheus/alerts
             - name: prometheus-storage-volume
               mountPath: /prometheus
       restartPolicy: Always
@@ -48,14 +44,6 @@ spec:
           configMap:
             defaultMode: 420
             name: prometheus-config
-        - name: prometheus-file-sd-volume
-          configMap:
-            defaultMode: 420
-            name: prometheus-file-sd
-        - name: prometheus-alerts-volume
-          configMap:
-            defaultMode: 420
-            name: prometheus-alerts
         - name: prometheus-storage-volume
           persistentVolumeClaim:
             claimName: prometheus-iscsi
