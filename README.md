@@ -63,21 +63,15 @@ _All my nodes below are running bare metal Ubuntu 20.04.x_
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
 | Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Control Plane |
-| HP 800 G3 Mini          | 2     | 1x 120GB SSD            | 1x 1TB M.2 (rook-ceph)                   | 32GB | k8s Workers |
-| Dell 7040 Micro         | 3     | 1x 500B HDD             | 1x 1TB M.2 SSD (rook-ceph)               | 32GB | k8s Workers |
+| HP 800 G3 Mini          | 3     | 1x 120GB SSD            | 1x 1TB M.2 (rook-ceph)                   | 32GB | k8s Workers |
+| Dell 7040 Micro         | 2     | 1x 500B HDD             | 1x 1TB M.2 SSD (rook-ceph)               | 32GB | k8s Workers |
 
 ## :computer:&nbsp; Supporting Infrastructure
 
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
-| Supermicro CSE-512B     | 1     | 1x 500GB Spinning Rust  | N/A                                      | 32GB | ZFS on Linux Host |
-| Xyratex HB-1235         | 1     | N/A                     | 10x 4TB HDD                              | N/A  | ZFS Disk Shelf |
-
-## :computer:&nbsp; Testing Cluster
-
-| Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose        |
-|-------------------------|-------|-------------------------|------------------------------------------|------|----------------|
-| Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Test Boxes |
+| Supermicro CSE-512B     | 1     | 2x 500GB Spinning Rust  | N/A                                      | 32GB | ZFS on Linux Host |
+| Xyratex HB-2425         | 1     | N/A                     | 24x 1TB SSD                              | N/A  | ZFS Disk Shelf |
 
 
 ---
@@ -86,16 +80,15 @@ _All my nodes below are running bare metal Ubuntu 20.04.x_
 
 _This table is a reference to IP addresses in my deployments and may not be fully up-to-date_
 
-| Deployment               | Address        |
-|--------------------------|----------------|
-| nginx-ingress (external) | 192.168.130.100 |
-| nginx-ingress (internal) | 192.168.130.101 |
-| blocky                   | 192.168.130.102 |
-| unifi                    | 192.168.130.103 |
-| home-assistant           | 192.168.130.108 |
-| emqx                     | 192.168.130.109 |
-| stackrox                 | 192.168.130.111 |
-| istio-test               | 192.168.130.112 |
+| Deployment                 | Address        |
+|----------------------------|----------------|
+| traefik-ingress (external) | 192.168.130.100 |
+| traefik-ingress (internal) | 192.168.130.101 |
+| syncthing-discovery        | 192.168.130.104 |
+| syslog-ng                  | 192.168.130.106 |
+| home-assistant             | 192.168.130.108 |
+| emqx                       | 192.168.130.109 |
+| scrypted                   | 192.168.130.110 |
 
 ---
 ## :handshake:&nbsp; Community
