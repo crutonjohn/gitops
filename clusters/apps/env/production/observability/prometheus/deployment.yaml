@@ -27,8 +27,8 @@ spec:
         - name: prometheus
           image: prom/prometheus
           args:
-            - '--storage.tsdb.retention=6h'
-            - '--storage.tsdb.path=/tsdb'
+            - '--storage.tsdb.retention.size=50GB'
+            - '--storage.tsdb.path=/prometheus'
             - '--config.file=/etc/prometheus/prometheus.yaml'
           ports:
             - name: web
