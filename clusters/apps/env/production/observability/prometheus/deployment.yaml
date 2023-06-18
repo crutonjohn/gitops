@@ -44,6 +44,7 @@ spec:
         runAsGroup: 9090
         runAsNonRoot: true
         runAsUser: 9090
+      serviceAccountName: prometheus
       volumes:
         - name: prometheus-config-volume
           configMap:
