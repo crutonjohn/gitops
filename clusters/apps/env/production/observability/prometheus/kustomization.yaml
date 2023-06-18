@@ -5,6 +5,7 @@ namespace: observability
 resources:
   - deployment.yaml
   - service.yaml
+  - service-account.yaml
 configMapGenerator:
   - name: prometheus-config
     files:
