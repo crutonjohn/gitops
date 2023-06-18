@@ -39,6 +39,11 @@ spec:
             - name: prometheus-storage-volume
               mountPath: /prometheus
       restartPolicy: Always
+      securityContext:
+        fsGroup: 9090
+        runAsGroup: 9090
+        runAsNonRoot: true
+        runAsUser: 9090
       volumes:
         - name: prometheus-config-volume
           configMap:
