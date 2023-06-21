@@ -11,6 +11,7 @@ spec:
       repository: ghcr.io/onedr0p/prowlarr-develop
       tag: rolling
     env:
+      PROWLARR__LOG_LEVEL: debug
       TZ: America/New_York
     resources:
       requests:
