@@ -5,6 +5,6 @@ resources:
   - ../../../../base/auth-system/authentik/app
   - ../../../../base/auth-system/authentik/db
   - ingressroute.yaml
-patchesStrategicMerge:
-  - patch.authentik.yaml
-  - patch.authentik-db.yaml
+patches:
+  - path: patch.authentik.yaml
+  - path: patch.authentik-db.yaml

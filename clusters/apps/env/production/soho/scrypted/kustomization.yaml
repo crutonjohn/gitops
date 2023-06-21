@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ../../../../base/soho/scrypted
   - ingressroute.scrypted.yaml
-patchesStrategicMerge:
-  - patch.scrypted.yaml
+patches:
+  - path: patch.scrypted.yaml

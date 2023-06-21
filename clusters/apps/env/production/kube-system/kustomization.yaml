@@ -7,8 +7,8 @@ resources:
   - ../../../base/kube-system/reloader
   - ../../../base/kube-system/node-feature-discovery
   - ../../../base/kube-system/intel-gpu-plugin
-patchesStrategicMerge:
-  - patch.intel.yaml
-  - patch.nfd.yaml
-  - patch.reloader.yaml
-  - patch.replicator.yaml
+patches:
+  - path: patch.intel.yaml
+  - path: patch.nfd.yaml
+  - path: patch.reloader.yaml
+  - path: patch.replicator.yaml

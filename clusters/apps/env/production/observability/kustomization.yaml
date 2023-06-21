@@ -10,7 +10,7 @@ resources:
   - ingressroute.changedetection.yaml
   - ingressroute.syslog-config.yaml
   - ntfy
-patchesStrategicMerge:
-  - patch.botkube.yaml
-  - patch.changedetection.yaml
-  - patch.syslog.yaml
+patches:
+  - path: patch.botkube.yaml
+  - path: patch.changedetection.yaml
+  - path: patch.syslog.yaml

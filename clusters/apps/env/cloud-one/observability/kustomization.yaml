@@ -11,9 +11,9 @@ resources:
   - external-prom-targets
   - ups
   - grafana
-patchesStrategicMerge:
-  - patch.botkube.yaml
-  - patch.loki.yaml
-  - patch.promtail.yaml
-  - patch.kube-prom.yaml
-  - patch.changedetection.yaml
+patches:
+  - path: patch.botkube.yaml
+  - path: patch.loki.yaml
+  - path: patch.promtail.yaml
+  - path: patch.kube-prom.yaml
+  - path: patch.changedetection.yaml

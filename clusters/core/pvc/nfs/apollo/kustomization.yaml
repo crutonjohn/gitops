@@ -2,12 +2,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 nameSuffix: -apollo
-commonLabels:
-  k10: exempt
-  backup: exempt
 resources:
   - frigate.yaml
   - music.yaml
   - nextcloud.yaml
   - paperless.yaml
   - syncthing.yaml
+labels:
+  - includeSelectors: true
+    pairs:
+      backup: exempt
+      k10: exempt

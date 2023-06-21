@@ -4,5 +4,5 @@ kind: Kustomization
 namespace: democratic-csi
 resources:
   - ../../../base/applications/democratic-csi
-patchesStrategicMerge:
-  - patch.iscsi.yaml
+patches:
+  - path: patch.iscsi.yaml

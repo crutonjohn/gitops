@@ -7,5 +7,5 @@ resources:
   - hass.enc.yaml
   - ingressroute.hass.yaml
   - ingressroute.hass-codeserver.yaml
-patchesStrategicMerge:
-  - patch.hassio.yaml
+patches:
+  - path: patch.hassio.yaml

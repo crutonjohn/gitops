@@ -7,5 +7,5 @@ resources:
   - aws-creds.enc.yaml
   - ../../../base/applications/network-system/external-dns
   - cert-manager
-patchesStrategicMerge:
-  - patch.external-dns.yaml
+patches:
+  - path: patch.external-dns.yaml

@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - ../../../../../base/soho/frigate
   - ingressroute.yaml
-patchesStrategicMerge:
-  - patch.frigate.yaml
 nameSuffix: -prod
+patches:
+  - path: patch.frigate.yaml

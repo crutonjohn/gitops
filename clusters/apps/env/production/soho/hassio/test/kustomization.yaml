@@ -6,5 +6,5 @@ resources:
   - ../../../../../base/soho/hassio
   - code.enc.yaml
   - hass.enc.yaml
-patchesStrategicMerge:
-  - patch.hassio.yaml
+patches:
+  - path: patch.hassio.yaml

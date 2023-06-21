@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ../../../../base/soho/paperless
   - ingressroute.yaml
-patchesStrategicMerge:
-  - patch.paperless.yaml
+patches:
+  - path: patch.paperless.yaml

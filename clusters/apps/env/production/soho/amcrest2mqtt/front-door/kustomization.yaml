@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../../../../base/soho/amcrest2mqtt
-patchesStrategicMerge:
-  - patch.amcrest2mqtt.yaml
 nameSuffix: -front
+patches:
+  - path: patch.amcrest2mqtt.yaml

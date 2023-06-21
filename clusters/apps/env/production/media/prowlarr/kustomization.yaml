@@ -4,13 +4,12 @@ kind: Kustomization
 resources:
   - ../../../../base/media/lidarr
   - ingressroute.yaml
-patchesStrategicMerge:
-  - app.patch.yaml
 patches:
-  - target:
-      kind: HelmRelease
-      name: .*
-    patch: |-
+  - patch: |-
       - op: replace
         path: /metadata/name
         value: prowlarr
+    target:
+      kind: HelmRelease
+      name: .*
+  - path: app.patch.yaml

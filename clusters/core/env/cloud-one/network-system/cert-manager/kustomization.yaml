@@ -5,5 +5,5 @@ resources:
   - ../../../../base/applications/network-system/cert-manager
   - le-prod.yaml
   - le-stg.yaml
-patchesStrategicMerge:
-  - app.patch.yaml
+patches:
+  - path: app.patch.yaml

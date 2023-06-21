@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ../../../../base/soho/bitwarden
   - ingressroute.yaml
-patchesStrategicMerge:
-  - patch.bitwarden.yaml
+patches:
+  - path: patch.bitwarden.yaml

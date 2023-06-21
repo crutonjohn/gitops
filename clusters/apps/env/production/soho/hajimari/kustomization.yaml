@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ../../../../base/soho/hajimari
   - ingressroute.yaml
-patchesStrategicMerge:
-  - patch.hajimari.yaml
+patches:
+  - path: patch.hajimari.yaml

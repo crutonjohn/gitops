@@ -6,5 +6,5 @@ resources:
   - ingressroute.zigbee.yaml
   - ingressroute.zigbee-config.yaml
   - restart.zigbee2mqtt.yaml
-patchesStrategicMerge:
-  - patch.zigbee2mqtt.yaml
+patches:
+  - path: patch.zigbee2mqtt.yaml

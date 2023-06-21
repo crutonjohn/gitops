@@ -4,5 +4,7 @@ kind: Kustomization
 resources:
   - node.yaml
   - zfs.yaml
-commonLabels:
-  release: kube-prometheus
+labels:
+  - includeSelectors: true
+    pairs:
+      release: kube-prometheus

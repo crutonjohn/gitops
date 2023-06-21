@@ -4,9 +4,6 @@ kind: Kustomization
 namespace: soho
 resources:
   - amcrest2mqtt
-  # - bitwarden
-  # - blog
-  # - double-take
   - emqx
   - frigate
   - hajimari
