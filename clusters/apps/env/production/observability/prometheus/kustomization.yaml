@@ -10,3 +10,5 @@ configMapGenerator:
   - name: prometheus-config
     files:
       - prometheus.yaml
+generatorOptions:
+  disableNameSuffixHash: true

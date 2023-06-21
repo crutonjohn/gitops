@@ -22,6 +22,7 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
+        configmap.reloader.stakater.com/reload: "prometheus-config"
     spec:
       containers:
         - name: prometheus
