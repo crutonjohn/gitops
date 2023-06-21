@@ -6,3 +6,11 @@ resources:
   - ingressroute.yaml
 patchesStrategicMerge:
   - app.patch.yaml
+patches:
+  - target:
+      kind: HelmRelease
+      name: .*
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: prowlarr
