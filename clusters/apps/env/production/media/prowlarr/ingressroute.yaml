@@ -19,8 +19,8 @@ spec:
           namespace: auth-system
       priority: 10
       services:
-        - name: lidarr
-          port: 8686
+        - name: prowlarr
+          port: 9696
     - kind: Rule
       match: "Host(`prowlarr.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
