@@ -9,7 +9,7 @@ spec:
       fullnameOverride: prowlarr
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.6.0.3527
+      tag: rolling
     env:
       TZ: America/New_York
     resources:
