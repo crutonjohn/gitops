@@ -16,3 +16,4 @@ resources:
   - syslog.yaml
   - scrypted.yaml
   - prometheus.yaml
+  - prowlarr.yaml

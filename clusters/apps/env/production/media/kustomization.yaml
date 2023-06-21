@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: media
 resources:
   - lidarr
+  - prowlarr
   - navidrome
   - syncthing
