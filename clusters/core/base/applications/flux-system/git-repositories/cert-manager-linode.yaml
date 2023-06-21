@@ -5,7 +5,6 @@ metadata:
   name: cert-manager-linode-source
   namespace: flux-system
 spec:
-  gitImplementation: go-git
   ignore: |
     # exclude all
     /*
