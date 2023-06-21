@@ -65,6 +65,6 @@ spec:
           - name: metrics
             containerPort: 9792
         volumeMounts:
-          - existingClaim: "prowlarr-config-iscsi"
+          - name: "config"
             mountPath: /config
             readOnly: true
