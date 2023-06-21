@@ -5,7 +5,7 @@ metadata:
   name: secrets
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 30m0s
   path: ./clusters/env/production/config
   prune: false
   sourceRef:
@@ -22,7 +22,7 @@ metadata:
   name: apps
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 30m0s
   dependsOn:
     - name: core
     - name: secrets
@@ -52,7 +52,7 @@ metadata:
   name: core
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 30m0s
   dependsOn:
     - name: secrets
     - name: namespaces
