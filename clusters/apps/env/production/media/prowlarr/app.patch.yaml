@@ -45,26 +45,3 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: "prowlarr-config-iscsi"
-    additionalContainers:
-      exporter:
-        image: "ghcr.io/onedr0p/exportarr:v1.0.0"
-        imagePullPolicy: IfNotPresent
-        args: ["prowlarr"]
-        env:
-          - name: URL
-            value: "http://localhost"
-          - name: CONFIG
-            value: "/config/config.xml"
-          - name: PORT
-            value: "9792"
-          - name: ENABLE_ADDITIONAL_METRICS
-            value: "false"
-          - name: ENABLE_UNKNOWN_QUEUE_ITEMS
-            value: "false"
-        ports:
-          - name: metrics
-            containerPort: 9792
-        volumeMounts:
-          - name: "config"
-            mountPath: /config
-            readOnly: true
