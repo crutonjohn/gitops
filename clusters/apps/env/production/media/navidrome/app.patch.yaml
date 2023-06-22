@@ -17,6 +17,8 @@ spec:
       ND_ENABLETRANSCODINGCONFIG: "true"
       ND_MUSICFOLDER: /music
       ND_ENABLESHARING: "true"
+      ND_PROMETHEUS_ENABLED: "true"
+      ND_PROMETHEUS_METRICSPATH: "/metrics_${NAVIDROME_METRICS_SECRET}"
     persistence:
       config:
         enabled: true
@@ -30,6 +32,12 @@ spec:
         accessMode: ReadWriteOnce
         skipuninstall: false
         existingClaim: "music-library-apollo"
+    service:
+      main:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "4533"
+          prometheus.io/metric_path: "/metrics_${NAVIDROME_METRICS_SECRET}"
     ingress:
       main:
         enabled: false
@@ -38,5 +46,4 @@ spec:
         cpu: 50m
         memory: 100Mi
       limits:
-        cpu: 300m
         memory: 512Mi
