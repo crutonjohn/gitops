@@ -5,11 +5,12 @@ metadata:
   name: frigate
 spec:
   values:
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate-prod-config"
+    controller:
+      annotations:
+        reloader.stakater.com/auto: true
     image:
       repository: ghcr.io/blakeblackshear/frigate
-      tag: 0.12.0
+      tag: 0.12.1
       pullPolicy: IfNotPresent
     env:
       TZ: "America/New_York"

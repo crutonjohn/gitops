@@ -5,6 +5,9 @@ metadata:
   name: hajimari
 spec:
   values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: true
     resources:
       requests:
         memory: 20Mi
@@ -30,8 +33,6 @@ spec:
             secretName: "crj-wildcard-certificate"
     env:
       TZ: "America/New_York"
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "hajimari-settings"
     persistence:
       data:
         enabled: true

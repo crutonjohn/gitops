@@ -13,9 +13,9 @@ spec:
         channel: "${BOTKUBE_CHANNEL_ID}"
         notiftype: short
     serviceMonitor:
-      enabled: true
+      enabled: false
     extraAnnotations:
-      secret.reloader.stakater.com/reload: botkube-configmap
+      reloader.stakater.com/auto: true
     config:
       settings:
         clustername: crutonjohn-k8s
