@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: reloader
-      version: v1.0.24
+      version: v1.0.27
       sourceRef:
         kind: HelmRepository
         name: stakater-charts
@@ -18,5 +18,5 @@ spec:
     reloader:
       deployment:
         image:
-          name: ghcr.io/k8s-at-home/reloader
-          tag: v0.0.103
+          name: ghcr.io/stakater/reloader
+          tag: v1.0.27

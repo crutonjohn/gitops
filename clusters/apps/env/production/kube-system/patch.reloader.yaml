@@ -8,13 +8,24 @@ spec:
     nameOverride: reloader
     fullnameOverride: reloader
     reloader:
-      podMonitor:
-        enabled: true
-        namespace: kube-system
+      deployment:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 65530
+    containerSecurityContext:
+      capabilities:
+        drop:
+          - ALL
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      service:
+        port: "9715"
+        annnotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9715"
       resources:
         requests:
           cpu: 15m
           memory: 53M
         limits:
-          cpu: 32m
           memory: 145M
