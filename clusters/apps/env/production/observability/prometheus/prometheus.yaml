@@ -42,8 +42,8 @@ scrape_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)
       - source_labels: [__name__]
-    regex: '(etcd|cronjob|apiserver|rest_client|authentication|csi|endpoint|ephemeral|aggregator|apiextensions|csi|daemon|deployment|node|persistentvolume|process|pv|scheduler|service|storage|ttl|volume|workqueue|watch).*'
-    action: drop
+        regex: '(etcd|cronjob|apiserver|rest_client|authentication|csi|endpoint|ephemeral|aggregator|apiextensions|csi|daemon|deployment|node|persistentvolume|process|pv|scheduler|service|storage|ttl|volume|workqueue|watch).*'
+        action: drop
   - job_name: "cadvisor"
     scheme: https
     metrics_path: /metrics/cadvisor
