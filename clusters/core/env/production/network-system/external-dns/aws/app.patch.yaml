@@ -19,10 +19,6 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    serviceMonitor:
-      enabled: false
-      interval: 2m
-      scrapeTimeout: 20s
     extraVolumes:
       - name: aws-credentials
         secret:
@@ -45,13 +41,12 @@ spec:
       - service
       - ingress
       - crd
-    policy: upsert-only
+    policy: sync
     registry: txt
     txtOwnerId: "k8s."
     txtPrefix: "_."
     domainFilters:
       - ${SECRET_DOMAIN}
-      - ${FAMILY_DOMAIN}
     provider: aws
     extraArgs:
       - --annotation-filter=external-dns/public in (true)

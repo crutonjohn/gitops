@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: external-dns
 spec:
-  interval: 5m
+  interval: 3h
   chart:
     spec:
       chart: external-dns
@@ -15,6 +15,40 @@ spec:
         namespace: flux-system
       interval: 10m
   timeout: 10m0s
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
     image:
       repository: k8s.gcr.io/external-dns/external-dns
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "7979"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50M
+      limits:
+        cpu: 32m
+        memory: 148M
+    logLevel: debug
+    logFormat: json
+    sources:
+      - service
+      - ingress
+      - crd
+    policy: sync
+    registry: txt
+    txtOwnerId: "k8s."
+    txtPrefix: "_."
