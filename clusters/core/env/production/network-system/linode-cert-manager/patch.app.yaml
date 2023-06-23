@@ -5,6 +5,7 @@ metadata:
   name: linode-cert-manager
 spec:
   values:
+    fullnameOverride: "cert-manager-linode"
     groupName: linode-dns.cluster.local
     certManager:
       namespace: network-system
