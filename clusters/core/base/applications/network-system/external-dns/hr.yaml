@@ -31,7 +31,7 @@ spec:
     cleanupOnFail: true
   values:
     image:
-      repository: k8s.gcr.io/external-dns/external-dns
+      repository: registry.k8s.io/external-dns/external-dns
     podAnnotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "7979"
