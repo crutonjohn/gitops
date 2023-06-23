@@ -8,7 +8,7 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: admin+letsencrypt@curtisrayjohn.com
     privateKeySecretRef:
-      name: letsencrypt-production
+      name: letsencrypt-staging
     solvers:
       - selector:
           dnsNames:
@@ -23,7 +23,10 @@ spec:
             - "${FAMILY_DOMAIN}"
         dns01:
           webhook:
-            groupName: linode.cluster.local
+            groupName: linode-dns.${FAMILY_DOMAIN}
             solverName: linode
             config:
-              apiKey: ${CERT_MANAGER_LINODE_API_TOKEN}
+              #apiKey: ${CERT_MANAGER_LINODE_API_TOKEN}
+              apiKeySecretRef:
+                name: linode-credentials
+                key: token
