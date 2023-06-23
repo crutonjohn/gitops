@@ -8,7 +8,6 @@ spec:
     deployment:
       secretName: linode-credentials
       secretKey: token
-      logLevel: 6
     fullnameOverride: "cert-manager-linode"
     certManager:
       namespace: network-system
