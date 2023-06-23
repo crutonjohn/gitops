@@ -50,5 +50,5 @@ spec:
       - crd
     policy: sync
     registry: txt
-    txtOwnerId: "k8s."
+    txtOwnerId: "k8s"
     txtPrefix: "_."
