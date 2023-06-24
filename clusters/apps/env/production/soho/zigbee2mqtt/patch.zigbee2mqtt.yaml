@@ -10,11 +10,10 @@ spec:
       ZIGBEE2MQTT_DATA: /data
     resources:
       requests:
-        cpu: 10m
+        cpu: 20m
         memory: 100Mi
       limits:
         memory: 300Mi
-        cpu: 200m
     config:
       homeassistant: true
       device_options:
@@ -73,7 +72,6 @@ spec:
             memory: 150Mi
           limits:
             memory: 350Mi
-            cpu: 200m
         image:
           repository: codercom/code-server
           tag: 4.4.0
@@ -123,3 +121,28 @@ spec:
                   operator: In
                   values:
                     - "true"
+    probes:
+      liveness:
+        enabled: true
+        custom: false
+        spec:
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 5
+      readiness:
+        enabled: true
+        custom: false
+        spec:
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 5
+      startup:
+        enabled: true
+        custom: false
+        spec:
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 30
