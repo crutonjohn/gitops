@@ -3,6 +3,7 @@
 let
   my-python-packages = p: with p; [
     ansible-core
+    ansible
     #(
     #  buildPythonPackage rec {
     #    pname = "python-gilt";

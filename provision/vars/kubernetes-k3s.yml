@@ -5,7 +5,7 @@
 #
 
 # (string) Use a specific version of k3s
-k3s_release_version: "v1.23.6+k3s1"
+k3s_release_version: "v1.27.2+k3s1"
 
 # (bool) Install using hard links rather than symbolic links.
 k3s_install_hard_links: true
@@ -31,5 +31,3 @@ k3s_server_manifests_templates:
   - "kube-vip-rbac.yaml.j2"
   - "kube-vip-daemonset.yaml.j2"
   - "kube-calico-manifest.yaml.j2"
-    #  - "kube-calico-crds.yaml.j2"
-    #  - "kube-calico-tigera.yaml.j2"

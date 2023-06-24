@@ -39,9 +39,9 @@ gilt_overlay() {
   sleep 3
   cp $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml
 
-  echo "copying $src_dir/templates/kube-calico-manifest.yaml.j2 $dest_dir/playbooks/templates/"
+  echo "copying $src_dir/templates/* $dest_dir/playbooks/templates/"
   sleep 3
-  cp $src_dir/templates/kube-calico-manifest.yaml.j2 $dest_dir/playbooks/templates/
+  cp $src_dir/templates/* $dest_dir/playbooks/templates/
 
   echo "copying $src_dir/vars/ubuntu/tasks/filesystem.yml $dest_dir/roles/ubuntu/tasks/"
   sleep 3
@@ -53,6 +53,7 @@ gilt_overlay() {
 
 ansible_galaxy_install() {
   nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
+  nix-shell --run 'ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force'
 }
 
 ansible_install_cluster() {
@@ -68,10 +69,10 @@ ansible_nix() {
 }
 
 ansible_nix_commands() {
-  ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force
-  ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force
-  ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml
-  ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml
+  nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
+  nix-shell --run 'ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force'
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml'
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
 }
 
 ansible() {
