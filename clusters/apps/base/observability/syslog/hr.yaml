@@ -17,5 +17,5 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/syslog-ng
-      tag: 3.38.1
+      tag: 4.1.1
       pullPolicy: IfNotPresent
