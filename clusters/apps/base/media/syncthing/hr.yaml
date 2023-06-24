@@ -16,4 +16,4 @@ spec:
   values:
     image:
       repository: syncthing/syncthing
-      tag: 1.23.4
+      tag: 1.23.5
