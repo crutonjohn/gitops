@@ -14,8 +14,37 @@ spec:
         name: democratic-csi-charts
         namespace: flux-system
   values:
-    # Default values for democratic-csi.
-    # This is a YAML-formatted file.
-    # Declare variables to be passed into your templates.
-    nameOverride: ""
-    fullnameOverride: ""
+    # https://kubernetes-csi.github.io/docs/csi-driver-object.html
+    csiDriver:
+      version: 1.8.0
+      # https://kubernetes-csi.github.io/docs/external-attacher.html
+      externalAttacher:
+        image: registry.k8s.io/sig-storage/csi-attacher:v4.3.0
+      # https://kubernetes-csi.github.io/docs/external-provisioner.html
+      externalProvisioner:
+        image: registry.k8s.io/sig-storage/csi-provisioner:v3.5.0
+      # https://kubernetes-csi.github.io/docs/external-resizer.html
+      externalResizer:
+        image: registry.k8s.io/sig-storage/csi-resizer:v1.8.0
+      externalSnapshotter:
+        # 1.20+ should use v4.0.0+
+        # READ *before* updating from beta https://github.com/kubernetes-csi/external-snapshotter#usage
+        image: registry.k8s.io/sig-storage/csi-snapshotter:v6.2.2
+      # https://github.com/kubernetes-csi/external-health-monitor
+      externalHealthMonitorController:
+        image: registry.k8s.io/sig-storage/csi-external-health-monitor-controller:v0.9.0
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:latest
+        imagePullPolicy: Always
+    node:
+      cleanup:
+        image: docker.io/busybox:1.36.1
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:latest
+        imagePullPolicy: Always
+      # https://kubernetes-csi.github.io/docs/node-driver-registrar.html
+      driverRegistrar:
+        image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.8.0
+    # https://github.com/democratic-csi/csi-grpc-proxy
+    csiProxy:
+      image: docker.io/democraticcsi/csi-grpc-proxy:v0.5.3
