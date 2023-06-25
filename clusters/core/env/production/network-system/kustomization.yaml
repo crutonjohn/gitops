@@ -11,3 +11,4 @@ resources:
   - external-dns/aws
   - external-dns/linode
   - linode-webhook
+  - multus
