@@ -89,6 +89,8 @@ spec:
         volumeMounts:
           - name: config
             mountPath: /config
+          - name: backups
+            mountPath: /backups
     resources:
       requests:
         cpu: 200m
