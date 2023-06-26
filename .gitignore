@@ -23,6 +23,7 @@ gitignore/
 # Ansible
 provision/ansible
 provision/kubeconfig
+provision/templates/kube-cilium-manifests.yaml.j2
 
 # Vim
 *.swp
