@@ -8,8 +8,4 @@ resources:
   - nextcloud.yaml
   - paperless.yaml
   - syncthing.yaml
-labels:
-  - includeSelectors: true
-    pairs:
-      backup: exempt
-      k10: exempt
+  - home-assistant-backups.yaml

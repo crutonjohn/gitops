@@ -28,34 +28,6 @@ spec:
     ingress:
       main:
         enabled: false
-        ingressClassName: "traefik-external"
-        annotations:
-          external-dns/public: "true"
-          external-dns.alpha.kubernetes.io/target: "${DYNAMIC_DOMAIN}"
-          nginx.ingress.kubernetes.io/server-snippets: |
-           location / {
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_http_version 1.1;
-            proxy_set_header X-Forwarded-Host $http_host;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Forwarded-For $remote_addr;
-            proxy_set_header Host $host;
-            proxy_set_header Connection "upgrade";
-            proxy_cache_bypass $http_upgrade;
-            }
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "home-assistant"
-          hajimari.io/appName: "Home Assistant"
-          hajimari.io/group: "Home"
-        hosts:
-          - host: "hass.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - "hass.${SECRET_DOMAIN}"
-            secretName: "crj-wildcard-certificate"
     prometheus:
       serviceMonitor:
         enabled: false
@@ -73,6 +45,11 @@ spec:
         existingClaim: home-assistant-config-iscsi
         accessMode: ReadWriteMany
         skipuninstall: false
+      backups:
+        mountPath: /config/backups
+        existingClaim: home-assistant-backups-apollo
+        accessMode: ReadWriteOnce
+        skipuninstall: false
     addons:
       codeserver:
         enabled: true
@@ -81,8 +58,7 @@ spec:
             cpu: 30m
             memory: 100Mi
           limits:
-            memory: 300Mi
-            cpu: 200m
+            memory: 500Mi
         image:
           repository: codercom/code-server
           tag: 4.4.0
