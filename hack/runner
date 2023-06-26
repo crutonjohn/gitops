@@ -1,19 +1,57 @@
+##############################
+# Common Tasks For This Repo #
+##############################
+
 set -euo pipefail
 
 git_root=$(git rev-parse --show-toplevel)
 
+#############################################
+# Does everything:
+# go installs `gilt`
+# overlays flux-cluster-template repo
+# installs ansible roles and collections
+# ansible installs k3s
+# runs flux bootstrap
+# walks your dog
+# files your taxes
+#############################################
+full_send() {
+  init
+  helm_template_cilium
+  ansible_prep_cluster
+  ansible_install_cluster
+  flux_bootstrap
+  sops_create_secret
+  create_storage_volumes
+}
+
 init() {
-  gilt_install
-  gilt_overlay
-  nix_shell
+  gilt
+  ansible_galaxy_install
 }
 
-nix_shell() {
-  nix-shell $@
+shortcut() {
+  init
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
 }
 
-gilt_install() {
+ansible_galaxy_install() {
+  nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
+  nix-shell --run 'ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force'
+}
+
+ansible_install_cluster() {
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
+}
+
+ansible_prep_cluster() {
+  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml'
+}
+
+gilt() {
   go install github.com/retr0h/go-gilt@latest
+  gilt_overlay
 }
 
 gilt_overlay() {
@@ -39,9 +77,9 @@ gilt_overlay() {
   sleep 3
   cp $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml
 
-  echo "copying $src_dir/templates/* $dest_dir/playbooks/templates/"
+  echo "copying $src_dir/templates/*.j2 $dest_dir/playbooks/templates/"
   sleep 3
-  cp $src_dir/templates/* $dest_dir/playbooks/templates/
+  cp $src_dir/templates/*.j2 $dest_dir/playbooks/templates/
 
   echo "copying $src_dir/vars/ubuntu/tasks/filesystem.yml $dest_dir/roles/ubuntu/tasks/"
   sleep 3
@@ -49,34 +87,6 @@ gilt_overlay() {
 
   echo "Done!"
 
-}
-
-ansible_galaxy_install() {
-  nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
-  nix-shell --run 'ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force'
-}
-
-ansible_install_cluster() {
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
-}
-
-ansible_prep_cluster() {
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml'
-}
-
-ansible_nix() {
-  nix-shell --run './hack/runner.sh ansible_nix_commands'
-}
-
-ansible_nix_commands() {
-  nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
-  nix-shell --run 'ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force'
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml'
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
-}
-
-ansible() {
-  ansible_nix
 }
 
 nuke() {
@@ -87,7 +97,7 @@ ansible_nuke_cluster() {
   nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-nuke.yml'
 }
 
-flux_bootstrap_cluster() {
+flux_bootstrap() {
   flux bootstrap github \
     --components=source-controller,kustomize-controller,helm-controller,notification-controller \
     --path=clusters/env/production \
@@ -101,7 +111,11 @@ sops_create_secret() {
 }
 
 create_storage_volumes() {
-  kustomize build clusters/core/pvc/
+  kustomize build clusters/core/pvc/ | kubectl apply -f -
+}
+
+helm_template_cilium() {
+  helm template cilium cilium/cilium -f provision/templates/cilium.yaml -n kube-system > provision/templates/kube-cilium-manifests.yaml.j2
 }
 
 shutdown() {

@@ -1,0 +1,50 @@
+bpf:
+  masquerade: true
+cluster:
+  name: lyh
+  id: 0
+containerRuntime:
+  integration: containerd
+  socketPath: /var/run/k3s/containerd/containerd.sock
+hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+    serviceMonitor:
+      enabled: false
+  relay:
+    enabled: true
+    rollOutPods: true
+    prometheus:
+      serviceMonitor:
+        enabled: false
+  ui:
+    enabled: true
+    rollOutPods: true
+    ingress:
+      enabled: false
+ipam:
+  mode: kubernetes
+k8sServiceHost: "192.168.130.30"
+k8sServicePort: 6443
+kubeProxyReplacement: strict
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+operator:
+  replicas: 1
+  rollOutPods: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: false
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+rollOutCiliumPods: true
