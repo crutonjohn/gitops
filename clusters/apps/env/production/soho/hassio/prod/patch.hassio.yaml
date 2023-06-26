@@ -46,7 +46,7 @@ spec:
         accessMode: ReadWriteMany
         skipuninstall: false
       backups:
-        mountPath: /config/backups
+        mountPath: /backups
         existingClaim: home-assistant-backups-apollo
         accessMode: ReadWriteOnce
         skipuninstall: false
