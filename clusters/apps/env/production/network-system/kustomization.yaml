@@ -8,5 +8,6 @@ resources:
   - traefik/external
   - ingressroute.librespeed.yaml
   - metallb.l2-range.yaml
+  - network-attachment.yaml
 patches:
   - path: patch.librespeed.yaml
