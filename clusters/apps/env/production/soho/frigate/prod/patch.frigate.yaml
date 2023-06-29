@@ -5,9 +5,8 @@ metadata:
   name: frigate
 spec:
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: true
+    podAnnotations:
+      reloader.stakater.com/auto: true
     image:
       repository: ghcr.io/blakeblackshear/frigate
       tag: 0.12.1
@@ -445,6 +444,6 @@ spec:
         memory: 1024Mi
         cpu: 100m
       limits:
-        memory: 4000Mi
+        memory: 6000Mi
     securityContext:
       privileged: true

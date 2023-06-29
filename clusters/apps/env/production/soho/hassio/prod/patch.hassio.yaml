@@ -6,25 +6,23 @@ metadata:
 spec:
   timeout: 15m0s
   values:
+    podAnnotations:
+      k8s.v1.cni.cncf.io/networks: |
+        [{
+          "name":"iot-garbage",
+          "namespace": "network-system",
+          "ips": ["192.168.134.100/24"]
+        }]
     env:
       TZ: "America/New_York"
     envFrom:
       - secretRef:
           name: home-assistant
-    hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
-    dnsConfig:
-      nameservers:
-        - 192.168.130.1
-      options:
-        - name: ndots
-          value: "2"
-        # - name: edns0
     service:
       main:
-        type: LoadBalancer
-        loadBalancerIP: "${CLUSTER_LB_HOME_ASSISTANT}"
-        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 8123
     ingress:
       main:
         enabled: false
