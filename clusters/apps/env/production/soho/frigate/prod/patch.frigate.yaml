@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     podAnnotations:
-      reloader.stakater.com/auto: true
+      reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/blakeblackshear/frigate
       tag: 0.12.1
