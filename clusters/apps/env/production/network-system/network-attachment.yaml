@@ -17,10 +17,7 @@ spec:
             "ips": true
           },
           "ipam": {
-            "type": "host-local",
-            "subnet": "192.168.1.134/24",
-            "rangeStart": "192.168.134.110",
-            "rangeEnd": "192.168.134.120",
+            "type": "static",
             "routes": [
               { "dst": "192.168.134.0/24" }
             ],
