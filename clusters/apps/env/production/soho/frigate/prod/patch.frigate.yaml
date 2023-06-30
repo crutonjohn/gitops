@@ -383,6 +383,49 @@ spec:
                   timestamp: False
                   retain:
                     default: 14
+              # --
+              garage-1:
+                ffmpeg:
+                  inputs:
+                    - path: https://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                      roles:
+                        - detect
+                    - path: https://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                      roles:
+                        - record
+                        - rtmp
+                  input_args:
+                    - -avoid_negative_ts
+                    - make_zero
+                    - -flags
+                    - low_delay
+                    - -strict
+                    - experimental
+                    - -fflags
+                    - nobuffer+genpts+discardcorrupt
+                    - -analyzeduration
+                    - 1000M
+                    - -probesize
+                    - 1000M
+                detect:
+                  width: 1536
+                  height: 576
+                record:
+                  enabled: True
+                  retain_days: 2
+                  events:
+                    retain:
+                      objects:
+                        person: 50
+                        dog: 20
+                    objects:
+                      - person
+                      - dog
+                snapshots:
+                  enabled: True
+                  timestamp: False
+                  retain:
+                    default: 14
     ingress:
       main:
         enabled: false
