@@ -13,24 +13,9 @@ spec:
     ingress:
       main:
         enabled: false
-        primary: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-          external-dns/public: "true"
-        ingressClassName: "traefik-external"
-        hosts:
-          - host: speedof.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - speedof.${SECRET_DOMAIN}
-            secretName: crj-wildcard-certificate
     resources:
       requests:
         cpu: 10m
         memory: 27Mi
       limits:
-        cpu: 32m
-        memory: 35Mi
+        memory: 1024Mi
