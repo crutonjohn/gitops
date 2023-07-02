@@ -8,26 +8,23 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "iot-garbage",
-      "plugins": [
-        {
-          "type": "macvlan",
-          "master": "enp1s0.3002",
-          "mode": "bridge",
-          "capabilities": {
-            "ips": true
-          },
-          "ipam": {
-            "type": "dhcp",
-            "daemonSocketPath": "/run/cni/dhcp.sock",
-            "request": [
-              {
-                "skipDefault": false
-              }
-            ],
-          }
-        },
-        {
-          "type": "tuning"
-        }
-      ]
+      "type": "macvlan",
+      "master": "enp1s0.3002",
+      "mode": "bridge",
+      "ipam": {
+          "type": "dhcp",
+          "provide": [
+            {
+              "option": "host-name",
+              "fromArg": "dhcp-host-name"
+            },
+            {
+              "option": "host-name",
+              "fromArg": "K8S_POD_NAME"
+            }
+        ]
+      },
+      {
+        "type": "tuning"
+      }
     }
