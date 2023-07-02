@@ -12,7 +12,8 @@ spec:
           "name":"iot-garbage",
           "namespace": "network-system",
           "mac": "e8:f3:3c:72:23:f6",
-          "dst": "192.168.134.0/24"
+          "dst": "192.168.134.0/24",
+          "gateway": "192.168.134.1"
         }]
     env:
       TZ: "America/New_York"
