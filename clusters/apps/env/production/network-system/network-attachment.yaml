@@ -8,31 +8,24 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "chains",
-      "plugins": [ {
+      "plugins": [{
         "type": "macvlan",
+        "capabilities": {
+          "ips": true
+        },
         "master": "enp1s0.3002",
         "mode": "bridge",
-          "ipam": {
-            "type": "dhcp",
-            "routes": [
-              {
-                "dst": "192.168.134.0/24",
-                "gw": "192.168.134.1"
-              }
-            ],
-            "provide": [
-                {
-                    "option": "121",
-                    "value": "18:c0:a8:86:c0:a8:86:01"
-                },
-                {
-                    "option": "3",
-                    "value": "0.0.0.0"
-                }
-            ]
-          }
-        },
-        {
-          "type":"tuning"
-        }]
+        "ipam": {
+          "type": "static",
+          "routes": [
+            {
+              "dst": "192.168.134.0/24",
+              "gw": "192.168.134.1"
+            }
+          ]
+        }
+      },
+      {
+        "type":"tuning"
+      }]
     }
