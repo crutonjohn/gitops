@@ -11,7 +11,7 @@ spec:
         [{
           "name":"iot-garbage",
           "namespace": "network-system",
-          "mac": "77:58:d6:77:68:b8",
+          "mac": "77:58:d6:77:68:b8"
         }]
     env:
       TZ: "America/New_York"
