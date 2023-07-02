@@ -7,24 +7,26 @@ spec:
   config: |-
     {
       "cniVersion": "0.3.1",
-      "name": "iot-garbage",
-      "type": "macvlan",
-      "master": "enp1s0.3002",
-      "mode": "bridge",
-      "ipam": {
-          "type": "dhcp",
-          "provide": [
-            {
-              "option": "host-name",
-              "fromArg": "dhcp-host-name"
-            },
-            {
-              "option": "host-name",
-              "fromArg": "K8S_POD_NAME"
-            }
-        ]
-      },
-      {
-        "type": "tuning"
-      }
+      "name": "chains",
+      "plugins": [ {
+        "type": "macvlan",
+        "master": "enp1s0.3002",
+        "mode": "bridge",
+          "ipam": {
+            "type": "dhcp",
+            "provide": [
+               {
+                 "option": "host-name",
+                 "fromArg": "dhcp-host-name"
+               },
+               {
+                 "option": "host-name",
+                 "fromArg": "K8S_POD_NAME"
+               }
+             ]
+          }
+        },
+        {
+          "type":"tuning"
+        }]
     }
