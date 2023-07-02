@@ -13,7 +13,7 @@ spec:
         "master": "enp1s0.3002",
         "mode": "bridge",
           "ipam": {
-            "type": "dhcp"
+            "type": "dhcp",
             "routes": [
               {
                 "dst": "192.168.134.0/24",
