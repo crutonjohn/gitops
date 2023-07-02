@@ -17,12 +17,17 @@ spec:
             "ips": true
           },
           "ipam": {
-            "type": "static",
-            "routes": [
-              { "dst": "192.168.134.0/24" }
+            "type": "dhcp",
+            "daemonSocketPath": "/run/cni/dhcp.sock",
+            "request": [
+              {
+                "skipDefault": false
+              }
             ],
-            "gateway": "192.168.134.1"
           }
+        },
+        {
+          "type": "tuning"
         }
       ]
     }
