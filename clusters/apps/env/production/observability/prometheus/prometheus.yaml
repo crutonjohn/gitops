@@ -6,6 +6,11 @@ global:
     environment: prom-lyh
 rule_files:
   - /etc/prometheus/alerts/*.yaml
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 100.64.0.4.9093
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
