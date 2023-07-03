@@ -7,6 +7,7 @@ resources:
   - ../../../base/kube-system/reloader
   - ../../../base/kube-system/node-feature-discovery
   - ../../../base/kube-system/intel-gpu-plugin
+  - ingressroute.hubble.yaml
 patches:
   - path: patch.intel.yaml
   - path: patch.nfd.yaml
