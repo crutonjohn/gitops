@@ -6,6 +6,8 @@ cluster:
 containerRuntime:
   integration: containerd
   socketPath: /var/run/k3s/containerd/containerd.sock
+cni:
+  exclusive: false
 hubble:
   enabled: true
   metrics:
