@@ -63,27 +63,31 @@ gilt_overlay() {
 
   echo "copying $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml"
   sleep 3
-  cp $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml
+  cp -v $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml
 
   echo "copying $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml"
   sleep 3
-  cp $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml
+  cp -v $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml
 
   echo "copying $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml"
   sleep 3
-  cp $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml
+  cp -v $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml
 
   echo "copying $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml"
   sleep 3
-  cp $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml
+  cp -v $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml
 
   echo "copying $src_dir/templates/*.j2 $dest_dir/playbooks/templates/"
   sleep 3
-  cp $src_dir/templates/*.j2 $dest_dir/playbooks/templates/
+  cp -v $src_dir/templates/*.j2 $dest_dir/playbooks/templates/
 
-  echo "copying $src_dir/vars/ubuntu/tasks/filesystem.yml $dest_dir/roles/ubuntu/tasks/"
+  echo "copying $src_dir/vars/ubuntu/tasks/*.yml $dest_dir/roles/ubuntu/tasks/"
   sleep 3
-  cp $src_dir/vars/ubuntu/tasks/filesystem.yml $dest_dir/roles/ubuntu/tasks/
+  cp -v $src_dir/vars/ubuntu/tasks/*.yml $dest_dir/roles/ubuntu/tasks/
+
+  echo "copying requirements.yaml"
+  sleep 3
+  cp -v $src_dir/requirements.yml $dest_dir/
 
   echo "Done!"
 
