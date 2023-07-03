@@ -4,6 +4,8 @@ global:
   evaluation_interval: 60s
   external_labels:
     environment: prom-lyh
+remote_write:
+  - url: http://100.64.0.4:9090/api/v1/write
 rule_files:
   - /etc/prometheus/alerts/*.yaml
 alerting:
