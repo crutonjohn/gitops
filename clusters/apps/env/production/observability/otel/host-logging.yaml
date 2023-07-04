@@ -36,7 +36,7 @@ spec:
       logging:
         verbosity: detailed
       loki:
-        endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
+        endpoint: "http://100.64.0.4:3100/loki/api/v1/push"
     service:
       pipelines:
         logs:
