@@ -22,6 +22,7 @@ spec:
             key: loki.attribute.labels
             value: log.file.name
     exporters:
+      logging:
       loki:
         endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
     service:
@@ -33,4 +34,5 @@ spec:
             - batch
             - attributes
           exporters:
+            - logging
             - loki
