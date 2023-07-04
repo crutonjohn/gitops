@@ -18,7 +18,7 @@ spec:
       logging:
         logLevel: debug
       loki:
-        endpoint: "http://linmon.heyjohn.family:3100/loki/api/v1/push"
+        endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
         #tenant_id: "example2"
         labels:
           attributes:
