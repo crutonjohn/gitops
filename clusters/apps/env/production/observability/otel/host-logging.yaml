@@ -20,8 +20,6 @@ spec:
             key: loki.attribute.labels
             value: log.file.name
     exporters:
-      logging:
-        logLevel: debug
       loki:
         endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
     service:
