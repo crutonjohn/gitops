@@ -11,6 +11,7 @@ resources:
   - ingressroute.changedetection.yaml
   - ingressroute.syslog-config.yaml
   - ntfy
+  - otel
 patches:
   - path: patch.botkube.yaml
   - path: patch.changedetection.yaml
