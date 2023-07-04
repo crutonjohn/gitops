@@ -14,6 +14,9 @@ spec:
         include:
           - /var/log/syslog
           - /var/log/pods/*
+      otlp:
+        protocols:
+          grpc:
     processors:
       batch:
       attributes:
@@ -29,6 +32,7 @@ spec:
       pipelines:
         logs:
           receivers:
+            - otlp
             - filelog
           processors:
             - batch
