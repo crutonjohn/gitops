@@ -22,6 +22,7 @@ spec:
     exporters:
       loki:
         endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
+        tenant_id: tenant1
     service:
       pipelines:
         logs:
