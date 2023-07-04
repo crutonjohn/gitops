@@ -6,6 +6,8 @@ metadata:
 spec:
   mode: daemonset
   image: otel/opentelemetry-collector-contrib:0.80.0
+  nodeSelector:
+    kubernetes.io/arch: amd64
   config: |
     receivers:
       filelog:
