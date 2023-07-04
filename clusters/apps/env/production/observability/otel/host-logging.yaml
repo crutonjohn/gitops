@@ -14,15 +14,16 @@ spec:
           - /var/log/pods/*
     processors:
       batch:
+      attributes:
+        actions:
+          - action: insert
+            key: loki.attribute.labels
+            value: log.file.name
     exporters:
       logging:
         logLevel: debug
       loki:
         endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
-        #tenant_id: "example2"
-        labels:
-          attributes:
-            log.file.name: "filename"
     service:
       pipelines:
         logs:
@@ -30,6 +31,7 @@ spec:
             - filelog
           processors:
             - batch
+            - attributes
           exporters:
             - logging
             - loki
