@@ -31,5 +31,4 @@ spec:
             - batch
             - attributes
           exporters:
-            - logging
             - loki
