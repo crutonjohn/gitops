@@ -8,12 +8,20 @@ spec:
   image: otel/opentelemetry-collector-contrib:0.80.0
   nodeSelector:
     kubernetes.io/arch: amd64
+  volumeMounts:
+    - name: hostvarlog
+      mountPath: /host/var/log
+  volumes:
+    - name: hostvarlog
+      hostPath:
+        path: /var/log
+        type: Directory
   config: |
     receivers:
       filelog:
         include:
-          - /var/log/syslog
-          - /var/log/pods/*
+          - /host/var/log/syslog
+          - /host/var/log/pods/*
       otlp:
         protocols:
           grpc:
