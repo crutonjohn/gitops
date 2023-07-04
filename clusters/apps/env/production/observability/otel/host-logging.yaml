@@ -16,6 +16,11 @@ spec:
       hostPath:
         path: /var/log
         type: Directory
+  env:
+    - name: K8S_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
   config: |
     receivers:
       filelog:
@@ -32,6 +37,9 @@ spec:
           - action: insert
             key: loki.attribute.labels
             value: log.file.name
+      k8sattributes:
+        filter:
+          node_from_env_var: K8S_NODE_NAME
     exporters:
       logging:
         verbosity: detailed
@@ -46,6 +54,7 @@ spec:
           processors:
             - batch
             - attributes
+            - k8sattributes
           exporters:
             - logging
             - loki
