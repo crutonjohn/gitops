@@ -26,6 +26,7 @@ spec:
             value: log.file.name
     exporters:
       logging:
+        verbosity: detailed
       loki:
         endpoint: "http://linmon.${FAMILY_DOMAIN}:3100/loki/api/v1/push"
     service:
