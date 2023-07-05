@@ -64,7 +64,7 @@ spec:
             - filelog
           processors:
             - k8sattributes
-            - attributes
+            - resource
             - batch
           exporters:
             - logging
