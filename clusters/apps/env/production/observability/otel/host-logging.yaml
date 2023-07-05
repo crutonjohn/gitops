@@ -56,7 +56,28 @@ spec:
         verbosity: detailed
       loki:
         endpoint: "http://100.64.0.4:3100/loki/api/v1/push"
+    extensions:
+      health_check:
+        path: "/health/status"
+        endpoint: ":13333"
+      file_storage:
+        directory: /var/lib/otelcol
+        timeout: 1s
+        compactions:
+          on_start: true
+          on_rebound: true
+          directory: /var/lib/otelcol
+          max_transaction_size: 65530
+      memory_ballast:
+        size_in_percentage: 30
     service:
+      extensions:
+        - health_check
+        - file_storage
+        - memory_ballast
+      telemetry:
+        metrics:
+          address: "localhost:8888"
       pipelines:
         logs:
           receivers:
