@@ -27,16 +27,27 @@ spec:
         include:
           - /host/var/log/syslog
           - /host/var/log/pods/*
+        start_at: end
+        storage: file.storage
+        include_file_path: true
+        include_file_name: true
+        operators:
+          - type: move
+            from: attributes["log.file.path"]
+            to: resource["path"]
       otlp:
         protocols:
           grpc:
     processors:
       batch:
-      attributes:
-        actions:
+      resource:
+        attributes:
           - action: insert
-            key: loki.attribute.labels
-            value: log.file.name
+            key: loki.resource.labels
+            value: log.file.name, path, unit
+          - action: insert
+            key: loki.format
+            value: raw
       k8sattributes:
         filter:
           node_from_env_var: K8S_NODE_NAME
@@ -52,9 +63,9 @@ spec:
             - otlp
             - filelog
           processors:
-            - batch
-            - attributes
             - k8sattributes
+            - attributes
+            - batch
           exporters:
             - logging
             - loki
