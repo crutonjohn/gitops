@@ -126,12 +126,6 @@ spec:
             - tag_name: key2
               key: label2
               from: pod
-        pod_association:
-          - from: resource_attribute
-            name: k8s.pod.uid
-          - from: resource_attribute
-            name: k8s.pod.ip
-          - from: connection
     exporters:
       logging:
         loglevel: debug
