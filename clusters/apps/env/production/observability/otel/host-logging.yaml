@@ -126,43 +126,7 @@ spec:
       attributes/loki:
         - action: insert
           key: loki.attribute.labels
-          value:
-            - fluent.tag
-            - fluent.filename
-            - fluentd_container_name
-            - container_name
-            - elastic.cluster.name
-            - elastic.log.severity
-            - elastic.log.type
-            - elastic.node.name
-            - event.domain
-            - k8s.resource.name
-            - k8s.pod.name
-            - k8s.pod.uid
-            - k8s.deployment.name
-            - k8s.namespace.name
-            - k8s.node.name
-            - k8s.pod.start_time
-            - winevent.computername
-            - winevent.severity
-            - winevent.source
-            - instance
-            - cortex_env
-            - webserver.host
-            - webserver.computername
-            - webserver.sitename
-            - cortex_location
-            - cortex_service
-            - environment
-            - ab_customer
-            - severity
-            - app
-            - ab.global.environment
-            - ab.cortex.log.level
-            - ab.global.application.name
-            - ab.cortex.tenant.location
-            - ab.cortex.tenant.state
-            - log.iostream
+          value: container_name, event.domain, k8s.resource.name, k8s.pod.name, k8s.pod.uid, k8s.deployment.name, k8s.namespace.name, k8s.node.name, k8s.pod.start_time, instance, environment, severity, app, log.iostream
     exporters:
       logging:
         loglevel: debug
