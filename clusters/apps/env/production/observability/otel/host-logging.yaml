@@ -85,14 +85,6 @@ spec:
           grpc:
     processors:
       batch:
-      resource:
-        attributes:
-          - action: insert
-            key: loki.resource.labels
-            value: log.file.name, path, unit
-          - action: insert
-            key: loki.format
-            value: raw
       k8sattributes:
         auth_type: "serviceAccount"
         passthrough: false
