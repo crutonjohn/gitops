@@ -33,7 +33,7 @@ spec:
           - /host/var/log/syslog
           - /host/var/log/pods/*
         start_at: end
-        storage: file.storage
+        storage: file_storage
         include_file_path: true
         include_file_name: true
         operators:
