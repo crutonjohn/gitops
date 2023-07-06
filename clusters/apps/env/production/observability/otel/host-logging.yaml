@@ -154,7 +154,7 @@ spec:
         metrics:
           address: "localhost:8888"
       pipelines:
-        podlog:
+        logs:
           receivers:
             - otlp
             - filelog
