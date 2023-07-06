@@ -21,6 +21,7 @@ spec:
     - name: scratchdir
       emptyDir:
         sizeLimit: 10Gi
+  serviceAccount: collector
   env:
     - name: K8S_NODE_NAME
       valueFrom:
