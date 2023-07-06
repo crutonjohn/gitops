@@ -210,7 +210,6 @@ spec:
             - resource/loki0
             - batch
           exporters:
-            - logging
             - loki
         logs/1:
           receivers:
