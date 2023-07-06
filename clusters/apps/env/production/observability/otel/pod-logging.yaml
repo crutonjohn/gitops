@@ -10,7 +10,7 @@ spec:
     kubernetes.io/arch: amd64
   volumeMounts:
     - name: hostvarlog
-      mountPath: /host/var/log
+      mountPath: /var/log
     - name: scratchdir
       mountPath: /var/lib/otelcol
   volumes:
@@ -29,11 +29,11 @@ spec:
           fieldPath: spec.nodeName
   config: |
     receivers:
-      filelog:
+      filelog/0:
         include:
-          - /host/var/log/pods/*/*/*.log
+          - /var/log/pods/*/*/*.log
         exclude:
-          - /host/var/log/pods/*/otc-container/*.log
+          - /var/log/pods/*/otc-container/*.log
         start_at: end
         storage: file_storage
         include_file_path: true
@@ -100,6 +100,16 @@ spec:
           - type: move
             from: attributes.uid
             to: resource["k8s.pod.uid"]
+      filelog/1:
+        include:
+          - /var/log/syslog
+        start_at: end
+        storage: file_storage
+        include_file_path: true
+        include_file_name: false
+        operators:
+          - type: syslog_parser
+            protocol: rfc3164
       otlp:
         protocols:
           grpc:
@@ -138,11 +148,19 @@ spec:
                 name: k8s.pod.uid
           - sources:
               - from: connection
-      resource/loki:
+      resource/loki0:
         attributes:
           - action: insert
             key: loki.resource.labels
             value: event.domain, k8s.resource.name, k8s.pod.name, k8s.pod.uid, k8s.deployment.name, k8s.namespace.name, k8s.node.name, k8s.pod.start_time, k8s.container.name, container.image.name, container.image.tag, instance, environment, severity, app, log.iostream, log
+          - action: insert
+            key: loki.format
+            value: raw
+      resource/loki1:
+        attributes:
+          - action: insert
+            key: loki.resource.labels
+            value: event.domain, body.appname, body.facility, body.hostname, body.message, body.msg_id, body.priority, body.proc_id, body.severity
           - action: insert
             key: loki.format
             value: raw
@@ -183,13 +201,24 @@ spec:
         metrics:
           address: "localhost:8888"
       pipelines:
-        logs:
+        logs/0:
           receivers:
             - otlp
-            - filelog
+            - filelog/0
           processors:
             - k8sattributes
-            - resource/loki
+            - resource/loki0
+            - batch
+          exporters:
+            - logging
+            - loki
+        logs/1:
+          receivers:
+            - otlp
+            - filelog/1
+          processors:
+            - attributes
+            - resource/loki1
             - batch
           exporters:
             - logging
