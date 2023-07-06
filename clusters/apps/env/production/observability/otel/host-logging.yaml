@@ -96,7 +96,7 @@ spec:
           grpc:
     processors:
       batch:
-      syslogattrib:
+      resource:
         attributes:
           - action: insert
             key: loki.resource.labels
@@ -174,7 +174,7 @@ spec:
             - otlp
             - syslog
           processors:
-            - syslogattrib
+            - resource
             - batch
           exporters:
             - logging
