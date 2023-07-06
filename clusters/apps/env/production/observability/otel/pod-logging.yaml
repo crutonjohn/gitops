@@ -217,7 +217,6 @@ spec:
             - otlp
             - filelog/1
           processors:
-            - attributes
             - resource/loki1
             - batch
           exporters:
