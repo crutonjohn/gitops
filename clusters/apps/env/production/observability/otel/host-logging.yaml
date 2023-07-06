@@ -11,11 +11,16 @@ spec:
   volumeMounts:
     - name: hostvarlog
       mountPath: /host/var/log
+    - name: scratchdir
+      mountPath: /var/lib/otelcol
   volumes:
     - name: hostvarlog
       hostPath:
         path: /var/log
         type: Directory
+    - name: scratchdir
+      emptyDir:
+        sizeLimit: 10Gi
   env:
     - name: K8S_NODE_NAME
       valueFrom:
