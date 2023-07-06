@@ -2,7 +2,7 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: host-logging
+  name: pod-logging
 spec:
   mode: daemonset
   image: otel/opentelemetry-collector-contrib:0.80.0
@@ -29,18 +29,7 @@ spec:
           fieldPath: spec.nodeName
   config: |
     receivers:
-      syslog:
-        include:
-          - /host/var/log/syslog
-        start_at: end
-        storage: file_storage
-        include_file_path: true
-        include_file_name: true
-        operators:
-          - type: move
-            from: attributes["log.file.path"]
-            to: resource["path"]
-      podlog:
+      filelog:
         include:
           - /host/var/log/pods/*/*/*.log
         exclude:
@@ -133,7 +122,7 @@ spec:
           - from: connection
     exporters:
       logging:
-        verbosity: debug
+        loglevel: debug
       loki:
         endpoint: "http://100.64.0.4:3100/loki/api/v1/push"
     extensions:
@@ -162,19 +151,9 @@ spec:
         podlog:
           receivers:
             - otlp
-            - podlog
+            - filelog
           processors:
             - k8sattributes
-            - batch
-          exporters:
-            - logging
-            - loki
-        syslog:
-          receivers:
-            - otlp
-            - syslog
-          processors:
-            - resource
             - batch
           exporters:
             - logging
