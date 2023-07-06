@@ -177,7 +177,7 @@ spec:
             - filelog
           processors:
             - k8sattributes
-            - attributes/loki
+            - resource/loki
             - batch
           exporters:
             - logging
