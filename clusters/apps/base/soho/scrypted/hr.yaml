@@ -20,4 +20,4 @@ spec:
   values:
     image:
       repository: koush/scrypted
-      tag: 18-bullseye-full-v0.12.1
+      tag: 18-jammy-full-v0.39.6
