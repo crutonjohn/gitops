@@ -6,10 +6,18 @@ metadata:
 spec:
   timeout: 15m0s
   values:
+    podAnnotations:
+      k8s.v1.cni.cncf.io/networks: |
+        [{
+          "name":"iot-garbage",
+          "namespace": "network-system",
+          "mac": "e8:0b:9b:3b:79:a0",
+          "ips": ["192.168.134.110/24"]
+        }]
     env:
       TZ: "America/New_York"
       SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION: "Bearer ${SCRYPTED_RANDOM_TEXT}"
-      SCRYPTED_WEBHOOK_UPDATE: "http://${CLUSTER_LB_SCRYPTED}:8443/v1/update"
+      SCRYPTED_WEBHOOK_UPDATE: "https://192.168.134.110:8443/v1/update"
       SCRYPTED_SECURE_PORT: "8443"
       SCRYPTED_INSECURE_PORT: "8080"
     hostNetwork: true
@@ -22,9 +30,6 @@ spec:
           value: "2"
     service:
       main:
-        type: LoadBalancer
-        loadBalancerIP: "${CLUSTER_LB_SCRYPTED}"
-        externalTrafficPolicy: Local
         ports:
           http:
             enabled: true
@@ -66,6 +71,5 @@ spec:
         memory: 512Mi
       limits:
         memory: 4096Mi
-        cpu: 1
     nodeSelector:
       kubernetes.io/arch: amd64
