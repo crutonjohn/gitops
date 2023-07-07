@@ -20,7 +20,7 @@ spec:
       SCRYPTED_WEBHOOK_UPDATE: "https://192.168.134.110:8443/v1/update"
       SCRYPTED_SECURE_PORT: "8443"
       SCRYPTED_INSECURE_PORT: "8080"
-    hostNetwork: true
+    hostNetwork: false
     dnsPolicy: ClusterFirstWithHostNet
     dnsConfig:
       nameservers:
