@@ -108,10 +108,11 @@ spec:
         include_file_path: true
         include_file_name: false
         operators:
-          - type: regex_parser
-            id: extract_host_from_filepath
-            regex: '^\w+\s+\d+\s\d+:\d+:\d+\s(<host_name>).*$'
-            parse_from: attributes["log"]
+          - type: record_modifier
+            action:
+              from_attributes:
+                log: '^(?:\w+\s+){3}(\S+).*'
+              as: host_name
           - type: move
             from: attributes.host_name
             to: attributes["log.hostname"]
