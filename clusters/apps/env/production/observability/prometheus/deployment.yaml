@@ -29,6 +29,7 @@ spec:
             - '--storage.tsdb.retention.size=50GB'
             - '--storage.tsdb.path=/prometheus'
             - '--config.file=/etc/prometheus/prometheus.yaml'
+            - '--web.enable-admin-api'
           ports:
             - name: web
               containerPort: 9090
