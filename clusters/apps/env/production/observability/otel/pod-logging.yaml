@@ -108,13 +108,13 @@ spec:
         include_file_path: true
         include_file_name: false
         operators:
-          - type: regex_parser
-            id: extract_hostname_from_log
-            regex: '^\w+\s+\d+\s\d+:\d+:\d+\s(?P<host_name>[^_]+).*$'
-            parse_from: attributes["log"]
-          - type: move
-            from: attributes.host_name
-            to: attributes["log.hostname"]
+          #- type: regex_parser
+          #  id: extract_hostname_from_log
+          #  regex: '^\w+\s+\d+\s\d+:\d+:\d+\s(?P<host_name>[^_]+).*$'
+          #  parse_from: attributes["log"]
+          #- type: move
+          #  from: attributes.host_name
+          #  to: attributes["log.hostname"]
           - type: syslog_parser
             protocol: rfc5424
           - type: move
