@@ -20,7 +20,6 @@ spec:
           cpu: 500m
         requests:
           memory: 256Mi
-          cpu: 250m
       podSecurityContext:
         enabled: true
         runAsNonRoot: true
