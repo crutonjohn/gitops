@@ -20,7 +20,7 @@ spec:
       priority: 10
       services:
         - name: deemix
-          port: 8686
+          port: 6595
     - kind: Rule
       match: "Host(`deemix.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
