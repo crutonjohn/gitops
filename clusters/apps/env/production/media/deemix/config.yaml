@@ -91,5 +91,5 @@ data:
   login.json: |-
     {
       "accessToken": null,
-      "arl": "$DEEZER_ARL"
+      "arl": "${DEEZER_ARL}"
     }
