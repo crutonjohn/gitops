@@ -36,27 +36,10 @@ spec:
       main:
         enabled: false
     persistence:
-      spotify:
-        enabled: true
-        mountPath: /config/spotify
-        type: emptyDir
-      logs:
-        enabled: true
-        mountPath: /config/logs
-        type: emptyDir
-      queue:
-        enabled: true
-        mountPath: /config/queue
-        type: emptyDir
       config:
         enabled: true
         mountPath: /config
-        type: configMap
-        name: deezer-config
-      import:
-        enabled: true
-        mountPath: /downloads
-        existingClaim: "music-sync-apollo"
+        type: emptyDir
     additionalContainers: []
     probes:
       liveness:
