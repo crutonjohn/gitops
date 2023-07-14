@@ -18,6 +18,14 @@ scrape_configs:
     static_configs:
       - targets:
           - 'localhost:9090'
+  - job_name: 'hass'
+    scrape_interval: 60s
+    metrics_path: /api/prometheus
+    authorization:
+      credentials: "${PROMETHEUS_HOME_ASSISTANT_TOKEN}"
+    scheme: http
+    static_configs:
+      - targets: ['home-assistant:8123']
   - job_name: "k8s_apiservers"
     kubernetes_sd_configs:
       - role: endpoints
