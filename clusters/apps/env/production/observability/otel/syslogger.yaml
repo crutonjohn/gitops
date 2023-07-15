@@ -30,8 +30,6 @@ spec:
           listen_address: "0.0.0.0:54555"
         protocol: rfc5424
         operators:
-          - type: syslog_parser
-            protocol: rfc5424
           - type: move
             from: attributes.message
             to: body
