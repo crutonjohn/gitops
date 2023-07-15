@@ -16,11 +16,11 @@ spec:
       emptyDir:
         sizeLimit: 10Gi
   ports:
-    - containerPort: 8888
+    - port: 8888
       name: metrics
-    - containerPort: 54555
+    - port: 54555
       name: syslog
-    - containerPort: 4317
+    - port: 4317
       name: otlp-grpc
   serviceAccount: collector
   config: |
