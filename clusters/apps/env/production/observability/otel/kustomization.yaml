@@ -4,3 +4,5 @@ kind: Kustomization
 resources:
   - pod-logging.yaml
   - rbac.yaml
+  - syslogger.yaml
+  - syslogger-svc.yaml
