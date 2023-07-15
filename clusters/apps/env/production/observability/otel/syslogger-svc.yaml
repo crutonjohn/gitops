@@ -9,7 +9,7 @@ spec:
   ports:
     - name: http
       port: 54555
-      targetPort: 54555
+      targetPort: syslog
   selector:
     app.kubernetes.io/name: syslog-collector
   type: LoadBalancer
