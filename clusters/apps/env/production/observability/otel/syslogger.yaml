@@ -28,10 +28,10 @@ spec:
       syslog/0:
         tcp:
           listen_address: "0.0.0.0:54555"
-        protocol: rfc3164
+        protocol: rfc5424
         operators:
           - type: syslog_parser
-            protocol: rfc3164
+            protocol: rfc5424
           - type: move
             from: attributes.message
             to: body
