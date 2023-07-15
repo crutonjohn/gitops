@@ -5,7 +5,6 @@ namespace: observability
 resources:
   - ../../../base/observability/botkube
   - ../../../base/observability/changedetection-io
-  - ../../../base/observability/syslog
   - ../../../base/observability/otel-operator
   - prometheus
   - ingressroute.changedetection.yaml
@@ -15,5 +14,4 @@ resources:
 patches:
   - path: patch.botkube.yaml
   - path: patch.changedetection.yaml
-  - path: patch.syslog.yaml
   - path: patch.otel-operator.yaml
