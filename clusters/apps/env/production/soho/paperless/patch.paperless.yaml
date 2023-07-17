@@ -34,11 +34,11 @@ spec:
       data:
         enabled: true
         mountPath: /usr/src/paperless/data
-        existingClaim: paperless-data-iscsi
+        existingClaim: paperless-data
       media:
         enabled: true
         mountPath: /usr/src/paperless/media
-        existingClaim: paperless-media-iscsi
+        existingClaim: paperless-media
       consume:
         enabled: true
         mountPath: /usr/src/paperless/consume

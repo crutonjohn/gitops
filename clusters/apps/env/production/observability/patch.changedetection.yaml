@@ -22,7 +22,7 @@ spec:
       data:
         enabled: true
         mountPath: /datastore
-        existingClaim: changedetection-config-iscsi
+        existingClaim: changedetection-config
     resources:
       limits:
         cpu: 100m

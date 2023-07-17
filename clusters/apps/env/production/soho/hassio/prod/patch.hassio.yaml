@@ -41,7 +41,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: home-assistant-config-iscsi
+        existingClaim: home-assistant-config
         accessMode: ReadWriteMany
         skipuninstall: false
       backups:

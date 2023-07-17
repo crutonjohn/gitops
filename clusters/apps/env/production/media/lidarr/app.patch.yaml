@@ -64,7 +64,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: "lidarr-config-iscsi"
+        existingClaim: "lidarr-config"
       media:
         enabled: true
         mountPath: /media

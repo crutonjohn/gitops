@@ -448,7 +448,7 @@ spec:
       data:
         enabled: true
         mountPath: /data
-        existingClaim: frigate-data-iscsi
+        existingClaim: frigate-data
       media:
         enabled: true
         mountPath: /media

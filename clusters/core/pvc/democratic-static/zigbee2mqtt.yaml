@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: org.democratic-csi.iscsi
+  name: zigbee2mqtt-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 150Mi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: zigbee2mqtt-config
+    namespace: soho
+  csi:
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-iscsi-democratic-csi
+      namespace: democratic-csi
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-iscsi-democratic-cs
+      namespace: democratic-csi
+    driver: org.democratic-csi.iscsi
+    fsType: ext4
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-iscsi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-iscsi-democratic-csi
+      namespace: democratic-csi
+    volumeAttributes:
+      iqn: iqn.2005-10.org.freenas.ctl:zigbee2mqtt
+      lun: "0"
+      node_attach_driver: iscsi
+      portal: 192.168.130.50:3260
+      portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260
+      provisioner_driver: freenas-api-iscsi
+    volumeHandle: zigbee2mqtt-config
+  storageClassName: freenas-iscsi-csi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zigbee2mqtt-config
+  namespace: soho
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 150Mi
+  storageClassName: freenas-iscsi-csi
+  volumeName: zigbee2mqtt-config

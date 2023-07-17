@@ -107,7 +107,7 @@ spec:
         enabled: true
         accessMode: ReadWriteOnce
         mountPath: "/data"
-        existingClaim: zigbee2mqtt-config-iscsi
+        existingClaim: zigbee2mqtt-config
       usb:
         enabled: true
         type: hostPath

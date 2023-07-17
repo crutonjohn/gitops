@@ -90,7 +90,7 @@ spec:
       primary:
         persistence:
           enabled: true
-          existingClaim: nextcloud-db-iscsi
+          existingClaim: nextcloud-db
       volumePermissions:
         enabled: true
       securityContext:
@@ -114,7 +114,7 @@ spec:
       enabled: true
     persistence:
       enabled: true
-      existingClaim: nextcloud-data-iscsi
+      existingClaim: nextcloud-data
       nextcloudData:
         enabled: true
         existingClaim: nextcloud-data-apollo

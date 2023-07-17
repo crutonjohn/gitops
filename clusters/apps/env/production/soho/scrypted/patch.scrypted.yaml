@@ -57,7 +57,7 @@ spec:
       config:
         enabled: true
         mountPath: /server/volume
-        existingClaim: scrypted-config-iscsi
+        existingClaim: scrypted-config
         accessMode: ReadWriteOnce
         skipuninstall: false
       video:

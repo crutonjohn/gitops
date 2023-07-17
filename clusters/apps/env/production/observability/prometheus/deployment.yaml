@@ -52,4 +52,4 @@ spec:
             name: prometheus-config
         - name: prometheus-storage-volume
           persistentVolumeClaim:
-            claimName: prometheus-iscsi
+            claimName: prometheus
