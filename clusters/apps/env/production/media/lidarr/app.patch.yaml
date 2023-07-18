@@ -6,33 +6,13 @@ metadata:
 spec:
   values:
     image:
-      repository: ghcr.io/onedr0p/lidarr-develop
-      tag: rolling
+      repository: youegraillot/lidarr-on-steroids
+      tag: latest
     env:
       TZ: America/New_York
-      # PUID: 1177
-      # PGID: 1177
-      enableAudioScript: true
-      enableVideoScript: false
-      scriptInterval: 15m
-      configureLidarrWithOptimalSettings: true
-      searchSort: date
-      audioFormat: mp3
-      audioBitrate: 320
-      requireQuality: true
-      enableReplaygainTags: true
-      audioLyricType: explicit
-      dlClientSource: deezer
-      arlToken: "${DEEZER_ARL}"
-      addDeezerTopArtists: false
-      addDeezerTopAlbumArtists: false
-      addDeezerTopTrackArtists: false
-      lidarrSearchForMissing: true
-      enableQueueCleaner: true
-      matchDistance: 5
-      retryNotFound: 90
-      enableBeetsTagging: true
-      beetsMatchPercentage: 90
+      PUID: 1177
+      PGID: 1177
+      AUTOCONFIG: "true"
     resources:
       requests:
         cpu: 20m
@@ -44,6 +24,8 @@ spec:
         ports:
           http:
             port: 8686
+          deemix:
+            port: 6595
           metrics:
             enabled: true
             primary: false
@@ -53,10 +35,13 @@ spec:
           prometheus.io/scrape: 'true'
           prometheus.io/port: '9792'
     podSecurityContext:
-      fsGroup: 1177
-      runAsNonRoot: true
-      runAsUser: 1177
-      runAsGroup: 1177
+      # fsGroup: 1177
+      # runAsNonRoot: true
+      # runAsUser: 1177
+      # runAsGroup: 1177
+      runAsNonRoot: false
+      runAsUser: 0
+      runAsGroup: 0
     ingress:
       main:
         enabled: false
@@ -65,14 +50,24 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: "lidarr-config"
+      deemix:
+        enabled: true
+        mountPath: /config_deemix
+        existingClaim: "deemix-config"
       media:
         enabled: true
-        mountPath: /media
+        mountPath: /music
         existingClaim: "music-library-apollo"
-      import:
+      deezer-import:
+        enabled: true
+        mountPath: /downloads
+        existingClaim: "music-sync-apollo"
+        subPath: deezer
+      lidarr-import:
         enabled: true
         mountPath: /import
         existingClaim: "music-sync-apollo"
+        subPath: music
     additionalContainers:
       exporter:
         image: "ghcr.io/onedr0p/exportarr:v1.5.3"
