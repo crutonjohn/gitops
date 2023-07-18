@@ -26,6 +26,9 @@ spec:
             port: 8686
           deemix:
             port: 6595
+            enabled: true
+            primary: false
+            protocol: HTTP
           metrics:
             enabled: true
             primary: false
