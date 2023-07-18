@@ -58,16 +58,14 @@ spec:
         enabled: true
         mountPath: /music
         existingClaim: "music-library-apollo"
-      deezer-import:
+      deemix-import:
         enabled: true
         mountPath: /downloads
-        existingClaim: "music-sync-apollo"
-        subPath: deemix
+        existingClaim: "deemix-import"
       lidarr-import:
         enabled: true
         mountPath: /import
-        existingClaim: "music-sync-apollo"
-        subPath: music
+        existingClaim: "lidarr-import"
     additionalContainers:
       exporter:
         image: "ghcr.io/onedr0p/exportarr:v1.5.3"
