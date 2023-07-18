@@ -62,7 +62,7 @@ spec:
         enabled: true
         mountPath: /downloads
         existingClaim: "music-sync-apollo"
-        subPath: deezer
+        subPath: deemix
       lidarr-import:
         enabled: true
         mountPath: /import
