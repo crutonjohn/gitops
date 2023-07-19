@@ -40,7 +40,7 @@ spec:
     podSecurityContext:
       fsGroup: 1177
       runAsNonRoot: true
-      runAsUser: 1177
+      runAsUser: 0
       runAsGroup: 1177
       # runAsNonRoot: false
       # runAsUser: 0
