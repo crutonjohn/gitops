@@ -12,7 +12,7 @@ spec:
       TZ: America/New_York
       PUID: 1177
       PGID: 1177
-      AUTOCONFIG: "true"
+      AUTOCONFIG: "false"
     resources:
       requests:
         cpu: 20m
