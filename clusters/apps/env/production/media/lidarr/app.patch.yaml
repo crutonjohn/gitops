@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     image:
-      repository: ghcr.io/onedr0p/lidarr-develop
+      repository: ghcr.io/onedr0p/lidarr-plugins
       tag: rolling
       pullPolicy: Always
     env:
