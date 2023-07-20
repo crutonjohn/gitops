@@ -8,6 +8,7 @@ spec:
     image:
       repository: ghcr.io/onedr0p/lidarr-develop
       tag: rolling
+      pullPolicy: Always
     env:
       TZ: America/New_York
       LIDARR__BRANCH: "plugins"
