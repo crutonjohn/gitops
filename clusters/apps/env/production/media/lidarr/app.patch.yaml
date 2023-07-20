@@ -6,13 +6,11 @@ metadata:
 spec:
   values:
     image:
-      repository: hotio/lidarr
-      tag: pr-plugins
+      repository: ghcr.io/onedr0p/lidarr-develop
+      tag: rolling
     env:
       TZ: America/New_York
-      PUID: 1177
-      PGID: 1177
-      AUTOCONFIG: "false"
+      LIDARR__BRANCH: "plugins"
     resources:
       requests:
         cpu: 20m
@@ -34,8 +32,8 @@ spec:
           prometheus.io/port: '9792'
     podSecurityContext:
       fsGroup: 1177
-      runAsNonRoot: false
-      runAsUser: 0
+      runAsNonRoot: true
+      runAsUser: 1177
       runAsGroup: 1177
     ingress:
       main:
