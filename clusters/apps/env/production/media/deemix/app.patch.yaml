@@ -39,7 +39,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        type: emptyDir
+        existingClaim: "deemix-config"
       import:
         enabled: true
         mountPath: /downloads

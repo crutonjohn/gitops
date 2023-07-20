@@ -7,4 +7,4 @@ resources:
   - prowlarr
   - navidrome
   - syncthing
-  # - deemix
+  - deemix
