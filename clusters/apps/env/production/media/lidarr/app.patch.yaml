@@ -11,6 +11,7 @@ spec:
     env:
       TZ: America/New_York
       LIDARR__BRANCH: "plugins"
+      LIDARR__LOG_LEVEL: "debug"
     resources:
       requests:
         cpu: 20m
