@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: thelounge
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+    external-dns/public: "false"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`irc.${FAMILY_DOMAIN}`)"
+      services:
+        - name: thelounge
+          port: 9000
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: irc.${FAMILY_DOMAIN}
