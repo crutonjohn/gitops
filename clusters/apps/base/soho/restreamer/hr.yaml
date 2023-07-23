@@ -22,5 +22,5 @@ spec:
       fullnameOverride: doggy-restreamer
     image:
       repository: jrottenberg/ffmpeg
-      tag: 5.1-vaapi
+      tag: 6.0-vaapi
       pullPolicy: IfNotPresent
