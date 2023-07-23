@@ -5,6 +5,6 @@ metadata:
   name: k8s-sigs-descheduler-charts
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 2h
   url: https://kubernetes-sigs.github.io/descheduler
   timeout: 3m

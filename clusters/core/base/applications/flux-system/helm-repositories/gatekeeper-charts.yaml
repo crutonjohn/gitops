@@ -6,6 +6,6 @@ metadata:
   namespace: flux-system
   creationTimestamp: null
 spec:
-  interval: 30m
+  interval: 2h
   url: https://open-policy-agent.github.io/gatekeeper/charts
   timeout: 3m
