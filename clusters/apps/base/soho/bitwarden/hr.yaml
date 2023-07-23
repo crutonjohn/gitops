@@ -20,6 +20,6 @@ spec:
     image:
       repository: vaultwarden/server
       pullPolicy: IfNotPresent
-      tag: 1.28.1
+      tag: 1.29.0
     nodeSelector:
       kubernetes.io/arch: "amd64"
