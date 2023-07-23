@@ -4,16 +4,16 @@ kind: PersistentVolume
 metadata:
   annotations:
     pv.kubernetes.io/provisioned-by: org.democratic-csi.iscsi
-  name: lidarr-config
+  name: thelounge-config
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 20Gi
+    storage: 1Gi
   claimRef:
     apiVersion: v1
     kind: PersistentVolumeClaim
-    name: lidarr-config
+    name: thelounge-config
     namespace: media
   csi:
     controllerExpandSecretRef:
@@ -31,25 +31,25 @@ spec:
       name: node-stage-secret-freenas-iscsi-csi-iscsi-democratic-csi
       namespace: democratic-csi
     volumeAttributes:
-      iqn: iqn.2005-10.org.freenas.ctl:lidarr
+      iqn: iqn.2005-10.org.freenas.ctl:thelounge
       lun: "0"
       node_attach_driver: iscsi
       portal: 192.168.130.50:3260
       portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260
       provisioner_driver: freenas-api-iscsi
-    volumeHandle: lidarr-config
+    volumeHandle: thelounge-config
   storageClassName: freenas-iscsi-csi
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: lidarr-config
-  namespace: media
+  name: thelounge-config
+  namespace: social
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 1Gi
   storageClassName: freenas-iscsi-csi
-  volumeName: lidarr-config
+  volumeName: thelounge-config
