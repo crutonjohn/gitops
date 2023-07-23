@@ -14,7 +14,7 @@ spec:
     apiVersion: v1
     kind: PersistentVolumeClaim
     name: thelounge-config
-    namespace: media
+    namespace: social
   csi:
     controllerExpandSecretRef:
       name: controller-expand-secret-freenas-iscsi-csi-iscsi-democratic-csi
