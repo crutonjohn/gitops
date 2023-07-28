@@ -63,7 +63,7 @@ spec:
         httpConnection:
           protocol: http
           host: 192.168.130.50
-          port: 8080
+          port: 80
           # use only 1 of apiKey or username/password
           # if both are present, apiKey is preferred
           # apiKey is only available starting in TrueNAS-12
