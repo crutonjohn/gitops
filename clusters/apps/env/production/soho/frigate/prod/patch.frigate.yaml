@@ -62,29 +62,16 @@ spec:
                   threshold: 0.7
             cameras:
               # --
-              kitchen-e1-pro:
+              dining-room:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_sub
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream2
                       roles:
                         - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.64:554/h264Preview_01_main
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream1
                       roles:
                         - record
                         - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
                 detect:
                   height: 360
                   width: 640
@@ -105,72 +92,16 @@ spec:
                   retain:
                     default: 14
               # --
-              sitting-room-e1-pro:
+              living-room:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_sub
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream2
                       roles:
                         - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.65:554/h264Preview_01_main
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream1
                       roles:
                         - record
                         - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
-                detect:
-                  height: 360
-                  width: 640
-                record:
-                  enabled: True
-                  retain_days: 2
-                  events:
-                    retain:
-                      objects:
-                        person: 50
-                        dog: 20
-                    objects:
-                      - person
-                      - dog
-                snapshots:
-                  enabled: True
-                  timestamp: False
-                  retain:
-                    default: 14
-              # --
-              living-room-e1-pro:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_sub
-                      roles:
-                        - detect
-                    - path: rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.66:554/h264Preview_01_main
-                      roles:
-                        - record
-                        - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
                 detect:
                   height: 360
                   width: 640
