@@ -1,0 +1,14 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: iscsi
+spec:
+  values:
+    csiDriver:
+      name: "org.democratic-csi.node-manual"
+    controller:
+      enabled: false
+    driver:
+      config:
+        driver: node-manual
