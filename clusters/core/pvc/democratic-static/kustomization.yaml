@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - authentik.yaml
   - changedetection.yaml
+  - deemix.yaml
   - frigate.yaml
   - hajimari.yaml
   - hassio.yaml
@@ -14,4 +15,5 @@ resources:
   - prometheus.yaml
   - prowlarr.yaml
   - scrypted.yaml
+  - thelounge.yaml
   - zigbee2mqtt.yaml

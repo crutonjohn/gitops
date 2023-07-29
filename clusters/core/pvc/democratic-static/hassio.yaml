@@ -2,42 +2,25 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  annotations:
-    pv.kubernetes.io/provisioned-by: org.democratic-csi.iscsi
   name: home-assistant-config
 spec:
-  accessModes:
-    - ReadWriteOnce
   capacity:
     storage: 50Gi
-  claimRef:
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    name: home-assistant-config
-    namespace: soho
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   csi:
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-iscsi-democratic-csi
-      namespace: democratic-csi
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-iscsi-democratic-cs
-      namespace: democratic-csi
-    driver: org.democratic-csi.iscsi
+    driver: org.democratic-csi.node-manual
+    readOnly: false
     fsType: ext4
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-iscsi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-iscsi-democratic-csi
-      namespace: democratic-csi
+    volumeHandle: home-assistant-config
     volumeAttributes:
       iqn: iqn.2005-10.org.freenas.ctl:homeassistant
       lun: "0"
-      node_attach_driver: iscsi
       portal: 192.168.130.50:3260
-      portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260
-      provisioner_driver: freenas-api-iscsi
-    volumeHandle: home-assistant-config
+      portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260.
+      node_attach_driver: iscsi
+      provisioner_driver: node-manual
   storageClassName: freenas-iscsi-csi
 ---
 kind: PersistentVolumeClaim
