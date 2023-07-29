@@ -8,6 +8,10 @@ spec:
     csiDriver:
       # should be globally unique for a given cluster
       name: "org.democratic-csi.iscsi"
+      attachRequired: true
+    controller:
+      externalAttacher:
+        enabled: true
 
     # add note here about volume expansion requirements
     storageClasses:
