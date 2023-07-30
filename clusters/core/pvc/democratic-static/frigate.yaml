@@ -7,7 +7,7 @@ spec:
   capacity:
     storage: 20Gi
   accessModes:
-    - ReadWriteOncePod
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: org.democratic-csi.node-manual
@@ -21,7 +21,7 @@ spec:
       portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260.
       node_attach_driver: iscsi
       provisioner_driver: node-manual
-  storageClassName: freenas-iscsi-csi
+  storageClassName: democratic-static
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -30,9 +30,9 @@ metadata:
   namespace: soho
 spec:
   accessModes:
-    - ReadWriteOncePod
+    - ReadWriteOnce
   resources:
     requests:
       storage: 20Gi
-  storageClassName: freenas-iscsi-csi
+  storageClassName: democratic-static
   volumeName: frigate-data

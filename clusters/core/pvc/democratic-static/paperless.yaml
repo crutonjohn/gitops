@@ -21,7 +21,7 @@ spec:
       portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260.
       node_attach_driver: iscsi
       provisioner_driver: node-manual
-  storageClassName: freenas-iscsi-csi
+  storageClassName: democratic-static
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -34,7 +34,7 @@ spec:
   resources:
     requests:
       storage: 51Gi
-  storageClassName: freenas-iscsi-csi
+  storageClassName: democratic-static
   volumeName: paperless-data
 ---
 apiVersion: v1
@@ -59,7 +59,7 @@ spec:
       portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260.
       node_attach_driver: iscsi
       provisioner_driver: node-manual
-  storageClassName: freenas-iscsi-csi
+  storageClassName: democratic-static
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -72,5 +72,5 @@ spec:
   resources:
     requests:
       storage: 52Gi
-  storageClassName: freenas-iscsi-csi
+  storageClassName: democratic-static
   volumeName: paperless-media

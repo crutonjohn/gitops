@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: iscsi
+  name: dcsi
 spec:
   values:
     csiDriver:
@@ -16,7 +16,7 @@ spec:
     # add note here about volume expansion requirements
     storageClasses:
       - name: freenas-iscsi-csi
-        defaultClass: true
+        defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: Immediate
         allowVolumeExpansion: true
@@ -121,7 +121,7 @@ spec:
         iscsi:
           targetPortal: "192.168.130.50:3260"
           # for multipath
-          targetPortals: [ "192.168.130.46:3260", "192.168.130.47:3260", "192.168.130.48:3260", "192.168.130.49:3260" ]
+          targetPortals: ["192.168.130.46:3260", "192.168.130.47:3260", "192.168.130.48:3260", "192.168.130.49:3260"]
           # leave empty to omit usage of -I with iscsiadm
           interface: ""
 

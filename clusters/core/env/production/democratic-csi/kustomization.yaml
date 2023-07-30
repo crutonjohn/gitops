@@ -5,3 +5,4 @@ namespace: democratic-csi
 resources:
   - dynamic
   - static
+  - nvmeof

@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: democratic-csi
 resources:
   - ../../../../base/applications/democratic-csi
-nameSuffix: -static
+nameSuffix: -iscsi-static
 patches:
   - path: patch.iscsi.yaml
