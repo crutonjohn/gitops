@@ -6,6 +6,7 @@ metadata:
 spec:
   values:
     csiDriver:
+      attachRequired: false
       name: "org.democratic-csi.node-manual"
     controller:
       enabled: false
