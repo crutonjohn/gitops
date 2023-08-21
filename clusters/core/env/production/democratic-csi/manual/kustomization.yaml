@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: democratic-csi
 resources:
   - ../../../../base/applications/democratic-csi
-nameSuffix: -nvmeof-manual
+nameSuffix: -manual
 patches:
   - path: patch.app.yaml

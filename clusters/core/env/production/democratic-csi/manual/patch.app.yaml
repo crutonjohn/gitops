@@ -10,7 +10,7 @@ spec:
     controller:
       enabled: false
     storageClasses:
-      - name: truenas-iscsi-manual
+      - name: truenas-manual
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
