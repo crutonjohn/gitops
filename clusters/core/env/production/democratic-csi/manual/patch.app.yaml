@@ -9,6 +9,8 @@ spec:
       name: "org.democratic-csi.node-manual"
     controller:
       enabled: false
+      externalAttacher:
+        enabled: true
     storageClasses:
       - name: truenas-manual
         defaultClass: false
