@@ -5,6 +5,6 @@ namespace: democratic-csi
 resources:
   - ../../../../base/applications/democratic-csi
   - secret.yaml
-nameSuffix: -nvmeof
+nameSuffix: -nvmeof-dynamic
 patches:
   - path: patch.app.yaml

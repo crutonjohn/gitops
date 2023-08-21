@@ -9,6 +9,14 @@ spec:
       name: "org.democratic-csi.node-manual"
     controller:
       enabled: false
+    storageClasses:
+      - name: truenas-iscsi-manual
+        defaultClass: false
+        reclaimPolicy: Delete
+        volumeBindingMode: WaitForFirstConsumer
+        allowVolumeExpansion: true
+        parameters:
+          fsType: ext4
     driver:
       config:
         driver: node-manual
