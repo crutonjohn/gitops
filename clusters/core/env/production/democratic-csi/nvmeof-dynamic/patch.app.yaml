@@ -34,7 +34,7 @@ spec:
       - name: truenas-nvmeof-dynamic
         defaultClass: true
         reclaimPolicy: Delete
-        volumeBindingMode: WaitForFirstConsumer
+        volumeBindingMode: Immediate
         allowVolumeExpansion: true
         parameters:
           fsType: ext4
