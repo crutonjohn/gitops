@@ -5,14 +5,12 @@ kind: HelmRelease
 metadata:
   name: dcsi
   annotations:
-    secret.reloader.stakater.com/reload: &secret dcsi-nvmeof
+    secret.reloader.stakater.com/reload: &secret dcsi-nvmeof-dynamic
 spec:
   values:
     controller:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
-      externalAttacher:
-        enabled: true
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:next
         logLevel: debug
