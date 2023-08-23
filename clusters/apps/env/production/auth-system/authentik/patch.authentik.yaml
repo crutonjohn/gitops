@@ -40,7 +40,7 @@ spec:
       serviceMonitor:
         create: false
     geoip:
-      enabled: true
+      enabled: false
       accountId: "${MAXMIND_GEOIP_ACCOUNT_ID}"
       licenseKey: "${MAXMIND_GEOIP_LICENSE_KEY}"
     authentik:
