@@ -23,4 +23,4 @@ spec:
         tag: v0.83.0
       collectorImage:
         repository: otel/opentelemetry-collector-contrib
-        tag: 0.81.0
+        tag: 0.83.0
