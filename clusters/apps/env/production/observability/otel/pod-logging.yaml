@@ -5,7 +5,7 @@ metadata:
   name: pod-logging
 spec:
   mode: daemonset
-  image: otel/opentelemetry-collector-contrib:0.81.0
+  image: otel/opentelemetry-collector-contrib:0.83.0
   nodeSelector:
     kubernetes.io/arch: amd64
   volumeMounts:
