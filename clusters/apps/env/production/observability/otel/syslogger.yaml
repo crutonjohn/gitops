@@ -80,7 +80,6 @@ spec:
     service:
       extensions:
         - health_check
-        - file_storage
         - memory_ballast
       telemetry:
         metrics:
