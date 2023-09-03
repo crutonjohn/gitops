@@ -9,10 +9,8 @@ spec:
       enabled: true
     resources:
       limits:
-        cpu: 100m
-        memory: 250Mi
+        memory: 300Mi
       requests:
-        cpu: 20m
         memory: 200Mi
     replicaCount: 3
     recreatePods: true
@@ -49,7 +47,7 @@ spec:
     persistence:
       enabled: true
       size: 100Mi
-      storageClass: "freenas-iscsi-csi"
+      storageClass: "truenas-nvmeof-dynamic"
       accessMode: ReadWriteOnce
     affinity:
       podAntiAffinity:
