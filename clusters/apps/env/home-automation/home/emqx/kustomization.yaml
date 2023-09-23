@@ -1,0 +1,8 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/home/emqx
+  - ingressroute.emqx.yaml
+patches:
+  - path: patch.emqx.yaml

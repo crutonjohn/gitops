@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+spec:
+  values:
+    prometheus:
+      serviceAccount: "kube-prometheus-kube-prome-prometheus"
+      namespace: "observability"
+      podMonitor:
+        enabled: false
+      prometheusRule:
+        enabled: false
+    controller:
+      prometheus:
+        serviceMonitor:
+          enabled: false
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 32m
+          memory: 71M
+    speaker:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 68m
+          memory: 108M
+    crds:
+      enabled: true

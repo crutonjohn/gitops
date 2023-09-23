@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteMany
   claimRef:
-    namespace: soho
+    namespace: home
     name: paperless-export-apollo
   storageClassName: apollo
   nfs:
@@ -20,7 +20,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: paperless-export
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteMany
@@ -39,7 +39,7 @@ spec:
   accessModes:
     - ReadWriteMany
   claimRef:
-    namespace: soho
+    namespace: home
     name: paperless-consume-apollo
   storageClassName: apollo
   nfs:
@@ -50,7 +50,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: paperless-consume
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteMany

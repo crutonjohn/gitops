@@ -1,29 +1,5 @@
 ---
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: authentik-db
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: org.democratic-csi.node-manual
-    readOnly: false
-    fsType: ext4
-    volumeHandle: authentik-db
-    volumeAttributes:
-      iqn: iqn.2005-10.org.freenas.ctl:authentik
-      lun: "0"
-      portal: 192.168.130.50:3260
-      portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260.
-      node_attach_driver: iscsi
-      provisioner_driver: node-manual
-  storageClassName: democratic-static
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: authentik-db
@@ -34,5 +10,30 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: democratic-static
-  volumeName: authentik-db
+  volumeName: authentik-nvmeof
+  storageClassName: truenas-manual
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: authentik-nvmeof
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: truenas-manual
+  mountOptions: []
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: ext4
+    volumeHandle: authentik-nvmeof
+    volumeAttributes:
+      transport: tcp://192.168.130.49:4420
+      # transports: <transport>,<transport>,...
+      nqn: authentik
+      nsid: "1"
+      node_attach_driver: "nvmeof"
+      provisioner_driver: node-manual

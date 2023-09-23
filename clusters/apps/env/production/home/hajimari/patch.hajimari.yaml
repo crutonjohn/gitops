@@ -1,0 +1,92 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hajimari
+spec:
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: true
+    resources:
+      requests:
+        memory: 20Mi
+        cpu: 11m
+      limits:
+        memory: 50Mi
+        cpu: 50m
+    ingress:
+      main:
+        enabled: false
+        ingressClassName: "traefik-external"
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+        hosts:
+          - host: start.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "start.${SECRET_DOMAIN}"
+            secretName: "crj-wildcard-certificate"
+    env:
+      TZ: "America/New_York"
+    persistence:
+      data:
+        enabled: true
+        existingClaim: hajimari-config
+        storageClass: "longhorn"
+    hajimari:
+      defaultEnable: false
+      namespaceSelector:
+        matchNames:
+          - media
+          - home
+          - longhorn-system
+          - observability
+          - network-system
+      name: "Curtis"
+      customApps:
+        - name: OpnSense
+          url: 'https://router.${SECRET_DOMAIN}'
+          icon: "router-network"
+        - name: OctoPrint
+          url: 'http://octopi.${SECRET_DOMAIN}'
+          icon: "printer-3d"
+      groups:
+        - name: Development
+          links:
+            - name: Github
+              url: 'https://github.com'
+            - name: Rennovate Dashboard
+              url: 'https://github.com/crutonjohn/gitops/issues/216'
+            - name: Cluster Repo
+              url: 'https://github.com/crutonjohn/gitops'
+        - name: Communication
+          links:
+            - name: Discord
+              url: 'https://discord.gg'
+            - name: E-Mail
+              url: 'https://beta.protonmail.com'
+        - name: Cloud
+          links:
+            - name: Bytesized Hosting
+              url: 'https://bytesized-hosting.com'
+            - name: AWS Console
+              url: 'https://console.aws.amazon.com'
+            - name: Gandi
+              url: 'https://gandi.net'
+        - name: Reading
+          links:
+            - name: Reddit
+              url: 'https://old.reddit.com'
+        - name: Social Media
+          links:
+            - name: Twitter
+              url: 'https://twitter.com'
+        - name: News
+          links:
+            - name: Hacker News
+              url: "https://news.ycombinator.com/"

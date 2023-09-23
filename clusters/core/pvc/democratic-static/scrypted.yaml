@@ -27,7 +27,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: scrypted-config
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteOnce

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-db
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteOnce
@@ -16,7 +16,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-data
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteOnce

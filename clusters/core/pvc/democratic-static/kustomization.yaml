@@ -7,13 +7,13 @@ resources:
   - deemix.yaml
   - frigate.yaml
   - hajimari.yaml
-  - hassio.yaml
+  # - hassio.yaml
   - lidarr.yaml
   - navidrome.yaml
-  - nextcloud.yaml
-  - paperless.yaml
+  # - nextcloud.yaml
+  # - paperless.yaml
   - prometheus.yaml
   - prowlarr.yaml
-  - scrypted.yaml
+  # - scrypted.yaml
   - thelounge.yaml
-  - zigbee2mqtt.yaml
+  # - zigbee2mqtt.yaml

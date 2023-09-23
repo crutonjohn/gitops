@@ -27,7 +27,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: paperless-data
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteOnce
@@ -65,7 +65,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: paperless-media
-  namespace: soho
+  namespace: home
 spec:
   accessModes:
     - ReadWriteOnce

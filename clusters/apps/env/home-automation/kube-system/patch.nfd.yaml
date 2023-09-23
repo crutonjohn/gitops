@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-feature-discovery
+spec:
+  values:
+    master:
+      replicaCount: 2
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 32m
+          memory: 106M
+    worker:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 53M
+        limits:
+          cpu: 32m
+          memory: 69M
+      nodeSelector:
+        kubernetes.io/arch: "amd64"
+      config:
+        core:
+          sleepInterval: 60s
+          sources:
+            - custom
+            - pci
+            - usb
+        sources:
+          usb:
+            deviceClassWhitelist:
+              - '02'
+              - '03'
+              - '0e'
+              - 'ef'
+              - 'fe'
+              - 'ff'
+            deviceLabelFields:
+              - 'class'
+              - 'vendor'
+              - 'device'
+          pci:
+            deviceClassWhitelist:
+              - "0300"
+              - "0880"
+            deviceLabelFields:
+              - 'class'
+              - 'vendor'
+              - 'device'
+          custom:
+            - name: 'cyberpower-ups'
+              matchOn:
+                - usbId:
+                    class: ['03']
+                    vendor: ['0764']
+                    device: ['0601']
+            - name: 'zzh'
+              matchOn:
+                - usbId:
+                    class: ['ff']
+                    vendor: ['1a86']
+                    device: ['7523']
+            - name: 'coral-tpu'
+              matchOn:
+                - pciId:
+                    vendor: ['1ac1']
+                    device: ['089a']
+            - name: 'intel-gpu'
+              matchOn:
+                - pciId:
+                    vendor: ['8086']
+                    device: ['1912']

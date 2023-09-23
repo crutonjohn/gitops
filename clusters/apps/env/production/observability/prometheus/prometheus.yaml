@@ -25,7 +25,7 @@ scrape_configs:
       credentials: "${PROMETHEUS_HOME_ASSISTANT_TOKEN}"
     scheme: http
     static_configs:
-      - targets: ['home-assistant.soho.svc.cluster.local:8123']
+      - targets: ['home-assistant.home.svc.cluster.local:8123']
     relabel_configs:
       - target_label: instance
         replacement: home-assistant

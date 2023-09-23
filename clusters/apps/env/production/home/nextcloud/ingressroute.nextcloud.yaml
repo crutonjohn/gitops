@@ -1,0 +1,50 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: cloud.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`cloud.${FAMILY_DOMAIN}`)"
+      services:
+        - name: nextcloud
+          port: 8080
+      middlewares:
+        - name: nextcloud-dav
+          namespace: home
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: cloud.${FAMILY_DOMAIN}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nextcloud-dav
+spec:
+  redirectRegex:
+    permanent: true
+    regex: ^https://(.*)/.well-known/(card|cal)dav
+    replacement: https://${1}/remote.php/dav/
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: nextcloud
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: cloud.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

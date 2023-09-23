@@ -1,0 +1,32 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin+letsencrypt@curtisrayjohn.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+      - selector:
+          dnsNames:
+            - "*.${SECRET_DOMAIN}"
+            - "${SECRET_DOMAIN}"
+        dns01:
+          route53:
+            region: us-east-2
+      - selector:
+          dnsNames:
+            - "*.${FAMILY_DOMAIN}"
+            - "${FAMILY_DOMAIN}"
+        dns01:
+          webhook:
+            groupName: linode-dns.${FAMILY_DOMAIN}
+            solverName: linode
+            config:
+              # apiKey: ${CERT_MANAGER_LINODE_API_TOKEN}
+              apiKeySecretRef:
+                name: linode-credentials
+                key: token

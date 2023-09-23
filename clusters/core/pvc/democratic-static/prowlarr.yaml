@@ -1,30 +1,6 @@
 ---
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: prowlarr-config
-spec:
-  capacity:
-    storage: 700Mi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: org.democratic-csi.node-manual
-    readOnly: false
-    fsType: ext4
-    volumeHandle: prowlarr-config
-    volumeAttributes:
-      iqn: iqn.2005-10.org.freenas.ctl:prowlarr
-      lun: "0"
-      portal: 192.168.130.50:3260
-      portals: 192.168.130.46:3260,192.168.130.47:3260,192.168.130.48:3260,192.168.130.49:3260.
-      node_attach_driver: iscsi
-      provisioner_driver: node-manual
-  storageClassName: democratic-static
----
 kind: PersistentVolumeClaim
-apiVersion: v1
 metadata:
   name: prowlarr-config
   namespace: media
@@ -34,5 +10,30 @@ spec:
   resources:
     requests:
       storage: 700Mi
-  storageClassName: democratic-static
-  volumeName: prowlarr-config
+  volumeName: prowlarr-nvmeof
+  storageClassName: truenas-manual
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prowlarr-nvmeof
+spec:
+  capacity:
+    storage: 700Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: truenas-manual
+  mountOptions: []
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: ext4
+    volumeHandle: prowlarr-nvmeof
+    volumeAttributes:
+      transport: tcp://192.168.130.49:4420
+      # transports: <transport>,<transport>,...
+      nqn: prowlarr
+      nsid: "1"
+      node_attach_driver: "nvmeof"
+      provisioner_driver: node-manual
