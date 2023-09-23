@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m0s
-  path: ./clusters/env/home-automation/config
+  path: ./clusters/env/production/config
   prune: false
   sourceRef:
     kind: GitRepository
@@ -28,7 +28,7 @@ spec:
     - name: secrets
     - name: namespaces
     - name: crds
-  path: ./clusters/apps/env/home-automation
+  path: ./clusters/apps/env/production
   prune: true
   sourceRef:
     kind: GitRepository
@@ -57,7 +57,7 @@ spec:
     - name: secrets
     - name: namespaces
     - name: crds
-  path: ./clusters/core/env/home-automation
+  path: ./clusters/core/env/production
   prune: false
   sourceRef:
     kind: GitRepository
@@ -97,7 +97,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h0m0s
-  path: ./clusters/core/base/namespaces/home-automation
+  path: ./clusters/core/base/namespaces/production
   prune: false
   sourceRef:
     kind: GitRepository
