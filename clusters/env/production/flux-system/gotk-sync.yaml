@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/env/production
+  path: ./clusters/env/home-automation
   prune: true
   sourceRef:
     kind: GitRepository
