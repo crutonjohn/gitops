@@ -4,16 +4,28 @@ kind: HelmRelease
 metadata:
   name: zigbee2mqtt
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
-      chart: zigbee2mqtt
-      version: 9.4.2
+      chart: app-template
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: mosquitto
+      namespace: default
   values:
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
