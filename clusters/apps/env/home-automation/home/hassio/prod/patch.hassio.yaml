@@ -42,7 +42,7 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: home-assistant-config
-        accessMode: ReadWriteMany
+        accessMode: ReadWriteOnce
         skipuninstall: false
       backups:
         enabled: true

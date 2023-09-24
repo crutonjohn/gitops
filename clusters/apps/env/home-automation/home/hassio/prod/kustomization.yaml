@@ -5,7 +5,5 @@ resources:
   - ../../../../../base/home/hassio
   - code.enc.yaml
   - hass.enc.yaml
-  - ingressroute.hass.yaml
-  - ingressroute.hass-codeserver.yaml
 patches:
   - path: patch.hassio.yaml
