@@ -57,6 +57,7 @@ spec:
       runAsGroup: 994
       fsGroup: 994
       fsGroupChangePolicy: OnRootMismatch
+      privileged: true
     persistence:
       config:
         enabled: true
