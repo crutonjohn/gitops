@@ -15,20 +15,20 @@ spec:
     /*
     # include deploy crds dir
     !/config
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
-  name: otel-operator-crds
-  namespace: flux-system
-spec:
-  interval: 15m
-  path: config/default/
-  prune: false
-  sourceRef:
-    kind: GitRepository
-    name: otel-operator-source
-  healthChecks:
-    - apiVersion: apiextensions.k8s.io/v1
-      kind: CustomResourceDefinition
-      name: opentelemetrycollector.opentelemetry.io/v1alpha1
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+# kind: Kustomization
+# metadata:
+#   name: otel-operator-crds
+#   namespace: flux-system
+# spec:
+#   interval: 15m
+#   path: config/default/
+#   prune: false
+#   sourceRef:
+#     kind: GitRepository
+#     name: otel-operator-source
+#   healthChecks:
+#     - apiVersion: apiextensions.k8s.io/v1
+#       kind: CustomResourceDefinition
+#       name: opentelemetrycollector.opentelemetry.io/v1alpha1
