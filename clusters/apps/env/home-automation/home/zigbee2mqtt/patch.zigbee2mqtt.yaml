@@ -68,6 +68,12 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /dev/ttyUSB0
+      hack:
+        enabled: true
+        type: hostPath
+        accessMode: ReadWriteOnce
+        hostPath: /srv/z2m-hack
+        mountPath: /app
     resources:
       requests:
         cpu: 20m
