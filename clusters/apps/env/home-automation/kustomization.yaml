@@ -5,5 +5,5 @@ resources:
   - flux-system
   - kube-system
   - network-system
-  - observability
+  # - observability
   - home
