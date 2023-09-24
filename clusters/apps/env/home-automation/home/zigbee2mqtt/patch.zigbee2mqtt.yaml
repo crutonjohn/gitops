@@ -52,11 +52,13 @@ spec:
     ingress:
       main:
         enabled: false
-    # podSecurityContext:
-    #   runAsUser: 994
-    #   runAsGroup: 994
-    #   fsGroup: 994
-    #   fsGroupChangePolicy: OnRootMismatch
+    securityContext:
+      privileged: true
+    podSecurityContext:
+      runAsUser: 994
+      runAsGroup: 994
+      fsGroup: 994
+      fsGroupChangePolicy: OnRootMismatch
     #   privileged: true
     persistence:
       config:
