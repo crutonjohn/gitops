@@ -52,11 +52,9 @@ spec:
     ingress:
       main:
         enabled: false
-    command: ["sleep"]
-    args: ["3600"]
     podSecurityContext:
       runAsUser: 994
-      runAsGroup: 994
+      runAsGroup: 20
       fsGroup: 994
       fsGroupChangePolicy: OnRootMismatch
     persistence:
