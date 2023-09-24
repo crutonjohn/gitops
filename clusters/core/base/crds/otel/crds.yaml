@@ -22,6 +22,7 @@ metadata:
   name: otel-operator-crds
   namespace: flux-system
 spec:
+  path: config/crd/
   interval: 15m
   prune: false
   sourceRef:
