@@ -24,6 +24,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
+  path: config/default/
   prune: false
   sourceRef:
     kind: GitRepository
