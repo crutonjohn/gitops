@@ -47,7 +47,7 @@ spec:
       backups:
         enabled: true
         mountPath: /backups
-        existingClaim: home-assistant-backups-apollo
+        existingClaim: home-assistant-backups
         accessMode: ReadWriteOnce
         skipuninstall: false
     addons:
