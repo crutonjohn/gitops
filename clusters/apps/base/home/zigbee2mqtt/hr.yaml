@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: mosquitto
-      namespace: default
+      namespace: home
   values:
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
