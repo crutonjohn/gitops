@@ -14,7 +14,7 @@ spec:
     # exclude all
     /*
     # include deploy crds dir
-    !/config/crd
+    !/config/default
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -22,7 +22,6 @@ metadata:
   name: otel-operator-crds
   namespace: flux-system
 spec:
-  path: config/crd/
   interval: 15m
   prune: false
   sourceRef:
