@@ -54,7 +54,8 @@ spec:
         enabled: false
     podSecurityContext:
       runAsUser: 994
-      runAsGroup: 20
+      runAsGroup: 994
+      supplementalGroups: 20
       fsGroup: 994
       fsGroupChangePolicy: OnRootMismatch
     persistence:
