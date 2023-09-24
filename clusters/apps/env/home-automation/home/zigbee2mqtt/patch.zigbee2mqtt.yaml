@@ -176,7 +176,7 @@ spec:
         type: hostPath
         accessMode: ReadWriteOnce
         hostPath: /srv/z2m
-        mountPath: /data
+        mountPath: /config
       usb:
         enabled: true
         type: hostPath
