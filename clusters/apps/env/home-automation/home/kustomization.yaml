@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: home
 resources:
   - amcrest2mqtt
-  - emqx
+  - mosquitto
   - hassio
   - zigbee2mqtt
   - scrypted
