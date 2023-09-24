@@ -56,10 +56,10 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /server/volume
-        existingClaim: scrypted-config
+        type: hostPath
         accessMode: ReadWriteOnce
-        skipuninstall: false
+        hostPath: /srv/scrypted
+        mountPath: /server/volume
       video:
         enabled: true
         type: hostPath
