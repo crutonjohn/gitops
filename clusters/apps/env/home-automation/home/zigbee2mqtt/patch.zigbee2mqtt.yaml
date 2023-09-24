@@ -55,10 +55,11 @@ spec:
     command: ["sleep"]
     args: ["3600"]
     podSecurityContext:
-      runAsUser: 0
-      runAsGroup: 0
+      runAsUser: 994
+      runAsGroup: 994
       supplementalGroups: [20]
-      fsGroup: 0
+      fsGroup: 994
+    securityContext:
       privileged: true
     persistence:
       config:
