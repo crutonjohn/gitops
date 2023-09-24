@@ -52,8 +52,6 @@ spec:
     ingress:
       main:
         enabled: false
-    command: ["sleep"]
-    args: ["3600"]
     podSecurityContext:
       runAsUser: 994
       runAsGroup: 994
