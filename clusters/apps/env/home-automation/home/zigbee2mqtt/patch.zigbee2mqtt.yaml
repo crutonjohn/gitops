@@ -60,6 +60,7 @@ spec:
       supplementalGroups: [20]
       fsGroup: 994
       fsGroupChangePolicy: OnRootMismatch
+      privileged: true
     persistence:
       config:
         enabled: true
