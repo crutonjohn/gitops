@@ -19,7 +19,7 @@ spec:
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
         parameters:
-          fsType: ext4
+          fsType: xfs
     driver:
       config:
         driver: node-manual
