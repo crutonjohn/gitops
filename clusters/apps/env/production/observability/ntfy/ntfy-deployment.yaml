@@ -51,4 +51,4 @@ spec:
             name: server-config
         - name: cache-volume
           persistentVolumeClaim:
-            claimName: ntfy-cache
+            claimName: ntfy

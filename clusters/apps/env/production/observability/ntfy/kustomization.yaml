@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ntfy-deployment.yaml
   - ntfy-svc.yaml
-  - ntfy-pvc.yaml
   - ntfy-ingress.yaml
 configMapGenerator:
   - name: server-config
