@@ -23,7 +23,7 @@ spec:
         parameters:
           # for block-based storage can be ext3, ext4, xfs
           # for nfs should be nfs
-          fsType: ext4
+          fsType: xfs
 
           # if true, volumes created from other snapshots will be
           # zfs send/received instead of zfs cloned

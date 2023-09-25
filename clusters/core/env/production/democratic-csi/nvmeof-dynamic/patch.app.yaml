@@ -37,7 +37,7 @@ spec:
         volumeBindingMode: Immediate
         allowVolumeExpansion: true
         parameters:
-          fsType: ext4
+          fsType: xfs
     driver:
       config:
         driver: zfs-generic-nvmeof
