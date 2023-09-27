@@ -24,6 +24,8 @@ spec:
         ports:
           http:
             port: 8123
+        annotations:
+          service.cilium.io/global: "true"
     ingress:
       main:
         enabled: false
@@ -86,6 +88,9 @@ spec:
             - hosts:
                 - "hass-config.${SECRET_DOMAIN}"
               secretName: "crj-wildcard-certificate"
+          service:
+            annotations:
+              service.cilium.io/global: "true"
         volumeMounts:
           - name: config
             mountPath: /config
