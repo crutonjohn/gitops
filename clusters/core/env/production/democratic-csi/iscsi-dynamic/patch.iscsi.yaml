@@ -5,6 +5,8 @@ metadata:
   name: dcsi
 spec:
   values:
+    node:
+      kubeletHostPath: /var/lib/k0s/kubelet
     csiDriver:
       # should be globally unique for a given cluster
       name: "org.democratic-csi.iscsi"

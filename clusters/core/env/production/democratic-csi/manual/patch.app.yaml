@@ -23,3 +23,5 @@ spec:
     driver:
       config:
         driver: node-manual
+    node:
+      kubeletHostPath: /var/lib/k0s/kubelet
