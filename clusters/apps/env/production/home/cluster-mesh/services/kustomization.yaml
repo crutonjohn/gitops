@@ -5,6 +5,6 @@ commonAnnotations:
   service.cilium.io/global: "true"
   service.cilium.io/shared: "false"
 resources:
-  - home-assistant
-  - home-assistant-codeserver
-  - zigbee2mqtt
+  - home-assistant.yaml
+  - home-assistant-codeserver.yaml
+  - zigbee2mqtt.yaml
