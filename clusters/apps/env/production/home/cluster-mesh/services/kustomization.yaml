@@ -4,6 +4,7 @@ kind: Kustomization
 commonAnnotations:
   service.cilium.io/global: "true"
   service.cilium.io/shared: "false"
+  traefik.ingress.kubernetes.io/service.nativelb: "true"
 resources:
   - home-assistant.yaml
   - home-assistant-codeserver.yaml
