@@ -21,6 +21,7 @@ spec:
       services:
         - name: zigbee2mqtt
           port: 8080
+          nativeLB: true
     - kind: Rule
       match: "Host(`zigbee.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15

@@ -17,11 +17,13 @@ spec:
       services:
         - name: home-assistant
           port: 8123
+          nativeLB: true
     - kind: Rule
       match: "Host(`home.${FAMILY_DOMAIN}`)"
       services:
         - name: home-assistant
           port: 8123
+          nativeLB: true
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:

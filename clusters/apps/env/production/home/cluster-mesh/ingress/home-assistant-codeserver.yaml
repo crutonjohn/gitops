@@ -21,6 +21,7 @@ spec:
       services:
         - name: home-assistant-codeserver
           port: 12321
+          nativeLB: true
     - kind: Rule
       match: "Host(`hass-config.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 15
