@@ -19,5 +19,5 @@ spec:
   values:
     image:
       name: traefik
-      tag: 2.6.0
+      tag: 2.10.4
       pullPolicy: IfNotPresent
