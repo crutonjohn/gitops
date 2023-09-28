@@ -362,6 +362,8 @@ spec:
         enabled: false
     service:
       main:
+        annotations:
+          service.cilium.io/global: "true"
         ports:
           rtmp-tcp:
             enabled: true
