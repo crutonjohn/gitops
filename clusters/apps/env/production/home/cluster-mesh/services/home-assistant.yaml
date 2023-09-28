@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-assistant
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: http
+      port: 8123
+      targetPort: http
+  selector:
+    app.kubernetes.io/instance: home-assistant
+    app.kubernetes.io/name: home-assistant
