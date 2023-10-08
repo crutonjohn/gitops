@@ -92,6 +92,36 @@ spec:
                   retain:
                     default: 14
               # --
+              kitchen:
+                ffmpeg:
+                  inputs:
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream2
+                      roles:
+                        - detect
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream1
+                      roles:
+                        - record
+                        - rtmp
+                detect:
+                  height: 360
+                  width: 640
+                record:
+                  enabled: True
+                  retain_days: 2
+                  events:
+                    retain:
+                      objects:
+                        person: 50
+                        dog: 20
+                    objects:
+                      - person
+                      - dog
+                snapshots:
+                  enabled: True
+                  timestamp: False
+                  retain:
+                    default: 14
+              # --
               living-room:
                 ffmpeg:
                   inputs:
@@ -99,6 +129,36 @@ spec:
                       roles:
                         - detect
                     - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream1
+                      roles:
+                        - record
+                        - rtmp
+                detect:
+                  height: 360
+                  width: 640
+                record:
+                  enabled: True
+                  retain_days: 2
+                  events:
+                    retain:
+                      objects:
+                        person: 50
+                        dog: 20
+                    objects:
+                      - person
+                      - dog
+                snapshots:
+                  enabled: True
+                  timestamp: False
+                  retain:
+                    default: 14
+              # --
+              nursery:
+                ffmpeg:
+                  inputs:
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream2
+                      roles:
+                        - detect
+                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream1
                       roles:
                         - record
                         - rtmp
