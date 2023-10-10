@@ -2,24 +2,24 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: authentik-db
-  namespace: auth-system
+  name: ntfy
+  namespace: observability
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
-  volumeName: authentik-nvmeof
+      storage: 1Gi
+  volumeName: ntfy-nvmeof
   storageClassName: truenas-manual
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: authentik-nvmeof
+  name: ntfy-nvmeof
 spec:
   capacity:
-    storage: 20Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
@@ -29,11 +29,11 @@ spec:
     driver: org.democratic-csi.node-manual
     readOnly: false
     fsType: xfs
-    volumeHandle: authentik-nvmeof
+    volumeHandle: ntfy-nvmeof
     volumeAttributes:
       transport: tcp://192.168.130.49:4420
       # transports: <transport>,<transport>,...
-      nqn: authentik
+      nqn: ntfy
       nsid: "1"
       node_attach_driver: "nvmeof"
       provisioner_driver: node-manual
