@@ -1,1 +1,0 @@
-SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{% ansible_default_ipv4.macaddress %}", ATTR{type}=="1", KERNEL=="enp*", NAME="enp1s0"

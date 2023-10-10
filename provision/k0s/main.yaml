@@ -1,0 +1,99 @@
+---
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: main
+spec:
+  hosts:
+    - ssh:
+        address: 192.168.130.131
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: controller+worker
+      files:
+        - name: kube-vip
+          src: kube-vip.yaml
+          dstDir: /var/lib/k0s/manifests/
+          perm: 0600
+    - ssh:
+        address: 192.168.130.132
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: controller+worker
+    - ssh:
+        address: 192.168.130.133
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: controller+worker
+    - ssh:
+        address: 192.168.130.151
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: worker
+    - ssh:
+        address: 192.168.130.152
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: worker
+    - ssh:
+        address: 192.168.130.154
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: worker
+    - ssh:
+        address: 192.168.130.155
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: worker
+  k0s:
+    version: 1.27.6+k0s.0
+    dynamicConfig: false
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: Cluster
+      metadata:
+        name: k0s-main
+      spec:
+        api:
+          externalAddress: 192.168.130.131
+          sans:
+            - 192.168.130.130
+            - 192.168.130.131
+            - 192.168.130.132
+            - 192.168.130.133
+          k0sApiPort: 9443
+          port: 6443
+        installConfig:
+          users:
+            etcdUser: etcd
+            kineUser: kube-apiserver
+            konnectivityUser: konnectivity-server
+            kubeAPIserverUser: kube-apiserver
+            kubeSchedulerUser: kube-scheduler
+        konnectivity:
+          adminPort: 8133
+          agentPort: 8132
+        network:
+          kubeProxy:
+            disabled: true
+          kuberouter:
+            autoMTU: true
+            mtu: 0
+            peerRouterASNs: ""
+            peerRouterIPs: ""
+          podCIDR: 10.42.0.0/16
+          provider: custom
+          serviceCIDR: 10.43.0.0/16
+        podSecurityPolicy:
+          defaultPolicy: 00-k0s-privileged
+        storage:
+          type: etcd
+        telemetry:
+          enabled: false

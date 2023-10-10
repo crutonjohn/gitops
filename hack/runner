@@ -6,120 +6,44 @@ set -euo pipefail
 
 git_root=$(git rev-parse --show-toplevel)
 
-#############################################
-# Does everything:
-# go installs `gilt`
-# overlays flux-cluster-template repo
-# installs ansible roles and collections
-# ansible installs k3s
-# runs flux bootstrap
-# walks your dog
-# files your taxes
-#############################################
-full_send() {
-  init
-  helm_template_cilium
-  ansible_prep_cluster
-  ansible_install_cluster
-  flux_bootstrap
-  sops_create_secret
-  create_storage_volumes
+k0s_install_main() {
+  k0sctl apply --config provision/k0s/main.yaml --no-wait
 }
 
-init() {
-  gilt
-  ansible_galaxy_install
+k0s_install_casa() {
+  k0sctl apply --config provision/k0s/casa.yaml --no-wait
 }
 
-shortcut() {
-  init
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
-}
-
-ansible_galaxy_install() {
-  nix-shell --run 'ansible-galaxy -vvvv collection install -r provision/ansible/requirements.yml --force'
-  nix-shell --run 'ansible-galaxy -vvvv role install -r provision/ansible/requirements.yml --force'
-}
-
-ansible_install_cluster() {
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yml'
-}
-
-ansible_prep_cluster() {
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/ubuntu-prepare.yml'
-}
-
-gilt() {
-  go install github.com/retr0h/go-gilt@latest
-  gilt_overlay
-}
-
-gilt_overlay() {
-  /home/crutonjohn/go/bin/go-gilt overlay
-  src_dir=$git_root/provision
-  dest_dir=$src_dir/ansible
-  echo "copying customizations from $src_dir to $dest_dir locations"
-  sleep 3
-
-  echo "copying $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml"
-  sleep 3
-  cp -v $src_dir/vars/inventory.yaml $dest_dir/inventory/inventory.yaml
-
-  echo "copying $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml"
-  sleep 3
-  cp -v $src_dir/vars/kube-vip.yaml $dest_dir/inventory/group_vars/kubernetes/kube-vip.yaml
-
-  echo "copying $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml"
-  sleep 3
-  cp -v $src_dir/vars/k3s-master.yaml $dest_dir/inventory/group_vars/master/k3s.yml
-
-  echo "copying $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml"
-  sleep 3
-  cp -v $src_dir/vars/kubernetes-k3s.yml $dest_dir/inventory/group_vars/kubernetes/k3s.yml
-
-  echo "copying $src_dir/templates/*.j2 $dest_dir/playbooks/templates/"
-  sleep 3
-  cp -v $src_dir/templates/*.j2 $dest_dir/playbooks/templates/
-
-  echo "copying $src_dir/vars/ubuntu/tasks/*.yml $dest_dir/roles/ubuntu/tasks/"
-  sleep 3
-  cp -v $src_dir/vars/ubuntu/tasks/*.yml $dest_dir/roles/ubuntu/tasks/
-
-  echo "copying requirements.yaml"
-  sleep 3
-  cp -v $src_dir/requirements.yml $dest_dir/
-
-  echo "Done!"
-
-}
-
-nuke() {
-  ansible_nuke_cluster
-}
-
-ansible_nuke_cluster() {
-  nix-shell --run 'ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-nuke.yml'
-}
-
-flux_bootstrap() {
+flux_bootstrap_main() {
   flux bootstrap github \
     --components=source-controller,kustomize-controller,helm-controller,notification-controller \
     --path=clusters/env/production \
     --version=latest \
     --owner=crutonjohn \
-    --repository=gitops
+    --repository=gitops \
+    --context=main
+}
+
+flux_bootstrap_casa() {
+  flux bootstrap github \
+    --components=source-controller,kustomize-controller,helm-controller,notification-controller \
+    --path=clusters/env/home-automation \
+    --version=latest \
+    --owner=crutonjohn \
+    --repository=gitops \
+    --context=casa
 }
 
 sops_create_secret() {
   sops -d sops-aws.enc.yaml | kubectl apply -f -
 }
 
-create_storage_volumes() {
-  kustomize build clusters/core/pvc/ | kubectl apply -f -
+cilium_install_main() {
+  cilium install -f provision/cilium/main.yaml --context=main
 }
 
-helm_template_cilium() {
-  helm template cilium cilium/cilium -f provision/templates/cilium.yaml -n kube-system > provision/templates/kube-cilium-manifests.yaml.j2
+cilium_install_casa() {
+  cilium install -f provision/cilium/casa.yaml --context=casa
 }
 
 shutdown() {

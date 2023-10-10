@@ -1,11 +1,12 @@
+---
 bpf:
   masquerade: true
 cluster:
-  name: lyh
-  id: 0
-containerRuntime:
-  integration: containerd
-  socketPath: /var/run/k3s/containerd/containerd.sock
+  name: main
+  id: 2
+# containerRuntime:
+#   integration: containerd
+#   socketPath: /var/run/k3s/containerd/containerd.sock
 cni:
   exclusive: false
 hubble:
@@ -34,10 +35,10 @@ hubble:
       enabled: false
 ipam:
   mode: kubernetes
-k8sServiceHost: "192.168.130.30"
+k8sServiceHost: 192.168.130.130
 k8sServicePort: 6443
 kubeProxyReplacement: strict
-kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+# kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 operator:
   replicas: 1
   rollOutPods: true
@@ -50,3 +51,11 @@ prometheus:
   serviceMonitor:
     enabled: false
 rollOutCiliumPods: true
+tunnel: vxlan
+encryption:
+  nodeEncryption: false
+serviceAccounts:
+  cilium:
+    name: cilium
+  operator:
+    name: cilium-operator
