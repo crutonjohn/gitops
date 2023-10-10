@@ -32,3 +32,7 @@ provision/templates/kube-cilium-manifests.yaml.j2
 .terraform
 *.tfstate
 vars.tf
+
+# kubeconfigs
+hack/casa
+hack/main
