@@ -1,0 +1,25 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: google-auth
+spec:
+  forwardAuth:
+    address: https://sso.${FAMILY_DOMAIN}
+    trustForwardHeader: true
+  headers:
+    customRequestHeaders:
+      sslRedirect: true
+      stsSeconds: 315360000
+      browserXssFilter: true
+      contentTypeNosniff: true
+      forceSTSHeader: true
+      sslHost: example.com
+      stsIncludeSubdomains: true
+      stsPreload: true
+      frameDeny: true
+  errors:
+    status:
+      - "401-403"
+    service: oauth-backend
+    query: "/oauth2/sign_in"
