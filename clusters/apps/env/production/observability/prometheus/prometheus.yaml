@@ -164,3 +164,42 @@ scrape_configs:
       - source_labels: [__meta_kubernetes_pod_name]
         action: replace
         target_label: pod
+  - job_name: "k8s_services_slow"
+    scrape_timeout: 60s
+    scrape_interval: 120s
+    metrics_path: /metrics
+    kubernetes_sd_configs:
+      - role: service
+    relabel_configs:
+      # Example relabel to scrape only endpoints that have
+      # "prometheus.io/scrape = true" annotation.
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+        action: keep
+        regex: slow
+      # Example relabel to customize metric path based on endpoints
+      # "prometheus.io/metric_path = <metric path>" annotation.
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_metric_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+      # Example relabel to scrape only single, desired port for the service based
+      # on endpoints "prometheus.io/port = <port>" annotation.
+      - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+      # Example relabel to configure scrape scheme for all service scrape targets
+      # based on endpoints "example.io/scrape_scheme = <scheme>" annotation.
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_scheme]
+        action: replace
+        target_label: __scheme__
+        regex: (https?)
+      - action: labelmap
+        regex: __meta_kubernetes_service_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        action: replace
+        target_label: namespace
+      - source_labels: [__meta_kubernetes_service_name]
+        action: replace
+        target_label: service
