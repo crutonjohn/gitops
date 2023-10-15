@@ -1,0 +1,24 @@
+apiVersion: v1
+stringData:
+    client-id: ENC[AES256_GCM,data:UcviXAx1MtmpA8ckbd0YWoRKv5/gCPQTVflUcOSCgYwD2VoVWMI0tOOIUPaWlodibfitFB/R/OJXgQ5WEp1TndqajYJCAzEA,iv:O04whbPJ1j5SdhN8edv+t2kK5aCXlH7tD79TWeSZP6o=,tag:VI6XjIb+ZUR3PWqo0A6FAQ==,type:str]
+    client-secret: ENC[AES256_GCM,data:mxf+z6Al3NlmPLsEhBJxl2XAnQfgferG4pghaMqXH0rIsIA=,iv:T/a+XVosQu5P4WCpscubrCU+4t7Sg7czTdQDh5dAmFs=,tag:WZtQW2HGyHS58MKLGOUB9A==,type:str]
+    cookie-secret: ENC[AES256_GCM,data:4WL7QtqF6tzqDNSKg41lIB6qifgXRXl5WmO1kiQ/V2Uay5HZF/8zsPT5bQ==,iv:BgsvrovzsT4RINwUL6UHnEhCUBenXv0azprJE60yx58=,tag:sF9H5T9Jc33FXdXFsAIsLA==,type:str]
+kind: Secret
+metadata:
+    name: oauth2-proxy-google
+    namespace: auth-system
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2023-10-15T18:18:22Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwGNDThhUTHJt2UkiHG0vmQzAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMsuSHpzDFmyF55QRnAgEQgDv1w0dfdp8KuMba4Al1qV0URFhnaB1X8Kj3PHKjnxeaUmpsYFD0Ya4QcFtTI89QSxl/GwmUw9uzSda0+w==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-10-15T18:18:22Z"
+    mac: ENC[AES256_GCM,data:SzKSFutiq2ZKBJI3XY4upaS8TncPO64/ao++lfw9/O5B7gX+J0vAQNg0KL86eTQ8QGQsii5y6t4JGLDHXYmyiEveeM/UqbLjSCmxixwC54UwcwqW9Zm4UhhydaLl7QYthqUfd5SBNKiyjdRcW3kCWX/B3fB57zgdNEngb/AWEig=,iv:E0he1yEl53SCVAkcspWie+UkqtnxvtE5c+IsKWd0YoE=,tag:T/7AbRyiiVK0c3zm+SFt0Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

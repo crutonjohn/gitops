@@ -20,33 +20,35 @@ spec:
     namespaceOverride: "auth-system"
     # Oauth client configuration specifics
     config:
-      # Add config annotations
-      annotations: {}
-      clientID: "${OAUTH2_PROXY_CLIENT_ID}"
-      clientSecret: "${OAUTH2_PROXY_CLIENT_SECRET}"
-      cookieSecret: "${OAUTH2_PROXY_COOKIE_SECRET}"
-      cookieName: "_john-family-sso"
-      google: {}
-        # adminEmail: xxxx
-        # useApplicationDefaultCredentials: true
-        # targetPrincipal: xxxx
-        # serviceAccountJson: xxxx
-        # Alternatively, use an existing secret (see google-secret.yaml for required fields)
-        # Example:
-        # existingSecret: google-secret
-        # groups: []
-        # Example:
-        #  - group1@example.com
-        #  - group2@example.com
+      existingSecret: oauth2-proxy-google
       # Default configuration, to be overridden
       configFile: |-
+        provider = "google"
+        auth_logging = true
+        cookie_domains = ".${FAMILY_DOMAIN}"
+        cookie_httponly = true
+        cookie_name = "_john_family_oauth"
+        cookie_refresh = "1h"
+        cookie_samesite = "lax"
+        cookie_secure = true
         email_domains = [ "${FAMILY_DOMAIN}" ]
-        upstreams = [ "static://202" ]
+        pass_access_token = true
+        pass_authorization_header = true
+        pass_basic_auth = false
+        request_logging = true
+        session_store_type = "cookie"
+        silence_ping_logging = true
+        set_authorization_header = true
+        set_xauthrequest = true
+        skip_jwt_bearer_tokens = true
+        skip_provider_button = true
+        ssl_insecure_skip_verify = false
+        standard_logging = true
+        upstreams = [ "static://200" ]
+        whitelist_domains = ".${FAMILY_DOMAIN}"
         footer = "For Internal Family Use Only"
         reverse_proxy = "true"
-        silence_ping_logging = "true"
-        whitelist_domains = [ "${FAMILY_DOMAIN}" ]
-        redirect_url = "https://sso.${FAMILY_DOMAIN}/oauth2/callback"
+
 
     # -- Custom labels to add into metadata
     customLabels: {}
