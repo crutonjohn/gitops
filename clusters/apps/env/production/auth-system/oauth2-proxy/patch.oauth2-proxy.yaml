@@ -62,7 +62,7 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: /metrics
-        prometheus.io/port: "44180"
+        prometheus.io/port: "4180"
 
     ## Create or use ServiceAccount
     serviceAccount:
