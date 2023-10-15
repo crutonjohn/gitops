@@ -40,12 +40,12 @@ spec:
         #  - group2@example.com
       # Default configuration, to be overridden
       configFile: |-
-        email_domain = [ "${FAMILY_DOMAIN}" ]
+        email_domains = [ "${FAMILY_DOMAIN}" ]
         upstreams = [ "static://202" ]
         footer = "For Internal Family Use Only"
         reverse_proxy = "true"
         silence_ping_logging = "true"
-        whitelist_domain = [ "${FAMILY_DOMAIN}" ]
+        whitelist_domains = [ "${FAMILY_DOMAIN}" ]
         redirect_url = "https://sso.${FAMILY_DOMAIN}/oauth2/callback"
 
     # -- Custom labels to add into metadata
