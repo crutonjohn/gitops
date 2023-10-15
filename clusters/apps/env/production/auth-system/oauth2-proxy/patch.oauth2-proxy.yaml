@@ -42,7 +42,7 @@ spec:
       configFile: |-
         email_domains = [ "${FAMILY_DOMAIN}" ]
         upstreams = [ "static://202" ]
-        footer = [ "For Internal Family Use Only" ]
+        footer = "For Internal Family Use Only"
         reverse_proxy = "true"
         silence_ping_logging = "true"
         whitelist_domain = ".${FAMILY_DOMAIN}"
