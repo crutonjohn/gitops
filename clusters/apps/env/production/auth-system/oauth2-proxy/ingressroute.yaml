@@ -15,7 +15,7 @@ spec:
     - kind: Rule
       match: "Host(`sso.${FAMILY_DOMAIN}`)"
       services:
-        - name: oauth2-proxy
+        - name: google-auth-oauth2-proxy
           port: 80
   tls:
     secretName: heyjohn-wildcard-certificate

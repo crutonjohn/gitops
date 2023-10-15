@@ -22,6 +22,6 @@ spec:
     status:
       - "401-403"
     service:
-      name: oauth-backend
+      name: google-auth-oauth2-proxy.auth-system.svc.cluster.local
       port: 80
     query: "/oauth2/sign_in"
