@@ -26,6 +26,18 @@ spec:
             port: 8123
         annotations:
           service.cilium.io/global: "true"
+      external:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${CLUSTER_LB_HOME_ASSISTANT}
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            enabled: true
+            port: 8123
+            protocol: TCP
+            targetPort: 8123
     ingress:
       main:
         enabled: false
