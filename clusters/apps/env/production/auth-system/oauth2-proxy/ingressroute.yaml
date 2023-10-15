@@ -20,6 +20,11 @@ spec:
       middlewares:
         - name: oauth-headers
           namespace: auth-system
+    - kind: Rule
+      match: Host(`*.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)
+      services:
+        - name: google-auth-oauth2-proxy
+          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
