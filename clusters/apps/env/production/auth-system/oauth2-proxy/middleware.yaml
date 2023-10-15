@@ -2,22 +2,20 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: google-auth
+  name: oauth-auth
 spec:
   forwardAuth:
-    address: https://sso.${FAMILY_DOMAIN}
+    address: https://sso.${FAMILY_DOMAIN}/oauth2/auth
     trustForwardHeader: true
-  headers:
-    customRequestHeaders:
-      sslRedirect: "true"
-      stsSeconds: "315360000"
-      browserXssFilter: "true"
-      contentTypeNosniff: "true"
-      forceSTSHeader: "true"
-      sslHost: "${FAMILY_DOMAIN}"
-      stsIncludeSubdomains: "true"
-      stsPreload: "true"
-      frameDeny: "true"
+    authResponseHeaders:
+      - X-Auth-Request-Access-Token
+      - Authorization
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth-errors
+spec:
   errors:
     status:
       - "401-403"
@@ -25,3 +23,18 @@ spec:
       name: google-auth-oauth2-proxy
       port: 80
     query: "/oauth2/sign_in"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth-headers
+spec:
+  headers:
+    sslRedirect: true
+    stsSeconds: 315360000
+    browserXssFilter: true
+    contentTypeNosniff: true
+    forceSTSHeader: true
+    stsIncludeSubdomains: true
+    stsPreload: true
+    frameDeny: true

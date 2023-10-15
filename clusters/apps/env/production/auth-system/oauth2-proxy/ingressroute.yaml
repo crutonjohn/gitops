@@ -17,6 +17,9 @@ spec:
       services:
         - name: google-auth-oauth2-proxy
           port: 80
+      middlewares:
+        - name: oauth-headers
+          namespace: auth-system
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
