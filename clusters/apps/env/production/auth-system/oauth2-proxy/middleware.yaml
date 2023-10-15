@@ -21,5 +21,7 @@ spec:
   errors:
     status:
       - "401-403"
-    service: oauth-backend
+    service:
+      name: oauth-backend
+      port: 80
     query: "/oauth2/sign_in"
