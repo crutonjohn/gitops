@@ -39,6 +39,10 @@ spec:
     keepHistory: false
   maxHistory: 3
   values:
+    containers:
+      main:
+        env:
+          SPEEDTEST_PORT: 9798
     image:
       repository: ghcr.io/miguelndecarvalho/speedtest-exporter
       tag: v3.5.4
