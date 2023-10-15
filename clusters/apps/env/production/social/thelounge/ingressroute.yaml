@@ -15,6 +15,16 @@ spec:
       services:
         - name: thelounge
           port: 9000
+    - kind: Rule
+      match: "Host(`irc.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
+      priority: 15
+      middlewares:
+        - name: oauth-headers
+          namespace: auth-system
+      services:
+        - name: google-auth-oauth2-proxy
+          namespace: auth-system
+          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:

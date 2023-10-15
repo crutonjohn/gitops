@@ -22,13 +22,15 @@ spec:
         - name: deemix
           port: 6595
     - kind: Rule
-      match: "Host(`deemix.${FAMILY_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      match: "Host(`deemix.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
       priority: 15
-      services:
-        - kind: Service
-          name: ak-outpost-authentik-embedded-outpost
+      middlewares:
+        - name: oauth-headers
           namespace: auth-system
-          port: 9000
+      services:
+        - name: google-auth-oauth2-proxy
+          namespace: auth-system
+          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
