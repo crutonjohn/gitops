@@ -42,6 +42,12 @@ spec:
       configFile: |-
         email_domains = [ "${FAMILY_DOMAIN}" ]
         upstreams = [ "static://202" ]
+        reverse_proxy = [ "true" ]
+        footer = [ "For Internal Family Use Only" ]
+        reverse_proxy = [ "true" ]
+        silence_ping_logging = [ "true" ]
+        whitelist_domain = [ ".${FAMILY_DOMAIN}" ]
+        redirect_url = [ "https://sso.${FAMILY_DOMAIN}/oauth2/callback" ]
 
     # -- Custom labels to add into metadata
     customLabels: {}
@@ -162,7 +168,7 @@ spec:
       # Enable Prometheus metrics endpoint
       enabled: true
       # Serve Prometheus metrics on this port
-      port: 44180
+      port: 4180
       # when service.type is NodePort ...
       # nodePort: 44180
       # Protocol set on the service for the metrics port
