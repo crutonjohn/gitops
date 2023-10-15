@@ -48,6 +48,7 @@ spec:
         whitelist_domains = ".${FAMILY_DOMAIN}"
         footer = "For Internal Family Use Only"
         reverse_proxy = "true"
+        redirect_url = https://sso.${FAMILY_DOMAIN}/oauth2/callback
 
 
     # -- Custom labels to add into metadata
