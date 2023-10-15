@@ -9,6 +9,7 @@ resources:
   - prometheus
   - ingressroute.changedetection.yaml
   - ntfy
+  - speedtest
   # - otel
 patches:
   - path: patch.botkube.yaml
