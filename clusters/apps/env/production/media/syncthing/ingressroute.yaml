@@ -16,7 +16,9 @@ spec:
       match: "Host(`bs-sync.${FAMILY_DOMAIN}`)"
       priority: 10
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: oauth-auth
+          namespace: auth-system
+        - name: oauth-errors
           namespace: auth-system
       services:
         - name: syncthing

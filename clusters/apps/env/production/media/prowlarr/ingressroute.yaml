@@ -15,7 +15,9 @@ spec:
     - kind: Rule
       match: "Host(`prowlarr.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: ak-outpost-authentik-embedded-outpost
+        - name: oauth-auth
+          namespace: auth-system
+        - name: oauth-errors
           namespace: auth-system
       priority: 10
       services:

@@ -13,7 +13,9 @@ spec:
     - kind: Rule
       match: "Host(`hass-config.${FAMILY_DOMAIN}`)"
       middlewares:
-        - name: google-auth
+        - name: oauth-auth
+          namespace: auth-system
+        - name: oauth-errors
           namespace: auth-system
       priority: 10
       services:
