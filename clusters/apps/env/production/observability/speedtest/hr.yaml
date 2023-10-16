@@ -55,7 +55,7 @@ spec:
     service:
       main:
         annotations:
-          prometheus.io/scrape: "slow"
+          prometheus.io/scrape: "super_slow"
           prometheus.io/path: /metrics
           prometheus.io/port: "9798"
         ports:
