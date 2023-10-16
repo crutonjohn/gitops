@@ -92,6 +92,7 @@ scrape_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)
   - job_name: "k8s_services"
+    honor_labels: true
     metrics_path: /metrics
     kubernetes_sd_configs:
       - role: service
