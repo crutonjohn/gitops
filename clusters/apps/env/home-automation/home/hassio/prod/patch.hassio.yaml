@@ -38,6 +38,11 @@ spec:
             port: 8123
             protocol: TCP
             targetPort: 8123
+          homekit:
+            enabled: true
+            port: 21065
+            protocol: TCP
+            targetPort: 21065
     ingress:
       main:
         enabled: false
