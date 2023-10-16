@@ -4,10 +4,7 @@ kind: IngressRoute
 metadata:
   name: hubble
   annotations:
-    kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: hubble.${FAMILY_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-    external-dns/public: "true"
+    kubernetes.io/ingress.class: "traefik-internal"
 spec:
   entryPoints:
     - websecure
@@ -21,31 +18,7 @@ spec:
       services:
         - name: hubble-ui
           port: 80
-    - kind: Rule
-      match: "Host(`hubble.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
-      priority: 15
-      middlewares:
-        - name: oauth-headers
-          namespace: auth-system
-      services:
-        - name: google-auth-oauth2-proxy
-          namespace: auth-system
-          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
       - main: hubble.${FAMILY_DOMAIN}
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: hubble
-  annotations:
-    external-dns/public: "true"
-spec:
-  endpoints:
-    - dnsName: hubble.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: CNAME
-      targets:
-        - ${DYNAMIC_DOMAIN}
