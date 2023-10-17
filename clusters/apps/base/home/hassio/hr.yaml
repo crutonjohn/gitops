@@ -26,4 +26,4 @@ spec:
           music-assistant:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: 1.8.7.3
+              tag: beta
