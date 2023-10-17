@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: music-assistant-local
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`mass.${FAMILY_DOMAIN}`)"
+      services:
+        - name: home-assistant
+          port: 8095
+          nativeLB: true
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: mass.${FAMILY_DOMAIN}

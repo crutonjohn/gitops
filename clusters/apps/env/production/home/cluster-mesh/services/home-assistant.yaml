@@ -12,6 +12,9 @@ spec:
     - name: http
       port: 8123
       targetPort: http
+    - name: music-assistant
+      port: 8095
+      targetPort: music-assistant
   selector:
     app.kubernetes.io/instance: home-assistant
     app.kubernetes.io/name: home-assistant

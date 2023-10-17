@@ -7,5 +7,4 @@ commonAnnotations:
   traefik.ingress.kubernetes.io/service.nativelb: "true"
 resources:
   - home-assistant.yaml
-  - home-assistant-codeserver.yaml
   - zigbee2mqtt.yaml
