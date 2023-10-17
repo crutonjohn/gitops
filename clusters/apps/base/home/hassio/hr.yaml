@@ -4,17 +4,26 @@ kind: HelmRelease
 metadata:
   name: home-assistant
 spec:
-  interval: 5m
+  interval: 30m
+  timeout: 15m
   chart:
     spec:
-      chart: home-assistant
-      version: 13.4.2
+      chart: app-template
+      version: 2.0.3
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
   values:
-    image:
-      repository: ghcr.io/home-assistant/home-assistant
-      tag: 2023.10.3
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2023.10.3@sha256:021e2afc6e573a3623dadfe7028e63b370ebc249f3217e1f8fce80ebbfe9afe5
+          music-assistant:
+            image:
+              repository: ghcr.io/music-assistant/server
+              tag: 1.8.7.3

@@ -4,26 +4,69 @@ kind: HelmRelease
 metadata:
   name: home-assistant
 spec:
-  timeout: 15m0s
   values:
-    podAnnotations:
-      k8s.v1.cni.cncf.io/networks: |
-        [{
-          "name":"iot-garbage",
-          "namespace": "network-system",
-          "mac": "e8:f3:3c:72:23:f6",
-          "ips": ["192.168.134.100/24"]
-        }]
-    env:
-      TZ: "America/New_York"
-    envFrom:
-      - secretRef:
-          name: home-assistant
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot-garbage",
+                "namespace": "network-system",
+                "mac": "e8:f3:3c:72:23:f6",
+                "ips": ["192.168.134.100/24"]
+              }]
+
+        containers:
+          main:
+            nameOverride: home-assistant
+            order: 1
+            env:
+              TZ: "America/New_York"
+            envFrom:
+              - secretRef:
+                  name: home-assistant
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 47m
+                memory: 1254M
+              limits:
+                memory: 2000M
+          music-assistant:
+            nameOverride: music-assistant
+            order: 2
+            resources:
+              requests:
+                cpu: 30m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+
     service:
       main:
         ports:
           http:
             port: 8123
+          music-assistant:
+            port: 8095
         annotations:
           service.cilium.io/global: "true"
       external:
@@ -43,106 +86,32 @@ spec:
             port: 21065
             protocol: TCP
             targetPort: 21065
+
     ingress:
       main:
         enabled: false
-    prometheus:
-      serviceMonitor:
-        enabled: false
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
+
     persistence:
       config:
         enabled: true
-        mountPath: /config
-        existingClaim: home-assistant-config
+        existingClaim: "home-assistant-config"
         accessMode: ReadWriteOnce
-        skipuninstall: false
       backups:
         enabled: true
-        mountPath: /backups
-        existingClaim: home-assistant-backups
+        existingClaim: "home-assistant-backups"
         accessMode: ReadWriteOnce
-        skipuninstall: false
       music:
         enabled: true
-        mountPath: /music
         existingClaim: "music-library"
         accessMode: ReadWriteMany
-    additionalContainers:
-      - music-assistant:
-          resources:
-            requests:
-              cpu: 30m
-              memory: 100Mi
-            limits:
-              memory: 500Mi
-          image:
-            repository: ghcr.io/music-assistant/server
-            tag: 1.8.7.3
-          ingress:
-            enabled: false
-            service:
-              annotations:
-                service.cilium.io/global: "false"
-          volumeMounts:
-            - name: music
-              mountPath: /music
-    addons:
-      codeserver:
-        enabled: false
-        resources:
-          requests:
-            cpu: 30m
-            memory: 100Mi
-          limits:
-            memory: 500Mi
-        image:
-          repository: codercom/code-server
-          tag: 4.4.0
-        git:
-          deployKeySecret: code-server
-        workingDir: "/config"
-        args:
-          - --auth
-          - "none"
-          - --user-data-dir
-          - "/config/.vscode"
-          - --extensions-dir
-          - "/config/.vscode"
-        ingress:
-          enabled: false
-          ingressClassName: "traefik-internal"
-          annotations:
-            nginx.org/websocket-services: home-assistant
-          hosts:
-            - host: "hass-config.${SECRET_DOMAIN}"
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - hosts:
-                - "hass-config.${SECRET_DOMAIN}"
-              secretName: "crj-wildcard-certificate"
-          service:
-            annotations:
-              service.cilium.io/global: "true"
-        volumeMounts:
-          - name: config
-            mountPath: /config
-          - name: backups
-            mountPath: /backups
-    resources:
-      requests:
-        cpu: 200m
-        memory: 512Mi
-      limits:
-        memory: 4096Mi
-        cpu: 1
-    nodeSelector:
-      kubernetes.io/arch: amd64
+        globalMounts:
+          - path: /music
+            readOnly: false
+        advancedMounts: {}
+          # main: # the controller with the "main" identifier
+          #   main: # the container with the "main" identifier
+          #     - path: /music
+          #       readOnly: false
+          #   music-assistant:
+          #     - path: /music
+          #       readOnly: false
