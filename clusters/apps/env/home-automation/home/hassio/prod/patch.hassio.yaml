@@ -74,9 +74,28 @@ spec:
         mountPath: /music
         existingClaim: "music-library"
         accessMode: ReadWriteMany
+    additionalContainers:
+      - music-assistant:
+          resources:
+            requests:
+              cpu: 30m
+              memory: 100Mi
+            limits:
+              memory: 500Mi
+          image:
+            repository: ghcr.io/music-assistant/server
+            tag: 1.8.7.3
+          ingress:
+            enabled: false
+            service:
+              annotations:
+                service.cilium.io/global: "false"
+          volumeMounts:
+            - name: music
+              mountPath: /music
     addons:
       codeserver:
-        enabled: true
+        enabled: false
         resources:
           requests:
             cpu: 30m
