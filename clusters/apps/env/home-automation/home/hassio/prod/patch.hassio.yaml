@@ -72,6 +72,7 @@ spec:
       external:
         enabled: true
         type: LoadBalancer
+        controller: main
         annotations:
           metallb.universe.tf/loadBalancerIPs: ${CLUSTER_LB_HOME_ASSISTANT}
         externalTrafficPolicy: Local
