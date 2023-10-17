@@ -8,4 +8,3 @@ resources:
   - mosquitto
   - hassio
   - zigbee2mqtt
-  - scrypted
