@@ -53,3 +53,30 @@ spec:
   resources:
     requests:
       storage: 1024Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: music-assistant-config
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: mass
+  hostPath:
+    path: "/srv/volumes/mass"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: music-assistant-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: mass
+  resources:
+    requests:
+      storage: 20Gi

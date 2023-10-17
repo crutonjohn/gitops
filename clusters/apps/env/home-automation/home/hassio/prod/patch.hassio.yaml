@@ -101,6 +101,10 @@ spec:
         enabled: true
         existingClaim: "home-assistant-backups"
         accessMode: ReadWriteOnce
+      data:
+        enabled: true
+        existingClaim: "music-assistant-config"
+        accessMode: ReadWriteOnce
       music:
         enabled: true
         existingClaim: "music-library"
