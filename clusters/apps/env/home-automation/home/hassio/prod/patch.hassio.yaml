@@ -69,6 +69,11 @@ spec:
         existingClaim: home-assistant-backups
         accessMode: ReadWriteOnce
         skipuninstall: false
+      music:
+        enabled: true
+        mountPath: /music
+        existingClaim: "music-library"
+        accessMode: ReadWriteMany
     addons:
       codeserver:
         enabled: true
