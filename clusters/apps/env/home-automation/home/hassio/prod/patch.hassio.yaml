@@ -84,9 +84,9 @@ spec:
             targetPort: 8123
           music-assistant:
             enabled: true
-            port: 8095
+            port: 8096
             protocol: TCP
-            targetPort: 8095
+            targetPort: 8096
 
     ingress:
       main:
