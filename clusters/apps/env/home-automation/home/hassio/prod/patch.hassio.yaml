@@ -82,11 +82,11 @@ spec:
             port: 8123
             protocol: TCP
             targetPort: 8123
-          homekit:
+          music-assistant:
             enabled: true
-            port: 21065
+            port: 8095
             protocol: TCP
-            targetPort: 21065
+            targetPort: 8095
 
     ingress:
       main:
