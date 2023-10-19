@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/app-template
+  - ingressroute.yaml
+  - azuracast.enc.yaml
+patches:
+  - path: app.patch.yaml
+  - path: ./name.patch.yaml
+    target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+      name: app-template
+      version: v2beta1

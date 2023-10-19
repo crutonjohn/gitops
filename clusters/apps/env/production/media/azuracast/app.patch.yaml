@@ -1,0 +1,125 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  values:
+    controllers:
+      main:
+        type: deployment
+
+        containers:
+          main:
+            nameOverride: azuracast
+            image:
+              repository: ghcr.io/azuracast/azuracast
+              tag: 0.19.1
+            order: 1
+            env:
+              APPLICATION_ENV: production
+              COMPOSER_PLUGIN_MODE: false
+              SHOW_DETAILED_ERRORS: false
+              MYSQL_RANDOM_ROOT_PASSWORD: yes
+              PUID: 1177
+              PGID: 1177
+              AUTO_ASSIGN_PORT_MIN: 8000
+              AUTO_ASSIGN_PORT_MAX: 8005
+            envFrom:
+              - secretRef:
+                  name: azuracast
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 47m
+                memory: 1254M
+              limits:
+                memory: 2000M
+
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+      external:
+        enabled: true
+        type: LoadBalancer
+        controller: main
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${CLUSTER_LB_AZURACAST}
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            enabled: true
+            port: 8123
+            protocol: TCP
+            targetPort: 8123
+          port-8000:
+            enabled: true
+            port: 8000
+            protocol: TCP
+            targetPort: 8000
+          port-8001:
+            enabled: true
+            port: 8001
+            protocol: TCP
+            targetPort: 8001
+          port-8002:
+            enabled: true
+            port: 8002
+            protocol: TCP
+            targetPort: 8002
+          port-8003:
+            enabled: true
+            port: 8003
+            protocol: TCP
+            targetPort: 8003
+          port-8004:
+            enabled: true
+            port: 8004
+            protocol: TCP
+            targetPort: 8004
+          port-8005:
+            enabled: true
+            port: 8005
+            protocol: TCP
+            targetPort: 8005
+
+    ingress:
+      main:
+        enabled: false
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "azuracast-config"
+        accessMode: ReadWriteOnce
+        advancedMounts:
+          main:
+            main:
+              - path: /var/azuracast
+                readOnly: false
+      db:
+        enabled: true
+        existingClaim: "azuracast-db"
+        accessMode: ReadWriteOnce
+        advancedMounts:
+          main:
+            main:
+              - path: /var/lib/mysql
+                readOnly: false
+      music:
+        enabled: true
+        existingClaim: "music-library"
+        accessMode: ReadWriteMany
+        advancedMounts:
+          main:
+            main:
+              - path: /music
+                readOnly: false
