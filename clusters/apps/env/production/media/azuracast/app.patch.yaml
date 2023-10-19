@@ -116,10 +116,10 @@ spec:
                 readOnly: false
       music:
         enabled: true
-        existingClaim: "music-library"
+        existingClaim: "music-library-apollo"
         accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
               - path: /music
-                readOnly: false
+                readOnly: true
