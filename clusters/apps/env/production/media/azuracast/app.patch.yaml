@@ -12,6 +12,9 @@ spec:
         containers:
           main:
             nameOverride: azuracast
+            command:
+              - "sleep"
+              - "6000"
             image:
               repository: ghcr.io/azuracast/azuracast
               tag: 0.19.1
@@ -121,5 +124,5 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /music
+              - path: /music/library
                 readOnly: true
