@@ -15,16 +15,16 @@
 
     <!-- Authentication settings (modify as needed) -->
     <authentication>
-        <source-password>your_source_password</source-password>
-        <relay-password>your_relay_password</relay-password>
-        <admin-user>your_admin_user</admin-user>
-        <admin-password>your_admin_password</admin-password>
+        <source-password>${RADIO_SOURCE_PASSWORD}</source-password>
+        <relay-password>${RADIO_RELAY_PASSWORD}</relay-password>
+        <admin-user>${RADIO_ADMIN_USER}</admin-user>
+        <admin-password>${RADIO_ADMIN_PASSWORD}</admin-password>
     </authentication>
 
     <!-- Specify the mount point for your stream -->
     <mount>
-        <mount-name>/stream.ogg</mount-name>
-        <fallback-mount>/fallback.ogg</fallback-mount>
+        <mount-name>/stream.mp3</mount-name>
+        <fallback-mount>/fallback.mp3</fallback-mount>
         <fallback-override>0</fallback-override>
         <fallback-when-full>1</fallback-when-full>
         <fallback-delay>30</fallback-delay>
@@ -38,9 +38,9 @@
             <ffmpeg-cmd>%s -i - -f mp3 -b:a 320k -</ffmpeg-cmd>
         </ffmpeg>
         <public>1</public>
-        <stream-name>Your Music Stream</stream-name>
-        <stream-description>Your Music Stream Description</stream-description>
-        <genre>Music</genre>
+        <stream-name>Music For Earholes</stream-name>
+        <stream-description>ok, no</stream-description>
+        <genre>Sound</genre>
     </mount>
 
     <!-- Specify the directory where your music files are stored -->
