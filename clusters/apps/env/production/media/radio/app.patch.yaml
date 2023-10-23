@@ -5,6 +5,12 @@ metadata:
   name: app-template
 spec:
   values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1177
+        runAsNonRoot: true
+        runAsUser: 1177
+        runAsGroup: 1177
     controllers:
       main:
         type: deployment
@@ -32,12 +38,6 @@ spec:
                 memory: 1254M
               limits:
                 memory: 2000M
-            pod:
-              securityContext:
-                fsGroup: 1177
-                runAsNonRoot: true
-                runAsUser: 1177
-                runAsGroup: 1177
 
     service:
       main:
