@@ -1,4 +1,4 @@
 ---
 - op: replace
   path: /metadata/name
-  value: azuracast
+  value: icecast
