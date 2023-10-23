@@ -4,7 +4,12 @@ kind: Kustomization
 resources:
   - ../../../../base/app-template
   - ingressroute.yaml
-  - azuracast.enc.yaml
+configMapGenerator:
+  - name: icecast-config
+    files:
+      - icecast.xml
+generatorOptions:
+  disableNameSuffixHash: true
 patches:
   - path: app.patch.yaml
   - path: ./name.patch.yaml

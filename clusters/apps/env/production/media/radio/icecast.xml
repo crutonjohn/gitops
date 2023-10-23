@@ -1,0 +1,78 @@
+<icecast>
+    <location>Milky Way Galaxy</location>
+    <admin>icemaster@localhost</admin>
+    <limits>
+        <clients>100</clients>
+        <sources>2</sources>
+        <threadpool>5</threadpool>
+        <queue-size>524288</queue-size>
+        <client-timeout>30</client-timeout>
+        <header-timeout>15</header-timeout>
+        <source-timeout>10</source-timeout>
+        <burst-on-connect>1</burst-on-connect>
+        <burst-size>65535</burst-size>
+    </limits>
+
+    <!-- Authentication settings (modify as needed) -->
+    <authentication>
+        <source-password>your_source_password</source-password>
+        <relay-password>your_relay_password</relay-password>
+        <admin-user>your_admin_user</admin-user>
+        <admin-password>your_admin_password</admin-password>
+    </authentication>
+
+    <!-- Specify the mount point for your stream -->
+    <mount>
+        <mount-name>/stream.ogg</mount-name>
+        <fallback-mount>/fallback.ogg</fallback-mount>
+        <fallback-override>0</fallback-override>
+        <fallback-when-full>1</fallback-when-full>
+        <fallback-delay>30</fallback-delay>
+        <fallback-rewrite>1</fallback-rewrite>
+        <rewrite-on-connect>0</rewrite-on-connect>
+        <transcoder>ffmpeg</transcoder>
+        <ffmpeg>
+            <!-- Specify the command to use FFmpeg for MP3 encoding at 320 kbps -->
+            <executable>/usr/bin/ffmpeg</executable>
+            <outgoing-format>mp3</outgoing-format>
+            <ffmpeg-cmd>%s -i - -f mp3 -b:a 320k -</ffmpeg-cmd>
+        </ffmpeg>
+        <public>1</public>
+        <stream-name>Your Music Stream</stream-name>
+        <stream-description>Your Music Stream Description</stream-description>
+        <genre>Music</genre>
+    </mount>
+
+    <!-- Specify the directory where your music files are stored -->
+    <fileserve>1</fileserve>
+    <paths>
+        <basedir>/music</basedir>
+        <webroot>/web</webroot>
+        <adminroot>/admin</adminroot>
+        <alias source="/src/" dest="/dest/"/>
+    </paths>
+
+    <!-- Specify the format for the stream -->
+    <fileserve-allowed>ogg, oga, mp3, m4a</fileserve-allowed>
+    <header>
+        <type>application/mp3</type>
+        <name>Icecast Stream</name>
+    </header>
+
+    <logging>
+        <accesslog>-</accesslog>
+        <errorlog>-</errorlog>
+        <playlistlog>-</playlistlog>
+        <loglevel>4</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
+    </logging>
+
+    <!-- Security settings (adjust as needed) -->
+    <security>
+        <chroot>0</chroot>
+    </security>
+
+    <!-- Relaying (if needed) -->
+    <relay>
+        <relay-shoutcast-metadata>0</relay-shoutcast-metadata>
+    </relay>
+</icecast>
