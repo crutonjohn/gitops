@@ -14,7 +14,7 @@ spec:
             nameOverride: icecast
             image:
               repository: ghcr.io/crutonjohn/docker-icecast
-              tag: sha256-28df8df2b8854c00eb00c86a66b3426fe3b989db681c2bc9b0cfd71fbaf470b8.sig
+              tag: main
             order: 1
             env:
               TZ: Amertica/New_York
