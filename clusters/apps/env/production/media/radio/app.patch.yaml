@@ -73,6 +73,9 @@ spec:
               - path: /config/icecast.xml
                 readOnly: true
                 subPath: icecast.xml
+              - path: /config/stats.xsl
+                readOnly: true
+                subPath: stats.xsl
       music:
         enabled: true
         existingClaim: "music-library-apollo"

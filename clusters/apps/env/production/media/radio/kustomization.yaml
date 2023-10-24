@@ -8,6 +8,7 @@ configMapGenerator:
   - name: icecast-config
     files:
       - icecast.xml
+      - stats.xsl
 generatorOptions:
   disableNameSuffixHash: true
 patches:
