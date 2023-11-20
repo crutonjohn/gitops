@@ -17,6 +17,6 @@ spec:
   values:
     image:
       repository: k8s.gcr.io/nfd/node-feature-discovery
-      tag: v0.13.0
+      tag: v0.14.3
     master:
       replicaCount: 1
