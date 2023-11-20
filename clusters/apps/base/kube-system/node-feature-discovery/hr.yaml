@@ -16,7 +16,7 @@ spec:
       interval: 10m
   values:
     image:
-      repository: k8s.gcr.io/nfd/node-feature-discovery
+      repository: gcr.io/k8s-staging-nfd/node-feature-discovery
       tag: v0.14.3
     master:
       replicaCount: 1
