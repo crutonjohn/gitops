@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+spec:
+  values:
+    controller:
+      volumeSnapshotClasses:
+        - name: dcsi-nvmeof-external
+          driver: org.democratic-csi.nvmeof
+          annotations:
+            snapshot.storage.kubernetes.io/is-default-class: "true"
+          deletionPolicy: Delete
+      serviceMonitor:
+        create: false

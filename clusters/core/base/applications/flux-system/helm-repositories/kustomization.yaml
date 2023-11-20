@@ -5,6 +5,7 @@ namespace: flux-system
 resources:
   - angelnu-charts.yaml
   - authentik-charts.yaml
+  - backube-charts.yaml
   - banzaicloud-charts.yaml
   - bitnami-charts.yaml
   - bjw-s-charts.yaml
@@ -37,6 +38,7 @@ resources:
   - oauth2-proxy-chart.yaml
   - openfaas-charts.yaml
   - opentelemetry-charts.yaml
+  - piraeus-charts.yaml
   - replicator-charts.yaml
   - signoz-charts.yaml
   - stakater-charts.yaml
