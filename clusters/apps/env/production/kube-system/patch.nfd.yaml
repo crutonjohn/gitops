@@ -6,7 +6,7 @@ metadata:
 spec:
   values:
     master:
-      replicaCount: 2
+      replicaCount: 1
       nodeSelector:
         kubernetes.io/arch: "amd64"
       resources:
