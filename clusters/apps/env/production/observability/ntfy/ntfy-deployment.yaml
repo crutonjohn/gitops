@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: ntfy
-          image: binwiederhier/ntfy:v2.7.0
+          image: binwiederhier/ntfy:v2.8.0
           args: ["serve"]
           env:
             - name: TZ
