@@ -16,4 +16,4 @@ spec:
   values:
     image:
       repository: deluan/navidrome
-      tag: 0.50.1
+      tag: 0.50.2
