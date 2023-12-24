@@ -20,4 +20,4 @@ spec:
     image:
       # If you want to use the core image `otel/opentelemetry-collector`, you also need to change `command.name` value to `otelcol`.
       repository: otel/opentelemetry-collector-contrib
-      tag: "0.87.0"
+      tag: "0.91.0"
