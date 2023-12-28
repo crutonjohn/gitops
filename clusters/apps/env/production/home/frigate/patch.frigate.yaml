@@ -21,7 +21,7 @@ spec:
             logger:
               default: debug
             mqtt:
-              host: mosquitto
+              host: "${SECRET_MQTT_ADDRESS}"
               topic_prefix: frigate
               user: "${SECRET_MQTT_USERNAME}"
               password: "${SECRET_MQTT_PASSWORD}"
