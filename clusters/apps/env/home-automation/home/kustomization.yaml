@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: home
 resources:
   - cluster-mesh
-  - amcrest2mqtt
   - mosquitto
   - hassio
   - zigbee2mqtt
