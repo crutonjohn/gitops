@@ -42,4 +42,4 @@ spec:
             deviceClassWhitelist: ["0300", "0880"]
             deviceLabelFields: ["class", "vendor", "device"]
     prometheus:
-      enable: true
+      enable: false
