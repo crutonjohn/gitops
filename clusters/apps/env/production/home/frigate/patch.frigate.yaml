@@ -21,7 +21,7 @@ spec:
             logger:
               default: debug
             mqtt:
-              host: emqx
+              host: mosquitto
               topic_prefix: frigate
               user: "${SECRET_MQTT_USERNAME}"
               password: "${SECRET_MQTT_PASSWORD}"
@@ -467,11 +467,11 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-coral-tpu
+                - key: feature.node.kubernetes.io/coral
                   operator: In
                   values:
                     - "true"
-                - key: feature.node.kubernetes.io/custom-intel-gpu
+                - key: feature.node.kubernetes.io/intel-gpu
                   operator: In
                   values:
                     - "true"

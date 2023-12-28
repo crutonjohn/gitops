@@ -1,22 +1,45 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: node-feature-discovery
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       chart: node-feature-discovery
       version: 0.15.0
       sourceRef:
         kind: HelmRepository
-        name: node-feature-discovery-chart
+        name: node-feature-discovery
         namespace: flux-system
-      interval: 10m
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     image:
       repository: gcr.io/k8s-staging-nfd/node-feature-discovery
       tag: v0.15.0
     master:
       replicaCount: 1
+    worker:
+      config:
+        core:
+          sources: ["custom", "pci", "usb"]
+        sources:
+          usb:
+            deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
+            deviceLabelFields: ["class", "vendor", "device"]
+          pci:
+            deviceClassWhitelist: ["0300", "0880"]
+            deviceLabelFields: ["class", "vendor", "device"]
+    prometheus:
+      enable: true
