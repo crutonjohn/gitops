@@ -47,6 +47,10 @@ spec:
               limits:
                 memory: 2000M
 
+    service:
+      main:
+        enabled: false
+
     ingress:
       main:
         enabled: false
