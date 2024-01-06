@@ -34,7 +34,7 @@ spec:
               MQTT_PASSWORD: "${SECRET_MQTT_PASSWORD}"
               HOME_ASSISTANT: true
               STORAGE_POLL_INTERVAL: 0
-              DEVICE_NAME: "Kitchen Doorbell"
+              DEVICE_NAME: "Kitchen Door"
             probes:
               liveness:
                 enabled: false
