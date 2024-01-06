@@ -33,6 +33,8 @@ spec:
               MQTT_USERNAME: "${SECRET_MQTT_USERNAME}"
               MQTT_PASSWORD: "${SECRET_MQTT_PASSWORD}"
               HOME_ASSISTANT: true
+              STORAGE_POLL_INTERVAL: 0
+              DEVICE_NAME: "Front Doorbell"
             probes:
               liveness:
                 enabled: false
