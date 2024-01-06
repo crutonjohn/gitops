@@ -7,3 +7,4 @@ resources:
   - mosquitto
   - hassio
   - zigbee2mqtt
+  - amcrest2mqtt
