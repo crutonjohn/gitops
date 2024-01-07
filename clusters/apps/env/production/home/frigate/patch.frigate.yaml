@@ -13,6 +13,7 @@ spec:
       pullPolicy: IfNotPresent
     env:
       TZ: "America/New_York"
+      PLUS_API_KEY: "4f6df654-48bf-48d3-8ff1-d2c4addb888d:d8ae41e8bb81d3bbde3ec47540dcb0be19412a04"
     configmap:
       config:
         enabled: true
