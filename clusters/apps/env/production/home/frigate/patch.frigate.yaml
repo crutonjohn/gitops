@@ -32,7 +32,7 @@ spec:
               enabled: True
               width: 2560
               height: 1440
-              quality: 8
+              quality: 4
               mode: continuous
             detectors:
               coral:
