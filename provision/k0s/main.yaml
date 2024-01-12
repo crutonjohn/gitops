@@ -6,28 +6,30 @@ metadata:
 spec:
   hosts:
     - ssh:
-        address: 192.168.130.131
+        address: 192.168.130.154
         user: root
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: controller+worker
-      files:
-        - name: kube-vip
-          src: kube-vip.yaml
-          dstDir: /var/lib/k0s/manifests/
-          perm: 0600
-    - ssh:
-        address: 192.168.130.132
-        user: root
-        port: 22
-        keyPath: ~/.ssh/id_rsa
-      role: controller+worker
-    - ssh:
-        address: 192.168.130.133
-        user: root
-        port: 22
-        keyPath: ~/.ssh/id_rsa
-      role: controller+worker
+      installFlags:
+        - --disable-components=konnectivity-server
+        #      files:
+        #        - name: kube-vip
+        #          src: kube-vip.yaml
+        #          dstDir: /var/lib/k0s/manifests/
+        #          perm: 0600
+        # - ssh:
+        #     address: 192.168.130.132
+        #     user: root
+        #     port: 22
+        #     keyPath: ~/.ssh/id_rsa
+        #   role: controller+worker
+        # - ssh:
+        #     address: 192.168.130.133
+        #     user: root
+        #     port: 22
+        #     keyPath: ~/.ssh/id_rsa
+        #   role: controller+worker
     - ssh:
         address: 192.168.130.151
         user: root
@@ -40,12 +42,12 @@ spec:
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: worker
-    - ssh:
-        address: 192.168.130.154
-        user: root
-        port: 22
-        keyPath: ~/.ssh/id_rsa
-      role: worker
+    # - ssh:
+    #     address: 192.168.130.154
+    #     user: root
+    #     port: 22
+    #     keyPath: ~/.ssh/id_rsa
+    #   role: worker
     - ssh:
         address: 192.168.130.155
         user: root
@@ -53,7 +55,7 @@ spec:
         keyPath: ~/.ssh/id_rsa
       role: worker
   k0s:
-    version: 1.27.6+k0s.0
+    version: 1.28.2+k0s.0
     dynamicConfig: false
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
@@ -62,12 +64,9 @@ spec:
         name: k0s-main
       spec:
         api:
-          externalAddress: 192.168.130.131
+          externalAddress: 192.168.130.154
           sans:
-            - 192.168.130.130
-            - 192.168.130.131
-            - 192.168.130.132
-            - 192.168.130.133
+            - 192.168.130.154
           k0sApiPort: 9443
           port: 6443
         installConfig:
