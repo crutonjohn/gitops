@@ -1,9 +1,9 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import hashlib
 import time
 
-serialNumber = b''
+serialNumber = b'<insert serial here>'
 userName = b'installer'
 
 DEFAULT_REALM = b'enphaseenergy.com'

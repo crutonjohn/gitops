@@ -5,5 +5,6 @@
     nativeBuildInputs = with pkgs.buildPackages; [
       cilium-cli
       k0sctl
+      android-tools
     ];
 }
