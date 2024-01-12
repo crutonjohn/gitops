@@ -89,7 +89,9 @@ spec:
                 north-door-1-sub:
                   - "http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
                 garage-1:
-                  - "ffmpeg:http://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                  - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main#video=copy#audio=copy#audio=opus"
+                garage-1-sub:
+                  - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub#video=copy#audio=copy#audio=opus"
             ffmpeg:
               hwaccel_args:
                 - -hwaccel
