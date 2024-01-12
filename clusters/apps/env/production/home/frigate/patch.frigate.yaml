@@ -77,19 +77,19 @@ spec:
                   - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01
                   - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
                 south-west-1:
-                  - "ffmpeg:httpx://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                  - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
                 south-west-1-sub:
-                  - "httpx://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+                  - "http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
                 south-west-2:
-                  - "ffmpeg:httpx://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                  - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
                 south-west-2-sub:
-                  - "httpx://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+                  - "http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
                 north-door-1:
-                  - "ffmpeg:httpx://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                  - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
                 north-door-1-sub:
-                  - "httpx://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+                  - "http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
                 garage-1:
-                  - "ffmpeg:httpx://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                  - "ffmpeg:http://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
             ffmpeg:
               hwaccel_args:
                 - -hwaccel
