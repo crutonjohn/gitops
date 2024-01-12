@@ -38,6 +38,58 @@ spec:
               coral:
                type: edgetpu
                device: pci
+            go2rtc:
+              streams:
+                dining-room:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream1
+                  - "ffmpeg:dining-room#audio=opus"
+                dining-room-sub:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream2
+                  - "ffmpeg:dining-room-sub#audio=opus"
+                kitchen:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream1
+                  - "ffmpeg:kitchen#audio=opus"
+                kitchen-sub:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream2
+                  - "ffmpeg:kitchen-sub#audio=opus"
+                living-room:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream1
+                  - "ffmpeg:living-room#audio=opus"
+                living-room-sub:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream2
+                  - "ffmpeg:living-room-sub#audio=opus"
+                nursery:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream1
+                  - "ffmpeg:nursery#audio=opus"
+                nursery-sub:
+                  - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream2
+                  - "ffmpeg:nursery-sub#audio=opus"
+                front-doorbell-ad410:
+                  - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0
+                  - "ffmpeg:front-doorbell-ad410#audio=opus"
+                front-doorbell-ad410-sub:
+                  - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01
+                  - "ffmpeg:front-doorbell-ad410-sub#audio=opus"
+                kitchen-doorbell-ad410:
+                  - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0
+                  - "ffmpeg:kitchen-doorbell-ad410#audio=opus"
+                kitchen-doorbell-ad410-sub:
+                  - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01
+                  - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
+                south-west-1:
+                  - "ffmpeg:https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                south-west-1-sub:
+                  - "https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+                south-west-2:
+                  - "ffmpeg:https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                south-west-2-sub:
+                  - "https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+                north-door-1:
+                  - "ffmpeg:https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+                north-door-1-sub:
+                  - "https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+                garage-1:
+                  - "ffmpeg:https://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
             ffmpeg:
               hwaccel_args:
                 - -hwaccel
@@ -66,21 +118,22 @@ spec:
               dining-room:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream2
-                      roles:
-                        - detect
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream1
+                    - path: rtsp://127.0.0.1:8554/dining-room?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
+                    - path: rtsp://127.0.0.1:8554/dining-room-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   height: 360
                   width: 640
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -108,9 +161,9 @@ spec:
                   width: 640
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -138,9 +191,9 @@ spec:
                   width: 640
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -168,9 +221,9 @@ spec:
                   width: 640
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -198,17 +251,17 @@ spec:
                   width: 2560
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
                         car: 30
                     objects:
-                      - car
                       - person
                       - dog
+                      - car
                 snapshots:
                   enabled: True
                   timestamp: True
@@ -230,15 +283,14 @@ spec:
                   width: 2560
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
                         car: 30
                     objects:
-                      - car
                       - person
                       - dog
                 snapshots:
@@ -275,12 +327,13 @@ spec:
                   height: 512
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
+                        car: 30
                     objects:
                       - person
                       - dog
@@ -318,12 +371,13 @@ spec:
                   height: 512
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
+                        car: 30
                     objects:
                       - person
                       - dog
@@ -361,12 +415,13 @@ spec:
                   height: 512
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
+                        car: 30
                     objects:
                       - person
                       - dog
@@ -404,12 +459,13 @@ spec:
                   height: 576
                 record:
                   enabled: True
-                  retain_days: 2
                   events:
                     retain:
+                      days: 3
                       objects:
                         person: 50
                         dog: 20
+                        car: 30
                     objects:
                       - person
                       - dog
@@ -438,6 +494,42 @@ spec:
             port: 1935
             protocol: UDP
             targetPort: 1935
+          restream-tcp:
+            enabled: true
+            primary: false
+            port: 8554
+            protocol: TCP
+            targetPort: 8554
+          restream-udp:
+            enabled: true
+            primary: false
+            port: 8554
+            protocol: UDP
+            targetPort: 8554
+          go2rtc-tcp:
+            enabled: true
+            primary: false
+            port: 8555
+            protocol: TCP
+            targetPort: 8555
+          go2rtc-udp:
+            enabled: true
+            primary: false
+            port: 8555
+            protocol: UDP
+            targetPort: 8555
+          srtp-tcp:
+            enabled: true
+            primary: false
+            port: 8443
+            protocol: TCP
+            targetPort: 8443
+          srtp-udp:
+            enabled: true
+            primary: false
+            port: 8443
+            protocol: UDP
+            targetPort: 8443
     persistence:
       data:
         enabled: true
