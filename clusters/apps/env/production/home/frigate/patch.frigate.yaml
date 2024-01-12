@@ -131,9 +131,10 @@ spec:
                   width: 640
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -161,9 +162,10 @@ spec:
                   width: 640
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -191,9 +193,10 @@ spec:
                   width: 640
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -221,9 +224,10 @@ spec:
                   width: 640
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
@@ -251,13 +255,14 @@ spec:
                   width: 2560
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
-                        car: 30
+                        car: 20
                     objects:
                       - person
                       - dog
@@ -283,13 +288,13 @@ spec:
                   width: 2560
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
-                        car: 30
                     objects:
                       - person
                       - dog
@@ -327,13 +332,13 @@ spec:
                   height: 512
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
-                        car: 30
                     objects:
                       - person
                       - dog
@@ -371,13 +376,13 @@ spec:
                   height: 512
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
-                        car: 30
                     objects:
                       - person
                       - dog
@@ -415,13 +420,13 @@ spec:
                   height: 512
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
-                        car: 30
                     objects:
                       - person
                       - dog
@@ -459,13 +464,13 @@ spec:
                   height: 576
                 record:
                   enabled: True
+                  retain:
+                    days: 2
                   events:
                     retain:
-                      days: 3
                       objects:
                         person: 50
                         dog: 20
-                        car: 30
                     objects:
                       - person
                       - dog
