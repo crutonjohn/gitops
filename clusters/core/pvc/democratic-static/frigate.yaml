@@ -28,7 +28,7 @@ spec:
   csi:
     driver: org.democratic-csi.node-manual
     readOnly: false
-    fsType: ext4
+    fsType: xfs
     volumeHandle: frigate-nvmeof
     volumeAttributes:
       transport: tcp://192.168.130.49:4420
