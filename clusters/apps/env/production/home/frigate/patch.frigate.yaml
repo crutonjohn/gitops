@@ -150,13 +150,14 @@ spec:
               kitchen:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream2
-                      roles:
-                        - detect
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream1
+                    - path: rtsp://127.0.0.1:8554/kitchen?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
+                    - path: rtsp://127.0.0.1:8554/kitchen-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   height: 360
                   width: 640
@@ -181,13 +182,14 @@ spec:
               living-room:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream2
-                      roles:
-                        - detect
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream1
+                    - path: rtsp://127.0.0.1:8554/living-room?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
+                    - path: rtsp://127.0.0.1:8554/living-room-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   height: 360
                   width: 640
@@ -212,13 +214,14 @@ spec:
               nursery:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream2
-                      roles:
-                        - detect
-                    - path: rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream1
+                    - path: rtsp://127.0.0.1:8554/nursery?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
+                    - path: rtsp://127.0.0.1:8554/nursery-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   height: 360
                   width: 640
@@ -243,13 +246,14 @@ spec:
               front-doorbell-ad410:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01
-                      roles:
-                        - detect
-                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0
+                    - path: rtsp://127.0.0.1:8554/front-doorbell-ad410?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
+                    - path: rtsp://127.0.0.1:8554/front-doorbell-ad410-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   height: 1920
                   width: 2560
@@ -276,13 +280,14 @@ spec:
               kitchen-doorbell-ad410:
                 ffmpeg:
                   inputs:
-                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01
-                      roles:
-                        - detect
-                    - path: rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0
+                    - path: rtsp://127.0.0.1:8554/kitchen-doorbell-ad410?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
+                    - path: rtsp://127.0.0.1:8554/kitchen-doorbell-ad410-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   height: 1920
                   width: 2560
@@ -307,26 +312,14 @@ spec:
               south-west-1:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
-                      roles:
-                        - detect
-                    - path: https://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: rtsp://127.0.0.1:8554/south-west-1?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
+                    - path: rtsp://127.0.0.1:8554/south-west-1-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   width: 896
                   height: 512
@@ -351,26 +344,14 @@ spec:
               south-west-2:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
-                      roles:
-                        - detect
-                    - path: https://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: rtsp://127.0.0.1:8554/south-west-2?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
+                    - path: rtsp://127.0.0.1:8554/south-west-2-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   width: 896
                   height: 512
@@ -395,26 +376,14 @@ spec:
               north-door-1:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
-                      roles:
-                        - detect
-                    - path: https://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: rtsp://127.0.0.1:8554/north-door-1?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
+                    - path: rtsp://127.0.0.1:8554/north-door-1-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   width: 896
                   height: 512
@@ -439,26 +408,14 @@ spec:
               garage-1:
                 ffmpeg:
                   inputs:
-                    - path: https://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
-                      roles:
-                        - detect
-                    - path: https://192.168.134.71/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}
+                    - path: rtsp://127.0.0.1:8554/garage-1?video=copy&audio=aac
+                      input_args: preset-rtsp-restream
                       roles:
                         - record
-                        - rtmp
-                  input_args:
-                    - -avoid_negative_ts
-                    - make_zero
-                    - -flags
-                    - low_delay
-                    - -strict
-                    - experimental
-                    - -fflags
-                    - nobuffer+genpts+discardcorrupt
-                    - -analyzeduration
-                    - 1000M
-                    - -probesize
-                    - 1000M
+                    - path: rtsp://127.0.0.1:8554/garage-1-sub?video=copy
+                      input_args: preset-rtsp-restream
+                      roles:
+                        - detect
                 detect:
                   width: 1536
                   height: 576
