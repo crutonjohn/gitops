@@ -66,16 +66,16 @@ spec:
                   - "ffmpeg:nursery-sub#audio=opus"
                 front-doorbell-ad410:
                   - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0
-                  - "ffmpeg:front-doorbell-ad410#audio=opus"
+                  - "ffmpeg:front-doorbell-ad410#audio=opus#backchannel=0"
                 front-doorbell-ad410-sub:
                   - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01
-                  - "ffmpeg:front-doorbell-ad410-sub#audio=opus"
+                  - "ffmpeg:front-doorbell-ad410-sub#audio=opus#backchannel=0"
                 kitchen-doorbell-ad410:
                   - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0
-                  - "ffmpeg:kitchen-doorbell-ad410#audio=opus"
+                  - "ffmpeg:kitchen-doorbell-ad410#audio=opus#backchannel=0"
                 kitchen-doorbell-ad410-sub:
                   - rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01
-                  - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
+                  - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus#backchannel=0"
                 south-west-1:
                   - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
                 south-west-1-sub:
