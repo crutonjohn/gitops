@@ -20,7 +20,7 @@ spec:
         data:
           config.yml: |
             logger:
-              default: debug
+              default: info
             mqtt:
               host: "${SECRET_MQTT_ADDRESS}"
               topic_prefix: frigate
