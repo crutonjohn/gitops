@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: home
 resources:
   - frigate
-  - hajimari
+  - homepage
   - nextcloud
   - paperless
   - cluster-mesh
