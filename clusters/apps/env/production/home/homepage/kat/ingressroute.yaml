@@ -18,8 +18,8 @@ spec:
           namespace: auth-system
       priority: 10
       services:
-        - name: frigate
-          port: 5000
+        - name: homepage-kat
+          port: 3000
     - kind: Rule
       match: "Host(`kat.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
       priority: 15
