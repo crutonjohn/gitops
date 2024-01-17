@@ -7,7 +7,7 @@ spec:
   values:
     enableRbac: true
     serviceAccount:
-      name: homepage
+      name: homepage-kat
       create: true
     service:
       main:
