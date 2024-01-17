@@ -20,6 +20,7 @@ spec:
       services:
         - name: homepage-buck
           port: 3000
+          targetPort: http
     - kind: Rule
       match: "Host(`buck.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
       priority: 15
