@@ -108,7 +108,7 @@ spec:
                 description: Router
                 widget:
                   type: opnsense
-                  url: http://192.168.130.1
+                  url: https://192.168.130.1
                   username: ${HOMEPAGE_OPNSENSE_API_KEY}
                   password: ${HOMEPAGE_OPNSENSE_API_PASS}
 
@@ -117,7 +117,7 @@ spec:
                 description: WAP/Switch Administration
                 widget:
                   type: omada
-                  url: http://192.168.133.2
+                  url: https://192.168.133.2
                   username: ${HOMEPAGE_OMADA_USER}
                   password: ${HOMEPAGE_OMADA_PASS}
                   site: Default
