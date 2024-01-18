@@ -27,22 +27,116 @@ spec:
         - Developer:
             - Github:
                 - abbr: GH
-                  href: https://github.com/
+                  href: https://github.com/crutonjohn
+            - Renovate Dashboard:
+                - abbr: Renovate
+                  href: https://github.com/crutonjohn/gitops/issues/216
+        - News:
+            - Reddit:
+                - abbr: R
+                  href: https://reddit.com
+            - Hacker News:
+                - abbr: HN
+                  href: https://news.ycombinator.com/
+        - Entertainment:
+            - Youtube:
+                - abbr: YT
+                  href: https://youtube.com
+
       services:
-        - My First Group:
-            - My First Service:
-                href: http://localhost/
-                description: Homepage is awesome
+        - Home Automation:
+            - Home Assistant:
+                href: https://home.${FAMILY_DOMAIN}
+                widget:
+                  type: homeassistant
+                  url: http://home-assistant.home.svc.cluster.local:8123
+                  key: ${HOMEPAGE_HOMEASSISTANT_TOKEN}
+                  # custom:
+                  #   - state: sensor.total_power
+                  #   - state: sensor.total_energy_today
+                  #     label: energy today
+                  #   - template: "{{ states.switch|selectattr('state','equalto','on')|list|length }}"
+                  #     label: switches on
+                  #   - state: weather.forecast_home
+                  #     label: wind speed
+                  #     value: "{attributes.wind_speed} {attributes.wind_speed_unit}"
+        - Media:
+            - Navidrome:
+                href: https://music.${FAMILY_DOMAIN}
+                description: 🎧
+                widget:
+                  type: navidrome
+                  url: https://music.${FAMILY_DOMAIN}
+                  user: ${HOMEPAGE_NAVIDROME_USER}
+                  token: ${HOMEPAGE_NAVIDROME_TOKEN}
+                  salt: ${HOMEPAGE_NAVIDROME_SALT}
+            - rutorrent:
+                href: ${BYSH_SITE}
+                widget:
+                  type: rutorrent
+                  url: http://${BYSH_HOSTNAME}/rutorrent
+                  username: ${BYSH_USERNAME}
+                  password: ${BYSH_RUTORRENT_PASS}
+            - Lidarr:
+                href: lidarr.${FAMILY_DOMAIN}
+                widget:
+                  type: lidarr
+                  url: http://lidarr.media.svc.cluster.local:8686
+                  key: ${HOMEPAGE_LIDARR_API_KEY}
+        - Making:
+            - Octoprint:
+                href: http://octopi.${FAMILY_DOMAIN}
+                description: Three Dimensional Printing
+                widget:
+                  type: octoprint
+                  url: http://octopi.${FAMILY_DOMAIN}
+                  key: ${HOMEPAGE_OCTOPRINT_TOKEN}
+        - Storage:
+            - TrueNAS:
+                href: http://pandora.${FAMILY_DOMAIN}
+                description: Storage Server
+                widget:
+                  type: truenas
+                  url: http://pandora.${FAMILY_DOMAIN}
+                  key: ${HOMEPAGE_TRUENAS_API_KEY}
 
-        - My Second Group:
-            - My Second Service:
-                href: http://localhost/
-                description: Homepage is the best
+        - Networking:
+            - OPNSense:
+                href: https://192.168.130.1
+                description: Router
+                widget:
+                  type: opnsense
+                  url: http://192.168.130.1
+                  username: ${HOMEPAGE_OPNSENSE_API_KEY}
+                  password: ${HOMEPAGE_OPNSENSE_API_PASS}
 
-        - My Third Group:
-            - My Third Service:
-                href: http://localhost/
-                description: Homepage is 😎
+            - Omada Controller:
+                href: https://omada.${FAMILY_DOMAIN}
+                description: WAP/Switch Administration
+                widget:
+                  type: omada
+                  url: http://192.168.133.2
+                  username: ${HOMEPAGE_OMADA_USER}
+                  password: ${HOMEPAGE_OMADA_PASS}
+                  site: Default
+
+        - Observability:
+            - Grafana (Cloud):
+                href: http://linmon.${FAMILY_DOMAIN}:3000
+                description: Dashboards!
+            - Prometheus (Cloud):
+                href: http://linmon.${FAMILY_DOMAIN}:9090
+                description: PromQL me plz
+                widget:
+                  type: prometheus
+                  url: http://linmon.${FAMILY_DOMAIN}:9090
+            - Prometheus (Local):
+                href: http://192.168.130.103:9090
+                description: Remote-write to Linmon
+                widget:
+                  type: prometheus
+                  url: http://prometheus.observability.svc.cluster.local:9090
+
       widgets:
         - resources:
             # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
@@ -69,6 +163,7 @@ spec:
         mode: cluster
       docker:
       settings:
+        instanceName: buck
     persistence:
       logs:
         enabled: true
