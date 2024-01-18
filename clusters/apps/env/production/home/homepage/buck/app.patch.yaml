@@ -31,7 +31,7 @@ spec:
                 - abbr: GH
                   href: https://github.com/crutonjohn
             - Renovate Dashboard:
-                - abbr: Renovate
+                - abbr: 🤖
                   href: https://github.com/crutonjohn/gitops/issues/216
         - News:
             - Reddit:
