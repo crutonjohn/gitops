@@ -19,6 +19,8 @@ spec:
       rollingUpdate:
         maxSurge: 25%
         maxUnavailable: 25%
+      annotations:
+        reloader.stakater.com/auto: "true"
     ingress:
       main:
         enabled: false
