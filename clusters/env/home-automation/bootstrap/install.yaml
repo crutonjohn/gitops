@@ -1,0 +1,139 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: secrets-${CLUSTER_NAME}
+spec:
+  interval: 2h0m0s
+  dependsOn:
+    - name: bootstrap
+  path: ./clusters/secrets/${CLUSTER_NAME}
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: secrets-generic
+spec:
+  interval: 2h0m0s
+  dependsOn:
+    - name: bootstrap
+  path: ./clusters/secrets/generic
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+spec:
+  interval: 30m0s
+  dependsOn:
+    - name: core
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+  path: ./clusters/apps/env/${CLUSTER_NAME}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core
+spec:
+  interval: 30m0s
+  dependsOn:
+    - name: bootstrap
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: namespaces
+    - name: crds
+  path: ./clusters/core/env/${CLUSTER_NAME}
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crds
+spec:
+  interval: 1h0m0s
+  dependsOn:
+    - name: namespaces
+    - name: helm-repos
+  path: ./clusters/core/base/crds
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: namespaces
+spec:
+  interval: 1h0m0s
+  path: ./clusters/core/base/namespaces/${CLUSTER_NAME}
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: helm-repos
+spec:
+  interval: 1h0m0s
+  path: ./clusters/core/base/applications/flux-system
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
