@@ -16,6 +16,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
+  postBuild:
+    substitute:
+      CLUSTER_NAME: production
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
