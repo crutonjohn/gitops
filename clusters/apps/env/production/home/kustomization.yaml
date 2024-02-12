@@ -5,6 +5,6 @@ namespace: home
 resources:
   - frigate
   - homepage
-  - nextcloud
-  - paperless
+  #- nextcloud
+  #- paperless
   - cluster-mesh
