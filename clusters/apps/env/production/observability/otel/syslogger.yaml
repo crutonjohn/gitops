@@ -5,7 +5,7 @@ metadata:
   name: syslog
 spec:
   mode: deployment
-  image: otel/opentelemetry-collector-contrib:0.91.0
+  image: otel/opentelemetry-collector-contrib:0.94.0
   nodeSelector:
     kubernetes.io/arch: amd64
   volumeMounts:
