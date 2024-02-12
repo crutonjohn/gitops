@@ -29,4 +29,4 @@ spec:
   values:
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: 1.35.0
+      tag: 1.35.3
