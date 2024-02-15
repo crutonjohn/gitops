@@ -3,17 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kube-system
 resources:
-  - ../../../base/kube-system/replicator
-  - ../../../base/kube-system/reloader
   - ../../../base/kube-system/node-feature-discovery
-  - ../../../base/kube-system/intel-gpu-plugin
-  - ../../../base/kube-system/external-snapshotter
-  - ../../../base/kube-system/volsync
   - ingressroute.hubble.yaml
-patches:
-  - path: patch.intel.yaml
-  - path: patch.nfd.yaml
-  - path: patch.reloader.yaml
-  - path: patch.replicator.yaml
-  - path: patch.snapshotter.yaml
-  - path: patch.volsync.yaml
