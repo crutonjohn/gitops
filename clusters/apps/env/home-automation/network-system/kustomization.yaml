@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: network-system
 resources:
   - traefik/internal
-  - metallb.l2-range.yaml
   - network-attachment.yaml
