@@ -8,7 +8,7 @@ spec:
     matchLabels:
       balancer-type: cilium
   interfaces:
-    - enp1s0
+    - enp0s31f6
   loadBalancerIPs: true
 ---
 apiVersion: "cilium.io/v2alpha1"
