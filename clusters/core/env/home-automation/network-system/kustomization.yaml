@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: network-system
 resources:
   - aws-creds.enc.yaml
-  - metallb
+  # - metallb
   - external-dns/aws
   - external-dns/linode
   - multus

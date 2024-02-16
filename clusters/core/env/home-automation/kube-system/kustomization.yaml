@@ -7,6 +7,7 @@ resources:
   - ../../../base/applications/kube-system/reloader
   - ../../../base/applications/kube-system/node-feature-discovery
   - ../../../base/applications/kube-system/intel-gpu-plugin
+  - cilium
 patches:
   - path: patch.intel.yaml
   - path: patch.nfd.yaml
