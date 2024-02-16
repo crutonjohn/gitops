@@ -73,8 +73,8 @@ spec:
         enabled: true
         type: LoadBalancer
         controller: main
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: ${CLUSTER_LB_HOME_ASSISTANT}
+        labels:
+          balancer-type: cilium
         externalTrafficPolicy: Local
         ports:
           http:

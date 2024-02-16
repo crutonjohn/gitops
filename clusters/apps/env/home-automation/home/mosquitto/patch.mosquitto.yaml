@@ -23,6 +23,8 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: "${CLUSTER_LB_MQTT}"
+        labels:
+          balancer-type: cilium
         externalTrafficPolicy: Cluster
         ports:
           http:
