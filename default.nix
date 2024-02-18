@@ -6,5 +6,6 @@
       cilium-cli
       k0sctl
       android-tools
+      envsubst
     ];
 }
