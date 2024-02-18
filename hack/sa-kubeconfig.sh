@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Update these to match your environment
-SERVICE_ACCOUNT_NAME=cj-cert-service-account
+SERVICE_ACCOUNT_NAME=cert-sync-service-account
 CONTEXT=$(kubectl config current-context)
 NAMESPACE=network-system
 
@@ -14,7 +14,7 @@ TOKEN_DATA=$(kubectl get secret ${SECRET_NAME} \
 TOKEN=$(echo ${TOKEN_DATA} | base64 -d)
 
 # Create dedicated kubeconfig
-KUBECONFIG_FILE=cj-kubeconfig
+KUBECONFIG_FILE=cert-sync-kubeconfig
 # Create a full copy
 kubectl config view --raw > ${KUBECONFIG_FILE}.full.tmp
 # Switch working context to correct context
