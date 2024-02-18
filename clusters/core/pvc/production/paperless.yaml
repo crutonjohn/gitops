@@ -2,6 +2,66 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: paperless-export
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: home
+    name: paperless-export-apollo
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/paperless/export"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-export
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: apollo
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-consume
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: home
+    name: paperless-consume-apollo
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/paperless/consume"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-consume
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: apollo
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: paperless-data
 spec:
   capacity:

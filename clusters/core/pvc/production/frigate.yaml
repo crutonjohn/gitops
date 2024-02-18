@@ -1,5 +1,33 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: frigate-recordings
+spec:
+  capacity:
+    storage: 8192Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: apollo
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/frigate/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: frigate-recordings
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: apollo
+  resources:
+    requests:
+      storage: 8192Gi
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: frigate-data

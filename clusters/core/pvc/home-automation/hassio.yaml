@@ -80,3 +80,31 @@ spec:
   resources:
     requests:
       storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: home-assistant-backups
+spec:
+  capacity:
+    storage: 1024Mi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: apollo
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/k8/home-assistant-backups"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant-backups
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: apollo
+  resources:
+    requests:
+      storage: 1024Mi

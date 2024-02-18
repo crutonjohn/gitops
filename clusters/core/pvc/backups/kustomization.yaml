@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - changedetection.yaml
+  - deemix.yaml
+  - frigate.yaml
+  # - hajimari.yaml
+  # - hassio.yaml
+  - lidarr.yaml
+  - navidrome.yaml
+  # - nextcloud.yaml
+  # - paperless.yaml
+  - prometheus.yaml
+  - prowlarr.yaml
+  # - scrypted.yaml
+  - thelounge.yaml
+  # - zigbee2mqtt.yaml
