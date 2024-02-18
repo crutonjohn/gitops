@@ -502,7 +502,7 @@ spec:
       media:
         enabled: true
         mountPath: /media
-        existingClaim: frigate-data-apollo
+        existingClaim: frigate-recordings
       cache:
         enabled: true
         type: emptyDir

@@ -31,7 +31,7 @@ spec:
         mountPath: /music
         accessMode: ReadWriteOnce
         skipuninstall: false
-        existingClaim: "music-library-apollo"
+        existingClaim: "music-library"
     service:
       main:
         annotations:

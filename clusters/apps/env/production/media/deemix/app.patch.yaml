@@ -43,7 +43,7 @@ spec:
       import:
         enabled: true
         mountPath: /downloads
-        existingClaim: "music-sync-apollo"
+        existingClaim: "music-sync"
         subPath: deemix
     additionalContainers: []
     probes:

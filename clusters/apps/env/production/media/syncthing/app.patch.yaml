@@ -14,7 +14,7 @@ spec:
       data:
         enabled: true
         mountPath: /var/syncthing
-        existingClaim: "music-sync-apollo"
+        existingClaim: "music-sync"
     service:
       main:
         ports:

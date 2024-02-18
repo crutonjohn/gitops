@@ -48,7 +48,7 @@ spec:
       media:
         enabled: true
         mountPath: /music
-        existingClaim: "music-library-apollo"
+        existingClaim: "music-library"
       deemix-import:
         enabled: true
         mountPath: /downloads
