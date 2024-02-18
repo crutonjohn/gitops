@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   claimRef:
     namespace: media
-    name: music-sync-apollo
+    name: music-sync
   storageClassName: apollo
   nfs:
     server: 192.168.130.50
