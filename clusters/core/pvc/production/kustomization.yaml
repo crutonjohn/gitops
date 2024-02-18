@@ -5,7 +5,7 @@ resources:
   - changedetection.yaml
   - frigate.yaml
   - lidarr.yaml
-  - music.yaml
+  - music-library.yaml
   - navidrome.yaml
   # - nextcloud.yaml
   # - paperless.yaml
