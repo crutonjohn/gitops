@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: mosquitto
     - name: frigate-cluster-mesh
-    - name: cilium
+    - name: cilium-loadbalancer
     - name: zigbee2mqtt
     - name: multus-iot-garbage
   postBuild:

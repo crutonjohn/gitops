@@ -25,6 +25,8 @@ spec:
       name: sops-aws
   dependsOn:
     - name: traefik-external
+    - name: syncthing
+    - name: prowlarr
   postBuild:
     substitute:
       APP: *app

@@ -25,6 +25,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: traefik-external
+    - name: lidarr
   postBuild:
     substitute:
       APP: *app

@@ -24,7 +24,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: cilium
+    - name: mosquitto
   postBuild:
     substitute:
       APP: *app
