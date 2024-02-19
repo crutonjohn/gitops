@@ -7,7 +7,9 @@ kubeProxyReplacement: strict
 l7Proxy: false
 l2announcements:
     enabled: true
-# devices: {enp1s0}
+loadBalancer:
+    algorithm: maglev
+devices: enp1s0
 externalIPs:
     enabled: true
 bpf:
@@ -119,8 +121,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-02-18T19:58:42Z"
-    mac: ENC[AES256_GCM,data:eLM8QHJVsS8Rpo+RvsORfSMjR40bXl7mJM2B3l8qe5uQgauHC3xH2EWL/VtRtzJ93WKOTG3fVicsB33hiv9paH1GQ4Cv1oOZDP2U+MhFfHBvIasPKcf11PGsg8ckSD5j2qiFvY8lrHOc/Tjs75MQ5HKziK4jXYOA7c9VMgSwbgo=,iv:9VDfzgJKTn8ySzCbI15TDNSlODNtvGTOE8XC2LevigY=,tag:rbxhtj1yGSBo9v7fZP32Hw==,type:str]
+    lastmodified: "2024-02-19T21:10:30Z"
+    mac: ENC[AES256_GCM,data:VsufT9gXv3IUkq6EaIyAoRHmtM5rCaGiamPKKUEsT1Q4xazGsDIaNVDnRPsGScomuJAh7jtyNB1IDa3FgyqojwMn8WdMd0jPub/Kpeyvs/8+BsNimrR/vSs9+h78Omv8xijEn2jUaweYr0BKfMINiBHqIw+JjYbm0GZAJY8C9ac=,iv:fQoeYXZQYa+DAiYbh4ZFWXkb9PygCEizisz42ZlbIkU=,tag:BGWc4QHp85fAaEknx+kGvg==,type:str]
     pgp: []
     encrypted_regex: ^(key)$
     version: 3.8.1
