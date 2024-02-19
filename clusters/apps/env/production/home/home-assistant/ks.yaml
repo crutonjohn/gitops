@@ -30,7 +30,7 @@ spec:
   dependsOn:
     - name: traefik-external
     - name: traefik-internal
-    - name: cilium
+    - name: cilium-loadbalancer
   postBuild:
     substitute:
       APP: *app
