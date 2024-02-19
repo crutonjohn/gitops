@@ -65,13 +65,15 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
+      annotations:
+        balancer-type: cilium
       spec:
         externalTrafficPolicy: Local
         loadBalancerIP: "${CLUSTER_LB_INGRESS_EXTERNAL}"
     autoscaling:
       enabled: true
       minReplicas: 1
-      maxReplicas: 3
+      maxReplicas: 2
       metrics:
         - type: Resource
           resource:

@@ -101,7 +101,8 @@ spec:
         existingClaim: bungee-data-longhorn
     podAnnotations: {}
     deploymentAnnotations: {}
-    serviceAnnotations: {}
+    serviceAnnotations:
+      balancer-type: cilium
     rconServiceAnnotations: {}
     # Can allow plugins access to the kubernetes api using a service account
     # https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/

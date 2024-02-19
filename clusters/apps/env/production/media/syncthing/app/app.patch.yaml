@@ -23,12 +23,12 @@ spec:
       discovery:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/allow-shared-ip: music-sync
+          balancer-type: cilium
         loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
         externalTrafficPolicy: Local
       listen:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/allow-shared-ip: music-sync
+          balancer-type: cilium
         loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
         externalTrafficPolicy: Local
