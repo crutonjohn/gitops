@@ -43,7 +43,7 @@ kind: Kustomization
 metadata:
   name: apps
 spec:
-  interval: 30m0s
+  interval: 1h0m0s
   dependsOn:
     - name: core
     - name: secrets-generic
@@ -111,7 +111,7 @@ spec:
   dependsOn:
     - name: namespaces
     - name: helm-repos
-  path: ./clusters/core/base/crds
+  path: ./clusters/core/crds
   prune: false
   sourceRef:
     kind: GitRepository
@@ -123,7 +123,7 @@ metadata:
   name: namespaces
 spec:
   interval: 1h0m0s
-  path: ./clusters/core/base/namespaces/${CLUSTER_NAME}
+  path: ./clusters/core/namespaces/${CLUSTER_NAME}
   prune: false
   sourceRef:
     kind: GitRepository

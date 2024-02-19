@@ -1,7 +1,5 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: network-system
 resources:
-  - traefik/internal
-  - network-attachment.yaml
+  - ./multus/ks.yaml

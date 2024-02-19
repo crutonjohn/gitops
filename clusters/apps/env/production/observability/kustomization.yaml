@@ -1,16 +1,9 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: observability
 resources:
-  - ../../../base/observability/botkube
-  - ../../../base/observability/changedetection-io
-  # - ../../../base/observability/otel-operator
-  - prometheus
-  - ingressroute.changedetection.yaml
-  - speedtest
-  # - otel
-patches:
-  - path: patch.botkube.yaml
-  - path: patch.changedetection.yaml
-  # - path: patch.otel-operator.yaml
+  - ./botkube/ks.yaml
+  - ./otel/ks.yaml
+  - ./prometheus/ks.yaml
+  - ./speedtest-exporter/ks.yaml
+  - ./ups/ks.yaml

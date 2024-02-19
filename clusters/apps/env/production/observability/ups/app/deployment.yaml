@@ -1,0 +1,148 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upsd-tesla
+  labels:
+    component: upsd-tesla
+spec:
+  selector:
+    matchLabels:
+      component: upsd-tesla
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: upsd-tesla
+      annotations:
+        prometheus.io/port: "9614"
+        prometheus.io/scrape: "true"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd-edison
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: upsd-tesla
+          image: upshift/nut-upsd:2.8.0
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 3493
+          envFrom:
+            - secretRef:
+                name: ups-env
+          volumeMounts:
+            - mountPath: /dev/ups
+              name: ups
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+        - name: exporter-tesla
+          image: jzck/upsc-exporter:latest
+          env:
+            - name: UPS_TARGET
+              value: tesla@localhost:3493
+          ports:
+            - containerPort: 9614
+              name: metrics
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      restartPolicy: Always
+      nodeSelector:
+        feature.node.kubernetes.io/custom-cyberpower-ups: "true"
+      volumes:
+        - name: ups
+          hostPath:
+            path: /dev/ups_0
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upsd-edison
+  labels:
+    component: upsd-edison
+spec:
+  selector:
+    matchLabels:
+      component: upsd-edison
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        component: upsd-edison
+      annotations:
+        prometheus.io/port: "9614"
+        prometheus.io/scrape: "true"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd-tesla
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: upsd-edison
+          image: upshift/nut-upsd:2.8.0
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 3493
+          envFrom:
+            - secretRef:
+                name: ups-env
+          volumeMounts:
+            - mountPath: /dev/ups
+              name: ups
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+        - name: exporter-edison
+          image: jzck/upsc-exporter:latest
+          env:
+            - name: UPS_TARGET
+              value: edison@localhost:3493
+          ports:
+            - containerPort: 9614
+              name: metrics
+          resources:
+            limits:
+              cpu: 50m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+      restartPolicy: Always
+      nodeSelector:
+        feature.node.kubernetes.io/custom-cyberpower-ups: "true"
+      volumes:
+        - name: ups
+          hostPath:
+            path: /dev/ups_0

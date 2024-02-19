@@ -1,14 +1,8 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: network-system
 resources:
-  - crj-wildcard-cert.yaml
-  - heyjohn-wildcard-cert.yaml
-  - aws-creds.enc.yaml
-  - cert-manager
-  - metallb
-  - external-dns/aws
-  - external-dns/linode
-  - linode-webhook
-  - multus
+  - ./cert-manager/ks.yaml
+  - ./external-dns/ks.yaml
+  - ./linode-certmanager-webhook/ks.yaml
+  - ./multus/ks.yaml
