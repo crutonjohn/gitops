@@ -1,0 +1,37 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: navidrome
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
+      services:
+        - name: navidrome
+          port: 4533
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: navidrome
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}

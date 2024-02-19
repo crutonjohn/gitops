@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: dcsi
+stringData:
+    driver-config-file.yaml: ENC[AES256_GCM,data:pdL6cDkMMPC6Ir26vhYnLCG9hP4LaMowR1hOWvWCklLWISlSdzX4NlSMnrkf90Emo/ECUmLQplPFFGY0OAPxVVp1ftn5l5yqG/ClRAMXlZ1aPSCemB/fT1/4mtREkiSs+AygaY4QdSj9skLkpA99z8Zf8vaNTAmCsWjjfgz0Ia1TG/o3lFYhLiFv+cnL45+8Z1iX22T3duXp84s57M3cwro+Bi3CnJ7HZmElZih9p4fkD1HXPhNa0KUgzShwA2BTbwaICmpX+RmFzyX0ASINXBhmoQxufOOSoz7GIC8dxagcKIdeoKcijuQUCX6jdr6drWA2n9Bt4MZcot358NoclxkeLp50L2RRxTpVOfR3q5a6oE6nNlaq1rZb2nImOqbDnypzR0dHrY0M8YkG+d/1Thsmwu8uWlvKxnpsWSBqqyfLFQoqlwwfmI8seKu7+atlVL9nGbNUCkBSl/vVV8vWGAQWeKMzljRn33lz/yJAKzJCtkP2DcXFeMOXcD/D5PCs6mdOgQ1f8JPPfCBTB4YBzyk+qBN0466+oiahGSbFDafFhpDJyZIOs9HrcWdJ9SIkODI1SMaEi6H57Szke8UDIsLDHu4+Y5o4If9e0eYM6+Zp+S1OMxxgQWhH02Bj1m0pXIuCAV8oQSTZQ48Bnr/v62xaGfDlblVhww815tpc4j73a9BNqioGwPbPPPWa0jqY1meM46RSd/3qf6XUybRj7B/urFUrIe0ZwUoixzD4Se23wdRtKqhLV8nQb7pxuF9tPDPnoOBwqTptZthkqp8AoebM3TxaFyY5/sq7RtZLES0nwVYrS4+T1pz2BoRphIW3TJisjTwiM0PVgCxgZTsDp+UsAmLWoF6f5Uyvi72nY30UU3UvDidk43zGfI+x6s1xDj37AQ4I5pqmQG4rzfow9fbNYuf2f4juW6f99gi+zMPFVGCpxh/RKl089LbqipILSu9lEe6vLPJ9QMsZQJY0BaSY5sRQxwzKGkWEUqFCpizzCtjOGX4H7HmZoRj454Q7HEjymgleAQtjHkqqsiu/ezJZdeKg3JY9MlOzEClIfH/2Q8de4UoTo6ytWEnafQXze1GwMIgMTEhDb9ZDByZk0DknntjJT+QX2aoKJPW7gPdgLLEVR2uMw58UjbZKduFfqMt1Te2DIWBs7VsJI+0FCvqFRA8rbtbxico3SBv1Je1uOvGtzg0X,iv:06clQ2xn5iFLGWsynebSRVpgtjGztLYyeVOmvcCdhCw=,tag:+WqXNPtEMyyVOTzjhFVLEQ==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2024-02-19T07:26:07Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwE/V5WQ/4fHTfajLN+bj2jbAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMOIpG2woM3X9UEjVZAgEQgDte4P62E6yTcFnNLNMzJ9xtwciJCMB3Kl02GvK5h/dnKW8exi4qbeDvuV4gAJ8BrAkbcVn1c0iEI3yFVA==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-02-19T07:26:07Z"
+    mac: ENC[AES256_GCM,data:6b1mjnN5JQKDkG/x4mIpHSycUcl4lUCdSX76plzGg87WeEMTD0aERaN/1Wgtrn/3j3Yw5EyYI9YiuFv4KX0rwVBqBVjIswV3BheoUgg7jld3SWYfZ48JV8j9nXe73Ng037z1drT/dqv1FbELj9h7TpSwRpo1HsYFWNAdRKyAP3Y=,iv:Fsf5Z8UYgQKP+GuNw3wMPoBecDFLHOWXnPAiv7lR0vA=,tag:C3JUDWRP1DYyJ4FmMGR9vQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

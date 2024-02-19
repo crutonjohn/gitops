@@ -8,9 +8,3 @@ resources:
 nameSuffix: -kat
 patches:
   - path: app.patch.yaml
-  # - path: ./name.patch.yaml
-  #   target:
-  #     group: helm.toolkit.fluxcd.io
-  #     kind: HelmRelease
-  #     name: homepage
-  #     version: v2beta1
