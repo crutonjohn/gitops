@@ -22,13 +22,9 @@ spec:
             port: 8384
       discovery:
         type: LoadBalancer
-        annotations:
-          balancer-type: cilium
         loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
         externalTrafficPolicy: Local
       listen:
         type: LoadBalancer
-        annotations:
-          balancer-type: cilium
         loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
         externalTrafficPolicy: Local

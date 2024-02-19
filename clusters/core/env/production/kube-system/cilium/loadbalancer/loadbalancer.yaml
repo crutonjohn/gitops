@@ -4,9 +4,6 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2announcement-policy
 spec:
-  serviceSelector:
-    matchLabels:
-      balancer-type: cilium
   interfaces:
     - enp1s0
   loadBalancerIPs: true

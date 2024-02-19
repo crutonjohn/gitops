@@ -66,8 +66,6 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
-      annotations:
-        balancer-type: cilium
       spec:
         externalTrafficPolicy: Local
         loadBalancerIP: "${CLUSTER_LB_INGRESS_INTERNAL}"
