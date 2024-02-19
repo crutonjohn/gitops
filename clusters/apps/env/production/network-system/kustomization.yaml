@@ -5,4 +5,3 @@ namespace: network-system
 resources:
   - ./librespeed/ks.yaml
   - ./traefik/ks.yaml
-  - ./multus/ks.yaml
