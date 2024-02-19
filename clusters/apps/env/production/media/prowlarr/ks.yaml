@@ -25,6 +25,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: traefik-external
+    - name: oauth2-proxy
   postBuild:
     substitute:
       APP: *app

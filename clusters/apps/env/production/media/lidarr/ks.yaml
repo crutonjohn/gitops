@@ -27,6 +27,7 @@ spec:
     - name: traefik-external
     - name: syncthing
     - name: prowlarr
+    - name: oauth2-proxy
   postBuild:
     substitute:
       APP: *app

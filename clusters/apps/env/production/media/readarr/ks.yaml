@@ -26,6 +26,7 @@ spec:
   dependsOn:
     - name: traefik-external
     - name: prowlarr
+    - name: oauth2-proxy
   postBuild:
     substitute:
       APP: *app
