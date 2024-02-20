@@ -6,7 +6,7 @@ metadata:
   name: &app cert-manager-linode
   namespace: flux-system
 spec:
-  targetNamespace: auth-system
+  targetNamespace: network-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
