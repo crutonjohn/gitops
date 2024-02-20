@@ -11,7 +11,8 @@ spec:
       "plugins": [{
         "type": "macvlan",
         "capabilities": {
-          "ips": true
+          "ips": true,
+          "macs": true
         },
         "master": "enp0s31f6.3002",
         "mode": "bridge",
@@ -23,10 +24,7 @@ spec:
               "gw": "192.168.134.1"
             }
           ],
-          "gateway": "192.168.134.1",
-          "capabilities": {
-            "macs": true
-          },
+          "gateway": "192.168.134.1"
         }
       },
       {
