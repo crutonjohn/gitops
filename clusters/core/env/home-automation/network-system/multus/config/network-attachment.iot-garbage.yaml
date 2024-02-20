@@ -47,7 +47,7 @@ spec:
           "master": "enp0s31f6.3002",
           "mode": "bridge",
           "capabilities": {
-            "ips": true
+            "ips": true,
             "macs": true
           },
           "ipam": {
