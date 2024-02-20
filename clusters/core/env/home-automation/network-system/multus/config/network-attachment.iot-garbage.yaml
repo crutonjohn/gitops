@@ -48,12 +48,10 @@ spec:
           "mode": "bridge",
           "capabilities": {
             "ips": true
+            "macs": true
           },
           "ipam": {
-            "type": "static",
-            "routes": [
-              { "dst": "192.168.134.0/24", "gw": "192.168.134.1" }
-            ]
+            "type": "dhcp"
           }
         }
       ]
