@@ -13,7 +13,7 @@ spec:
         "capabilities": {
           "ips": true
         },
-        "master": "enp0s31f6.3002",
+        "master": "enp1s0.3002",
         "mode": "bridge",
         "ipam": {
           "type": "static",
