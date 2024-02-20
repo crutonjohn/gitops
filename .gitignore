@@ -36,3 +36,4 @@ vars.tf
 # kubeconfigs
 hack/casa
 hack/main
+hack/truenas
