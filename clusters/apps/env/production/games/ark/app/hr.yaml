@@ -18,7 +18,7 @@ spec:
     fullnameOverride: ""
     commonLabels: {}
     commonAnnotations:
-      io.cilium/lb-ipam-ips: "${ARK_CLUSTER_SERVICE_LB}"
+      io.cilium/lb-ipam-ips: "${CLUSTER_LB_ARK_SERVER}"
       io.cilium/lb-ipam-sharing-key: ark-cluster
     nodeSelector:
       ${FAMILY_DOMAIN}/role: gameserver
