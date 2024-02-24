@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - angelnu-charts.yaml
+  - ark-server-charts.yaml
   - authentik-charts.yaml
   - backube-charts.yaml
   - banzaicloud-charts.yaml
