@@ -143,15 +143,15 @@ spec:
             memory: 8Gi
           limits:
             memory: 16Gi
-        customConfigMap:
-          GameIni: |
-            # Extinction Game.ini
-          GameUserSettingsIni: |
-            # Extinction GameUserSettings.ini
-            [ServerSettings]
-            XPMultiplier=6
-          EngineIni: |
-            # Extinction Engine.ini
+        # customConfigMap:
+        #   GameIni: |
+        #     # Extinction Game.ini
+        #   GameUserSettingsIni: |
+        #     # Extinction GameUserSettings.ini
+        #     [ServerSettings]
+        #     XPMultiplier=6
+        #   EngineIni: |
+        #     # Extinction Engine.ini
 
     # Containers' resource requests and limits
     # ref: http://kubernetes.io/docs/user-guide/compute-resources/
