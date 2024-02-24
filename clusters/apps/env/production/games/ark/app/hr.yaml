@@ -98,7 +98,7 @@ spec:
         value: "15"
 
     # Global custom game settings can be overwritten per server
-    customConfigMap:
+    #customConfigMap:
     # GameIni: ark-server-global-gameini
     # GameUserSettingsIni: ark-server-global-user-settings-ini
     # EngineIni: ark-server-global-engine-ini
