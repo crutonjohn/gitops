@@ -75,7 +75,7 @@ spec:
     # dnsPolicy: ClusterFirst
 
     # Cluster name
-    clusterName: ark
+    clusterName: fleetwood
 
     # Mods available in the cluster and enabled by default on all servers.
     # Mods are updated with the game and can be overwritten per server.
@@ -163,27 +163,25 @@ spec:
       limits:
         memory: 16Gi
 
-    # Default ports used by the container. Can be set per server.
-    # ARK communicates ports to the client, so make sure the container port matches the external port!
-    # Using these default settings for a cluster only makes sense if you have an IP for each server.
-    containerPorts:
-      gameudp: 7777
-      queryudp: 27015
-      rcon: 27020
-
     service:
       enabled: true
       # IPAM is handled by the global annotations
       type: LoadBalancer
+
     persistence:
-      enabled: false
+      enabled: true
       existingVolumes: true
+      # volume is shared verbatim across all deployments
       game:
         existingClaim: ark-game
         mountPath: /arkserver
+      # volume is shared verbatim across all deployments
       cluster:
         mountPath: /arkserver/ShooterGame/Saved/clusters
         existingClaim: ark-cluster
+      # existingClaim name is appended with server name
+      # ark-save will become ark-save-theisland or ark-save-extinction
+      # these volumes will have to be created manually every time a new server is spun up
       save:
         existingClaim: ark-save
         mountPath: /arkserver/ShooterGame/Saved
