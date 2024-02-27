@@ -24,9 +24,9 @@ spec:
       ${FAMILY_DOMAIN}/role: gameserver
     affinity: {}
     tolerations: []
-    securityContext:
-      runAsUser: 2565
-      fsGroup: 2565
+    # securityContext:
+    #   runAsUser: 2565
+    #   fsGroup: 2565
     podLabels: {}
     podAnnotations:
       reloader.stakater.com/auto: "true"
