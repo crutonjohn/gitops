@@ -25,8 +25,8 @@ spec:
     affinity: {}
     tolerations: []
     securityContext:
-      runAsUser: 2565
-      fsGroup: 2565
+      runAsUser: 0
+      fsGroup: 0
     podLabels: {}
     podAnnotations:
       reloader.stakater.com/auto: "true"
