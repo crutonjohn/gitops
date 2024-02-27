@@ -24,21 +24,21 @@ spec:
       ${FAMILY_DOMAIN}/role: gameserver
     affinity: {}
     tolerations: []
-    # securityContext:
-    #   runAsUser: 2565
-    #   fsGroup: 2565
+    securityContext:
+      runAsUser: 2565
+      fsGroup: 2565
     podLabels: {}
     podAnnotations:
       reloader.stakater.com/auto: "true"
-    podSecurityContext:
-      capabilities:
-        drop:
-          - ALL
-        add:
-          - CHOWN
-          - NET_BIND_SERVICE
-      readOnlyRootFilesystem: true
-      runAsNonRoot: false
+    podSecurityContext: {}
+      # capabilities:
+      #   drop:
+      #     - ALL
+      #   add:
+      #     - CHOWN
+      #     - NET_BIND_SERVICE
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: false
     topologySpreadConstraints: {}
 
     image:
