@@ -143,6 +143,9 @@ spec:
             memory: 8Gi
           limits:
             memory: 16Gi
+        customConfigMap:
+          crontab: |
+            5 5 * * * arkmanager restart --warn --saveworld # restart every day at midnight
         # customConfigMap:
         #   GameIni: |
         #     # Extinction Game.ini
