@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ark-game
+spec:
+  capacity:
+    storage: 200Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadOnlyMany
+    - ReadWriteMany
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ark
+  hostPath:
+    path: "/mnt/arkserver/theisland/game"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ark-cluster
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/games/ark/cluster"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ark-save
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/games/ark/save"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ark-game
+  namespace: games
+spec:
+  accessModes:
+    - ReadOnlyMany
+    - ReadWriteMany
+    - ReadWriteOnce
+  storageClassName: ark
+  volumeName: ark-game
+  resources:
+    requests:
+      storage: 200Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ark-cluster
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: apollo
+  volumeName: ark-cluster
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ark-save
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: apollo
+  volumeName: ark-save
+  resources:
+    requests:
+      storage: 10Gi

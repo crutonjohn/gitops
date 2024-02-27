@@ -58,7 +58,7 @@ spec:
 
     # Defaults to 1, we set this to 0 so servers don't start automatically after deploy
     #
-    replicaCount: 0
+    replicaCount: 1
 
     # Attach pod directly to host network
     # Implies: `service.enabled: false`
@@ -75,7 +75,7 @@ spec:
     # dnsPolicy: ClusterFirst
 
     # Cluster name
-    clusterName: arkcluster
+    clusterName: ark
 
     # Mods available in the cluster and enabled by default on all servers.
     # Mods are updated with the game and can be overwritten per server.
@@ -172,79 +172,20 @@ spec:
       rcon: 27020
 
     service:
-      # enable a service per server
       enabled: true
-      # externalTrafficPolicy: Local
+      # IPAM is handled by the global annotations
       type: LoadBalancer
-      # Enable metallb shared ip
-      metallb_shared_ip: false
-
-    # Enable persistence using Persistent Volume Claims
-    # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-    #
     persistence:
       enabled: false
-
-      # use generic existing volume names prefixed with <cluster-name>: -game, -cluster, -<server-name>
-      #
-      existingVolumes: false
-
-      # game files from steam, the largest volume, includes installed mods
+      existingVolumes: true
       game:
-        accessModes:
-          - ReadOnlyMany
-          - ReadWriteMany
-          - ReadWriteOnce
-        size: 30Gi
-        annotations: {}
-
-        # mountPath is used regardless if `persistence` is enabled
-        # this is the mount point in the pod image
+        existingClaim: ark-game
         mountPath: /arkserver
-
-      # shared cluster files
       cluster:
-        accessModes:
-          - ReadWriteMany
-        size: 200Mi
-        annotations: {}
         mountPath: /arkserver/ShooterGame/Saved/clusters
-
-      # contains the world save game and configuration files
-      # keeping a backup of this is enough to get your server back up
+        existingClaim: ark-cluster
       save:
-        # A named, existing Persistent Volume
-        #
-        # existingVolume:
-
-        # A manually managed Persistent Volume Claim, if none given, the PVC
-        # will be created with the name: <cluster-name>-<server-name>
-        #
-        # existingClaim:
-
-        # volumeMode defines what type of volume is required by the claim.
-        # Value of Filesystem is implied when not included in claim spec.
-        #
-        # volumeMode: Filesystem
-
-        # PV Storage Class
-        # If defined, storageClassName: <storageClass>
-        # If set to "-", storageClassName: "", which disables dynamic provisioning
-        # If undefined (the default) or set to null, no storageClassName spec is
-        # set, choosing the default provisioner.
-        #
-        # storageClass: "local-storage"
-
-        # PVC Access Modes
-        accessModes:
-          - ReadWriteOnce
-
-        # PVC size
-        size: 2Gi
-
-        annotations: {}
-
-        # The path the volume will be mounted at
+        existingClaim: ark-save
         mountPath: /arkserver/ShooterGame/Saved
 
 
