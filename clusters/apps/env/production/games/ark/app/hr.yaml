@@ -82,6 +82,7 @@ spec:
       - "731604991"
       - "1364327869"
       - "1404697612"
+      - "1645346094"
 
     # Set RCON password for the whole cluster
     rcon:
@@ -189,7 +190,7 @@ spec:
             ServerAdminPassword=${ARK_SERVER_ADMIN_PASSWORD}
             RCONServerGameLogBuffer=600
             AdminLogging=False
-            ActiveMods=731604991,1364327869,1404697612
+            ActiveMods=731604991,1364327869,1404697612,1645346094
             AutoSavePeriodMinutes=15.000000
             TribeLogDestroyedEnemyStructures=False
             AllowHideDamageSourceFromLogs=False
@@ -344,5 +345,10 @@ spec:
       name: ""
 
     extraInitContainers: []
-    extraVolumeMounts: []
-    extraVolumes: []
+    extraVolumeMounts:
+      - mountPath: /ark/backup
+        name: ark-backup
+    extraVolumes:
+      - name: ark-backup
+        persistentVolumeClaim:
+          claimName: ark-backup
