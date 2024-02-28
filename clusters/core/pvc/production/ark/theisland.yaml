@@ -28,3 +28,33 @@ spec:
   resources:
     requests:
       storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ark-config
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/games/ark/config/theisland"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ark-config
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: apollo
+  volumeName: ark-config
+  resources:
+    requests:
+      storage: 10Gi
