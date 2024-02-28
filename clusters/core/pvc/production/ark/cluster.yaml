@@ -61,3 +61,33 @@ spec:
   resources:
     requests:
       storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ark-backup
+spec:
+  capacity:
+    storage: 40Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/games/ark/backups"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ark-backup
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: apollo
+  volumeName: ark-backup
+  resources:
+    requests:
+      storage: 40Gi
