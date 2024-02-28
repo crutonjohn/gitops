@@ -43,7 +43,7 @@ spec:
     image:
       registry: ghcr.io
       repository: crutonjohn/arkserver
-      tag: latest
+      tag: master
       pullSecrets: []
       pullPolicy: Always
 
