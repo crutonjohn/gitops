@@ -24,8 +24,8 @@ spec:
     affinity: {}
     tolerations: []
     securityContext:
-      runAsUser: 1000
-      fsGroup: 1000
+      runAsUser: 1001
+      fsGroup: 1001
     podLabels: {}
     podAnnotations:
       reloader.stakater.com/auto: "true"
@@ -78,14 +78,10 @@ spec:
 
     # Mods available in the cluster and enabled by default on all servers.
     # Mods are updated with the game and can be overwritten per server.
-    mods: []
-    #  - "731604991"
-    #  - "889745138"
-    #  - "893904615"
-    #  - "1404697612"
-    #  - "621154190"
-    #  - "564895376"
-    #  - "931434275"
+    mods:
+      - 731604991
+      - 1364327869
+      - 1404697612
 
     # Set RCON password for the whole cluster
     rcon:
