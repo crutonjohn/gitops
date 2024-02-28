@@ -5,6 +5,7 @@ metadata:
   name: custom-ark-server-charts
   namespace: flux-system
 spec:
+  interval: 1h0m0s
   ignore: |
     # exclude all
     /*
