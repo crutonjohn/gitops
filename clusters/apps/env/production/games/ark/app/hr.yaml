@@ -256,7 +256,7 @@ spec:
             AlwaysAllowStructurePickup=False
             StructurePickupTimeAfterPlacement=30.000000
             StructurePickupHoldDuration=0.500000
-            AllowIntegratedSPlusStructures=True
+            AllowIntegratedSPlusStructures=False
             AllowFlyingStaminaRecovery=True
             TamingSpeedMultiplier=3.000000
             HarvestAmountMultiplier=1.900000
