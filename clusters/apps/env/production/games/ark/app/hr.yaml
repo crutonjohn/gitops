@@ -182,6 +182,8 @@ spec:
             bIgnoreStructuresPreventionVolumes=False
             bGenesisUseStructuresPreventionVolumes=False
             WildDinoCharacterFoodDrainMultiplier=1.500000
+            NPCReplacements=(FromClassName="Ichthyornis_Character_BP_C",ToClassName="")
+            NPCReplacements=(FromClassName="Pegomastax_Character_BP_C",ToClassName="")
           GameUserSettingsIni: |
             # The Island User Settings ini
             [/Script/ShooterGame.ShooterGameUserSettings]
