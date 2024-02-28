@@ -7,11 +7,10 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: ark-cluster
-      version: 0.2.1
+      chart: charts/ark-cluster
       sourceRef:
-        kind: HelmRepository
-        name: ark-server-charts
+        kind: GitRepository
+        name: custom-ark-server-charts
         namespace: flux-system
   values:
     nameOverride: ""
@@ -42,9 +41,9 @@ spec:
     topologySpreadConstraints: {}
 
     image:
-      registry: docker.io
-      repository: drpsychick/arkserver
-      tag: lunar
+      registry: ghcr.io
+      repository: crutonjohn/arkserver
+      tag: latest
       pullSecrets: []
       pullPolicy: Always
 

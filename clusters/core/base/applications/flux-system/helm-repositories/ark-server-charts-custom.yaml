@@ -1,0 +1,15 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: custom-ark-server-charts
+  namespace: flux-system
+spec:
+  ignore: |
+    # exclude all
+    /*
+    # include chart dir
+    !/charts/
+  url: https://github.com/crutonjohn/ark-server-charts
+  ref:
+    branch: fix/kubernetes-custom
