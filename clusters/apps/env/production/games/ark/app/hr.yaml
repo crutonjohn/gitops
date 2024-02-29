@@ -256,7 +256,7 @@ spec:
             FastDecayUnsnappedCoreStructures=False
             DestroyUnconnectedWaterPipes=False
             IgnoreLimitMaxStructuresInRangeTypeFlag=False
-            AlwaysAllowStructurePickup=False
+            AlwaysAllowStructurePickup=True
             StructurePickupTimeAfterPlacement=30.000000
             StructurePickupHoldDuration=0.500000
             AllowIntegratedSPlusStructures=False
