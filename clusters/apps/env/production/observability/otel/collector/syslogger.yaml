@@ -79,6 +79,7 @@ spec:
       extensions:
         - health_check
         - memory_ballast
+        - file_storage
       telemetry:
         metrics:
           address: "0.0.0.0:8888"
