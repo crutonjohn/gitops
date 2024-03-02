@@ -92,6 +92,8 @@ spec:
     extraEnvVars:
       - name: am_arkwarnminutes
         value: "15"
+      - name: am_arkBackupPreUpdate
+        value: true
 
     # Global custom game settings can be overwritten per server
     #customConfigMap:
