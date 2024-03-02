@@ -146,7 +146,7 @@ spec:
         customConfigMap:
           crontab: |
             # */30 * * * * arkmanager update --update-mods --warn --saveworld # check for updates and mod updates
-            10 */8 * * * arkmanager saveworld && arkmanager backup # save world and back up world save
+            10 */3 * * * arkmanager saveworld && arkmanager backup # save world and back up world save
             5 5 * * * arkmanager restart --warn --saveworld # restart every day at midnight
           GameIni: |
             # The Island Game ini
