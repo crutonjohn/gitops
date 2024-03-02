@@ -94,6 +94,8 @@ spec:
         value: "15"
       - name: am_arkBackupPreUpdate
         value: true
+      - name: am_ark_PvEAllowStructuresAtSupplyDrops
+        value: true
 
     # Global custom game settings can be overwritten per server
     #customConfigMap:
