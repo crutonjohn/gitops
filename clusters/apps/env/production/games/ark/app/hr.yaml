@@ -93,9 +93,9 @@ spec:
       - name: am_arkwarnminutes
         value: "15"
       - name: am_arkBackupPreUpdate
-        value: true
+        value: "true"
       - name: am_ark_PvEAllowStructuresAtSupplyDrops
-        value: true
+        value: "true"
 
     # Global custom game settings can be overwritten per server
     #customConfigMap:
