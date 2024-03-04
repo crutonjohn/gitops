@@ -67,7 +67,7 @@ spec:
     # Attach specific ports to host node.
     # Implies: `service.enabled: false`
     # Mutually exclusive: `hostNetwork`
-    hostPort: false
+    hostPort: true
 
     # set to "ClusterFirstWithHostNet" when hostNetwork=true
     #
@@ -302,7 +302,7 @@ spec:
         memory: 16Gi
 
     service:
-      enabled: true
+      enabled: false
       # IPAM is handled by the global annotations
       # type: LoadBalancer
       type: NodePort
