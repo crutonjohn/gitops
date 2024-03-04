@@ -147,7 +147,7 @@ spec:
           crontab: |
             # */30 * * * * arkmanager update --update-mods --warn --saveworld # check for updates and mod updates
             10 */3 * * * arkmanager saveworld && arkmanager backup # save world and back up world save
-            5 5 * * * arkmanager saveworld && arkmanager backup && arkmanager restart --warn --saveworld # restart every day at midnight
+            5 5 * * * arkmanager saveworld && arkmanager backup && arkmanager restart --warn # restart every day at midnight
           GameIni: |
             # The Island Game ini
             [/Script/ShooterGame.ShooterGameMode]
