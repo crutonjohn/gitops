@@ -16,9 +16,9 @@ spec:
     nameOverride: ""
     fullnameOverride: ""
     commonLabels: {}
-    commonAnnotations:
-      io.cilium/lb-ipam-ips: "${CLUSTER_LB_ARK_SERVER}"
-      io.cilium/lb-ipam-sharing-key: ark-cluster
+    commonAnnotations: {}
+      # io.cilium/lb-ipam-ips: "${CLUSTER_LB_ARK_SERVER}"
+      # io.cilium/lb-ipam-sharing-key: ark-cluster
     nodeSelector:
       ${FAMILY_DOMAIN}/role: gameserver
     affinity: {}
@@ -304,7 +304,8 @@ spec:
     service:
       enabled: true
       # IPAM is handled by the global annotations
-      type: LoadBalancer
+      # type: LoadBalancer
+      type: NodePort
 
     persistence:
       enabled: true
