@@ -146,8 +146,9 @@ spec:
         customConfigMap:
           crontab: |
             # */30 * * * * arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager update --update-mods --warn # check for updates and mod updates
-            10 */3 * * * arkmanager saveworld && sleep 3 && arkmanager backup # save world and back up world save
-            5 5 * * * arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager restart --warn # restart every day at midnight
+            10 */1 * * * arkmanager saveworld && sleep 3 && arkmanager backup # save world and back up world save
+            3 */1 * * * find /ark/backup/ -maxdepth 2 -mtime +7 -type f -delete
+            5 5 * * * arkmanager broadcast "taking a backup and shutting down in 5 minutes" && sleep 300 && arkmanager broadcast "backing up and restarting in 10 seconds" && sleep 10 && arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager restart # restart every day at midnight
           GameIni: |
             # The Island Game ini
             [/Script/ShooterGame.ShooterGameMode]
