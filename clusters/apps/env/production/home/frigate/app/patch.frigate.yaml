@@ -532,6 +532,10 @@ spec:
                   operator: In
                   values:
                     - "true"
+                - key: ${FAMILY_DOMAIN}/role
+                  operator: In
+                  values:
+                    - apps
     resources:
       requests:
         memory: 1024Mi
