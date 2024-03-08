@@ -17,3 +17,13 @@ spec:
   dependsOn:
     - name: traefik-internal
       namespace: network-system
+  values:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: "!${FAMILY_DOMAIN}/role"
+                  operator: NotIn
+                  values:
+                    - gameserver

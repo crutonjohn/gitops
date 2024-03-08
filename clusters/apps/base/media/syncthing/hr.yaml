@@ -17,3 +17,12 @@ spec:
     image:
       repository: syncthing/syncthing
       tag: 1.27.3
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: "!${FAMILY_DOMAIN}/role"
+                  operator: NotIn
+                  values:
+                    - gameserver
