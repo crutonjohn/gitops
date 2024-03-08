@@ -47,18 +47,3 @@ spec:
     crds:
       enabled: true
       validationFailurePolicy: Fail
-
-prometheus:
-  scrapeAnnotations: true
-# controller contains configuration specific to the MetalLB cluster
-# controller.
-controller:
-  logLevel: debug
-
-# speaker contains configuration specific to the MetalLB speaker
-# daemonset.
-speaker:
-  enabled: true
-  # command: /speaker
-  # -- Speaker log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
-  logLevel: debug
