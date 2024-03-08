@@ -65,9 +65,12 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
+      labels: {}
+      annotations:
+        io.cilium/lb-ipam-ips: "${CLUSTER_LB_INGRESS_EXTERNAL}"
       spec:
         externalTrafficPolicy: Local
-        loadBalancerIP: "${CLUSTER_LB_INGRESS_EXTERNAL}"
+        # loadBalancerIP: "${CLUSTER_LB_INGRESS_EXTERNAL}"
     autoscaling:
       enabled: true
       minReplicas: 1
