@@ -1,0 +1,64 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: metallb
+      sourceRef:
+        kind: HelmRepository
+        name: metallb-charts
+        namespace: flux-system
+  values:
+    controller:
+      enabled: true
+      # -- Controller log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+      logLevel: info
+      # command: /controller
+      # webhookMode: enabled
+      image:
+        repository: quay.io/metallb/controller
+        tag: v0.14.3
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+    speaker:
+      enabled: true
+      # command: /speaker
+      # -- Speaker log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+      logLevel: info
+      image:
+        repository: quay.io/metallb/speaker
+        tag: v0.14.3
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+    crds:
+      enabled: true
+      validationFailurePolicy: Fail
+
+prometheus:
+  scrapeAnnotations: true
+# controller contains configuration specific to the MetalLB cluster
+# controller.
+controller:
+  logLevel: debug
+
+# speaker contains configuration specific to the MetalLB speaker
+# daemonset.
+speaker:
+  enabled: true
+  # command: /speaker
+  # -- Speaker log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+  logLevel: debug
