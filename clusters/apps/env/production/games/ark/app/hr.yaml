@@ -19,6 +19,7 @@ spec:
     commonAnnotations:
       metallb.universe.tf/address-pool: main
       metallb.universe.tf/loadBalancerIPs: "${CLUSTER_LB_ARK_SERVER}"
+      metallb.universe.tf/allow-shared-ip: ark-cluster
     nodeSelector:
       ${FAMILY_DOMAIN}/role: gameserver
     affinity: {}
@@ -309,7 +310,7 @@ spec:
       enabled: true
       # IPAM is handled by the global annotations
       type: LoadBalancer
-      metallb_shared_ip: true
+      metallb_shared_ip: false
       # type: NodePort
 
     persistence:
