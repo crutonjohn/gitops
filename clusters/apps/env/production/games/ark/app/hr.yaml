@@ -223,8 +223,8 @@ spec:
             PreventOfflinePvP=False
             TribeNameChangeCooldown=15
             PreventTribeAlliances=False
-            PreventDiseases=False
-            NonPermanentDiseases=True
+            PreventDiseases=True
+            # NonPermanentDiseases=True
             PreventSpawnAnimations=False
             PlatformSaddleBuildAreaBoundsMultiplier=1.000000
             MaxGateFrameOnSaddles=2
