@@ -68,10 +68,10 @@ spec:
       type: LoadBalancer
       labels: {}
       annotations:
-        io.cilium/lb-ipam-ips: "${CLUSTER_LB_INGRESS_INTERNAL}"
+        metallb.universe.tf/address-pool: main
+        metallb.universe.tf/loadBalancerIPs: "${CLUSTER_LB_INGRESS_INTERNAL}"
       spec:
         externalTrafficPolicy: Local
-        # loadBalancerIP: "${CLUSTER_LB_INGRESS_INTERNAL}"
     autoscaling:
       enabled: true
       minReplicas: 1

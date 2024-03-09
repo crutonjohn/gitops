@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: metallb
+      sourceRef:
+        kind: HelmRepository
+        name: metallb-charts
+        namespace: flux-system
+  values:
+    controller:
+      # -- Controller log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+      logLevel: debug
+    speaker:
+      # -- Speaker log level. Must be one of: `all`, `debug`, `info`, `warn`, `error` or `none`
+      logLevel: debug
+
+    prometheus:
+      scrapeAnnotations: true
