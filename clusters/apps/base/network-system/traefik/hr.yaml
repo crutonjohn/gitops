@@ -21,3 +21,19 @@ spec:
       name: traefik
       tag: 2.10.4
       pullPolicy: IfNotPresent
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: ${FAMILY_DOMAIN}/role
+                  operator: In
+                  values:
+                    - apps
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: '{{ template "traefik.name" . }}'
+                app.kubernetes.io/instance: '{{ .Release.Name }}-{{ .Release.Namespace }}'
+            topologyKey: kubernetes.io/hostname

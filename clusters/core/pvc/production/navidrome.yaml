@@ -31,7 +31,7 @@ spec:
     fsType: ext4
     volumeHandle: navidrome-nvmeof
     volumeAttributes:
-      transport: tcp://192.168.130.49:4420
+      transport: tcp://192.168.130.50:4420
       # transports: <transport>,<transport>,...
       nqn: navidrome
       nsid: "1"

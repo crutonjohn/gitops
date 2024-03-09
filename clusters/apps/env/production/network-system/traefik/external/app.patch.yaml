@@ -65,9 +65,12 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
+      labels: {}
+      annotations:
+        metallb.universe.tf/address-pool: main
+        metallb.universe.tf/loadBalancerIPs: "${CLUSTER_LB_INGRESS_EXTERNAL}"
       spec:
         externalTrafficPolicy: Local
-        loadBalancerIP: "${CLUSTER_LB_INGRESS_EXTERNAL}"
     autoscaling:
       enabled: true
       minReplicas: 1
