@@ -19,6 +19,10 @@ spec:
     - name: scratchdir
       emptyDir:
         sizeLimit: 10Gi
+  resources:
+    limits:
+      cpu: 256m
+      memory: 2Gi
   serviceAccount: collector
   env:
     - name: K8S_NODE_NAME
