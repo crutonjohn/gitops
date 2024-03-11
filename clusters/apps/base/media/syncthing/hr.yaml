@@ -26,3 +26,35 @@ spec:
                   operator: In
                   values:
                     - apps
+    probes:
+      # -- Liveness probe configuration
+      # @default -- See below
+      liveness:
+        # -- Enable the liveness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own livenessProbe
+        custom: false
+        # -- The spec field contains the values for the default livenessProbe.
+        # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+        # @default -- See below
+        spec:
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+      # -- Redainess probe configuration
+      # @default -- See below
+      readiness:
+        # -- Enable the readiness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own readinessProbe
+        custom: false
+        # -- The spec field contains the values for the default readinessProbe.
+        # If you selected `custom: true`, this field holds the definition of the readinessProbe.
+        # @default -- See below
+        spec:
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
