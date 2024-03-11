@@ -48,6 +48,8 @@ spec:
       driver:
         image: docker.io/democraticcsi/democratic-csi:latest
         imagePullPolicy: Always
+        nodeSelector:
+          ${FAMILY_DOMAIN}/role: apps
     node:
       cleanup:
         image: docker.io/busybox:1.36.1
