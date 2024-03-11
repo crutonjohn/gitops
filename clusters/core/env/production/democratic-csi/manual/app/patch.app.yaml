@@ -13,7 +13,7 @@ spec:
       externalAttacher:
         enabled: true
     storageClasses:
-      - name: truenas-manual
+      - name: nvmeof-manual
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
