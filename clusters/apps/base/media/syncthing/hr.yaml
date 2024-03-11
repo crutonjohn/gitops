@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: syncthing/syncthing
-      tag: 1.27.3
+      tag: 1.27.4
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
