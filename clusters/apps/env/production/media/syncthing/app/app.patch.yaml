@@ -22,9 +22,15 @@ spec:
             port: 8384
       discovery:
         type: LoadBalancer
-        loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: syncthing-media
+          metallb.universe.tf/ip-allocated-from-pool: main
+          metallb.universe.tf/loadBalancerIPs: ${CLUSTER_LB_MUSIC_SYNC}
       listen:
         type: LoadBalancer
-        loadBalancerIP: ${CLUSTER_LB_MUSIC_SYNC}
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: syncthing-media
+          metallb.universe.tf/ip-allocated-from-pool: main
+          metallb.universe.tf/loadBalancerIPs: ${CLUSTER_LB_MUSIC_SYNC}
