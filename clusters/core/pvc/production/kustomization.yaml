@@ -3,7 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - changedetection.yaml
-  - deemix.yaml
   - frigate.yaml
   - lidarr.yaml
   - music-library.yaml

@@ -9,9 +9,9 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
   volumeName: thelounge-nvmeof
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -19,16 +19,16 @@ metadata:
   name: thelounge-nvmeof
 spec:
   capacity:
-    storage: 1Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
   mountOptions: []
   csi:
     driver: org.democratic-csi.node-manual
     readOnly: false
-    fsType: ext4
+    fsType: xfs
     volumeHandle: thelounge-nvmeof
     volumeAttributes:
       transport: tcp://192.168.130.50:4420

@@ -11,7 +11,7 @@ spec:
     requests:
       storage: 2Gi
   volumeName: changedetection-nvmeof
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -23,12 +23,12 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
   mountOptions: []
   csi:
     driver: org.democratic-csi.node-manual
     readOnly: false
-    fsType: ext4
+    fsType: xfs
     volumeHandle: changedetection-nvmeof
     volumeAttributes:
       transport: tcp://192.168.130.50:4420

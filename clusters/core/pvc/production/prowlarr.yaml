@@ -9,9 +9,9 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 700Mi
+      storage: 5Gi
   volumeName: prowlarr-nvmeof
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -19,16 +19,16 @@ metadata:
   name: prowlarr-nvmeof
 spec:
   capacity:
-    storage: 700Mi
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
   mountOptions: []
   csi:
     driver: org.democratic-csi.node-manual
     readOnly: false
-    fsType: ext4
+    fsType: xfs
     volumeHandle: prowlarr-nvmeof
     volumeAttributes:
       transport: tcp://192.168.130.50:4420

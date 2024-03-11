@@ -71,9 +71,9 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 30Gi
+      storage: 40Gi
   volumeName: lidarr-nvmeof
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -81,16 +81,16 @@ metadata:
   name: lidarr-nvmeof
 spec:
   capacity:
-    storage: 30Gi
+    storage: 40Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: truenas-manual
+  storageClassName: nvmeof-manual
   mountOptions: []
   csi:
     driver: org.democratic-csi.node-manual
     readOnly: false
-    fsType: ext4
+    fsType: xfs
     volumeHandle: lidarr-nvmeof
     volumeAttributes:
       transport: tcp://192.168.130.50:4420
