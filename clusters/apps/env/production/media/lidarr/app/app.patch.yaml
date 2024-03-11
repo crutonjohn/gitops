@@ -59,7 +59,7 @@ spec:
         existingClaim: "lidarr-import"
     additionalContainers:
       exporter:
-        image: "ghcr.io/onedr0p/exportarr:v1.6.2"
+        image: "ghcr.io/onedr0p/exportarr:v2.0.0"
         imagePullPolicy: IfNotPresent
         args: ["lidarr"]
         env:
