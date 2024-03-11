@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./manual/ks.yaml
   - ./nvmeof-dynamic/ks.yaml
+  - ./snapshot-controller/ks.yaml
