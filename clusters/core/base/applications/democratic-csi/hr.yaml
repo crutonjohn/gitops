@@ -28,6 +28,7 @@ spec:
     # https://kubernetes-csi.github.io/docs/csi-driver-object.html
     csiDriver:
       version: 1.5.0
+    controller:
       # https://kubernetes-csi.github.io/docs/external-attacher.html
       externalAttacher:
         image: registry.k8s.io/sig-storage/csi-attacher:v4.5.0
