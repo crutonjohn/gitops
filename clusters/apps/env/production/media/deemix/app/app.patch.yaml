@@ -21,7 +21,7 @@ spec:
         cpu: 20m
         memory: 300M
       limits:
-        memory: 512M
+        memory: 2Gi
     service:
       main:
         ports:
@@ -39,7 +39,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: "deemix-config"
+        type: emptyDir
       import:
         enabled: true
         mountPath: /downloads
