@@ -1,0 +1,24 @@
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeeringPolicy
+metadata:
+  name: bgp-peering-policy-worker
+spec:
+  nodeSelector:
+    matchLabels:
+      ${FAMILY_DOMAIN}/bgp: worker
+  virtualRouters:
+    - localASN: 64513
+      serviceSelector:
+        matchExpressions:
+          - {key: "io.cilium/bgp-announce", operator: In, values: ['worker']}
+      neighbors:
+        - peerAddress: '192.168.130.1/32'
+          peerASN: 64512
+          eBGPMultihopTTL: 10
+          connectRetryTimeSeconds: 120
+          holdTimeSeconds: 90
+          keepAliveTimeSeconds: 30
+          gracefulRestart:
+            enabled: true
+            restartTimeSeconds: 120
