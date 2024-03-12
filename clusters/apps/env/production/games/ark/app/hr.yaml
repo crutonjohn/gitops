@@ -17,9 +17,8 @@ spec:
     fullnameOverride: ""
     commonLabels: {}
     commonAnnotations:
-      metallb.universe.tf/address-pool: main
-      metallb.universe.tf/loadBalancerIPs: "${CLUSTER_LB_ARK_SERVER}"
-      metallb.universe.tf/allow-shared-ip: ark-cluster
+      io.cilium/lb-ipam-ips: ${CLUSTER_LB_ARK_SERVER}
+      io.cilium/lb-ipam-sharing-key: ark-cluster
     nodeSelector:
       ${FAMILY_DOMAIN}/role: gameserver
     affinity: {}

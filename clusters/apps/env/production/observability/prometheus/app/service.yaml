@@ -4,12 +4,13 @@ kind: Service
 metadata:
   name: prometheus
   annotations:
-    metallb.universe.tf/address-pool: main
-    metallb.universe.tf/loadBalancerIPs: "${CLUSTER_LB_PROMETHEUS}"
+    io.cilium/lb-ipam-ips: ${CLUSTER_LB_PROMETHEUS}
+  labels: {}
 spec:
   selector:
     app: prometheus
   type: LoadBalancer
+  loadBalancerIP: ${CLUSTER_LB_PROMETHEUS}
   ports:
     - name: http
       port: 9090

@@ -4,11 +4,10 @@ kind: Service
 metadata:
   name: syslogger
   annotations:
-    metallb.universe.tf/address-pool: main
-    metallb.universe.tf/loadBalancerIPs: "${CLUSTER_LB_OTEL_SYSLOG}"
+    io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG}
+  labels: {}
 spec:
   internalTrafficPolicy: Cluster
-  loadBalancerIP: 192.168.130.102
   ports:
     - name: http
       port: 54555
