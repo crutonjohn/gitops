@@ -15,7 +15,8 @@ spec:
   values:
     nameOverride: ""
     fullnameOverride: ""
-    commonLabels: {}
+    commonLabels:
+      io.cilium/bgp-announce: worker
     commonAnnotations:
       io.cilium/lb-ipam-ips: ${CLUSTER_LB_ARK_SERVER}
       io.cilium/lb-ipam-sharing-key: ark-cluster

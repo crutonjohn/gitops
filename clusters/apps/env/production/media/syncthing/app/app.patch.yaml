@@ -23,12 +23,16 @@ spec:
       discovery:
         type: LoadBalancer
         externalTrafficPolicy: Local
+        labels:
+          io.cilium/bgp-announce: worker
         annotations:
           io.cilium/lb-ipam-sharing-key: syncthing-media
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_MUSIC_SYNC}
       listen:
         type: LoadBalancer
         externalTrafficPolicy: Local
+        labels:
+          io.cilium/bgp-announce: worker
         annotations:
           io.cilium/lb-ipam-sharing-key: syncthing-media
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_MUSIC_SYNC}

@@ -5,7 +5,8 @@ metadata:
   name: prometheus
   annotations:
     io.cilium/lb-ipam-ips: ${CLUSTER_LB_PROMETHEUS}
-  labels: {}
+  labels:
+    io.cilium/bgp-announce: worker
 spec:
   selector:
     app: prometheus

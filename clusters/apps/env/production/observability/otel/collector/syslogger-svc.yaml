@@ -5,7 +5,8 @@ metadata:
   name: syslogger
   annotations:
     io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG}
-  labels: {}
+  labels:
+    io.cilium/bgp-announce: worker
 spec:
   internalTrafficPolicy: Cluster
   ports:

@@ -65,7 +65,8 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
-      labels: {}
+      labels:
+        io.cilium/bgp-announce: worker
       annotations:
         io.cilium/lb-ipam-ips: ${CLUSTER_LB_INGRESS_EXTERNAL}
       spec:
