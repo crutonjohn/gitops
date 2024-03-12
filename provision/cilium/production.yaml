@@ -10,6 +10,8 @@ l2announcements:
 loadBalancer:
     algorithm: maglev
 devices: enp1s0
+bgpControlPlane:
+    enabled: true
 externalIPs:
     enabled: true
 bpf:
@@ -121,8 +123,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-02-19T21:10:30Z"
-    mac: ENC[AES256_GCM,data:VsufT9gXv3IUkq6EaIyAoRHmtM5rCaGiamPKKUEsT1Q4xazGsDIaNVDnRPsGScomuJAh7jtyNB1IDa3FgyqojwMn8WdMd0jPub/Kpeyvs/8+BsNimrR/vSs9+h78Omv8xijEn2jUaweYr0BKfMINiBHqIw+JjYbm0GZAJY8C9ac=,iv:fQoeYXZQYa+DAiYbh4ZFWXkb9PygCEizisz42ZlbIkU=,tag:BGWc4QHp85fAaEknx+kGvg==,type:str]
+    lastmodified: "2024-03-12T15:40:22Z"
+    mac: ENC[AES256_GCM,data:pVLZg2aaHS/Ud/VA1fR+nQ69WMcBVtqzqRHo2zbY5CbJzJ3nWtsoJcB3fY0rJajqd6PotEkL3x7Mu3kms1D4E+ZeVH8w9f4Y0f8pN5GexA7DylpcjxYwDUyx5CRUd9mgD+PjMmW9fcoYVgb8Qy03qqhl4J9masl1crXHliQghZk=,iv:naiqWq7mGjW8sVSb3GMa2Ge/QQcdAkzxcWqVKhWZD+M=,tag:IJwQ8yidctNu3rvCDu2OUg==,type:str]
     pgp: []
     encrypted_regex: ^(key)$
     version: 3.8.1
