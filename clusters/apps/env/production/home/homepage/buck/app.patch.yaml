@@ -93,14 +93,6 @@ spec:
                   type: octoprint
                   url: http://octopi.${FAMILY_DOMAIN}
                   key: ${HOMEPAGE_OCTOPRINT_TOKEN}
-        - Storage:
-            - TrueNAS:
-                href: http://pandora.${FAMILY_DOMAIN}
-                description: Storage Server
-                widget:
-                  type: truenas
-                  url: http://pandora.${FAMILY_DOMAIN}
-                  key: ${HOMEPAGE_TRUENAS_API_KEY}
 
         - Networking:
             - OPNSense:
