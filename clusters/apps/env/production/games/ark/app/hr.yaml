@@ -190,9 +190,10 @@ spec:
             WildDinoCharacterFoodDrainMultiplier=1.500000
             NPCReplacements=(FromClassName="Ichthyornis_Character_BP_C",ToClassName="")
             NPCReplacements=(FromClassName="Pegomastax_Character_BP_C",ToClassName="")
-            MatingIntervalMultiplier=0.100000
-            EggHatchSpeedMultiplier=2.000000
-            BabyMatureSpeedMultiplier=4.000000
+            MatingIntervalMultiplier=0.010000
+            MatingSpeedMultiplier=2.000000
+            EggHatchSpeedMultiplier=4.000000
+            BabyMatureSpeedMultiplier=8.000000
             BabyFoodConsumptionSpeedMultiplier=0.500000
           GameUserSettingsIni: |
             # The Island User Settings ini
