@@ -287,6 +287,9 @@ spec:
             bServerGameLogEnabled=True
           EngineIni: |
             # The Island Engine ini
+            [/script/onlinesubsystemutils.ipnetdriver]
+            NetServerMaxTickRate=60
+
         # customConfigMap:
         #   GameIni: |
         #     # Extinction Game.ini
