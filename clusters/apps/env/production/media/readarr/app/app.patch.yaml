@@ -72,3 +72,12 @@ spec:
             main:
               - path: /audiobooks
                 readOnly: false
+      readarr-import:
+        enabled: true
+        existingClaim: "books-import"
+        accessMode: ReadWriteMany
+        advancedMounts:
+          main:
+            main:
+              - path: /books-import
+                readOnly: false

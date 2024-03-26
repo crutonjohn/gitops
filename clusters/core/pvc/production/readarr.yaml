@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: readarr-config
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 40Gi
+  volumeName: readarr-config
+  storageClassName: apollo
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: readarr-config
+spec:
+  capacity:
+    storage: 40Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: media
+    name: readarr-config
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/media/audiobooks/readarr/config"
