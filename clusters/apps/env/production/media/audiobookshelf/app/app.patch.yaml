@@ -24,6 +24,8 @@ spec:
             order: 1
             env:
               TZ: Amertica/New_York
+              PORT: 13378
+              SOURCE: docker
             probes:
               liveness:
                 enabled: false
@@ -42,7 +44,7 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: 13378
 
     ingress:
       main:
