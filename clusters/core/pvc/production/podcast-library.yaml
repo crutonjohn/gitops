@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: podcast-library
+spec:
+  capacity:
+    storage: 1024Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: media
+    name: podcast-library
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/media/podcasts/library/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: podcast-library
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: apollo
+  resources:
+    requests:
+      storage: 1024Gi

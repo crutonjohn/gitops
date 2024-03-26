@@ -1,0 +1,50 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: audiobookshelf
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
+      middlewares:
+        - name: oauth-auth
+          namespace: auth-system
+        - name: oauth-errors
+          namespace: auth-system
+      priority: 10
+      services:
+        - name: readarr
+          port: 8000
+    - kind: Rule
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
+      priority: 15
+      middlewares:
+        - name: oauth-headers
+          namespace: auth-system
+      services:
+        - name: google-auth-oauth2-proxy
+          namespace: auth-system
+          port: 80
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+# ---
+# apiVersion: externaldns.k8s.io/v1alpha1
+# kind: DNSEndpoint
+# metadata:
+#   name: readarr
+#   annotations:
+#     external-dns/public: "true"
+# spec:
+#   endpoints:
+#     - dnsName: books.${FAMILY_DOMAIN}
+#       recordTTL: 300
+#       recordType: CNAME
+#       targets:
+#         - ${DYNAMIC_DOMAIN}
