@@ -42,7 +42,7 @@ spec:
       main:
         ports:
           http:
-            port: 13378
+            port: 80
 
     ingress:
       main:
