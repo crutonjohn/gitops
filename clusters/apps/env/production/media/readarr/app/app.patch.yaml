@@ -54,15 +54,6 @@ spec:
         enabled: true
         existingClaim: "readarr-config"
         accessMode: ReadWriteOnce
-      books:
-        enabled: true
-        existingClaim: "book-library"
-        accessMode: ReadWriteMany
-        advancedMounts:
-          main:
-            main:
-              - path: /books
-                readOnly: false
       audiobooks:
         enabled: true
         existingClaim: "audiobook-library"
