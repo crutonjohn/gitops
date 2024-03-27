@@ -11,25 +11,25 @@ spec:
   routes:
     - kind: Rule
       match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
-      middlewares:
-        - name: oauth-auth
-          namespace: auth-system
-        - name: oauth-errors
-          namespace: auth-system
+      # middlewares:
+      #   - name: oauth-auth
+      #     namespace: auth-system
+      #   - name: oauth-errors
+      #     namespace: auth-system
       priority: 10
       services:
         - name: audiobookshelf
           port: 13378
-    - kind: Rule
-      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
-      priority: 15
-      middlewares:
-        - name: oauth-headers
-          namespace: auth-system
-      services:
-        - name: google-auth-oauth2-proxy
-          namespace: auth-system
-          port: 80
+    # - kind: Rule
+    #   match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
+    #   priority: 15
+    #   middlewares:
+    #     - name: oauth-headers
+    #       namespace: auth-system
+    #   services:
+    #     - name: google-auth-oauth2-proxy
+    #       namespace: auth-system
+    #       port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
