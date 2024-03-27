@@ -65,7 +65,7 @@ spec:
                 readOnly: false
       readarr-import:
         enabled: true
-        existingClaim: "books-import"
+        existingClaim: "lidarr-import"
         accessMode: ReadWriteMany
         advancedMounts:
           main:
