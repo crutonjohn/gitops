@@ -9,7 +9,7 @@ spec:
       secretName: linode-credentials
       secretKey: token
       logLevel: ''
-    fullnameOverride: "cert-manager-linode"
+    fullnameOverride: "cert-manager-webhook-linode"
     certManager:
       namespace: network-system
       serviceAccountName: cert-manager
