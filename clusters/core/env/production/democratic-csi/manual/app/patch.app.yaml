@@ -20,6 +20,14 @@ spec:
         allowVolumeExpansion: true
         parameters:
           fsType: xfs
+    volumeSnapshotClasses: []
+      # - name: dcsi-dynamic
+      #   annotations: {}
+      #   labels: {}
+      #   deletionPolicy: Delete
+      #   parameters:
+      #   secrets:
+      #     snapshotter-secret:
     driver:
       config:
         driver: node-manual
