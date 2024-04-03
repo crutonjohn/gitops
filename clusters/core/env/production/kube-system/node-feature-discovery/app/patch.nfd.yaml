@@ -14,15 +14,15 @@ spec:
           cpu: 15m
           memory: 53M
         limits:
-          cpu: 32m
-          memory: 106M
+          cpu: 50m
+          memory: 120M
     worker:
       resources:
         requests:
           cpu: 15m
           memory: 53M
         limits:
-          cpu: 32m
-          memory: 69M
+          cpu: 50m
+          memory: 120M
       nodeSelector:
         kubernetes.io/arch: "amd64"
