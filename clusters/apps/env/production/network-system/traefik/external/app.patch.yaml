@@ -100,7 +100,7 @@ spec:
         cpu: 15m
         memory: 64M
       limits:
-        memory: 189M
+        memory: 500M
     nodeSelector:
       kubernetes.io/arch: "amd64"
     securityContext:
