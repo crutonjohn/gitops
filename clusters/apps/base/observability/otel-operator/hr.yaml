@@ -11,16 +11,8 @@ spec:
   chart:
     spec:
       chart: opentelemetry-operator
-      version: 0.48.0
+      version: 0.53.0
       sourceRef:
         kind: HelmRepository
         name: opentelemetry-charts
         namespace: flux-system
-  values:
-    manager:
-      image:
-        repository: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator
-        tag: v0.95.0
-      collectorImage:
-        repository: otel/opentelemetry-collector-contrib
-        tag: 0.96.0
