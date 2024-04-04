@@ -119,10 +119,12 @@ spec:
         maxPlayers: 10
         # xpMultiplier is added to default GameUserSettings.ini
         # if you use `customConfigMap.GameUserSettingsIni` make sure to include it there
-      #  xpMultiplier: 6
+        #  xpMultiplier: 6
         extraEnvVars:
           - name: am_arkwarnminutes
             value: "15"
+          - name: am_arkbackupdir
+            value: "/ark/backup/theisland"
         # ports must be the same on external and internal
         ## we don't need a service abtraction as every pod is a single server with dedicated ports
         # a service with nodePort would be "right" configuration, but for latency reasons I'd skip it.
@@ -140,7 +142,7 @@ spec:
           password: "${ARK_SERVER_RCON_PASSWORD}"
         resources:
           requests:
-            cpu: 2
+            cpu: 3
             memory: 8Gi
           limits:
             memory: 16Gi
@@ -148,7 +150,7 @@ spec:
           crontab: |
             # */30 * * * * arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager update --update-mods --warn # check for updates and mod updates
             10 */1 * * * arkmanager saveworld && sleep 3 && arkmanager backup # save world and back up world save
-            3 */1 * * * find /ark/backup/ -maxdepth 2 -mtime +7 -type f -delete
+            3 */1 * * * find /ark/backup/theisland -maxdepth 2 -mtime +7 -type f -delete
             5 5 * * * arkmanager broadcast "taking a backup and shutting down in 5 minutes" && sleep 300 && arkmanager broadcast "backing up and restarting in 10 seconds" && sleep 10 && arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager restart # restart every day at midnight
           GameIni: |
             # The Island Game ini
@@ -307,12 +309,203 @@ spec:
         #   EngineIni: |
         #     # Extinction Engine.ini
 
+      fjordur:
+        # updateOnStart should be enabled only on the first server
+        updateOnStart: true
+        sessionName: "Fleetwood Ark Survival"
+        message: "Welcome to Fjordur"
+        # map: TheIsland, Ragnarok, CrystalIsles, Aberration_P, ScorchedEarth_P, Extinction, ...
+        map: Fjordur
+        password: "${ARK_SERVER_PASSWORD}"
+        maxPlayers: 10
+        # xpMultiplier is added to default GameUserSettings.ini
+        # if you use `customConfigMap.GameUserSettingsIni` make sure to include it there
+        #  xpMultiplier: 6
+        extraEnvVars:
+          - name: am_arkwarnminutes
+            value: "15"
+          - name: am_arkbackupdir
+            value: "/ark/backup/fjordur"
+        # ports must be the same on external and internal
+        ## we don't need a service abtraction as every pod is a single server with dedicated ports
+        # a service with nodePort would be "right" configuration, but for latency reasons I'd skip it.
+        # with service: public:30200 -> [nodeport:30200] -> service:$gameudp -> pod:30200
+        # hostnetwork (no service!): public:30200 -> node=pod:30200
+        # pod hostPort (through service): public:30200 -> node=pod:30200
+        # difference hostPort hostNetwork : Port only exposes a single port
+        ports:
+          queryudp: 27011
+          gameudp: 7771
+          rcon: 32331
+        # override mods for a single server
+        # mods: []
+        rcon:
+          password: "${ARK_SERVER_RCON_PASSWORD}"
+        resources:
+          requests:
+            cpu: 3
+            memory: 8Gi
+          limits:
+            memory: 16Gi
+        customConfigMap:
+          crontab: |
+            # */30 * * * * arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager update --update-mods --warn # check for updates and mod updates
+            10 */1 * * * arkmanager saveworld && sleep 3 && arkmanager backup # save world and back up world save
+            3 */1 * * * find /ark/backup/fjordur -maxdepth 2 -mtime +7 -type f -delete
+            6 5 * * * arkmanager broadcast "taking a backup and shutting down in 5 minutes" && sleep 300 && arkmanager broadcast "backing up and restarting in 10 seconds" && sleep 10 && arkmanager saveworld && sleep 3 && arkmanager backup && arkmanager restart # restart every day
+          GameIni: |
+            # Fjordur Game ini
+            [/Script/ShooterGame.ShooterGameMode]
+            MaxTribeLogs=400
+            bDisableFriendlyFire=False
+            bPvEDisableFriendlyFire=True
+            bDisableLootCrates=False
+            bIncreasePvPRespawnInterval=False
+            bAutoPvETimer=False
+            MaxNumberOfPlayersInTribe=70
+            MaxAlliancesPerTribe=10
+            MaxTribesPerAlliance=10
+            bPvEAllowTribeWar=False
+            bPvEAllowTribeWarCancel=False
+            bAllowCustomRecipes=True
+            bUseCorpseLocator=True
+            bAllowUnlimitedRespecs=True
+            bAllowPlatformSaddleMultiFloors=False
+            GlobalPoweredBatteryDurabilityDecreasePerSecond=3.000000
+            bDisableGenesisMissions=False
+            bDisableDefaultMapItemSets=False
+            bDisableWorldBuffs=False
+            bEnableWorldBuffScaling=False
+            AdjustableMutagenSpawnDelayMultiplier=1.000000
+            BaseHexagonRewardMultiplier=1.000000
+            HexagonCostMultiplier=1.000000
+            DinoHarvestingDamageMultiplier=3.200000
+            bUseDinoLevelUpAnimations=True
+            bAllowUnclaimDinos=True
+            StructureDamageRepairCooldown=180
+            PvPZoneStructureDamageMultiplier=6.000000
+            bPassiveDefensesDamageRiderlessDinos=False
+            bDisableStructurePlacementCollision=True
+            bLimitTurretsInRange=False
+            bHardLimitTurretsInRange=False
+            bIgnoreStructuresPreventionVolumes=False
+            bGenesisUseStructuresPreventionVolumes=False
+            WildDinoCharacterFoodDrainMultiplier=1.500000
+            NPCReplacements=(FromClassName="Ichthyornis_Character_BP_C",ToClassName="")
+            NPCReplacements=(FromClassName="Pegomastax_Character_BP_C",ToClassName="")
+            MatingIntervalMultiplier=0.010000
+            MatingSpeedMultiplier=2.000000
+            EggHatchSpeedMultiplier=4.000000
+            BabyMatureSpeedMultiplier=8.000000
+            BabyFoodConsumptionSpeedMultiplier=0.500000
+          GameUserSettingsIni: |
+            # Fjordur User Settings ini
+            [/Script/ShooterGame.ShooterGameUserSettings]
+            Version=5
+            [ServerSettings]
+            ServerAdminPassword=${ARK_SERVER_ADMIN_PASSWORD}
+            RCONServerGameLogBuffer=600
+            AdminLogging=False
+            ActiveMods=731604991,1364327869,1404697612,1645346094
+            AutoSavePeriodMinutes=15.000000
+            TribeLogDestroyedEnemyStructures=False
+            AllowHideDamageSourceFromLogs=False
+            bFilterTribeNames=False
+            bFilterCharacterNames=False
+            bFilterChat=False
+            AllowSharedConnections=True
+            ServerHardcore=False
+            ServerPVE=True
+            AllowCaveBuildingPvE=False
+            AllowCaveBuildingPvP=True
+            EnableExtraStructurePreventionVolumes=False
+            NoTributeDownloads=True
+            PreventUploadSurvivors=True
+            PreventUploadItems=True
+            PreventUploadDinos=True
+            CrossARKAllowForeignDinoDownloads=False
+            PreventOfflinePvP=False
+            TribeNameChangeCooldown=15
+            PreventTribeAlliances=False
+            PreventDiseases=True
+            # NonPermanentDiseases=True
+            PreventSpawnAnimations=False
+            PlatformSaddleBuildAreaBoundsMultiplier=1.000000
+            MaxGateFrameOnSaddles=2
+            RandomSupplyCratePoints=False
+            AllowTekSuitPowersInGenesis=False
+            EnableCryoSicknessPVE=False
+            MaxHexagonsPerCharacter=2000000000
+            globalVoiceChat=False
+            proximityChat=False
+            alwaysNotifyPlayerLeft=True
+            DontAlwaysNotifyPlayerJoined=False
+            ServerCrosshair=True
+            ServerForceNoHud=False
+            AllowThirdPersonPlayer=True
+            ShowMapPlayerLocation=True
+            EnablePVPGamma=False
+            DisablePvEGamma=True
+            ShowFloatingDamageText=True
+            AllowHitMarkers=True
+            AllowFlyerCarryPVE=True
+            AllowRaidDinoFeeding=False
+            DisableDinoDecayPvE=True
+            PvPDinoDecay=False
+            AutoDestroyDecayedDinos=False
+            MaxTamedDinos=5000
+            MaxPersonalTamedDinos=500.000000
+            PersonalTamedDinosSaddleStructureCost=19
+            DisableImprintDinoBuff=False
+            AllowAnyoneBabyImprintCuddle=True
+            UseOptimizedHarvestingHealth=False
+            ClampResourceHarvestDamage=False
+            ClampItemSpoilingTimes=False
+            PvPStructureDecay=False
+            TheMaxStructuresInRange=10500
+            DisableStructureDecayPVE=True
+            ForceAllStructureLocking=False
+            OnlyAutoDestroyCoreStructures=False
+            OnlyDecayUnsnappedCoreStructures=False
+            FastDecayUnsnappedCoreStructures=False
+            DestroyUnconnectedWaterPipes=False
+            IgnoreLimitMaxStructuresInRangeTypeFlag=False
+            AlwaysAllowStructurePickup=True
+            StructurePickupTimeAfterPlacement=30.000000
+            StructurePickupHoldDuration=0.500000
+            AllowIntegratedSPlusStructures=False
+            AllowFlyingStaminaRecovery=True
+            TamingSpeedMultiplier=3.000000
+            HarvestAmountMultiplier=1.900000
+
+            [SessionSettings]
+
+            [/Script/Engine.GameSession]
+
+            [MessageOfTheDay]
+            Message=Welcome to Fjordur
+            Duration=5
+
+            [/Game/PrimalEarth/CoreBlueprints/TestGameMode.TestGameMode_C]
+            bServerGameLogEnabled=True
+
+            [StructuresPlus]
+            EnableEngramOverride=true
+            DefaultDoorConfig=1
+            DisableDoorSound=true
+            RemoveLearnedEngramRequirementFromConverter=true
+            EngramOverrideBlacklist=EngramEntry_AdobeCeiling_C,EngramEntry_AdobeCeilingDoorGiant_C,EngramEntry_AdobeCeilingWithDoorWay_Giant_C,EngramEntry_AdobeCeilingWithTrapdoor_C,EngramEntry_AdobeDoor_C,EngramEntry_AdobeFenceFoundation_C,EngramEntry_AdobeFloor_C,EngramEntry_AdobeGate_C,EngramEntry_AdobeGate_Large_C,EngramEntry_AdobeGateway_C,EngramEntry_AdobeGateway_Large_C,EngramEntry_AdobeLadder_C,EngramEntry_AdobePillar_C,EngramEntry_AdobeRailing_C,EngramEntry_AdobeRamp_C,EngramEntry_AdobeRoof_C,EngramEntry_AdobeSlopedWall_Left_C,EngramEntry_AdobeSlopedWall_Right_C,EngramEntry_AdobeStairs_C,EngramEntry_AdobeTrapdoor_C,EngramEntry_AdobeWall_C,EngramEntry_AdobeWallWithDoor_C,EngramEntry_AdobeWallWithWindow_C,EngramEntry_AdobeWindow_C,EngramEntry_DoubleDoor_Adobe_C,EngramEntry_DoubleDoor_Greenhouse_C,EngramEntry_DoubleDoor_Metal_C,EngramEntry_DoubleDoor_Stone_C,EngramEntry_DoubleDoor_Tek_C,EngramEntry_DoubleDoor_Wood_C,EngramEntry_DoubleDoorframe_Adobe_C,EngramEntry_DoubleDoorframe_Greenhouse_C,EngramEntry_DoubleDoorframe_Metal_C,EngramEntry_DoubleDoorframe_Stone_C,EngramEntry_DoubleDoorframe_Tek_C,EngramEntry_DoubleDoorframe_Wood_C,EngramEntry_FeedingTrough_C,EngramEntry_FenceSupport_Adobe_C,EngramEntry_FenceSupport_Metal_C,EngramEntry_FenceSupport_Stone_C,EngramEntry_FenceSupport_Tek_C,EngramEntry_FenceSupport_Wood_C,EngramEntry_GreenhouseCeiling_C,EngramEntry_GreenhouseDoor_C,EngramEntry_GreenhouseRoof_C,EngramEntry_GreenhouseSlopedWall_Left_C,EngramEntry_GreenhouseSlopedWall_Right_C,EngramEntry_GreenhouseWall_C,EngramEntry_GreenhouseWallWithDoor_C,EngramEntry_GreenhouseWindow_C,EngramEntry_LargeWall_Adobe_C,EngramEntry_LargeWall_Metal_C,EngramEntry_LargeWall_Stone_C,EngramEntry_LargeWall_Tek_C,EngramEntry_LargeWall_Wood_C,EngramEntry_MetalCatwalk_C,EngramEntry_MetalCeiling_C,EngramEntry_MetalCeilingWithTrapdoor_C,EngramEntry_MetalCeilingWithTrapdoorGiant_C,EngramEntry_MetalDoor_C,EngramEntry_MetalFenceFoundation_C,EngramEntry_MetalFloor_C,EngramEntry_MetalGate_C,EngramEntry_MetalGate_Large_C,EngramEntry_MetalGateway_C,EngramEntry_MetalGateway_Large_C,EngramEntry_MetalLadder_C,EngramEntry_MetalPillar_C,EngramEntry_MetalRailing_C,EngramEntry_MetalRamp_C,EngramEntry_MetalRoof_C,EngramEntry_MetalSign_Wall_C,EngramEntry_MetalSlopedWall_Left_C,EngramEntry_MetalSlopedWall_Right_C,EngramEntry_MetalSpikeWall_C,EngramEntry_MetalStairs_C,EngramEntry_MetalTrapdoor_C,EngramEntry_MetalTrapdoorGiant_C,EngramEntry_MetalWall_C,EngramEntry_MetalWallWithDoor_C,EngramEntry_MetalWallWithWindow_C,EngramEntry_MetalWindow_C,EngramEntry_PortableRopeLadder_C,EngramEntry_Ramp_Adobe_C,EngramEntry_Ramp_Metal_C,EngramEntry_Ramp_Stone_C,EngramEntry_Ramp_Tek_C,EngramEntry_Ramp_Wood_C,EngramEntry_RopeLadder_C,EngramEntry_StoneCeiling_C,EngramEntry_StoneCeilingWithTrapdoor_C,EngramEntry_StoneCeilingWithTrapdoorGiant_C,EngramEntry_StoneDoor_C,EngramEntry_StoneFenceFoundation_C,EngramEntry_StoneFloor_C,EngramEntry_StoneGate_C,EngramEntry_StoneGateLarge_C,EngramEntry_StoneGateway_C,EngramEntry_StoneGateway_Large_C,EngramEntry_StonePillar_C,EngramEntry_StoneRailing_C,EngramEntry_StoneRoof_C,EngramEntry_StoneSlopedWall_Left_C,EngramEntry_StoneSlopedWall_Right_C,EngramEntry_StoneStairs_C,EngramEntry_StoneTrapdoor_C,EngramEntry_StoneTrapdoorGiant_C,EngramEntry_StoneWall_C,EngramEntry_StoneWallWithDoor_C,EngramEntry_StoneWallWithWindow_C,EngramEntry_StoneWindow_C,EngramEntry_Tek_Gate_C,EngramEntry_Tek_Gate_Large_C,EngramEntry_Tek_Gategrame_C,EngramEntry_Tek_Gategrame_Large_C,EngramEntry_TekCatwalk_C,EngramEntry_TekCeiling_C,EngramEntry_TekCeilingWithTrapdoor_C,EngramEntry_TekDoor_C,EngramEntry_TekFenceFoundation_C,EngramEntry_TekFloor_C,EngramEntry_TekLadder_C,EngramEntry_TekPillar_C,EngramEntry_TekRailing_C,EngramEntry_TekRamp_C,EngramEntry_TekRoof_C,EngramEntry_TekSlopedWall_Left_C,EngramEntry_TekSlopedWall_Right_C,EngramEntry_TekStairs_C,EngramEntry_TekTrapdoor_C,EngramEntry_TekWall_C,EngramEntry_TekWallWithDoor_C,EngramEntry_TekWallWithWindow_C,EngramEntry_TekWindow_C,EngramEntry_ThatchCeiling_C,EngramEntry_ThatchDoor_C,EngramEntry_ThatchFloor_C,EngramEntry_ThatchRoof_C,EngramEntry_ThatchSlopedWall_left_C,EngramEntry_ThatchSlopedWall_Right_C,EngramEntry_ThatchWall_C,EngramEntry_ThatchWallWithDoor_C,EngramEntry_TriCeiling_Adobe_C,EngramEntry_TriCeiling_Greenhouse_C,EngramEntry_TriCeiling_Metal_C,EngramEntry_TriCeiling_Stone_C,EngramEntry_TriCeiling_Tek_C,EngramEntry_TriCeiling_Wood_C,EngramEntry_TriFoundation_Adobe_C,EngramEntry_TriFoundation_Metal_C,EngramEntry_TriFoundation_Stone_C,EngramEntry_TriFoundation_Tek_C,EngramEntry_TriFoundation_Wood_C,EngramEntry_TriRoof_Adobe_C,EngramEntry_TriRoof_Greenhouse_C,EngramEntry_TriRoof_Metal_C,EngramEntry_TriRoof_Stone_C,EngramEntry_TriRoof_Tek_C,EngramEntry_TriRoof_Wood_C,EngramEntry_WoodCatwalk_C,EngramEntry_WoodCeiling_C,EngramEntry_WoodCeilingWithTrapdoor_C,EngramEntry_WoodDoor_C,EngramEntry_WoodFenceFoundation_C,EngramEntry_WoodFloor_C,EngramEntry_WoodGate_C,EngramEntry_WoodGateway_C,EngramEntry_WoodLadder_C,EngramEntry_WoodPillar_C,EngramEntry_WoodRailing_C,EngramEntry_WoodRamp_C,EngramEntry_WoodRoof_C,EngramEntry_WoodSign_Wall_C,EngramEntry_WoodSlopedWall_Left_C,EngramEntry_WoodSlopedWall_Right_C,EngramEntry_WoodSpikeWall_C,EngramEntry_WoodStairs_C,EngramEntry_WoodTrapdoor_C,EngramEntry_WoodWall_C,EngramEntry_WoodWallWithDoor_C,EngramEntry_WoodWallWithWindow_C,EngramEntry_WoodWindow_C
+          EngineIni: |
+            # Fjordur ini
+            [/script/onlinesubsystemutils.ipnetdriver]
+            NetServerMaxTickRate=60
+
     # Containers' resource requests and limits
     # ref: http://kubernetes.io/docs/user-guide/compute-resources/
     #
     resources:
       requests:
-        cpu: 2
+        cpu: 3
         memory: 8Gi
       limits:
         memory: 16Gi
