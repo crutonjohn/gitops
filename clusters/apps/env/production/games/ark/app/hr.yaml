@@ -326,6 +326,8 @@ spec:
             value: "15"
           - name: am_arkbackupdir
             value: "/ark/backup/fjordur"
+          - name: am_arkAutoUpdateOnStart
+            value: "false"
         # ports must be the same on external and internal
         ## we don't need a service abtraction as every pod is a single server with dedicated ports
         # a service with nodePort would be "right" configuration, but for latency reasons I'd skip it.
