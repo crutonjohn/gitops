@@ -68,7 +68,7 @@ spec:
     # Attach specific ports to host node.
     # Implies: `service.enabled: false`
     # Mutually exclusive: `hostNetwork`
-    hostPort: true
+    hostPort: false
 
     # set to "ClusterFirstWithHostNet" when hostNetwork=true
     #
