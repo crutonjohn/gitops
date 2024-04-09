@@ -113,7 +113,6 @@ spec:
         - type: add
           field: resource["cluster"]
           value: 'main-lyh' # Set your cluster name here
-        start_at: beginning
       filelog/1:
         include:
           - /var/log/syslog
