@@ -20,3 +20,7 @@ spec:
         image:
           name: ghcr.io/stakater/reloader
           tag: v1.0.27
+        pod:
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "9091"
