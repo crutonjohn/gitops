@@ -31,7 +31,13 @@ spec:
     master:
       replicaCount: 1
       crdController: true
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8081"
     worker:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8081"
       config:
         core:
           sources: ["custom", "pci", "usb"]
