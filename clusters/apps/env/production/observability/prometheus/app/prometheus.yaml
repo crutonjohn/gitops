@@ -163,7 +163,7 @@ scrape_configs:
         target_label: pod
   - job_name: "k8s_services_super_slow"
     scrape_timeout: 60s
-    scrape_interval: 1200s
+    scrape_interval: 1500s
     metrics_path: /metrics
     kubernetes_sd_configs:
       - role: service
