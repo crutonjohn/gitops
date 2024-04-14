@@ -34,17 +34,17 @@ spec:
     secretName: heyjohn-wildcard-certificate
     domains:
       - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-# ---
-# apiVersion: externaldns.k8s.io/v1alpha1
-# kind: DNSEndpoint
-# metadata:
-#   name: readarr
-#   annotations:
-#     external-dns/public: "true"
-# spec:
-#   endpoints:
-#     - dnsName: books.${FAMILY_DOMAIN}
-#       recordTTL: 300
-#       recordType: CNAME
-#       targets:
-#         - ${DYNAMIC_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: audiobookshelf
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: audiobooks.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
