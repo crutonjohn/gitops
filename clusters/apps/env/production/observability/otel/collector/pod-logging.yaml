@@ -214,7 +214,6 @@ spec:
           - resource
           - batch
           exporters:
-          - debug
           - loki
       telemetry:
         metrics:
