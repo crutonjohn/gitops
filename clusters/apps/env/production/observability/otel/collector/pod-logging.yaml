@@ -21,8 +21,8 @@ spec:
         sizeLimit: 10Gi
   resources:
     limits:
-      cpu: 256m
-      memory: 2Gi
+      cpu: 500m
+      memory: 4Gi
   serviceAccount: collector
   env:
     - name: K8S_NODE_NAME
@@ -185,7 +185,7 @@ spec:
           max_transaction_size: 65530
 
       memory_ballast:
-        size_in_percentage: 30
+        size_in_percentage: 80
 
     exporters:
       debug:
