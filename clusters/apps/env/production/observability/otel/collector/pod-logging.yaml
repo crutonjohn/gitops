@@ -132,7 +132,7 @@ spec:
         spike_limit_percentage: 25
 
       batch:
-        send_batch_size: 4096
+        send_batch_size: 8192
         timeout: 200ms
         send_batch_max_size: 0
 
