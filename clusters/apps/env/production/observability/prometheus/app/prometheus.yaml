@@ -161,6 +161,9 @@ scrape_configs:
       - source_labels: [__meta_kubernetes_pod_name]
         action: replace
         target_label: pod
+      - source_labels: [__meta_kubernetes_pod_node_name]
+        action: replace
+        target_label: node
   - job_name: "k8s_services_super_slow"
     scrape_timeout: 60s
     scrape_interval: 1500s
