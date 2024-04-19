@@ -52,7 +52,11 @@ spec:
 
           - action: insert
             key: loki.resource.labels
-            value: job, message, hostname, appname
+            value: job
+
+          - action: insert
+            key: loki.attribute.labels
+            value: message, hostname, appname, proc_id
 
           - action: insert
             key: loki.format
@@ -63,7 +67,12 @@ spec:
 
           - action: insert
             key: loki.resource.labels
-            value: job, message, hostname, appname
+            value: job
+
+          - action: insert
+            key: loki.attribute.labels
+            value: message, hostname, appname, proc_id
+
 
           - action: insert
             key: loki.format
