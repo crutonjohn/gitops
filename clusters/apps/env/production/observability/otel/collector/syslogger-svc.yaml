@@ -17,5 +17,5 @@ spec:
       port: 3164
       targetPort: syslog-rfc3164
   selector:
-    app.kubernetes.io/name: syslog-collector
+    app.kubernetes.io/instance: observability.syslog
   type: LoadBalancer
