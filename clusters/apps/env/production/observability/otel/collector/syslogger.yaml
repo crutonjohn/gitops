@@ -16,16 +16,16 @@ spec:
   ports:
     - port: 8888
       name: metrics
-    - port: 55424
+    - port: 5424
       name: syslog-rfc5424
-    - port: 53164
+    - port: 3164
       name: syslog-rfc3164
   serviceAccount: collector
   config: |
     receivers:
       syslog/5424:
         tcp:
-          listen_address: "0.0.0.0:55424"
+          listen_address: "0.0.0.0:5424"
         protocol: rfc5424
         operators:
           - type: add
@@ -35,7 +35,7 @@ spec:
             protocol: rfc5424
       syslog/3164:
         tcp:
-          listen_address: "0.0.0.0:53164"
+          listen_address: "0.0.0.0:3164"
         protocol: rfc3164
         operators:
           - type: add
