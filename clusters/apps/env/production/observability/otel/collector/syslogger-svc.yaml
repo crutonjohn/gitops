@@ -2,8 +2,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: syslogger
+  name: syslogger-tcp
   annotations:
+    io.cilium/lb-ipam-sharing-key: syslogger
     io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG}
   labels:
     io.cilium/bgp-announce: worker
@@ -12,8 +13,35 @@ spec:
   ports:
     - name: syslog-3164
       port: 3164
+      protocol: TCP
     - name: syslog-5424
       port: 5424
+      protocol: TCP
+  selector:
+    app.kubernetes.io/component: opentelemetry-collector
+    app.kubernetes.io/instance: observability.syslog
+    app.kubernetes.io/managed-by: opentelemetry-operator
+    app.kubernetes.io/part-of: opentelemetry
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: syslogger-udp
+  annotations:
+    io.cilium/lb-ipam-sharing-key: syslogger
+    io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG}
+  labels:
+    io.cilium/bgp-announce: worker
+spec:
+  internalTrafficPolicy: Cluster
+  ports:
+    - name: syslog-3164
+      port: 3164
+      protocol: UDP
+    - name: syslog-5424
+      port: 5424
+      protocol: UDP
   selector:
     app.kubernetes.io/component: opentelemetry-collector
     app.kubernetes.io/instance: observability.syslog

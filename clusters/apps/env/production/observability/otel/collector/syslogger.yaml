@@ -22,6 +22,8 @@ spec:
       syslog/5424:
         tcp:
           listen_address: "0.0.0.0:5424"
+        udp:
+          listen_address: "0.0.0.0:5424"
         protocol: rfc5424
         operators:
           - type: add
@@ -31,6 +33,8 @@ spec:
             protocol: rfc5424
       syslog/3164:
         tcp:
+          listen_address: "0.0.0.0:3164"
+        udp:
           listen_address: "0.0.0.0:3164"
         protocol: rfc3164
         operators:
