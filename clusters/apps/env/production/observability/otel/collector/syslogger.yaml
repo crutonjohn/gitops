@@ -18,12 +18,10 @@ spec:
       name: metrics
     - port: 54555
       name: syslog
-    - port: 4317
-      name: otlp-grpc
   serviceAccount: collector
   config: |
     receivers:
-      syslog/0:
+      syslog:
         tcp:
           listen_address: "0.0.0.0:54555"
         protocol: rfc5424
@@ -31,25 +29,28 @@ spec:
           - type: move
             from: attributes.message
             to: body
-      otlp:
-        protocols:
-          grpc:
+
     processors:
+
       batch:
         send_batch_size: 4096
         timeout: 200ms
         send_batch_max_size: 0
-      resource/loki0:
+
+      resource:
         attributes:
+
           - action: insert
             key: loki.resource.labels
             value: event.domain, body.appname, body.facility, body.hostname, body.message, body.msg_id, body.priority, body.proc_id, body.severity
+
           - action: insert
             key: loki.format
             value: raw
+
     exporters:
-      logging:
-        loglevel: debug
+      debug:
+        verbosity: detailed
       loki:
         endpoint: "http://100.64.0.4:3100/loki/api/v1/push"
         retry_on_failure:
@@ -63,8 +64,7 @@ spec:
           queue_size: 300
     extensions:
       health_check:
-        path: "/health/status"
-        endpoint: ":13333"
+        endpoint: ${env:K8S_POD_IP}:13133
       file_storage:
         directory: /var/lib/otelcol
         timeout: 1s
@@ -74,25 +74,25 @@ spec:
           directory: /var/lib/otelcol
           max_transaction_size: 65530
       memory_ballast:
-        size_in_percentage: 30
+        size_in_percentage: 80
     service:
       extensions:
         - health_check
         - memory_ballast
         - file_storage
+      pipelines:
+        logs:
+          receivers:
+            - syslog
+          processors:
+            - resource
+            - batch
+          exporters:
+            - loki
+            - debug
       telemetry:
         metrics:
           address: "0.0.0.0:8888"
         logs:
           level: "debug"
-      pipelines:
-        logs/0:
-          receivers:
-            - otlp
-            - syslog/0
-          processors:
-            - resource/loki0
-            - batch
-          exporters:
-            - loki
-            - logging
+          development: true
