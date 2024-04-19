@@ -104,7 +104,7 @@ spec:
       extensions:
         - health_check
         - memory_ballast
-        - file_storage
+        # - file_storage
       pipelines:
         logs/5424:
           receivers:
@@ -113,7 +113,7 @@ spec:
             - resource/5424
             - batch
           exporters:
-            - loki
+            # - loki
             - debug
         logs/3164:
           receivers:
@@ -122,7 +122,7 @@ spec:
             - resource/3164
             - batch
           exporters:
-            - loki
+            # - loki
             - debug
       telemetry:
         metrics:
