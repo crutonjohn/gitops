@@ -16,6 +16,12 @@ spec:
   ports:
     - port: 8888
       name: metrics
+    - port: 5424
+      name: syslog-5424-udp
+      protocol: UDP
+    - port: 3184
+      name: syslog-3164-udp
+      protocol: UDP
   serviceAccount: collector
   config: |
     receivers:

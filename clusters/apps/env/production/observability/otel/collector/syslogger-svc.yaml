@@ -36,12 +36,14 @@ metadata:
 spec:
   internalTrafficPolicy: Cluster
   ports:
-    - name: syslog-3164
+    - name: syslog-3164-udp
       port: 3164
       protocol: UDP
-    - name: syslog-5424
+      targetPort: syslog-3164-udp
+    - name: syslog-5424-udp
       port: 5424
       protocol: UDP
+      targetPort: syslog-5424-udp
   selector:
     app.kubernetes.io/component: opentelemetry-collector
     app.kubernetes.io/instance: observability.syslog
