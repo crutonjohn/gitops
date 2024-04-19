@@ -16,10 +16,6 @@ spec:
   ports:
     - port: 8888
       name: metrics
-    - port: 5424
-      name: syslog-rfc5424
-    - port: 3164
-      name: syslog-rfc3164
   serviceAccount: collector
   config: |
     receivers:

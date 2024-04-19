@@ -12,10 +12,10 @@ spec:
   ports:
     - name: rfc5424
       port: 5424
-      targetPort: syslog-rfc5424
+      targetPort: syslog-5424
     - name: rfc3164
       port: 3164
-      targetPort: syslog-rfc3164
+      targetPort: syslog-3164
   selector:
     app.kubernetes.io/instance: observability.syslog
   type: LoadBalancer
