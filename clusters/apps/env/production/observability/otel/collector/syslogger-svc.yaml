@@ -5,7 +5,7 @@ metadata:
   name: syslogger-tcp
   annotations:
     io.cilium/lb-ipam-sharing-key: syslogger
-    io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG}
+    io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG_TCP}
   labels:
     io.cilium/bgp-announce: worker
 spec:
@@ -30,7 +30,7 @@ metadata:
   name: syslogger-udp
   annotations:
     io.cilium/lb-ipam-sharing-key: syslogger
-    io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG}
+    io.cilium/lb-ipam-ips: ${CLUSTER_LB_OTEL_SYSLOG_UDP}
   labels:
     io.cilium/bgp-announce: worker
 spec:
