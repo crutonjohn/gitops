@@ -16,33 +16,58 @@ spec:
   ports:
     - port: 8888
       name: metrics
-    - port: 54555
-      name: syslog
+    - port: 55424
+      name: syslog-rfc5424
+    - port: 53164
+      name: syslog-rfc3164
   serviceAccount: collector
   config: |
     receivers:
-      syslog:
+      syslog/5424:
         tcp:
-          listen_address: "0.0.0.0:54555"
+          listen_address: "0.0.0.0:55424"
         protocol: rfc5424
         operators:
-          - type: move
-            from: attributes.message
-            to: body
+          - type: add
+            field: resource["job"]
+            value: "syslog-5424"
+          - type: syslog_parser
+            protocol: rfc5424
+      syslog/3164:
+        tcp:
+          listen_address: "0.0.0.0:53164"
+        protocol: rfc3164
+        operators:
+          - type: add
+            field: resource["job"]
+            value: "syslog-3164"
+          - type: syslog_parser
+            protocol: rfc3164
 
     processors:
 
       batch:
-        send_batch_size: 4096
+        send_batch_size: 8192
         timeout: 200ms
         send_batch_max_size: 0
 
-      resource:
+      resource/5424:
         attributes:
 
           - action: insert
             key: loki.resource.labels
-            value: event.domain, body.appname, body.facility, body.hostname, body.message, body.msg_id, body.priority, body.proc_id, body.severity
+            value: job
+
+          - action: insert
+            key: loki.format
+            value: raw
+
+      resource/3164:
+        attributes:
+
+          - action: insert
+            key: loki.resource.labels
+            value: job
 
           - action: insert
             key: loki.format
@@ -81,11 +106,20 @@ spec:
         - memory_ballast
         - file_storage
       pipelines:
-        logs:
+        logs/5424:
           receivers:
-            - syslog
+            - syslog/5424
           processors:
-            - resource
+            - resource/5424
+            - batch
+          exporters:
+            - loki
+            - debug
+        logs/3164:
+          receivers:
+            - syslog/3164
+          processors:
+            - resource/3164
             - batch
           exporters:
             - loki

@@ -10,9 +10,12 @@ metadata:
 spec:
   internalTrafficPolicy: Cluster
   ports:
-    - name: http
-      port: 54555
-      targetPort: syslog
+    - name: rfc5424
+      port: 55424
+      targetPort: syslog-rfc5424
+    - name: rfc3164
+      port: 53164
+      targetPort: syslog-rfc3164
   selector:
     app.kubernetes.io/name: syslog-collector
   type: LoadBalancer
