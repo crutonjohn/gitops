@@ -47,6 +47,13 @@ spec:
         timeout: 200ms
         send_batch_max_size: 0
 
+      attributes/5424:
+        actions:
+
+          - action: insert
+            key: loki.attribute.labels
+            value: message, hostname, appname, proc_id
+
       resource/5424:
         attributes:
 
@@ -55,12 +62,15 @@ spec:
             value: job
 
           - action: insert
-            key: loki.attribute.labels
-            value: message, hostname, appname, proc_id
-
-          - action: insert
             key: loki.format
             value: raw
+
+      attributes/3164:
+        actions:
+
+          - action: insert
+            key: loki.attribute.labels
+            value: message, hostname, appname, proc_id
 
       resource/3164:
         attributes:
@@ -68,11 +78,6 @@ spec:
           - action: insert
             key: loki.resource.labels
             value: job
-
-          - action: insert
-            key: loki.attribute.labels
-            value: message, hostname, appname, proc_id
-
 
           - action: insert
             key: loki.format
@@ -116,6 +121,7 @@ spec:
             - syslog/5424
           processors:
             - resource/5424
+            - attributes/5424
             - batch
           exporters:
             - loki
@@ -125,6 +131,7 @@ spec:
             - syslog/3164
           processors:
             - resource/3164
+            - attributes/3164
             - batch
           exporters:
             - loki
