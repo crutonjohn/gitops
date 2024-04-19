@@ -85,7 +85,7 @@ spec:
           queue_size: 300
     extensions:
       health_check:
-        endpoint: ${env:K8S_POD_IP}:13133
+        endpoint: 0.0.0.0:13133
       file_storage:
         directory: /var/lib/otelcol
         timeout: 1s
