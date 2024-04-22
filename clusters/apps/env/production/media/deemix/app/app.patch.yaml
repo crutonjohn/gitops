@@ -69,6 +69,7 @@ spec:
         enabled: true
         type: emptyDir
         size: 200Mi
+        accessMode: RWO
       downloads:
         enabled: true
         existingClaim: "music-sync"
