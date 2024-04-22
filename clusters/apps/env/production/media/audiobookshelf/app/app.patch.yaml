@@ -65,16 +65,17 @@ spec:
     ingress:
       main:
         enabled: false
+        hosts: {}
 
     persistence:
       config:
         enabled: true
         existingClaim: "audiobookshelf-config"
-        accessMode: ReadWriteOnce
+        # accessMode: ReadWriteOnce
       metadata:
         enabled: true
         existingClaim: "audiobookshelf-metadata"
-        accessMode: ReadWriteMany
+        # accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
@@ -83,7 +84,7 @@ spec:
       audiobooks:
         enabled: true
         existingClaim: "audiobook-library"
-        accessMode: ReadWriteMany
+        # accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
@@ -92,7 +93,7 @@ spec:
       podcasts:
         enabled: true
         existingClaim: "podcast-library"
-        accessMode: ReadWriteMany
+        # accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
