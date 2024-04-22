@@ -35,7 +35,6 @@ spec:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
               tag: "2.8.1"
-            order: 1
             env:
               TZ: Amertica/New_York
               PORT: 13378
@@ -56,6 +55,9 @@ spec:
 
     service:
       main:
+        enabled: true
+        controller: main
+        primary: true
         ports:
           http:
             port: 13378
