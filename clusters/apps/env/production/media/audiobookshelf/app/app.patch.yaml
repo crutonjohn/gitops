@@ -4,6 +4,9 @@ kind: HelmRelease
 metadata:
   name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
     defaultPodOptions:
       securityContext:
@@ -11,6 +14,17 @@ spec:
         runAsNonRoot: true
         runAsUser: 1177
         runAsGroup: 1177
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
+
     controllers:
       main:
         type: deployment
@@ -39,16 +53,6 @@ spec:
                 memory: 1254M
               limits:
                 memory: 2000M
-
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: ${FAMILY_DOMAIN}/role
-                  operator: In
-                  values:
-                    - apps
 
     service:
       main:
