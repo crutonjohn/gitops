@@ -2,50 +2,79 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: lidarr
+  name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
-    global:
-      fullnameOverride: deemix
-    image:
-      repository: registry.gitlab.com/bockiii/deemix-docker
-      tag: latest
-    env:
-      TZ: America/New_York
-      PUID: 1177
-      PGID: 1177
-      UMASK_SET: '022'
-      DEEMIX_SINGLE_USER: 'true'
-    resources:
-      requests:
-        cpu: 20m
-        memory: 300M
-      limits:
-        memory: 2Gi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1177
+        runAsNonRoot: true
+        runAsUser: 1177
+        runAsGroup: 1177
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
+
+    controllers:
+      main:
+        type: deployment
+
+        containers:
+          main:
+            nameOverride: deemix
+            image:
+              repository: registry.gitlab.com/bockiii/deemix-docker
+              tag: latest
+            env:
+              TZ: America/New_York
+              PUID: 1177
+              PGID: 1177
+              UMASK_SET: '022'
+              DEEMIX_SINGLE_USER: 'true'
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 47m
+                memory: 1254M
+              limits:
+                memory: 2000M
+
     service:
       main:
+        enabled: true
+        controller: main
+        primary: true
         ports:
           http:
             port: 6595
-          metrics:
-            enabled: false
-            primary: false
-        annotations:
-          prometheus.io/scrape: 'false'
-    ingress:
-      main:
-        enabled: false
+
     persistence:
       config:
         enabled: true
-        mountPath: /config
         type: emptyDir
-      import:
+        size: 200Mi
+      downloads:
         enabled: true
-        mountPath: /downloads
         existingClaim: "music-sync"
-        subPath: deemix
-    additionalContainers: []
-    probes:
-      liveness:
-        enabled: false
+        advancedMounts:
+          main:
+            main:
+              - path: /downloads
+                readOnly: false
+                subPath: deemix
