@@ -65,7 +65,7 @@ spec:
     ingress:
       main:
         enabled: false
-        hosts: {}
+        hosts: []
 
     persistence:
       config:
