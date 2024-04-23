@@ -65,16 +65,16 @@ spec:
             port: 6595
 
     persistence:
-      configuration:
+      config:
         enabled: true
         type: emptyDir
-        size: 200Mi
-        accessMode: ReadWriteOnce
-        advancedMounts:
-          main:
-            main:
-              - path: /config
-                readOnly: false
+        # size: 200Mi
+        # accessMode: ReadWriteOnce
+        # advancedMounts:
+        #   main:
+        #     main:
+        #       - path: /config
+        #         readOnly: false
       downloads:
         enabled: true
         existingClaim: "music-sync"
