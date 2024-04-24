@@ -33,14 +33,15 @@ spec:
           main:
             nameOverride: deemix
             image:
-              repository: registry.gitlab.com/bockiii/deemix-docker
-              tag: latest
+              repository: ghcr.io/crutonjohn/deemix-latest
+              tag: rolling@sha256:3d6ebd161f30ae851aea64482dc65ec84918ac74e357b81ff1ad6c2c6643f733
             env:
               TZ: America/New_York
-              PUID: 1177
-              PGID: 1177
-              UMASK_SET: '022'
               DEEMIX_SINGLE_USER: 'true'
+              DEEMIX__DATA_DIR: '/config'
+              DEEMIX__MUSIC_DIR: '/downloads'
+              DEEMIX__HOST: '0.0.0.0'
+              DEEMIX__PORT: '6595'
             probes:
               liveness:
                 enabled: false
@@ -68,13 +69,6 @@ spec:
       config:
         enabled: true
         type: emptyDir
-        # size: 200Mi
-        # accessMode: ReadWriteOnce
-        # advancedMounts:
-        #   main:
-        #     main:
-        #       - path: /config
-        #         readOnly: false
       downloads:
         enabled: true
         existingClaim: "music-sync"
