@@ -2,48 +2,86 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: navidrome
+  name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
-    podSecurityContext:
-      fsGroup: 1177
-      runAsNonRoot: true
-      runAsUser: 1177
-      runAsGroup: 1177
-    env:
-      ND_SCANINTERVAL: 15m
-      ND_LOGLEVEL: info
-      ND_SESSIONTIMEOUT: 24h
-      ND_ENABLETRANSCODINGCONFIG: "true"
-      ND_MUSICFOLDER: /music
-      ND_ENABLESHARING: "true"
-      ND_PROMETHEUS_ENABLED: "true"
-      ND_PROMETHEUS_METRICSPATH: "/metrics_${NAVIDROME_METRICS_SECRET}"
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1177
+        runAsNonRoot: true
+        runAsUser: 1177
+        runAsGroup: 1177
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
+
+    controllers:
+      main:
+        type: deployment
+
+        containers:
+          main:
+            nameOverride: navidrome
+            image:
+              repository: deluan/navidrome
+              tag: 0.51.1
+            env:
+              ND_SCANINTERVAL: 15m
+              ND_LOGLEVEL: debug
+              ND_SESSIONTIMEOUT: 24h
+              ND_ENABLETRANSCODINGCONFIG: "true"
+              ND_MUSICFOLDER: /music
+              ND_ENABLESHARING: "true"
+              ND_PROMETHEUS_ENABLED: "true"
+              ND_PROMETHEUS_METRICSPATH: "/metrics_${NAVIDROME_METRICS_SECRET}"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 2048Mi
+
+
     persistence:
       config:
         enabled: true
-        emptyDir: false
-        mountPath: /data
         existingClaim: "navidrome-config"
+        advancedMounts:
+          main:
+            main:
+              - path: /data
+                readOnly: false
       music:
         enabled: true
-        emptyDir: false
         mountPath: /music
-        accessMode: ReadWriteOnce
-        skipuninstall: false
         existingClaim: "music-library"
+
     service:
       main:
+        enabled: true
+        controller: main
+        primary: true
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "4533"
           prometheus.io/metric_path: "/metrics_${NAVIDROME_METRICS_SECRET}"
-    ingress:
-      main:
-        enabled: false
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        memory: 2048Mi
+        ports:
+          http:
+            port: 4533
