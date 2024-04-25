@@ -38,8 +38,8 @@ spec:
             env:
               TZ: America/New_York
               DEEMIX_SINGLE_USER: 'true'
-              DEEMIX__DATA_DIR: '/config'
-              DEEMIX__MUSIC_DIR: '/downloads'
+              DEEMIX__DATA_DIR: '/config/'
+              DEEMIX__MUSIC_DIR: '/downloads/'
               DEEMIX__HOST: '0.0.0.0'
               DEEMIX__PORT: '6595'
             probes:
