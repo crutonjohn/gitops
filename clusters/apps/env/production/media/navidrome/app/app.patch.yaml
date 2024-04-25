@@ -70,7 +70,6 @@ spec:
                 readOnly: false
       music:
         enabled: true
-        mountPath: /music
         existingClaim: "music-library"
 
     service:
