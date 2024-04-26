@@ -2,96 +2,154 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: lidarr
+  name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
-    image:
-      repository: ghcr.io/onedr0p/lidarr-plugins
-      tag: rolling
-      pullPolicy: Always
-    env:
-      TZ: America/New_York
-      LIDARR__BRANCH: "plugins"
-      LIDARR__LOG_LEVEL: "debug"
-    resources:
-      requests:
-        cpu: 20m
-        memory: 1000M
-      limits:
-        memory: 4200M
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1177
+        runAsNonRoot: true
+        runAsUser: 1177
+        runAsGroup: 1177
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
+
+    controllers:
+      main:
+        type: deployment
+
+        containers:
+          main:
+            nameOverride: lidarr
+            image:
+              repository: ghcr.io/crutonjohn/lidarr-plugins
+              tag: rolling
+              pullPolicy: Always
+            env:
+              TZ: America/New_York
+              LIDARR__BRANCH: "plugins"
+              LIDARR__LOG_LEVEL: "debug"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 20m
+                memory: 1000M
+              limits:
+                memory: 4200M
+          metrics:
+            nameOverride: metrics
+            dependsOn: [main]
+            args: [lidarr]
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.0
+              pullPolicy: IfNotPresent
+            env:
+              URL: "http://localhost"
+              CONFIG: /config/config.xml
+              PORT: "9792"
+              ENABLE_ADDITIONAL_METRICS: "true"
+              ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 20m
+                memory: 40M
+              limits:
+                memory: 100M
+
     service:
       main:
+        enabled: true
+        controller: main
+        primary: true
         ports:
           http:
             port: 8686
+      metrics:
+        enabled: true
+        controller: main
+        primary: false
+        ports:
           metrics:
             enabled: true
             primary: false
             protocol: HTTP
             port: 9792
+            targetPort: 9792
         annotations:
           prometheus.io/scrape: 'true'
           prometheus.io/port: '9792'
-    podSecurityContext:
-      fsGroup: 1177
-      runAsNonRoot: true
-      runAsUser: 1177
-      runAsGroup: 1177
-    ingress:
-      main:
-        enabled: false
+
     persistence:
       config:
         enabled: true
-        mountPath: /config
         existingClaim: "lidarr-config"
-      media:
-        enabled: true
-        mountPath: /music
-        existingClaim: "music-library"
+        globalMounts:
+          - path: /config
       deemix-import:
         enabled: true
-        mountPath: /downloads
-        existingClaim: "deemix-import"
+        existingClaim: "music-sync"
+        advancedMounts:
+          main:
+            main:
+              - path: /deemix
+                readOnly: false
+                subPath: deemix
       lidarr-import:
         enabled: true
-        mountPath: /import
-        existingClaim: "lidarr-import"
-    additionalContainers:
-      exporter:
-        image: "ghcr.io/onedr0p/exportarr:v2.0.0"
-        imagePullPolicy: IfNotPresent
-        args: ["lidarr"]
-        env:
-          - name: URL
-            value: "http://localhost"
-          - name: CONFIG
-            value: "/config/config.xml"
-          - name: PORT
-            value: "9792"
-          - name: ENABLE_ADDITIONAL_METRICS
-            value: "false"
-          - name: ENABLE_UNKNOWN_QUEUE_ITEMS
-            value: "false"
-        ports:
-          - name: metrics
-            containerPort: 9792
-        volumeMounts:
-          - name: config
-            mountPath: /config
-            readOnly: true
-    probes:
-      liveness:
+        existingClaim: "music-sync"
+        advancedMounts:
+          main:
+            main:
+              - path: /import
+                readOnly: false
+                subPath: music
+      music-library:
         enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:8686/api/v1/system/status?apiKey=`IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          initialDelaySeconds: 10
-          periodSeconds: 60
-          timeoutSeconds: 20
-          failureThreshold: 3
+        existingClaim: "music-library"
+        advancedMounts:
+          main:
+            main:
+              - path: /music
+                readOnly: false
+                subPath: music
+
+    # probes:
+    #   liveness:
+    #     enabled: true
+    #     custom: true
+    #     spec:
+    #       exec:
+    #         command:
+    #           - /usr/bin/env
+    #           - bash
+    #           - -c
+    #           - curl --fail localhost:8686/api/v1/system/status?apiKey=`IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+    #       initialDelaySeconds: 10
+    #       periodSeconds: 60
+    #       timeoutSeconds: 20
+    #       failureThreshold: 3
