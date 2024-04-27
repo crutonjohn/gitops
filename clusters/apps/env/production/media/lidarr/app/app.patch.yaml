@@ -34,7 +34,7 @@ spec:
             nameOverride: lidarr
             image:
               repository: ghcr.io/crutonjohn/lidarr-plugins
-              tag: rolling
+              tag: rolling@sha256:4f793802889abd2faa510805ba8fe53d6a7a287602ef1f291be35b92e031238d
               pullPolicy: Always
             env:
               TZ: America/New_York
