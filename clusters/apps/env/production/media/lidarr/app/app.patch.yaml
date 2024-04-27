@@ -136,7 +136,6 @@ spec:
             main:
               - path: /music
                 readOnly: false
-                subPath: music
 
     # probes:
     #   liveness:
