@@ -110,24 +110,18 @@ spec:
         existingClaim: "lidarr-config"
         globalMounts:
           - path: /config
-      deemix-import:
+      import:
         enabled: true
         existingClaim: "music-sync"
         advancedMounts:
           main:
             main:
+              - path: /bysh
+                readOnly: false
+                subPath: music
               - path: /deemix
                 readOnly: false
                 subPath: deemix
-      lidarr-import:
-        enabled: true
-        existingClaim: "music-sync"
-        advancedMounts:
-          main:
-            main:
-              - path: /import
-                readOnly: false
-                subPath: music
       music-library:
         enabled: true
         existingClaim: "music-library"
