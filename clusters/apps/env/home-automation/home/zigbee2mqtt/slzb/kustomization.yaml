@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../../base/app-template
+patches:
+  - path: patch.zigbee2mqtt.yaml
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: zigbee2mqtt-slzb
+    target:
+      kind: HelmRelease
+      name: .*
