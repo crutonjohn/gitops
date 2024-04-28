@@ -108,5 +108,4 @@ spec:
       config:
         enabled: true
         type: hostPath
-        accessMode: ReadWriteOnce
         hostPath: /srv/volumes/zigbee2mqtt
