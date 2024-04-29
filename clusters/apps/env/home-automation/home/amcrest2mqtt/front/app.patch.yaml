@@ -78,6 +78,7 @@ spec:
     service:
       main:
         enabled: false
+        controller: main
 
     ingress:
       main:
