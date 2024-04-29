@@ -109,3 +109,8 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /srv/volumes/zigbee2mqtt
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+                readOnly: false
