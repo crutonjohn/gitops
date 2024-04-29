@@ -4,31 +4,45 @@ kind: HelmRelease
 metadata:
   name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: mosquitto
+      namespace: home
   values:
-    defaultPodOptions:
-      securityContext:
-        fsGroup: 1111
-        runAsNonRoot: true
-        runAsUser: 1111
-        runAsGroup: 1111
+
     controllers:
       main:
+
         type: deployment
+
+        annotations:
+          reloader.stakater.com/auto: "true"
 
         containers:
           main:
-            nameOverride: amcrest2mqtt
+            nameOverride: zigbee2mqtt
             image:
               repository: unixorn/amcrest410-2-mqtt
               tag: latest
-            order: 1
             env:
               TZ: America/New_York
               AMCREST_HOST: 192.168.134.61
               AMCREST_PORT: 80
               AMCREST_USERNAME: admin
               AMCREST_PASSWORD: "${AMCREST_ADMIN_PASSWORD}"
-              MQTT_HOST: mosquitto
+              MQTT_HOST: mosquitto.home.svc.cluster.local
               MQTT_PORT: 1883
               MQTT_USERNAME: "${SECRET_MQTT_USERNAME}"
               MQTT_PASSWORD: "${SECRET_MQTT_PASSWORD}"
@@ -42,12 +56,24 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 47m
-                memory: 1254M
               limits:
-                memory: 2000M
+                memory: 512M
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 994
+        runAsGroup: 994
+        fsGroup: 994
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
 
     service:
       main:

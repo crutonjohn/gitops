@@ -4,24 +4,38 @@ kind: HelmRelease
 metadata:
   name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: mosquitto
+      namespace: home
   values:
-    defaultPodOptions:
-      securityContext:
-        fsGroup: 1111
-        runAsNonRoot: true
-        runAsUser: 1111
-        runAsGroup: 1111
+
     controllers:
       main:
+
         type: deployment
+
+        annotations:
+          reloader.stakater.com/auto: "true"
 
         containers:
           main:
-            nameOverride: amcrest2mqtt
+            nameOverride: zigbee2mqtt
             image:
               repository: unixorn/amcrest410-2-mqtt
               tag: latest
-            order: 1
             env:
               TZ: America/New_York
               AMCREST_HOST: 192.168.134.62
@@ -42,12 +56,24 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 47m
-                memory: 1254M
               limits:
-                memory: 2000M
+                memory: 512M
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 994
+        runAsGroup: 994
+        fsGroup: 994
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
 
     service:
       main:

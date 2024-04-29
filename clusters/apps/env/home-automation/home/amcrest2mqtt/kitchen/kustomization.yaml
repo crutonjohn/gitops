@@ -5,9 +5,10 @@ resources:
   - ../../../../../base/app-template
 patches:
   - path: app.patch.yaml
-  - path: ./name.patch.yaml
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: amcrest2mqtt-kitchen
     target:
-      group: helm.toolkit.fluxcd.io
       kind: HelmRelease
-      name: app-template
-      version: v2beta1
+      name: .*
