@@ -27,7 +27,7 @@ spec:
     - name: mosquitto
     - name: frigate-cluster-mesh
     - name: cilium-loadbalancer
-    - name: zigbee2mqtt
+    - name: zigbee2mqtt-slzb
     - name: multus-config
   postBuild:
     substitute:
