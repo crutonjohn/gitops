@@ -21,7 +21,7 @@ spec:
           namespace: auth-system
       priority: 10
       services:
-        - name: zigbee2mqtt
+        - name: zigbee2mqtt-slzb
           port: 8080
           nativeLB: true
     - kind: Rule

@@ -103,6 +103,8 @@ spec:
         ports:
           http:
             port: 8080
+        annotations:
+          service.cilium.io/global: "true"
 
     persistence:
       config:
