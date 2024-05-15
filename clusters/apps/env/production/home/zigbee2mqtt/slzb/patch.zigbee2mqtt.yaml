@@ -94,6 +94,15 @@ spec:
         fsGroup: 994
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - casa
 
     service:
       main:
@@ -117,13 +126,3 @@ spec:
             main:
               - path: /config
                 readOnly: false
-
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: ${FAMILY_DOMAIN}/role
-                  operator: In
-                  values:
-                    - casa
