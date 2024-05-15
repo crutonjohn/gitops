@@ -72,6 +72,7 @@ spec:
       external:
         enabled: true
         type: LoadBalancer
+        loadBalancerIP: "${CLUSTER_LB_HOME_ASSISTANT}"
         controller: main
         labels:
           balancer-type: cilium
