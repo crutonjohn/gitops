@@ -8,3 +8,6 @@ resources:
   #- ./nextcloud/ks.yaml
   #- ./paperless/ks.yaml
   - ./zigbee2mqtt/ks.yaml
+  - ./mosquitto/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
+  - ./amcrest2mqtt/ks.yaml

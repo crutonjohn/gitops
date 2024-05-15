@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app zigbee2mqtt-slzb
+  name: &app mosquitto
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/zigbee2mqtt/slzb
+  path: ./clusters/apps/env/production/home/mosquitto/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -24,13 +24,10 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: mosquitto
-    - name: traefik-external
-    - name: oauth2-proxy
+    - name: cilium-bgp
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: "zigbee2mqtt"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

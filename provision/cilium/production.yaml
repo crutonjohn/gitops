@@ -6,7 +6,7 @@ k8sServicePort: 6443
 kubeProxyReplacement: strict
 l7Proxy: false
 l2announcements:
-    enabled: true
+    enabled: false
 loadBalancer:
     algorithm: maglev
 devices: enp1s0
