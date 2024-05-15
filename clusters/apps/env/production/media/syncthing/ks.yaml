@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: traefik-external
     - name: oauth2-proxy
-    - name: cilium-loadbalancer
+    - name: cilium-bgp
   postBuild:
     substitute:
       APP: *app

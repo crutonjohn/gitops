@@ -24,7 +24,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: cilium-loadbalancer
+    - name: cilium-bgp
   postBuild:
     substitute:
       APP: *app

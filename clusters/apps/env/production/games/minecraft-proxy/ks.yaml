@@ -25,7 +25,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: external-dns
-    - name: cilium-loadbalancer
+    - name: cilium-bgp
   postBuild:
     substitute:
       APP: *app

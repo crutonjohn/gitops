@@ -24,7 +24,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: cilium-loadbalancer
+    - name: cilium-bgp
     - name: certificates
   postBuild:
     substitute:
@@ -64,7 +64,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: cilium-loadbalancer
+    - name: cilium-bgp
     - name: certificates
   postBuild:
     substitute:
