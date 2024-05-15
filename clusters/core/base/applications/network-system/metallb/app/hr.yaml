@@ -21,7 +21,7 @@ spec:
       # webhookMode: enabled
       image:
         repository: quay.io/metallb/controller
-        tag: v0.14.3
+        tag: v0.14.5
       resources:
         limits:
           cpu: 100m
