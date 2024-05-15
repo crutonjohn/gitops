@@ -120,6 +120,8 @@ spec:
           #   music-assistant:
           #     - path: /music
           #       readOnly: false
+
+  defaultPodOptions:
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
