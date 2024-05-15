@@ -3,18 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app zigbee2mqtt-clustermesh
+  name: &app zigbee2mqtt-slzb
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
-    annotations:
-      service.cilium.io/global: "true"
-      service.cilium.io/shared: "false"
-      traefik.ingress.kubernetes.io/service.nativelb: "true"
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/zigbee2mqtt/cluster-mesh
+  path: ./clusters/apps/env/production/home/zigbee2mqtt/slzb
   prune: true
   sourceRef:
     kind: GitRepository
@@ -28,6 +24,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
+    - name: mosquitto
     - name: traefik-external
     - name: oauth2-proxy
   postBuild:
