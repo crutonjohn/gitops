@@ -30,7 +30,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: "zigbee2mqtt"
+      INGRESSROUTE_SUBDOMAIN: "zigbee"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
