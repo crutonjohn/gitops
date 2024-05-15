@@ -1,0 +1,49 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: home-assistant
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: hass.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`hass.${FAMILY_DOMAIN}`)"
+      services:
+        - name: home-assistant
+          port: 8123
+          nativeLB: true
+    - kind: Rule
+      match: "Host(`home.${FAMILY_DOMAIN}`)"
+      services:
+        - name: home-assistant
+          port: 8123
+          nativeLB: true
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: home.${FAMILY_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: home-assistant
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: hass.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
+    - dnsName: home.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
