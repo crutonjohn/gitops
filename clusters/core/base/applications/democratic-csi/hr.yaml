@@ -61,4 +61,4 @@ spec:
         image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.0
     # https://github.com/democratic-csi/csi-grpc-proxy
     csiProxy:
-      image: docker.io/democraticcsi/csi-grpc-proxy:v0.5.4
+      image: docker.io/democraticcsi/csi-grpc-proxy:v0.5.6
