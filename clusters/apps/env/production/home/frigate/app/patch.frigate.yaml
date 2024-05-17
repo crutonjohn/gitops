@@ -165,13 +165,13 @@ spec:
       video:
         type: hostPath
         hostPath: /dev/dri/renderD128
-        hostPathType: Directory
+        hostPathType: File
         globalMounts:
           - path: /dev/dri/renderD128
-      usb:
+      coral:
         type: hostPath
         hostPath: /dev/apex_0
-        hostPathType: Directory
+        hostPathType: File
         globalMounts:
           - path: /dev/apex_0
       media:
