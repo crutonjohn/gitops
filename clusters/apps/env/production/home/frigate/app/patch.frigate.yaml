@@ -40,9 +40,6 @@ spec:
               TZ: America/New_York
               LIBVA_DRIVER_NAME: i965
               PLUS_API_KEY: "${FRIGATE_PLUS_API_KEY}"
-            envFrom:
-              - secretRef:
-                  name: frigate-secret
             probes:
               liveness: &probes
                 enabled: true
