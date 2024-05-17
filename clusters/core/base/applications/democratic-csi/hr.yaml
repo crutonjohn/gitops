@@ -41,7 +41,7 @@ spec:
       externalSnapshotter:
         # 1.20+ should use v4.0.0+
         # READ *before* updating from beta https://github.com/kubernetes-csi/external-snapshotter#usage
-        image: registry.k8s.io/sig-storage/csi-snapshotter:v7.0.1
+        image: registry.k8s.io/sig-storage/csi-snapshotter:v7.0.2
       # https://github.com/kubernetes-csi/external-health-monitor
       externalHealthMonitorController:
         image: registry.k8s.io/sig-storage/csi-external-health-monitor-controller:v0.11.0
