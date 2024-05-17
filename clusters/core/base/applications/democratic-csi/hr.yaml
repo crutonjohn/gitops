@@ -58,7 +58,7 @@ spec:
         imagePullPolicy: Always
       # https://kubernetes-csi.github.io/docs/node-driver-registrar.html
       driverRegistrar:
-        image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.0
+        image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.1
     # https://github.com/democratic-csi/csi-grpc-proxy
     csiProxy:
       image: docker.io/democraticcsi/csi-grpc-proxy:v0.5.4
