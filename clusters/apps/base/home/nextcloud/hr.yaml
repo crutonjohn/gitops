@@ -19,5 +19,5 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 28.0.3-fpm
+      tag: 28.0.5-fpm
       pullPolicy: IfNotPresent
