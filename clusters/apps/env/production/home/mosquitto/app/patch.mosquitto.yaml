@@ -22,9 +22,11 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: "${CLUSTER_LB_MQTT}"
+        # loadBalancerIP: "${CLUSTER_LB_MQTT}"
         labels:
-          balancer-type: cilium
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-ips: "${CLUSTER_LB_MQTT}"
         externalTrafficPolicy: Cluster
         ports:
           http:
