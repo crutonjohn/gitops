@@ -9,7 +9,7 @@ spec:
       reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/blakeblackshear/frigate
-      tag: 0.13.1
+      tag: 0.13.2
       pullPolicy: IfNotPresent
     env:
       TZ: "America/New_York"
