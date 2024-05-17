@@ -4,7 +4,7 @@
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "commitBody": "Signed-off-by: Curtis John <admin@curtisrayjohn.com>",
+  "commitBody": "Signed-off-by: Curtis John <crutonjohn@pm.me>",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "commitMessageTopic": "{{depName}}",
@@ -13,7 +13,8 @@
   // set up Renovate Managers
   "helm-values": {
     "fileMatch": [
-      "clusters/.+/hr\\.yaml$"
+      "clusters/.+/hr\\.yaml$",
+      "clusters/.+/patch.+\\.yaml$"
     ]
   },
   "kubernetes": {
