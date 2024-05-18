@@ -53,3 +53,5 @@ spec:
         - name: prometheus-storage-volume
           persistentVolumeClaim:
             claimName: prometheus
+      nodeSelector:
+        ${FAMILY_DOMAIN}/role: apps
