@@ -22,8 +22,6 @@ resources:
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
-  - inlets-charts.yaml
-  - istio-charts.yaml
   - itzg-minecraft-charts.yaml
   - jameswynn-charts.yaml
   - jetstack-charts.yaml
@@ -34,7 +32,6 @@ resources:
   - kubernetes-stable-charts.yaml
   - litmuschaos-charts.yaml
   - longhorn-charts.yaml
-  - metallb-charts.yaml
   - nextcloud-charts.yaml
   - node-feature-discovery-chart.yaml
   - oauth2-proxy-chart.yaml
@@ -42,10 +39,8 @@ resources:
   - opentelemetry-charts.yaml
   - piraeus-charts.yaml
   - replicator-charts.yaml
-  - signoz-charts.yaml
   - stakater-charts.yaml
-  - tanzu-charts.yaml
   - traefik-charts.yaml
-  - vernemq-charts.yaml
   - victoriametrics-charts.yaml
   - weaveworks-kured-charts.yaml
+  - rook-charts.yaml
