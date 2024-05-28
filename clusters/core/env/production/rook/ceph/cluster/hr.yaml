@@ -276,6 +276,7 @@ spec:
           limits:
             memory: "3Gi"
           requests:
+            memory: "2Gi"
             cpu: "300m"
         prepareosd:
           requests:
