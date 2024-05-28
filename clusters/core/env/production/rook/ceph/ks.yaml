@@ -6,7 +6,7 @@ metadata:
   name: &app rook-operator
   namespace: flux-system
 spec:
-  targetNamespace: rook
+  targetNamespace: rook-ceph
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -46,7 +46,7 @@ metadata:
   name: &app rook-cluster
   namespace: flux-system
 spec:
-  targetNamespace: rook
+  targetNamespace: rook-ceph
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

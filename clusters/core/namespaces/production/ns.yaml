@@ -42,4 +42,4 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rook
+  name: rook-ceph

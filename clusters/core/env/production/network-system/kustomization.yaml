@@ -5,5 +5,4 @@ resources:
   - ./cert-manager/ks.yaml
   - ./external-dns/ks.yaml
   - ./linode-certmanager-webhook/ks.yaml
-  # - ./metallb/ks.yaml
   - ./multus/ks.yaml
