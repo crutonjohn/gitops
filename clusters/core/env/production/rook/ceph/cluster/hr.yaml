@@ -262,12 +262,16 @@ spec:
           limits:
             memory: "768Mi"
             cpu: "500m"
-          requests: {}
+          requests:
+            memory: ""
+            cpu: ""
         mon:
           limits:
             memory: "768Mi"
             cpu: "500m"
-          requests: {}
+          requests:
+            memory: ""
+            cpu: ""
         osd:
           limits:
             memory: "3Gi"
