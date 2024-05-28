@@ -24,7 +24,7 @@ spec:
       retries: 3
   dependsOn:
     - name: rook-operator
-      namespace: rook
+      namespace: rook-ceph
   values:
     operatorNamespace: rook-ceph
 
