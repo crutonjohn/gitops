@@ -10,10 +10,10 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        fsGroup: 1177
+        fsGroup: ${APP_UID}
         runAsNonRoot: true
-        runAsUser: 1177
-        runAsGroup: 1177
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
 
       affinity:
         nodeAffinity:
@@ -71,10 +71,6 @@ spec:
         type: emptyDir
       downloads:
         enabled: true
-        existingClaim: "music-sync"
-        advancedMounts:
-          main:
-            main:
-              - path: /downloads
-                readOnly: false
-                subPath: deemix
+        existingClaim: "deemix-import"
+        globalMounts:
+          - path: /downloads
