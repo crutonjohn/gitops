@@ -10,10 +10,10 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        fsGroup: 1177
+        fsGroup: ${APP_UID}
         runAsNonRoot: true
-        runAsUser: 1177
-        runAsGroup: 1177
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
 
       affinity:
         nodeAffinity:
@@ -34,7 +34,7 @@ spec:
             nameOverride: audiobookshelf
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: "2.8.1"
+              tag: 2.10.0@sha256:d9664fca1e3706bef120f7061c10190ec747fe379fec68dbe39e26c602a6895a
             env:
               TZ: Amertica/New_York
               PORT: 13378
@@ -71,11 +71,9 @@ spec:
       config:
         enabled: true
         existingClaim: "audiobookshelf-config"
-        # accessMode: ReadWriteOnce
       metadata:
         enabled: true
         existingClaim: "audiobookshelf-metadata"
-        # accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
@@ -84,7 +82,6 @@ spec:
       audiobooks:
         enabled: true
         existingClaim: "audiobook-library"
-        # accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
@@ -93,7 +90,6 @@ spec:
       podcasts:
         enabled: true
         existingClaim: "podcast-library"
-        # accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:

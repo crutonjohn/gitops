@@ -29,6 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: audiobooks
+      APP_UID: "1177"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
