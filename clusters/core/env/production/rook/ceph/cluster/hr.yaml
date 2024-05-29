@@ -367,9 +367,6 @@ spec:
               - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660074"
                 config:
                   deviceClass: ssd
-              - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660083"
-                config:
-                  deviceClass: ssd
               - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_51A90726187D00012999"
                 config:
                   deviceClass: ssd
@@ -398,6 +395,9 @@ spec:
                 config:
                   deviceClass: ssd
               - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_MX_00000000000024368"
+                config:
+                  deviceClass: ssd
+              - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_MX_00000000000010029"
                 config:
                   deviceClass: ssd
 
