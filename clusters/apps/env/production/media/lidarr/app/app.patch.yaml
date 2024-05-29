@@ -10,10 +10,10 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        fsGroup: 1177
+        fsGroup: ${APP_UID}
         runAsNonRoot: true
-        runAsUser: 1177
-        runAsGroup: 1177
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
 
       affinity:
         nodeAffinity:
@@ -59,7 +59,7 @@ spec:
             args: [lidarr]
             image:
               repository: ghcr.io/onedr0p/exportarr
-              tag: v2.0.0
+              tag: v2.0.1
               pullPolicy: IfNotPresent
             env:
               URL: "http://localhost"
@@ -110,18 +110,22 @@ spec:
         existingClaim: "lidarr-config"
         globalMounts:
           - path: /config
-      import:
+      bysh-import:
         enabled: true
-        existingClaim: "music-sync"
+        existingClaim: "lidarr-import"
         advancedMounts:
           main:
             main:
               - path: /bysh
                 readOnly: false
-                subPath: music
+      deemix-import:
+        enabled: true
+        existingClaim: "deemix-import"
+        advancedMounts:
+          main:
+            main:
               - path: /deemix
                 readOnly: false
-                subPath: deemix
       music-library:
         enabled: true
         existingClaim: "music-library"
