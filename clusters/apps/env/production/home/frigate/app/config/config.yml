@@ -2,7 +2,7 @@
 logger:
   default: info
 mqtt:
-  host: "${SECRET_MQTT_ADDRESS}"
+  host: "${CLUSTER_LB_MQTT}"
   topic_prefix: frigate
   user: "${SECRET_MQTT_USERNAME}"
   password: "${SECRET_MQTT_PASSWORD}"
