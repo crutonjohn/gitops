@@ -18,3 +18,6 @@ spec:
       namespace: network-system
     - name: external-dns-linode
       namespace: network-system
+  values:
+    nodeSelector:
+      ${FAMILY_DOMAIN}/role: apps
