@@ -23,7 +23,7 @@ spec:
       - name: aws-credentials
         secret:
           defaultMode: 420
-          secretName: aws-external-dns
+          secretName: external-dns-aws
     extraVolumeMounts:
       - mountPath: /.aws
         name: aws-credentials
