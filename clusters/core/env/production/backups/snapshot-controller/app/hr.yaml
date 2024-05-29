@@ -6,11 +6,11 @@ metadata:
   name: snapshot-controller
 spec:
   interval: 30m
-  timeout: 10m
+  timeout: 15m
   chart:
     spec:
       chart: snapshot-controller
-      version: 2.2.0
+      version: 2.2.2
       sourceRef:
         kind: HelmRepository
         name: piraeus-charts
@@ -19,11 +19,15 @@ spec:
   install:
     crds: CreateReplace
     remediation:
-      retries: 10
+      retries: 5
   upgrade:
     cleanupOnFail: true
     crds: CreateReplace
     remediation:
-      retries: 10
+      strategy: rollback
+      retries: 5
   uninstall:
     keepHistory: false
+  values:
+    webhook:
+      enabled: false
