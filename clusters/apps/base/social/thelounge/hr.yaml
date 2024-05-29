@@ -23,7 +23,7 @@ spec:
   values:
     image:
       repository: ghcr.io/thelounge/thelounge
-      tag: 4.4.1
+      tag: 4.4.3
     resources:
       requests:
         cpu: 10m
