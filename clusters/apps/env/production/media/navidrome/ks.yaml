@@ -25,11 +25,11 @@ spec:
       name: sops-aws
   dependsOn:
     - name: traefik-external
-    - name: lidarr
   postBuild:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: music
+      APP_UID: "1177"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

@@ -10,10 +10,10 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        fsGroup: 1177
+        fsGroup: ${APP_UID}
         runAsNonRoot: true
-        runAsUser: 1177
-        runAsGroup: 1177
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
 
       affinity:
         nodeAffinity:
