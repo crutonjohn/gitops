@@ -218,7 +218,7 @@ spec:
                     - key: kubernetes.io/hostname
                       operator: In
                       values:
-                        - k-beef1
+                        - k-nas
           # podAffinity:
           # podAntiAffinity:
           # topologySpreadConstraints:
@@ -326,7 +326,7 @@ spec:
         useAllDevices: false
         onlyApplyOSDPlacement: false
         nodes:
-          - name: "k-beef1"
+          - name: "k-nas"
             devices:
               - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._23424H800848"
                 config:
