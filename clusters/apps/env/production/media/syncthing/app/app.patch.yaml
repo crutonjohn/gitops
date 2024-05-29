@@ -83,8 +83,23 @@ spec:
         existingClaim: "syncthing-config"
         globalMounts:
           - path: /var/syncthing/config
+      # For incoming data to this service, to be moved to one of the export mounts
       bysh-import:
         enabled: true
         existingClaim: "bysh-import"
         globalMounts:
-          - path: /var/syncthing/bysh
+          - path: /var/syncthing/bysh-import
+      # called export because in this case we're exporting to these services
+      # PVC is called import because it is the primary PVC attached to the respective service
+      readarr-export:
+        enable: true
+        existingClaim: "readarr-import"
+        globalMounts:
+          - path: /var/syncthing/readarr
+      # called export because in this case we're exporting to these services
+      # PVC is called import because it is the primary PVC attached to the respective service
+      lidarr-export:
+        enable: true
+        existingClaim: "lidarr-import"
+        globalMounts:
+          - path: /var/syncthing/lidarr
