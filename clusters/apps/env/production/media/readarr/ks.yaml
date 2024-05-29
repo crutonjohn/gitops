@@ -31,6 +31,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: readarr
+      APP_UID: "1177"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

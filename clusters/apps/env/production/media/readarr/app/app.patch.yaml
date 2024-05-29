@@ -7,10 +7,10 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        fsGroup: 1177
+        fsGroup: ${APP_UID}
         runAsNonRoot: true
-        runAsUser: 1177
-        runAsGroup: 1177
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
     controllers:
       main:
         type: deployment
@@ -38,12 +38,53 @@ spec:
                 memory: 1254M
               limits:
                 memory: 2000M
+          metrics:
+            nameOverride: metrics
+            dependsOn: [main]
+            args: [readarr]
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1
+              pullPolicy: IfNotPresent
+            env:
+              URL: "http://localhost"
+              CONFIG: /config/config.xml
+              PORT: "9792"
+              ENABLE_ADDITIONAL_METRICS: "true"
+              ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 20m
+                memory: 40M
+              limits:
+                memory: 100M
 
     service:
       main:
         ports:
           http:
             port: 8787
+      metrics:
+        enabled: true
+        controller: main
+        primary: false
+        ports:
+          metrics:
+            enabled: true
+            primary: false
+            protocol: HTTP
+            port: 9792
+            targetPort: 9792
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/port: '9792'
 
     ingress:
       main:
@@ -53,7 +94,8 @@ spec:
       config:
         enabled: true
         existingClaim: "readarr-config"
-        accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /config
       audiobooks:
         enabled: true
         existingClaim: "audiobook-library"
@@ -65,10 +107,10 @@ spec:
                 readOnly: false
       readarr-import:
         enabled: true
-        existingClaim: "lidarr-import"
+        existingClaim: "readarr-import"
         accessMode: ReadWriteMany
         advancedMounts:
           main:
             main:
-              - path: /books-import
+              - path: /import
                 readOnly: false
