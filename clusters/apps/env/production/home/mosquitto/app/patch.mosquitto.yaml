@@ -36,9 +36,6 @@ spec:
               pullPolicy: IfNotPresent
             command: ["/bin/sh", "-c"]
             args: ["cp /data/mosquitto_secret/* /data/external_config/ && mosquitto_passwd -U /data/external_config/mosquitto_pwd"]
-            volumeMounts:
-              - { name: secret-file, mountPath: /data/mosquitto_secret }
-              - { name: external-config, mountPath: /data/external_config }
         containers:
           main:
             nameOverride: mosquitto
@@ -86,33 +83,33 @@ spec:
         enabled: true
         type: configMap
         name: mosquitto-configmap # overriden by kustomizeconfig
-        advancedMounts:
-          main:
-            main:
-              - path: /metadata/config/mosquitto.conf
-                readOnly: false
+        globalMounts:
+          - path: /metadata/config/mosquitto.conf
+            readOnly: false
       secret-file:
         enabled: true
         type: secret
         name: mosquitto-secret
-        advancedMounts:
-          main:
-            main:
-              - path: /data/mosquitto_secret/mosquitto_pwd
-                readOnly: true
+        globalMounts:
+          - path: /data/mosquitto_secret/mosquitto_pwd
+            readOnly: true
       external-config:
         enabled: true
         type: emptyDir
-        advancedMounts:
-          main:
-            main:
-              - path: /mosquitto/external_config
-                readOnly: false
+        globalMounts:
+          - path: /mosquitto/external_config
+            readOnly: false
       data:
         enabled: true
         existingClaim: "mosquitto-data"
         accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /data
+            readOnly: false
       old-data:
         enabled: true
         type: hostPath
         hostPath: /srv/mqtt
+        globalMounts:
+          - path: /old-data
+            readOnly: false
