@@ -2,11 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
     controllers:
-      main:
+      home-assistant:
         type: deployment
         annotations:
           reloader.stakater.com/auto: "true"
@@ -20,16 +23,13 @@ spec:
                 "mac": "e8:f3:3c:72:23:f6",
                 "ips": ["192.168.134.100/24"]
               }]
-
         containers:
-          main:
-            nameOverride: home-assistant
+          home-assistant:
             image:
               repository: ghcr.io/home-assistant/home-assistant
               tag: 2024.5.3@sha256:cd3e0dc0df5b2013ae589e9f0044e1093c28c31dc653f36db3df10ba8e898dd6
-            order: 1
             env:
-              TZ: "America/New_York"
+              TZ: America/New_York
             envFrom:
               - secretRef:
                   name: home-assistant
@@ -40,24 +40,25 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: true
+            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 47m
-                memory: 1254M
+                cpu: 10m
               limits:
-                memory: 4000M
+                memory: 1Gi
           music-assistant:
-            nameOverride: music-assistant
             image:
               repository: ghcr.io/music-assistant/server
               tag: 2.0.4@sha256:44a82258e9886bab14461c2fe0b0226e9839c4608b50c11adfbfab27f9048fd4
-            order: 2
             resources:
               requests:
                 cpu: 30m
                 memory: 100Mi
               limits:
-                memory: 2000Mi
+                memory: 1Gi
             probes:
               liveness:
                 enabled: false
@@ -65,18 +66,38 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - casa
+      # securityContext:
+      #   runAsNonRoot: true
+      #   runAsUser: 568
+      #   runAsGroup: 568
+      #   fsGroup: 568
+      #   fsGroupChangePolicy: OnRootMismatch
+      #   seccompProfile: { type: RuntimeDefault }
     service:
-      main:
+      home-assistant:
+        controller: home-assistant
         ports:
           http:
             port: 8123
-          music-assistant:
+      music-assistant:
+        controller: home-assistant
+        ports:
+          http:
             port: 8095
       external:
         enabled: true
         type: LoadBalancer
-        controller: main
+        controller: home-assistant
         labels:
           io.cilium/bgp-announce: worker
         annotations:
@@ -90,30 +111,26 @@ spec:
             targetPort: 8123
           music-assistant:
             enabled: true
-            port: 8096
+            port: 8095
             protocol: TCP
-            targetPort: 8096
-
+            targetPort: 8095
     ingress:
-      main:
+      home-assistant:
+        enabled: false
+      music-assistant:
         enabled: false
 
     persistence:
       config:
-        enabled: true
-        existingClaim: "home-assistant-config"
-        accessMode: ReadWriteOnce
+        existingClaim: home-assistant-config
+        globalMounts:
+          - path: /config
+            readOnly: false
       data:
-        enabled: true
-        existinClaim: "music-assistant-config"
-      old-config:
-        enabled: true
-        existingClaim: "home-assistant-config-old"
-        accessMode: ReadWriteOnce
-      old-data:
-        enabled: true
-        existingClaim: "music-assistant-config-old"
-        accessMode: ReadWriteOnce
+        existinClaim: music-assistant-config
+        globalMounts:
+          - path: /data
+            readOnly: false
       music:
         enabled: true
         existingClaim: "music-library"
@@ -121,22 +138,16 @@ spec:
         globalMounts:
           - path: /music
             readOnly: false
-        advancedMounts: {}
-          # main: # the controller with the "main" identifier
-          #   main: # the container with the "main" identifier
-          #     - path: /music
-          #       readOnly: false
-          #   music-assistant:
-          #     - path: /music
-          #       readOnly: false
-
-    defaultPodOptions:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: ${FAMILY_DOMAIN}/role
-                    operator: In
-                    values:
-                      - casa
+      old-config:
+        enabled: true
+        existingClaim: "home-assistant-config-old"
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
+      tts:
+        type: emptyDir
+        globalMounts:
+          - path: /config/tts
+      tmp:
+        type: emptyDir
