@@ -35,6 +35,7 @@ spec:
     substitute:
       APP: *app
       APP_UID: "994"
+      MEDIA_APPS_UID: "1177"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

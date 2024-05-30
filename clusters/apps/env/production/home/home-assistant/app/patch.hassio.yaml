@@ -40,10 +40,14 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
+            securityContext:
+              fsGroup: ${APP_UID}
+              runAsNonRoot: true
+              runAsUser: ${APP_UID}
+              runAsGroup: ${APP_UID}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -66,6 +70,14 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+            securityContext:
+              fsGroup: ${MEDIA_APPS_UID}
+              runAsNonRoot: true
+              runAsUser: ${MEDIA_APPS_UID}
+              runAsGroup: ${MEDIA_APPS_UID}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       affinity:
         nodeAffinity:
@@ -76,13 +88,13 @@ spec:
                     operator: In
                     values:
                       - casa
-      # securityContext:
+      securityContext:
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
       #   fsGroup: ${APP_UID}
       #   runAsNonRoot: true
       #   runAsUser: ${APP_UID}
       #   runAsGroup: ${APP_UID}
-      #   fsGroupChangePolicy: OnRootMismatch
-      #   seccompProfile: { type: RuntimeDefault }
     service:
       home-assistant:
         controller: home-assistant
