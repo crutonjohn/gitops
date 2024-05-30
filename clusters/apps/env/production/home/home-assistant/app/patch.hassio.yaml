@@ -77,10 +77,10 @@ spec:
                     values:
                       - casa
       # securityContext:
+      #   fsGroup: ${APP_UID}
       #   runAsNonRoot: true
-      #   runAsUser: 568
-      #   runAsGroup: 568
-      #   fsGroup: 568
+      #   runAsUser: ${APP_UID}
+      #   runAsGroup: ${APP_UID}
       #   fsGroupChangePolicy: OnRootMismatch
       #   seccompProfile: { type: RuntimeDefault }
     service:
