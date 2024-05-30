@@ -102,7 +102,6 @@ spec:
       data:
         enabled: true
         existingClaim: "mosquitto-data"
-        accessMode: ReadWriteOnce
         globalMounts:
           - path: /data
             readOnly: false
