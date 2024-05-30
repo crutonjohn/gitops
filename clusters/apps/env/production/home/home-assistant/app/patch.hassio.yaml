@@ -117,8 +117,10 @@ spec:
     ingress:
       home-assistant:
         enabled: false
+        hosts: []
       music-assistant:
         enabled: false
+        hosts: []
 
     persistence:
       config:
@@ -127,14 +129,13 @@ spec:
           - path: /config
             readOnly: false
       data:
-        existinClaim: music-assistant-config
+        existingClaim: music-assistant-config
         globalMounts:
           - path: /data
             readOnly: false
       music:
         enabled: true
         existingClaim: "music-library"
-        accessMode: ReadWriteMany
         globalMounts:
           - path: /music
             readOnly: false
