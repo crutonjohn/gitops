@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app external-snapshotter
+  name: &app snapshot-controller
   namespace: flux-system
 spec:
   targetNamespace: backups
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/core/env/production/backups/external-snapshotter/app
+  path: ./clusters/core/env/production/backups/snapshot-controller/app
   prune: true
   sourceRef:
     kind: GitRepository
