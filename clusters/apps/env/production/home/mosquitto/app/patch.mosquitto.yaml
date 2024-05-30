@@ -1,76 +1,113 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: mosquitto
+  name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
-    initContainers:
-      01-init-config:
-        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18
-        imagePullPolicy: IfNotPresent
-        command: ["/bin/sh", "-c"]
-        args: ["cp /data/mosquitto_secret/* /data/external_config/ && mosquitto_passwd -U /data/external_config/mosquitto_pwd"]
-        volumeMounts:
-          - { name: secret-file, mountPath: /data/mosquitto_secret }
-          - { name: external-config, mountPath: /data/external_config }
-    controller:
-      type: deployment
-      annotations:
-        reloader.stakater.com/auto: "true"
+    defaultPodOptions:
+      securityContext:
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - casa
+
+    controllers:
+      main:
+        type: deployment
+        initContainers:
+          01-init-config:
+            image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh", "-c"]
+            args: ["cp /data/mosquitto_secret/* /data/external_config/ && mosquitto_passwd -U /data/external_config/mosquitto_pwd"]
+            volumeMounts:
+              - { name: secret-file, mountPath: /data/mosquitto_secret }
+              - { name: external-config, mountPath: /data/external_config }
+        containers:
+          main:
+            nameOverride: mosquitto
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.18
+            env:
+              TZ: Amertica/New_York
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 150Mi
+
     service:
       main:
+        enabled: true
+        controller: main
+        primary: true
         type: LoadBalancer
-        # loadBalancerIP: "${CLUSTER_LB_MQTT}"
+        externalTrafficPolicy: Cluster
         labels:
           io.cilium/bgp-announce: worker
         annotations:
           io.cilium/lb-ipam-ips: "${CLUSTER_LB_MQTT}"
-        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 1883
-    podSecurityContext:
-      runAsUser: 994
-      runAsGroup: 994
-      fsGroup: 994
-      fsGroupChangePolicy: OnRootMismatch
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: ${FAMILY_DOMAIN}/role
-                  operator: In
-                  values:
-                    - casa
+
+    ingress:
+      main:
+        enabled: false
+        hosts: []
+
     persistence:
       config-file:
         enabled: true
         type: configMap
         name: mosquitto-configmap # overriden by kustomizeconfig
-        mountPath: /mosquitto/config/mosquitto.conf
-        subPath: mosquitto.conf
+        advancedMounts:
+          main:
+            main:
+              - path: /metadata/config/mosquitto.conf
+                readOnly: false
+                subpath: mosquitto.conf
       secret-file:
         enabled: true
         type: secret
         name: mosquitto-secret
-        subPath: mosquitto_pwd
-        mountPath: /data/mosquitto_secret/mosquitto_pwd
-        readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /data/mosquitto_secret/mosquitto_pwd
+                readOnly: true
+                subpath: mosquitto_pwd
       external-config:
         enabled: true
         type: emptyDir
         mountPath: /mosquitto/external_config
       data:
         enabled: true
+        existingClaim: "mosquitto-data"
+      old-data:
+        enabled: true
         type: hostPath
         hostPath: /srv/mqtt
-        mountPath: /data
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 150Mi

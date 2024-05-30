@@ -28,6 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "994"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
