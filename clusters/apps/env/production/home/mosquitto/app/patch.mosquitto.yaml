@@ -111,6 +111,7 @@ spec:
       data:
         enabled: true
         existingClaim: "mosquitto-data"
+        accessMode: ReadWriteOnce
       old-data:
         enabled: true
         type: hostPath
