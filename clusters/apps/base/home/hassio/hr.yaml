@@ -15,15 +15,3 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
-  values:
-    controllers:
-      main:
-        containers:
-          main:
-            image:
-              repository: ghcr.io/home-assistant/home-assistant
-              tag: 2024.5.3@sha256:cd3e0dc0df5b2013ae589e9f0044e1093c28c31dc653f36db3df10ba8e898dd6
-          music-assistant:
-            image:
-              repository: ghcr.io/music-assistant/server
-              tag: 2.0.4@sha256:44a82258e9886bab14461c2fe0b0226e9839c4608b50c11adfbfab27f9048fd4
