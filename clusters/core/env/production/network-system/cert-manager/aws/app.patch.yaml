@@ -7,7 +7,6 @@ spec:
   interval: 5m
   values:
     fullnameOverride: cert-manager
-    installCRDs: false
     cainjector:
       resources:
         requests:
