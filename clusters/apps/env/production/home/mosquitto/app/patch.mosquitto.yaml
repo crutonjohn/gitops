@@ -30,8 +30,10 @@ spec:
         type: deployment
         initContainers:
           01-init-config:
-            image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18
-            imagePullPolicy: IfNotPresent
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.18
+              pullPolicy: IfNotPresent
             command: ["/bin/sh", "-c"]
             args: ["cp /data/mosquitto_secret/* /data/external_config/ && mosquitto_passwd -U /data/external_config/mosquitto_pwd"]
             volumeMounts:
@@ -89,7 +91,6 @@ spec:
             main:
               - path: /metadata/config/mosquitto.conf
                 readOnly: false
-                subpath: mosquitto.conf
       secret-file:
         enabled: true
         type: secret
@@ -99,11 +100,14 @@ spec:
             main:
               - path: /data/mosquitto_secret/mosquitto_pwd
                 readOnly: true
-                subpath: mosquitto_pwd
       external-config:
         enabled: true
         type: emptyDir
-        mountPath: /mosquitto/external_config
+        advancedMounts:
+          main:
+            main:
+              - path: /mosquitto/external_config
+                readOnly: false
       data:
         enabled: true
         existingClaim: "mosquitto-data"
