@@ -106,7 +106,6 @@ spec:
       data:
         enabled: true
         existinClaim: "music-assistant-config"
-        accessMode: ReadWriteOnce
       old-config:
         enabled: true
         existingClaim: "home-assistant-config-old"
