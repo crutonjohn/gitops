@@ -24,6 +24,9 @@ spec:
         containers:
           main:
             nameOverride: home-assistant
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2024.5.3@sha256:cd3e0dc0df5b2013ae589e9f0044e1093c28c31dc653f36db3df10ba8e898dd6
             order: 1
             env:
               TZ: "America/New_York"
@@ -45,6 +48,9 @@ spec:
                 memory: 4000M
           music-assistant:
             nameOverride: music-assistant
+            image:
+              repository: ghcr.io/music-assistant/server
+              tag: 2.0.4@sha256:44a82258e9886bab14461c2fe0b0226e9839c4608b50c11adfbfab27f9048fd4
             order: 2
             resources:
               requests:
@@ -67,12 +73,9 @@ spec:
             port: 8123
           music-assistant:
             port: 8095
-        annotations:
-          service.cilium.io/global: "true"
       external:
         enabled: true
         type: LoadBalancer
-        # loadBalancerIP: "${CLUSTER_LB_HOME_ASSISTANT}"
         controller: main
         labels:
           io.cilium/bgp-announce: worker
@@ -99,14 +102,16 @@ spec:
       config:
         enabled: true
         existingClaim: "home-assistant-config"
-        accessMode: ReadWriteOnce
-      backups:
-        enabled: true
-        existingClaim: "home-assistant-backups"
-        accessMode: ReadWriteOnce
       data:
         enabled: true
-        existingClaim: "music-assistant-config"
+        existinClaim: "music-assistant-config"
+      old-config:
+        enabled: true
+        existingClaim: "home-assistant-config-old"
+        accessMode: ReadWriteOnce
+      old-data:
+        enabled: true
+        existingClaim: "music-assistant-config-old"
         accessMode: ReadWriteOnce
       music:
         enabled: true
