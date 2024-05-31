@@ -53,31 +53,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-          music-assistant:
-            image:
-              repository: ghcr.io/music-assistant/server
-              tag: 2.0.4@sha256:44a82258e9886bab14461c2fe0b0226e9839c4608b50c11adfbfab27f9048fd4
-            resources:
-              requests:
-                cpu: 30m
-                memory: 100Mi
-              limits:
-                memory: 1Gi
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            securityContext:
-              fsGroup: ${MEDIA_APPS_UID}
-              runAsNonRoot: true
-              runAsUser: ${MEDIA_APPS_UID}
-              runAsGroup: ${MEDIA_APPS_UID}
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       affinity:
         nodeAffinity:
@@ -87,7 +62,7 @@ spec:
                   - key: ${FAMILY_DOMAIN}/role
                     operator: In
                     values:
-                      - casa
+                      - apps
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
@@ -101,11 +76,6 @@ spec:
         ports:
           http:
             port: 8123
-      music-assistant:
-        controller: home-assistant
-        ports:
-          http:
-            port: 8095
       external:
         enabled: true
         type: LoadBalancer
@@ -121,16 +91,9 @@ spec:
             port: 8123
             protocol: TCP
             targetPort: 8123
-          music-assistant:
-            enabled: true
-            port: 8095
-            protocol: TCP
-            targetPort: 8095
+
     ingress:
       home-assistant:
-        enabled: false
-        hosts: []
-      music-assistant:
         enabled: false
         hosts: []
 
@@ -140,20 +103,7 @@ spec:
         globalMounts:
           - path: /config
             readOnly: false
-      data:
-        existingClaim: music-assistant-config
-        globalMounts:
-          - path: /data
-            readOnly: false
-      music:
-        enabled: true
-        existingClaim: "music-library"
-        globalMounts:
-          - path: /music
-            readOnly: false
-      old-config:
-        enabled: true
-        existingClaim: "home-assistant-config-old"
+
       logs:
         type: emptyDir
         globalMounts:
