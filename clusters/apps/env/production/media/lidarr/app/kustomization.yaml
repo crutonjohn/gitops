@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../../base/app-template
   - ingressroute.yaml
-  - volsync.yaml
+  # - volsync.yaml
 patches:
   - path: app.patch.yaml
   - patch: |-
