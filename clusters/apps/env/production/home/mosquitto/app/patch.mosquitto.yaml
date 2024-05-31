@@ -20,10 +20,10 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: kubernetes.io/hostname
+                  - key: ${FAMILY_DOMAIN}/role
                     operator: In
                     values:
-                      - casa
+                      - apps
 
     controllers:
       main:
