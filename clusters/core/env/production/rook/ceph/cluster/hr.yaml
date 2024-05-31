@@ -276,7 +276,7 @@ spec:
       resources:
         mgr:
           limits:
-            memory: "768Mi"
+            memory: "2Gi"
             cpu: "500m"
           requests:
             memory: "768Mi"
