@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../../base/app-template
   - ingressroute.yaml
+  - volsync.yaml
 patches:
   - path: patch.zigbee2mqtt.yaml
   - patch: |-
