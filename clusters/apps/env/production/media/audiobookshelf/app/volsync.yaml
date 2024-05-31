@@ -20,6 +20,10 @@ spec:
     storageClassName: ceph-blockpool
     # The VSC to use if the copy method is Snapshot (default if omitted)
     volumeSnapshotClassName: block
+    moverSecurityContext:
+      runAsUser: &uid ${APP_UID}
+      runAsGroup: *uid
+      fsGroup: *uid
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -63,6 +67,10 @@ spec:
     storageClassName: ceph-blockpool
     # The VSC to use if the copy method is Snapshot (default if omitted)
     volumeSnapshotClassName: block
+    moverSecurityContext:
+      runAsUser: &uid ${APP_UID}
+      runAsGroup: *uid
+      fsGroup: *uid
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -106,6 +114,10 @@ spec:
     storageClassName: ceph-filesystem
     # The VSC to use if the copy method is Snapshot (default if omitted)
     volumeSnapshotClassName: file
+    moverSecurityContext:
+      runAsUser: &uid ${APP_UID}
+      runAsGroup: *uid
+      fsGroup: *uid
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
