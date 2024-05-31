@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: "${APP}-config"
   trigger:
-    schedule: "0 2 * * *"
+    schedule: "0 2 * * 1"
   rclone:
     # The configuration section of the rclone config file to use
     rcloneConfigSection: "b2-volsync"
@@ -24,27 +24,27 @@ spec:
       runAsUser: &uid ${APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: "${APP}-config-bootstrap"
-spec:
-  trigger:
-    manual: "restore-once-bootstrap"
-  rclone:
-    rcloneConfigSection: "b2-volsync"
-    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/config"
-    rcloneConfig: "volsync-b2-rclone-secret"
-    copyMethod: "Snapshot"
-    volumeSnapshotClassName: "block"
-    storageClassName: "ceph-blockpool"
-    capacity: "20Gi"
-    accessModes: ["ReadWriteOnce"]
-    moverSecurityContext:
-      runAsUser: &uid ${APP_UID}
-      runAsGroup: *uid
-      fsGroup: *uid
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: "${APP}-config-bootstrap"
+# spec:
+#   trigger:
+#     manual: "restore-once-bootstrap"
+#   rclone:
+#     rcloneConfigSection: "b2-volsync"
+#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/config"
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     copyMethod: "Snapshot"
+#     volumeSnapshotClassName: "block"
+#     storageClassName: "ceph-blockpool"
+#     capacity: "20Gi"
+#     accessModes: ["ReadWriteOnce"]
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
@@ -53,7 +53,7 @@ metadata:
 spec:
   sourcePVC: "${APP}-metadata"
   trigger:
-    schedule: "15 2 * * *"
+    schedule: "15 2 * * 1"
   rclone:
     # The configuration section of the rclone config file to use
     rcloneConfigSection: "b2-volsync"
@@ -71,27 +71,27 @@ spec:
       runAsUser: &uid ${APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: "${APP}-metadata-bootstrap"
-spec:
-  trigger:
-    manual: "restore-once-bootstrap"
-  rclone:
-    rcloneConfigSection: "b2-volsync"
-    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/metadata"
-    rcloneConfig: "volsync-b2-rclone-secret"
-    copyMethod: "Snapshot"
-    volumeSnapshotClassName: "block"
-    storageClassName: "ceph-blockpool"
-    capacity: "1Gi"
-    accessModes: ["ReadWriteOnce"]
-    moverSecurityContext:
-      runAsUser: &uid ${APP_UID}
-      runAsGroup: *uid
-      fsGroup: *uid
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: "${APP}-metadata-bootstrap"
+# spec:
+#   trigger:
+#     manual: "restore-once-bootstrap"
+#   rclone:
+#     rcloneConfigSection: "b2-volsync"
+#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/metadata"
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     copyMethod: "Snapshot"
+#     volumeSnapshotClassName: "block"
+#     storageClassName: "ceph-blockpool"
+#     capacity: "1Gi"
+#     accessModes: ["ReadWriteOnce"]
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
@@ -100,7 +100,7 @@ metadata:
 spec:
   sourcePVC: "audiobook-library"
   trigger:
-    schedule: "30 2 * * *"
+    schedule: "30 2 1 * *"
   rclone:
     # The configuration section of the rclone config file to use
     rcloneConfigSection: "b2-volsync"
@@ -118,24 +118,24 @@ spec:
       runAsUser: &uid ${APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: "${APP}-audiobooks-bootstrap"
-spec:
-  trigger:
-    manual: "restore-once-bootstrap"
-  rclone:
-    rcloneConfigSection: "b2-volsync"
-    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/audiobooks"
-    rcloneConfig: "volsync-b2-rclone-secret"
-    copyMethod: "Snapshot"
-    volumeSnapshotClassName: "file"
-    storageClassName: "ceph-filesystem"
-    capacity: "1024Gi"
-    accessModes: ["ReadWriteOnce"]
-    moverSecurityContext:
-      runAsUser: &uid ${APP_UID}
-      runAsGroup: *uid
-      fsGroup: *uid
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: "${APP}-audiobooks-bootstrap"
+# spec:
+#   trigger:
+#     manual: "restore-once-bootstrap"
+#   rclone:
+#     rcloneConfigSection: "b2-volsync"
+#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/audiobooks"
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     copyMethod: "Snapshot"
+#     volumeSnapshotClassName: "file"
+#     storageClassName: "ceph-filesystem"
+#     capacity: "1024Gi"
+#     accessModes: ["ReadWriteOnce"]
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
