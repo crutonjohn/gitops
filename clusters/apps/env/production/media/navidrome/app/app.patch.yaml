@@ -33,8 +33,8 @@ spec:
           main:
             nameOverride: navidrome
             image:
-              repository: deluan/navidrome
-              tag: 0.51.1
+              repository: ghcr.io/navidrome/navidrome
+              tag: 0.52.5@sha256:b154aebe8b33bae82c500ad0a3eb743e31da54c3bfb4e7cc3054b9a919b685c7
             env:
               ND_SCANINTERVAL: 15m
               ND_LOGLEVEL: debug
