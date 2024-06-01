@@ -10,3 +10,12 @@ resources:
   - ./zigbee2mqtt/ks.yaml
   - ./mosquitto/ks.yaml
   - ./amcrest2mqtt/ks.yaml
+  - ../../../base/volsync/
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: home
+    target:
+      kind: Secret
+      name: volsync-b2-rclone-secret
