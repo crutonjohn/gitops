@@ -7,5 +7,6 @@
       k0sctl
       android-tools
       envsubst
+      ceph
     ];
 }
