@@ -11,6 +11,8 @@ spec:
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: controller+worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.154
       installFlags:
         - --disable-components=konnectivity-server,kube-proxy
         #      files:
@@ -18,30 +20,26 @@ spec:
         #          src: kube-vip.yaml
         #          dstDir: /var/lib/k0s/manifests/
         #          perm: 0600
-        # - ssh:
-        #     address: 192.168.130.132
-        #     user: root
-        #     port: 22
-        #     keyPath: ~/.ssh/id_rsa
-        #   role: controller+worker
-        # - ssh:
-        #     address: 192.168.130.133
-        #     user: root
-        #     port: 22
-        #     keyPath: ~/.ssh/id_rsa
-        #   role: controller+worker
     - ssh:
         address: 192.168.130.151
         user: root
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.151
+      installFlags:
+        - --kubelet-extra-args="--node-ip=192.168.130.151 --address=192.168.130.151 --healthz-bind-address=192.168.130.151"
     - ssh:
         address: 192.168.130.152
         user: root
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.152
+      installFlags:
+        - --kubelet-extra-args="--node-ip=192.168.130.152 --address=192.168.130.152 --healthz-bind-address=192.168.130.152"
     # - ssh:
     #     address: 192.168.130.154
     #     user: root
@@ -54,8 +52,33 @@ spec:
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.155
+      installFlags:
+        - --kubelet-extra-args="--node-ip=192.168.130.155 --address=192.168.130.155 --healthz-bind-address=192.168.130.155"
+    - ssh:
+        address: 192.168.130.156
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.156
+      installFlags:
+        - --kubelet-extra-args="--node-ip=192.168.130.156 --address=192.168.130.156 --healthz-bind-address=192.168.130.156"
+    - ssh:
+        address: 192.168.130.157
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.157
+      installFlags:
+        - --kubelet-extra-args="--node-ip=192.168.130.157 --address=192.168.130.157 --healthz-bind-address=192.168.130.157"
+
   k0s:
-    version: 1.28.2+k0s.0
+    version: 1.30.1+k0s.0
     dynamicConfig: false
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
