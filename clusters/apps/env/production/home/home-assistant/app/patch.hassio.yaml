@@ -18,7 +18,7 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"iot-garbage-casa",
+                "name":"iot-garbage",
                 "namespace": "network-system",
                 "mac": "e8:f3:3c:72:23:f6",
                 "ips": ["192.168.134.100/24"]
@@ -62,7 +62,7 @@ spec:
                   - key: ${FAMILY_DOMAIN}/role
                     operator: In
                     values:
-                      - casa
+                      - apps
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
