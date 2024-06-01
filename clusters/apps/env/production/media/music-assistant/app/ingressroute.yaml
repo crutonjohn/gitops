@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ${APP}
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
+      priority: 10
+      services:
+        - name: ${APP}
+          port: 8095
+          nativeLB: true
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
