@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: "${APP}-config"
   trigger:
-    schedule: "0 2 * * *"
+    schedule: "0 3 * * 1"
   rclone:
     # The configuration section of the rclone config file to use
     rcloneConfigSection: "b2-volsync"
@@ -20,22 +20,29 @@ spec:
     storageClassName: ceph-blockpool
     # The VSC to use if the copy method is Snapshot (default if omitted)
     volumeSnapshotClassName: block
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: "${APP}-bootstrap"
-spec:
-  trigger:
-    manual: "restore-once-bootstrap"
-  restic:
-    repository: "${APP}-config-rclone"
-    copyMethod: "Snapshot"
-    volumeSnapshotClassName: "block"
-    storageClassName: "ceph-blockpool"
-    capacity: "40Gi"
-    accessModes: ["ReadWriteOnce"]
     moverSecurityContext:
       runAsUser: &uid ${APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationDestination
+# metadata:
+#   name: "${APP}-config-bootstrap"
+# spec:
+#   trigger:
+#     manual: "restore-once-bootstrap"
+#   rclone:
+#     rcloneConfigSection: "b2-volsync"
+#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/config"
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     copyMethod: "Snapshot"
+#     copyMethod: "Snapshot"
+#     volumeSnapshotClassName: "block"
+#     storageClassName: "ceph-blockpool"
+#     capacity: "40Gi"
+#     accessModes: ["ReadWriteOnce"]
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
