@@ -62,7 +62,7 @@ spec:
                   - key: ${FAMILY_DOMAIN}/role
                     operator: In
                     values:
-                      - apps
+                      - casa
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
