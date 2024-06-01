@@ -30,6 +30,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "994"
       INGRESSROUTE_SUBDOMAIN: "zigbee"
     substituteFrom:
       - kind: Secret
