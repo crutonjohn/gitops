@@ -26,8 +26,8 @@ spec:
         containers:
           home-assistant:
             image:
-              repository: ghcr.io/home-assistant/home-assistant
-              tag: 2024.5.3@sha256:cd3e0dc0df5b2013ae589e9f0044e1093c28c31dc653f36db3df10ba8e898dd6
+              repository: ghcr.io/onedr0p/home-assistant
+              tag: rolling@sha256:7c9514d573dddae6eaa0ec452e70f52a3e789cb6f348cb69d4fecc2bfa3dc10e
             env:
               TZ: America/New_York
             envFrom:
