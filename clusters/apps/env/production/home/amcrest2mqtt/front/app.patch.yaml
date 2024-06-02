@@ -30,6 +30,16 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot-garbage-apps",
+                "namespace": "network-system",
+                "mac": "02:c0:b4:60:17:f6",
+                "ips": ["192.168.134.98/24"]
+              }]
+
         containers:
           main:
             nameOverride: zigbee2mqtt
