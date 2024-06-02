@@ -37,7 +37,7 @@ spec:
               [{
                 "name":"iot-garbage-apps",
                 "namespace": "network-system",
-                "mac": "02:78:55:a6:7c:54",
+                "mac": "02:58:5c:80:13:4c",
                 "ips": ["192.168.134.120/24"]
               }]
         containers:
