@@ -1,0 +1,147 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      tesla:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            component: upsd-tesla
+        containers:
+          collector:
+            image:
+              repository: upshift/nut-upsd
+              tag: 2.8.0
+            env:
+              TZ: America/New_York
+              UPS_NAME: ${APP}
+              UPS_DESC: "Cyberpower Rackmount ${APP}"
+            envFrom:
+              - secretRef:
+                  name: ups-env
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 3493
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              privileged: true
+            resources:
+              limits:
+                cpu: 50m
+                memory: 128Mi
+              requests:
+                cpu: 20m
+                memory: 128Mi
+          exporter:
+            image:
+              # TO-DO: recreate this container image in my repo
+              repository: jzck/upsc-exporter
+              tag: latest
+            env:
+              TZ: America/New_York
+              UPS_TARGET: "tesla@localhost:3493"
+            envFrom:
+              - secretRef:
+                  name: ups-env
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /metrics
+                    port: 9614
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              privileged: true
+            resources:
+              limits:
+                cpu: 50m
+                memory: 128Mi
+              requests:
+                cpu: 20m
+                memory: 128Mi
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: feature.node.kubernetes.io/cyberpower-ups
+                    operator: In
+                    values:
+                      - "true"
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: component
+                    operator: In
+                    values:
+                      - upsd-edison
+              topologyKey: kubernetes.io/hostname
+
+    service:
+      app:
+        controller: tesla
+        annotations:
+          prometheus.io/port: "9614"
+          prometheus.io/scrape: "true"
+        ports:
+          collector:
+            enabled: true
+            primary: true
+            port: 3493
+            protocol: TCP
+            targetPort: 3493
+          exporter:
+            enabled: true
+            primary: false
+            port: 9614
+            protocol: TCP
+            targetPort: 9614
+    ingress:
+      main:
+        enabled: false
+    persistence:
+      ups:
+        type: hostPath
+        hostPath: /dev/usb/hiddev0
+        hostPathType: CharDevice
+        globalMounts:
+          - path: /dev/usb/hiddev0
