@@ -134,6 +134,19 @@ spec:
             port: 9199
             protocol: TCP
             targetPort: 9199
+      metrics:
+        controller: edison
+        annotations:
+          prometheus.io/port: "9199"
+          prometheus.io/scrape: "true"
+          prometheus.io/metric_path: "/ups_metrics"
+        ports:
+          exporter:
+            enabled: true
+            primary: false
+            port: 9199
+            protocol: TCP
+            targetPort: 9199
     ingress:
       main:
         enabled: false
