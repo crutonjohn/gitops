@@ -80,7 +80,7 @@ spec:
   decryption:
     provider: sops
     secretRef:
-      name: sops-
+      name: sops-aws
   dependsOn:
     - name: upsd-exporter-config
   postBuild:
