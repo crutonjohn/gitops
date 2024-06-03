@@ -33,7 +33,7 @@ spec:
           collector:
             image:
               repository: upshift/nut-upsd
-              tag: 2.8.0
+              tag: 2.8.0@sha256:d2acd9d5e66bd644676eaf8686ebaafcef34cd40c0abf2182f26e50cd8eb3491
             env:
               TZ: America/New_York
               UPS_NAME: ${APP}
@@ -66,11 +66,10 @@ spec:
           exporter:
             image:
               # TO-DO: recreate this container image in my repo
-              repository: jzck/upsc-exporter
-              tag: latest
+              repository: ghcr.io/druggeri/nut_exporter
+              tag: 3.1.1@sha256:0d9a0a00554081876178369ab9d46717e002fcf550b18dcd85f98c315438b524
             env:
               TZ: America/New_York
-              UPS_TARGET: "tesla@localhost:3493"
             envFrom:
               - secretRef:
                   name: ups-env
@@ -81,7 +80,7 @@ spec:
                 spec:
                   httpGet:
                     path: /metrics
-                    port: 9614
+                    port: 9199
                   initialDelaySeconds: 10
                   periodSeconds: 30
                   timeoutSeconds: 1
@@ -120,7 +119,7 @@ spec:
       app:
         controller: tesla
         annotations:
-          prometheus.io/port: "9614"
+          prometheus.io/port: "9199"
           prometheus.io/scrape: "true"
         ports:
           collector:
@@ -132,9 +131,9 @@ spec:
           exporter:
             enabled: true
             primary: false
-            port: 9614
+            port: 9199
             protocol: TCP
-            targetPort: 9614
+            targetPort: 9199
     ingress:
       main:
         enabled: false
