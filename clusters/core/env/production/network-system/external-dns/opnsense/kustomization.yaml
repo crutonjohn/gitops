@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../../base/applications/network-system/external-dns
+patches:
+  - path: patch.externaldns.yaml
+#   - patch: |-
+#       - op: replace
+#         path: /metadata/name
+#         value: external-dns-opnsense
+#     target:
+#       kind: HelmRelease
+#       name: .*

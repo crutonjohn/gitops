@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  values:
+    fullnameOverride: ${APP}
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
+          tag: main@sha256:7ccb4348507db9527d3b29ebe88cf1e4d79742ee3bcc251a30e3ad7d941a2916
+        env:
+          - name: OPNSENSE_API_SECRET
+            value: ${EXTERNAL_DNS_OPNSENSE_API_SECRET}
+          - name: OPNSENSE_API_KEY
+            value: ${EXTERNAL_DNS_OPNSENSE_API_KEY}
+          - name: OPNSENSE_HOST
+            value: ${EXTERNAL_DNS_OPNSENSE_HOST}
+          - name: OPNSENSE_SKIP_TLS_VERIFY
+            value: "true"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+    logLevel: debug
+    extraArgs:
+      - --ignore-ingress-tls-spec
+    policy: sync
+    sources: ["service", "crd"]
+    txtOwnerId: main
+    txtPrefix: k0s.main.
+    domainFilters: ["${FAMILY_DOMAIN}"]
+    serviceMonitor:
+      enabled: false
