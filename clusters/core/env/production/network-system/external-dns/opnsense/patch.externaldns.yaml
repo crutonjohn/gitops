@@ -11,14 +11,23 @@ spec:
       webhook:
         image:
           repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
-          tag: main@sha256:7ccb4348507db9527d3b29ebe88cf1e4d79742ee3bcc251a30e3ad7d941a2916
+          tag: v0.1.0@sha256:72d4f5c79e515b8a70bb2e48f6472c746671a3ae3d8ad224aa686dd7192e1609
         env:
           - name: OPNSENSE_API_SECRET
-            value: ${EXTERNAL_DNS_OPNSENSE_API_SECRET}
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: api_secret
           - name: OPNSENSE_API_KEY
-            value: ${EXTERNAL_DNS_OPNSENSE_API_KEY}
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: api_key
           - name: OPNSENSE_HOST
-            value: ${EXTERNAL_DNS_OPNSENSE_HOST}
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-opnsense-secret
+                key: host
           - name: OPNSENSE_SKIP_TLS_VERIFY
             value: "true"
         livenessProbe:
@@ -37,9 +46,8 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
     policy: sync
+    registry: noop
     sources: ["service", "crd"]
-    txtOwnerId: main
-    txtPrefix: k0s.main.
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
