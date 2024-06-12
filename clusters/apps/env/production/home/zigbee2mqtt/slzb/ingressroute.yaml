@@ -2,12 +2,12 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: zigbee2mqtt
+  name: ${APP}
   annotations:
-    kubernetes.io/ingress.class: "traefik-external"
+    kubernetes.io/ingress.class: "traefik-internal"
     external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-    external-dns/public: "true"
+    external-dns/private: "true"
 spec:
   entryPoints:
     - websecure
@@ -21,7 +21,7 @@ spec:
           namespace: auth-system
       priority: 10
       services:
-        - name: zigbee2mqtt-slzb
+        - name: ${APP}
           port: 8080
           nativeLB: true
     - kind: Rule
@@ -42,13 +42,13 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: zigbee2mqtt
+  name: ${APP}-internal
   annotations:
-    external-dns/public: "true"
+    external-dns/private: "true"
 spec:
   endpoints:
     - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: CNAME
+      recordType: A
       targets:
-        - ${DYNAMIC_DOMAIN}
+        - ${CLUSTER_LB_INGRESS_INTERNAL}

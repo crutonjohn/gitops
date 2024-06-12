@@ -2,10 +2,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: lidarr
+  name: ${APP}
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: lidarr.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,7 +13,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`lidarr.${FAMILY_DOMAIN}`)"
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
       middlewares:
         - name: oauth-auth
           namespace: auth-system
@@ -21,10 +21,10 @@ spec:
           namespace: auth-system
       priority: 10
       services:
-        - name: lidarr
+        - name: ${APP}
           port: 8686
     - kind: Rule
-      match: "Host(`lidarr.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
       priority: 15
       middlewares:
         - name: oauth-headers
@@ -41,13 +41,27 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: lidarr
+  name: ${APP}-external
   annotations:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: lidarr.${FAMILY_DOMAIN}
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:
         - ${DYNAMIC_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: ${APP}-internal
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_EXTERNAL}

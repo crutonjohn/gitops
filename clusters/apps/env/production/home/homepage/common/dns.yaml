@@ -1,29 +1,8 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: ${APP}
-  annotations:
-    kubernetes.io/ingress.class: "traefik-external"
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
-      priority: 10
-      services:
-        - name: ${APP}
-          port: 13378
-  tls:
-    secretName: heyjohn-wildcard-certificate
-    domains:
-      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
----
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: ${APP}-external
+  name: homepage-external
   annotations:
     external-dns/public: "true"
 spec:
@@ -37,7 +16,7 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: ${APP}-internal
+  name: homepage-internal
   annotations:
     external-dns/private: "true"
 spec:

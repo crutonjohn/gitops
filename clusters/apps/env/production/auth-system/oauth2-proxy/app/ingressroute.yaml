@@ -5,7 +5,7 @@ metadata:
   name: google-auth
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: sso.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,7 +13,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`sso.${FAMILY_DOMAIN}`)"
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
       services:
         - name: google-auth-oauth2-proxy
           port: 80
@@ -28,18 +28,32 @@ spec:
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
-      - main: sso.${FAMILY_DOMAIN}
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: google-auth
+  name: google-auth-external
   annotations:
     external-dns/public: "true"
 spec:
   endpoints:
-    - dnsName: sso.${FAMILY_DOMAIN}
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: CNAME
       targets:
         - ${DYNAMIC_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: google-auth-internal
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_EXTERNAL}

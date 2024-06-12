@@ -26,10 +26,12 @@ spec:
   dependsOn:
     - name: external-dns-aws
     - name: external-dns-linode
+    - name: external-dns-opnsense
     - name: traefik-external
   postBuild:
     substitute:
       APP: *app
+      INGRESSROUTE_SUBDOMAIN: "sso"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

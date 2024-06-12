@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: thelounge
+  name: ${APP}
   annotations:
     kubernetes.io/ingress.class: "traefik-internal"
     external-dns/public: "false"
@@ -13,7 +13,7 @@ spec:
     - kind: Rule
       match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
       services:
-        - name: thelounge
+        - name: ${APP}
           port: 9000
       middlewares:
         - name: oauth-auth
@@ -34,3 +34,17 @@ spec:
     secretName: heyjohn-wildcard-certificate
     domains:
       - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: ${APP}-internal
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_INTERNAL}

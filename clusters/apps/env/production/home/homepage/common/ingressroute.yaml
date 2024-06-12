@@ -5,7 +5,7 @@ metadata:
   name: homepage
   annotations:
     kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: kat.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
 spec:
@@ -13,7 +13,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`kat.${FAMILY_DOMAIN}`)"
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
       middlewares:
         - name: oauth-auth
           namespace: auth-system
@@ -21,10 +21,10 @@ spec:
           namespace: auth-system
       priority: 10
       services:
-        - name: homepage-kat
+        - name: homepage-${INGRESSROUTE_SUBDOMAIN}
           port: 3000
     - kind: Rule
-      match: "Host(`kat.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
       priority: 15
       middlewares:
         - name: oauth-headers
@@ -36,4 +36,4 @@ spec:
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
-      - main: kat.${FAMILY_DOMAIN}
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
