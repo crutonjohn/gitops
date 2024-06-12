@@ -93,6 +93,30 @@ spec:
                   type: octoprint
                   url: http://octopi.${FAMILY_DOMAIN}
                   key: ${HOMEPAGE_OCTOPRINT_TOKEN}
+        - Storage:
+            - Ceph:
+              href: https://ceph.${FAMILY_DOMAIN}
+              description: Rook-Ceph
+              widget:
+                type: customapi
+                url: https://rook-ceph-mgr-dashboard.rook-ceph.svc.cluster.local:7000/api/health/full
+                method: GET
+                headers:
+                  Authorization: "Bearer ${ROOK_CEPH_DASHBOARD_API_TOKEN}"
+                  Accept: "application/vnd.ceph.api.v1.0+json"
+                mappings:
+                  - field:
+                      health: status
+                    label: Status
+                  - field:
+                      df:
+                        stats: num_osds
+                    label: OSDs
+                  - field:
+                      df:
+                        stats: total_avail_bytes
+                    label: Free Space
+                    format: bytes
 
         - Networking:
             - OPNSense:
