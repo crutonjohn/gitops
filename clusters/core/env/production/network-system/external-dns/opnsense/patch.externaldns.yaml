@@ -50,7 +50,7 @@ spec:
       - --annotation-filter=external-dns/private in (true)
     policy: sync
     registry: noop
-    sources: ["service", "crd"]
+    sources: ["crd"]
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
