@@ -235,6 +235,7 @@ spec:
                       operator: In
                       values:
                         - k-nas
+          podAntiAffinity: {}
         # Monitor deployments may contain an anti-affinity rule for avoiding monitor
         # collocation on the same node. This is a required rule when host network is used
         # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
