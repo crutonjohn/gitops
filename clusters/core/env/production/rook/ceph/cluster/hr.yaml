@@ -123,7 +123,7 @@ spec:
       mon:
         # Set the number of mons to be started. Generally recommended to be 3.
         # For highest availability, an odd number of mons should be specified.
-        count: 1
+        count: 3
         # The mons should be on unique nodes. For production, at least 3 nodes are recommended for this reason.
         # Mons should only be allowed on the same node for test environments where data loss is acceptable.
         allowMultiplePerNode: true
@@ -135,10 +135,10 @@ spec:
         count: 2
         allowMultiplePerNode: true
         modules:
-          # List of modules to optionally enable or disable.
-          # Note the "dashboard" and "monitoring" modules are already configured by other settings in the cluster CR.
-          # - name: rook
-          #   enabled: true
+        # List of modules to optionally enable or disable.
+        # Note the "dashboard" and "monitoring" modules are already configured by other settings in the cluster CR.
+        # - name: rook
+        #   enabled: true
 
       # enable the ceph dashboard for viewing cluster status
       dashboard:
@@ -170,8 +170,8 @@ spec:
           # and clients will be required to connect to the Ceph cluster with the v2 port (3300).
           # Requires a kernel that supports msgr v2 (kernel 5.11 or CentOS 8.4 or newer).
           requireMsgr2: true
-      #   # enable host networking
         provider: host
+        # enable host networking
       #   # EXPERIMENTAL: enable the Multus network provider
       #   provider: multus
       #   selectors:
@@ -225,16 +225,16 @@ spec:
           # tolerations:
           # - key: storage-node
           #   operator: Exists
-        # The above placement information can also be specified for mon, osd, and mgr components
-        # mon:
-        #   nodeAffinity:
-        #     requiredDuringSchedulingIgnoredDuringExecution:
-        #       nodeSelectorTerms:
-        #         - matchExpressions:
-        #             - key: ${FAMILY_DOMAIN}/role
-        #               operator: In
-        #               values:
-        #                 - apps
+          #The above placement information can also be specified for mon, osd, and mgr components
+        mon:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - k-nas
         # Monitor deployments may contain an anti-affinity rule for avoiding monitor
         # collocation on the same node. This is a required rule when host network is used
         # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
