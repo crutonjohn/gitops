@@ -27,3 +27,8 @@ spec:
       recordType: A
       targets:
         - 100.64.0.4
+    - dnsName: linmon.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.4
