@@ -1,0 +1,19 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: home-automation
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: slzb.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.120
+    - dnsName: ratgdo.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.134.84

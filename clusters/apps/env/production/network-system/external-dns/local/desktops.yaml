@@ -1,0 +1,19 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: desktops
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: buck-desktop.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.128.3
+    - dnsName: kat-desktop.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.128.4
