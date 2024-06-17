@@ -8,5 +8,6 @@
       android-tools
       envsubst
       ceph
+      restic
     ];
 }
