@@ -9,7 +9,7 @@ resources:
   - readarr/ks.yaml
   - syncthing/ks.yaml
   - deemix/ks.yaml
-  - ../../../base/volsync/
+  - ../../../base/volsync/lib/rclone
 patches:
   - patch: |-
       - op: add
