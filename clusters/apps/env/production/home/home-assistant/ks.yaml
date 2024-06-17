@@ -44,3 +44,49 @@ spec:
         name: settings-generic
       - kind: ConfigMap
         name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app volsync-home-assistant-config-restic
+  namespace: flux-system
+spec:
+  targetNamespace: home
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: home-assistant
+      backups.${FAMILY_DOMAIN}/subsystem: home-automation
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: home-assistant-config
+      APP_UID: "994"
+      CRON_SCHEDULE: "30 4/12 * * *"
+      STORAGE_CLASS: ceph-blockpool
+      SNAPSHOT_CLASS: block
+      SIZE: "50Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}

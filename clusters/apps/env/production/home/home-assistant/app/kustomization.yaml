@@ -7,7 +7,6 @@ resources:
   - hass.enc.yaml
   - ingressroute.home-assistant.yaml
   - ingressroute.music-assistant.yaml
-  - volsync.yaml
 patches:
   - path: patch.hassio.yaml
   - patch: |-
