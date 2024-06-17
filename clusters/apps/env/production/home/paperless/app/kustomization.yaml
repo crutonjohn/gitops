@@ -6,3 +6,10 @@ resources:
   - ingressroute.yaml
 patches:
   - path: patch.paperless.yaml
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: paperless
+    target:
+      kind: HelmRelease
+      name: .*
