@@ -1,68 +1,181 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: paperless
+  name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.1.0
   values:
-    env:
-      COMPOSE_PROJECT_NAME: paperless
-      PAPERLESS_REDIS: redis://localhost:6379
-      PAPERLESS_OCR_LANGUAGE: eng
-      PAPERLESS_TIME_ZONE: America/New_York
-      PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
-      PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
+    controllers:
+      paperless:
+        type: deployment
+        replicas: 1
+        containers:
+          paperless:
+            image:
+              repository: "ghcr.io/paperless-ngx/paperless-ngx"
+              tag: "2.8.6@sha256:2744572313cf3026520243f00e064d8fa82d838173a160d63b7e481575a86fdc"
+            args: ["/usr/local/bin/supervisord", "-c", "/etc/supervisord.conf", "--user", "paperless", "--logfile", "/tmp/supervisord.log", "--pidfile", "/tmp/supervisord.pid"]
+            env:
+              PAPERLESS_URL: "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
+              PAPERLESS_PORT: &port "8000"
+              PAPERLESS_TIME_ZONE: America/New_York
+              PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
+              PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
+              PAPERLESS_WEBSERVER_WORKERS: "2"
+              PAPERLESS_TASK_WORKERS: "2"
+              PAPERLESS_REDIS: "unix:///sockets/redis.sock"
+              PAPERLESS_CONSUMPTION_DIR: &consume "/data/consume"
+              PAPERLESS_DATA_DIR: &pvc "/config"
+              PAPERLESS_EXPORT_DIR: &export "/data/export"
+              PAPERLESS_MEDIA_ROOT: &media "/data/media"
+              PAPERLESS_TRASH_DIR: &trash "/data/trash"
+              PAPERLESS_APPS: "allauth.socialaccount.providers.openid_connect"
+              # PAPERLESS_SOCIALACCOUNT_PROVIDERS in ES envFrom
+              PAPERLESS_TRUSTED_PROXIES: "${CLUSTER_POD_CIDR}"
+              PAPERLESS_OCR_LANGUAGE: "eng"
+              PAPERLESS_CONSUMER_POLLING: "60" # 1 minute, inotify doesn't work over NFS
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              PAPERLESS_TIKA_ENABLED: "true"
+              PAPERLESS_TIKA_ENDPOINT: "http://tika.home.svc.cluster.local"
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://gotenberg.home.svc.cluster.local"
+            securityContext: &sc
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
+            resources:
+              requests:
+                cpu: "10m"
+                memory: "1000Mi"
+              limits:
+                memory: "3000Mi"
+          redis:
+            image:
+              repository: "public.ecr.aws/docker/library/redis"
+              tag: "7.2.4-bookworm@sha256:5a93f6b2e391b78e8bd3f9e7e1e1e06aeb5295043b4703fb88392835cec924a0"
+            command: ["redis-server", "--save", "''", "--appendonly", "no", "--port", "0", "--bind", "127.0.0.1", "--unixsocket", "/sockets/redis.sock", "--unixsocketperm", "700"] # save and appendonly options forcibly disable RDB and AOF persistence entirely
+            securityContext: *sc
+            resources:
+              requests:
+                cpu: "10m"
+                memory: "32Mi"
+              limits:
+                memory: "512Mi"
+      tika:
+        type: deployment
+        replicas: 1
+        containers:
+          main:
+            image:
+              repository: "apache/tika"
+              tag: "2.9.2.1-full@sha256:ae0b86d3c4d06d8997407fcb08f31a7259fff91c43e0c1d7fffdad1e9ade3fe8"
+            securityContext: *sc
+            resources: # TODO: adjust (Java app)
+              requests:
+                cpu: "10m"
+                memory: "256Mi"
+              limits:
+                memory: "2000Mi"
+      gotenberg:
+        type: deployment
+        replicas: 1
+        containers:
+          main:
+            image:
+              repository: "docker.io/gotenberg/gotenberg"
+              tag: "8.5.0@sha256:d1737c98b2a39e656cceac67126a4a82ff3c0e572beb3aa8a17d04a41d9eed17"
+            command: ["gotenberg", "--chromium-disable-javascript=true", "--chromium-allow-list=file:///tmp/.*"]
+            securityContext: *sc
+            resources: # TODO: adjust (Go app)
+              requests:
+                cpu: "10m"
+                memory: "64Mi"
+              limits:
+                memory: "2000Mi"
+    service:
+      paperless:
+        controller: "paperless"
+        ports:
+          http:
+            port: *port
+      tika:
+        controller: "tika"
+        ports:
+          tika:
+            port: 80
+            targetPort: 9998
+      gotenberg:
+        controller: "gotenberg"
+        ports:
+          gotenberg:
+            port: 80
+            targetPort: 3000
     ingress:
       main:
         enabled: false
-        ingressClassName: "traefik-internal"
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "file-outline"
-          hajimari.io/appName: "Paperless"
-          hajimari.io/group: "Home"
-        hosts:
-          - host: "paperless.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-        tls:
-          - hosts:
-              - "paperless.${SECRET_DOMAIN}"
-            secretName: "crj-wildcard-certificate"
     persistence:
+      config:
+        enabled: true
+        existingClaim: "paperless-config"
+        globalMounts:
+          - path: /config
+            readOnly: false
       data:
         enabled: true
-        mountPath: /usr/src/paperless/data
-        existingClaim: paperless-data
-      media:
+        existingClaim: "paperless-data"
+        globalMounts:
+          - subPath: "consume"
+            path: "/data/consume"
+          - subPath: "export"
+            path: "/data/export"
+          - subPath: "media"
+            path: "/data/media"
+          - subPath: "trash"
+            path: "/data/trash"
+      tmp:
         enabled: true
-        mountPath: /usr/src/paperless/media
-        existingClaim: paperless-media
-      consume:
-        enabled: true
-        mountPath: /usr/src/paperless/consume
-        existingClaim: paperless-consume-apollo
-      export:
-        enabled: true
-        mountPath: /usr/src/paperless/export
-        existingClaim: paperless-export-apollo
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 50m
-      limits:
-        memory: 1000Mi
-        cpu: 200m
-    redis:
-      enabled: true
-      auth:
-        enabled: false
-      master:
-        resources:
-          requests:
-            memory: 10Mi
-            cpu: 20m
-          limits:
-            memory: 200Mi
-            cpu: 50m
+        type: emptyDir
+        medium: Memory
+        advancedMounts:
+          main:
+            main:
+              - subPath: "paperless"
+                path: "/tmp"
+              - subPath: "apt"
+                path: "/var/lib/apt"
+              - &sockdir
+                subPath: "sockets"
+                path: "/sockets"
+            redis:
+              - *sockdir
+          tika:
+            main:
+              - subPath: "tika"
+                path: "/tmp"
+          gotenberg:
+            main:
+              - subPath: "gotenberg"
+                path: "/tmp"
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false # avoid exposing too much info in env vars in case of lateral movement attempt
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: &uid ${APP_UID}
+        runAsGroup: *uid
+        fsGroup: *uid
+        fsGroupChangePolicy: "Always"
+        seccompProfile: { type: "RuntimeDefault" }
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
