@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://crds.jank.ing/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${SRC_PVC}-restic-bootstrap"
+  labels:
+    kustomize.toolkit.fluxcd.io/ssa: "IfNotPresent"
+spec:
+  trigger:
+    manual: "restore-once-bootstrap"
+  restic:
+    copyMethod: "Snapshot"
+    repository: "${SRC_PVC}-b2-restic"
+    volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
+    storageClassName: "${STORAGE_CLASS}"
+    cacheStorageClassName: "${CACHE:=ceph-blockpool}"
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: "${CACHESIZE:=2Gi}"
+    capacity: "${SIZE:=20Gi}"
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: ${APP_UID}
+      runAsGroup: ${APP_UID}
+      fsGroup: ${APP_UID}
+      seccompProfile: {type: "RuntimeDefault"}
+    moverResources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 6Gi
