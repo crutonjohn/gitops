@@ -6,11 +6,11 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   #- ./nextcloud/ks.yaml
-  #- ./paperless/ks.yaml
+  - ./paperless/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./mosquitto/ks.yaml
   - ./amcrest2mqtt/ks.yaml
-  - ../../../base/volsync/
+  - ../../../base/volsync/lib/rclone
 patches:
   - patch: |-
       - op: add
