@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../../base/app-template
   - ingressroute.yaml
+  - secret.enc.yaml
 patches:
   - path: patch.paperless.yaml
   - patch: |-
