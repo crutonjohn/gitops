@@ -23,6 +23,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
+  dependsOn:
+    - name: snapshot-controller
+    - name: rook-cluster
   postBuild:
     substitute:
       APP: *app
