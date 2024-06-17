@@ -147,8 +147,8 @@ spec:
         type: emptyDir
         medium: Memory
         advancedMounts:
-          main:
-            main:
+          paperless:
+            paperless:
               - subPath: "paperless"
                 path: "/tmp"
               - subPath: "apt"
