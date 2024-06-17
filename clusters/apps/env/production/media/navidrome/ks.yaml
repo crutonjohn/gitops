@@ -39,3 +39,49 @@ spec:
         name: settings-generic
       - kind: ConfigMap
         name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app volsync-navidrome-config-restic
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: navidrome
+      backups.${FAMILY_DOMAIN}/subsystem: music
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: navidrome-config
+      APP_UID: "1177"
+      CRON_SCHEDULE: "15 3/12 * * *"
+      STORAGE_CLASS: ceph-blockpool
+      SNAPSHOT_CLASS: block
+      SIZE: "10Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
