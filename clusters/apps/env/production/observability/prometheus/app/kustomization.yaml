@@ -5,6 +5,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - service-account.yaml
+  - dns.yaml
 configMapGenerator:
   - name: prometheus-config
     files:
