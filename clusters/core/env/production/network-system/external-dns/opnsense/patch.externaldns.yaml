@@ -44,6 +44,12 @@ spec:
             port: http-wh-metrics
           initialDelaySeconds: 10
           timeoutSeconds: 5
+        resources:
+          requests:
+            memory: 20Mi
+            cpu: 10m
+          limits:
+            memory: 100Mi
     logLevel: debug
     extraArgs:
       - --ignore-ingress-tls-spec
