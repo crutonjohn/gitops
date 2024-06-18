@@ -55,6 +55,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      INGRESSROUTE_SUBDOMAIN: hubble
     substituteFrom:
       - kind: ConfigMap
         name: settings-generic

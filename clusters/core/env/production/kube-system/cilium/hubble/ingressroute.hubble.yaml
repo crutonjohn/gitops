@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: hubble
+  name: ${INGRESSROUTE_SUBDOMAIN}
   annotations:
     kubernetes.io/ingress.class: "traefik-internal"
 spec:
@@ -10,7 +10,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`hubble.${FAMILY_DOMAIN}`)"
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
       priority: 10
       middlewares:
         - name: oauth-auth
@@ -23,4 +23,4 @@ spec:
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
-      - main: hubble.${FAMILY_DOMAIN}
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
