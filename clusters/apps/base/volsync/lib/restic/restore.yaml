@@ -13,6 +13,7 @@ spec:
     copyMethod: "Snapshot"
     repository: "${SRC_PVC}-b2-restic"
     accessModes: "${DST_ACCESS_MODE:=ReadWriteOnce}"
+    destinationPVC: ${SRC_PVC}
     volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
     storageClassName: "${STORAGE_CLASS}"
     cacheStorageClassName: "${CACHE:=ceph-blockpool}"
