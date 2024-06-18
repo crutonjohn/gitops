@@ -74,6 +74,7 @@ spec:
       CRON_SCHEDULE: "30 3/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
+      DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "30Gi"
     substituteFrom:
       - kind: Secret
