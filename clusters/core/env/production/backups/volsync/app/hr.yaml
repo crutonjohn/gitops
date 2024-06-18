@@ -32,6 +32,7 @@ spec:
     metrics:
       disableAuth: true
     podAnnotations:
-      prometheus.io/path: /metrics
+      prometheus.io/metric_path: /metrics
       prometheus.io/port: "8443"
       prometheus.io/scrape: "true"
+      prometheus.io/scrape_scheme: "https"
