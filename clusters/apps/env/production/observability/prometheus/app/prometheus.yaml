@@ -130,6 +130,8 @@ scrape_configs:
     scrape_interval: 30s
     kubernetes_sd_configs:
       - role: pod
+    tls_config:
+      insecure_skip_verify: true
     relabel_configs:
       # Example relabel to scrape only pods that have
       # "prometheus.io/scrape = true" annotation.
