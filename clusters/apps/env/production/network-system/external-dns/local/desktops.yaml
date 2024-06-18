@@ -17,3 +17,8 @@ spec:
       recordType: A
       targets:
         - 192.168.128.4
+    - dnsName: workbench.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.128.5
