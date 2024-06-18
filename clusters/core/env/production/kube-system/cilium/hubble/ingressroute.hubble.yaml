@@ -20,6 +20,16 @@ spec:
       services:
         - name: hubble-ui
           port: 80
+    - kind: Rule
+      match: Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)
+      middlewares:
+        - name: oauth-headers
+          namespace: auth-system
+      priority: 15
+      services:
+        - name: google-auth-oauth2-proxy
+          namespace: auth-system
+          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
