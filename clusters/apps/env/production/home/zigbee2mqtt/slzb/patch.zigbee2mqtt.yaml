@@ -102,7 +102,7 @@ spec:
                   - key: ${FAMILY_DOMAIN}/role
                     operator: In
                     values:
-                      - casa
+                      - apps
 
     service:
       main:
