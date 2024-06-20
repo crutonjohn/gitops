@@ -117,12 +117,7 @@ spec:
 
     persistence:
       config:
-        enabled: true
-        type: hostPath
-        hostPath: /srv/volumes/zigbee2mqtt
-        hostPathType: "Directory"
-        advancedMounts:
-          main:
-            main:
-              - path: /config
-                readOnly: false
+        existingClaim: zigbee2mqtt-slzb-config
+        globalMounts:
+          - path: /config
+            readOnly: false
