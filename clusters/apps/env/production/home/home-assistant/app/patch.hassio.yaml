@@ -27,7 +27,7 @@ spec:
           home-assistant:
             image:
               repository: ghcr.io/onedr0p/home-assistant
-              tag: rolling@sha256:7c9514d573dddae6eaa0ec452e70f52a3e789cb6f348cb69d4fecc2bfa3dc10e
+              tag: rolling@sha256:6c953a5ae2d5783713dad6b3ff1cd10a43713ceb82b9482ce854e9a9fd2c3d24
             env:
               TZ: America/New_York
             envFrom:
