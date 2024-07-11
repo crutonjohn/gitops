@@ -73,13 +73,8 @@ go2rtc:
     garage-1-sub:
       - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub#video=copy#audio=copy#audio=opus"
 ffmpeg:
-  hwaccel_args:
-    - -hwaccel
-    - vaapi
-    - -hwaccel_device
-    - /dev/dri/renderD128
-    - -hwaccel_output_format
-    - yuv420p
+  global_args: ["-hide_banner", "-loglevel", "warning"]
+  hwaccel_args: preset-intel-qsv-h264
   output_args:
     record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
 objects:
@@ -100,11 +95,13 @@ cameras:
   dining-room:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -132,11 +129,13 @@ cameras:
   kitchen:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -164,11 +163,13 @@ cameras:
   living-room:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/living-room?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/living-room?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/living-room
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/living-room-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/living-room-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/living-room-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -196,11 +197,13 @@ cameras:
   nursery:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/nursery?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/nursery?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/nursery
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/nursery-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/nursery-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/nursery-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -228,11 +231,13 @@ cameras:
   front-doorbell-ad410:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -262,11 +267,13 @@ cameras:
   kitchen-doorbell-ad410:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -294,11 +301,13 @@ cameras:
   south-west-1:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -326,11 +335,13 @@ cameras:
   south-west-2:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -358,11 +369,13 @@ cameras:
   north-door-1:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -390,11 +403,13 @@ cameras:
   garage-1:
     ffmpeg:
       inputs:
-        - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1?video=copy&audio=aac
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1
           input_args: preset-rtsp-restream
           roles:
             - record
-        - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1-sub?video=copy
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1-sub
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -402,19 +417,22 @@ cameras:
       width: 1536
       height: 576
     record:
-      enabled: True
+      enabled: true
       retain:
         days: 2
+        mode: all
       events:
         retain:
           objects:
             person: 50
             dog: 20
+          mode: active_objects
         objects:
           - person
           - dog
     snapshots:
-      enabled: True
-      timestamp: False
+      enabled: true
+      timestamp: false
+      bounding_box: true
       retain:
         default: 14
