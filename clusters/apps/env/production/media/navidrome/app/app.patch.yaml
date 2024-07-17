@@ -44,6 +44,9 @@ spec:
               ND_ENABLESHARING: "true"
               ND_PROMETHEUS_ENABLED: "true"
               ND_PROMETHEUS_METRICSPATH: "/metrics_${NAVIDROME_METRICS_SECRET}"
+              ND_LASTFM_ENABLED: "true"
+              ND_LASTFM_APIKEY: ${NAVIDROME_LASTFM_APIKEY}
+              ND_LASTFM_SECRET: ${NAVIDROME_LASTFM_SECRET}
             probes:
               liveness:
                 enabled: false
