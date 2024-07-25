@@ -59,7 +59,7 @@ go2rtc:
       - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
     south-west-1:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main
-      - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
       - "ffmpeg:south-west-1#video=h264#audio=opus"
     south-west-1-sub:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub
@@ -67,7 +67,7 @@ go2rtc:
       - "ffmpeg:south-west-1-sub#video=h264#audio=opus"
     south-west-2:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main
-      - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
       - "ffmpeg:south-west-2#video=h264#audio=opus"
     south-west-2-sub:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub
@@ -75,18 +75,18 @@ go2rtc:
       - "ffmpeg:south-west-2-sub#video=h264#audio=opus"
     north-door-1:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main
-      - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
       - "ffmpeg:north-door-1#video=h264#audio=opus"
     north-door-1-sub:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub
       - "http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
       - "ffmpeg:north-door-1-sub#video=h264#audio=opus"
     garage-1:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main#video=copy#audio=copy#audio=opus"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
       # - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
       - "ffmpeg:garage-1#video=h264#audio=opus"
     garage-1-sub:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub#video=copy#audio=copy#audio=opus"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
       # - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
       - "ffmpeg:garage-1-sub#video=h264#audio=opus"
 ffmpeg:
