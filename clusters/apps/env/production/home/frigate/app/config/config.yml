@@ -22,28 +22,28 @@ detectors:
 go2rtc:
   streams:
     dining-room:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream1
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1
       - "ffmpeg:dining-room#audio=opus"
     dining-room-sub:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.65/stream2
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2
       - "ffmpeg:dining-room-sub#audio=opus"
     kitchen:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream1
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1
       - "ffmpeg:kitchen#audio=opus"
     kitchen-sub:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.64/stream2
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2
       - "ffmpeg:kitchen-sub#audio=opus"
     living-room:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream1
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1
       - "ffmpeg:living-room#audio=opus"
     living-room-sub:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.66/stream2
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2
       - "ffmpeg:living-room-sub#audio=opus"
     nursery:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream1
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1
       - "ffmpeg:nursery#audio=opus"
     nursery-sub:
-      - rtsp://frigate:${REOLINK_ADMIN_PASSWORD}@192.168.134.72/stream2
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2
       - "ffmpeg:nursery-sub#audio=opus"
     front-doorbell-ad410:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0&#backchannel=0"
