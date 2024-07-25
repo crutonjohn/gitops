@@ -20,5 +20,5 @@ spec:
   values:
     image:
       repository: ghcr.io/dgtlmoon/changedetection.io
-      tag: "0.45.23"
+      tag: "0.46.01"
       pullPolicy: IfNotPresent
