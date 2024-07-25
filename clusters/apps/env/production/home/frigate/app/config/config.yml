@@ -46,16 +46,16 @@ go2rtc:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2
       - "ffmpeg:nursery-sub#audio=opus"
     front-doorbell-ad410:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0&#backchannel=0"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0"
       - "ffmpeg:front-doorbell-ad410#audio=opus"
     front-doorbell-ad410-sub:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01#backchannel=0"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01"
       - "ffmpeg:front-doorbell-ad410-sub#audio=opus"
     kitchen-doorbell-ad410:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0#backchannel=0"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0"
       - "ffmpeg:kitchen-doorbell-ad410#audio=opus"
     kitchen-doorbell-ad410-sub:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01#backchannel=0"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
       - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
     south-west-1:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main
