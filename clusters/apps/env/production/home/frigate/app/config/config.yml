@@ -1,6 +1,6 @@
 ---
 logger:
-  default: info
+  default: debug
 mqtt:
   host: "${CLUSTER_LB_MQTT}"
   topic_prefix: frigate
