@@ -58,13 +58,13 @@ go2rtc:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
       - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
     south-west-1:
-      # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main
-      - "http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
-      - "ffmpeg:south-west-1#video=h264#audio=opus"
+      - ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main#video=h264#audio=opus
+      # - "http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+      # - "ffmpeg:south-west-1#video=h264#audio=opus"
     south-west-1-sub:
-      # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub
-      - "http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
-      - "ffmpeg:south-west-1-sub#video=h264#audio=opus"
+      - ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub#video=h264#audio=opus
+      # - "http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
+      # - "ffmpeg:south-west-1-sub#video=h264#audio=opus"
     south-west-2:
       # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main
       - "http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
