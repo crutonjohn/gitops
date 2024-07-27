@@ -1,6 +1,8 @@
 ---
 logger:
-  default: debug
+  default: info
+  logs:
+    ffmpeg: debug
 mqtt:
   host: "${CLUSTER_LB_MQTT}"
   topic_prefix: frigate
@@ -59,30 +61,30 @@ go2rtc:
     kitchen-doorbell-ad410-sub:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
       - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
-    south-west-1:
-      # - ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main#video=h264#audio=opus
-      - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
-      # - "ffmpeg:south-west-1#video=h264#audio=opus"
-    south-west-1-sub:
-      # - ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub#video=h264#audio=opus
-      - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
-      # - "ffmpeg:south-west-1-sub#video=h264#audio=opus"
-    south-west-2:
-      # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main
-      - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
-      # - "ffmpeg:south-west-2#video=h264#audio=opus"
-    south-west-2-sub:
-      # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub
-      - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
-      # - "ffmpeg:south-west-2-sub#video=h264#audio=opus"
-    north-door-1:
-      # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main
-      - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
-      # - "ffmpeg:north-door-1#video=h264#audio=opus"
-    north-door-1-sub:
-      # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub
-      - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
-      # - "ffmpeg:north-door-1-sub#video=h264#audio=opus"
+    # south-west-1:
+    #   # - ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main#video=h264#audio=opus
+    #   - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+    #   # - "ffmpeg:south-west-1#video=h264#audio=opus"
+    # south-west-1-sub:
+    #   # - ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub#video=h264#audio=opus
+    #   - "ffmpeg:http://192.168.134.67/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+    #   # - "ffmpeg:south-west-1-sub#video=h264#audio=opus"
+    # south-west-2:
+    #   # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main
+    #   - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+    #   # - "ffmpeg:south-west-2#video=h264#audio=opus"
+    # south-west-2-sub:
+    #   # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub
+    #   - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+    #   # - "ffmpeg:south-west-2-sub#video=h264#audio=opus"
+    # north-door-1:
+    #   # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main
+    #   - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+    #   # - "ffmpeg:north-door-1#video=h264#audio=opus"
+    # north-door-1-sub:
+    #   # - rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub
+    #   - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+    #   # - "ffmpeg:north-door-1-sub#video=h264#audio=opus"
     garage-1:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
       - "ffmpeg:garage-1#video=h264#audio=opus"
@@ -314,108 +316,108 @@ cameras:
       timestamp: True
       retain:
         default: 30
-  # --
-  south-west-1:
-    ffmpeg:
-      inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub
-          input_args: preset-rtsp-restream
-          roles:
-            - detect
-    detect:
-      width: 640
-      height: 360
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          objects:
-            person: 50
-            dog: 20
-        objects:
-          - person
-          - dog
-    snapshots:
-      enabled: True
-      timestamp: False
-      retain:
-        default: 14
-  # --
-  south-west-2:
-    ffmpeg:
-      inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub
-          input_args: preset-rtsp-restream
-          roles:
-            - detect
-    detect:
-      width: 640
-      height: 480
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          objects:
-            person: 50
-            dog: 20
-        objects:
-          - person
-          - dog
-    snapshots:
-      enabled: True
-      timestamp: False
-      retain:
-        default: 14
-  # --
-  north-door-1:
-    ffmpeg:
-      inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub
-          input_args: preset-rtsp-restream
-          roles:
-            - detect
-    detect:
-      width: 640
-      height: 480
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          objects:
-            person: 50
-            dog: 20
-        objects:
-          - person
-          - dog
-    snapshots:
-      enabled: True
-      timestamp: False
-      retain:
-        default: 14
+  # # --
+  # south-west-1:
+  #   ffmpeg:
+  #     inputs:
+  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
+  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - record
+  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
+  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - detect
+  #   detect:
+  #     width: 640
+  #     height: 360
+  #   record:
+  #     enabled: True
+  #     retain:
+  #       days: 2
+  #     events:
+  #       retain:
+  #         objects:
+  #           person: 50
+  #           dog: 20
+  #       objects:
+  #         - person
+  #         - dog
+  #   snapshots:
+  #     enabled: True
+  #     timestamp: False
+  #     retain:
+  #       default: 14
+  # # --
+  # south-west-2:
+  #   ffmpeg:
+  #     inputs:
+  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
+  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - record
+  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
+  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - detect
+  #   detect:
+  #     width: 640
+  #     height: 480
+  #   record:
+  #     enabled: True
+  #     retain:
+  #       days: 2
+  #     events:
+  #       retain:
+  #         objects:
+  #           person: 50
+  #           dog: 20
+  #       objects:
+  #         - person
+  #         - dog
+  #   snapshots:
+  #     enabled: True
+  #     timestamp: False
+  #     retain:
+  #       default: 14
+  # # --
+  # north-door-1:
+  #   ffmpeg:
+  #     inputs:
+  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
+  #       - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - record
+  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
+  #       - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub
+  #         input_args: preset-rtsp-restream
+  #         roles:
+  #           - detect
+  #   detect:
+  #     width: 640
+  #     height: 480
+  #   record:
+  #     enabled: True
+  #     retain:
+  #       days: 2
+  #     events:
+  #       retain:
+  #         objects:
+  #           person: 50
+  #           dog: 20
+  #       objects:
+  #         - person
+  #         - dog
+  #   snapshots:
+  #     enabled: True
+  #     timestamp: False
+  #     retain:
+  #       default: 14
   # --
   garage-1:
     ffmpeg:
