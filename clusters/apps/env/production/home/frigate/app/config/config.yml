@@ -316,108 +316,108 @@ cameras:
       timestamp: True
       retain:
         default: 30
-  # # --
-  # south-west-1:
-  #   ffmpeg:
-  #     inputs:
-  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
-  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - record
-  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
-  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - detect
-  #   detect:
-  #     width: 640
-  #     height: 360
-  #   record:
-  #     enabled: True
-  #     retain:
-  #       days: 2
-  #     events:
-  #       retain:
-  #         objects:
-  #           person: 50
-  #           dog: 20
-  #       objects:
-  #         - person
-  #         - dog
-  #   snapshots:
-  #     enabled: True
-  #     timestamp: False
-  #     retain:
-  #       default: 14
-  # # --
-  # south-west-2:
-  #   ffmpeg:
-  #     inputs:
-  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
-  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - record
-  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
-  #       - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - detect
-  #   detect:
-  #     width: 640
-  #     height: 480
-  #   record:
-  #     enabled: True
-  #     retain:
-  #       days: 2
-  #     events:
-  #       retain:
-  #         objects:
-  #           person: 50
-  #           dog: 20
-  #       objects:
-  #         - person
-  #         - dog
-  #   snapshots:
-  #     enabled: True
-  #     timestamp: False
-  #     retain:
-  #       default: 14
-  # # --
-  # north-door-1:
-  #   ffmpeg:
-  #     inputs:
-  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
-  #       - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - record
-  #       # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
-  #       - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub
-  #         input_args: preset-rtsp-restream
-  #         roles:
-  #           - detect
-  #   detect:
-  #     width: 640
-  #     height: 480
-  #   record:
-  #     enabled: True
-  #     retain:
-  #       days: 2
-  #     events:
-  #       retain:
-  #         objects:
-  #           person: 50
-  #           dog: 20
-  #       objects:
-  #         - person
-  #         - dog
-  #   snapshots:
-  #     enabled: True
-  #     timestamp: False
-  #     retain:
-  #       default: 14
+  # --
+  south-west-1:
+    ffmpeg:
+      inputs:
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+    detect:
+      width: 640
+      height: 360
+    record:
+      enabled: True
+      retain:
+        days: 2
+      events:
+        retain:
+          objects:
+            person: 50
+            dog: 20
+        objects:
+          - person
+          - dog
+    snapshots:
+      enabled: True
+      timestamp: False
+      retain:
+        default: 14
+  # --
+  south-west-2:
+    ffmpeg:
+      inputs:
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+    detect:
+      width: 640
+      height: 480
+    record:
+      enabled: True
+      retain:
+        days: 2
+      events:
+        retain:
+          objects:
+            person: 50
+            dog: 20
+        objects:
+          - person
+          - dog
+    snapshots:
+      enabled: True
+      timestamp: False
+      retain:
+        default: 14
+  # --
+  north-door-1:
+    ffmpeg:
+      inputs:
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+    detect:
+      width: 640
+      height: 480
+    record:
+      enabled: True
+      retain:
+        days: 2
+      events:
+        retain:
+          objects:
+            person: 50
+            dog: 20
+        objects:
+          - person
+          - dog
+    snapshots:
+      enabled: True
+      timestamp: False
+      retain:
+        default: 14
   # --
   garage-1:
     ffmpeg:
