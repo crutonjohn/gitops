@@ -71,9 +71,11 @@ go2rtc:
     south-west-2-sub:
       - "ffmpeg:http://192.168.134.68/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
     north-door-1:
-      - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      # - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
     north-door-1-sub:
-      - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      # - "ffmpeg:http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "http://192.168.134.69/flv?port=1935&app=bcs&stream=channel0_sub.bcs&user=admin&password=${REOLINK_ADMIN_PASSWORD}"
     garage-1:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
       - "ffmpeg:garage-1#video=h264#audio=opus"
@@ -279,6 +281,8 @@ cameras:
     detect:
       width: 640
       height: 360
+      fps: 7
+      min_initialized: 2
     record:
       retain:
         days: 2
@@ -311,6 +315,8 @@ cameras:
     detect:
       width: 640
       height: 480
+      fps: 7
+      min_initialized: 2
     record:
       retain:
         days: 2
@@ -339,6 +345,8 @@ cameras:
     detect:
       width: 640
       height: 360
+      fps: 7
+      min_initialized: 2
     record:
       retain:
         days: 2
