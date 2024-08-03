@@ -67,9 +67,9 @@ go2rtc:
     south-west-1-sub:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub"
     south-west-2:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main"
+      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main"
     south-west-2-sub:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub"
+      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub"
     north-door-1:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main"
     north-door-1-sub:
