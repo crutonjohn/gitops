@@ -26,4 +26,4 @@ spec:
   values:
     image:
       repository: ghcr.io/gethomepage/homepage
-      tag: v0.9.2
+      tag: v0.9.5
