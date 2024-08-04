@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=http://192.168.134.120:5000/api/config/schema.json
+# yaml-language-server: $schema=http://fake/api/config/schema.json
 ---
 logger:
   default: info
@@ -199,7 +199,7 @@ cameras:
       min_initialized: 6
     record:
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
@@ -227,19 +227,36 @@ cameras:
       min_initialized: 6
     record:
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
             person: 80
             dog: 10
+            amazon: 5
+            fedex: 5
+            ups: 5
         objects:
           - person
           - dog
+          - amazon
+          - fedex
+          - ups
+    objects:
+      track:
+        - person
+        - dog
+        - amazon
+        - fedex
+        - ups
+        - package
     snapshots:
       retain:
         objects:
           person: 80
+          amazon: 5
+          fedex: 5
+          ups: 5
   # --
   kitchen-doorbell-ad410:
     ffmpeg:
@@ -261,19 +278,36 @@ cameras:
       min_initialized: 6
     record:
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
             person: 80
             dog: 10
+            amazon: 5
+            fedex: 5
+            ups: 5
         objects:
           - person
           - dog
+          - amazon
+          - fedex
+          - ups
     snapshots:
       retain:
         objects:
           person: 80
+    objects:
+      track:
+        - person
+        - dog
+        - amazon
+        - fedex
+        - ups
+        - package
+      filters:
+        person:
+          mask: 0.54,0.223,0.589,0.22,0.588,0.268,0.543,0.266
   # --
   south-west-1:
     ffmpeg:
@@ -295,7 +329,7 @@ cameras:
       min_initialized: 2
     record:
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
@@ -329,7 +363,7 @@ cameras:
       min_initialized: 2
     record:
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
@@ -359,7 +393,7 @@ cameras:
       min_initialized: 2
     record:
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
@@ -368,6 +402,17 @@ cameras:
         objects:
           - person
           - dog
+          - amazon
+          - fedex
+          - ups
+    objects:
+      track:
+        - person
+        - dog
+        - amazon
+        - fedex
+        - ups
+        - package
     snapshots:
       retain:
         objects:
@@ -392,7 +437,7 @@ cameras:
     record:
       enabled: true
       retain:
-        days: 2
+        days: 1
       events:
         retain:
           objects:
@@ -401,6 +446,17 @@ cameras:
         objects:
           - person
           - dog
+          - amazon
+          - fedex
+          - ups
+    objects:
+      track:
+        - person
+        - dog
+        - amazon
+        - fedex
+        - ups
+        - package
     snapshots:
       retain:
         objects:
