@@ -353,7 +353,7 @@ spec:
               - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._22280F811695"
                 config:
                   deviceClass: ssd
-              - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._22280F811847"
+              - name: "/dev/disk/by-id/scsi-SATA_FIKWOT_FX812_Pro_2036E4A8808A"
                 config:
                   deviceClass: ssd
               - name: "/dev/disk/by-id/scsi-SATA_WDC_WDS100T2G0A-_221901A00806"
@@ -374,7 +374,7 @@ spec:
               - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660007"
                 config:
                   deviceClass: ssd
-              - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660105"
+              - name: "/dev/disk/by-id/scsi-SATA_FIKWOT_FX812_Pro_2036E4AD9089"
                 config:
                   deviceClass: ssd
               - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660070"
