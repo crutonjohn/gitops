@@ -538,6 +538,7 @@ spec:
           metadataPool:
             replicated:
               size: 3
+            failureDomain: osd
           dataPools:
             - failureDomain: osd
               replicated:
