@@ -348,14 +348,13 @@ spec:
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy0-lun-0"
                 config:
                   deviceClass: ssd
-              ### these devices aren't currently showing up in the OS
-              ## - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._22280F811858"
-              ##   config:
-              ##     deviceClass: ssd
-              ## - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._22280F811695"
-              ##   config:
-              ##     deviceClass: ssd
-              ## - name: "/dev/disk/by-id/scsi-SATA_FIKWOT_FX812_Pro_2036E4A8808A"
+              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy1-lun-0"
+                config:
+                  deviceClass: ssd
+              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy2-lun-0"
+                config:
+                  deviceClass: ssd
+              # - name: "/dev/disk/by-id/scsi-SATA_FIKWOT_FX812_Pro_2036E4A8808A"
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy3-lun-0"
                 config:
                   deviceClass: ssd
@@ -415,6 +414,8 @@ spec:
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy34-lun-0"
                 config:
                   deviceClass: ssd
+              # this device is broke
+              # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_YS202010002569AA"
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy35-lun-0"
                 config:
                   deviceClass: ssd
@@ -422,6 +423,7 @@ spec:
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy36-lun-0"
                 config:
                   deviceClass: ssd
+              # this device is broke
               # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_YS202010003737AA"
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy37-lun-0"
                 config:
