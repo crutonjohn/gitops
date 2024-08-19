@@ -65,7 +65,7 @@ spec:
               URL: "http://localhost"
               CONFIG: /config/config.xml
               PORT: "9792"
-              ENABLE_ADDITIONAL_METRICS: "true"
+              ENABLE_ADDITIONAL_METRICS: "false"
               ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
             probes:
               liveness:
