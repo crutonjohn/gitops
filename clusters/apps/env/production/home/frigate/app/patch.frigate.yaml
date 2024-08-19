@@ -73,7 +73,7 @@ spec:
           exporter:
             image:
               repository: rhysbailey/prometheus-frigate-exporter
-              tag: latest@sha256:6dd7e8b5e7a6d624fd67f35cf65ec8167ee84e4bfe1722533ab169cf066697b9
+              tag: latest@sha256:6df30ca30c5a69df4f3b21c06a93043a52baf523f808de56f4a40982393b8aff
             env:
               TZ: America/New_York
               FRIGATE_STATS_URL: "http://localhost:5000/api/stats"
