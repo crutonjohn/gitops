@@ -1,0 +1,95 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  chart:
+    spec:
+      version: 3.1.0
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
+
+    controllers:
+      main:
+        type: deployment
+
+        containers:
+          minio:
+            nameOverride: minio
+            image:
+              repository: quay.io/minio/minio
+              tag: RELEASE.2024-07-31T05-46-26Z@sha256:9eea83a4e1425067e7b768397756efad19d36fc1c710808b8e1072236e8806c7
+              pullPolicy: IfNotPresent
+            args: ["server", "/data", "--console-address", ":9001"]
+            envFrom:
+              - secretRef:
+                  name: minio-env
+            env:
+              TZ: America/New_York
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${FAMILY_DOMAIN},https://s3.${FAMILY_DOMAIN}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${FAMILY_DOMAIN}
+              MINIO_PROMETHEUS_JOB_ID: minio
+              MINIO_PROMETHEUS_URL: https://prometheus.${FAMILY_DOMAIN}
+              MINIO_PROMETHEUS_AUTH_TYPE: public
+              MINIO_SERVER_URL: https://s3.${FAMILY_DOMAIN}
+              MINIO_STORAGE_CLASS_RRS: EC:0
+              MINIO_STORAGE_CLASS_STANDARD: EC:0
+              MINIO_UPDATE: "off"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /minio/health/live
+                    port: 9000
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 6
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512M
+              limits:
+                memory: 2Gi
+    service:
+      minio:
+        controller: main
+        ports:
+          http:
+            port: 9001
+          s3:
+            port: 9000
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/port: '9000'
+          prometheus.io/path: '/minio/v2/metrics/cluster'
+
+    persistence:
+      data:
+        enabled: true
+        existingClaim: "minio-data"
+        globalMounts:
+          - path: /data

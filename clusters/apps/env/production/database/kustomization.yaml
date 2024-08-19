@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./cnpg/ks.yaml
+  - ./minio/ks.yaml
+  - ../../../base/volsync/lib/rclone
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: database
+    target:
+      kind: Secret
+      name: volsync-b2-rclone-secret
