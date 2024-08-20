@@ -12,6 +12,7 @@ resources:
   - bitnami-charts.yaml
   - bjw-s-charts.yaml
   - botkube-charts.yaml
+  - cnpg.yaml
   - coredns-charts.yaml
   - crossplane-charts.yaml
   - crutonjohn-charts.yaml
