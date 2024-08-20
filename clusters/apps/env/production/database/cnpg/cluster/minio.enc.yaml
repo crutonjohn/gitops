@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: cloudnative-pg-secret
+    namespace: database
+stringData:
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:codQSVknsiYww7/a58bFnqg7xBM=,iv:KkLjq9SNoDIYHtJEjCI6kbRHJAWM6i0JPSOsqsiqWYM=,tag:hEHNWVuuVcEoyYge0c6njQ==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:7A1FgNhruEdeYkv7sTsmn7efxm5u+5K/lGgIX7XiDEEhQYntiaAsCQ==,iv:ygkZEedns5/oBWeESNmZC/ou62Mu91A3I5UsBqOF860=,tag:io8RbR9nI6EfDttEtDbnXw==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2024-08-20T03:33:41Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwGOffIldSJpsc/Pp3XNwqhQAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMPfpVYoy6Fovyybc7AgEQgDvXiXMTSijRbZRPAin4GTEmrvZ9UaBV8W8cpNSPUFC0S/NUAxmh1KdaVTWWsJDpbHACfIMC/J/YxUNvWA==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-08-20T03:33:42Z"
+    mac: ENC[AES256_GCM,data:WIgGevjHWfpgNKmrAQVgeC8cYYwScdfqYXtprLI2ZefdaiEyU/8bhQsQ9eOlads7m8lbZ26YGYuxOOsgHBAS0/PO8UV/1WcPXnRymjGCDJ5GWmXZ+QmoWNddXnDY3b8XEG03g+kc3Ld8BeIO01NO0XuOlYvKXlgLCc6SHxoOx8I=,iv:sgOK+lqrP//uDoVOOYvzS9tDNS0/ceUGK9v48HAWwrw=,tag:tHTO9rMXahQfrs5W5FO9zg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.0

@@ -39,44 +39,44 @@ spec:
         name: settings-generic
       - kind: ConfigMap
         name: settings-${CLUSTER_NAME}
-# ---
-# # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: &app cnpg-cluster
-#   namespace: flux-system
-# spec:
-#   targetNamespace: database
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: *app
-#   path: ./clusters/apps/env/production/database/cnpg/cluster
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   wait: false
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 5m
-#   decryption:
-#     provider: sops
-#     secretRef:
-#       name: sops-aws
-#   dependsOn:
-#     - name: cnpg-operator
-#   postBuild:
-#     substitute:
-#       APP: *app
-#       INGRESSROUTE_SUBDOMAIN: *app
-#       APP_UID: "2656"
-#     substituteFrom:
-#       - kind: Secret
-#         name: secrets-${CLUSTER_NAME}
-#       - kind: Secret
-#         name: secrets-generic
-#       - kind: ConfigMap
-#         name: settings-generic
-#       - kind: ConfigMap
-#         name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app cnpg-cluster
+  namespace: flux-system
+spec:
+  targetNamespace: database
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/apps/env/production/database/cnpg/cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: cnpg-operator
+  postBuild:
+    substitute:
+      APP: *app
+      INGRESSROUTE_SUBDOMAIN: *app
+      APP_UID: "2656"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
