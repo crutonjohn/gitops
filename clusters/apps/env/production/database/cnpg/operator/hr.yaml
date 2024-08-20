@@ -34,3 +34,6 @@ spec:
       podMonitorEnabled: false
       grafanaDashboard:
         create: false
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
