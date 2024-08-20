@@ -4,8 +4,8 @@ type: Opaque
 metadata:
     name: minio-env
 stringData:
-    MINIO_ROOT_USER: ENC[AES256_GCM,data:8S5fz8Y=,iv:8TQP00xtoVPET2PKzAWS8r1Pz7VeqYQC9WiU6hEGnzo=,tag:8SGE0LKS21T43Lha8SM4yg==,type:str]
-    MINIO_ROOT_PASSWORD: ENC[AES256_GCM,data:P7TfA7yHiJjGzbBBuALFDDaxvNI=,iv:ymdgy3wtbJcnDOX6pkroCnKGOg91QztAtHtLC54islY=,tag:kyGxkFw/VR7x3xo1Lu5iTw==,type:str]
+    MINIO_ROOT_USER: ENC[AES256_GCM,data:k0pxgwNgjxqDBCslOA==,iv:q1iXwdtBcXlExR5D/QGh+y3tFlNpmgzn2Sw4EntdhAI=,tag:S7dZJvt/Qr5KbFTTm3i2jA==,type:str]
+    MINIO_ROOT_PASSWORD: ENC[AES256_GCM,data:hbxb87Xh/Nqy0EhA1TmhWXhxD1aaBoO4FBmJTIcE,iv:2kLIDSPcIbBrs2UWHAb6+LIWXX6dgtt214bP9fSBI+M=,tag:TEiFAvSW43sLrzk0ByfQcQ==,type:str]
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
@@ -16,8 +16,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-08-19T22:57:08Z"
-    mac: ENC[AES256_GCM,data:tRVqhQ4UcQ23B+jGK5MkyjMFbW0sHdmH8VhIUWwTT7ZQo398W6RvOrW61CMXwAUt+6KR6EVRgfoxhLw+D6acD/KYkrgGxMeqvY5Q75N/C0tXR9J0ZDxhs2tKBRuUdC5kCLfC7+Cx+4dO4cHRczy7cAeoq77cBIG81aSDzP2yzec=,iv:fTnKVccjViR/KjnxQJWOjxsYUhg2TrNgv2VFMnEKKOc=,tag:oja6j5pk8120hKxF6qYIjQ==,type:str]
+    lastmodified: "2024-08-20T00:39:41Z"
+    mac: ENC[AES256_GCM,data:a1FFFwdtef8X/AvH8OP+KlvTd2NutSNEgyBmC2fVdwQrFvB3tBeykV33hwF2qM9eMntiPgW9wOZTqYl+QlHZBkXgkcxwhXgAnVm+tMrIF/NMOGxhAIAPEBquXMNQPPs8S147DJQW5D4mPvR7NQlegauI8dEr/AkIHIsPnfpxZVo=,iv:yrFn6I0u6+JyD979sEIsf3lG+nA7kE9uAhlQqr+qlQI=,tag:qOD72c+F07RwpAdbl8h30A==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.9.0
