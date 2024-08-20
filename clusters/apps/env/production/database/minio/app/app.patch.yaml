@@ -37,6 +37,9 @@ spec:
               tag: RELEASE.2024-07-31T05-46-26Z@sha256:9eea83a4e1425067e7b768397756efad19d36fc1c710808b8e1072236e8806c7
               pullPolicy: IfNotPresent
             args: ["server", "/data", "--console-address", ":9001"]
+            envFrom:
+              - secretRef:
+                  name: minio-env
             env:
               TZ: America/New_York
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${FAMILY_DOMAIN},https://s3.${FAMILY_DOMAIN}
