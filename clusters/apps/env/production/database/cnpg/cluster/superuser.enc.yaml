@@ -1,0 +1,35 @@
+apiVersion: v1
+stringData:
+    dbname: ENC[AES256_GCM,data:pQ==,iv:cXS0K4X9C92if4ugzk7MDGZV+tVddB7NsTh2HrPqUj8=,tag:nWpZd2RGQSQkXkpvp9uygg==,type:str]
+    host: ENC[AES256_GCM,data:vXelP6+jYnt1iHln6A==,iv:n7zZwYQBXexfWhqhkTERLD3KYdCoG6UwQFKgDazMteA=,tag:oe3G1CqDrZJbcbqTu5Cm5w==,type:str]
+    jdbc-uri: ENC[AES256_GCM,data:zlAV1LByuiwhOY/FMpPBN64r1xEz2kNr1TV9WQXMMx0jYbYzeSlFY2ZnaVPKQHVmUK8QaS2pH8BUzx151hZywgYVnA1kgEBUKsJQ8+kBJRTsBDLH7yt4SIL68XblsdEhjD5GNC8txdKI4xG624ro29H4516Rs7Cmqxdyw6DOHoqoPZpgIPoW,iv:FyIjGSbq7tPDNZ3YMM4dPD2FzCuiVREEdkziwprGfJU=,tag:x9bS3vn6PaJqiQIkwQoxFg==,type:str]
+    password: ENC[AES256_GCM,data:hd8Wrpb/H0D77bWRAeNX7QT8AODKf6oTiGs1CeYF/ODLCDJzQ0gHdTI4OQAG187nR8wszBPAGM6k9o8gQ8Fz3g==,iv:QJ/nG26rTluUXC0uifSViSKIydeqrlFbxi+6b44ZR/0=,tag:9RVVZpw5LcqpnfzGkKOB2w==,type:str]
+    pgpass: ENC[AES256_GCM,data:q6LFnKMNHectrUTsi9IY3z5EHVZL1c8za+GmphvMvb3og8jTwTMFHnAHWiGL8fwe2Rfo/Xr7W8a3KYGdgt7yVMcp0R+0tuaNAuja+fqW2Y/d2ubI77pZKWJiJjWfeg==,iv:9BH1/SpIB+3sVoSfhQ+HphVK6s0QiL/u+EQ7kudlm2g=,tag:rlu7sWjoyAaSCoKMsd37hg==,type:str]
+    port: ENC[AES256_GCM,data:owpvYw==,iv:0jHhRlF+P5TbxtcgPs6feQtyjRa8uomWzYBGLV7RfAA=,tag:g/zGqg65QsF4tLAHjVaa5Q==,type:str]
+    uri: ENC[AES256_GCM,data:i9xNOG47r+kJB+UUe6nDqwZB1P5e8qpkFh9xNhb1Ue2R556MK1n8vYiqqRcl+P2Bc8208fosNHOb7BMuuy8XLdIeoHjW6nw36i8KlzYd27OG6Xux/+ns1TFMfnoaID+9iZiLhQUR9Z8ZqLoo3XxOOwIg6Ow=,iv:xpccjGVujyyTegvUibcEheIdNmlkTTj7DEiKTGavu3A=,tag:+4PWgm81TC6gmjtKJ9G13w==,type:str]
+    user: ENC[AES256_GCM,data:k1Xm+tgLKOk=,iv:R7zXODTdmtVUUH64JQBCVC64YAXQFqgGoSM5z1fxe4k=,tag:oUiUxYF+2SIbhhh/m5amwA==,type:str]
+    username: ENC[AES256_GCM,data:uYK+VweKpdk=,iv:5djZiSkxcnP96/aZwoPWhNHVrD6IrXgZjH1/RKStoYQ=,tag:qn44otON3RbS3v/pF44OfA==,type:str]
+kind: Secret
+metadata:
+    annotations:
+        cnpg.io/operatorVersion: 1.23.3
+    labels:
+        cnpg.io/cluster: postgres16
+        cnpg.io/reload: "true"
+    name: cnpg-superuser
+type: kubernetes.io/basic-auth
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2024-08-21T03:12:28Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEz5qGd29k0ChJjHaZKHBbrAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM4nkbUORsk1rXv7w/AgEQgDu/IoTEWtX1E1CFTYOBlkwGXAON9qKLueyu0+JD/6frlos3wQ+pQvND77uZHDv0u4hxO9pcdj7iq5sdWw==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-08-21T03:12:28Z"
+    mac: ENC[AES256_GCM,data:zwIoDdFJ7p/WlsK4lO+6q8UlvxbUYN9W6zu48BT7b4lLskMwYf386qmUe5Nh8n9VAiEQu/ILJeRBWHCIuew4L2eH/zNMzXc3kx5639cPJlWut4FkgN+0BK56rt/O2lyKqQlnevEk4zxAFmu769shRzZxvXydzxGHnGFopqvB53w=,iv:I2a6qNIW71MORxOSnlwHzzbf5l0X/ZikvXeYe+hcuG4=,tag:Z2lMWBKlCwfarq8K6KPG0g==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.0
