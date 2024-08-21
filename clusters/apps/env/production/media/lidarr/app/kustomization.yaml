@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../../base/app-template
   - ingressroute.yaml
+  - lidarr.enc.yaml
 patches:
   - path: app.patch.yaml
   - patch: |-

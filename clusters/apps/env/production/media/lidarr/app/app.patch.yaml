@@ -29,17 +29,23 @@ spec:
       main:
         type: deployment
 
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: lidarr-secret
+
         containers:
           main:
             nameOverride: lidarr
             image:
               repository: ghcr.io/crutonjohn/lidarr-plugins
-              tag: rolling@sha256:4f793802889abd2faa510805ba8fe53d6a7a287602ef1f291be35b92e031238d
-              pullPolicy: Always
-            env:
-              TZ: America/New_York
-              LIDARR__BRANCH: "plugins"
-              LIDARR__LOG_LEVEL: "debug"
+              tag: rolling@sha256:c058587107afeaf4d82b21fb6edf75f9c31466a9256313400cb25aa5a97eeb2a
+              pullPolicy: IfNotPresent
+            envFrom: *envFrom
             probes:
               liveness:
                 enabled: false
@@ -53,33 +59,33 @@ spec:
                 memory: 1000M
               limits:
                 memory: 4200M
-          metrics:
-            nameOverride: metrics
-            dependsOn: [main]
-            args: [lidarr]
-            image:
-              repository: ghcr.io/onedr0p/exportarr
-              tag: v2.0.1
-              pullPolicy: IfNotPresent
-            env:
-              URL: "http://localhost"
-              CONFIG: /config/config.xml
-              PORT: "9792"
-              ENABLE_ADDITIONAL_METRICS: "false"
-              ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            resources:
-              requests:
-                cpu: 20m
-                memory: 40M
-              limits:
-                memory: 100M
+          # metrics:
+          #   nameOverride: metrics
+          #   dependsOn: [main]
+          #   args: [lidarr]
+          #   image:
+          #     repository: ghcr.io/onedr0p/exportarr
+          #     tag: v2.0.1
+          #     pullPolicy: IfNotPresent
+          #   env:
+          #     URL: "http://localhost"
+          #     CONFIG: /config/config.xml
+          #     PORT: "9792"
+          #     ENABLE_ADDITIONAL_METRICS: "false"
+          #     ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
+          #   probes:
+          #     liveness:
+          #       enabled: false
+          #     readiness:
+          #       enabled: false
+          #     startup:
+          #       enabled: false
+          #   resources:
+          #     requests:
+          #       cpu: 20m
+          #       memory: 40M
+          #     limits:
+          #       memory: 100M
 
     service:
       main:
@@ -89,20 +95,20 @@ spec:
         ports:
           http:
             port: 8686
-      metrics:
-        enabled: true
-        controller: main
-        primary: false
-        ports:
-          metrics:
-            enabled: true
-            primary: false
-            protocol: HTTP
-            port: 9792
-            targetPort: 9792
-        annotations:
-          prometheus.io/scrape: 'true'
-          prometheus.io/port: '9792'
+      # metrics:
+      #   enabled: true
+      #   controller: main
+      #   primary: false
+      #   ports:
+      #     metrics:
+      #       enabled: true
+      #       primary: false
+      #       protocol: HTTP
+      #       port: 9792
+      #       targetPort: 9792
+      #   annotations:
+      #     prometheus.io/scrape: 'true'
+      #     prometheus.io/port: '9792'
 
     persistence:
       config:
