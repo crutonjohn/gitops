@@ -2,13 +2,10 @@ apiVersion: v1
 kind: Secret
 type: Opaque
 metadata:
-    name: cloudnative-pg-secret
-    namespace: database
+    name: cnpg-minio
 stringData:
     AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:codQSVknsiYww7/a58bFnqg7xBM=,iv:KkLjq9SNoDIYHtJEjCI6kbRHJAWM6i0JPSOsqsiqWYM=,tag:hEHNWVuuVcEoyYge0c6njQ==,type:str]
     AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:7A1FgNhruEdeYkv7sTsmn7efxm5u+5K/lGgIX7XiDEEhQYntiaAsCQ==,iv:ygkZEedns5/oBWeESNmZC/ou62Mu91A3I5UsBqOF860=,tag:io8RbR9nI6EfDttEtDbnXw==,type:str]
-    POSTGRES_SUPER_USER: ENC[AES256_GCM,data:09QPSVa4IA==,iv:zgcD5cM+VBZSLmfOis38VwKG35kQqr8nszIw4HsFZiI=,tag:1QWrRJzgljRg0aWtPpfpmw==,type:str]
-    POSTGRES_SUPER_PASS: ENC[AES256_GCM,data:1F9Y2oz/u1O6/cIegVeZtzMERGfFUAyqF7lzq2zO,iv:wfpNghIDQpZGgerAAK9FNc4DcGlIPDzBJvP7kFqSOXw=,tag:l4upvBY/0Xzz4Du9MDjWHg==,type:str]
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
@@ -19,8 +16,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-08-20T16:10:31Z"
-    mac: ENC[AES256_GCM,data:si+y/XzVsmxu1RlB17lf9GIoYXDZ2oB3+ZjAd8wmCqilShbB2mAAd+IfS+b9cSyGpvdPNyYvmZQrVYz7YsHeB3Z99k2xzcToBUCt9oz+3HO27K+zx8Ps/FtukynY8EiCfGdTLhzyCxauGVswzTT6n+P645ylRTfY017cTcLzy50=,iv:MqzH0VUVPf0oM8lACHhujEMHVdUbepfX4dqiUXmbphA=,tag:18bDZzDiPBuPrANmQ4qjSw==,type:str]
+    lastmodified: "2024-08-21T02:27:17Z"
+    mac: ENC[AES256_GCM,data:1m2M32KX4o+ttFxPR08xNQyBrLDjNOgYPD+wNv7vP54GC8EgMIe0Pg4vHfz5nSSwjRpprXMQOsAc9RMZcsw9ylTlVaUqyyAYive14aYNM7Bnojzmo8yjkMn4GYmN4ibCQWhchti6w5C6QSFD+/30fd+zHjf+qpAn4PKm9w7buS0=,iv:wS7kurElYbgn1VHo8G/cUfuSlgOuH5LR6rakW+AsrH8=,tag:XPNQeW7VqCHEetDLfpfZag==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.9.0
