@@ -28,6 +28,7 @@ spec:
     - name: syncthing
     - name: prowlarr
     - name: oauth2-proxy
+    - name: cnpg-cluster
   postBuild:
     substitute:
       APP: *app
