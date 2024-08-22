@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app linkwarden
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/apps/env/production/media/linkwarden/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: traefik-external
+    - name: traefik-internal
+    - name: cnpg-cluster
+  postBuild:
+    substitute:
+      APP: *app
+      INGRESSROUTE_SUBDOMAIN: linkwarden
+      APP_UID: "1447"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app volsync-linkwarden-config-restic
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: linkwarden
+      backups.${FAMILY_DOMAIN}/subsystem: music
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: linkwarden-data
+      APP_UID: "1447"
+      CRON_SCHEDULE: "0 8/12 * * *"
+      STORAGE_CLASS: ceph-blockpool
+      SNAPSHOT_CLASS: block
+      DST_ACCESS_MODE: ReadWriteOnce
+      SIZE: "75Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}

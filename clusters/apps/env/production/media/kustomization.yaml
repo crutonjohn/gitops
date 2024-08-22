@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - audiobookshelf/ks.yaml
   - lidarr/ks.yaml
+  - linkwarden/ks.yaml
   - prowlarr/ks.yaml
   - navidrome/ks.yaml
   - readarr/ks.yaml
