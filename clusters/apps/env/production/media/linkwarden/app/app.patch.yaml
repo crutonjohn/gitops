@@ -14,7 +14,8 @@ spec:
         fsGroup: ${APP_UID}
         runAsNonRoot: true
         runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
+        # i think this might be required for this app
+        runAsGroup: 0
 
       affinity:
         nodeAffinity:
