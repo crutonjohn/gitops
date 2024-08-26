@@ -78,14 +78,4 @@ spec:
         enabled: true
         existingClaim: "linkwarden-data"
         globalMounts:
-          - path: /data/data
-      cache:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /data/.cache
-      yarn:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /data/.yarn
+          - path: /data
