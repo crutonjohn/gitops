@@ -14,8 +14,10 @@ spec:
         fsGroup: ${APP_UID}
         runAsNonRoot: true
         runAsUser: ${APP_UID}
-        # i think this might be required for this app
-        runAsGroup: 0
+        runAsGroup: ${APP_UID}
+      dnsConfig:
+        options:
+          - { name: ndots, value: "1" }
 
       affinity:
         nodeAffinity:
