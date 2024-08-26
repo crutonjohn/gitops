@@ -15,9 +15,6 @@ spec:
         runAsNonRoot: true
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
-      dnsConfig:
-        options:
-          - { name: ndots, value: "1" }
 
       affinity:
         nodeAffinity:
