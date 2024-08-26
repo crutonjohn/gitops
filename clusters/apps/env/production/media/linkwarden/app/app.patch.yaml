@@ -78,4 +78,4 @@ spec:
         enabled: true
         existingClaim: "linkwarden-data"
         globalMounts:
-          - path: /data
+          - path: /data/data
