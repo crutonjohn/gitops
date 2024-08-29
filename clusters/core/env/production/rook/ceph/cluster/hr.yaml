@@ -423,11 +423,10 @@ spec:
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy36-lun-0"
                 config:
                   deviceClass: ssd
-              # # this device is broke
-              # # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_YS202010003737AA"
-              # - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy37-lun-0"
-              #   config:
-              #     deviceClass: ssd
+              # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_YS202010003737AA"
+              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy37-lun-0"
+                config:
+                  deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_51930726187F00018023"
               - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy38-lun-0"
                 config:
