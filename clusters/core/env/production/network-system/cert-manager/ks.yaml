@@ -87,7 +87,7 @@ metadata:
   name: &app certificates
   namespace: flux-system
 spec:
-  targetNamespace: auth-system
+  targetNamespace: network-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
