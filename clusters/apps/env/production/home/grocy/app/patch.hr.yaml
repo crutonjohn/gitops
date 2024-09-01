@@ -46,8 +46,6 @@ spec:
               tag: v4.2.0@sha256:fed6866c7fad8643359da4c9f878f664c0f0b9fa094fa28a99f525e44a6aba9b
             env:
               TZ: America/New_York
-              GROCY_MODE: Production
-              GROCY_CALENDAR_FIRST_DAY_OF_WEEK: "0"
               MAX_UPLOAD: "50M"
               PHP_MAX_FILE_UPLOAD: "200"
               PHP_MAX_POST: "100M"
@@ -85,10 +83,10 @@ spec:
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
-      #   fsGroup: ${APP_UID}
-      #   runAsNonRoot: true
-      #   runAsUser: ${APP_UID}
-      #   runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
       dnsConfig:
         options:
           - { name: ndots, value: "1" }
@@ -122,6 +120,9 @@ spec:
             readOnly: true
           - path: /etc/nginx/conf.d/default.conf
             subPath: default.conf
+            readOnly: true
+          - path: /var/www/config.php
+            subPath: config.php
             readOnly: true
       viewcache:
         type: emptyDir

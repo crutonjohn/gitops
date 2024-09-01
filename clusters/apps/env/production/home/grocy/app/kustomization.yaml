@@ -19,5 +19,6 @@ configMapGenerator:
       - common.conf=./config/common.conf
       - default.conf=./config/default.conf
       - nginx.conf=./config/nginx.conf
+      - config.php=./config/config.php
 generatorOptions:
   disableNameSuffixHash: true
