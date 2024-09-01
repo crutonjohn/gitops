@@ -9,6 +9,7 @@ resources:
   - ./zigbee2mqtt/ks.yaml
   - ./mosquitto/ks.yaml
   - ./amcrest2mqtt/ks.yaml
+  - ./grocy/ks.yaml
   - ../../../base/volsync/lib/rclone
 patches:
   - patch: |-
