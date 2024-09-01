@@ -110,6 +110,19 @@ spec:
         globalMounts:
           - path: /var/www/data
             readOnly: false
+      config-file:
+        type: configMap
+        name: grocy-config
+        globalMounts:
+          - path: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+            readOnly: true
+          - path: /etc/nginx/common.conf
+            subPath: common.conf
+            readOnly: true
+          - path: /etc/nginx/conf.d/default.conf
+            subPath: default.conf
+            readOnly: true
       viewcache:
         type: emptyDir
         globalMounts:

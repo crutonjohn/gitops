@@ -13,3 +13,11 @@ patches:
     target:
       kind: HelmRelease
       name: .*
+configMapGenerator:
+  - name: grocy-config
+    files:
+      - common.conf=./config/common.conf
+      - default.conf=./config/default.conf
+      - nginx.conf=./config/nginx.conf
+generatorOptions:
+  disableNameSuffixHash: true
