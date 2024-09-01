@@ -1,0 +1,118 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  chart:
+    spec:
+      version: 3.1.0
+  values:
+    controllers:
+      grocy:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          frontend:
+            image:
+              repository: grocy/frontend
+              tag: v4.2.0@sha256:4f17b024b42927ecce553362aef17f5112db0969ba8ef43d3fc2c2e5b3acfefd
+            env:
+              TZ: America/New_York
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            securityContext:
+              fsGroup: ${APP_UID}
+              runAsNonRoot: true
+              runAsUser: ${APP_UID}
+              runAsGroup: ${APP_UID}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+          backend:
+            image:
+              repository: grocy/backend
+              tag: v4.2.0@sha256:fed6866c7fad8643359da4c9f878f664c0f0b9fa094fa28a99f525e44a6aba9b
+            env:
+              TZ: America/New_York
+              GROCY_MODE: Production
+              GROCY_CALENDAR_FIRST_DAY_OF_WEEK: "0"
+              MAX_UPLOAD: "50M"
+              PHP_MAX_FILE_UPLOAD: "200"
+              PHP_MAX_POST: "100M"
+              PHP_MEMORY_LIMIT: "512M"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            securityContext:
+              fsGroup: ${APP_UID}
+              runAsNonRoot: true
+              runAsUser: ${APP_UID}
+              runAsGroup: ${APP_UID}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 3Gi
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ${FAMILY_DOMAIN}/role
+                    operator: In
+                    values:
+                      - apps
+      securityContext:
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+      #   fsGroup: ${APP_UID}
+      #   runAsNonRoot: true
+      #   runAsUser: ${APP_UID}
+      #   runAsGroup: ${APP_UID}
+      dnsConfig:
+        options:
+          - { name: ndots, value: "1" }
+    service:
+      frontend:
+        controller: grocy
+        ports:
+          http:
+            port: 8080
+      backend:
+        controller: grocy
+        ports:
+          http:
+            port: 9000
+
+    persistence:
+      config:
+        existingClaim: grocy-data
+        globalMounts:
+          - path: /var/www/data
+            readOnly: false
+      viewcache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/www/data/viewcache
+      tmp:
+        type: emptyDir

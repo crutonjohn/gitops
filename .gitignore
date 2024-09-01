@@ -37,3 +37,9 @@ vars.tf
 hack/casa
 hack/main
 hack/truenas
+
+# ceph config
+ceph/
+
+# cloud stuff
+cloud/

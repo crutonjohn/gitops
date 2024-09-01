@@ -1,0 +1,52 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ${APP}
+  annotations:
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: ${APP}.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    external-dns/public: "true"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${APP}.${FAMILY_DOMAIN}`)"
+      services:
+        - name: ${APP}-frontend
+          port: 8080
+          nativeLB: true
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: ${APP}.${FAMILY_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: ${APP}-external
+  annotations:
+    external-dns/public: "true"
+spec:
+  endpoints:
+    - dnsName: ${APP}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - ${DYNAMIC_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: ${APP}-internal
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: ${APP}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_EXTERNAL}
