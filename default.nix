@@ -9,5 +9,6 @@
       envsubst
       ceph
       restic
+      pre-commit
     ];
 }
