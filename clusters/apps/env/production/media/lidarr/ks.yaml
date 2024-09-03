@@ -76,7 +76,8 @@ spec:
     substitute:
       SRC_PVC: lidarr-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "0 3/12 * * *"
+      CRON_SCHEDULE: "10 2/12 * * *"
+      LOCAL_SCHEDULE: "15 2/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce

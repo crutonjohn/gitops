@@ -72,7 +72,8 @@ spec:
     substitute:
       SRC_PVC: prowlarr-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "45 3/12 * * *"
+      CRON_SCHEDULE: "40 2/12 * * *"
+      LOCAL_SCHEDULE: "45 2/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       DST_ACCESS_MODE: ReadWriteOnce
       SNAPSHOT_CLASS: block

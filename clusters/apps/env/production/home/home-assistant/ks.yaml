@@ -77,7 +77,8 @@ spec:
     substitute:
       SRC_PVC: home-assistant-config
       APP_UID: "994"
-      CRON_SCHEDULE: "30 4/12 * * *"
+      CRON_SCHEDULE: "20 1/12 * * *"
+      LOCAL_SCHEDULE: "25 1/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce

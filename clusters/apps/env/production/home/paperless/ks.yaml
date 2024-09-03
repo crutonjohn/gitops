@@ -72,7 +72,8 @@ spec:
     substitute:
       SRC_PVC: paperless-data
       APP_UID: "1000"
-      CRON_SCHEDULE: "0 5/12 * * *"
+      CRON_SCHEDULE: "30 1/12 * * *"
+      LOCAL_SCHEDULE: "35 1/12 * * *"
       STORAGE_CLASS: ceph-filesystem
       SNAPSHOT_CLASS: file
       DST_ACCESS_MODE: ReadWriteMany
@@ -119,7 +120,8 @@ spec:
     substitute:
       SRC_PVC: paperless-config
       APP_UID: "1000"
-      CRON_SCHEDULE: "0 5/12 * * *"
+      CRON_SCHEDULE: "40 1/12 * * *"
+      LOCAL_SCHEDULE: "45 1/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce

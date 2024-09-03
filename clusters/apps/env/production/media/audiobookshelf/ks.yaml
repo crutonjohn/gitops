@@ -71,7 +71,8 @@ spec:
     substitute:
       SRC_PVC: audiobookshelf-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "30 3/12 * * *"
+      CRON_SCHEDULE: "0 2/12 * * *"
+      LOCAL_SCHEDULE: "5 2/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce

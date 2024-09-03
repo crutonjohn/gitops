@@ -72,7 +72,8 @@ spec:
     substitute:
       SRC_PVC: grocy-data
       APP_UID: "82"
-      CRON_SCHEDULE: "50 4/12 * * *"
+      CRON_SCHEDULE: "10 1/12 * * *"
+      LOCAL_SCHEDULE: "15 1/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce

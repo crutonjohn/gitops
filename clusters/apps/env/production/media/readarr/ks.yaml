@@ -73,7 +73,8 @@ spec:
     substitute:
       SRC_PVC: readarr-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "0 4/12 * * *"
+      CRON_SCHEDULE: "50 2/12 * * *"
+      LOCAL_SCHEDULE: "55 2/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce

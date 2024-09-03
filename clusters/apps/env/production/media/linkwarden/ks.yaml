@@ -74,7 +74,8 @@ spec:
     substitute:
       SRC_PVC: linkwarden-data
       APP_UID: "1447"
-      CRON_SCHEDULE: "0 8/12 * * *"
+      CRON_SCHEDULE: "20 2/12 * * *"
+      LOCAL_SCHEDULE: "25 2/12 * * *"
       STORAGE_CLASS: ceph-blockpool
       SNAPSHOT_CLASS: block
       DST_ACCESS_MODE: ReadWriteOnce
