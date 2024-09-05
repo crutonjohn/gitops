@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: "${SRC_PVC}-restic-bootstrap"
+  name: "${SRC_PVC}-restic-bootstrap-local"
   labels:
     kustomize.toolkit.fluxcd.io/ssa: "IfNotPresent"
 spec:
@@ -11,7 +11,7 @@ spec:
     manual: "restore-once-bootstrap"
   restic:
     copyMethod: "Snapshot"
-    repository: "${SRC_PVC}-b2-restic"
+    repository: "${SRC_PVC}-local-restic"
     accessModes: ["${DST_ACCESS_MODE:=ReadWriteOnce}"]
     destinationPVC: ${SRC_PVC}
     volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"

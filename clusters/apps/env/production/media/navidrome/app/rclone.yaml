@@ -25,7 +25,7 @@ metadata:
 spec:
   sourcePVC: "music-library"
   trigger:
-    schedule: "0 0 * * 2"
+    schedule: "0 0 * * 3"
   rclone:
     rcloneConfigSection: "local-volsync"
     rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/music-library"
@@ -36,23 +36,23 @@ spec:
       runAsUser: &uid ${APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
-# ---
-# apiVersion: volsync.backube/v1alpha1
-# kind: ReplicationDestination
-# metadata:
-#   name: "${APP}-music-library-bootstrap"
-# spec:
-#   trigger:
-#     manual: "restore-once-bootstrap"
-#   rclone:
-#     rcloneConfigSection: "b2-volsync"
-#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/music-library"
-#     rcloneConfig: "volsync-b2-rclone-secret"
-#     copyMethod: "Direct"
-#     storageClassName: "ceph-filesystem"
-#     capacity: "1024Gi"
-#     accessModes: ["ReadWriteOnce"]
-#     moverSecurityContext:
-#       runAsUser: &uid ${APP_UID}
-#       runAsGroup: *uid
-#       fsGroup: *uid
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${APP}-music-library-bootstrap"
+spec:
+  trigger:
+    manual: "restore-once-bootstrap"
+  rclone:
+    rcloneConfigSection: "local-volsync"
+    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/music-library"
+    rcloneConfig: "volsync-b2-rclone-secret"
+    copyMethod: "Direct"
+    storageClassName: "ceph-filesystem"
+    capacity: "1024Gi"
+    accessModes: ["ReadWriteOnce"]
+    moverSecurityContext:
+      runAsUser: &uid ${APP_UID}
+      runAsGroup: *uid
+      fsGroup: *uid

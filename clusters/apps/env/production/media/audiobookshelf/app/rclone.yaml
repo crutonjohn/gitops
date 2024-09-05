@@ -25,7 +25,7 @@ metadata:
 spec:
   sourcePVC: "audiobook-library"
   trigger:
-    schedule: "30 2 1/12 * *"
+    schedule: "30 2 1/9 * *"
   rclone:
     rcloneConfigSection: "local-volsync"
     rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/${APP}/audiobooks"
@@ -45,8 +45,8 @@ spec:
   trigger:
     manual: "restore-once-bootstrap"
   rclone:
-    rcloneConfigSection: "b2-volsync"
-    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/audiobooks"
+    rcloneConfigSection: "local-volsync"
+    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/${APP}/audiobooks"
     rcloneConfig: "volsync-b2-rclone-secret"
     copyMethod: "Direct"
     storageClassName: "ceph-filesystem"
