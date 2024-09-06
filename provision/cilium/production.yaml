@@ -1,8 +1,8 @@
 cluster:
     id: 1
     name: production
-k8sServiceHost: 192.168.130.154
-k8sServicePort: 6443
+k8sServiceHost: localhost
+k8sServicePort: 7443
 kubeProxyReplacement: strict
 l7Proxy: false
 l2announcements:
@@ -123,8 +123,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-05-16T02:00:51Z"
-    mac: ENC[AES256_GCM,data:rY5sWtlkK1xsoizDzd/fOEGRpRd8nmCLjc1bt2v6Ca4gxDBmgrdoWSxe7Z2TbV9bSF7lDCbNklS20rp9wuLtNdaUMNvUtOHfyZXscD33JC4e3W334/+VjccT+TEKUGjfUR5mINCQoZFYvC9GiFNG6+37AGkekMItqlD6I71WSoI=,iv:WrIFc+QPpNQQDs6QnqEi+fPydV7jLGfA07GsF2nO2oc=,tag:kibDiSy2qWIjM6cDERA/2Q==,type:str]
+    lastmodified: "2024-09-06T22:39:37Z"
+    mac: ENC[AES256_GCM,data:NOtR7V6f0RJsXAWSHnAX79HxrM4uGTvNoxw3nBTFpAO27RYS+/zqkG7T4iy0LZ1qP4qr8oEMBSpEocHoQnRWKDYuZLfjY5ALcAmf2cVbusrPG0sgu/Vgn33LiuN2h1b84p8jb2etbWySl6iBDxqkvMZ38SHMTfgFbe8BDZAckAo=,iv:eHtdpRNFyGJX9ok2o++KrFAbLo85AZCW7CRFgteqdZs=,tag:YO5s029n56B6RtxXFoVNMQ==,type:str]
     pgp: []
     encrypted_regex: ^(key)$
-    version: 3.8.1
+    version: 3.9.0
