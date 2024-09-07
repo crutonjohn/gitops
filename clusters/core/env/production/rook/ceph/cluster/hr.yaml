@@ -211,14 +211,10 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: ${FAMILY_DOMAIN}/role
-                      operator: In
-                      values:
-                        - gameserver
                     - key: kubernetes.io/hostname
                       operator: In
                       values:
-                        - k-nas
+                        - lorgar
           # podAffinity:
           # podAntiAffinity:
           # topologySpreadConstraints:
@@ -234,21 +230,21 @@ spec:
                     - key: kubernetes.io/hostname
                       operator: In
                       values:
-                        - k-nas
+                        - lorgar
         # Monitor deployments may contain an anti-affinity rule for avoiding monitor
         # collocation on the same node. This is a required rule when host network is used
         # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
         # preferred rule with weight: 50.
         # osd:
-        mgr:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: ${FAMILY_DOMAIN}/role
-                      operator: In
-                      values:
-                        - apps
+        # mgr:
+        #   nodeAffinity:
+        #     requiredDuringSchedulingIgnoredDuringExecution:
+        #       nodeSelectorTerms:
+        #         - matchExpressions:
+        #             - key: ${FAMILY_DOMAIN}/role
+        #               operator: In
+        #               values:
+        #                 - apps
         # cleanup:
 
       # annotations:

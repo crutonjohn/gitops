@@ -71,15 +71,15 @@ spec:
               limits:
                 memory: 3Gi
     defaultPodOptions:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: ${FAMILY_DOMAIN}/role
-                    operator: In
-                    values:
-                      - apps
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: ${FAMILY_DOMAIN}/role
+      #               operator: In
+      #               values:
+      #                 - apps
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }

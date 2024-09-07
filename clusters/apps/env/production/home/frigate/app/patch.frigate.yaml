@@ -112,10 +112,10 @@ spec:
                     operator: In
                     values:
                       - "true"
-                  - key: ${FAMILY_DOMAIN}/role
-                    operator: In
-                    values:
-                      - apps
+                  # - key: ${FAMILY_DOMAIN}/role
+                  #   operator: In
+                  #   values:
+                  #     - apps
 
     service:
       app:

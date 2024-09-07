@@ -94,12 +94,12 @@ spec:
       main:
         enabled: false
 
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: ${FAMILY_DOMAIN}/role
-                  operator: In
-                  values:
-                    - apps
+    # affinity:
+    #   nodeAffinity:
+    #     requiredDuringSchedulingIgnoredDuringExecution:
+    #       nodeSelectorTerms:
+    #         - matchExpressions:
+    #             - key: ${FAMILY_DOMAIN}/role
+    #               operator: In
+    #               values:
+    #                 - apps

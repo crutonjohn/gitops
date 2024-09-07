@@ -35,8 +35,8 @@ spec:
     podAnnotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "7979"
-    nodeSelector:
-      ${FAMILY_DOMAIN}/role: apps
+    # nodeSelector:
+    #   ${FAMILY_DOMAIN}/role: apps
     resources:
       requests:
         cpu: 10m

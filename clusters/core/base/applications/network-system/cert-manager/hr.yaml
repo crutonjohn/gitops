@@ -19,8 +19,8 @@ spec:
     - name: external-dns-linode
       namespace: network-system
   values:
-    nodeSelector:
-      ${FAMILY_DOMAIN}/role: apps
+    # nodeSelector:
+    #   ${FAMILY_DOMAIN}/role: apps
     installCRDs: true
     prometheus:
       enabled: true

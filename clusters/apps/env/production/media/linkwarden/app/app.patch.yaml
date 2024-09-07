@@ -19,15 +19,15 @@ spec:
         options:
           - { name: ndots, value: "1" }
 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: ${FAMILY_DOMAIN}/role
-                    operator: In
-                    values:
-                      - apps
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: ${FAMILY_DOMAIN}/role
+      #               operator: In
+      #               values:
+      #                 - apps
 
     controllers:
       main:

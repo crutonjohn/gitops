@@ -23,5 +23,5 @@ spec:
       requests:
         cpu: 100m
         memory: 128Mi
-    nodeSelector:
-      ${FAMILY_DOMAIN}/role: apps
+    # nodeSelector:
+    #   ${FAMILY_DOMAIN}/role: apps

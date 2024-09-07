@@ -181,12 +181,12 @@ spec:
         fsGroup: *uid
         fsGroupChangePolicy: "Always"
         seccompProfile: { type: "RuntimeDefault" }
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: ${FAMILY_DOMAIN}/role
-                    operator: In
-                    values:
-                      - apps
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: ${FAMILY_DOMAIN}/role
+      #               operator: In
+      #               values:
+      #                 - apps

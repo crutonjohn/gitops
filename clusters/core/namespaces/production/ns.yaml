@@ -32,11 +32,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: democratic-csi
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: social
 ---
 apiVersion: v1

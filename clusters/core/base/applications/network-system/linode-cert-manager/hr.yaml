@@ -17,5 +17,5 @@ spec:
       repository: monostream/cert-manager-linode
       tag: latest
       pullPolicy: Always
-    nodeSelector:
-      ${FAMILY_DOMAIN}/role: apps
+    # nodeSelector:
+    #   ${FAMILY_DOMAIN}/role: apps

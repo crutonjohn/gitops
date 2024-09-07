@@ -20,8 +20,8 @@ spec:
     commonAnnotations:
       io.cilium/lb-ipam-ips: ${CLUSTER_LB_ARK_SERVER}
       io.cilium/lb-ipam-sharing-key: ark-cluster
-    nodeSelector:
-      ${FAMILY_DOMAIN}/role: gameserver
+    # nodeSelector:
+    #   ${FAMILY_DOMAIN}/role: gameserver
     affinity: {}
     tolerations: []
     securityContext:
