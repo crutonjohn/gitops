@@ -3,7 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../../../../base/applications/network-system/cert-manager
-  - le-prod.yaml
-  - le-stg.yaml
 patches:
   - path: app.patch.yaml
