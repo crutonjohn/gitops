@@ -47,6 +47,7 @@ spec:
   rclone:
     rcloneConfigSection: "b2-volsync"
     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/music"
+    destinationPVC: "music-library"
     rcloneConfig: "volsync-b2-rclone-secret"
     copyMethod: "Direct"
     storageClassName: "ceph-filesystem"

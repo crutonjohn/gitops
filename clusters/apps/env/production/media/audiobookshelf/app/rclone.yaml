@@ -46,6 +46,7 @@ spec:
     manual: "restore-once-bootstrap"
   rclone:
     rcloneConfigSection: "local-volsync"
+    destinationPVC: "audiobook-library"
     rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/${APP}/audiobooks"
     rcloneConfig: "volsync-b2-rclone-secret"
     copyMethod: "Direct"
