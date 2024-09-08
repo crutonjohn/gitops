@@ -45,8 +45,8 @@ spec:
   trigger:
     manual: "restore-once-bootstrap"
   rclone:
-    rcloneConfigSection: "local-volsync"
-    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/music-library"
+    rcloneConfigSection: "b2-volsync"
+    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/music"
     rcloneConfig: "volsync-b2-rclone-secret"
     copyMethod: "Direct"
     storageClassName: "ceph-filesystem"
