@@ -52,7 +52,7 @@ spec:
     copyMethod: "Direct"
     storageClassName: "ceph-filesystem"
     capacity: "1024Gi"
-    accessModes: ["ReadWriteOnce"]
+    accessModes: ["ReadWriteMany"]
     moverSecurityContext:
       runAsUser: &uid ${APP_UID}
       runAsGroup: *uid
