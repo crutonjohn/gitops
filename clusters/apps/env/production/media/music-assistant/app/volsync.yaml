@@ -1,29 +1,29 @@
 ---
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: "${APP}-config-rclone"
-spec:
-  sourcePVC: "${APP}-config"
-  trigger:
-    schedule: "0 3 * * 1"
-  rclone:
-    # The configuration section of the rclone config file to use
-    rcloneConfigSection: "b2-volsync"
-    # The path to the object bucket
-    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/config"
-    # Secret holding the rclone configuration
-    rcloneConfig: "volsync-b2-rclone-secret"
-    # Method used to generate the PiT copy
-    copyMethod: Snapshot
-    # The StorageClass to use when creating the PiT copy (same as source PVC if omitted)
-    storageClassName: ceph-blockpool
-    # The VSC to use if the copy method is Snapshot (default if omitted)
-    volumeSnapshotClassName: block
-    moverSecurityContext:
-      runAsUser: &uid ${APP_UID}
-      runAsGroup: *uid
-      fsGroup: *uid
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationSource
+# metadata:
+#   name: "${APP}-config-rclone"
+# spec:
+#   sourcePVC: "${APP}-config"
+#   trigger:
+#     schedule: "0 3 * * 1"
+#   rclone:
+#     # The configuration section of the rclone config file to use
+#     rcloneConfigSection: "b2-volsync"
+#     # The path to the object bucket
+#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/config"
+#     # Secret holding the rclone configuration
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     # Method used to generate the PiT copy
+#     copyMethod: Snapshot
+#     # The StorageClass to use when creating the PiT copy (same as source PVC if omitted)
+#     storageClassName: ceph-blockpool
+#     # The VSC to use if the copy method is Snapshot (default if omitted)
+#     volumeSnapshotClassName: block
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
 # ---
 # apiVersion: volsync.backube/v1alpha1
 # kind: ReplicationDestination

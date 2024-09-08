@@ -1,41 +1,41 @@
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: "${APP}-music-library-rclone"
-spec:
-  sourcePVC: "music-library"
-  trigger:
-    schedule: "0 0 * * 2"
-  rclone:
-    rcloneConfigSection: "b2-volsync"
-    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/music-library"
-    rcloneConfig: "volsync-b2-rclone-secret"
-    copyMethod: Direct
-    storageClassName: ceph-filesystem
-    moverSecurityContext:
-      runAsUser: &uid ${APP_UID}
-      runAsGroup: *uid
-      fsGroup: *uid
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: "${APP}-music-library-rclone-local"
-spec:
-  sourcePVC: "music-library"
-  trigger:
-    schedule: "0 0 * * 3"
-  rclone:
-    rcloneConfigSection: "local-volsync"
-    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/music-library"
-    rcloneConfig: "volsync-b2-rclone-secret"
-    copyMethod: Direct
-    storageClassName: ceph-filesystem
-    moverSecurityContext:
-      runAsUser: &uid ${APP_UID}
-      runAsGroup: *uid
-      fsGroup: *uid
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationSource
+# metadata:
+#   name: "${APP}-music-library-rclone"
+# spec:
+#   sourcePVC: "music-library"
+#   trigger:
+#     schedule: "0 0 * * 2"
+#   rclone:
+#     rcloneConfigSection: "b2-volsync"
+#     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/music-library"
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     copyMethod: Direct
+#     storageClassName: ceph-filesystem
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
+# ---
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationSource
+# metadata:
+#   name: "${APP}-music-library-rclone-local"
+# spec:
+#   sourcePVC: "music-library"
+#   trigger:
+#     schedule: "0 0 * * 3"
+#   rclone:
+#     rcloneConfigSection: "local-volsync"
+#     rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/music-library"
+#     rcloneConfig: "volsync-b2-rclone-secret"
+#     copyMethod: Direct
+#     storageClassName: ceph-filesystem
+#     moverSecurityContext:
+#       runAsUser: &uid ${APP_UID}
+#       runAsGroup: *uid
+#       fsGroup: *uid
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
