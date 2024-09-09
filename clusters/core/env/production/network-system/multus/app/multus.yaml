@@ -196,13 +196,13 @@ spec:
           multus:
             multus-daemon:
               - path: /var/lib/kubelet
-      # host-run-k8s-cni-cncf-io:
-      #   type: hostPath
-      #   hostPath: /run/k8s.cni.cncf.io
-      #   advancedMounts:
-      #     multus:
-      #       multus-daemon:
-      #         - path: /run/k8s.cni.cncf.io
+      host-run-k8s-cni-cncf-io:
+        type: hostPath
+        hostPath: /run/k8s.cni.cncf.io
+        advancedMounts:
+          multus:
+            multus-daemon:
+              - path: /run/k8s.cni.cncf.io
       host-run-netns:
         type: hostPath
         hostPath: /var/run/netns/
