@@ -25,7 +25,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: snapshot-controller
-    - name: rook-cluster
+    - name: rook-lorgar
   postBuild:
     substitute:
       APP: *app
