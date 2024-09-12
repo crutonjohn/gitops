@@ -34,12 +34,10 @@ provision/templates/kube-cilium-manifests.yaml.j2
 vars.tf
 
 # kubeconfigs
-hack/casa
 hack/main
-hack/truenas
 
 # ceph config
-ceph/
+./ceph/
 
 # cloud stuff
-cloud/
+./cloud/
