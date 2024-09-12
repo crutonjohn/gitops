@@ -16,6 +16,11 @@ externalIPs:
     enabled: true
 bpf:
     masquerade: true
+podAnnotations:
+    container.apparmor.security.beta.kubernetes.io/cilium-agent: unconfined
+    container.apparmor.security.beta.kubernetes.io/clean-cilium-state: unconfined
+    container.apparmor.security.beta.kubernetes.io/mount-cgroup: unconfined
+    container.apparmor.security.beta.kubernetes.io/apply-sysctl-overwrites: unconfined
 cni:
     exclusive: false
 hubble:
@@ -123,8 +128,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-09-06T22:39:37Z"
-    mac: ENC[AES256_GCM,data:NOtR7V6f0RJsXAWSHnAX79HxrM4uGTvNoxw3nBTFpAO27RYS+/zqkG7T4iy0LZ1qP4qr8oEMBSpEocHoQnRWKDYuZLfjY5ALcAmf2cVbusrPG0sgu/Vgn33LiuN2h1b84p8jb2etbWySl6iBDxqkvMZ38SHMTfgFbe8BDZAckAo=,iv:eHtdpRNFyGJX9ok2o++KrFAbLo85AZCW7CRFgteqdZs=,tag:YO5s029n56B6RtxXFoVNMQ==,type:str]
+    lastmodified: "2024-09-10T03:54:43Z"
+    mac: ENC[AES256_GCM,data:b0ungD1VdUTy40O8b83OMiP9nuXv5LtWLYPlPz3kPJWq29+7MGwi35Tu0WybFHqx+lhRZekRhFLLy2WOCJGY0pgO95A2IwmoghVV5/6ZD5nwIm4WWtpOEyYj79jocDvbGGo4ydsEVmYVcHmbU5R3yz/oHxm3M38mUIjFexJ8GvI=,iv:QAKOpsHi+yCsKpV5Ltp8+yNYtqNxckv/wLIFoVD5h4o=,tag:kqcrTzpgE7pSbeoGPfOKXQ==,type:str]
     pgp: []
     encrypted_regex: ^(key)$
     version: 3.9.0
