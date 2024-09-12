@@ -7,38 +7,48 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: k-node1.${FAMILY_DOMAIN}
+    - dnsName: k0s.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.130.151
-    - dnsName: k-node2.${FAMILY_DOMAIN}
+        - 192.168.130.130
+    - dnsName: horus.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.130.152
-    - dnsName: k-node3.${FAMILY_DOMAIN}
+        - 192.168.130.131
+    - dnsName: lion.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.130.153
-    - dnsName: k-node4.${FAMILY_DOMAIN}
+        - 192.168.130.132
+    - dnsName: magnus.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.130.154
-    - dnsName: k-node5.${FAMILY_DOMAIN}
+        - 192.168.130.133
+    - dnsName: dorn.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.130.155
+        - 192.168.130.141
+    - dnsName: sanguinius.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.142
+    - dnsName: guilliman.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.143
+    - dnsName: lorgar.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.156
     - dnsName: k-nas.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
         - 192.168.130.156
-    - dnsName: casa.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 192.168.130.157

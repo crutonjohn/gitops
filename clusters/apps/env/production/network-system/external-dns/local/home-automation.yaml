@@ -17,3 +17,8 @@ spec:
       recordType: A
       targets:
         - 192.168.134.84
+    - dnsName: dreame-upstairs.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.134.90
