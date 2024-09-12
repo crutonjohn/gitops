@@ -36,9 +36,9 @@ spec:
       recordTTL: 300
       recordType: A
       targets:
-        - ${CLUSTER_LB_INGRESS_EXTERNAL}
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
     - dnsName: ${INGRESSROUTE_S3}.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - ${CLUSTER_LB_INGRESS_EXTERNAL}
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
