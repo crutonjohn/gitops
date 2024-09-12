@@ -25,7 +25,7 @@ spec:
   dependsOn:
     - name: minio
       namespace: database
-    - name: rook-lorgar
+    - name: rook-cluster
       namespace: rook-ceph
   values:
     crds:
