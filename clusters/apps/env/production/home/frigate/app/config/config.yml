@@ -23,12 +23,14 @@ detectors:
     type: edgetpu
     device: pci
 go2rtc:
+  log:
+    level: debug
   webrtc:
     listen: ":8555"
   streams:
     dining-room:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1
-      - "ffmpeg:dining-room#audio=opus"
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1?mp4
+      # - "ffmpeg:dining-room#audio=opus"
     dining-room-sub:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2
       - "ffmpeg:dining-room-sub#audio=opus"
