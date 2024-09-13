@@ -70,34 +70,34 @@ spec:
                 cpu: 100m
               limits:
                 memory: 10000Mi
-          exporter:
-            image:
-              repository: rhysbailey/prometheus-frigate-exporter
-              tag: latest@sha256:6dd7e8b5e7a6d624fd67f35cf65ec8167ee84e4bfe1722533ab169cf066697b9
-            env:
-              TZ: America/New_York
-              FRIGATE_STATS_URL: "http://localhost:5000/api/stats"
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /metrics
-                    port: 9100
-                  initialDelaySeconds: 30
-                  periodSeconds: 45
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            securityContext:
-              privileged: true
-            resources:
-              requests:
-                memory: 96Mi
-                cpu: 20m
-              limits:
-                memory: 128Mi
+          # exporter:
+          #   image:
+          #     repository: rhysbailey/prometheus-frigate-exporter
+          #     tag: latest@sha256:6dd7e8b5e7a6d624fd67f35cf65ec8167ee84e4bfe1722533ab169cf066697b9
+          #   env:
+          #     TZ: America/New_York
+          #     FRIGATE_STATS_URL: "http://localhost:5000/api/stats"
+          #   probes:
+          #     liveness: &probes
+          #       enabled: true
+          #       custom: true
+          #       spec:
+          #         httpGet:
+          #           path: /metrics
+          #           port: 9100
+          #         initialDelaySeconds: 30
+          #         periodSeconds: 45
+          #         timeoutSeconds: 1
+          #         failureThreshold: 3
+          #     readiness: *probes
+          #   securityContext:
+          #     privileged: true
+          #   resources:
+          #     requests:
+          #       memory: 96Mi
+          #       cpu: 20m
+          #     limits:
+          #       memory: 128Mi
     defaultPodOptions:
       affinity:
         nodeAffinity:
@@ -120,9 +120,9 @@ spec:
     service:
       app:
         controller: frigate
-        annotations:
-          prometheus.io/scrape: "true"
-          prometheus.io/port: "9100"
+        # annotations:
+        #   prometheus.io/scrape: "true"
+        #   prometheus.io/port: "9100"
         ports:
           http:
             enabled: true
@@ -178,12 +178,12 @@ spec:
             port: 8443
             protocol: UDP
             targetPort: 8443
-          metrics:
-            enabled: true
-            primary: false
-            port: 9100
-            protocol: HTTP
-            targetPort: 9100
+          # metrics:
+          #   enabled: true
+          #   primary: false
+          #   port: 9100
+          #   protocol: HTTP
+          #   targetPort: 9100
     ingress:
       main:
         enabled: false
