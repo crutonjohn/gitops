@@ -178,12 +178,12 @@ spec:
             port: 8443
             protocol: UDP
             targetPort: 8443
-          # metrics:
-          #   enabled: true
-          #   primary: false
-          #   port: 9100
-          #   protocol: HTTP
-          #   targetPort: 9100
+          go2rtc-web:
+            enabled: true
+            primary: false
+            port: 1984
+            protocol: HTTP
+            targetPort: 1984
     ingress:
       main:
         enabled: false
