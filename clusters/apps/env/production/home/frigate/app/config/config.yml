@@ -1,4 +1,3 @@
-# yaml-language-server: $schema=http://fake/api/config/schema.json
 ---
 logger:
   default: info
@@ -25,45 +24,31 @@ detectors:
 go2rtc:
   log:
     level: debug
-  webrtc:
-    listen: ":8555"
   streams:
     dining-room:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1?mp4
-      # - "ffmpeg:dining-room#audio=opus"
+      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1
     dining-room-sub:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2
-      - "ffmpeg:dining-room-sub#audio=opus"
     kitchen:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1
-      - "ffmpeg:kitchen#audio=opus"
     kitchen-sub:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2
-      - "ffmpeg:kitchen-sub#audio=opus"
     living-room:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1
-      - "ffmpeg:living-room#audio=opus"
     living-room-sub:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2
-      - "ffmpeg:living-room-sub#audio=opus"
     nursery:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1
-      - "ffmpeg:nursery#audio=opus"
     nursery-sub:
       - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2
-      - "ffmpeg:nursery-sub#audio=opus"
     front-doorbell-ad410:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0"
-      - "ffmpeg:front-doorbell-ad410#audio=opus"
     front-doorbell-ad410-sub:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01"
-      - "ffmpeg:front-doorbell-ad410-sub#audio=opus"
     kitchen-doorbell-ad410:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0"
-      - "ffmpeg:kitchen-doorbell-ad410#audio=opus"
     kitchen-doorbell-ad410-sub:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
-      - "ffmpeg:kitchen-doorbell-ad410-sub#audio=opus"
     south-west-1:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main"
     south-west-1-sub:
@@ -78,10 +63,8 @@ go2rtc:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub"
     garage-1:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
-      - "ffmpeg:garage-1#video=h264#audio=opus"
     garage-1-sub:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
-      - "ffmpeg:garage-1-sub#video=h264#audio=opus"
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: preset-intel-qsv-h264
