@@ -25,22 +25,22 @@ go2rtc:
   log:
     level: debug
   streams:
-    # dining-room:
-    #   - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1
-    # dining-room-sub:
-    #   - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2
+    dining-room:
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1"
+    dining-room-sub:
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2"
     kitchen:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1"
     kitchen-sub:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2"
     living-room:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1"
     living-room-sub:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2"
     nursery:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1"
     nursery-sub:
-      - rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2"
     front-doorbell-ad410:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0"
     front-doorbell-ad410-sub:
@@ -111,15 +111,13 @@ cameras:
     ffmpeg:
       inputs:
         # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room?video=copy&audio=aac
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room
-        - path: rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1
-          # input_args: preset-rtsp-restream
+        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room
+          input_args: preset-rtsp-restream
           roles:
             - record
         # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub?video=copy
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub
-        - path: rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2
-          # input_args: preset-rtsp-restream
+        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
