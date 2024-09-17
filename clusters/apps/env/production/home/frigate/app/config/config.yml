@@ -67,7 +67,8 @@ go2rtc:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: preset-intel-qsv-h264
+  # hwaccel_args: preset-intel-qsv-h264
+  hwaccel_args: preset-vaapi
   output_args:
     record: preset-rtsp-restream
 objects:
