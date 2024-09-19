@@ -25,45 +25,45 @@ go2rtc:
   log:
     level: debug
   streams:
-    dining-room:
+    diningRoom:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1"
-    dining-room-sub:
+    diningRoomSub:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2"
     kitchen:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1"
-    kitchen-sub:
+    kitchenSub:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2"
-    living-room:
+    livingRoom:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1"
-    living-room-sub:
+    livingRoomSub:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2"
     nursery:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1"
-    nursery-sub:
+    nurserySub:
       - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2"
-    front-doorbell-ad410:
+    frontDoorbell:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0"
-    front-doorbell-ad410-sub:
+    frontDoorbellSub:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01"
-    kitchen-doorbell-ad410:
+    kitchenDoorbell:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0"
-    kitchen-doorbell-ad410-sub:
+    kitchenDoorbellSub:
       - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
-    south-west-1:
+    southWest1:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main"
-    south-west-1-sub:
+    southWest1Sub:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub"
-    south-west-2:
+    southWest2:
       - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main"
-    south-west-2-sub:
+    southWest2Sub:
       - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub"
-    north-door-1:
+    northDoor:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main"
-    north-door-1-sub:
+    northDoorSub:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub"
-    garage-1:
+    garageFlood:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
-    garage-1-sub:
+    garageFloodSub:
       - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
@@ -108,15 +108,15 @@ snapshots:
   quality: 75
 cameras:
   # --
-  dining-room:
+  diningRoom:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/dining-room-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub
           roles:
             - detect
     detect:
@@ -132,8 +132,8 @@ cameras:
         - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenSub
           roles:
             - detect
     detect:
@@ -142,15 +142,15 @@ cameras:
       fps: 15
       min_initialized: 6
   # --
-  living-room:
+  livingRoom:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/living-room?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/living-room
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoom?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoom
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/living-room-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/living-room-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoomSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoomSub
           roles:
             - detect
     detect:
@@ -166,8 +166,8 @@ cameras:
         - path: rtsp://frigate.home.svc.cluster.local:8554/nursery
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/nursery-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/nursery-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/nurserySub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/nurserySub
           roles:
             - detect
     detect:
@@ -185,15 +185,15 @@ cameras:
         objects:
           - person
   # --
-  front-doorbell-ad410:
+  frontDoorbell:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbell?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbell
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/front-doorbell-ad410-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbellSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbellSub
           roles:
             - detect
     detect:
@@ -234,15 +234,15 @@ cameras:
           fedex: 5
           ups: 5
   # --
-  kitchen-doorbell-ad410:
+  kitchenDoorbell:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbell?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbell
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen-doorbell-ad410-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbellSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbellSub
           roles:
             - detect
     detect:
@@ -283,15 +283,15 @@ cameras:
         person:
           mask: 0.54,0.223,0.589,0.22,0.588,0.268,0.543,0.266
   # --
-  south-west-1:
+  southWest1:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-1-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1Sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1Sub
           roles:
             - detect
     detect:
@@ -315,15 +315,15 @@ cameras:
         objects:
           person: 80
   # --
-  south-west-2:
+  southWest2:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/south-west-2-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2Sub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2Sub
           roles:
             - detect
     detect:
@@ -343,15 +343,15 @@ cameras:
           - person
           - dog
   # --
-  north-door-1:
+  northDoor:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/northDoor?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/northDoor
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/north-door-1-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/northDoorSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/northDoorSub
           roles:
             - detect
     detect:
@@ -386,15 +386,15 @@ cameras:
         objects:
           person: 80
   # --
-  garage-1:
+  garageFlood:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood?video=copy&audio=aac
+        - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1-sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/garage-1-sub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub?video=copy
+        - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub
           roles:
             - detect
     detect:
