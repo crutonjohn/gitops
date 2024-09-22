@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: retrom-library
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ceph-blockpool
+  resources:
+    requests:
+      storage: 500Gi
