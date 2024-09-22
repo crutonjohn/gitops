@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/blakeblackshear/frigate
-              tag: 0.14.1@sha256:22e3d0b486df52c3d669682254c2b1bf4205fa6ad8bd8f8c9f7fe76b1517005d
+              tag: 9afa135
             env:
               TZ: America/New_York
               PLUS_API_KEY: "${FRIGATE_PLUS_API_KEY}"
