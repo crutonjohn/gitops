@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    controllers:
+      retrom:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: retrom-secret
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jmberesford/retrom-service
+              tag: retrom-v0.0.80:sha256:91fe4e9f5d6b541f7582bb6028626ebdef374e2bd62981e209f213a90f8681df
+            envFrom: &envFrom
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/version
+                    port: 5101
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                memory: 1024Mi
+                cpu: 100m
+              limits:
+                memory: 2048Mi
+    service:
+      app:
+        controller: retrom
+        ports:
+          http:
+            enabled: true
+            primary: true
+            port: 5101
+            protocol: TCP
+            targetPort: 5101
+    ingress:
+      main:
+        enabled: false
+    persistence:
+      data:
+        existingClaim: retrom-library
+        globalMounts:
+          - path: /app/library
