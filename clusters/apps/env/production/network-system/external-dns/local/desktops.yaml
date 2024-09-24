@@ -12,13 +12,13 @@ spec:
       recordType: A
       targets:
         - 192.168.128.3
-    - dnsName: kat-desktop.${FAMILY_DOMAIN}
+    - dnsName: jacob-desktop.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
         - 192.168.128.4
-    - dnsName: workbench.${FAMILY_DOMAIN}
+    - dnsName: kat-desktop.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.128.5
+        - 192.168.128.6

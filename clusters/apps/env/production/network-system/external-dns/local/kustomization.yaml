@@ -7,3 +7,4 @@ resources:
   - ./omada.yaml
   - ./monitoring.yaml
   - ./home-automation.yaml
+  - ./workbench.yaml
