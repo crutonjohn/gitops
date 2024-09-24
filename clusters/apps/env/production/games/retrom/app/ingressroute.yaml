@@ -22,7 +22,7 @@ spec:
       priority: 10
       services:
         - name: ${APP}
-          port: 5101
+          port: 3000
     - kind: Rule
       match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
       priority: 15

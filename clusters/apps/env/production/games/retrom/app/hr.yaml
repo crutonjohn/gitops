@@ -27,13 +27,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          backend:
             image:
               repository: ghcr.io/jmberesford/retrom-service
               tag: retrom-v0.0.80@sha256:91fe4e9f5d6b541f7582bb6028626ebdef374e2bd62981e209f213a90f8681df
             envFrom: *envFrom
             probes:
-              liveness: &probes
+              liveness: &backendProbes
                 enabled: false
                 custom: true
                 spec:
@@ -44,7 +44,33 @@ spec:
                   periodSeconds: 30
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness: *probes
+              readiness: *backendProbes
+            resources:
+              requests:
+                memory: 1024Mi
+                cpu: 100m
+              limits:
+                memory: 2048Mi
+          frontend:
+            image:
+              repository: ghcr.io/jmberesford/retrom-web
+              tag: retrom-v0.1.1@sha256:97e1988b426718e4dbfba5be1fea7f4b1e711b2589a23191af82bafb0cb305f2
+            env:
+              - name: "RETROM_HOST"
+                value: "http://retrom.games.svc.cluster.local:5101"
+            probes:
+              liveness: &frontendProbes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/version
+                    port: 3000
+                  initialDelaySeconds: 10
+                  periodSeconds: 30
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *frontendProbes
             resources:
               requests:
                 memory: 1024Mi
@@ -52,10 +78,16 @@ spec:
               limits:
                 memory: 2048Mi
     service:
-      app:
+      backend:
         controller: retrom
         ports:
-          http:
+          frontend:
+            enabled: true
+            primary: true
+            port: 3000
+            protocol: TCP
+            targetPort: 3000
+          backend:
             enabled: true
             primary: true
             port: 5101
@@ -66,6 +98,10 @@ spec:
         enabled: false
     persistence:
       data:
-        existingClaim: retrom-library
-        globalMounts:
-          - path: /app/library
+        enabled: true
+        existingClaim: "retrom-library"
+        advancedMounts:
+          retrom:
+            backend:
+              - path: /app/library
+                readOnly: false
