@@ -31,7 +31,7 @@ spec:
             image:
               repository: ghcr.io/jmberesford/retrom-service
               tag: retrom-v0.0.80@sha256:91fe4e9f5d6b541f7582bb6028626ebdef374e2bd62981e209f213a90f8681df
-            envFrom: &envFrom
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: false
