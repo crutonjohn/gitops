@@ -78,7 +78,8 @@ spec:
               limits:
                 memory: 2048Mi
     service:
-      backend:
+      main:
+        enabled: true
         controller: retrom
         ports:
           frontend:
@@ -86,13 +87,11 @@ spec:
             primary: true
             port: 3000
             protocol: TCP
-            targetPort: 3000
           backend:
             enabled: true
             primary: false
             port: 5101
             protocol: TCP
-            targetPort: 5101
     ingress:
       main:
         enabled: false
