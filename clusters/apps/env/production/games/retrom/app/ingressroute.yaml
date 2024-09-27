@@ -4,56 +4,23 @@ kind: IngressRoute
 metadata:
   name: ${APP}
   annotations:
-    kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-    external-dns/public: "true"
+    kubernetes.io/ingress.class: "traefik-internal"
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
       match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
-      middlewares:
-        - name: oauth-auth
-          namespace: auth-system
-        - name: oauth-errors
-          namespace: auth-system
       priority: 10
       services:
         - name: ${APP}
           port: 3000
     - kind: Rule
-      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
-      priority: 15
-      middlewares:
-        - name: oauth-headers
-          namespace: auth-system
-      services:
-        - name: google-auth-oauth2-proxy
-          namespace: auth-system
-          port: 80
-    - kind: Rule
       match: "Host(`${INGRESSROUTE_SUBDOMAIN}-backend.${FAMILY_DOMAIN}`)"
-      middlewares:
-        - name: oauth-auth
-          namespace: auth-system
-        - name: oauth-errors
-          namespace: auth-system
       priority: 10
       services:
         - name: ${APP}
           port: 5101
-    - kind: Rule
-      match: "Host(`${INGRESSROUTE_SUBDOMAIN}-backend.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
-      priority: 15
-      middlewares:
-        - name: oauth-headers
-          namespace: auth-system
-      services:
-        - name: google-auth-oauth2-proxy
-          namespace: auth-system
-          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
@@ -62,26 +29,7 @@ spec:
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: ${APP}-external
-  annotations:
-    external-dns/public: "true"
-spec:
-  endpoints:
-    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: CNAME
-      targets:
-        - ${DYNAMIC_DOMAIN}
-    - dnsName: ${INGRESSROUTE_SUBDOMAIN}-backend.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: CNAME
-      targets:
-        - ${DYNAMIC_DOMAIN}
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: ${APP}-internal
+  name: ${APP}
   annotations:
     external-dns/private: "true"
 spec:
@@ -90,9 +38,9 @@ spec:
       recordTTL: 300
       recordType: A
       targets:
-        - ${CLUSTER_LB_INGRESS_EXTERNAL}
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
     - dnsName: ${INGRESSROUTE_SUBDOMAIN}-backend.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - ${CLUSTER_LB_INGRESS_EXTERNAL}
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
