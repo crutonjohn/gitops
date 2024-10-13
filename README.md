@@ -57,7 +57,7 @@ Currently using [k0s](https://k0sproject.io) by way of [k0sctl](https://github.c
 ---
 ## :computer:&nbsp; Hardware Configuration
 
-_All my nodes below are running bare metal Ubuntu 20.04.x_
+_All my nodes below are running bare metal Ubuntu or Debian_
 
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
