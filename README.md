@@ -7,7 +7,7 @@
 <br />
 <div align="center">
 
-[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60&style=flat-square)](https://discord.gg/k8s-at-home)
+[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60&style=flat-square)](https://discord.gg/home-operations)
 
 </div>
 
@@ -17,29 +17,26 @@
 
 This repo _is_ my Kubernetes cluster in a declarative state. [Flux](https://github.com/fluxcd/flux2) and [Helm Operator](https://github.com/fluxcd/helm-operator) watch my [clusters](./clusters/) folder and makes the changes to my cluster based on the yaml manifests. [Renovate](https://github.com/renovatebot/renovate) auto updates images and helm charts based on upstream changes.
 
-Feel free to join our [Discord](https://discord.gg/k8s-at-home) if you have any questions.
+Feel free to join our [Discord](https://discord.gg/home-operations) if you have any questions.
 
 ---
 
 # :anchor:&nbsp; k8s Distro
 
-Currently using [k3s](https://k3s.io) by way of a customized [template-cluster-k3s](https://github.com/k8s-at-home/template-cluster-k3s) [ansible playbook](https://github.com/k8s-at-home/template-cluster-k3s/tree/main/provision/ansible).
+Currently using [k0s](https://k0sproject.io) by way of [k0sctl](https://github.com/k0sproject/k0sctl). These configurations can be viewed in [provision/k0s](./provision/k0s/).
 
 ---
-# :speedboat:&nbsp; Deploying k3s
+# :speedboat:&nbsp; Deploying the cluster
 
-1. `pip install pipenv`
-2. `pipenv install`
-3. `pipenv run gilt overlay`
-4. `pipenv run ansible-playbook -i provision/ansible/inventory/inventory.yaml provision/ansible/playbooks/k3s-install.yaml`
-6. `k label nodes k-node1.crutonjohn.com k-node2.crutonjohn.com k-node3.crutonjohn.com k-node4.crutonjohn.com k-node5.crutonjohn.com crutonjohn.com/rook=true`
-7. `kubectl taint nodes k-master01.crutonjohn.com k-master02.crutonjohn.com k-master03.crutonjohn.com crutonjohn=control-plane:NoSchedule`
+1. `nix-shell --command 'k0sctl apply -f ./provision/k0s/production.yaml'`
+2. `nix-shell --command 'k0sctl kubeconfig -c ./provision/k0s/production.yaml > ./hack/main'`
+3. `sops -d provision/cilium/production.yaml | helm install cilium cilium/cilium -f -`
 
 ## Installing and bootstrapping flux
 
-1. Have a working `kubeconfig`
-2. Have `flux` installed
-3. Have `GITHUB_TOKEN` env var set to a Github PAT
+1. `nix-shell --command 'k0sctl kubeconfig -c ./provision/k0s/production.yaml > ./hack/main'`
+2. Have `flux` installed (need to nixify this)
+3. `set GITHUB_TOKEN ghp_Qk5eLNaaaaaaaaaaaaaaaaaaaaaaaaaaa`
 4. To boostrap the cluster:
 
         flux bootstrap github \
@@ -51,9 +48,11 @@ Currently using [k3s](https://k3s.io) by way of a customized [template-cluster-k
 
 5. `sops -d sops-secret.enc.yaml | kubectl apply -f -`
 
-### if you need storage :)
+### Required node labels
 
-`kustomize build clusters/core/pvc/`
+1. `k label nodes horus lion magnus dorn guilliman sanguinius lorgar ${FAMILY_DOMAIN}/bgp=worker`
+2. `k label nodes lorgar ${FAMILY_DOMAIN}/role=nas`
+3. `k label nodes dorn guilliman sanguinius ${FAMILY_DOMAIN}/rook=distributed`
 
 ---
 ## :computer:&nbsp; Hardware Configuration
@@ -62,37 +61,28 @@ _All my nodes below are running bare metal Ubuntu 20.04.x_
 
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
-| Raspberry Pi 4          | 3     | 120GB (USB Booting SSD) | N/A                                      | 4 GB | k8s Control Plane |
-| HP 800 G3 Mini          | 3     | 1x 120GB SSD            | 1x 1TB M.2 (rook-ceph)                   | 32GB | k8s Workers |
-| Dell 7040 Micro         | 2     | 1x 500B HDD             | 1x 1TB M.2 SSD (rook-ceph)               | 32GB | k8s Workers |
+| HP 800 G3 Mini          | 3     | 120GB SSD | N/A                                      | 32 GB | k8s Control Plane |
+| Minisforum MS-01 (12600H)          | 3     | 1x 1TB NVME            | 1x 2TB NVME (rook-ceph)                   | 64GB | k8s Workers |
+| Ryzen 3900x Custom     | 1     | 2x 1TB SSD  | N/A                                      | 128GB | k8s Rook-Ceph NAS |
+| Supermicro 216BE1C-R741JBOD         | 1     | N/A                     | 24x 1TB SSD                              | N/A  | Disk Shelf |
+
 
 ## :computer:&nbsp; Supporting Infrastructure
 
-| Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
-|-------------------------|-------|-------------------------|------------------------------------------|------|---------|
-| Supermicro CSE-512B     | 1     | 2x 500GB Spinning Rust  | N/A                                      | 32GB | ZFS on Linux Host |
-| Xyratex HB-2425         | 1     | N/A                     | 24x 1TB SSD                              | N/A  | ZFS Disk Shelf |
-
+- [Opnsense DEC2750](https://shop.opnsense.com/product/dec2750-opnsense-rack-security-appliance/) Router
+- [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Core Switch
+- [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Upstairs Distribution Switch
+- [TP-Link SX3008F](https://www.tp-link.com/us/business-networking/managed-switch/tl-sx3008f/) 10Gig Distribution Switch
+- x2 [TP-Link EAP660 HD](https://www.tp-link.com/us/business-networking/omada-sdn-access-point/eap660-hd/) WAPs
+- [TP-Link EAP615-Wall](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap615-wall/) Still trying to work out where this will physically go
 
 ---
 
 ## :memo:&nbsp; IP addresses
 
-_This table is a reference to IP addresses in my deployments and may not be fully up-to-date_
-
-| Deployment                 | Address        |
-|----------------------------|----------------|
-| traefik-ingress (external) | 192.168.130.100 |
-| traefik-ingress (internal) | 192.168.130.101 |
-| syncthing-discovery        | 192.168.130.104 |
-| syslog-ng                  | 192.168.130.106 |
-| home-assistant             | 192.168.130.108 |
-| emqx                       | 192.168.130.109 |
-| scrypted                   | 192.168.130.110 |
+Can generally be viewed at [settings.yaml](./clusters/secrets/generic/settings.yaml)
 
 ---
 ## :handshake:&nbsp; Community
 
-Thanks to all the people who donate their time to the [Kubernetes @Home](https://github.com/k8s-at-home/) community. Join us at https://discord.gg/k8s-at-home
-
-A lot of inspiration for my cluster came from the people that have shared their clusters over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes)
+A lot of inspiration for my cluster came from the people that have shared their cluster configuration with me. Thanks to all the people who donate their time to the Home Operations community. Join us on [Discord](https://discord.gg/home-operations)!
