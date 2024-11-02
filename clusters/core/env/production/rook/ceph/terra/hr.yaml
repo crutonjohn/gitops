@@ -471,7 +471,7 @@ spec:
         storageClass:
           enabled: true
           name: terra-blockpool
-          isDefault: true
+          isDefault: false
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           volumeBindingMode: "Immediate"
