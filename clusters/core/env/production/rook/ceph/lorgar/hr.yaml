@@ -30,7 +30,7 @@ spec:
 
     # -- The metadata.name of the CephCluster CR
     # @default -- The same as the namespace
-    clusterName: imperium
+    clusterName: terra
 
     # -- Cluster ceph.conf override
     configOverride: |
@@ -97,7 +97,7 @@ spec:
       # The path on the host where configuration files will be persisted. Must be specified.
       # Important: if you reinstall the cluster, make sure you delete this directory from each host or else the mons will fail to start on the new cluster.
       # In Minikube, the '/data' directory is configured to persist across reboots. Use "/data/rook" in Minikube environment.
-      dataDirHostPath: /var/lib/rook
+      dataDirHostPath: /var/lib/rook/terra
 
       # Whether or not upgrade should continue even if a check fails
       # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
@@ -214,7 +214,11 @@ spec:
                     - key: ${FAMILY_DOMAIN}/ceph
                       operator: In
                       values:
-                        - imperium
+                        - terra
+                    - key: ${FAMILY_DOMAIN}/role
+                      operator: In
+                      values:
+                        - nas
           # podAffinity:
           # podAntiAffinity:
           # topologySpreadConstraints:
@@ -230,7 +234,11 @@ spec:
                     - key: ${FAMILY_DOMAIN}/ceph
                       operator: In
                       values:
-                        - imperium
+                        - terra
+                    - key: ${FAMILY_DOMAIN}/role
+                      operator: In
+                      values:
+                        - nas
         # Monitor deployments may contain an anti-affinity rule for avoiding monitor
         # collocation on the same node. This is a required rule when host network is used
         # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
@@ -461,7 +469,7 @@ spec:
     # -- A list of CephBlockPool configurations to deploy
     # @default -- See [below](#ceph-block-pools)
     cephBlockPools:
-      - name: ceph-blockpool
+      - name: terra-blockpool
         # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Block-Storage/ceph-block-pool-crd.md#spec for available configuration
         spec:
           failureDomain: osd
@@ -475,7 +483,7 @@ spec:
           enableRBDStats: true
         storageClass:
           enabled: true
-          name: ceph-blockpool
+          name: terra-blockpool
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -527,7 +535,7 @@ spec:
     # -- A list of CephFileSystem configurations to deploy
     # @default -- See [below](#ceph-file-systems)
     cephFileSystems:
-      - name: ceph-filesystem
+      - name: terra-filesystem
         # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Shared-Filesystem/ceph-filesystem-crd.md#filesystem-settings for available configuration
         spec:
           metadataPool:
@@ -553,7 +561,7 @@ spec:
         storageClass:
           enabled: true
           isDefault: false
-          name: ceph-filesystem
+          name: terra-filesystem
           # (Optional) specify a data pool to use, must be the name of one of the data pools above, 'data0' by default
           pool: data0
           reclaimPolicy: Delete
@@ -578,7 +586,7 @@ spec:
     # @default -- See [CephFS Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#cephfs-snapshots)
     cephFileSystemVolumeSnapshotClass:
       enabled: true
-      name: file
+      name: terra-file
       isDefault: true
       deletionPolicy: Delete
       annotations: {}
@@ -590,7 +598,7 @@ spec:
     # @default -- See [RBD Snapshots](../Storage-Configuration/Ceph-CSI/ceph-csi-snapshot.md#rbd-snapshots)
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
-      name: block
+      name: terra-block
       isDefault: false
       deletionPolicy: Delete
       annotations: {}
@@ -601,7 +609,7 @@ spec:
     # -- A list of CephObjectStore configurations to deploy
     # @default -- See [below](#ceph-object-stores)
     cephObjectStores:
-      - name: ceph-objectstore
+      - name: terra-objectstore
         # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
         spec:
           metadataPool:
@@ -628,7 +636,7 @@ spec:
             priorityClassName: system-cluster-critical
         storageClass:
           enabled: true
-          name: ceph-bucket
+          name: terra-bucket
           reclaimPolicy: Delete
           volumeBindingMode: "Immediate"
           # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
