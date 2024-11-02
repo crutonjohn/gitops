@@ -132,7 +132,7 @@ spec:
         # When higher availability of the mgr is needed, increase the count to 2.
         # In that case, one mgr will be active and one in standby. When Ceph updates which
         # mgr is active, Rook will update the mgr services to match the active mgr.
-        count: 2
+        count: 1
         allowMultiplePerNode: true
         modules:
         # List of modules to optionally enable or disable.
@@ -215,10 +215,6 @@ spec:
                       operator: In
                       values:
                         - terra
-                    - key: ${FAMILY_DOMAIN}/role
-                      operator: In
-                      values:
-                        - nas
           # podAffinity:
           # podAntiAffinity:
           # topologySpreadConstraints:
@@ -226,33 +222,24 @@ spec:
           # - key: storage-node
           #   operator: Exists
           #The above placement information can also be specified for mon, osd, and mgr components
-        mon:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: ${FAMILY_DOMAIN}/ceph
-                      operator: In
-                      values:
-                        - terra
-                    - key: ${FAMILY_DOMAIN}/role
-                      operator: In
-                      values:
-                        - nas
+        # mon:
+        #   nodeAffinity:
+        #     requiredDuringSchedulingIgnoredDuringExecution:
+        #       nodeSelectorTerms:
+        #         - matchExpressions:
+        #             - key: ${FAMILY_DOMAIN}/ceph
+        #               operator: In
+        #               values:
+        #                 - terra
         # Monitor deployments may contain an anti-affinity rule for avoiding monitor
         # collocation on the same node. This is a required rule when host network is used
         # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
         # preferred rule with weight: 50.
         # osd:
         # mgr:
-        #   nodeAffinity:
-        #     requiredDuringSchedulingIgnoredDuringExecution:
-        #       nodeSelectorTerms:
-        #         - matchExpressions:
-        #             - key: ${FAMILY_DOMAIN}/role
-        #               operator: In
-        #               values:
-        #                 - apps
+        #   tolerations:
+        #   - key: node-role.kubernetes.io/master
+        #     operator: Exists
         # cleanup:
 
       # annotations:

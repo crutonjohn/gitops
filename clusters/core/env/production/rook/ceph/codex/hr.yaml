@@ -233,20 +233,18 @@ spec:
         #               operator: In
         #               values:
         #                 - codex
+        #   tolerations:
+        #   - key: node-role.kubernetes.io/master
+        #     operator: Exists
         # Monitor deployments may contain an anti-affinity rule for avoiding monitor
         # collocation on the same node. This is a required rule when host network is used
         # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
         # preferred rule with weight: 50.
         # osd:
         # mgr:
-        #   nodeAffinity:
-        #     requiredDuringSchedulingIgnoredDuringExecution:
-        #       nodeSelectorTerms:
-        #         - matchExpressions:
-        #             - key: ${FAMILY_DOMAIN}/role
-        #               operator: In
-        #               values:
-        #                 - apps
+        #   tolerations:
+        #   - key: node-role.kubernetes.io/master
+        #     operator: Exists
         # cleanup:
 
       # annotations:
