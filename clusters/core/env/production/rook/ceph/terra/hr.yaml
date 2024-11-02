@@ -2,7 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: rook-cluster
+  name: terra
+  namespace: rook-terra
 spec:
   interval: 30m
   timeout: 15m
