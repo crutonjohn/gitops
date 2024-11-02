@@ -47,6 +47,11 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: rook-terra
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: backups
 ---
 apiVersion: v1
