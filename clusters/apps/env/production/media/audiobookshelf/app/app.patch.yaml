@@ -87,6 +87,14 @@ spec:
             main:
               - path: /audiobooks
                 readOnly: false
+      ebooks:
+        enabled: true
+        existingClaim: "ebook-library"
+        advancedMounts:
+          main:
+            main:
+              - path: /ebooks
+                readOnly: false
       podcasts:
         enabled: true
         existingClaim: "podcast-library"
