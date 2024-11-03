@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 3Gi
-  storageClassName: ceph-blockpool
+  storageClassName: codex-block

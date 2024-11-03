@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 1024Gi
-  storageClassName: ceph-filesystem
+  storageClassName: terra-filesystem

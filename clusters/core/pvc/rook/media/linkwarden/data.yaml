@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 75Gi
-  storageClassName: ceph-blockpool
+  storageClassName: terra-blockpool

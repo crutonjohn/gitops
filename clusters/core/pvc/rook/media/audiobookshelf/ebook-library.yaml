@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: frigate-recordings
-  namespace: home
+  name: ebook-library
+  namespace: media
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: terra-filesystem
   resources:
     requests:
-      storage: 1024Gi
+      storage: 50Gi

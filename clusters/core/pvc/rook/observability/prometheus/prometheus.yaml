@@ -5,7 +5,7 @@ metadata:
   name: prometheus
   namespace: observability
 spec:
-  storageClassName: ceph-blockpool
+  storageClassName: codex-block
   accessModes:
     - ReadWriteOnce
   resources:

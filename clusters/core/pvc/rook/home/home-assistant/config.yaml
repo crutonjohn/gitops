@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 50Gi
-  storageClassName: ceph-blockpool
+  storageClassName: codex-block
