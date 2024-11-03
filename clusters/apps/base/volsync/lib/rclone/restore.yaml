@@ -1,0 +1,30 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${SRC_PVC}-rclone-bootstrap-local"
+spec:
+  trigger:
+    manual: "restore-once-bootstrap"
+  rclone:
+    rcloneConfigSection: "local-volsync"
+    destinationPVC: "${SRC_PVC}"
+    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/${APP}/${SRC_PVC}"
+    rcloneConfig: "volsync-b2-rclone-secret"
+    copyMethod: "Direct"
+    storageClassName: "${STORAGE_CLASS}"
+    capacity: "${SIZE:=20Gi}"
+    accessModes: ["ReadWriteOnce"]
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: ${APP_UID}
+      runAsGroup: ${APP_UID}
+      fsGroup: ${APP_UID}
+      seccompProfile: {type: "RuntimeDefault"}
+    moverResources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 6Gi

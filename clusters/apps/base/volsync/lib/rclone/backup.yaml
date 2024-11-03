@@ -1,0 +1,42 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "${SRC_PVC}-rclone"
+spec:
+  sourcePVC: "${SRC_PVC}"
+  trigger:
+    schedule: "${CRON_SCHEDULE:=0 */12 * * *}" # midnight and noon every day
+  rclone:
+    rcloneConfigSection: "b2-volsync"
+    rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/${SRC_PVC}"
+    rcloneConfig: "volsync-b2-rclone-secret"
+    copyMethod: Direct
+    storageClassName: "${STORAGE_CLASS}"
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: ${APP_UID}
+      runAsGroup: ${APP_UID}
+      fsGroup: ${APP_UID}
+      seccompProfile: {type: "RuntimeDefault"}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "${SRC_PVC}-rclone-local"
+spec:
+  sourcePVC: "${SRC_PVC}"
+  trigger:
+    schedule: "${CRON_SCHEDULE:=0 */12 * * *}" # midnight and noon every day
+  rclone:
+    rcloneConfigSection: "local-volsync"
+    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/${APP}/${SRC_PVC}"
+    rcloneConfig: "volsync-b2-rclone-secret"
+    copyMethod: Direct
+    storageClassName: "${STORAGE_CLASS}"
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: ${APP_UID}
+      runAsGroup: ${APP_UID}
+      fsGroup: ${APP_UID}
+      seccompProfile: {type: "RuntimeDefault"}
