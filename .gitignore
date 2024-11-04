@@ -13,6 +13,7 @@
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
+.vscode
 auth
 master.key
 *.snap
@@ -35,6 +36,7 @@ vars.tf
 
 # kubeconfigs
 hack/main
+cert-sync-kubeconfig
 
 # ceph config
 ./ceph/
