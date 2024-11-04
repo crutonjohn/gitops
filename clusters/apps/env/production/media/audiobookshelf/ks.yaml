@@ -44,14 +44,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-audiobookshelf-config-restic
+  name: volsync-audiobookshelf-config-restic
   namespace: flux-system
 spec:
   targetNamespace: media
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-      backups.${FAMILY_DOMAIN}/name: audiobookshelf
+      app.kubernetes.io/name: &app audiobookshelf
+      backups.${FAMILY_DOMAIN}/name: *app
   path: ./clusters/apps/base/volsync/lib/restic
   prune: true
   sourceRef:
@@ -86,6 +86,54 @@ spec:
         name: settings-generic
       - kind: ConfigMap
         name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: volsync-audiobookshelf-metadata-restic
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app audiobookshelf
+      backups.${FAMILY_DOMAIN}/name: *app
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: audiobookshelf-metadata
+      APP_UID: "1177"
+      CRON_SCHEDULE: "0 2/12 * * *"
+      LOCAL_SCHEDULE: "5 2/12 * * *"
+      STORAGE_CLASS: terra-blockpool
+      SNAPSHOT_CLASS: terra-block
+      DST_ACCESS_MODE: ReadWriteOnce
+      SIZE: "3Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
