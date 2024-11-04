@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./cnpg/ks.yaml
   - ./minio/ks.yaml
-  - ../../../base/volsync/lib/rclone
 patches:
   - patch: |-
       - op: add
