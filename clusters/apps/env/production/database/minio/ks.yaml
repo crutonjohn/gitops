@@ -46,14 +46,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-minio-data-restic
+  name: volsync-minio-data-restic
   namespace: flux-system
 spec:
   targetNamespace: database
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-      backups.${FAMILY_DOMAIN}/name: minio
+      app.kubernetes.io/name: &app minio
+      backups.${FAMILY_DOMAIN}/name: *app
       backups.${FAMILY_DOMAIN}/subsystem: database
   path: ./clusters/apps/base/volsync/lib/restic
   prune: true
@@ -72,12 +72,13 @@ spec:
     - name: volsync
   postBuild:
     substitute:
+      APP: *app
       SRC_PVC: minio-data
       APP_UID: "2656"
       CRON_SCHEDULE: "0 1/12 * * *"
       LOCAL_SCHEDULE: "5 1/12 * * *"
-      STORAGE_CLASS: ceph-blockpool
-      SNAPSHOT_CLASS: block
+      STORAGE_CLASS: terra-blockpool
+      SNAPSHOT_CLASS: terra-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "150Gi"
     substituteFrom:

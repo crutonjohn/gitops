@@ -10,12 +10,11 @@ resources:
   - readarr/ks.yaml
   - syncthing/ks.yaml
   - deemix/ks.yaml
-  - ../../../base/volsync/lib/rclone
-patches:
-  - patch: |-
-      - op: add
-        path: /metadata/namespace
-        value: media
-    target:
-      kind: Secret
-      name: volsync-b2-rclone-secret
+# patches:
+#   - patch: |-
+#       - op: add
+#         path: /metadata/namespace
+#         value: media
+#     target:
+#       kind: Secret
+#       name: volsync-b2-rclone-secret
