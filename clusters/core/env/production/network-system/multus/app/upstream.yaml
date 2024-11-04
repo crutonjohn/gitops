@@ -53,7 +53,7 @@ spec:
       containers:
         - name: kube-multus
           image: ghcr.io/k8snetworkplumbingwg/multus-cni:snapshot-thick
-          command: [ "/usr/src/multus-cni/bin/multus-daemon" ]
+          command: ["/usr/src/multus-cni/bin/multus-daemon"]
           resources:
             requests:
               cpu: "100m"
@@ -128,8 +128,8 @@ spec:
           configMap:
             name: multus-daemon-config
             items:
-            - key: daemon-config.json
-              path: daemon-config.json
+              - key: daemon-config.json
+                path: daemon-config.json
         - name: host-run
           hostPath:
             path: /run
