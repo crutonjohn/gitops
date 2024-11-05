@@ -113,11 +113,13 @@ cameras:
     ffmpeg:
       inputs:
         # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom
+        - path: rtsp://localhost:8554/diningRoom
           roles:
             - record
         # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub
+        - path: rtsp://localhost:8554/diningRoomSub
           roles:
             - detect
     detect:
@@ -391,11 +393,13 @@ cameras:
     ffmpeg:
       inputs:
         # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood
+        - path: rtsp://localhost:8554/garageFlood
           roles:
             - record
         # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub
+        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub
+        - path: rtsp://localhost:8554/garageFloodSub
           roles:
             - detect
     detect:
