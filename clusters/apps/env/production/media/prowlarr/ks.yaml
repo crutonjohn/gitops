@@ -45,14 +45,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-prowlarr-config-restic
+  name: volsync-prowlarr-config-restic
   namespace: flux-system
 spec:
   targetNamespace: media
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-      backups.${FAMILY_DOMAIN}/name: prowlarr
+      app.kubernetes.io/name: &app prowlarr
+      backups.${FAMILY_DOMAIN}/name: *app
   path: ./clusters/apps/base/volsync/lib/restic
   prune: true
   sourceRef:
@@ -70,13 +70,14 @@ spec:
     - name: volsync
   postBuild:
     substitute:
+      APP: *app
       SRC_PVC: prowlarr-config
       APP_UID: "1177"
       CRON_SCHEDULE: "40 2/12 * * *"
       LOCAL_SCHEDULE: "45 2/12 * * *"
-      STORAGE_CLASS: ceph-blockpool
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
-      SNAPSHOT_CLASS: block
       SIZE: "3Gi"
     substituteFrom:
       - kind: Secret

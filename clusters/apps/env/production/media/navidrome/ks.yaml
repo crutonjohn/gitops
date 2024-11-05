@@ -77,8 +77,8 @@ spec:
       APP_UID: "1177"
       CRON_SCHEDULE: "30 2/12 * * *"
       LOCAL_SCHEDULE: "35 2/12 * * *"
-      STORAGE_CLASS: ceph-blockpool
-      SNAPSHOT_CLASS: block
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "10Gi"
     substituteFrom:

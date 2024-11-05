@@ -46,14 +46,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-zigbee2mqtt-config-restic
+  name: volsync-zigbee2mqtt-config-restic
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-      backups.${FAMILY_DOMAIN}/name: zigbee2mqtt
+      app.kubernetes.io/name: &app zigbee2mqtt
+      backups.${FAMILY_DOMAIN}/name: *app
       backups.${FAMILY_DOMAIN}/subsystem: home-automation
   path: ./clusters/apps/base/volsync/lib/restic
   prune: true
@@ -72,12 +72,13 @@ spec:
     - name: volsync
   postBuild:
     substitute:
+      APP: *app
       SRC_PVC: zigbee2mqtt-slzb-config
       APP_UID: "994"
       CRON_SCHEDULE: "50 1/12 * * *"
       LOCAL_SCHEDULE: "55 1/12 * * *"
-      STORAGE_CLASS: ceph-blockpool
-      SNAPSHOT_CLASS: block
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "1Gi"
     substituteFrom:

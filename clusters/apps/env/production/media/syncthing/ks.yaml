@@ -46,14 +46,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-syncthing-config-restic
+  name: volsync-syncthing-config-restic
   namespace: flux-system
 spec:
   targetNamespace: media
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
-      backups.${FAMILY_DOMAIN}/name: syncthing
+      app.kubernetes.io/name: &app syncthing
+      backups.${FAMILY_DOMAIN}/name: *app
   path: ./clusters/apps/base/volsync/lib/restic
   prune: true
   sourceRef:
@@ -71,12 +71,13 @@ spec:
     - name: volsync
   postBuild:
     substitute:
+      APP: *app
       SRC_PVC: syncthing-config
       APP_UID: "1177"
       CRON_SCHEDULE: "0 3/12 * * *"
       LOCAL_SCHEDULE: "5 3/12 * * *"
-      STORAGE_CLASS: ceph-blockpool
-      SNAPSHOT_CLASS: block
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "3Gi"
     substituteFrom:

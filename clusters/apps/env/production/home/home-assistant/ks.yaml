@@ -49,13 +49,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-home-assistant-config-restic
+  name: volsync-home-assistant-config-restic
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
+      app.kubernetes.io/name: &app home-assistant
       backups.${FAMILY_DOMAIN}/name: home-assistant
       backups.${FAMILY_DOMAIN}/subsystem: home-automation
   path: ./clusters/apps/base/volsync/lib/restic
@@ -79,8 +79,8 @@ spec:
       APP_UID: "994"
       CRON_SCHEDULE: "20 1/12 * * *"
       LOCAL_SCHEDULE: "25 1/12 * * *"
-      STORAGE_CLASS: ceph-blockpool
-      SNAPSHOT_CLASS: block
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "50Gi"
     substituteFrom:
