@@ -79,7 +79,7 @@ spec:
       CRON_SCHEDULE: "10 2/12 * * *"
       LOCAL_SCHEDULE: "15 2/12 * * *"
       STORAGE_CLASS: codex-block
-      SNAPSHOT_CLASS: block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "50Gi"
     substituteFrom:
