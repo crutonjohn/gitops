@@ -31,15 +31,15 @@ spec:
       frigate:
         annotations:
           reloader.stakater.com/auto: "true"
-        # pod:
-        #   annotations:
-        #     k8s.v1.cni.cncf.io/networks: |
-        #       [{
-        #         "name":"iot-garbage-apps",
-        #         "namespace": "network-system",
-        #         "mac": "02:58:5c:80:13:4c",
-        #         "ips": ["192.168.134.120/24"]
-        #       }]
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot-garbage-apps",
+                "namespace": "network-system",
+                "mac": "02:58:5c:80:13:4c",
+                "ips": ["192.168.134.120/24"]
+              }]
         containers:
           app:
             image:
