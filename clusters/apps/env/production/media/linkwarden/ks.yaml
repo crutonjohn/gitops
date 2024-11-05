@@ -77,8 +77,8 @@ spec:
       APP_UID: "1447"
       CRON_SCHEDULE: "20 2/12 * * *"
       LOCAL_SCHEDULE: "25 2/12 * * *"
-      STORAGE_CLASS: codex-block
-      SNAPSHOT_CLASS: codex-block
+      STORAGE_CLASS: terra-blockpool
+      SNAPSHOT_CLASS: terra-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "75Gi"
     substituteFrom:
