@@ -25,8 +25,8 @@ spec:
   dependsOn:
     - name: minio
       namespace: database
-    - name: rook-cluster
-      namespace: rook-ceph
+    - name: codex
+      namespace: rook-codex
   values:
     crds:
       create: true

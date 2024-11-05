@@ -10,7 +10,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 30Gi
-    storageClass: ceph-blockpool
+    storageClass: codex-block
   superuserSecret:
     name: cnpg-superuser
   enableSuperuserAccess: true
