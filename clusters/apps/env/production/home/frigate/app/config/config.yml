@@ -88,12 +88,11 @@ objects:
 record:
   enabled: true
   retain:
-    days: 0
+    days: 2
+    mode: motion
   events:
     retain:
-      objects:
-        person: 30
-        dog: 10
+      default: 14
       mode: active_objects
 snapshots:
   enabled: true
@@ -112,13 +111,9 @@ cameras:
   diningRoom:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom?video=copy&audio=aac
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoom
         - path: rtsp://localhost:8554/diningRoom
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub?video=copy
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/diningRoomSub
         - path: rtsp://localhost:8554/diningRoomSub
           roles:
             - detect
@@ -131,12 +126,10 @@ cameras:
   kitchen:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchen
+        - path: rtsp://localhost:8554/kitchen
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenSub
+        - path: rtsp://localhost:8554/kitchenSub
           roles:
             - detect
     detect:
@@ -148,12 +141,10 @@ cameras:
   livingRoom:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoom?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoom
+        - path: rtsp://localhost:8554/livingRoom
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoomSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/livingRoomSub
+        - path: rtsp://localhost:8554/livingRoomSub
           roles:
             - detect
     detect:
@@ -165,12 +156,10 @@ cameras:
   nursery:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/nursery?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/nursery
+        - path: rtsp://localhost:8554/nursery
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/nurserySub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/nurserySub
+        - path: rtsp://localhost:8554/nurserySub
           roles:
             - detect
     detect:
@@ -178,25 +167,14 @@ cameras:
       height: 360
       fps: 15
       min_initialized: 6
-    record:
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 50
-        objects:
-          - person
   # --
   frontDoorbell:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbell?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbell
+        - path: rtsp://localhost:8554/frontDoorbell
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbellSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/frontDoorbellSub
+        - path: rtsp://localhost:8554/frontDoorbellSub
           roles:
             - detect
     detect:
@@ -204,23 +182,6 @@ cameras:
       height: 576
       fps: 15
       min_initialized: 6
-    record:
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 80
-            dog: 10
-            amazon: 5
-            fedex: 5
-            ups: 5
-        objects:
-          - person
-          - dog
-          - amazon
-          - fedex
-          - ups
     objects:
       track:
         - person
@@ -233,19 +194,15 @@ cameras:
       retain:
         objects:
           person: 80
-          amazon: 5
-          fedex: 5
-          ups: 5
+
   # --
   kitchenDoorbell:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbell?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbell
+        - path: rtsp://localhost:8554/kitchenDoorbell
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbellSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/kitchenDoorbellSub
+        - path: rtsp://localhost:8554/kitchenDoorbellSub
           roles:
             - detect
     detect:
@@ -253,27 +210,6 @@ cameras:
       height: 576
       fps: 15
       min_initialized: 6
-    record:
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 80
-            dog: 10
-            amazon: 5
-            fedex: 5
-            ups: 5
-        objects:
-          - person
-          - dog
-          - amazon
-          - fedex
-          - ups
-    snapshots:
-      retain:
-        objects:
-          person: 80
     objects:
       track:
         - person
@@ -282,19 +218,19 @@ cameras:
         - fedex
         - ups
         - package
-      filters:
-        person:
-          mask: 0.54,0.223,0.589,0.22,0.588,0.268,0.543,0.266
+    snapshots:
+      retain:
+        objects:
+          person: 80
+
   # --
   southWest1:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1
+        - path: rtsp://localhost:8554/southWest1
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1Sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest1Sub
+        - path: rtsp://localhost:8554/southWest1Sub
           roles:
             - detect
     detect:
@@ -302,17 +238,6 @@ cameras:
       height: 360
       fps: 7
       min_initialized: 2
-    record:
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 80
-            dog: 10
-        objects:
-          - person
-          - dog
     snapshots:
       retain:
         objects:
@@ -321,12 +246,10 @@ cameras:
   southWest2:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2
+        - path: rtsp://localhost:8554/southWest2
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2Sub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/southWest2Sub
+        - path: rtsp://localhost:8554/southWest2Sub
           roles:
             - detect
     detect:
@@ -334,27 +257,14 @@ cameras:
       height: 480
       fps: 7
       min_initialized: 2
-    record:
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 80
-            dog: 10
-        objects:
-          - person
-          - dog
   # --
   northDoor:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/northDoor?video=copy&audio=aac
-        - path: rtsp://frigate.home.svc.cluster.local:8554/northDoor
+        - path: rtsp://localhost:8554/northDoor
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/northDoorSub?video=copy
-        - path: rtsp://frigate.home.svc.cluster.local:8554/northDoorSub
+        - path: rtsp://localhost:8554/northDoorSub
           roles:
             - detect
     detect:
@@ -362,20 +272,6 @@ cameras:
       height: 360
       fps: 7
       min_initialized: 2
-    record:
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 80
-            dog: 10
-        objects:
-          - person
-          - dog
-          - amazon
-          - fedex
-          - ups
     objects:
       track:
         - person
@@ -392,34 +288,15 @@ cameras:
   garageFlood:
     ffmpeg:
       inputs:
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood?video=copy&audio=aac
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFlood
         - path: rtsp://localhost:8554/garageFlood
           roles:
             - record
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub?video=copy
-        # - path: rtsp://frigate.home.svc.cluster.local:8554/garageFloodSub
         - path: rtsp://localhost:8554/garageFloodSub
           roles:
             - detect
     detect:
       width: 1536
       height: 576
-    record:
-      enabled: true
-      retain:
-        days: 1
-      events:
-        retain:
-          objects:
-            person: 80
-            dog: 10
-        objects:
-          - person
-          - dog
-          - amazon
-          - fedex
-          - ups
     objects:
       track:
         - person
