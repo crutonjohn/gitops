@@ -9,15 +9,15 @@ spec:
   secretTemplate:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
-      replicator.v1.mittwald.de/replication-allowed-namespaces: "auth-system,flux-system,longhorn-system,media,network-system,observability,home,kube-system,rook-ceph,database"
+      replicator.v1.mittwald.de/replication-allowed-namespaces: "auth-system,flux-system,media,network-system,observability,home,kube-system,rook-ceph,database,ocis"
   duration: 2160h
   renewBefore: 360h
   subject:
     organizations:
       - CRJ Technologies LLC
   dnsNames:
-    - heyjohn.family
-    - "*.heyjohn.family"
+    - ${FAMILY_DOMAIN}
+    - "*.${FAMILY_DOMAIN}"
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-production
