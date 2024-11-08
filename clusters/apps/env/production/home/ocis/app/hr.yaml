@@ -94,7 +94,7 @@ spec:
       type: RollingUpdate
 
     # -- Domain where oCIS is reachable for the outside world
-    externalDomain: ""
+    externalDomain: "cloud.${FAMILY_DOMAIN}"
 
     # Insecure options.
     # These are useful for some limited environments like CI or on a test cluster.
