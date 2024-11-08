@@ -514,7 +514,7 @@ spec:
     # Ingress for oCIS.
     ingress:
       # -- Enables the Ingress.
-      enabled: false
+      enabled: true
       # -- Ingress class to use.
       # Uses the default ingress class if not set.
       ingressClassName:
