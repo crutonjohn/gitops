@@ -1196,25 +1196,8 @@ spec:
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName: codex-block
-          # -- Persistent volume access modes.
-          accessModes:
-            - ReadWriteOnce
-          # -- Size of the persistent volume.
-          size: 10Gi
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers:
-            - kubernetes.io/pvc-protection
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "nats-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
@@ -1447,25 +1430,8 @@ spec:
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName: codex-block
-          # -- Persistent volume access modes.
-          accessModes:
-            - ReadWriteOnce
-          # -- Size of the persistent volume.
-          size: 10Gi
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers:
-            - kubernetes.io/pvc-protection
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "search-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
@@ -1647,25 +1613,8 @@ spec:
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName: codex-file
-          # -- Persistent volume access modes. Needs to be `["ReadWriteMany"]` when having more than one replica for this service.
-          accessModes:
-            - ReadWriteMany
-          # -- Size of the persistent volume.
-          size: 5Gi
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers:
-            - kubernetes.io/pvc-protection
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "storagesystem-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
@@ -1708,56 +1657,6 @@ spec:
             ocis:
               # -- Maximum number of concurrent go-routines. Higher values can potentially get work done faster but will also cause more load on the system.
               maxConcurrency: 100
-            s3ng:
-              # -- Maximum number of concurrent go-routines. Higher values can potentially get work done faster but will also cause more load on the system.
-              maxConcurrency: 100
-              # The S3NG driver needs an existing S3 bucket with following permissions:
-              # {
-              #     "Version": "2012-10-17",
-              #     "Statement": [
-              #         {
-              #             "Sid": "ListBucket",
-              #             "Effect": "Allow",
-              #             "Action": [
-              #                 "s3:ListBucket"
-              #             ],
-              #             "Resource": [
-              #                 "arn:aws:s3:::bucket-name"
-              #             ]
-              #         },
-              #         {
-              #             "Sid": "ActionsInBucketContext",
-              #             "Effect": "Allow",
-              #             "Action": [
-              #                 "s3:*Object",
-              #                 "s3:*MultipartUpload",
-              #                 "s3:ListMultipartUploadParts"
-              #             ],
-              #             "Resource": [
-              #                 "arn:aws:s3:::bucket-name/*"
-              #             ]
-              #         }
-              #     ]
-              # }
-              # -- S3 endpoint to use for the S3NG driver. Only used if driver is set to "s3ng".
-              endpoint: ""
-              # -- S3 region to use for the S3NG driver. Only used if driver is set to "s3ng".
-              region: default
-              # -- S3 bucket to use for the S3NG driver. Only used if driver is set to "s3ng".
-              bucket: ""
-              # -- Disable sending content sha256 when copying objects to S3.
-              disableContentSHA256: false
-              putObject:
-                # -- Disable multipart uploads when copying objects to S3
-                disableMultipart: false
-                # -- Send a Content-MD5 header when copying objects to S3.
-                sendContentMD5: true
-                # -- Always precreate parts when copying objects to S3.
-                concurrentStreamParts: true
-                # -- Number of concurrent uploads to use when copying objects to S3.
-                numThreads: 4
-                # -- Part size for concurrent uploads to S3.
-                partSize: 0
 
         maintenance:
           # Expired uploads can be cleaned up automatically by enabling the clean up job.
@@ -1816,25 +1715,8 @@ spec:
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName: terra-filesystem
-          # -- Persistent volume access modes. Needs to be `["ReadWriteMany"]` when having more than one replica for this service.
-          accessModes:
-            - ReadWriteMany
-          # -- Size of the persistent volume.
-          size: 2Ti
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers:
-            - kubernetes.io/pvc-protection
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "storageusers-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
@@ -1891,24 +1773,8 @@ spec:
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName: terra-filesystem
-          # -- Persistent volume access modes. Needs to be `["ReadWriteMany"]` when having more than one replica for this service or persistence needs to be disabled.
-          accessModes:
-            - ReadWriteMany
-          # -- Size of the persistent volume.
-          size: 10Gi
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers: []
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "thumbnail-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
@@ -2109,30 +1975,14 @@ spec:
         persistence:
           # -- Enables persistence.
           # Only needed if you want to change the oCIS instance logo via the Web UI.
-          enabled: false
+          enabled: true
           # -- Enables an initContainer to chown the volume.
           # The initContainer is run as root.
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName:
-          # -- Persistent volume access modes. Needs to be `["ReadWriteMany"]` when having more than one replica for this service or persistence needs to be disabled.
-          accessModes:
-            - ReadWriteMany
-          # -- Size of the persistent volume.
-          size: 1Gi
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers: []
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "web-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
