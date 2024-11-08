@@ -13,6 +13,7 @@ spec:
       sourceRef:
         kind: GitRepository
         name: ocis-charts
+        namespace: flux-system
   values:
     # Tracing settings for oCIS services
     tracing:
