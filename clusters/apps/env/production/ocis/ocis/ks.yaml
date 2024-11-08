@@ -6,7 +6,7 @@ metadata:
   name: &app ocis
   namespace: flux-system
 spec:
-  targetNamespace: home
+  targetNamespace: ocis
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

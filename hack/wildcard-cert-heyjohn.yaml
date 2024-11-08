@@ -106,3 +106,15 @@ type: kubernetes.io/tls
 data:
   tls.key: ""
   tls.crt: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: heyjohn-wildcard-certificate
+  namespace: ocis
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: network-system/heyjohn-wildcard-certificate
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""

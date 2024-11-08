@@ -172,37 +172,6 @@ spec:
       language:
         # -- The default language. If not defined, English will be used as default. See the documentation for more details.
         default: "en"
-      # Email related settings
-      emailNotifications:
-        # -- Enables email notifications.
-        enabled: false
-        smtp:
-          # -- SMTP host to connect to.
-          host:
-          # -- Port of the SMTP host to connect to.
-          port:
-          # -- Sender address of emails that will be sent. Example: 'ownCloud <noreply@example.com>'
-          sender:
-          # -- Authentication method for the SMTP communication. Possible values are 'login', 'plain', 'crammd5', 'none', 'auto'
-          # If set to another value than `none`, a secret referenced by `notificationsSmtpSecretRef` needs to be present.
-          authentication: auto
-          # -- Encryption method for the SMTP communication. Possible values are `starttls`, `ssl`, `ssltls`, `tls` and `none`
-          encryption: ssltls
-        branding:
-          # -- Enables mail branding. If enabled, you need to provide the text and html template ConfigMap.
-          # The image ConfigMap is optional.
-          enabled: false
-          # -- Reference to a ConfigMap containing the text mail template.
-          # The template file must be named "email.text.tmpl".
-          # The default template can be seen here: https://github.com/owncloud/ocis/blob/master/services/notifications/pkg/email/templates/text/email.text.tmpl
-          textMailTemplatesConfigRef: "text-mail-templates"
-          # -- Reference to a ConfigMap containing the html mail template.
-          # The template file must be named "email.html.tmpl".
-          # The default template can be seen here: https://github.com/owncloud/ocis/blob/master/services/notifications/pkg/email/templates/html/email.html.tmpl
-          htmlMailTemplatesConfigRef: "html-mail-templates"
-          # -- Reference to a ConfigMap containing images that can be referenced from the html mail template.
-          # This ConfigMap is optional and can be omitted when images are not used.
-          htmlMailImagesConfigRef: "html-mail-images"
 
       # Sharing related settings
       sharing:
@@ -688,13 +657,11 @@ spec:
     # - set memory request == memory limit (compare to https://home.robusta.dev/blog/kubernetes-memory-limit)
     # - set cpu request and omit cpu limit (compare to https://home.robusta.dev/blog/stop-using-cpu-limits)
     resources:
-      {}
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
 
     # -- Default nodeSelector to apply to all services, except per-service nodeSelector configuration in `services.<service-name>.nodeSelector` is set.
     nodeSelector:
@@ -1177,25 +1144,8 @@ spec:
           # This is not needed if the driver applies the fsGroup from the securityContext.
           # The image specified in `initContainerImage` will be used for this container.
           chownInitContainer: false
-          # -- Storage class to use.
-          # Uses the default storage class if not set.
-          storageClassName: codex-block
-          # -- Persistent volume access modes.
-          accessModes:
-            - ReadWriteOnce
-          # -- Size of the persistent volume.
-          size: 10Gi
-          # -- Persistent volume annotations.
-          annotations: {}
-          # -- Persistent volume finalizers.
-          finalizers:
-            - kubernetes.io/pvc-protection
-          # -- Persistent volume selector labels.
-          selectorLabels: {}
-          # -- Use a custom name for the PVC instead of the default one.
-          claimName: ""
           # -- Use an existing PersistentVolumeClaim for persistence.
-          existingClaim:
+          existingClaim: "idm-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
         resources: {}
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
@@ -1206,16 +1156,6 @@ spec:
         affinity: {}
         # -- Per-service custom labels
         extraLabels: {}
-        # Per-service image configuration. Overrides the default setting from `image` if set.
-        image:
-          # -- Image repository
-          repository: ""
-          # -- Image tag.
-          tag: ""
-          # -- Image sha / digest (optional).
-          sha: ""
-          # -- Image pull policy
-          pullPolicy:
 
       # -- IDP service. Not used if `features.externalUserManagement.enabled` equals `true`.
       # @default -- see detailed service configuration options below
