@@ -5,3 +5,4 @@ namespace: flux-system
 resources:
   - cert-manager-linode.yaml
   - cert-manager-webhook-linode.yaml
+  - ocis.yaml

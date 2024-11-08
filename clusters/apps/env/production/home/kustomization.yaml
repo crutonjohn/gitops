@@ -8,6 +8,7 @@ resources:
   - ./paperless/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./ocis/ks.yaml
   - ./amcrest2mqtt/ks.yaml
   - ./grocy/ks.yaml
 patches:
