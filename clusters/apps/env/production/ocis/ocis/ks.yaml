@@ -29,7 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: "cloud"
-      APP_UID: "1555" # static to the app
+      APP_UID: "1000" # static to the app
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
