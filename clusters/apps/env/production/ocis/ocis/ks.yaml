@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/ocis/app
+  path: ./clusters/apps/env/production/ocis/ocis/app
   prune: true
   sourceRef:
     kind: GitRepository
