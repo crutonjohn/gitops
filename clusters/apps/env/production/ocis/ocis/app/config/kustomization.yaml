@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - admin-user.enc.yaml
+  - graph.yaml
+  - idp-secrets.enc.yaml
+  - jwt-secret.enc.yaml
+  - ldap-bind-secrets.enc.yaml
+  - ldap-ca.enc.yaml
+  - ldap-cert.enc.yaml
+  - machine-auth-api-key.enc.yaml
+  - storage-system-jwt-secret.enc.yaml
+  - storage-system.enc.yaml
+  - storage-users.yaml
+  - thumbnails-transfer-secret.enc.yaml
+  - transfer-secret.enc.yaml

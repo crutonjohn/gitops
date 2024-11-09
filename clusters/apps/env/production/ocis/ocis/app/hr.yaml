@@ -32,7 +32,7 @@ spec:
       cors:
         #-- allow_origins is a list of origins a cross-domain request can be executed from.
         # If the special "*" value is present in the list, all origins will be allowed.
-        allow_origins: ["${FAMILY_DOMAIN}"]
+        allow_origins: ["cloud.${FAMILY_DOMAIN}"]
       # CSP settings for oCIS services.
       csp:
         directives:
@@ -101,10 +101,10 @@ spec:
     insecure:
       # -- Disables SSL certificate checking for connections to the openID connect identity provider.
       # Not recommended for production installations.
-      oidcIdpInsecure: false
+      oidcIdpInsecure: true
       # -- Disables SSL certificate checking for connections to the oCIS http apis.
       # Not recommended for production installations.
-      ocisHttpApiInsecure: false
+      ocisHttpApiInsecure: true
 
     cache:
       # -- Type of the cache to use.
@@ -532,23 +532,23 @@ spec:
     # TODO: Update https://doc.owncloud.com/ocis/next/deployment/container/orchestration/orchestration.html#customize-the-generic-setup[doc.owncloud.com] for how to generate them.
     secretRefs:
       # -- Reference to an existing admin user secret (see ref:Secrets#secrets). Not used if `features.externalUserManagement.enabled` equals `true`.
-      adminUserSecretRef: ""
+      adminUserSecretRef: "admin-user"
       # - Reference to an existing collaboration service WOPI secret (see ref:Secrets#secrets). Not used if `features.appsIntegration.enabled` equals `false`.
       collaborationWopiSecret: ""
       # -- Reference to an existing IDP secret (see ref:Secrets#secrets). Not used if `features.externalUserManagement.enabled` equals `true`.
-      idpSecretRef: ""
+      idpSecretRef: "idp-secrets"
       # -- Reference to an existing JWT secret (see ref:Secrets#secrets).
-      jwtSecretRef: ""
+      jwtSecretRef: "jwt-secret"
       # -- Reference to an existing keycloak client secret, used for the GDPR export. Only used if features.externalUserManagement.gdprExport.enabled equals true.
       gdprExportClientSecretRef: ""
       # -- Reference to an existing LDAP certificate authority secret (see ref:Secrets#secrets)
-      ldapCaRef: ""
+      ldapCaRef: "ldap-ca"
       # -- Reference to an existing LDAP cert secret (see ref:Secrets#secrets). Not used if `features.externalUserManagement.enabled` equals `true`.
-      ldapCertRef: ""
+      ldapCertRef: "ldap-cert"
       # -- Reference to an existing LDAP bind secret (see ref:Secrets#secrets).
-      ldapSecretRef: ""
+      ldapSecretRef: "ldap-bind-secrets"
       # -- Reference to an existing machine auth api key secret (see ref:Secrets#secrets)
-      machineAuthApiKeySecretRef: ""
+      machineAuthApiKeySecretRef: "machine-auth-api-key"
       # -- Reference to an existing messaging system certificate authority secret (see ref:Secrets#secrets)
       messagingSystemCaRef: ""
       # -- Reference to an existing SMTP email server settings secret (see ref:Secrets#secrets).
@@ -556,13 +556,13 @@ spec:
       # Not used if `features.emailNotifications.smtp.authentication` equals `none`.
       notificationsSmtpSecretRef: ""
       # -- Reference to an existing storage-system JWT secret (see ref:Secrets#secrets)
-      storagesystemJwtSecretRef: ""
+      storagesystemJwtSecretRef: "storage-system-jwt-secret"
       # -- Reference to an existing storage-system secret (see ref:Secrets#secrets)
-      storagesystemSecretRef: ""
+      storagesystemSecretRef: "storage-system"
       # -- Reference to an existing thumbnails transfer secret (see ref:Secrets#secrets)
-      thumbnailsSecretRef: ""
+      thumbnailsSecretRef: "thumbnails-transfer-secret"
       # -- Reference to an existing transfer secret (see ref:Secrets#secrets)
-      transferSecretSecretRef: ""
+      transferSecretSecretRef: "transfer-secret"
       # -- Reference to an existing s3 secret (see ref:Secrets#secrets)
       # If not filled in, will attempt to use values in `.storageusers.storageBackend.s3.driverConfig.s3ng` instead.
       s3CredentialsSecretRef: ""
