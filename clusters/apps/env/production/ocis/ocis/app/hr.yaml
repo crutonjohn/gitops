@@ -157,10 +157,10 @@ spec:
           insecure: false
 
     # -- provide custom hostnames to every oCIS pods
-    hostAliases: []
-    # - ip: "192.168.49.2"
-    #   hostnames:
-    #   - "ocis.kube.owncloud.test"
+    hostAliases:
+      - ip: "${CLUSTER_LB_INGRESS_EXTERNAL}"
+        hostnames:
+          - "cloud.${FAMILY_DOMAIN}"
 
     # Feature options.
     # Enable or disable features of oCIS.
