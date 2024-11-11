@@ -79,6 +79,7 @@ spec:
       LOCAL_SCHEDULE: "5 1/12 * * *"
       STORAGE_CLASS: terra-blockpool
       SNAPSHOT_CLASS: terra-block
+      CACHE: terra-blockpool
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "150Gi"
     substituteFrom:
