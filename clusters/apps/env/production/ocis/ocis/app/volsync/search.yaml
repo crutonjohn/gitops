@@ -31,7 +31,7 @@ spec:
     substitute:
       APP: *app
       SRC_PVC: search-data
-      APP_UID: "${APP_UID}"
+      APP_UID: "1000"
       CRON_SCHEDULE: "30 12 * * *"
       LOCAL_SCHEDULE: "30 3 * * *"
       STORAGE_CLASS: codex-block
