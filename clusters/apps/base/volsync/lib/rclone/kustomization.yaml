@@ -2,6 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # - backup.yaml
-  - restore.yaml
+  - backup.yaml
+  # - restore.yaml
   - secret.rclone.yaml
