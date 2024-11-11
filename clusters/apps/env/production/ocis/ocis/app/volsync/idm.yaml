@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: volsync-ocis-idm-restic
+  namespace: flux-system
+spec:
+  targetNamespace: ocis
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app ocis
+      backups.${FAMILY_DOMAIN}/name: *app
+      backups.${FAMILY_DOMAIN}/subsystem: cloud
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      APP: *app
+      SRC_PVC: idm-data
+      APP_UID: "${APP_UID}"
+      CRON_SCHEDULE: "30 12 * * *"
+      LOCAL_SCHEDULE: "30 3 * * *"
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
+      DST_ACCESS_MODE: ReadWriteOnce
+      SIZE: "10Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}

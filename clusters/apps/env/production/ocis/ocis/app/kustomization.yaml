@@ -5,3 +5,4 @@ resources:
   - hr.yaml
   - ingressroute.yaml
   - config
+  - volsync
