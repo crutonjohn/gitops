@@ -26,50 +26,50 @@ go2rtc:
     level: debug
   streams:
     diningRoom:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1#video=h264#audio=aac"
     diningRoomSub:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2#video=h264#audio=aac"
     kitchen:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1#video=h264#audio=aac"
     kitchenSub:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2#video=h264#audio=aac"
     livingRoom:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1#video=h264#audio=aac"
     livingRoomSub:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2#video=h264#audio=aac"
     nursery:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1#video=h264#audio=aac"
     nurserySub:
-      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2#video=h264#audio=aac"
     frontDoorbell:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0#video=h264#audio=aac"
     frontDoorbellSub:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01#video=h264#audio=aac"
     kitchenDoorbell:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0#video=h264#audio=aac"
     kitchenDoorbellSub:
-      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01#video=h264#audio=aac"
     southWest1:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main#video=h264#audio=aac"
     southWest1Sub:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub#video=h264#audio=aac"
     southWest2:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main"
+      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main#video=h264#audio=aac"
     southWest2Sub:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub"
+      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub#video=h264#audio=aac"
     northDoor:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main#video=h264#audio=aac"
     northDoorSub:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub#video=h264#audio=aac"
     garageFlood:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main#video=h264#audio=aac"
     garageFloodSub:
-      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub#video=h264#audio=aac"
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   # hwaccel_args: preset-intel-qsv-h264
-  hwaccel_args: [-hwaccel, vaapi, -hwaccel_device, /dev/dri/renderD128, -hwaccel_output_format, yuv420p]
   # hwaccel_args: preset-vaapi
+  hwaccel_args: [-hwaccel, vaapi, -hwaccel_device, /dev/dri/renderD128, -hwaccel_output_format, yuv420p]
   output_args:
     record: preset-rtsp-restream
 objects:
@@ -120,7 +120,7 @@ cameras:
     detect:
       width: 640
       height: 360
-      fps: 15
+      fps: 5
       min_initialized: 6
   # --
   kitchen:
@@ -135,7 +135,7 @@ cameras:
     detect:
       width: 640
       height: 360
-      fps: 15
+      fps: 5
       min_initialized: 6
   # --
   livingRoom:
@@ -150,7 +150,7 @@ cameras:
     detect:
       width: 640
       height: 360
-      fps: 15
+      fps: 5
       min_initialized: 6
   # --
   nursery:
@@ -165,7 +165,7 @@ cameras:
     detect:
       width: 640
       height: 360
-      fps: 15
+      fps: 5
       min_initialized: 6
   # --
   frontDoorbell:
@@ -180,7 +180,7 @@ cameras:
     detect:
       width: 720
       height: 576
-      fps: 15
+      fps: 5
       min_initialized: 6
     objects:
       track:
@@ -208,7 +208,7 @@ cameras:
     detect:
       width: 720
       height: 576
-      fps: 15
+      fps: 5
       min_initialized: 6
     objects:
       track:
@@ -236,7 +236,7 @@ cameras:
     detect:
       width: 640
       height: 360
-      fps: 7
+      fps: 5
       min_initialized: 2
     snapshots:
       retain:
@@ -255,7 +255,7 @@ cameras:
     detect:
       width: 640
       height: 480
-      fps: 7
+      fps: 5
       min_initialized: 2
   # --
   northDoor:
@@ -270,7 +270,7 @@ cameras:
     detect:
       width: 640
       height: 360
-      fps: 7
+      fps: 5
       min_initialized: 2
     objects:
       track:
@@ -297,6 +297,7 @@ cameras:
     detect:
       width: 1536
       height: 576
+      fps: 5
     objects:
       track:
         - person
