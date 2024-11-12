@@ -112,9 +112,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/diningRoom
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/diningRoomSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -127,9 +129,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/kitchen
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/kitchenSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -142,9 +146,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/livingRoom
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/livingRoomSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -157,9 +163,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/nursery
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/nurserySub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -172,9 +180,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/frontDoorbell
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/frontDoorbellSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -200,9 +210,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/kitchenDoorbell
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/kitchenDoorbellSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -228,9 +240,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/southWest1
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/southWest1Sub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -247,9 +261,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/southWest2
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/southWest2Sub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -262,9 +278,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/northDoor
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/northDoorSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
@@ -289,9 +307,11 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/garageFlood
+          input_args: preset-rtsp-restream
           roles:
             - record
         - path: rtsp://127.0.0.1:8554/garageFloodSub
+          input_args: preset-rtsp-restream
           roles:
             - detect
     detect:
