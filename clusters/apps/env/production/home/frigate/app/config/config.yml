@@ -111,10 +111,10 @@ cameras:
   diningRoom:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/diningRoom
+        - path: rtsp://127.0.0.1:8554/diningRoom
           roles:
             - record
-        - path: rtsp://localhost:8554/diningRoomSub
+        - path: rtsp://127.0.0.1:8554/diningRoomSub
           roles:
             - detect
     detect:
@@ -126,10 +126,10 @@ cameras:
   kitchen:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/kitchen
+        - path: rtsp://127.0.0.1:8554/kitchen
           roles:
             - record
-        - path: rtsp://localhost:8554/kitchenSub
+        - path: rtsp://127.0.0.1:8554/kitchenSub
           roles:
             - detect
     detect:
@@ -141,10 +141,10 @@ cameras:
   livingRoom:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/livingRoom
+        - path: rtsp://127.0.0.1:8554/livingRoom
           roles:
             - record
-        - path: rtsp://localhost:8554/livingRoomSub
+        - path: rtsp://127.0.0.1:8554/livingRoomSub
           roles:
             - detect
     detect:
@@ -156,10 +156,10 @@ cameras:
   nursery:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/nursery
+        - path: rtsp://127.0.0.1:8554/nursery
           roles:
             - record
-        - path: rtsp://localhost:8554/nurserySub
+        - path: rtsp://127.0.0.1:8554/nurserySub
           roles:
             - detect
     detect:
@@ -171,10 +171,10 @@ cameras:
   frontDoorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frontDoorbell
+        - path: rtsp://127.0.0.1:8554/frontDoorbell
           roles:
             - record
-        - path: rtsp://localhost:8554/frontDoorbellSub
+        - path: rtsp://127.0.0.1:8554/frontDoorbellSub
           roles:
             - detect
     detect:
@@ -199,10 +199,10 @@ cameras:
   kitchenDoorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/kitchenDoorbell
+        - path: rtsp://127.0.0.1:8554/kitchenDoorbell
           roles:
             - record
-        - path: rtsp://localhost:8554/kitchenDoorbellSub
+        - path: rtsp://127.0.0.1:8554/kitchenDoorbellSub
           roles:
             - detect
     detect:
@@ -227,10 +227,10 @@ cameras:
   southWest1:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/southWest1
+        - path: rtsp://127.0.0.1:8554/southWest1
           roles:
             - record
-        - path: rtsp://localhost:8554/southWest1Sub
+        - path: rtsp://127.0.0.1:8554/southWest1Sub
           roles:
             - detect
     detect:
@@ -246,10 +246,10 @@ cameras:
   southWest2:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/southWest2
+        - path: rtsp://127.0.0.1:8554/southWest2
           roles:
             - record
-        - path: rtsp://localhost:8554/southWest2Sub
+        - path: rtsp://127.0.0.1:8554/southWest2Sub
           roles:
             - detect
     detect:
@@ -261,10 +261,10 @@ cameras:
   northDoor:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/northDoor
+        - path: rtsp://127.0.0.1:8554/northDoor
           roles:
             - record
-        - path: rtsp://localhost:8554/northDoorSub
+        - path: rtsp://127.0.0.1:8554/northDoorSub
           roles:
             - detect
     detect:
@@ -288,10 +288,10 @@ cameras:
   garageFlood:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/garageFlood
+        - path: rtsp://127.0.0.1:8554/garageFlood
           roles:
             - record
-        - path: rtsp://localhost:8554/garageFloodSub
+        - path: rtsp://127.0.0.1:8554/garageFloodSub
           roles:
             - detect
     detect:
