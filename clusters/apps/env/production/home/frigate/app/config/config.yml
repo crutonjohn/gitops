@@ -26,45 +26,66 @@ go2rtc:
     level: debug
   streams:
     diningRoom:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream1"
+      - "ffmpeg:diningRoom#video=h264#audio=aac"
     diningRoomSub:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.65/stream2"
+      - "ffmpeg:diningRoomSub#video=h264#audio=aac"
     kitchen:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream1"
+      - "ffmpeg:kitchen#video=h264#audio=aac"
     kitchenSub:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.64/stream2"
+      - "ffmpeg:kitchenSub#video=h264#audio=aac"
     livingRoom:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream1"
+      - "ffmpeg:livingRoom#video=h264#audio=aac"
     livingRoomSub:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.66/stream2"
+      - "ffmpeg:livingRoomSub#video=h264#audio=aac"
     nursery:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream1"
+      - "ffmpeg:nursery#video=h264#audio=aac"
     nurserySub:
-      - "ffmpeg:rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2#video=h264#audio=aac"
+      - "rtsp://frigate:${TAPO_FRIGATE_PASSWORD}@192.168.134.72/stream2"
+      - "ffmpeg:nurserySub#video=h264#audio=aac"
     frontDoorbell:
-      - "ffmpeg:rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0#video=h264#audio=aac"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=0"
+      - "ffmpeg:frontDoorbell#video=h264#audio=aac"
     frontDoorbellSub:
-      - "ffmpeg:rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01#video=h264#audio=aac"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.61:554/cam/realmonitor?channel=1&subtype=01"
+      - "ffmpeg:frontDoorbellSub#video=h264#audio=aac"
     kitchenDoorbell:
-      - "ffmpeg:rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0#video=h264#audio=aac"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=0"
+      - "ffmpeg:kitchenDoorbellSub#video=h264#audio=aac"
     kitchenDoorbellSub:
-      - "ffmpeg:rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01#video=h264#audio=aac"
+      - "rtsp://admin:${AMCREST_ADMIN_PASSWORD}@192.168.134.62:554/cam/realmonitor?channel=1&subtype=01"
+      - "ffmpeg:kitchenDoorbellSub#video=h264#audio=aac"
     southWest1:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_main"
+      - "ffmpeg:southWest1#video=h264#audio=aac"
     southWest1Sub:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.67/Preview_01_sub"
+      - "ffmpeg:southWest1Sub#video=h264#audio=aac"
     southWest2:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_main"
+      - "ffmpeg:southWest2#video=h264#audio=aac"
     southWest2Sub:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.68/Preview_01_sub"
+      - "ffmpeg:southWest2Sub#video=h264#audio=aac"
     northDoor:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_main"
+      - "ffmpeg:northDoor#video=h264#audio=aac"
     northDoorSub:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.69/Preview_01_sub"
+      - "ffmpeg:northDoorSub#video=h264#audio=aac"
     garageFlood:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_main"
+      - "ffmpeg:garageFlood#video=h264#audio=aac"
     garageFloodSub:
-      - "ffmpeg:rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub#video=h264#audio=aac"
+      - "rtsp://admin:${REOLINK_ADMIN_PASSWORD}@192.168.134.71:554/h264Preview_01_sub"
+      - "ffmpeg:garageFloodSub#video=h264#audio=aac"
+
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   # hwaccel_args: preset-intel-qsv-h264
