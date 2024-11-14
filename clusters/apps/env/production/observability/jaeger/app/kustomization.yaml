@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - hr.yaml
   - ingressroute.yaml
+  - loadbalancer.yaml
