@@ -1,0 +1,46 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jaeger
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: jaeger
+      version: 3.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: jaeger-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: codex
+      namespace: rook-codex
+  values:
+    provisionDataStore:
+      cassandra: false
+    allInOne:
+      enabled: true
+      resources:
+        limits:
+          memory: 2048Mi
+        requests:
+          cpu: 256m
+          memory: 128Mi
+    storage:
+      type: memory
+    agent:
+      enabled: false
+    collector:
+      enabled: false
+    query:
+      enabled: false
