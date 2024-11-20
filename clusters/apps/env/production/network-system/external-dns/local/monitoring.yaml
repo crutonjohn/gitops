@@ -2,33 +2,13 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: linmon
+  name: nord
   annotations:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: prometheus.${FAMILY_DOMAIN}
+    - dnsName: signoz.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.4
-    - dnsName: grafana.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 100.64.0.4
-    - dnsName: alerts.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 100.64.0.4
-    - dnsName: loki.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 100.64.0.4
-    - dnsName: linmon.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 100.64.0.4
+        - 100.64.0.9
