@@ -1147,7 +1147,12 @@ spec:
           # -- Use an existing PersistentVolumeClaim for persistence.
           existingClaim: "idm-data"
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
-        resources: {}
+        resources:
+          limits:
+            memory: 1024Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
         nodeSelector: {}
         # -- Per-service priorityClassName configuration. Overrides the default setting from `priorityClassName` if set.
