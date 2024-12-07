@@ -32,7 +32,7 @@ spec:
       cors:
         #-- allow_origins is a list of origins a cross-domain request can be executed from.
         # If the special "*" value is present in the list, all origins will be allowed.
-        allow_origins: ["cloud.${FAMILY_DOMAIN}"]
+        #allow_origins: ["cloud.${FAMILY_DOMAIN}"]
       # CSP settings for oCIS services.
       csp:
         directives:
@@ -315,7 +315,7 @@ spec:
       externalUserManagement:
         # -- Enables external user management (and disables internal user management).
         # Needs an external OpenID Connect Identity Provider and an external LDAP server.
-        enabled: false
+        enabled: true
         # -- UUID of the inital admin user.
         # If the given value matches a user's value from `features.externalUserManagement.oidc.userIDClaim`, the admin role will be assigned.
         # Consider that the UUID can be encoded in some LDAP deployment configurations like in .ldif files. These need to be decoded beforehand.
@@ -342,13 +342,13 @@ spec:
           # -- Issuer URI of the OpenID Connect Identity Provider.
           # If the IDP doesn't have valid / trusted SSL certificates, certificate validation can be disabled with the `insecure.oidcIdpInsecure` option.
           # The issuerURI will be automatically be added to http.csp.directives.connectSrc
-          issuerURI: ""
+          issuerURI: "${OCIS_OIDC_ISSUER_URL}"
           # -- Link to the OIDC provider's user accessible session management. This will be shown to the user on the personal account page.
           # When using Keycloak with the a realm named "ocis" this could point to eg. https://keycloak.owncloud.test/realms/ocis/account/
-          sessionManagementLink: ""
+          sessionManagementLink: "https://myaccount.google.com/connections"
           # -- Link to the OIDC provider's user accessible account editing page. This will be shown to the user on the personal account page.
           # When using Keycloak with the a realm named "ocis" this could point to eg. https://keycloak.owncloud.test/realms/ocis/account/
-          editAccountLink: ""
+          editAccountLink: "https://myaccount.google.com"
           # -- Claim to take an unique user identifier from. It will be used to look up the user on the LDAP server.
           userIDClaim: ocis.user.uuid
           # -- Attribute mapping of for the userIDClaim.
@@ -382,25 +382,6 @@ spec:
                 claim_value: ocisUser
               - role_name: user-light
                 claim_value: ocisGuest
-      # GDPR report related settings.
-      gdprReport:
-        # Enables the GDPR report feature
-        # Controls the separate GDPR integrations
-        integrations:
-          keycloak:
-            # -- Enable keycloak data export.
-            enabled: false
-            # -- Base URI of keycloak.
-            basePath: ""
-            # -- Client ID to authenticate against keycloak with.
-            clientID: ""
-            # -- Realm that the client ID is configured in, usually master.
-            clientRealm: ""
-            # -- Realm that the users are in.
-            userRealm: ""
-            # -- Disables SSL certificate checking for connections to the GDPR export service.
-            # Not recommended for production installations.
-            insecure: false
       # Define custom roles here. Note that the definition will be either or. So you cannot provide a ConfigMap name and text at once.
       roles:
         # -- Define the roles by specifying a name of a ConfigMap which already contains the the role description (might also be defined in the `extraResources` section).
@@ -1381,7 +1362,12 @@ spec:
         #
 
         # -- Per-service resources configuration. Overrides the default setting from `resources` if set.
-        resources: {}
+        resources:
+          limits:
+            memory: 1024Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
         # -- Per-service nodeSelector configuration. Overrides the default setting from `nodeSelector` if set.
         nodeSelector: {}
         # -- Per-service priorityClassName configuration. Overrides the default setting from `priorityClassName` if set.
@@ -1946,7 +1932,7 @@ spec:
             # -- OIDC scopes to request during authentication to authorize access to user details. Defaults to 'openid profile email'. Values are separated by blank. More example values but not limited to are 'address' or 'phone' etc.
             webClientScope: "openid profile email"
             # -- Specify the client ID which the web frontend will use
-            webClientID: web
+            webClientID: "${OCIS_OIDC_WEB_CLIENT_ID}"
             # -- URI where to redirect the user after a logout was performed. Defaults to the URI of the login page.
             postLogoutRedirectURI: ""
             # -- Specifies the target url valid for the logged out / access denied page.
