@@ -32,7 +32,8 @@ spec:
       cors:
         #-- allow_origins is a list of origins a cross-domain request can be executed from.
         # If the special "*" value is present in the list, all origins will be allowed.
-        allow_origins: ["cloud.${FAMILY_DOMAIN}", "${OCIS_OIDC_ISSUER_URL}/*"]
+        # allow_origins: ["cloud.${FAMILY_DOMAIN}", "${OCIS_OIDC_ISSUER_URL}/*"]
+        allow_origins: ["*"]
       # CSP settings for oCIS services.
       csp:
         directives:
