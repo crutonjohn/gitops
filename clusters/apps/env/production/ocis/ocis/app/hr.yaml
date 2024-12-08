@@ -43,6 +43,7 @@ spec:
           # -- connect-src directive, see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src
           connectSrc:
             - "'self'"
+            - "https://oauth2.googleapis.com/"
             # If Uppy Companion is used, you need to add it with your URI:
             # - "https://companion.kube.owncloud.test/"
             # - "wss:///companion.kube.owncloud.test/"
