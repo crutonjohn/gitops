@@ -32,7 +32,7 @@ spec:
       cors:
         #-- allow_origins is a list of origins a cross-domain request can be executed from.
         # If the special "*" value is present in the list, all origins will be allowed.
-        # allow_origins: ["cloud.${FAMILY_DOMAIN}", "${OCIS_OIDC_ISSUER_URL}/*"]
+        # allow_origins: ["https://accounts.google.com"]
         allow_origins: ["*"]
       # CSP settings for oCIS services.
       csp:
@@ -343,7 +343,8 @@ spec:
           # -- Issuer URI of the OpenID Connect Identity Provider.
           # If the IDP doesn't have valid / trusted SSL certificates, certificate validation can be disabled with the `insecure.oidcIdpInsecure` option.
           # The issuerURI will be automatically be added to http.csp.directives.connectSrc
-          issuerURI: "${OCIS_OIDC_ISSUER_URL}"
+          #issuerURI: "${OCIS_OIDC_ISSUER_URL}"
+          issuerURI: "https://accounts.google.com"
           # -- Link to the OIDC provider's user accessible session management. This will be shown to the user on the personal account page.
           # When using Keycloak with the a realm named "ocis" this could point to eg. https://keycloak.owncloud.test/realms/ocis/account/
           sessionManagementLink: "https://myaccount.google.com/connections"
@@ -351,12 +352,12 @@ spec:
           # When using Keycloak with the a realm named "ocis" this could point to eg. https://keycloak.owncloud.test/realms/ocis/account/
           editAccountLink: "https://myaccount.google.com"
           # -- Claim to take an unique user identifier from. It will be used to look up the user on the LDAP server.
-          userIDClaim: ocis.user.uuid
+          userIDClaim: email
           # -- Attribute mapping of for the userIDClaim.
           # Set to `userid` if the claim specified in `...oidc.userIDClaim` holds the value of the ldap user attribute specified in `...ldap.user.schema.id`.
           # Set to `mail` if the claim specified in `...oidc.userIDClaim` holds the value of the ldap user attribute specified in  `...ldap.user.schema.mail`.
           # Set to `username` if the claim specified in `...oidc.userIDClaim` holds the value of the ldap user attribute specified in `...ldap.user.schema.userName`.
-          userIDClaimAttributeMapping: userid
+          userIDClaimAttributeMapping: mail
 
           # -- OIDC Acces Token Verify Method
           # Set to "jwt" or "none"
