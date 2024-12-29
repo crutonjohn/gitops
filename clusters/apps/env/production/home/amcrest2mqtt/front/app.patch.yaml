@@ -45,8 +45,8 @@ spec:
           main:
             nameOverride: zigbee2mqtt
             image:
-              repository: unixorn/amcrest410-2-mqtt
-              tag: latest
+              repository: ghcr.io/danclough/amcrest2mqtt
+              tag: v1.0.26
             env:
               TZ: America/New_York
               AMCREST_HOST: 192.168.134.61
