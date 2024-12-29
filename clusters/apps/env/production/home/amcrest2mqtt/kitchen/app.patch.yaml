@@ -42,7 +42,7 @@ spec:
 
         containers:
           main:
-            nameOverride: zigbee2mqtt
+            nameOverride: amcrest2mqtt
             image:
               repository: ghcr.io/danclough/amcrest2mqtt
               tag: v1.0.26
