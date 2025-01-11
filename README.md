@@ -61,8 +61,8 @@ _All my nodes below are running bare metal Ubuntu or Debian_
 
 | Device                  | Count | OS Disk Size            | Data Disk Size                           | Ram  | Purpose |
 |-------------------------|-------|-------------------------|------------------------------------------|------|---------|
-| HP 800 G3 Mini          | 3     | 120GB SSD | N/A                                      | 32 GB | k8s Control Plane |
-| Minisforum MS-01 (12600H)          | 3     | 1x 1TB NVME            | 1x 2TB NVME (rook-ceph)                   | 64GB | k8s Workers |
+| [Bmax B3 (Intel N5095)](https://www.bmaxit.com/Maxmini-B3-New-pd714800688.html)  | 3     | 256GB SSD | N/A                                      | 8 GB | k8s Control Plane |
+| [Minisforum MS-01 (Intel 12600H)](https://store.minisforum.com/products/minisforum-ms-01)          | 3     | 1x 1TB NVME            | 1x 2TB NVME (rook-ceph)                   | 64GB | k8s Workers |
 | Ryzen 3900x Custom     | 1     | 2x 1TB SSD  | N/A                                      | 128GB | k8s Rook-Ceph NAS |
 | Supermicro 216BE1C-R741JBOD         | 1     | N/A                     | 24x 1TB SSD                              | N/A  | Disk Shelf |
 
@@ -73,8 +73,9 @@ _All my nodes below are running bare metal Ubuntu or Debian_
 - [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Core Switch
 - [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Upstairs Distribution Switch
 - [TP-Link SX3008F](https://www.tp-link.com/us/business-networking/managed-switch/tl-sx3008f/) 10Gig Distribution Switch
+- [MikroTik CRS305-1G-4S+in](https://mikrotik.com/product/crs305_1g_4s_in) 10Gig Office Distribution Switch
 - x2 [TP-Link EAP660 HD](https://www.tp-link.com/us/business-networking/omada-sdn-access-point/eap660-hd/) WAPs
-- [TP-Link EAP615-Wall](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap615-wall/) Still trying to work out where this will physically go
+- [TP-Link EAP615-Wall](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap615-wall/) Master Bedroom
 
 ---
 
