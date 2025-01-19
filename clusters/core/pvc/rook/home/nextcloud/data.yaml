@@ -7,7 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: apollo
   resources:
     requests:
-      storage: 1024Gi
+      storage: 2Ti
+  storageClassName: terra-filesystem

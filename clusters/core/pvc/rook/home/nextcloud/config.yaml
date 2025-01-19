@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-db
+  name: nextcloud-config
   namespace: home
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 11Gi
-  storageClassName: democratic-static
+      storage: 15Gi
+  storageClassName: codex-block
