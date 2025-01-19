@@ -158,9 +158,7 @@ spec:
       # Extra init containers that runs before pods start.
       extraInitContainers:
         - name: init-db
-          image:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 16
+          image: ghcr.io/onedr0p/postgres-init:16
           envFrom: &envFrom
             - secretRef:
                 name: nextcloud-secret
