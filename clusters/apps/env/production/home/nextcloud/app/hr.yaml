@@ -157,7 +157,7 @@ spec:
 
       # Extra init containers that runs before pods start.
       extraInitContainers:
-        - init-db:
+        - name: init-db
           image:
             repository: ghcr.io/onedr0p/postgres-init
             tag: 16
