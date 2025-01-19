@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: graph
-data:
-  application-id: b03edb1a-362a-410d-86d9-325f4b750bbd

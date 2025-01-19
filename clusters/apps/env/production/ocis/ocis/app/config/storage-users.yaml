@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: storage-users
-data:
-  storage-uuid: f133b748-ea2e-4c8e-9aac-7026497c24d3
