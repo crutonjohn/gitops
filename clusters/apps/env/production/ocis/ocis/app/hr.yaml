@@ -362,7 +362,7 @@ spec:
 
           # -- OIDC Acces Token Verify Method
           # Set to "jwt" or "none"
-          accessTokenVerifyMethod: "jwt"
+          accessTokenVerifyMethod: "none"
 
           # -- Do not look up user claims at the userinfo endpoint and directly read them from the access token.
           # Incompatible with 'accessTokenVerifyMethod=none'
