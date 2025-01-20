@@ -1,0 +1,46 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ${APP}
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`)"
+      priority: 10
+      services:
+        - name: ${APP}
+          port: 3000
+    - kind: Rule
+      match: "Host(`${INGRESSROUTE_SUBDOMAIN}-backend.${FAMILY_DOMAIN}`)"
+      priority: 10
+      services:
+        - name: ${APP}
+          port: 5101
+  tls:
+    secretName: heyjohn-wildcard-certificate
+    domains:
+      - main: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: ${APP}
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}-backend.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
