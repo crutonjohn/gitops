@@ -75,7 +75,7 @@ spec:
       pathType: Prefix
 
     phpClientHttpsFix:
-      enabled: false
+      enabled: true
       protocol: https
 
     nextcloud:
