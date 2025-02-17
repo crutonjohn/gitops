@@ -105,7 +105,6 @@ spec:
               "trusted_domains" => array (
                 $_ENV["NEXTCLOUD_TRUSTED_DOMAINS"], # fix probes 400 error
               ),
-              "davstorage.request_timeout" => 120,
             );
       ## Default config files that utilize environment variables:
       # see: https://github.com/nextcloud/docker/tree/master#auto-configuration-via-environment-variables
@@ -139,7 +138,12 @@ spec:
 
       # Extra config files created in /var/www/html/config/
       # ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html#multiple-config-php-file
-      configs: {}
+      configs:
+        fed-fixes.config.php: |-
+          <?php
+          $CONFIG = array (
+            "davstorage.request_timeout" => 120,
+          );
       # For example, to enable image and text file previews:
       #  previews.config.php: |-
       #    <?php
