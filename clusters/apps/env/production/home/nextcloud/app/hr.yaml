@@ -105,6 +105,7 @@ spec:
               "trusted_domains" => array (
                 $_ENV["NEXTCLOUD_TRUSTED_DOMAINS"], # fix probes 400 error
               ),
+              "davstorage.request_timeout" => 120,
             );
       ## Default config files that utilize environment variables:
       # see: https://github.com/nextcloud/docker/tree/master#auto-configuration-via-environment-variables
