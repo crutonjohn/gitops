@@ -142,7 +142,7 @@ spec:
         fed-fixes.config.php: |-
           <?php
           $CONFIG = array (
-            "davstorage.request_timeout" => 120,
+            "davstorage.request_timeout" => 200,
           );
       # For example, to enable image and text file previews:
       #  previews.config.php: |-
@@ -352,8 +352,8 @@ spec:
 
                   fastcgi_intercept_errors on;
                   fastcgi_request_buffering off;
-                  fastcgi_read_timeout 120s;
-                  fastcgi_send_timeout 120s;
+                  fastcgi_read_timeout 200s;
+                  fastcgi_send_timeout 200s;
               }
 
               location ~ \.(?:css|js|svg|gif)$ {
