@@ -44,7 +44,7 @@ spec:
     image:
       registry: ghcr.io
       repository: crutonjohn/arkserver
-      tag: master@sha256:509e393df9981cb978550baa34b4ae12ec9adef9e16b0c0c777ab26dabc6e613
+      tag: master@sha256:e89c64fe039b32b1997bba5cd702f95d5e93ebafe26473fb515a25563932eab8
       pullSecrets: []
       pullPolicy: Always
 
@@ -530,8 +530,8 @@ spec:
         mountPath: /arkserver
       # volume is shared verbatim across all deployments
       cluster:
-        mountPath: /arkserver/ShooterGame/Saved/clusters
         existingClaim: ark-cluster
+        mountPath: /arkserver/ShooterGame/Saved/clusters
       # existingClaim name is appended with server name
       # ark-save will become ark-save-theisland or ark-save-extinction
       # these volumes will have to be created manually every time a new server is spun up
