@@ -26,3 +26,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "9199"
