@@ -25,6 +25,20 @@ scrape_configs:
     relabel_configs:
       - target_label: instance
         replacement: home-assistant
+  - job_name: nut-exporter
+    static_configs:
+      - targets: ['192.168.130.2','192.168.130.3'] # nut exporter
+    metrics_path: /ups_metrics
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_server
+      - source_labels: [__param_server]
+        target_label: instance
+      - target_label: __address__
+        replacement: nut-exporter.observability.svc.cluster.local:9199
+    params:
+      username: [ "observer" ]
+      password: [ "${NUT_OBSERVER_PASSWORD}" ]
   - job_name: "k8s_apiservers"
     kubernetes_sd_configs:
       - role: endpoints
