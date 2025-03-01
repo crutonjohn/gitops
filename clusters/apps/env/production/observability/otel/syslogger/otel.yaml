@@ -5,7 +5,7 @@ metadata:
   name: syslog
 spec:
   mode: deployment
-  image: otel/opentelemetry-collector-contrib:0.96.0
+  image: otel/opentelemetry-collector-contrib:0.120.0
   volumeMounts:
     - name: scratchdir
       mountPath: /var/lib/otelcol
@@ -22,7 +22,10 @@ spec:
     - port: 3184
       name: syslog-3164-udp
       protocol: UDP
-  serviceAccount: collector
+  serviceAccount: otel-collector
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8888"
   config: |
     receivers:
       syslog/5424:
@@ -94,19 +97,19 @@ spec:
             value: raw
 
     exporters:
+      otlp:
+        endpoint: "100.64.0.9:4317"
+        tls:
+          insecure: true
+          insecure_skip_verify: true
+      otlphttp:
+        endpoint: "http://100.64.0.9:4318"
+        timeout: 60s
+        tls:
+          insecure: true
+          insecure_skip_verify: true
       debug:
         verbosity: detailed
-      loki:
-        endpoint: "http://100.64.0.4:3100/loki/api/v1/push"
-        retry_on_failure:
-          initial_interval: 5s
-          max_interval: 15s
-          max_elapsed_time: 30s
-        sending_queue:
-          enabled: true
-          storage: file_storage
-          num_consumers: 5
-          queue_size: 300
     extensions:
       health_check:
         endpoint: 0.0.0.0:13133
@@ -134,7 +137,7 @@ spec:
             - attributes/5424
             - batch
           exporters:
-            - loki
+            - otlp
             - debug
         logs/3164:
           receivers:
@@ -144,7 +147,7 @@ spec:
             - attributes/3164
             - batch
           exporters:
-            - loki
+            - otlp
             - debug
       telemetry:
         metrics:

@@ -252,6 +252,8 @@ spec:
         tls:
           insecure: true
           insecure_skip_verify: true
+      debug:
+        verbosity: detailed
 
     service:
       pipelines:
@@ -262,6 +264,7 @@ spec:
           - batch
           exporters:
           - otlp
+          - debug
       telemetry:
         metrics:
           level: detailed
