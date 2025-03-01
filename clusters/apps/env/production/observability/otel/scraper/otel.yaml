@@ -242,9 +242,11 @@ spec:
 
     exporters:
       otlp:
-        endpoint: "https://100.64.0.9:4318"
+        endpoint: "https://100.64.0.9:4317"
         tls:
           insecure: true
+      otlphttp:
+        endpoint: "http://100.64.0.9:4318"
 
     service:
       pipelines:
@@ -254,7 +256,7 @@ spec:
           processors:
           - batch
           exporters:
-          - otlp
+          - otlphttp
       telemetry:
         metrics:
           level: detailed
