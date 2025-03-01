@@ -262,6 +262,6 @@ spec:
         metrics:
           level: detailed
           address: 0.0.0.0:8888
+
         logs:
-          level: "INFO"
-          development: false
+          level: debug
