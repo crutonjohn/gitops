@@ -20,7 +20,7 @@ spec:
     limits:
       cpu: 500m
       memory: 4Gi
-  serviceAccount: collector
+  serviceAccount: otel-scraper
   config: |
     receivers:
       prometheus:
