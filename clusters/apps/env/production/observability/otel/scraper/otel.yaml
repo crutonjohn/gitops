@@ -236,8 +236,8 @@ spec:
 
     processors:
       batch:
-        send_batch_size: 10000
-        timeout: 10s
+        send_batch_size: 4096
+        timeout: 20s
         send_batch_max_size: 0
 
     exporters:
@@ -247,7 +247,7 @@ spec:
           insecure: true
       otlphttp:
         endpoint: "http://100.64.0.9:4318"
-        timeout: 10s
+        timeout: 60s
 
     service:
       pipelines:
