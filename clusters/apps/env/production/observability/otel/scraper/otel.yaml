@@ -242,7 +242,7 @@ spec:
 
     exporters:
       otlp:
-        endpoint: "https://100.64.0.9:4317"
+        endpoint: "https://100.64.0.9:4318"
         tls:
           insecure: true
 
