@@ -236,13 +236,13 @@ spec:
 
     processors:
       batch:
-        send_batch_size: 8192
-        timeout: 200ms
+        send_batch_size: 10000
+        timeout: 10s
         send_batch_max_size: 0
 
     exporters:
       otlp:
-        endpoint: "100.64.0.9:4317"
+        endpoint: "https://100.64.0.9:4317"
         tls:
           insecure: true
 
