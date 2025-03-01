@@ -245,9 +245,13 @@ spec:
         endpoint: "100.64.0.9:4317"
         tls:
           insecure: true
+          insecure_skip_verify: true
       otlphttp:
         endpoint: "http://100.64.0.9:4318"
         timeout: 60s
+        tls:
+          insecure: true
+          insecure_skip_verify: true
 
     service:
       pipelines:
@@ -257,7 +261,7 @@ spec:
           processors:
           - batch
           exporters:
-          - otlphttp
+          - otlp
       telemetry:
         metrics:
           level: detailed
