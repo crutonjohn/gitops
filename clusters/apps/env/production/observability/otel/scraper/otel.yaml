@@ -246,7 +246,7 @@ spec:
 
     service:
       pipelines:
-        logs:
+        metrics:
           receivers:
           - prometheus
           processors:
