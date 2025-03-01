@@ -242,11 +242,12 @@ spec:
 
     exporters:
       otlp:
-        endpoint: "https://100.64.0.9:4317"
+        endpoint: "100.64.0.9:4317"
         tls:
           insecure: true
       otlphttp:
         endpoint: "http://100.64.0.9:4318"
+        timeout: 10s
 
     service:
       pipelines:
