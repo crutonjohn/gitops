@@ -6,6 +6,3 @@ resources:
   - rbac.yaml
   - syslogger.yaml
   - syslogger-svc.yaml
-#   - ../../../../../base/observability/otel-collector
-# patches:
-#   - path: patch.otel-collector.yaml

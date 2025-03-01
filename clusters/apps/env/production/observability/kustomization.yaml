@@ -5,6 +5,6 @@ resources:
   - ./botkube/ks.yaml
   - ./jaeger/ks.yaml
   - ./otel/ks.yaml
-  - ./prometheus/ks.yaml
+  # - ./prometheus/ks.yaml
   - ./speedtest-exporter/ks.yaml
   - ./nut-exporter/ks.yaml
