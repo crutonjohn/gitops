@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: step-issuer
+spec:
+  interval: 4h
+  chart:
+    spec:
+      chart: step-issuer
+      version: 1.9.7
+      sourceRef:
+        kind: HelmRepository
+        name: smallstep-charts
+        namespace: flux-system
+  values:
+    # mandatory values to generate stepIssuer resource
+    # please follow the https://github.com/smallstep/step-issuer#getting-started to setup step-ca and get step-issuer values
+    stepIssuer:
+      create: true
+      caUrl: ${SMALLSTEP_CA_URL}
+      caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJsekNDQVQyZ0F3SUJBZ0lRVXBRQlF4WklxbVJNN0cyVFhxRys2VEFLQmdncWhrak9QUVFEQWpBcU1TZ3cKSmdZRFZRUURFeDlvWlhscWIyaHVMbVpoYldsc2VTQkpiblJsY201aGJDQlNiMjkwSUVOQk1CNFhEVEkxTURNdwpNakEzTURFMU1Gb1hEVE0xTURJeU9EQTNNREUxTUZvd0tqRW9NQ1lHQTFVRUF4TWZhR1Y1YW05b2JpNW1ZVzFwCmJIa2dTVzUwWlhKdVlXd2dVbTl2ZENCRFFUQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJKM1gKbU5ZUlliTExLYkdpekFLWlIzbFl4UHFuc25YbVBvdFlva3VZK3ZLSjhpdWM3bkZiU0tMYmw5NUVLUjFnTVk2dQppTzl6bXhxc0JNR2ZmNmt2YjY2alJUQkRNQTRHQTFVZER3RUIvd1FFQXdJQmhqQVNCZ05WSFJNQkFmOEVDREFHCkFRSC9BZ0VCTUIwR0ExVWREZ1FXQkJUbGZCM2pFdVRTNlZ2SmRsdjdaWnhyT1k0Zm5EQUtCZ2dxaGtqT1BRUUQKQWdOSUFEQkZBaUVBcjhSVjBpeExiMGMyekNRZUpjMVNmQ1JEQzZyaFQ5eFdleTYycCtxcG16WUNJQlh6NjNiYQp0Qk9VN1dGQzhndVlUQU85eE11MzVNblRnWUQ3SzBPTExHdkcKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+      provisioner:
+        name: "registration-authority"
+        kid: ${SMALLSTEP_CA_KID}
+        passwordRef:
+          name: "step-request-authority-step-certificates-certificate-issuer-password"
+          key: "password"
+    # mandatory values to generate stepClusterIssuer resource
+    # please follow the https://github.com/smallstep/step-issuer#getting-started to setup step-ca and get step-issuer values
+    stepClusterIssuer:
+      create: true
+      caUrl: ${SMALLSTEP_CA_URL}
+      caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJsekNDQVQyZ0F3SUJBZ0lRVXBRQlF4WklxbVJNN0cyVFhxRys2VEFLQmdncWhrak9QUVFEQWpBcU1TZ3cKSmdZRFZRUURFeDlvWlhscWIyaHVMbVpoYldsc2VTQkpiblJsY201aGJDQlNiMjkwSUVOQk1CNFhEVEkxTURNdwpNakEzTURFMU1Gb1hEVE0xTURJeU9EQTNNREUxTUZvd0tqRW9NQ1lHQTFVRUF4TWZhR1Y1YW05b2JpNW1ZVzFwCmJIa2dTVzUwWlhKdVlXd2dVbTl2ZENCRFFUQlpNQk1HQnlxR1NNNDlBZ0VHQ0NxR1NNNDlBd0VIQTBJQUJKM1gKbU5ZUlliTExLYkdpekFLWlIzbFl4UHFuc25YbVBvdFlva3VZK3ZLSjhpdWM3bkZiU0tMYmw5NUVLUjFnTVk2dQppTzl6bXhxc0JNR2ZmNmt2YjY2alJUQkRNQTRHQTFVZER3RUIvd1FFQXdJQmhqQVNCZ05WSFJNQkFmOEVDREFHCkFRSC9BZ0VCTUIwR0ExVWREZ1FXQkJUbGZCM2pFdVRTNlZ2SmRsdjdaWnhyT1k0Zm5EQUtCZ2dxaGtqT1BRUUQKQWdOSUFEQkZBaUVBcjhSVjBpeExiMGMyekNRZUpjMVNmQ1JEQzZyaFQ5eFdleTYycCtxcG16WUNJQlh6NjNiYQp0Qk9VN1dGQzhndVlUQU85eE11MzVNblRnWUQ3SzBPTExHdkcKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+      provisioner:
+        name: "registration-authority"
+        kid: ${SMALLSTEP_CA_KID}
+        passwordRef:
+          name: "step-request-authority-step-certificates-certificate-issuer-password"
+          namespace: "network-system"
+          key: "password"
+
+    # For the cert-manager approver
+    certManager:
+      serviceAccount:
+        name: cert-manager
+        namespace: network-system
