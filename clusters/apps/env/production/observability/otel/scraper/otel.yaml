@@ -24,6 +24,7 @@ spec:
     runAsUser: 0
     runAsGroup: 0
     privileged: true
+    capabilities: { add: ["NET_ADMIN"] }
 
 
   additionalContainers:
@@ -35,9 +36,14 @@ spec:
       volumeMounts:
         - name: tailscale-state
           mountPath: /var/lib/tailscale
+        - name: devtun
+          mountPath: /dev/net/tun
   volumes:
     - emptyDir: {}
       name: tailscale-state
+    - name: devtun
+      hostPath:
+        path: /dev/net/tun
 
   serviceAccount: otel-scraper
   config: |
