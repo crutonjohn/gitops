@@ -31,9 +31,8 @@ spec:
         - name: tailscale-state
           mountPath: /var/lib/tailscale
   volumes:
-    - name: tailscale-state
-      emptyDir:
-        size: 100Mi
+    - emptyDir: {}
+      name: tailscale-state
 
   serviceAccount: otel-scraper
   config: |
