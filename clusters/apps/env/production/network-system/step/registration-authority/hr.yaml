@@ -40,7 +40,7 @@ spec:
             crt: ''
             dnsNames:
               - ra.${FAMILY_DOMAIN}
-              - step-step-certificates.network-system.svc.cluster.local
+              - step-request-authority-step-certificates.network-system.svc.cluster.local
             logger:
               format: json
             tls:
