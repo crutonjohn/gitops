@@ -25,8 +25,8 @@ spec:
     - name: tailscale
       image: ghcr.io/tailscale/tailscale:v1.80.0
       envFrom:
-        secretRef:
-          - name: otel-tailscale-env
+        - secretRef:
+            name: otel-tailscale-env
       volumeMounts:
         - name: tailscale-state
           mountPath: /var/lib/tailscale
