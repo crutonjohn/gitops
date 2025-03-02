@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - otel.yaml
   - rbac.yaml
+  - env.enc.yaml

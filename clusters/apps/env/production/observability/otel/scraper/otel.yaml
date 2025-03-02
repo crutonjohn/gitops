@@ -24,11 +24,8 @@ spec:
   additionalContainers:
     - name: tailscale
       image: ghcr.io/tailscale/tailscale:v1.80.0
-      env:
-        TS_AUTHKEY: ${OTELCOL_TAILNET_AUTHKEY}
-        TS_EXTRA_ARGS: '--login-server="https://headscale.${FAMILY_DOMAIN}"'
-        TS_STATE_DIR: /var/lib/tailscale
-        TS_USERSPACE: false
+      envFrom:
+        secretRef: otel-tailscale-env
       volumeMounts:
         - name: tailscale-state
           mountPath: /var/lib/tailscale
