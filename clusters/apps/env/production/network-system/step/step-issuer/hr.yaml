@@ -40,6 +40,10 @@ spec:
           namespace: "network-system"
           key: "password"
 
+    serviceAccount:
+      # Specifies whether a service account should be created
+      create: true
+
     # For the cert-manager approver
     certManager:
       serviceAccount:
