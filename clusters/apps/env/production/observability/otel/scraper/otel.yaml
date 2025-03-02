@@ -20,6 +20,11 @@ spec:
     limits:
       cpu: 500m
       memory: 4Gi
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+    privileged: true
+
 
   additionalContainers:
     - name: tailscale
