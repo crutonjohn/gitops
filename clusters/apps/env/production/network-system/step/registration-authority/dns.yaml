@@ -1,0 +1,14 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: ${APP}-internal
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_SMALLSTEP}
