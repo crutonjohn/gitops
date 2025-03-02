@@ -53,23 +53,6 @@ spec:
         privileged: true
         capabilities: { add: ["NET_ADMIN"] }
 
-  #   - name: tailscale
-  #     image: ghcr.io/tailscale/tailscale:v1.80.0
-  #     envFrom:
-  #       - secretRef:
-  #           name: otel-tailscale-env
-  #     volumeMounts:
-  #       - name: tailscale-state
-  #         mountPath: /var/lib/tailscale
-  #       - name: devtun
-  #         mountPath: /dev/net/tun
-  # volumes:
-  #   - emptyDir: {}
-  #     name: tailscale-state
-  #   - name: devtun
-  #     hostPath:
-  #       path: /dev/net/tun
-
   serviceAccount: otel-scraper
   config: |
     receivers:
@@ -314,7 +297,6 @@ spec:
           - batch
           exporters:
           - otlp
-          - debug
       telemetry:
         metrics:
           level: detailed
