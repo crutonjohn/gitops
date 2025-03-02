@@ -58,7 +58,7 @@ spec:
       secrets:
         certificate_issuer:
           enabled: true
-          password: 5{SMALLSTEP_CA_JWK_B64}
+          password: ${SMALLSTEP_CA_JWK_PASS_B64}
         ssh:
           enabled: false
         x509:
