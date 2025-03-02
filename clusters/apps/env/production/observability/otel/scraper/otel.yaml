@@ -20,30 +20,57 @@ spec:
     limits:
       cpu: 500m
       memory: 4Gi
-  securityContext:
-    runAsUser: 0
-    runAsGroup: 0
-    privileged: true
-    capabilities: { add: ["NET_ADMIN"] }
+  # securityContext:
+  #   runAsUser: 0
+  #   runAsGroup: 0
+  #   privileged: true
+  #   capabilities: { add: ["NET_ADMIN"] }
 
 
   additionalContainers:
-    - name: tailscale
-      image: ghcr.io/tailscale/tailscale:v1.80.0
+    - name: ts-sidecar
+      image: "ghcr.io/tailscale/tailscale:v1.80.0"
+      env:
+        # Store the state in a k8s secret
+        - name: TS_KUBE_SECRET
+          value: "tailscale"
+        - name: TS_USERSPACE
+          value: "false"
+        - name: TS_DEBUG_FIREWALL_MODE
+          value: auto
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_UID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.uid
       envFrom:
         - secretRef:
             name: otel-tailscale-env
-      volumeMounts:
-        - name: tailscale-state
-          mountPath: /var/lib/tailscale
-        - name: devtun
-          mountPath: /dev/net/tun
-  volumes:
-    - emptyDir: {}
-      name: tailscale-state
-    - name: devtun
-      hostPath:
-        path: /dev/net/tun
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        privileged: true
+        capabilities: { add: ["NET_ADMIN"] }
+
+  #   - name: tailscale
+  #     image: ghcr.io/tailscale/tailscale:v1.80.0
+  #     envFrom:
+  #       - secretRef:
+  #           name: otel-tailscale-env
+  #     volumeMounts:
+  #       - name: tailscale-state
+  #         mountPath: /var/lib/tailscale
+  #       - name: devtun
+  #         mountPath: /dev/net/tun
+  # volumes:
+  #   - emptyDir: {}
+  #     name: tailscale-state
+  #   - name: devtun
+  #     hostPath:
+  #       path: /dev/net/tun
 
   serviceAccount: otel-scraper
   config: |
