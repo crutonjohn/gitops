@@ -20,6 +20,23 @@ spec:
     limits:
       cpu: 500m
       memory: 4Gi
+
+  additionalContainers:
+    - name: tailscale
+      image: ghcr.io/tailscale/tailscale:v1.80.0
+      env:
+        TS_AUTHKEY: ${OTELCOL_TAILNET_AUTHKEY}
+        TS_EXTRA_ARGS: '--login-server="https://headscale.${FAMILY_DOMAIN}"'
+        TS_STATE_DIR: /var/lib/tailscale
+        TS_USERSPACE: false
+      volumeMounts:
+        - name: tailscale-state
+          mountPath: /var/lib/tailscale
+      volumes:
+        - name: tailscale-state
+          emptyDir:
+            size: 100Mi
+
   serviceAccount: otel-scraper
   config: |
     receivers:
