@@ -34,8 +34,6 @@ spec:
         # Store the state in a k8s secret
         - name: TS_KUBE_SECRET
           value: "tailscale"
-        - name: TS_USERSPACE
-          value: "false"
         - name: TS_DEBUG_FIREWALL_MODE
           value: auto
         - name: POD_NAME
