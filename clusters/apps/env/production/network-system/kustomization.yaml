@@ -5,3 +5,4 @@ resources:
   - ./librespeed/ks.yaml
   - ./traefik/ks.yaml
   - ./external-dns/ks.yaml
+  - ./step/ks.yaml

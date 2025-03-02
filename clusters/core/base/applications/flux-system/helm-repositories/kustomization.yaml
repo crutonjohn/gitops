@@ -41,6 +41,8 @@ resources:
   - opentelemetry-charts.yaml
   - piraeus-charts.yaml
   - replicator-charts.yaml
+  - signoz-charts.yaml
+  - smallstep-charts.yaml
   - stakater-charts.yaml
   - traefik-charts.yaml
   - victoriametrics-charts.yaml
