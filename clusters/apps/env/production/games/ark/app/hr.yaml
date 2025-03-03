@@ -97,6 +97,8 @@ spec:
         value: "true"
       - name: am_ark_PvEAllowStructuresAtSupplyDrops
         value: "true"
+      - name: am_arkflag_NoTransferFromFiltering
+        value: ""
 
     # Global custom game settings can be overwritten per server
     #customConfigMap:
@@ -111,7 +113,7 @@ spec:
       theisland:
         # updateOnStart should be enabled only on the first server
         updateOnStart: true
-        sessionName: "Fleetwood Ark Survival"
+        sessionName: "Fleetwood Island Survival"
         message: "Welcome to The Island"
         # map: TheIsland, Ragnarok, CrystalIsles, Aberration_P, ScorchedEarth_P, Extinction, ...
         map: TheIsland
@@ -317,7 +319,7 @@ spec:
       fjordur:
         # updateOnStart should be enabled only on the first server
         updateOnStart: false
-        sessionName: "Fleetwood Ark Survival"
+        sessionName: "Fleetwood Fjordur Survival"
         message: "Welcome to Fjordur"
         # map: TheIsland, Ragnarok, CrystalIsles, Aberration_P, ScorchedEarth_P, Extinction, ...
         map: Fjordur
