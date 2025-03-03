@@ -125,6 +125,8 @@ spec:
             value: "15"
           - name: am_arkbackupdir
             value: "/ark/backup/theisland"
+          - name: RESTORE_ONSTART
+            value: "true"
         # ports must be the same on external and internal
         ## we don't need a service abtraction as every pod is a single server with dedicated ports
         # a service with nodePort would be "right" configuration, but for latency reasons I'd skip it.
@@ -311,7 +313,7 @@ spec:
 
       fjordur:
         # updateOnStart should be enabled only on the first server
-        updateOnStart: true
+        updateOnStart: false
         sessionName: "Fleetwood Ark Survival"
         message: "Welcome to Fjordur"
         # map: TheIsland, Ragnarok, CrystalIsles, Aberration_P, ScorchedEarth_P, Extinction, ...
@@ -329,6 +331,8 @@ spec:
           - name: am_arkAutoUpdateOnStart
             value: "false"
           - name: ARKCLUSTER
+            value: "true"
+          - name: RESTORE_ONSTART
             value: "true"
         # ports must be the same on external and internal
         ## we don't need a service abtraction as every pod is a single server with dedicated ports
