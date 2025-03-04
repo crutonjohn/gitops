@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: volsync-ark-cluster-restic
+  namespace: flux-system
+spec:
+  targetNamespace: games
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app ark
+      backups.${FAMILY_DOMAIN}/name: ark-cluster
+      backups.${FAMILY_DOMAIN}/subsystem: ark
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: ark-cluster
+      APP_UID: "1001"
+      CRON_SCHEDULE: "31 1/12 * * *"
+      LOCAL_SCHEDULE: "36 1/12 * * *"
+      STORAGE_CLASS: codex-file
+      SNAPSHOT_CLASS: codex-file
+      DST_ACCESS_MODE: ReadWriteMany
+      SIZE: "20Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
