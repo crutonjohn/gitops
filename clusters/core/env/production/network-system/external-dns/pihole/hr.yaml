@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns-pihole-${PIHOLE_ROLE}
+spec:
+  interval: 3h
+  chart:
+    spec:
+      chart: external-dns
+      version: 1.15.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-sigs-external-dns-charts
+        namespace: flux-system
+      interval: 10m
+  timeout: 10m0s
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50M
+      limits:
+        cpu: 32m
+        memory: 148M
+    fullnameOverride: ${APP}
+    env:
+      - name: EXTERNAL_DNS_PIHOLE_SERVER
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-pihole-secret
+            key: ${PIHOLE_ROLE}
+      - name: EXTERNAL_DNS_PIHOLE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-pihole-secret
+            key: password
+      # for now until i can get internal certs working
+      - name: EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY
+        value: "true"
+    provider:
+      name: pihole
+    logLevel: debug
+    logFormat: json
+    extraArgs:
+      - --ignore-ingress-tls-spec
+      - --annotation-filter=external-dns/private in (true)
+    policy: upsert-only
+    registry: noop
+    sources: ["crd", "service", "ingress"]
+    domainFilters: ["${FAMILY_DOMAIN}"]
+    serviceMonitor:
+      enabled: false
