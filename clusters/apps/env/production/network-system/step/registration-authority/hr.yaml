@@ -64,9 +64,9 @@ spec:
           enabled: false
         x509:
           enabled: false
-    service:
-      port: 443
-      targetPort: 9000
-      type: LoadBalancer
-      annotations:
-        io.cilium/lb-ipam-ips: ${CLUSTER_LB_SMALLSTEP}
+    # service:
+    #   port: 443
+    #   targetPort: 9000
+    #   type: LoadBalancer
+      # annotations:
+      #   io.cilium/lb-ipam-ips: ${CLUSTER_LB_SMALLSTEP}
