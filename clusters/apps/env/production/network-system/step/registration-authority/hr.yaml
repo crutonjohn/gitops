@@ -21,12 +21,13 @@ spec:
     ca:
       db:
         enabled: true
-        persistent: false
+        persistent: true
+        existingClaim: step-request-authority-db
     inject:
       config:
         files:
           ca.json:
-            address: :9100
+            address: 0.0.0.0:9000
             authority:
               certificateAuthority: ${SMALLSTEP_CA_URL}
               certificateAuthorityFingerprint: ${SMALLSTEP_CA_FINGERPRINT}
@@ -65,7 +66,7 @@ spec:
           enabled: false
     service:
       port: 443
-      targetPort: 9100
+      targetPort: 9000
       type: LoadBalancer
       annotations:
         io.cilium/lb-ipam-ips: ${CLUSTER_LB_SMALLSTEP}
