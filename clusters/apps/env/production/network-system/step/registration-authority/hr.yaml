@@ -78,8 +78,8 @@ spec:
                 identifier: app
                 port: https
       tls:
-        hosts:
-          - ra.${FAMILY_DOMAIN}
+        - hosts:
+            - ra.${FAMILY_DOMAIN}
     service:
       type: ClusterIP
       port: 9000
