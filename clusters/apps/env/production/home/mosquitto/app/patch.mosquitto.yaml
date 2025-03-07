@@ -32,7 +32,7 @@ spec:
           01-init-config:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
-              tag: 2.0.18
+              tag: 2.0.21
               pullPolicy: IfNotPresent
             command: ["/bin/sh", "-c"]
             args: ["cp -v /mosquitto_secret/* /mosquitto/external_config/ && mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd"]
@@ -41,7 +41,7 @@ spec:
             nameOverride: mosquitto
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
-              tag: 2.0.18
+              tag: 2.0.21
             env:
               TZ: Amertica/New_York
             probes:
