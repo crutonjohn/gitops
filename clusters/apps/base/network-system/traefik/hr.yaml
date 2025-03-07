@@ -17,19 +17,113 @@ spec:
     - name: cert-manager
       namespace: network-system
   values:
-    image:
-      name: traefik
-      tag: 2.10.4
-      pullPolicy: IfNotPresent
+    deployment:
+      enabled: true
+      kind: Deployment
+      replicas: 1
+    ingressClass:
+      enabled: true
+    ingressRoute:
+      dashboard:
+        enabled: true
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+    logs:
+      general:
+        format: json
+        level: DEBUG
+      access:
+        enabled: true
+        format: json
+    metrics:
+      prometheus:
+        entryPoint: metrics
+    providers:
+      kubernetesCRD:
+        enabled: true
+        allowCrossNamespace: true
+        allowExternalNameServices: true
+        allowEmptyServices: false
+      kubernetesIngress:
+        enabled: true
+    globalArguments:
+      - "--api.insecure=true"
+      - "--serverstransport.insecureskipverify=true"
+      - "--entryPoints.websecure.forwardedHeaders.trustedIPs=10.0.0.0/8,192.168.0.0/16,172.16.0.0/12,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,104.16.0.0/13,104.24.0.0/14,108.162.192.0/18,131.0.72.0/22,141.101.64.0/18,162.158.0.0/15,172.64.0.0/13,173.245.48.0/20,188.114.96.0/20,190.93.240.0/20,197.234.240.0/22,198.41.128.0/17,2400:cb00::/32,2606:4700::/32,2803:f800::/32,2405:b500::/32,2405:8100::/32,2a06:98c0::/29,2c0f:f248::/32"
+    ports:
+      traefik:
+        expose:
+          default: false
+      web:
+        redirectTo: websecure
+        containerPort: 8000
+      websecure:
+        containerPort: 8443
+        tls:
+          enabled: true
+          options: "default"
+      metrics:
+        port: 9100
+    tlsOptions:
+      default:
+        minVersion: VersionTLS12
+        maxVersion: VersionTLS13
+        sniStrict: false
+    service:
+      enabled: true
+      type: LoadBalancer
+      labels:
+        io.cilium/bgp-announce: worker
+      spec:
+        externalTrafficPolicy: Local
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 2
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 95
+        - type: Resource
+          resource:
+            name: memory
+            target:
+              type: Utilization
+              averageUtilization: 95
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 60
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        memory: 189M
+    securityContext:
+      capabilities:
+        drop: [ALL]
+      readOnlyRootFilesystem: true
+      runAsGroup: 65532
+      runAsNonRoot: true
+      runAsUser: 65532
+    podSecurityContext:
+      fsGroup: 65532
+    topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app: '{{ template "traefik.name" . }}'
+        maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
     affinity:
-      # nodeAffinity:
-      #   requiredDuringSchedulingIgnoredDuringExecution:
-      #     nodeSelectorTerms:
-      #       - matchExpressions:
-      #           - key: ${FAMILY_DOMAIN}/role
-      #             operator: In
-      #             values:
-      #               - apps
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
