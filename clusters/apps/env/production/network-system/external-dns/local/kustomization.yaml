@@ -8,3 +8,4 @@ resources:
   - ./monitoring.yaml
   - ./home-automation.yaml
   - ./workbench.yaml
+  - ./pihole.yaml

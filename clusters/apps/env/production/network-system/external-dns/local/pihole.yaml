@@ -1,0 +1,19 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: pihole
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: peanut1.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.2
+    - dnsName: peanut2.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.3
