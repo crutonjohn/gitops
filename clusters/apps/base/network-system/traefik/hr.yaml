@@ -56,7 +56,11 @@ spec:
         expose:
           default: false
       web:
-        redirectTo: websecure
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
         containerPort: 8000
       websecure:
         containerPort: 8443
