@@ -11,7 +11,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
-          tag: main@sha256:e2f9ca3cdfeaaf50bf21419820c140194fcfa49b635417ab630a4f940a86ab73
+          tag: pr-29@sha256:74414c85db9f15a1a9503d90a7cd73871cea4caddd8023c02e17d67cc93b25a3
         env:
           - name: OPNSENSE_API_SECRET
             valueFrom:
