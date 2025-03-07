@@ -35,7 +35,7 @@ spec:
             nameOverride: zigbee2mqtt
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
-              tag: 1.40.1@sha256:8127ec2b6e5370eb83033e9cd7250a72bc418b4ead722eadb17c664bebd8b829
+              tag: 2.1.3@sha256:80f82f8fed251acb706a002c51fffab166b25bb18b1aff15f37f85cf3d73c171
             env:
               TZ: America/New_York
               ZIGBEE2MQTT_DATA: /config
