@@ -479,41 +479,41 @@ spec:
       # @default -- `26s`
       csiLeaderElectionRetryPeriod:
 
-      cephcsi:
-        # -- Ceph CSI image repository
-        repository: quay.io/cephcsi/cephcsi
-        # -- Ceph CSI image tag
-        tag: v3.11.0
+      # cephcsi:
+      #   # -- Ceph CSI image repository
+      #   repository: quay.io/cephcsi/cephcsi
+      #   # -- Ceph CSI image tag
+      #   tag: v3.11.0
 
-      registrar:
-        # -- Kubernetes CSI registrar image repository
-        repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
-        # -- Registrar image tag
-        tag: v2.10.1
+      # registrar:
+      #   # -- Kubernetes CSI registrar image repository
+      #   repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
+      #   # -- Registrar image tag
+      #   tag: v2.10.1
 
-      provisioner:
-        # -- Kubernetes CSI provisioner image repository
-        repository: registry.k8s.io/sig-storage/csi-provisioner
-        # -- Provisioner image tag
-        tag: v4.0.1
+      # provisioner:
+      #   # -- Kubernetes CSI provisioner image repository
+      #   repository: registry.k8s.io/sig-storage/csi-provisioner
+      #   # -- Provisioner image tag
+      #   tag: v4.0.1
 
-      snapshotter:
-        # -- Kubernetes CSI snapshotter image repository
-        repository: registry.k8s.io/sig-storage/csi-snapshotter
-        # -- Snapshotter image tag
-        tag: v7.0.2
+      # snapshotter:
+      #   # -- Kubernetes CSI snapshotter image repository
+      #   repository: registry.k8s.io/sig-storage/csi-snapshotter
+      #   # -- Snapshotter image tag
+      #   tag: v7.0.2
 
-      attacher:
-        # -- Kubernetes CSI Attacher image repository
-        repository: registry.k8s.io/sig-storage/csi-attacher
-        # -- Attacher image tag
-        tag: v4.5.1
+      # attacher:
+      #   # -- Kubernetes CSI Attacher image repository
+      #   repository: registry.k8s.io/sig-storage/csi-attacher
+      #   # -- Attacher image tag
+      #   tag: v4.5.1
 
-      resizer:
-        # -- Kubernetes CSI resizer image repository
-        repository: registry.k8s.io/sig-storage/csi-resizer
-        # -- Resizer image tag
-        tag: v1.10.1
+      # resizer:
+      #   # -- Kubernetes CSI resizer image repository
+      #   repository: registry.k8s.io/sig-storage/csi-resizer
+      #   # -- Resizer image tag
+      #   tag: v1.10.1
 
       # -- Image pull policy
       imagePullPolicy: IfNotPresent
@@ -527,13 +527,13 @@ spec:
       # -- Labels to add to the CSI RBD Deployments and DaemonSets Pods
       rbdPodLabels: #"key1=value1,key2=value2"
 
-      csiAddons:
-        # -- Enable CSIAddons
-        enabled: false
-        # -- CSIAddons sidecar image repository
-        repository: quay.io/csiaddons/k8s-sidecar
-        # -- CSIAddons sidecar image tag
-        tag: v0.8.0
+      # csiAddons:
+      #   # -- Enable CSIAddons
+      #   enabled: false
+      #   # -- CSIAddons sidecar image repository
+      #   repository: quay.io/csiaddons/k8s-sidecar
+      #   # -- CSIAddons sidecar image tag
+      #   tag: v0.8.0
 
       nfs:
         # -- Enable the nfs csi driver
