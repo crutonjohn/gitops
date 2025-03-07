@@ -29,5 +29,5 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    webhook:
-      enabled: false
+    controller:
+      replicaCount: 2
