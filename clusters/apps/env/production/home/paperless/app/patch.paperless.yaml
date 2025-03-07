@@ -22,7 +22,7 @@ spec:
           paperless:
             image:
               repository: "ghcr.io/paperless-ngx/paperless-ngx"
-              tag: "2.12.0@sha256:7a1d34bfaba5243aa4398d3b8abadc7234b6aa844837b329d598bed5ca17a0a9"
+              tag: "2.14.7@sha256:2a6d9f6461ad7e8335f5b2123a173b9e6002fda209af8a66483b0c00629569ab"
             args: ["/usr/local/bin/supervisord", "-c", "/etc/supervisord.conf", "--user", "paperless", "--logfile", "/tmp/supervisord.log", "--pidfile", "/tmp/supervisord.pid"]
             env:
               PAPERLESS_URL: "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
