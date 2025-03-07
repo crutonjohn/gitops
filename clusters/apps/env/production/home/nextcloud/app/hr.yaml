@@ -511,7 +511,7 @@ spec:
 
       image:
         repository: xperimental/nextcloud-exporter
-        tag: 0.6.2
+        tag: 0.8.0
         pullPolicy: IfNotPresent
         # pullSecrets:
         #   - myRegistrKeySecretName
