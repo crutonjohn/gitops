@@ -1,5 +1,5 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: oauth-auth
@@ -11,7 +11,7 @@ spec:
       - X-Auth-Request-Access-Token
       - Authorization
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: oauth-errors
@@ -24,7 +24,7 @@ spec:
       port: 80
     query: "/oauth2/sign_in"
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: oauth-headers
