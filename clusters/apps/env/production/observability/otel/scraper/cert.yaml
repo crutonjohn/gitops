@@ -12,7 +12,7 @@ spec:
   dnsNames:
     - otel-scraper.internal.${FAMILY_DOMAIN}
   # Duration of the certificate
-  duration: 720h
+  duration: 24h
   # Renew 8 hours before the certificate expiration
   renewBefore: 8h
   # The reference to the step issuer
