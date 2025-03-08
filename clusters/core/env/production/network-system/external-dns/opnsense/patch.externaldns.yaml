@@ -59,7 +59,7 @@ spec:
     sources:
       - "crd"
       - "ingress"
-      - "ingressroute"
+      - "traefik-proxy"
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
