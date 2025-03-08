@@ -12,4 +12,5 @@ spec:
     kid: ${SMALLSTEP_STEP_ISSUER_KID}
     passwordRef:
       name: step-issuer-provisioner-password
+      namespace: network-system
       key: password
