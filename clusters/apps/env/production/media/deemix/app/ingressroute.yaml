@@ -42,7 +42,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: ${APP}-external
-  annotations:
+  labels:
     external-dns/public: "true"
 spec:
   endpoints:
@@ -56,7 +56,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: ${APP}-internal
-  annotations:
+  labels:
     external-dns/private: "true"
 spec:
   endpoints:

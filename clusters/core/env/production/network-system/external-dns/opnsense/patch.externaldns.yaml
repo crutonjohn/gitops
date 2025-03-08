@@ -53,7 +53,7 @@ spec:
     logLevel: debug
     extraArgs:
       - --ignore-ingress-tls-spec
-      - --annotation-filter=external-dns/private in (true)
+      - --label-filter=external-dns/private in (true)
     policy: sync
     registry: noop
     sources:

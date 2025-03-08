@@ -7,6 +7,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+  labels:
     external-dns/public: "true"
 spec:
   entryPoints:
@@ -34,7 +35,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: google-auth-external
-  annotations:
+  labels:
     external-dns/public: "true"
 spec:
   endpoints:
@@ -48,7 +49,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: google-auth-internal
-  annotations:
+  labels:
     external-dns/private: "true"
 spec:
   endpoints:

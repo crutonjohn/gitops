@@ -3,7 +3,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: home-automation
-  annotations:
+  labels:
     external-dns/private: "true"
 spec:
   endpoints:

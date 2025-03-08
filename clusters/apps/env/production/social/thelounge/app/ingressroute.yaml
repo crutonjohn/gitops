@@ -5,7 +5,8 @@ metadata:
   name: ${APP}
   annotations:
     kubernetes.io/ingress.class: "traefik-internal"
-    external-dns/public: "false"
+  labels:
+    external-dns/private: "true"
 spec:
   entryPoints:
     - websecure
@@ -39,7 +40,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: ${APP}-internal
-  annotations:
+  labels:
     external-dns/private: "true"
 spec:
   endpoints:
