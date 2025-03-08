@@ -6,16 +6,13 @@ metadata:
 spec:
   mode: deployment
   image: otel/opentelemetry-collector-contrib:0.120.0
-  # volumeMounts:
-  #   - name: cache
-  #     mountPath: /var/lib/cache
-  #   - name: scratchdir
-  #     mountPath: /var/lib/otelcol
-  # volumes:
-  #   - name: cache
-  #     hostPath:
-  #       path: /var/log
-  #       type: Directory
+  volumeMounts:
+    - name: certs
+      mountPath: /var/lib/step
+  volumes:
+    - name: certs
+      secret:
+        secretName: otel-scraper-internal-tls
   resources:
     limits:
       cpu: 500m
@@ -275,16 +272,18 @@ spec:
 
     exporters:
       otlp:
-        endpoint: "100.64.0.9:4317"
+        endpoint: "otelgw.internal.${FAMILY_DOMAIN}:4317"
         tls:
-          insecure: true
-          insecure_skip_verify: true
-      otlphttp:
-        endpoint: "http://100.64.0.9:4318"
-        timeout: 60s
-        tls:
-          insecure: true
-          insecure_skip_verify: true
+          insecure: false
+          cert_file: /var/lib/step/tls.crt
+          key_file: /var/lib/step/tls.key
+          ca_file: /var/lib/step/ca.crt
+      # otlphttp:
+      #   endpoint: "http://100.64.0.9:4318"
+      #   timeout: 60s
+      #   tls:
+      #     insecure: true
+      #     insecure_skip_verify: true
       debug:
         verbosity: detailed
 

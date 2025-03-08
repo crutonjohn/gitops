@@ -23,6 +23,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
+  dependsOn:
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: step-issuer
   postBuild:
     substitute:
       APP: *app
@@ -63,6 +67,9 @@ spec:
       name: sops-aws
   dependsOn:
     - name: otel-operator
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: step-issuer
   postBuild:
     substitute:
       APP: *app
@@ -103,6 +110,9 @@ spec:
       name: sops-aws
   dependsOn:
     - name: otel-operator
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: step-issuer
   postBuild:
     substitute:
       APP: *app
@@ -143,6 +153,9 @@ spec:
       name: sops-aws
   dependsOn:
     - name: otel-operator
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: step-issuer
   postBuild:
     substitute:
       APP: *app

@@ -1,6 +1,6 @@
 ---
 apiVersion: certmanager.step.sm/v1beta1
-kind: StepIssuer
+kind: StepClusterIssuer
 metadata:
   name: step-issuer
 spec:

@@ -1,0 +1,22 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: registration-authority-tls
+spec:
+  # The secret name to store the signed certificate
+  secretName: registration-authority-tls
+  # Common Name
+  commonName: ra.${FAMILY_DOMAIN}
+  # DNS SAN
+  dnsNames:
+    - ra.${FAMILY_DOMAIN}
+  # Duration of the certificate
+  duration: 30d
+  # Renew 8 hours before the certificate expiration
+  renewBefore: 8h
+  # The reference to the step issuer
+  issuerRef:
+    group: certmanager.step.sm
+    kind: StepIssuer
+    name: step-issuer

@@ -5,3 +5,4 @@ resources:
   - otel.yaml
   - rbac.yaml
   - env.enc.yaml
+  - cert.yaml

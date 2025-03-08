@@ -6,3 +6,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./linode-certmanager-webhook/ks.yaml
   - ./multus/ks.yaml
+  - ./step/ks.yaml

@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/network-system/step/registration-authority
+  path: ./clusters/core/env/production/network-system/step/registration-authority
   prune: true
   sourceRef:
     kind: GitRepository
@@ -23,6 +23,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
+  dependsOn:
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: cert-manager-aws
   postBuild:
     substitute:
       APP: *app
@@ -48,7 +52,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/network-system/step/step-issuer
+  path: ./clusters/core/env/production/network-system/step/step-issuer
   prune: true
   sourceRef:
     kind: GitRepository
@@ -61,6 +65,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
+  dependsOn:
+    - name: secrets-generic
+    - name: secrets-${CLUSTER_NAME}
+    - name: cert-manager-aws
   postBuild:
     substitute:
       APP: *app

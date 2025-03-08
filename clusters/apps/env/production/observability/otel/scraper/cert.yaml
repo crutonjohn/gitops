@@ -1,0 +1,22 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: otel-scraper-internal
+spec:
+  # The secret name to store the signed certificate
+  secretName: otel-scraper-internal-tls
+  # Common Name
+  commonName: otel-scraper.internal.${FAMILY_DOMAIN}
+  # DNS SAN
+  dnsNames:
+    - otel-scraper.internal.${FAMILY_DOMAIN}
+  # Duration of the certificate
+  duration: 30d
+  # Renew 8 hours before the certificate expiration
+  renewBefore: 8h
+  # The reference to the step issuer
+  issuerRef:
+    group: certmanager.step.sm
+    kind: StepIssuer
+    name: step-issuer
