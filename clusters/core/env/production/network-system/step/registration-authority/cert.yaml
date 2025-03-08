@@ -12,7 +12,7 @@ spec:
   dnsNames:
     - ra.${FAMILY_DOMAIN}
   # Duration of the certificate
-  duration: 30d
+  duration: 720h
   # Renew 8 hours before the certificate expiration
   renewBefore: 8h
   # The reference to the step issuer
