@@ -54,9 +54,10 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns/private in (true)
+      - --traefik-disable-legacy
     policy: sync
     registry: noop
-    sources: ["crd"]
+    sources: ["crd", "ingress", "traefik-proxy"]
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
