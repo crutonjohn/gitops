@@ -18,5 +18,5 @@ spec:
   # The reference to the step issuer
   issuerRef:
     group: certmanager.step.sm
-    kind: StepIssuer
+    kind: StepClusterIssuer
     name: step-issuer
