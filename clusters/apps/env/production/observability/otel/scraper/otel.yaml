@@ -268,7 +268,7 @@ spec:
       batch:
         send_batch_size: 4096
         timeout: 20s
-        send_batch_max_size: 0
+        send_batch_max_size: 4096
 
     exporters:
       otlp:
