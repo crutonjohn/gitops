@@ -2,25 +2,15 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  # existingClaim name is appended with server name
+  # ark-save will become ark-save-theisland or ark-save-extinction
+  # these volumes will have to be created manually every time a new server is spun up
   name: ark-save-theisland
   namespace: games
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: ceph-blockpool
+  storageClassName: codex-block
   resources:
     requests:
       storage: 10Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ark-config
-  namespace: games
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: ceph-filesystem
-  resources:
-    requests:
-      storage: 15Gi
