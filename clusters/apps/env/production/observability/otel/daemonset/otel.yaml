@@ -13,7 +13,7 @@ spec:
     requests:
       cpu: 100m
       memory: 250Mi
-  serviceAccount: otel-collector
+  serviceAccount: otel-ds
   securityContext: {}
   volumeMounts:
     - name: varlogpods
@@ -26,6 +26,8 @@ spec:
       mountPath: /hostfs
       readOnly: true
       mountPropagation: HostToContainer
+    - name: certs
+      mountPath: /var/lib/step
   env:
     - name: OTEL_K8S_NODE_NAME
       valueFrom:
@@ -61,20 +63,19 @@ spec:
     - name: hostfs
       hostPath:
         path: /
+    - name: certs
+      secret:
+        secretName: otel-scraper-internal-tls
   config: |
     exporters:
       debug: {}
       otlp:
-        endpoint: "100.64.0.9:4317"
+        endpoint: "otelgw.internal.${FAMILY_DOMAIN}:4317"
         tls:
-          insecure: true
-          insecure_skip_verify: true
-      otlphttp:
-        endpoint: "http://100.64.0.9:4318"
-        timeout: 60s
-        tls:
-          insecure: true
-          insecure_skip_verify: true
+          insecure: false
+          cert_file: /var/lib/step/tls.crt
+          key_file: /var/lib/step/tls.key
+          ca_file: /var/lib/step/ca.crt
     processors:
       batch:
         send_batch_max_size: 1500
@@ -83,41 +84,41 @@ spec:
       k8sattributes:
         extract:
           labels:
-          - from: pod
-            key: app.kubernetes.io/name
-            tag_name: service.name
-          - from: pod
-            key: k8s-app
-            tag_name: service.name
-          - from: pod
-            key: app.kubernetes.io/instance
-            tag_name: k8s.app.instance
-          - from: pod
-            key: app.kubernetes.io/version
-            tag_name: service.version
-          - from: pod
-            key: app.kubernetes.io/component
-            tag_name: k8s.app.component
+            - from: pod
+              key: app.kubernetes.io/name
+              tag_name: service.name
+            - from: pod
+              key: k8s-app
+              tag_name: service.name
+            - from: pod
+              key: app.kubernetes.io/instance
+              tag_name: k8s.app.instance
+            - from: pod
+              key: app.kubernetes.io/version
+              tag_name: service.version
+            - from: pod
+              key: app.kubernetes.io/component
+              tag_name: k8s.app.component
           metadata:
-          - k8s.namespace.name
-          - k8s.pod.name
-          - k8s.pod.uid
-          - k8s.node.name
-          - k8s.pod.start_time
-          - k8s.deployment.name
-          - k8s.replicaset.name
-          - k8s.replicaset.uid
-          - k8s.daemonset.name
-          - k8s.daemonset.uid
-          - k8s.job.name
-          - k8s.job.uid
-          - k8s.container.name
-          - k8s.cronjob.name
-          - k8s.statefulset.name
-          - k8s.statefulset.uid
-          - container.image.tag
-          - container.image.name
-          - k8s.cluster.uid
+            - k8s.namespace.name
+            - k8s.pod.name
+            - k8s.pod.uid
+            - k8s.node.name
+            - k8s.pod.start_time
+            - k8s.deployment.name
+            - k8s.replicaset.name
+            - k8s.replicaset.uid
+            - k8s.daemonset.name
+            - k8s.daemonset.uid
+            - k8s.job.name
+            - k8s.job.uid
+            - k8s.container.name
+            - k8s.cronjob.name
+            - k8s.statefulset.name
+            - k8s.statefulset.uid
+            - container.image.tag
+            - container.image.name
+            - k8s.cluster.uid
         filter:
           node_from_env_var: K8S_NODE_NAME
         passthrough: false
@@ -144,20 +145,21 @@ spec:
           - from: connection
       resourcedetection/env:
         detectors:
-        - env
+          - env
         override: false
         timeout: 2s
     receivers:
       filelog:
-        exclude: []
+        exclude:
+          - /var/log/pods/*/otel-collector/*.log
         include:
-        - /var/log/pods/*/*/*.log
+          - /var/log/pods/*/*/*.log
         include_file_name: false
         include_file_path: true
         operators:
-        - id: container-parser
-          max_log_size: 102400
-          type: container
+          - id: container-parser
+            max_log_size: 102400
+            type: container
         retry_on_failure:
           enabled: true
         start_at: end
@@ -166,16 +168,16 @@ spec:
         collection_interval: 15s
         endpoint: https://${env:OTEL_K8S_NODE_IP}:10250
         extra_metadata_labels:
-        - container.id
-        - k8s.volume.type
+          - container.id
+          - k8s.volume.type
         insecure_skip_verify: true
         k8s_api_config:
           auth_type: serviceAccount
         metric_groups:
-        - node
-        - pod
-        - volume
-        - container
+          - node
+          - pod
+          - volume
+          - container
         metrics:
           container.cpu.usage:
             enabled: true
@@ -187,25 +189,34 @@ spec:
             enabled: true
           k8s.pod.uptime:
             enabled: true
+      hostmetrics:
+        root_path: /hostfs
+        collection_interval: 30s
+        scrapers:
+          cpu:
+          load:
+          memory:
+          disk:
+          filesystem:
+          network:
     service:
       pipelines:
         logs:
           exporters:
-          - debug
-          - otlp
+            - otlp
           processors:
-          - k8sattributes
-          - resourcedetection/env
-          - batch
+            - k8sattributes
+            - resourcedetection/env
+            - batch
           receivers:
-          - filelog
+            - filelog
         metrics:
           exporters:
-          - debug
-          - otlp
+            - otlp
           processors:
-          - k8sattributes
-          - resourcedetection/env
-          - batch
+            - k8sattributes
+            - resourcedetection/env
+            - batch
           receivers:
-          - kubeletstats
+            - hostmetrics
+            - kubeletstats

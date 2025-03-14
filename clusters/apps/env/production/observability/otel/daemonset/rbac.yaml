@@ -3,7 +3,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: otel-collector
+  name: otel-ds
 rules:
   - apiGroups: [""]
     resources:
@@ -116,18 +116,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: otel-collector
+  name: otel-ds
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: otel-collector
+  name: otel-ds
 subjects:
   - kind: ServiceAccount
     name: "otel-collector"
     namespace: observability
----
-# Source: opentelemetry-kube-stack/charts/opentelemetry-operator/templates/serviceaccount.yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: otel-collector
