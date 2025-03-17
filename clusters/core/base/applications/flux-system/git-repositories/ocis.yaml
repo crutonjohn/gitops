@@ -12,6 +12,6 @@ spec:
     !/charts/ocis
   interval: 5h
   ref:
-    commit: 048be35054457a0eccf364baea8f7a9fd6e11a87
+    commit: aeb5a0b6d93b06fa2a0f96a163e57d07548979b7
   timeout: 60s
   url: https://github.com/owncloud/ocis-charts.git
