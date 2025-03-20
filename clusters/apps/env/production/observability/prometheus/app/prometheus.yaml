@@ -3,16 +3,16 @@ global:
   scrape_interval: 60s
   evaluation_interval: 60s
   external_labels:
-    environment: prom-lyh
+    datacenter: lyh
 remote_write:
-  - url: http://100.64.0.4:9090/api/v1/write
+  - url: http://100.64.0.9:9090/api/v1/write
 rule_files:
   - /etc/prometheus/alerts/*.yaml
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - 100.64.0.4.9093
+            - 100.64.0.9:9093
 scrape_configs:
   - job_name: 'hass'
     scrape_interval: 60s
