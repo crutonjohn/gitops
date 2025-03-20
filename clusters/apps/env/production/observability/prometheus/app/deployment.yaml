@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+  annotations:
+    reloader.stakater.com/auto: true
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus
+          image: quay.io/prometheus/prometheus:v3.2.1
+          args:
+            - '--storage.tsdb.retention.size=15GB'
+            - '--storage.tsdb.path=/prometheus'
+            - '--config.file=/etc/prometheus/prometheus.yaml'
+            - '--web.enable-admin-api'
+          ports:
+            - name: web
+              containerPort: 9090
+          volumeMounts:
+            - name: prometheus-config-volume
+              mountPath: /etc/prometheus
+            - name: prometheus-storage-volume
+              mountPath: /prometheus
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 9090
+        runAsGroup: 9090
+        runAsNonRoot: true
+        runAsUser: 9090
+      serviceAccountName: prometheus
+      volumes:
+        - name: prometheus-config-volume
+          configMap:
+            defaultMode: 420
+            name: prometheus-config
+        - name: prometheus-storage-volume
+          persistentVolumeClaim:
+            claimName: prometheus

@@ -6,3 +6,4 @@ resources:
   - ./otel/ks.yaml
   - ./speedtest-exporter/ks.yaml
   - ./nut-exporter/ks.yaml
+  - ./prometheus/ks.yaml

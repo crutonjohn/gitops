@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  annotations:
+    io.cilium/lb-ipam-ips: ${CLUSTER_LB_PROMETHEUS}
+  labels:
+    io.cilium/bgp-announce: worker
+spec:
+  selector:
+    app: prometheus
+  type: LoadBalancer
+  loadBalancerIP: ${CLUSTER_LB_PROMETHEUS}
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: web
