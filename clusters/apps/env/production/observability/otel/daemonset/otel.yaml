@@ -13,7 +13,7 @@ spec:
     requests:
       cpu: 100m
       memory: 250Mi
-  serviceAccount: otel-ds
+  serviceAccount: otel-collector
   securityContext: {}
   volumeMounts:
     - name: varlogpods
