@@ -169,3 +169,7 @@ spec:
             - batch
           receivers:
             - filelog
+      telemetry:
+        metrics:
+          level: detailed
+          address: 0.0.0.0:8888
