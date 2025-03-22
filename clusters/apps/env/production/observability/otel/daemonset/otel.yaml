@@ -158,42 +158,6 @@ spec:
         retry_on_failure:
           enabled: true
         start_at: end
-      kubeletstats:
-        auth_type: serviceAccount
-        collection_interval: 15s
-        endpoint: https://${env:OTEL_K8S_NODE_IP}:10250
-        extra_metadata_labels:
-          - container.id
-          - k8s.volume.type
-        insecure_skip_verify: true
-        k8s_api_config:
-          auth_type: serviceAccount
-        metric_groups:
-          - node
-          - pod
-          - volume
-          - container
-        metrics:
-          container.cpu.usage:
-            enabled: true
-          k8s.node.cpu.usage:
-            enabled: true
-          k8s.node.uptime:
-            enabled: true
-          k8s.pod.cpu.usage:
-            enabled: true
-          k8s.pod.uptime:
-            enabled: true
-      hostmetrics:
-        root_path: /hostfs
-        collection_interval: 30s
-        scrapers:
-          cpu:
-          load:
-          memory:
-          disk:
-          filesystem:
-          network:
     service:
       pipelines:
         logs:
@@ -205,13 +169,3 @@ spec:
             - batch
           receivers:
             - filelog
-        metrics:
-          exporters:
-            - otlp
-          processors:
-            - k8sattributes
-            - resourcedetection/env
-            - batch
-          receivers:
-            - hostmetrics
-            - kubeletstats
