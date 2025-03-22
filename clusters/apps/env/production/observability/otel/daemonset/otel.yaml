@@ -69,7 +69,7 @@ spec:
   config: |
     exporters:
       debug: {}
-      otlp:
+      otlphttp:
         endpoint: "http://100.64.0.9:3100/otlp"
     processors:
       batch:
@@ -162,7 +162,7 @@ spec:
       pipelines:
         logs:
           exporters:
-            - otlp
+            - otlphttp
           processors:
             - k8sattributes
             - resourcedetection/env
