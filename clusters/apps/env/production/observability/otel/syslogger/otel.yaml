@@ -126,7 +126,7 @@ spec:
             - attributes/5424
             - batch
           exporters:
-            - otlp
+            - otlphttp
         logs/3164:
           receivers:
             - syslog/3164
