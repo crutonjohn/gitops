@@ -97,17 +97,9 @@ spec:
             value: raw
 
     exporters:
-      otlp:
-        endpoint: "100.64.0.9:4317"
-        tls:
-          insecure: true
-          insecure_skip_verify: true
       otlphttp:
-        endpoint: "http://100.64.0.9:4318"
+        endpoint: "http://100.64.0.9:3100/otlp"
         timeout: 60s
-        tls:
-          insecure: true
-          insecure_skip_verify: true
       debug:
         verbosity: detailed
     extensions:
@@ -121,12 +113,9 @@ spec:
           on_rebound: true
           directory: /var/lib/otelcol
           max_transaction_size: 65530
-      memory_ballast:
-        size_in_percentage: 80
     service:
       extensions:
         - health_check
-        - memory_ballast
         - file_storage
       pipelines:
         logs/5424:
@@ -138,7 +127,6 @@ spec:
             - batch
           exporters:
             - otlp
-            - debug
         logs/3164:
           receivers:
             - syslog/3164
@@ -147,8 +135,7 @@ spec:
             - attributes/3164
             - batch
           exporters:
-            - otlp
-            - debug
+            - otlphttp
       telemetry:
         metrics:
           address: "0.0.0.0:8888"
