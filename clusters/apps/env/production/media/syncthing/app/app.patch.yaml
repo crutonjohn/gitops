@@ -64,6 +64,10 @@ spec:
         type: LoadBalancer
         controller: main
         externalTrafficPolicy: Local
+        ports:
+          discovery:
+            port: 21027
+            protocol: UDP
         labels:
           io.cilium/bgp-announce: worker
         annotations:
@@ -73,6 +77,13 @@ spec:
         type: LoadBalancer
         controller: main
         externalTrafficPolicy: Local
+        ports:
+          transfer:
+            port: 22000
+            protocol: TCP
+          quic:
+            port: 22000
+            protocol: UDP
         labels:
           io.cilium/bgp-announce: worker
         annotations:
