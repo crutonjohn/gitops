@@ -7,3 +7,4 @@ resources:
   - ./speedtest-exporter/ks.yaml
   - ./nut-exporter/ks.yaml
   - ./prometheus/ks.yaml
+  - ./pyroscope/ks.yaml
