@@ -57,7 +57,6 @@ spec:
         cert-manager.io/issuer-name: "step-issuer"
         cert-manager.io/issuer-kind: "StepIssuer"
         cert-manager.io/issuer-group: "certmanager.step.sm"
-      labels:
         external-dns/private: "true"
       tls:
         - secretName: pyroscope-tls
