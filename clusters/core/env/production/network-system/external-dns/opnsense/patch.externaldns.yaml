@@ -81,7 +81,7 @@ spec:
           - name: alloy-config
             mountPath: "/etc/alloy/config"
           - name: data
-            mountPath: "/var/lib/alloy/data"
+            mountPath: "/var/lib/alloy"
         securityContext:
           runAsUser: 65532
           runAsGroup: 65532
