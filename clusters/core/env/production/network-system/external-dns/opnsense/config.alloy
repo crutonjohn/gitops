@@ -5,7 +5,7 @@ pyroscope.write "write_job_name" {
 }
 
 pyroscope.scrape "scrape_job_name" {
-        targets    = [{"__address__" = "localhost:4040", "service_name" = "external-dns-opnsense"}]
+        targets    = [{"__address__" = "localhost:6060", "service_name" = "external-dns-opnsense"}]
         forward_to = [pyroscope.write.write_job_name.receiver]
 
         profiling_config {
