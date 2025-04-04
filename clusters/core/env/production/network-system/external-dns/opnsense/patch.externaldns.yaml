@@ -76,3 +76,7 @@ spec:
         volumeMounts:
           - name: alloy-config
             mountPath: "/etc/alloy/config"
+        securityContext:
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
