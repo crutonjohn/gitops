@@ -70,6 +70,7 @@ spec:
         image: "grafana/alloy:v1.7.5"
         imagePullPolicy: IfNotPresent
         args:
+          - "run"
           - "--server.http.listen-addr=0.0.0.0:12345"
           - "--storage.path=/var/lib/alloy/data"
           - "/etc/alloy/config/config.alloy"
