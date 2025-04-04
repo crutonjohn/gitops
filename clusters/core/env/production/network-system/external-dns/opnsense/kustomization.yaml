@@ -13,3 +13,9 @@ patches:
     target:
       kind: HelmRelease
       name: .*
+configMapGenerator:
+  - name: alloy-config
+    files:
+      - ./config.alloy
+generatorOptions:
+  disableNameSuffixHash: true
