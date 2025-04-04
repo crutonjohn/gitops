@@ -63,7 +63,8 @@ spec:
       enabled: false
     extraVolumes:
       - name: alloy-config
-        configMap: alloy-config
+        configMap:
+          name: alloy-config
     extraContainers:
       - name: alloy
         image: "grafana/alloy:v1.7.5"
