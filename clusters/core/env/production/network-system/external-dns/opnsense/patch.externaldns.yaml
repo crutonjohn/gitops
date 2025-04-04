@@ -65,6 +65,9 @@ spec:
       - name: alloy-config
         configMap:
           name: alloy-config
+      - name: data
+        emptyDir:
+          medium: Memory
     extraContainers:
       - name: alloy
         image: "grafana/alloy:v1.7.5"
@@ -77,6 +80,8 @@ spec:
         volumeMounts:
           - name: alloy-config
             mountPath: "/etc/alloy/config"
+          - name: data
+            mountPath: "/var/lib/alloy/data"
         securityContext:
           runAsUser: 65532
           runAsGroup: 65532
