@@ -82,7 +82,7 @@ spec:
         ports:
           http:
             port: 8091
-          serial:
+          websocket:
             port: 3000
         annotations:
           service.cilium.io/global: "true"

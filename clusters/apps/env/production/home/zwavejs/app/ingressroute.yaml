@@ -22,7 +22,7 @@ spec:
       priority: 10
       services:
         - name: ${APP}
-          port: 8080
+          port: 8091
           nativeLB: true
     - kind: Rule
       match: "Host(`${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}`) && PathPrefix(`/oauth2/`)"
