@@ -7,10 +7,9 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./paperless/ks.yaml
-  - ./zigbee2mqtt/ks.yaml
+  - ./zwavejs/ks.yaml
   - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
-  - ./amcrest2mqtt/ks.yaml
   - ./grocy/ks.yaml
 patches:
   - patch: |-

@@ -30,35 +30,15 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"iot-garbage-apps",
-                "namespace": "network-system",
-                "mac": "02:78:55:a6:7c:54",
-                "ips": ["192.168.134.99/24"]
-              }]
-
         containers:
           main:
-            nameOverride: amcrest2mqtt
+            nameOverride: zwavejs
             image:
-              repository: ghcr.io/danclough/amcrest2mqtt
-              tag: v1.0.26
+              repository: zwavejs/zwave-js-ui
+              tag: 10.3.3@sha256:de55b8d25454eae304da53c703e3bf5de6ad5d3e457faa77acaa5309d71e957b
             env:
               TZ: America/New_York
-              AMCREST_HOST: 192.168.134.62
-              AMCREST_PORT: 80
-              AMCREST_USERNAME: admin
-              AMCREST_PASSWORD: "${AMCREST_ADMIN_PASSWORD}"
-              MQTT_HOST: mosquitto
-              MQTT_PORT: 1883
-              MQTT_USERNAME: "${SECRET_MQTT_USERNAME}"
-              MQTT_PASSWORD: "${SECRET_MQTT_PASSWORD}"
-              HOME_ASSISTANT: true
-              STORAGE_POLL_INTERVAL: 0
-              DEVICE_NAME: "Kitchen Door"
+              ZWAVEJS_DATA: /usr/src/app/store
             probes:
               liveness:
                 enabled: false
@@ -84,22 +64,32 @@ spec:
         fsGroup: 994
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: ${FAMILY_DOMAIN}/role
+      #               operator: In
+      #               values:
+      #                 - apps
 
     service:
       main:
-        enabled: false
+        enabled: true
         controller: main
+        primary: true
+        ports:
+          http:
+            port: 8091
+          serial:
+            port: 3000
+        annotations:
+          service.cilium.io/global: "true"
 
-    ingress:
-      main:
-        enabled: false
-
-    # affinity:
-    #   nodeAffinity:
-    #     requiredDuringSchedulingIgnoredDuringExecution:
-    #       nodeSelectorTerms:
-    #         - matchExpressions:
-    #             - key: ${FAMILY_DOMAIN}/role
-    #               operator: In
-    #               values:
-    #                 - apps
+    persistence:
+      config:
+        existingClaim: zwavejs-config
+        globalMounts:
+          - path: /usr/src/app/store
+            readOnly: false

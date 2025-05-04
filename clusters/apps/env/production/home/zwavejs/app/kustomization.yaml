@@ -5,11 +5,11 @@ resources:
   - ../../../../../base/app-template
   - ingressroute.yaml
 patches:
-  - path: patch.zigbee2mqtt.yaml
+  - path: patch.zwavejs.yaml
   - patch: |-
       - op: replace
         path: /metadata/name
-        value: zigbee2mqtt-slzb
+        value: zwavejs
     target:
       kind: HelmRelease
       name: .*

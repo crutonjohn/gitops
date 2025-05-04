@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app zigbee2mqtt-slzb
+  name: &app zwavejs
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/zigbee2mqtt/slzb
+  path: ./clusters/apps/env/production/home/zwavejs/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -31,7 +31,7 @@ spec:
     substitute:
       APP: *app
       APP_UID: "994"
-      INGRESSROUTE_SUBDOMAIN: "zigbee"
+      INGRESSROUTE_SUBDOMAIN: "zwave"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
@@ -46,13 +46,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: volsync-zigbee2mqtt-config-restic
+  name: volsync-zwavejs-config-restic
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &app zigbee2mqtt
+      app.kubernetes.io/name: &app zwavejs
       backups.${FAMILY_DOMAIN}/name: *app
       backups.${FAMILY_DOMAIN}/subsystem: home-automation
   path: ./clusters/apps/base/volsync/lib/restic
@@ -73,14 +73,14 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      SRC_PVC: zigbee2mqtt-slzb-config
+      SRC_PVC: zwavejs-config
       APP_UID: "994"
       CRON_SCHEDULE: "50 1/12 * * *"
       LOCAL_SCHEDULE: "55 1/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
-      SIZE: "1Gi"
+      SIZE: "2Gi"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
