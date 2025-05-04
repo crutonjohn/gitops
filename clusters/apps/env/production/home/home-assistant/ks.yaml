@@ -27,7 +27,7 @@ spec:
     - name: mosquitto
     - name: frigate
     - name: cilium-bgp
-    - name: zigbee2mqtt-slzb
+    - name: zwavejs
     - name: multus-config
     - name: traefik-external
     - name: traefik-internal
