@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 1.15.2
+      version: 1.16.1
       sourceRef:
         kind: HelmRepository
         name: k8s-sigs-external-dns-charts
@@ -30,6 +30,10 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
+    image:
+      repository: gcr.io/k8s-staging-external-dns/external-dns
+      tag: v20250507-v0.16.1-133-g923a6d95
+      pullPolicy: IfNotPresent
     resources:
       requests:
         cpu: 10m
@@ -59,6 +63,7 @@ spec:
     extraArgs:
       - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns/private in (true)
+      - --pihole-api-version=6
     policy: upsert-only
     registry: noop
     sources: ["crd", "service", "ingress"]
