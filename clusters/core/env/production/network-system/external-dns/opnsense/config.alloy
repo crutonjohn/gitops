@@ -14,27 +14,27 @@ pyroscope.scrape "scrape_job_name" {
                 }
 
                 profile.godeltaprof_memory {
-                        enabled = true
+                        enabled = false
                 }
 
                 profile.memory { // disable memory, use godeltaprof_memory instead
-                        enabled = false
+                        enabled = true
                 }
 
                 profile.godeltaprof_mutex {
-                        enabled = true
+                        enabled = false
                 }
 
                 profile.mutex { // disable mutex, use godeltaprof_mutex instead
-                        enabled = false
-                }
-
-                profile.godeltaprof_block {
                         enabled = true
                 }
 
+                profile.godeltaprof_block {
+                        enabled = block
+                }
+
                 profile.block { // disable block, use godeltaprof_block instead
-                        enabled = false
+                        enabled = true
                 }
 
                 profile.goroutine {
