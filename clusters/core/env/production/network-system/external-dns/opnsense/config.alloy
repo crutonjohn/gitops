@@ -30,7 +30,7 @@ pyroscope.scrape "scrape_job_name" {
                 }
 
                 profile.godeltaprof_block {
-                        enabled = block
+                        enabled = false
                 }
 
                 profile.block { // disable block, use godeltaprof_block instead
