@@ -25,7 +25,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: mosquitto
-    - name: traefik-external
+    - name: traefik-internal
     - name: oauth2-proxy
   postBuild:
     substitute:
