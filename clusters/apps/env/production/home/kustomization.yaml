@@ -10,7 +10,6 @@ resources:
   - ./zwavejs/ks.yaml
   - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
-  - ./grocy/ks.yaml
 patches:
   - patch: |-
       - op: add
