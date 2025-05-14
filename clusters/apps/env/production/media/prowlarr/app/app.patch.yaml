@@ -34,7 +34,7 @@ spec:
             nameOverride: prowlarr
             image:
               repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: rolling@sha256:01dce2a9c0e29a2a5338a9457698ea3e027727bed6b9f0ab7ac4a259cafb991b
+              tag: rolling@sha256:f3c0edbd19d744c8306ae8f72e75f0fb54ff662e9f7b22a4d9029e5c0b7f075c
               pullPolicy: Always
             env:
               TZ: America/New_York
