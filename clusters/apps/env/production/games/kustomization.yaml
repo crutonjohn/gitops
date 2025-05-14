@@ -3,6 +3,3 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./ark/ks.yaml
-  # - ./homecraft-vanilla/ks.yaml
-  # - ./minecraft-proxy/ks.yaml
-  # - ./jacob/ks.yaml
