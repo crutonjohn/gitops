@@ -11,4 +11,34 @@ spec:
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.133.2
+        - 192.168.133.20
+    - dnsName: RACK1G.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.21
+    - dnsName: SX3008F.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.22
+    - dnsName: DOWNSTAIRS.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.23
+    - dnsName: INWALL-MBR.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.24
+    - dnsName: INWALL-LANDING.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.25
+    - dnsName: GARAGE-10G.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.26

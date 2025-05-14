@@ -7,7 +7,7 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: slzb.${FAMILY_DOMAIN}
+    - dnsName: tubeszb.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:

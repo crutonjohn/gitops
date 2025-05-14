@@ -47,8 +47,3 @@ spec:
       recordType: A
       targets:
         - 192.168.130.156
-    - dnsName: k-nas.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 192.168.130.156

@@ -2,7 +2,7 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: desktops
+  name: workstations
   annotations:
     external-dns/private: "true"
 spec:
@@ -22,3 +22,8 @@ spec:
       recordType: A
       targets:
         - 192.168.128.6
+    - dnsName: wayward.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.128.8

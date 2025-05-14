@@ -22,13 +22,3 @@ spec:
       recordType: A
       targets:
         - 192.168.128.5
-    - dnsName: ender3.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 192.168.128.5
-    - dnsName: anycubic.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 192.168.128.5
