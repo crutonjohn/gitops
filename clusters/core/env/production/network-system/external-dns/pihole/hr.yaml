@@ -64,6 +64,7 @@ spec:
       - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns/private in (true)
       - --pihole-api-version=6
+      - --traefik-disable-legacy
     policy: upsert-only
     registry: noop
     sources: ["crd", "service", "ingress"]
