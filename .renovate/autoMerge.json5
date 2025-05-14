@@ -1,0 +1,14 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      description: "Auto-merge GitHub Releases",
+      matchDatasources: ["github-releases"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["/external-dns/", "/cert-manager/", "/node-feature-discovery/", "/reloader/", "/replicator/" ],
+      ignoreTests: true,
+    },
+  ],
+}
