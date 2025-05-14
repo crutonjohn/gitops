@@ -9,7 +9,7 @@ spec:
   # renovate: datasource=github-releases
   url: https://github.com/open-telemetry/opentelemetry-operator.git
   ref:
-    tag: v0.120.0
+    tag: v0.124.0
   ignore: |
     # exclude all
     /*
