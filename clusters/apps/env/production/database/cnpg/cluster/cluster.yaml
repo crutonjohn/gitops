@@ -28,9 +28,6 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: false
-  # affinity:
-  #   nodeSelector:
-  #     ${FAMILY_DOMAIN}/role: apps
   backup:
     retentionPolicy: 30d
     barmanObjectStore: &barmanObjectStore
