@@ -37,6 +37,10 @@ spec:
   path: ./clusters/apps/env/production/actions-runner-system/controller/runners
   prune: true
   retryInterval: 2m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
   sourceRef:
     kind: GitRepository
     name: flux-system
