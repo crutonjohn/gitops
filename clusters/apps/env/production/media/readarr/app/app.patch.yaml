@@ -44,7 +44,7 @@ spec:
             args: [readarr]
             image:
               repository: ghcr.io/onedr0p/exportarr
-              tag: v2.0.1
+              tag: v2.2.0
               pullPolicy: IfNotPresent
             env:
               URL: "http://localhost"
