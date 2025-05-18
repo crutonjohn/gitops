@@ -40,7 +40,7 @@ permissions:
 jobs:
   main:
     name: Renovate
-    runs-on: gitops-runner
+    runs-on: ubuntu-latest
     permissions:
       packages: read
     steps:
