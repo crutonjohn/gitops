@@ -44,7 +44,7 @@ spec:
             nameOverride: lidarr
             image:
               repository: ghcr.io/crutonjohn/lidarr-plugins
-              tag: rolling@sha256:c058587107afeaf4d82b21fb6edf75f9c31466a9256313400cb25aa5a97eeb2a
+              tag: rolling@sha256:4bac3540b98aab19eb2828ea0dc91daee1351068e214e9f378d8fd4e6e5e6eef
               pullPolicy: IfNotPresent
             envFrom: *envFrom
             probes:

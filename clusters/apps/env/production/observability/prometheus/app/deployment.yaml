@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: quay.io/prometheus/prometheus:v3.2.1
+          image: quay.io/prometheus/prometheus:v3.4.0
           args:
             - '--storage.tsdb.retention.size=15GB'
             - '--storage.tsdb.path=/prometheus'

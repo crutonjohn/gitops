@@ -37,7 +37,7 @@ spec:
             nameOverride: deemix
             image:
               repository: ghcr.io/crutonjohn/deemix-latest
-              tag: rolling@sha256:c1bc0bc9742daf7dda08943640d4ef271d051935cd3baba0bc17b4b6146eb745
+              tag: rolling@sha256:d7e1f8a036b5a2a218e5c86e41372e4eea6bbe06fc33c335fb21f9d3c902bffe
             env:
               TZ: America/New_York
               DEEMIX_SINGLE_USER: 'true'

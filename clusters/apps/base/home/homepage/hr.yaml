@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: homepage
-      version: 2.0.1
+      version: 2.1.0
       sourceRef:
         kind: HelmRepository
         name: jameswynn-charts
@@ -26,4 +26,4 @@ spec:
   values:
     image:
       repository: ghcr.io/gethomepage/homepage
-      tag: v0.10.9
+      tag: v1.2.0
