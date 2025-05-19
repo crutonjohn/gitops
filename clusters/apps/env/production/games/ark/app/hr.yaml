@@ -44,7 +44,7 @@ spec:
     image:
       registry: ghcr.io
       repository: crutonjohn/arkserver
-      tag: master@sha256:ed326ca2162106806870404a4d68f66eae01b89fc09012dea20ad4ee338c5133
+      tag: master@sha256:103cda9e7dfc0f89818acd1ca55fc8665cbafcdd28d352f771839f0c12e9cbbe
       pullSecrets: []
       pullPolicy: Always
 
