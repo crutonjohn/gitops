@@ -66,15 +66,13 @@ spec:
           enabled: false
     ingress:
       enabled: true
-      labels:
-        external-dns/private: "true"
       annotations:
-        # kubernetes.io/ingress.class: "traefik-internal"
-        # cert-manager.io/issuer-name: "step-issuer"
-        # cert-manager.io/issuer-kind: "StepIssuer"
-        # cert-manager.io/issuer-group: "certmanager.step.sm"
-        # traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        # traefik.ingress.kubernetes.io/router.tls: "true"
+        kubernetes.io/ingress.class: "traefik-internal"
+        cert-manager.io/issuer-name: "step-issuer"
+        cert-manager.io/issuer-kind: "StepIssuer"
+        cert-manager.io/issuer-group: "certmanager.step.sm"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
         external-dns/private: "true"
       ingressClassName: "traefik-internal"
       hosts:
@@ -87,7 +85,7 @@ spec:
       tls:
         - hosts:
             - ra.${FAMILY_DOMAIN}
-          secretName: registration-authority-tls
+          secretName: registration-authority-auto-tls
     service:
       type: ClusterIP
       port: 9000
