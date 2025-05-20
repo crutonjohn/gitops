@@ -2,12 +2,17 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: nord
+  name: monitoring
   annotations:
     external-dns/private: "true"
 spec:
   endpoints:
     - dnsName: prometheus.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.9
+    - dnsName: prom-ord.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:

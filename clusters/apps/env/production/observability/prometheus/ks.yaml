@@ -28,7 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: "prometheus.lyh"
+      INGRESSROUTE_SUBDOMAIN: "prom-lyh"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
