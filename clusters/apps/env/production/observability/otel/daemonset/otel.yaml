@@ -26,8 +26,8 @@ spec:
       mountPath: /hostfs
       readOnly: true
       mountPropagation: HostToContainer
-    - name: certs
-      mountPath: /var/lib/step
+    # - name: certs
+    #   mountPath: /var/lib/step
   env:
     - name: OTEL_K8S_NODE_NAME
       valueFrom:
@@ -63,9 +63,9 @@ spec:
     - name: hostfs
       hostPath:
         path: /
-    - name: certs
-      secret:
-        secretName: otel-scraper-internal-tls
+    # - name: certs
+    #   secret:
+    #     secretName: otel-scraper-internal-tls
   config: |
     exporters:
       debug: {}
