@@ -27,7 +27,7 @@ scrape_configs:
         replacement: home-assistant
   - job_name: nut-exporter
     static_configs:
-      - targets: ['192.168.130.2', '192.168.130.3'] # nut exporter
+      - targets: ['peanut1.${FAMILY_DOMAIN}', 'peanut2.${FAMILY_DOMAIN}'] # nut exporter
     metrics_path: /ups_metrics
     relabel_configs:
       - source_labels: [__address__]
