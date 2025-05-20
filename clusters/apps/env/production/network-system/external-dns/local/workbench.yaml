@@ -11,14 +11,14 @@ spec:
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.128.5
+        - 192.168.130.4
     - dnsName: netboot.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.128.5
+        - 192.168.130.4
     - dnsName: boot.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.128.5
+        - 192.168.130.4
