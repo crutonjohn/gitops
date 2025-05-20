@@ -115,7 +115,7 @@ spec:
             - container.image.name
             - k8s.cluster.uid
         filter:
-          node_from_env_var: K8S_NODE_NAME
+          node_from_env_var: OTEL_K8S_NODE_NAME
         passthrough: false
         pod_association:
         - sources:
