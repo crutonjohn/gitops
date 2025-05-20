@@ -3,3 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./hr.yaml
+# seems like a bug? https://github.com/cert-manager/cert-manager/issues/3484
+  - ./cert-req.yaml
