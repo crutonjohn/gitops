@@ -7,7 +7,17 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: signoz.${FAMILY_DOMAIN}
+    - dnsName: prometheus.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.9
+    - dnsName: grafana.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.9
+    - dnsName: loki.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
