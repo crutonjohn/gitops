@@ -225,7 +225,7 @@ spec:
       image:
         repository: nginxinc/nginx-unprivileged
         tag: 1.28.0@sha256:268e2bf6771ecce36403cc783635ab2a3ca95840c4754266f853d658f98247eb
-      containerPort: 8080
+      containerPort: 80
 
       config:
         default: false
@@ -237,7 +237,7 @@ spec:
 
           server {
               # Default, IPv4 only
-              listen 8080;
+              listen 80;
 
               # HSTS settings
               # WARNING: Only add the preload option once you read about
@@ -354,6 +354,7 @@ spec:
                   fastcgi_request_buffering off;
                   fastcgi_read_timeout 200s;
                   fastcgi_send_timeout 200s;
+
               }
 
               location ~ \.(?:css|js|svg|gif)$ {
@@ -421,7 +422,7 @@ spec:
 
     service:
       type: ClusterIP
-      port: 8080
+      port: 80
       loadBalancerIP: ""
       nodePort:
       # -- use additional annotation on service for nextcloud
