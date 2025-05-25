@@ -17,7 +17,7 @@ spec:
       priority: 10
       services:
         - name: ${APP}
-          port: 8080
+          port: 80
   tls:
     secretName: heyjohn-wildcard-certificate
     domains:
