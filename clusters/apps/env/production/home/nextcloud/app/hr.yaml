@@ -453,17 +453,17 @@ spec:
     ##
     livenessProbe:
       enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      timeoutSeconds: 10
+      failureThreshold: 5
       successThreshold: 1
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      timeoutSeconds: 10
+      failureThreshold: 5
       successThreshold: 1
     startupProbe:
       enabled: false
