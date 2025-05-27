@@ -74,6 +74,6 @@ spec:
         type: emptyDir
       downloads:
         enabled: true
-        existingClaim: "deemix-import"
+        existingClaim: "lidarr-downloads"
         globalMounts:
           - path: /downloads

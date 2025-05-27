@@ -127,11 +127,11 @@ spec:
                 readOnly: false
       deemix-import:
         enabled: true
-        existingClaim: "deemix-import"
+        existingClaim: "lidarr-downloads"
         advancedMounts:
           main:
             main:
-              - path: /deemix
+              - path: /downloads
                 readOnly: false
       music-library:
         enabled: true
