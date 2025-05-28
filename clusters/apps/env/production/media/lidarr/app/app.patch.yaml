@@ -16,18 +16,8 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
-      main:
+      lidarr:
         type: deployment
 
         initContainers:
@@ -40,7 +30,7 @@ spec:
                   name: lidarr-secret
 
         containers:
-          main:
+          lidarr:
             nameOverride: lidarr
             image:
               repository: ghcr.io/crutonjohn/lidarr-plugins
@@ -89,16 +79,16 @@ spec:
           #       memory: 100M
 
     service:
-      main:
+      lidarr:
         enabled: true
-        controller: main
+        controller: lidarr
         primary: true
         ports:
           http:
             port: 8686
       # metrics:
       #   enabled: true
-      #   controller: main
+      #   controller: lidarr
       #   primary: false
       #   ports:
       #     metrics:
@@ -117,28 +107,27 @@ spec:
         existingClaim: "lidarr-config"
         globalMounts:
           - path: /config
-      bysh-import:
+      downloads:
         enabled: true
-        existingClaim: "lidarr-import"
+        existingClaim: "media-downloads"
         advancedMounts:
-          main:
-            main:
-              - path: /bysh
+          lidarr:
+            lidarr:
+              - path: /downloads/deemix
                 readOnly: false
-      deemix-import:
-        enabled: true
-        existingClaim: "lidarr-downloads"
-        advancedMounts:
-          main:
-            main:
-              - path: /downloads
+                subPath: deemix
+              - path: /downloads/soulseek
                 readOnly: false
+                subPath: soulseek
+              - path: /downloads/bysh
+                readOnly: false
+                subPath: bysh
       music-library:
         enabled: true
         existingClaim: "music-library"
         advancedMounts:
-          main:
-            main:
+          lidarr:
+            lidarr:
               - path: /music
                 readOnly: false
 
