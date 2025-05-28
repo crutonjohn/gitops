@@ -122,6 +122,9 @@ spec:
               - path: /downloads/bysh
                 readOnly: false
                 subPath: bysh
+              - path: /downloads/youtube
+                readOnly: false
+                subPath: youtube
       music-library:
         enabled: true
         existingClaim: "music-library"
