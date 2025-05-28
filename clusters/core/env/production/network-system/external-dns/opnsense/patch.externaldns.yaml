@@ -68,7 +68,8 @@ spec:
         emptyDir:
           medium: Memory
     extraContainers:
-      - name: alloy
+      alloy:
+        name: alloy
         image: "grafana/alloy:v1.8.3"
         imagePullPolicy: IfNotPresent
         args:
