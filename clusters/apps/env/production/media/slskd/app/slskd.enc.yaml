@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: slskd-env
+stringData:
+    SLSKD_SLSK_USERNAME: ENC[AES256_GCM,data:gMusAiV82fGa4g==,iv:le4Sh+T4Zl+kq3kS9qtMFL25vG/Kk7JVLlN1jRpaxZE=,tag:G+PoRonnuGUCrRkU47pcRg==,type:str]
+    SLSKD_SLSK_PASSWORD: ENC[AES256_GCM,data:ZryNF+gQWNbC7q2zhT9JrvzScLnQtZM=,iv:cN9JzZG5c5TjKIRV9EcSmM+smfTkUgROxARrOMdOsJM=,tag:x4t4l3ty02wzH6qbSITt+g==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2025-05-28T17:17:17Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFhxI6VHoqyn9ZccDqxEPQJAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMYB4SqN/PwF6KadqjAgEQgDsyfLvKy7h00r8PKI4+x4juGppHusuXfeisMWqJ8DRn695cOFFhE5xUa56tXsSJZ9ipAgS/fMRHqUFXhA==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2025-05-28T17:17:17Z"
+    mac: ENC[AES256_GCM,data:OaVgL9YBtXSQm7kUnMx5QbvdfewjmPgFrUu2JBund3LWkid9uJ4ZHQ1+cK/v9d//UBstZD1CJZ32QOwvoQvHmT0PmqYX/3fKZiEdHc4lJuK+WRUQtFG80UN9QAzU1dNzkKSf4Y5U2O+Shn4ipZnCERFYAEVihcksP8MQqgCkhQk=,iv:u6pR15pnIyUWr8POHO9VA3RGmpviNRyNgm04qaR4o64=,tag:ORG0FXIB84TR/6hGKSbuCQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.4

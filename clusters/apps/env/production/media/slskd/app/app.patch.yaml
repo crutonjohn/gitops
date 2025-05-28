@@ -25,9 +25,12 @@ spec:
               repository: ghcr.io/slskd/slskd
               tag: 0.22.5@sha256:f5150c39758353c31788e8e3d6aa9f9c2910f2a46591d810fc2f4d0bac81a96a
               pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: slskd-env
             env:
               - name: SLSKD_REMOTE_CONFIGURATION
-                value: "true"
+                value: "false"
             probes:
               liveness:
                 enabled: false
@@ -49,19 +52,80 @@ spec:
         ports:
           http:
             port: 5030
+          https:
+            port: 5031
+        annotations:
+          prometheus.io/scrape: 'true'
+          prometheus.io/port: '5030'
+      share:
+        type: LoadBalancer
+        controller: slskd
+        externalTrafficPolicy: Local
+        ports:
           share:
             port: 50300
+            protocol: TCP
+        labels:
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-sharing-key: music-media
+          io.cilium/lb-ipam-ips: ${CLUSTER_LB_MUSIC_SYNC}
+
     persistence:
-      config:
+      audiobooks-library:
         enabled: true
-        existingClaim: "slskd-config"
-        globalMounts:
-          - path: /app
-      slskd-downloads:
-        enabled: true
-        existingClaim: "lidarr-downloads"
+        existingClaim: "audiobook-library"
         advancedMounts:
           slskd:
             slskd:
-              - path: /downloads
+              - path: /audiobooks
+                readOnly: true
+      ebooks-library:
+        enabled: true
+        existingClaim: "ebook-library"
+        advancedMounts:
+          slskd:
+            slskd:
+              - path: /ebooks
+                readOnly: true
+      music-library:
+        enabled: true
+        existingClaim: "music-library"
+        advancedMounts:
+          slskd:
+            slskd:
+              - path: /music
+                readOnly: true
+      downloads:
+        enabled: true
+        existingClaim: "media-downloads"
+        advancedMounts:
+          slskd:
+            slskd:
+              - path: /app/downloads
                 readOnly: false
+                subPath: soulseek
+              - path: /app/incomplete
+                readOnly: false
+                subPath: incomplete
+      data:
+        enabled: true
+        existingClaim: "slskd-data"
+        advancedMounts:
+          slskd:
+            slskd:
+              - path: /app/data
+                readOnly: false
+                subPath: data
+              - path: /app/scripts
+                readOnly: false
+                subPath: scripts
+      config:
+        type: configMap
+        name: slskd-config
+        advancedMounts:
+          slskd:
+            slskd:
+              - path: /app/config.yaml
+                readOnly: false
+                subPath: config.yaml

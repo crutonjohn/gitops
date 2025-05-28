@@ -18,22 +18,12 @@ spec:
         options:
           - { name: ndots, value: "1" }
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
-      main:
+      deemix:
         type: deployment
 
         containers:
-          main:
+          deemix:
             nameOverride: deemix
             image:
               repository: ghcr.io/crutonjohn/deemix-latest
@@ -42,7 +32,7 @@ spec:
               TZ: America/New_York
               DEEMIX_SINGLE_USER: 'true'
               DEEMIX__DATA_DIR: '/config/'
-              DEEMIX__MUSIC_DIR: '/downloads/deemix/'
+              DEEMIX__MUSIC_DIR: '/downloads/'
               DEEMIX__HOST: '0.0.0.0'
               DEEMIX__PORT: '6595'
             probes:
@@ -60,9 +50,9 @@ spec:
                 memory: 2000M
 
     service:
-      main:
+      deemix:
         enabled: true
-        controller: main
+        controller: deemix
         primary: true
         ports:
           http:
@@ -74,6 +64,10 @@ spec:
         type: emptyDir
       downloads:
         enabled: true
-        existingClaim: "lidarr-downloads"
-        globalMounts:
-          - path: /downloads
+        existingClaim: "media-downloads"
+        advancedMounts:
+          deemix:
+            deemix:
+              - path: /downloads
+                readOnly: false
+                subPath: deemix
