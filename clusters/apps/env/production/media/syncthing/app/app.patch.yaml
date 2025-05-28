@@ -17,11 +17,11 @@ spec:
         runAsGroup: ${APP_UID}
 
     controllers:
-      main:
+      syncthing:
         type: deployment
 
         containers:
-          main:
+          syncthing:
             nameOverride: syncthing
             image:
               repository: syncthing/syncthing
@@ -44,16 +44,16 @@ spec:
                 memory: 4200M
 
     service:
-      main:
+      syncthing:
         enabled: true
-        controller: main
+        controller: syncthing
         primary: true
         ports:
           http:
             port: 8384
       discovery:
         type: LoadBalancer
-        controller: main
+        controller: syncthing
         externalTrafficPolicy: Local
         ports:
           discovery:
@@ -66,7 +66,7 @@ spec:
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_MUSIC_SYNC}
       listen:
         type: LoadBalancer
-        controller: main
+        controller: syncthing
         externalTrafficPolicy: Local
         ports:
           transfer:
@@ -91,8 +91,8 @@ spec:
         enabled: true
         existingClaim: "media-downloads"
         advancedMounts:
-          main:
-            main:
+          syncthing:
+            syncthing:
               - path: /var/syncthing/bysh-import
                 readOnly: false
                 subPath: bysh
