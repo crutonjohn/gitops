@@ -129,6 +129,8 @@ web:
   url_base: /
   content_path: wwwroot
   logging: true
+  authentication:
+    disabled: true
     # jwt:
     #   key: ~
     #   ttl: 604800000
