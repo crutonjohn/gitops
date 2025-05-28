@@ -47,6 +47,9 @@ spec:
     logLevel: debug
     logFormat: json
     sources: ["crd", "service", "ingress", "traefik-proxy"]
+    extraArgs:
+      - --ignore-ingress-tls-spec
+      - --traefik-disable-legacy
     policy: sync
     registry: txt
     txtOwnerId: "k8s"
