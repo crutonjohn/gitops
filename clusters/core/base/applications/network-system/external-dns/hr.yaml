@@ -46,10 +46,7 @@ spec:
         memory: 148M
     logLevel: debug
     logFormat: json
-    sources:
-      - service
-      - ingress
-      - crd
+    sources: ["crd", "service", "ingress", "traefik-proxy"]
     policy: sync
     registry: txt
     txtOwnerId: "k8s"

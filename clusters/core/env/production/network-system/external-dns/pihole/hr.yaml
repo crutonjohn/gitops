@@ -67,7 +67,6 @@ spec:
       - --traefik-disable-legacy
     policy: upsert-only
     registry: noop
-    sources: ["crd", "service", "ingress"]
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false

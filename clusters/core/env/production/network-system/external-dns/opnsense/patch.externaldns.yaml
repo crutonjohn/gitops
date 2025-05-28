@@ -57,7 +57,6 @@ spec:
       - --traefik-disable-legacy
     policy: sync
     registry: noop
-    sources: ["crd", "ingress", "traefik-proxy"]
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false

@@ -5,8 +5,7 @@ metadata:
   name: external-dns
 spec:
   values:
-    domainFilters:
-      - ${FAMILY_DOMAIN}
+    domainFilters: ["${FAMILY_DOMAIN}"]
     provider: linode
     extraArgs:
       - --annotation-filter=external-dns/public in (true)
