@@ -52,9 +52,6 @@ spec:
           resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
           verbs: ["get", "watch", "list"]
     sources: ["crd", "service", "ingress", "traefik-proxy"]
-    extraArgs:
-      - --ignore-ingress-tls-spec
-      - --traefik-disable-legacy
     policy: sync
     registry: txt
     txtOwnerId: "k8s"
