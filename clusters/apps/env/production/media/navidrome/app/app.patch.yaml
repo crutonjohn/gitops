@@ -15,16 +15,6 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
       main:
         type: deployment
