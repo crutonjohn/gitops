@@ -92,10 +92,6 @@ spec:
           prometheus.io/scrape: 'true'
           prometheus.io/port: '9792'
 
-    ingress:
-      readarr:
-        enabled: false
-
     persistence:
       config:
         enabled: true
