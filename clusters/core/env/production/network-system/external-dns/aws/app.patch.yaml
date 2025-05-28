@@ -37,10 +37,6 @@ spec:
         memory: 148M
     logLevel: debug
     logFormat: json
-    sources:
-      - service
-      - ingress
-      - crd
     policy: sync
     registry: txt
     txtOwnerId: "k8s."

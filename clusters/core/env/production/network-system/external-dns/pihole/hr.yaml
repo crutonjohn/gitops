@@ -60,6 +60,7 @@ spec:
       name: pihole
     logLevel: debug
     logFormat: json
+    sources: ["crd", "service", "ingress", "traefik-proxy"]
     extraArgs:
       - --ignore-ingress-tls-spec
       - --annotation-filter=external-dns/private in (true)
