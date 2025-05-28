@@ -46,6 +46,11 @@ spec:
         memory: 148M
     logLevel: debug
     logFormat: json
+    rbac:
+      additionalPermissions:
+        - apiGroups: ["traefik.containo.us", "traefik.io"]
+          resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
+          verbs: ["get", "watch", "list"]
     sources: ["crd", "service", "ingress", "traefik-proxy"]
     extraArgs:
       - --ignore-ingress-tls-spec
