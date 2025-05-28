@@ -5,6 +5,9 @@ kind: HelmRelease
 metadata:
   name: app-template
 spec:
+  chart:
+    spec:
+      version: 3.5.1
   values:
     defaultPodOptions:
       securityContext:
