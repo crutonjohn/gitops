@@ -15,22 +15,12 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
-      main:
+      prowlarr:
         type: deployment
 
         containers:
-          main:
+          prowlarr:
             nameOverride: prowlarr
             image:
               repository: ghcr.io/onedr0p/prowlarr-develop
@@ -80,16 +70,16 @@ spec:
                 memory: 100M
 
     service:
-      main:
+      prowlarr:
         enabled: true
-        controller: main
+        controller: prowlarr
         primary: true
         ports:
           http:
             port: 9696
       metrics:
         enabled: true
-        controller: main
+        controller: prowlarr
         primary: false
         ports:
           metrics:
