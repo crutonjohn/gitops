@@ -126,6 +126,6 @@ spec:
         advancedMounts:
           slskd:
             slskd:
-              - path: /app/config.yaml
+              - path: /app/slskd.yml
                 readOnly: false
-                subPath: config.yaml
+                subPath: slskd.yml

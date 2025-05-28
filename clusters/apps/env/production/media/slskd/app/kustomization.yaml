@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: slskd-config
     files:
-      - config.yaml=./config.yaml
+      - slskd.yml=./config.yaml
 patches:
   - path: app.patch.yaml
   - patch: |-
