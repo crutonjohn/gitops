@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: app-template
+spec:
+  chart:
+    spec:
+      version: 3.1.0
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+    controllers:
+      slskd:
+        type: deployment
+        containers:
+          slskd:
+            nameOverride: slskd
+            image:
+              repository: ghcr.io/slskd/slskd
+              tag: 0.22.5@sha256:f5150c39758353c31788e8e3d6aa9f9c2910f2a46591d810fc2f4d0bac81a96a
+              pullPolicy: IfNotPresent
+            env:
+              - name: SLSKD_REMOTE_CONFIGURATION
+                value: "true"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 20m
+                memory: 1000M
+              limits:
+                memory: 4200M
+    service:
+      slskd:
+        enabled: true
+        controller: slskd
+        primary: true
+        ports:
+          http:
+            port: 5030
+          share:
+            port: 50300
+    persistence:
+      config:
+        enabled: true
+        existingClaim: "slskd-config"
+        globalMounts:
+          - path: /app
+      slskd-downloads:
+        enabled: true
+        existingClaim: "lidarr-downloads"
+        advancedMounts:
+          slskd:
+            slskd:
+              - path: /downloads
+                readOnly: false
