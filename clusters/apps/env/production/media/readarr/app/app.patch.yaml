@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -12,16 +13,15 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
     controllers:
-      main:
+      readarr:
         type: deployment
 
         containers:
-          main:
+          readarr:
             nameOverride: readarr
             image:
               repository: ghcr.io/onedr0p/readarr-develop
               tag: rolling
-            order: 1
             env:
               TZ: Amertica/New_York
               HOME: /config
@@ -40,7 +40,7 @@ spec:
                 memory: 2000M
           metrics:
             nameOverride: metrics
-            dependsOn: [main]
+            dependsOn: [readarr]
             args: [readarr]
             image:
               repository: ghcr.io/onedr0p/exportarr
@@ -67,13 +67,16 @@ spec:
                 memory: 100M
 
     service:
-      main:
+      readarr:
+        enabled: true
+        controller: readarr
+        primary: false
         ports:
           http:
             port: 8787
       metrics:
         enabled: true
-        controller: main
+        controller: readarr
         primary: false
         ports:
           metrics:
@@ -87,7 +90,7 @@ spec:
           prometheus.io/port: '9792'
 
     ingress:
-      main:
+      readarr:
         enabled: false
 
     persistence:
@@ -99,18 +102,20 @@ spec:
       audiobooks:
         enabled: true
         existingClaim: "audiobook-library"
-        accessMode: ReadWriteMany
         advancedMounts:
-          main:
-            main:
+          readarr:
+            readarr:
               - path: /audiobooks
                 readOnly: false
-      readarr-import:
+      downloads:
         enabled: true
-        existingClaim: "readarr-import"
-        accessMode: ReadWriteMany
+        existingClaim: "media-downloads"
         advancedMounts:
-          main:
-            main:
-              - path: /import
+          readarr:
+            readarr:
+              - path: /downloads/soulseek
                 readOnly: false
+                subPath: soulseek
+              - path: /downloads/bysh
+                readOnly: false
+                subPath: bysh
