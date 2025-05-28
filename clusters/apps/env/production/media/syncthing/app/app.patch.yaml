@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -14,16 +15,6 @@ spec:
         runAsNonRoot: true
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
-
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
 
     controllers:
       main:
@@ -71,7 +62,7 @@ spec:
         labels:
           io.cilium/bgp-announce: worker
         annotations:
-          io.cilium/lb-ipam-sharing-key: syncthing-media
+          io.cilium/lb-ipam-sharing-key: music-media
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_MUSIC_SYNC}
       listen:
         type: LoadBalancer
@@ -87,7 +78,7 @@ spec:
         labels:
           io.cilium/bgp-announce: worker
         annotations:
-          io.cilium/lb-ipam-sharing-key: syncthing-media
+          io.cilium/lb-ipam-sharing-key: music-media
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_MUSIC_SYNC}
 
     persistence:
@@ -96,20 +87,12 @@ spec:
         existingClaim: "syncthing-config"
         globalMounts:
           - path: /var/syncthing/config
-      # For incoming data to this service, to be moved to one of the export mounts
-      bysh-import:
-        existingClaim: "bysh-import"
-        globalMounts:
-          - path: /var/syncthing/bysh-import
-      # called export because in this case we're exporting to these services
-      # PVC is called import because it is the primary PVC attached to the respective service
-      readarr-export:
-        existingClaim: "readarr-import"
-        globalMounts:
-          - path: /var/syncthing/readarr
-      # called export because in this case we're exporting to these services
-      # PVC is called import because it is the primary PVC attached to the respective service
-      lidarr-export:
-        existingClaim: "lidarr-import"
-        globalMounts:
-          - path: /var/syncthing/lidarr
+      downloads:
+        enabled: true
+        existingClaim: "media-downloads"
+        advancedMounts:
+          main:
+            main:
+              - path: /var/syncthing/bysh-import
+                readOnly: false
+                subPath: bysh
