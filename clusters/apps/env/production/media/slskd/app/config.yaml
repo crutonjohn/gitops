@@ -41,7 +41,10 @@ rooms:
 global:
   upload:
     slots: 20
-    speed_limit: 1000 # in kibibytes
+    speed_limit: 5000
+  download:
+    slots: 500
+    speed_limit: 5000 # in kibibytes
   limits:
     queued:
       files: 500
@@ -54,9 +57,7 @@ global:
       files: 5000
       megabytes: 50000
       failures: 1000
-  download:
-    slots: 500
-    speed_limit: 1000
+
 groups:
   default:
     upload:
@@ -69,7 +70,7 @@ groups:
         megabytes: 1500
       daily: ~ # no daily limits (weekly still apply)
       weekly:
-        files: 1500
+        files: 2000
         megabytes: 15000
         failures: 150
   leechers:
@@ -93,6 +94,17 @@ groups:
         files: 150
         megabytes: 1500
         failures: 30
+  # user_defined:
+  #   unlimited:
+  #     upload:
+  #       priority: 250
+  #       queue_strategy: firstinfirstout
+  #       slots: 20
+  #       speed_limit: 100000
+  #     limits:
+  #       queued:
+  #         files: 10000 # override global default
+  #     members: []
   # blacklisted:
   #   members:
   #     - <username to blacklist>
