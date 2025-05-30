@@ -119,6 +119,8 @@ spec:
       extraEnv: &extraEnv
         EXECUTIONS_MODE:
           value: "queue"
+        OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS:
+          value: "true"
         N8N_EDITOR_BASE_URL:
           value: *url
         N8N_TEMPLATES_ENABLED:
