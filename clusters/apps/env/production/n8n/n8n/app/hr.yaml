@@ -82,7 +82,6 @@ spec:
       className: "traefik-internal"
       hosts:
         - host: *hostname
-          paths: []
       tls:
         - hosts:
             - *hostname
@@ -298,11 +297,11 @@ spec:
       # List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started.
       # See https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
       initContainers:
-        - init-db:
-            image: ghcr.io/onedr0p/postgres-init:16
-            envFrom: &envFrom
-              - secretRef:
-                  name: n8n-secret
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16
+          envFrom: &envFrom
+            - secretRef:
+                name: n8n-secret
       #    - name: init-data-dir
       #      image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
       #      command: [ "/bin/sh", "-c", "mkdir -p /home/node/.n8n/" ]
