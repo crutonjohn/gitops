@@ -233,21 +233,21 @@ spec:
       # Labels to be implemented on the main service pod
       podLabels: {}
 
-      podSecurityContext: &podSecurityContext
-        runAsNonRoot: true
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
-        fsGroup: ${APP_UID}
-        # hard coded in image Q_Q
-        supplementalGroups: [1000]
+      # podSecurityContext: &podSecurityContext
+      #   runAsNonRoot: true
+      #   runAsUser: ${APP_UID}
+      #   runAsGroup: ${APP_UID}
+      #   fsGroup: ${APP_UID}
+      #   # hard coded in image Q_Q
+      #   supplementalGroups: [1000]
 
-      securityContext: &securityContext
-        capabilities:
-          drop:
-            - ALL
-        readOnlyRootFilesystem: false
-        runAsNonRoot: true
-        runAsUser: ${APP_UID}
+      # securityContext: &securityContext
+      #   capabilities:
+      #     drop:
+      #       - ALL
+      #   readOnlyRootFilesystem: false
+      #   runAsNonRoot: true
+      #   runAsUser: ${APP_UID}
 
       # here you can specify lifecycle hooks - it can be used e.g., to easily add packages to the container without building
       # your own docker image
