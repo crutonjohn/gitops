@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app n8n
+  namespace: flux-system
+spec:
+  targetNamespace: n8n
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/apps/env/production/n8n/n8n/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: traefik-internal
+  postBuild:
+    substitute:
+      APP: *app
+      INGRESSROUTE_SUBDOMAIN: n8n
+      APP_UID: "8558"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app volsync-n8n-data-restic
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: n8n
+      backups.${FAMILY_DOMAIN}/subsystem: automation
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: n8n-data
+      APP_UID: "8558"
+      CRON_SCHEDULE: "10 2/14 * * *"
+      LOCAL_SCHEDULE: "15 2/14 * * *"
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
+      DST_ACCESS_MODE: ReadWriteOnce
+      SIZE: "30Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}

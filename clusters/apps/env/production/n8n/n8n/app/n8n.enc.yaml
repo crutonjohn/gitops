@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: n8n-secret
+stringData:
+    INIT_POSTGRES_DBNAME: ENC[AES256_GCM,data:P5m2,iv:CK1ztXhga21sxBTvgRHBYSOSbgp1L57QtJKHUr5K12c=,tag:VhiSGazJl0F0VMuCuUkRUg==,type:str]
+    INIT_POSTGRES_HOST: ENC[AES256_GCM,data:/LYsNfBghi1by3iIHe+1mY39xrq8goii1hiUP2Da189txQzThTKNoA==,iv:TWESuTsOek85EzfVkbJcseK6fIvUvLmmHtch9W07at8=,tag:JqjfeEHmWfqnHShR4MZcmg==,type:str]
+    INIT_POSTGRES_USER: ENC[AES256_GCM,data:7/iM,iv:4SGZMcEQ981rhz44T7yfikQVib1W8PYxnpM+i0wgZvs=,tag:4o4V0PAixHhmKWdneNOxSw==,type:str]
+    INIT_POSTGRES_PASS: ENC[AES256_GCM,data:B6GVJRHtUt0belHfG+ku/km9J0OV1Qe1m5Xk0HjM,iv:oen4Vccbl7kiM7/FL8inA593DvcaFbsQQTGEg9wGJPM=,tag:Eyo2KTjZ/zQd/sfxidDFog==,type:str]
+    INIT_POSTGRES_SUPER_PASS: ENC[AES256_GCM,data:LPw6zniNuE/7/HX2u8pRVEmgLYIVk4E7RAT0hbEpQ+UXx3Dv0K7D54+oHo+PQKCDf/lfV5LIztTdCWSieeLstA==,iv:ZmIvLpkVsKMKPv5Nop2hkhKb+BTT7gUKrWqfbWH7tTk=,tag:N8ZFvBaYSfDKFSWadh0amg==,type:str]
+    N8N_ENCRYPTION_KEY: ENC[AES256_GCM,data:QOJt6pRhi22rAgkvS+jAwebSPCK3Z8APgdrhZf0m,iv:e1QdDWDI487KxaKhHA1d3+axmRilTUqHtd282o6XvKo=,tag:6q/R6WPoyreioGQIv+Vfsw==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2024-08-21T01:14:15Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwE/gwCWRPn7ViFIFtehPGbcAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMNoHeRdMKqP+nJe9zAgEQgDtRJyjB19LcIlAl25a9ZHbx/9tOMaemD9JRRPhhi3cNx/Tk7AFgHR4dav0886xuto8iAOKnA7dMNh9O1A==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2025-05-30T03:25:16Z"
+    mac: ENC[AES256_GCM,data:sDJi7247NwB1d9gnFkrpnn4Xecj93o5XyUOD+igi65e7APAEzKLd24jxypH8cJFf+rRhtYzEINCQONsOP6GJVW/W3ny6F24H4jVJCBMb/8EmSZ9uWdwQhuxmw/McVk+XrO1sCo5MWyVMe797kf/r/EcfXuVO2pt4ZjzAq5fMoz4=,iv:y4iv05xZhp5hhWJ/4Ex26/KT1bQASqCp6eCxlMysQfQ=,tag:jiN1YBxnsTI33rmBEIASpg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.4
