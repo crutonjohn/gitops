@@ -121,6 +121,8 @@ spec:
           value: *url
         N8N_TEMPLATES_ENABLED:
           value: "true"
+        N8N_RUNNERS_ENABLED:
+          value: "true"
         N8N_ENCRYPTION_KEY:
           valueFrom:
             secretKeyRef:
