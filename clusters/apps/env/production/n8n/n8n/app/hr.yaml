@@ -185,19 +185,17 @@ spec:
         # Use an existing PVC
         existingClaim: n8n-data
 
-      extraVolumes: []
-      #    - name: db-ca-cert
-      #      secret:
-      #        secretName: db-ca
-      #        items:
-      #          - key: ca.crt
-      #            path: ca.crt
+      extraVolumes:
+        - name: node-cache
+          emptyDir: {}
+        - name: n8n-cache
+          emptyDir: {}
 
-      extraVolumeMounts: []
-      #    - name: db-ca-cert
-      #      mountPath: /etc/ssl/certs/postgresql
-      #      readOnly: true
-
+      extraVolumeMounts:
+        - name: node-cache
+          mountPath: /home/node/.cache
+        - name: n8n-cache
+          mountPath: /home/node/.n8n
 
       # Number of desired pods. More than one pod is supported in n8n enterprise.
       replicaCount: 1
