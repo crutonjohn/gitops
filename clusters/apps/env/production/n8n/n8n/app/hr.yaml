@@ -82,6 +82,8 @@ spec:
       className: "traefik-internal"
       hosts:
         - host: *hostname
+          paths:
+            - /
       tls:
         - hosts:
             - *hostname
