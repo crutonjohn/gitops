@@ -423,9 +423,9 @@ spec:
       # Labels to be implemented on the worker pod
       podLabels: {}
 
-      podSecurityContext: *podSecurityContext
+      # podSecurityContext: *podSecurityContext
 
-      securityContext: *securityContext
+      # securityContext: *securityContext
 
       # here you can specify lifecycle hooks - it can be used e.g., to easily add packages to the container without building
       # your own docker image
@@ -600,9 +600,9 @@ spec:
       # Labels to be implemented on the webhook pod
       podLabels: {}
 
-      podSecurityContext: *podSecurityContext
+      # podSecurityContext: *podSecurityContext
 
-      securityContext: *securityContext
+      # securityContext: *securityContext
 
       # here you can specify lifecycle hooks - it can be used e.g., to easily add packages to the container without building
       # your own docker image
