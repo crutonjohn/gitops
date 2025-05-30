@@ -117,6 +117,8 @@ spec:
 
       # Extra environmental variables, so you can reference other configmaps and secrets into n8n as env vars.
       extraEnv: &extraEnv
+        EXECUTIONS_MODE:
+          value: "queue"
         N8N_EDITOR_BASE_URL:
           value: *url
         N8N_TEMPLATES_ENABLED:
