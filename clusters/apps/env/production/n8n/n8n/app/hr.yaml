@@ -188,14 +188,14 @@ spec:
       extraVolumes:
         - name: node-cache
           emptyDir: {}
-        # - name: n8n-cache
-        #   emptyDir: {}
+        - name: n8n-cache
+          emptyDir: {}
 
       extraVolumeMounts:
         - name: node-cache
           mountPath: /home/node/.cache
-        # - name: n8n-cache
-        #   mountPath: /home/node/.n8n
+        - name: n8n-cache
+          mountPath: /.n8n
 
       # Number of desired pods. More than one pod is supported in n8n enterprise.
       replicaCount: 1
@@ -241,7 +241,7 @@ spec:
         capabilities:
           drop:
             - ALL
-        readOnlyRootFilesystem: true
+        readOnlyRootFilesystem: false
         runAsNonRoot: true
         runAsUser: ${APP_UID}
 
