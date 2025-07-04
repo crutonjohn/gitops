@@ -12,6 +12,16 @@ spec:
       recordType: A
       targets:
         - 100.64.0.9
+    - dnsName: alerts.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.9
+    - dnsName: alertmanager.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.9
     - dnsName: prom-ord.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
