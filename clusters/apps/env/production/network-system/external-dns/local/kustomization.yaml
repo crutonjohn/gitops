@@ -9,3 +9,4 @@ resources:
   - ./workbench.yaml
   - ./workstations.yaml
   - ./pihole.yaml
+  - ./gaming.yaml

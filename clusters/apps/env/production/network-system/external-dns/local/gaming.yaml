@@ -1,0 +1,14 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: gaming
+  annotations:
+    external-dns/private: "true"
+spec:
+  endpoints:
+    - dnsName: cs-us-ord.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 172.232.28.169
