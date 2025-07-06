@@ -47,7 +47,7 @@ metadata:
   name: &app volsync-n8n-data-restic
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: n8n
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
