@@ -44,7 +44,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-slskd-config-restic
+  name: &app volsync-slskd-data-restic
   namespace: flux-system
 spec:
   targetNamespace: media
@@ -70,7 +70,7 @@ spec:
     - name: volsync
   postBuild:
     substitute:
-      SRC_PVC: slskd-config
+      SRC_PVC: slskd-data
       APP_UID: "1177"
       CRON_SCHEDULE: "10 2/12 * * *"
       LOCAL_SCHEDULE: "15 2/12 * * *"
