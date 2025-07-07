@@ -75,7 +75,7 @@ spec:
       CRON_SCHEDULE: "30 1/12 * * *"
       LOCAL_SCHEDULE: "35 1/12 * * *"
       STORAGE_CLASS: terra-filesystem
-      SNAPSHOT_CLASS: file
+      SNAPSHOT_CLASS: terra-file
       DST_ACCESS_MODE: ReadWriteMany
       SIZE: "2Ti"
     substituteFrom:
