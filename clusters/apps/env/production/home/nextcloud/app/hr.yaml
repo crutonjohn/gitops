@@ -224,7 +224,7 @@ spec:
       enabled: true
       image:
         repository: nginxinc/nginx-unprivileged
-        tag: 1.27.4@sha256:7a76302625f26fd9ea82da99c0e14c5f4def3a839b21e4138acdcbefc790219f
+        tag: 1.29.0@sha256:a7ad9ceb637fcc892a3a8a1724ab119d5d9bd41ec451ce10c02e04c47bc6ed60
       containerPort: 8080
 
       config:
