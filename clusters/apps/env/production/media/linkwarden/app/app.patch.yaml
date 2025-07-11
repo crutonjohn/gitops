@@ -47,7 +47,7 @@ spec:
             nameOverride: linkwarden
             image:
               repository: ghcr.io/linkwarden/linkwarden
-              tag: v2.10.2@sha256:c448740684ba24b6866294df4d45bc9e1ff0d48b17401f3502cb7d169c11cf55
+              tag: v2.11.3@sha256:1ad4225684bcd084d71d0ee5c6b3f118f3ba1e8468ff490d9e3429e30c6a8fd5
               pullPolicy: IfNotPresent
             envFrom: *envFrom
             env:
