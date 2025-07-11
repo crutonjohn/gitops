@@ -22,12 +22,13 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    defaultPodOptions:
+      imagePullSecrets:
+        - name: leetish-pull-secret
     controllers:
       leetish:
         annotations:
           reloader.stakater.com/auto: "true"
-        imagePullSecrets:
-          - name: leetish-pull-secret
         containers:
           leetish:
             image:
