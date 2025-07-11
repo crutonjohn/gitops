@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+    .dockerconfigjson: ENC[AES256_GCM,data:Qf6XUSDMQrjttWEmW10+zRYfGDzpkaMaTlPL4S9FxLyz5Q2CrG74zl7tCK4jskRcN/fOfQJouoaeEYM/i/Zmv3E+Sn3lid2hUjBNAZezVA4ywsGrBh7hQ562shFAryBFcO62QmHif8jobo14NSEx/jKPq0aHh5Jn1TSw/ATn6FlGjtbpM5j6/wvXwn7Ug94Pa2UzHYRjd2TgpmgQXHHcWA==,iv:NHi1UJklryDoCd4Lvj9DomAZmRKPvEK7px4HoRpYbU0=,tag:uAi0nIZYdIN0enxhMwD5gw==,type:str]
+    RAW_VALUE: ENC[AES256_GCM,data:uRR5DySKhKNrMUnqSf6eQi8gGbJJwtvDU6SmE/nfaIe3Ymtr6QGvIA==,iv:FxRKwLlduvcIcXloD9ivfR+EnEBqbLfATB0JdhuCWCM=,tag:VzPRS8NPtRjsB31kWF2/SA==,type:str]
+kind: Secret
+metadata:
+    name: leetish-pull-secret
+type: kubernetes.io/dockerconfigjson
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2025-07-11T14:19:45Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEBXyvUskIlgNUYGS1C6QOzAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM4FUW6DreNoGzTsoQAgEQgDvxyKcDuUSujdx9G+hdAVKk08lnMqUhZDlf6z2EUs+67uiecgUjmeYcos3nQuKvyxUPn3qEriv0Ih5pnQ==
+          aws_profile: ""
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2025-07-11T14:27:22Z"
+    mac: ENC[AES256_GCM,data:Z6kTctAv8jcSs2KpzfM/3NvP2pPanDQazB3MpTyX+pw6PwznavnB1ZppMj0KYslbivt+sLZSkbOO0JURF0CqCPCK8bWlOTVT4qmVxVJV5RPaRZwvz3W8wIqSx1PSH/EYV8itXRDWXNijLnocFHrElU9C2FiVyuiLf8q51RJ3XQI=,iv:y+f/JUHNhRhy8xPRE7Oj4t5I7cDvwiWhNB7OgZ7THHA=,tag:aP8+VgRLGTbRmo6r4UVy2w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.4

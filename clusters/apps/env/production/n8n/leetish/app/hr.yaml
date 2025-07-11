@@ -26,11 +26,15 @@ spec:
       leetish:
         annotations:
           reloader.stakater.com/auto: "true"
+        imagePullSecrets:
+          - name: leetish-pull-secret
         containers:
           leetish:
             image:
               repository: ghcr.io/crutonjohn/leetish
               tag: "main@sha256:25340c423357e466ff0f3b5e242c677e56896ebec98766033c4feb9f37a65fa4"
+            envFrom:
+              - secret: leetish-env
             probes:
               liveness: &probes
                 enabled: false
