@@ -33,7 +33,7 @@ spec:
           leetish:
             image:
               repository: ghcr.io/crutonjohn/leetish
-              tag: "main@sha256:07ca564e39338865cc2743cccf138339623ea54245f657f050f5c64dfe53d9ab"
+              tag: "main@sha256:945b2db959c60d3c06ae84a9a65086b06c74e83e3a39123288e028ce4ab8f545"
             envFrom:
               - secret: leetish-env
             probes:
