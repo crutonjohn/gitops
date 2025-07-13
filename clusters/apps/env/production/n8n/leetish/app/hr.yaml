@@ -42,6 +42,7 @@ spec:
               readiness: *probes
             securityContext:
               fsGroup: ${APP_UID}
+              fsGroupChangePolicy: "OnRootMismatch"
               runAsNonRoot: true
               runAsUser: ${APP_UID}
               runAsGroup: ${APP_UID}
