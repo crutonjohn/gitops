@@ -59,7 +59,7 @@ spec:
       data:
         existingClaim: leetish-data
         globalMounts:
-          - path: /data/leetish
+          - path: /data
             readOnly: false
     service:
       leetish:
