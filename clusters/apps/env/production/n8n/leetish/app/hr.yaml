@@ -25,6 +25,8 @@ spec:
     defaultPodOptions:
       imagePullSecrets:
         - name: leetish-pull-secret
+      securityContext:
+        fsGroup: ${APP_UID}
     controllers:
       leetish:
         annotations:
