@@ -1,0 +1,68 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: selenium
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: ${APP_UID}
+    controllers:
+      selenium:
+        containers:
+          selenium:
+            image:
+              repository: selenium/standalone-chrome
+              tag: "129.0"
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+            securityContext:
+              fsGroup: ${APP_UID}
+              fsGroupChangePolicy: "OnRootMismatch"
+              runAsNonRoot: true
+              runAsUser: ${APP_UID}
+              runAsGroup: ${APP_UID}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                memory: 128Mi
+                cpu: 100m
+              limits:
+                memory: 4Gi
+    service:
+      selenium:
+        enabled: true
+        controller: selenium
+        ports:
+          http:
+            enabled: true
+            primary: true
+            port: 4444
+            protocol: TCP
+            targetPort: 4444
+    ingress:
+      main:
+        enabled: false
+        hosts: []
