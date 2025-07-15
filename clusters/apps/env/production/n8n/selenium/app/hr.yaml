@@ -43,7 +43,9 @@ spec:
               runAsUser: ${APP_UID}
               runAsGroup: ${APP_UID}
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              # this is disabled
+              # see: https://github.com/SeleniumHQ/docker-selenium/issues/2648
+              #readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
