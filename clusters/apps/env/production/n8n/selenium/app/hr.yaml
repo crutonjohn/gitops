@@ -32,6 +32,14 @@ spec:
             image:
               repository: selenium/standalone-chrome
               tag: "129.0-chromedriver-129.0-20250707"
+            env:
+              SEL_UID: "${APP_UID}"
+              SEL_GID: "${APP_UID}"
+              SE_NODE_OVERRIDE_MAX_SESSIONS: "true"
+              SE_NODE_MAX_SESSIONS: "4"
+              SCREEN_WIDTH: "1920"
+              SCREEN_HEIGHT: "1080"
+              SCREEN_DEPTH: "24"
             probes:
               liveness: &probes
                 enabled: false
