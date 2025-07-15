@@ -55,6 +55,7 @@ spec:
       temp:
         type: emptyDir
         size: 1Gi
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /tmp
             readOnly: false
