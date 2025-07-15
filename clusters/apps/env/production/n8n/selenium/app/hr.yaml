@@ -51,6 +51,14 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
+    persistence:
+      temp:
+        type: emptyDir
+        size: 1Gi
+        globalMounts:
+          - path: /tmp
+            readOnly: false
+
     service:
       selenium:
         enabled: true
