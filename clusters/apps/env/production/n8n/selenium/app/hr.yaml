@@ -53,13 +53,11 @@ spec:
                 memory: 4Gi
     persistence:
       temp:
+        enabled: true
         type: emptyDir
-        size: 1Gi
-        accessMode: ReadWriteOnce
         globalMounts:
           - path: /tmp
             readOnly: false
-
     service:
       selenium:
         enabled: true
