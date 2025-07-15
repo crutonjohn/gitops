@@ -31,7 +31,7 @@ spec:
           selenium:
             image:
               repository: selenium/standalone-chrome
-              tag: "129.0"
+              tag: "129.0-chromedriver-129.0-20250707"
             probes:
               liveness: &probes
                 enabled: false
