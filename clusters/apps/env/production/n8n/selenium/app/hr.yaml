@@ -22,19 +22,19 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    defaultPodOptions:
-      securityContext:
-        fsGroup: ${APP_UID}
+    #defaultPodOptions:
+    #  securityContext:
+    #    fsGroup: ${APP_UID}
     controllers:
       selenium:
         containers:
           selenium:
             image:
               repository: selenium/standalone-chrome
-              tag: "129.0-chromedriver-129.0-20250707"
+              tag: "4.34.0-20250707"
             env:
-              SEL_UID: "${APP_UID}"
-              SEL_GID: "${APP_UID}"
+              #SEL_UID: "${APP_UID}"
+              #SEL_GID: "${APP_UID}"
               SE_NODE_OVERRIDE_MAX_SESSIONS: "true"
               SE_NODE_MAX_SESSIONS: "4"
               SCREEN_WIDTH: "1920"
@@ -44,17 +44,17 @@ spec:
               liveness: &probes
                 enabled: false
               readiness: *probes
-            securityContext:
-              fsGroup: ${APP_UID}
-              fsGroupChangePolicy: "OnRootMismatch"
-              runAsNonRoot: true
-              runAsUser: ${APP_UID}
-              runAsGroup: ${APP_UID}
-              allowPrivilegeEscalation: false
-              # this is disabled
-              # see: https://github.com/SeleniumHQ/docker-selenium/issues/2648
-              #readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            #securityContext:
+            #  fsGroup: ${APP_UID}
+            #  fsGroupChangePolicy: "OnRootMismatch"
+            #  runAsNonRoot: true
+            #  runAsUser: ${APP_UID}
+            #  runAsGroup: ${APP_UID}
+            #  allowPrivilegeEscalation: false
+            #  # this is disabled
+            #  # see: https://github.com/SeleniumHQ/docker-selenium/issues/2648
+            #  readOnlyRootFilesystem: true
+            #  capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 128Mi
@@ -68,6 +68,13 @@ spec:
         globalMounts:
           - path: /tmp
             readOnly: false
+      dshm:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /dev/shm
+            readOnly: false
     service:
       selenium:
         enabled: true
@@ -79,6 +86,12 @@ spec:
             port: 4444
             protocol: TCP
             targetPort: 4444
+          vnc:
+            enabled: true
+            primary: true
+            port: 7900
+            protocol: TCP
+            targetPort: 7900
     ingress:
       main:
         enabled: false
