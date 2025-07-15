@@ -31,7 +31,7 @@ spec:
           selenium:
             image:
               repository: selenium/standalone-chrome
-              tag: "129.0"
+              tag: "138.0"
             probes:
               liveness: &probes
                 enabled: false
