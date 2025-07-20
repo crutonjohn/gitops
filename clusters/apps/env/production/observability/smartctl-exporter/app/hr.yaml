@@ -46,3 +46,7 @@ spec:
   uninstall:
     keepHistory: false
   maxHistory: 3
+  values:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9633"
