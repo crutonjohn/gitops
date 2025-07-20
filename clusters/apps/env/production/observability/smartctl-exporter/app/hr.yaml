@@ -47,6 +47,6 @@ spec:
     keepHistory: false
   maxHistory: 3
   values:
-    annotations:
+    podAnnotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "9633"
