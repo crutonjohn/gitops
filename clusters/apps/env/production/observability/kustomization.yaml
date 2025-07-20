@@ -5,6 +5,7 @@ resources:
   - ./jaeger/ks.yaml
   - ./otel/ks.yaml
   - ./speedtest-exporter/ks.yaml
+  - ./smartctl-exporter/ks.yaml
   - ./nut-exporter/ks.yaml
   - ./prometheus/ks.yaml
   - ./pyroscope/ks.yaml
