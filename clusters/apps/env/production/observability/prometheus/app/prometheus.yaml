@@ -66,7 +66,7 @@ scrape_configs:
         regex: "(apiserver|etcd|rest_client)_request(|_sli|_slo)_duration_seconds_bucket"
         action: drop
       - source_labels: ["__name__"]
-        regex: "(apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)"
+        regex: "(apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket|apiserver_request_body_size_bytes_bucket)"
         action: drop
   - job_name: "kubelet"
     scheme: https
@@ -140,6 +140,9 @@ scrape_configs:
       - source_labels: [__meta_kubernetes_service_name]
         action: replace
         target_label: service
+      - source_labels: ["__name__"]
+        regex: "(hubble_port_distribution_total)"
+        action: drop
   - job_name: "k8s_pods"
     scrape_interval: 30s
     kubernetes_sd_configs:
