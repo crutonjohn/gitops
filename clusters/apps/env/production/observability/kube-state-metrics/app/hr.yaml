@@ -46,7 +46,3 @@ spec:
   uninstall:
     keepHistory: false
   maxHistory: 3
-  values:
-    podAnnotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "8080"
