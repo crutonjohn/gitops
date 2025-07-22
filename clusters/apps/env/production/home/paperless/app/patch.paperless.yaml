@@ -23,7 +23,8 @@ spec:
             image:
               repository: "ghcr.io/paperless-ngx/paperless-ngx"
               tag: "2.17.1@sha256:ab72a0ab42a792228cdbe83342b99a48acd49f7890ae54b1ae8e04401fba24ee"
-            #args: ["/usr/local/bin/supervisord", "-c", "/etc/supervisord.conf", "--user", "paperless", "--logfile", "/tmp/supervisord.log", "--pidfile", "/tmp/supervisord.pid"]
+            command: ["/usr/local/bin/supervisord"]
+            args: ["-c", "/etc/supervisord.conf", "--user", "paperless", "--logfile", "/tmp/supervisord.log", "--pidfile", "/tmp/supervisord.pid"]
             env:
               PAPERLESS_URL: "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
               PAPERLESS_PORT: &port "8000"
@@ -36,8 +37,6 @@ spec:
               PAPERLESS_EXPORT_DIR: &export "/data/export"
               PAPERLESS_MEDIA_ROOT: &media "/data/media"
               PAPERLESS_TRASH_DIR: &trash "/data/trash"
-              # PAPERLESS_APPS in envFrom
-              # PAPERLESS_SOCIALACCOUNT_PROVIDERS in envFrom
               PAPERLESS_TRUSTED_PROXIES: "${CLUSTER_POD_CIDR}"
               PAPERLESS_OCR_LANGUAGE: "eng"
               PAPERLESS_OCR_USER_ARGS: |
@@ -48,6 +47,7 @@ spec:
               PAPERLESS_TIKA_ENABLED: "true"
               PAPERLESS_TIKA_ENDPOINT: "http://paperless-tika.home.svc.cluster.local"
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://paperless-gotenberg.home.svc.cluster.local"
+              S6_READ_ONLY_ROOT: "1"
             envFrom:
               - secretRef:
                   name: "paperless-secrets"
@@ -159,6 +159,8 @@ spec:
               - &sockdir
                 subPath: "sockets"
                 path: "/sockets"
+              - subPath: "run"
+                path: "/run"
             redis:
               - *sockdir
           tika:
