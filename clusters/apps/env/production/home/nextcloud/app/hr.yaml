@@ -225,7 +225,7 @@ spec:
       image:
         repository: nginxinc/nginx-unprivileged
         tag: 1.29.0@sha256:1e1d77c1d72274b26c0e6272b121b7ad5e55bf395cd5cd848c38828d321c1cb6
-      containerPort: 9090
+      containerPort: 8080
 
       config:
         default: false
@@ -237,7 +237,7 @@ spec:
 
           server {
               # Default, IPv4 only
-              listen 9090;
+              listen 8080;
 
               # HSTS settings
               # WARNING: Only add the preload option once you read about
@@ -422,7 +422,7 @@ spec:
 
     service:
       type: ClusterIP
-      port: 9000
+      port: 8080
       loadBalancerIP: ""
       nodePort:
       # -- use additional annotation on service for nextcloud
