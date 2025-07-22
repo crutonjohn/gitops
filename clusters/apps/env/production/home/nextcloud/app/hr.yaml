@@ -19,7 +19,7 @@ spec:
     ##
     image:
       repository: nextcloud
-      tag: 31.0.5-fpm@sha256:adf00838f50ffaa0cbd211f8a8bb247a67adf28a3bae8839b855d0489e4594a6
+      tag: 31.0.7-fpm@sha256:24906e298cfeadb7fb43d07b4bbe9023c2f8528f7db42530a96e8b00dbbcd764
       pullPolicy: IfNotPresent
 
     nameOverride: ""
@@ -88,7 +88,7 @@ spec:
         tokenKey: ""
       update: 0
       # If web server is not binding default port, you can define it
-      containerPort: 8080
+      containerPort: 9000
       datadir: /var/www/html/data
       persistence:
         subPath:
@@ -224,8 +224,8 @@ spec:
       enabled: true
       image:
         repository: nginxinc/nginx-unprivileged
-        tag: 1.27.4@sha256:7a76302625f26fd9ea82da99c0e14c5f4def3a839b21e4138acdcbefc790219f
-      containerPort: 8080
+        tag: 1.29.0@sha256:1e1d77c1d72274b26c0e6272b121b7ad5e55bf395cd5cd848c38828d321c1cb6
+      containerPort: 9090
 
       config:
         default: false
@@ -237,7 +237,7 @@ spec:
 
           server {
               # Default, IPv4 only
-              listen 8080;
+              listen 9090;
 
               # HSTS settings
               # WARNING: Only add the preload option once you read about
@@ -422,7 +422,7 @@ spec:
 
     service:
       type: ClusterIP
-      port: 8080
+      port: 9000
       loadBalancerIP: ""
       nodePort:
       # -- use additional annotation on service for nextcloud
