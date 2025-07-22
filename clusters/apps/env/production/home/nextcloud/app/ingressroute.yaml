@@ -17,6 +17,7 @@ spec:
       priority: 10
       services:
         - name: ${APP}
+          nativeLB: true
           port: 8080
   tls:
     secretName: heyjohn-wildcard-certificate
