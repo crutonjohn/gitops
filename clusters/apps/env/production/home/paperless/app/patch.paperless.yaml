@@ -23,8 +23,6 @@ spec:
             image:
               repository: "ghcr.io/paperless-ngx/paperless-ngx"
               tag: "2.17.1@sha256:ab72a0ab42a792228cdbe83342b99a48acd49f7890ae54b1ae8e04401fba24ee"
-            command: ["/usr/local/bin/supervisord"]
-            args: ["-c", "/etc/supervisord.conf", "--user", "paperless", "--logfile", "/tmp/supervisord.log", "--pidfile", "/tmp/supervisord.pid"]
             env:
               PAPERLESS_URL: "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
               PAPERLESS_PORT: &port "8000"
