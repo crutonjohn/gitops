@@ -19,7 +19,7 @@ spec:
     ##
     image:
       repository: nextcloud
-      tag: 31.0.7-fpm@sha256:24906e298cfeadb7fb43d07b4bbe9023c2f8528f7db42530a96e8b00dbbcd764
+      tag: 31.0.7-fpm@sha256:2fd52490cc854b728f47327654d9954b0d5d8d29cb9ad79dc17c4ef42e57e89c
       pullPolicy: IfNotPresent
 
     nameOverride: ""
