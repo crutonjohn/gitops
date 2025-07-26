@@ -8,7 +8,6 @@ resources:
   - ark-server-charts-custom.yaml
   - authentik-charts.yaml
   - backube-charts.yaml
-  - banzaicloud-charts.yaml
   - bitnami-charts.yaml
   - bjw-s-charts.yaml
   - botkube-charts.yaml
@@ -46,5 +45,4 @@ resources:
   - stakater-charts.yaml
   - traefik-charts.yaml
   - victoriametrics-charts.yaml
-  - weaveworks-kured-charts.yaml
   - rook-charts.yaml
