@@ -36,43 +36,6 @@ spec:
     ##
     ingress:
       enabled: false
-      # className: nginx
-      annotations: {}
-      #  nginx.ingress.kubernetes.io/proxy-body-size: 4G
-      #  kubernetes.io/tls-acme: "true"
-      #  cert-manager.io/cluster-issuer: letsencrypt-prod
-      #  # Keep this in sync with the README.md:
-      #  nginx.ingress.kubernetes.io/server-snippet: |-
-      #    server_tokens off;
-      #    proxy_hide_header X-Powered-By;
-      #    rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-      #    rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-      #    rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-      #    rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-      #    location = /.well-known/carddav {
-      #      return 301 $scheme://$host/remote.php/dav;
-      #    }
-      #    location = /.well-known/caldav {
-      #      return 301 $scheme://$host/remote.php/dav;
-      #    }
-      #    location = /robots.txt {
-      #      allow all;
-      #      log_not_found off;
-      #      access_log off;
-      #    }
-      #    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-      #      deny all;
-      #    }
-      #    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-      #      deny all;
-      #    }
-      # tls:
-      #   - secretName: nextcloud-tls
-      #     hosts:
-      #       - nextcloud.kube.home
-      labels: {}
-      path: /
-      pathType: Prefix
 
     phpClientHttpsFix:
       enabled: true
@@ -183,18 +146,14 @@ spec:
 
       # Set securityContext parameters for the nextcloud CONTAINER only (will not affect nginx container).
       # For example, you may need to define runAsNonRoot directive
-      securityContext:
+      securityContext: &sc
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
         runAsNonRoot: true
         readOnlyRootFilesystem: false
 
       # Set securityContext parameters for the entire pod. For example, you may need to define runAsNonRoot directive
-      podSecurityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
+      podSecurityContext: *sc
 
       # Settings for the PostgreSQL init container
       postgreSqlInitContainer:
@@ -401,7 +360,7 @@ spec:
     ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
     ##
     cronjob:
-      enabled: false
+      enabled: true
 
       ## Cronjob sidecar resource requests and limits
       ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -414,11 +373,7 @@ spec:
         # postStartCommand: []
         # preStopCommand: []
       # Set securityContext parameters. For example, you may need to define runAsNonRoot directive
-      securityContext: {}
-      #   runAsUser: 33
-      #   runAsGroup: 33
-      #   runAsNonRoot: true
-      #   readOnlyRootFilesystem: true
+      securityContext: *sc
 
     service:
       type: ClusterIP
@@ -509,90 +464,16 @@ spec:
         # Optional: becomes NEXTCLOUD_INFO_APPS env var in the nextcloud-exporter container.
         # Enables gathering of apps-related metrics. Defaults to false
         apps: false
-
-      image:
-        repository: xperimental/nextcloud-exporter
-        tag: 0.8.0
-        pullPolicy: IfNotPresent
-        # pullSecrets:
-        #   - myRegistrKeySecretName
-
-      ## Metrics exporter resource requests and limits
-      ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-      ##
-      resources: {}
-
-      # -- Metrics exporter pod Annotation
-      podAnnotations: {}
-
-      # -- Metrics exporter pod Labels
-      podLabels: {}
-
-      # -- Metrics exporter pod nodeSelector
-      nodeSelector: {}
-
-      # -- Metrics exporter pod tolerations
-      tolerations: []
-
-      # -- Metrics exporter pod affinity
-      affinity: {}
-
       service:
         type: ClusterIP
-        # Use serviceLoadBalancerIP to request a specific static IP,
-        # otherwise leave blank
-        loadBalancerIP:
         annotations:
           prometheus.io/scrape: "true"
           prometheus.io/port: "9205"
         labels: {}
-
-      # -- security context for the metrics CONTAINER in the pod
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsNonRoot: true
-        # allowPrivilegeEscalation: false
-        # capabilities:
-        #   drop:
-        #     - ALL
-
-      # -- security context for the metrics POD
-      podSecurityContext: {}
-      # runAsNonRoot: true
-      # seccompProfile:
-      #   type: RuntimeDefault
-
-      ## Prometheus Operator ServiceMonitor configuration
-      ##
+      securityContext: *sc
+      podSecurityContext: *sc
       serviceMonitor:
-        ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
-        ##
         enabled: false
-
-        ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
-        ##
-        namespace: ""
-
-        ## @param metrics.serviceMonitor.namespaceSelector The selector of the namespace where the target service is located (defaults to the release namespace)
-        namespaceSelector:
-
-        ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
-        ##
-        jobLabel: ""
-
-        ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
-        ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
-        ##
-        interval: 30s
-
-        ## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
-        ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
-        ##
-        scrapeTimeout: ""
-
-        ## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
-        ##
-        labels: {}
 
 
     rbac:
@@ -601,7 +482,3 @@ spec:
         create: true
         name: nextcloud-serviceaccount
         annotations: {}
-
-
-    ## @param securityContext for nextcloud pod @deprecated Use `nextcloud.podSecurityContext` instead
-    securityContext: {}
