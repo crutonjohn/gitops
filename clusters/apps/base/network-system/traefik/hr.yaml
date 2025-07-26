@@ -88,12 +88,6 @@ spec:
       metrics:
         - type: Resource
           resource:
-            name: cpu
-            target:
-              type: Utilization
-              averageUtilization: 95
-        - type: Resource
-          resource:
             name: memory
             target:
               type: Utilization
@@ -110,7 +104,7 @@ spec:
         cpu: 15m
         memory: 64M
       limits:
-        memory: 189M
+        memory: 400M
     securityContext:
       capabilities:
         drop: [ALL]
