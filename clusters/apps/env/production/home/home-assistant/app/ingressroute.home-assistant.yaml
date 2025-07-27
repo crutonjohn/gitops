@@ -4,10 +4,10 @@ kind: IngressRoute
 metadata:
   name: ${APP}
   annotations:
-    kubernetes.io/ingress.class: "traefik-external"
-    external-dns.alpha.kubernetes.io/hostname: hass.${FAMILY_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
+    kubernetes.io/ingress.class: "traefik-external"
+    external-dns.alpha.kubernetes.io/hostname: hass.${FAMILY_DOMAIN},home.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
 spec:
   entryPoints:
     - websecure
@@ -28,41 +28,3 @@ spec:
     secretName: heyjohn-wildcard-certificate
     domains:
       - main: home.${FAMILY_DOMAIN}
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: ${APP}-external
-  annotations:
-    external-dns/public: "true"
-spec:
-  endpoints:
-    - dnsName: hass.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: CNAME
-      targets:
-        - ${DYNAMIC_DOMAIN}
-    - dnsName: home.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: CNAME
-      targets:
-        - ${DYNAMIC_DOMAIN}
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: ${APP}-internal
-  annotations:
-    external-dns/private: "true"
-spec:
-  endpoints:
-    - dnsName: hass.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - ${CLUSTER_LB_INGRESS_EXTERNAL}
-    - dnsName: home.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - ${CLUSTER_LB_INGRESS_EXTERNAL}

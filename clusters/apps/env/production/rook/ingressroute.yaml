@@ -6,6 +6,8 @@ metadata:
   namespace: rook-ceph
   annotations:
     kubernetes.io/ingress.class: "traefik-internal"
+    external-dns.alpha.kubernetes.io/hostname: ceph.${FAMILY_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
 spec:
   entryPoints:
     - websecure
@@ -20,18 +22,3 @@ spec:
     secretName: heyjohn-wildcard-certificate
     domains:
       - main: ceph.${FAMILY_DOMAIN}
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: ceph-internal
-  namespace: rook-ceph
-  annotations:
-    external-dns/private: "true"
-spec:
-  endpoints:
-    - dnsName: ceph.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - ${CLUSTER_LB_INGRESS_INTERNAL}

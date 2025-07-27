@@ -5,8 +5,8 @@ metadata:
   name: ${APP}
   annotations:
     kubernetes.io/ingress.class: "traefik-internal"
+    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
-    external-dns/private: "true"
 spec:
   entryPoints:
     - websecure
