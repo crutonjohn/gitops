@@ -73,7 +73,7 @@ spec:
         # cert-manager.io/issuer-group: "certmanager.step.sm"
         # traefik.ingress.kubernetes.io/router.entrypoints: websecure
         # traefik.ingress.kubernetes.io/router.tls: "true"
-        external-dns/private: "true"
+        external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
       ingressClassName: "traefik-internal"
       hosts:
         - host: ra.${FAMILY_DOMAIN}
