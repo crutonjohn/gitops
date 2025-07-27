@@ -9,7 +9,8 @@ resources:
   - ./paperless/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./nextcloud/ks.yaml
+  - ./bewcloud/ks.yaml
+#  - ./nextcloud/ks.yaml
 patches:
   - patch: |-
       - op: add

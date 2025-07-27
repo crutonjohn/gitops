@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: bewcloud-env
+stringData:
+    TZ: ENC[AES256_GCM,data:yAuLEoIYwY0wEQpPUT36Eg==,iv:vGhrlaYgOPjMp2HZ8zz0BZKghJc/WmsbiScVdhVPcwY=,tag:fi0R3d0prlGp1/q89F7v/A==,type:str]
+    POSTGRESQL_PORT: ENC[AES256_GCM,data:l/Xrew==,iv:GlSadiUo2rWekQPfyohj7XLegatCDNCkPdjMCznKyRc=,tag:qyr3kv915eI5BFqRCLKa8g==,type:str]
+    JWT_SECRET: ENC[AES256_GCM,data:WC9Ydx9dvEpwT+zmwu+1R5wixiIFF9kYHgKkDvuF5FLFfEkmji02dexJaxVquVtBmlICc93UDIstcyr/rJwLrw==,iv:P7RxtaeC71jyz5cfFlMp+c/SPHAf1G7483gys/W35bA=,tag:0UhbdcdQW3F9VESSIsRtiQ==,type:str]
+    PASSWORD_SALT: ENC[AES256_GCM,data:JL5M9K8dgu2UCqV/nG/4k8FNLrxzXty1HWi2nSBOwJ6i45it9f1NF2kG/CUWgyfFD11i6d5C7webxfy/BJTekQ==,iv:1xLBi1vPsqfSGfxLuz9I4jYbsv4FLW9zEwtUMhn0kO0=,tag:iskvDZU/NU2D4LhbB/wOBQ==,type:str]
+    MFA_KEY: ENC[AES256_GCM,data:fl/IBlL8wQrSQm66rahZX79IHy0v8njba7Hlz124OXwEquUX7rOwFSFxtuuQ+WWSpWhn4rtf1g8Ig6DpP9V2TQ==,iv:zePpCO2anqSKdA2PN/UrSFrvtKOl4YinvnET1UVhGvc=,tag:B/PFiiQ5E7w3jW1PbT5RBQ==,type:str]
+    MFA_SALT: ENC[AES256_GCM,data:iKW9h6XzlAHNU5tab/CM35GNQtGa/tC1fNy15CqZXWjI56mWJja/bSUBgij4Nn5F8jJCyy9YKwvfPQqI+StThg==,iv:PZULavfzphPALn5YUfi6HBOfh0oKBsNHns5wAVKZNKQ=,tag:qNQuRyr2PAcX5InLIMnfQQ==,type:str]
+    INIT_POSTGRES_DBNAME: ENC[AES256_GCM,data:UEJkF4zb70k=,iv:ih0REibie7HUKkQ6bl+QfG/eIRDwX20Fx6Y8rTQKHi0=,tag:yqn65k+t4nhKuz8j6Z/K+w==,type:str]
+    INIT_POSTGRES_HOST: ENC[AES256_GCM,data:0D0pUqNwIYeQk25UVowsQyl3JpzFRcrGDSE8sSZhcu9F1ZztaLE49A==,iv:GgaqgRpGgSjk4peQiXQU7BxwSCdkUbAlmzMMCb2LcZI=,tag:L3eW7saFuSo6vxq1MIzYWw==,type:str]
+    INIT_POSTGRES_USER: ENC[AES256_GCM,data:g+JB8VI6cLA=,iv:kgR3kLjIBJVRm8dX/xiO4TqCw0NlHHJKIOi/DiON0cQ=,tag:r4VxJDmF7V1386s3nXtqSQ==,type:str]
+    INIT_POSTGRES_PASS: ENC[AES256_GCM,data:AR1/0pFBDGIZtjp2rhnFkK3NPFsIgGoHP70mWLvH,iv:bxSv6i9eQCspHHPz/Ro+apE4n6j7UPyYBCEJwQodEiQ=,tag:wdfcHBalk8VaD00JBpN/5g==,type:str]
+    INIT_POSTGRES_SUPER_PASS: ENC[AES256_GCM,data:xm38xBoa27o57aEXHCzednJ21D2DyNvovTMYyExTXq6O4vMCjxC1/rHxWTeIBz87Q3pRd/VjNURDCB/T6EauFA==,iv:VEZtwg1ztrrTbc4fzwbs3OPYp+6Wy8MZrzhHpvx2MGY=,tag:Hi/BVLO+HA1aj3PcfkZm1A==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2025-01-19T16:28:02Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwH4wxHrag/qO2+78cHUSAIVAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0EOBtO5aygzwFoo4AgEQgDt6P+6g4wHPWhJyvyU2hzl4AhRsq3DFuJMH4aACWhknMNXiCtMldMISdJaPQDQryo4/fzPCun8ayeV7ng==
+          aws_profile: ""
+    lastmodified: "2025-07-27T16:24:51Z"
+    mac: ENC[AES256_GCM,data:JHod0ZoNiXVGjV3JdmfYCM/EbqaOcM7i8+Yv3SBhz1e9tVnpKoPvCLCiq/urPEzSl8sunfGWBs1xk/I/FvsY+gTbxmi78UtO7pdW2kmjNpoluo7u3+BDFBaSCmJZpKYwh5DnieBWRyHiD5uFfs7Spfgri3uqLRpDf6RR6DkLPhs=,iv:lEE8rTiNFeWvJ/DCY9srGC9mcRqud9mx/Q4IHpT8Bwk=,tag:GGIM8YWu4I8f4PKu+wNzzQ==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2

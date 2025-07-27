@@ -1,0 +1,134 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: bewcloud
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        supplementalGroups: [7575]
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      bewcloud:
+        annotations:
+          secret.reloader.stakater.com/reload: bewcloud-env, bewcloud-config
+
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: bewcloud-env
+
+        containers:
+          bewcloud:
+            image:
+              repository: ghcr.io/bewcloud/bewcloud:v2.3.1
+              tag: v2.3.1@sha256:013f57bb5301af7d3f4d573125d0cdcb15094c183fa08ff944bed251bda36814
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            env:
+              POSTGRESQL_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: bewcloud-env
+                    key: INIT_POSTGRES_HOST
+              POSTGRESQL_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: bewcloud-env
+                    key: INIT_POSTGRES_USER
+              POSTGRESQL_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: bewcloud-env
+                    key: INIT_POSTGRES_PASS
+              POSTGRESQL_DBNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: bewcloud-env
+                    key: INIT_POSTGRES_DBNAME
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 5Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+        service:
+          bewcloud:
+            controller: bewcloud
+            primary: true
+            ports:
+              http:
+                port: 8000
+
+        persistence:
+          data:
+            existingClaim: bewcloud-data
+            advancedMounts:
+              bewcloud:
+                bewcloud:
+                  - path: /app/data-files
+          nextlcoud-data:
+            existingClaim: nextcloud-data
+            advancedMounts:
+              bewcloud:
+                bewcloud:
+                  - path: /app/nextcloud-data
+          config:
+            type: secret
+            name: bewcloud-config
+            advancedMounts:
+              bewcloud:
+                bewcloud:
+                  - path: /app/bewcloud.config.ts
+                    subPath: bewcloud.config.ts
