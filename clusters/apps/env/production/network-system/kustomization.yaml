@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./librespeed/ks.yaml
   - ./traefik/ks.yaml
-  - ./external-dns/ks.yaml
+#  - ./external-dns/ks.yaml
