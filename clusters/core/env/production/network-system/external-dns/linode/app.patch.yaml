@@ -13,6 +13,9 @@ spec:
       - --traefik-disable-legacy
       - --exclude-target-net=${HOME_NETWORK_CIDR}
       - --ingress-class=traefik-external
+      - --managed-record-types=CNAME
+      - --managed-record-types=SRV
+      - --managed-record-types=TXT
     env:
       - name: LINODE_TOKEN
         value: "${EXTERNAL_DNS_LINODE_API_TOKEN}"
