@@ -65,6 +65,11 @@ spec:
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
+    rbac:
+      additionalPermissions:
+        - apiGroups: ["traefik.containo.us", "traefik.io"]
+          resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
+          verbs: ["get", "watch", "list"]
     extraVolumes:
       - name: alloy-config
         configMap:

@@ -61,6 +61,11 @@ spec:
     logLevel: debug
     logFormat: json
     sources: ["crd", "service", "ingress", "traefik-proxy"]
+    rbac:
+      additionalPermissions:
+        - apiGroups: ["traefik.containo.us", "traefik.io"]
+          resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
+          verbs: ["get", "watch", "list"]
     extraArgs:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
