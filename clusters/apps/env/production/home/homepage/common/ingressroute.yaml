@@ -4,10 +4,10 @@ kind: IngressRoute
 metadata:
   name: homepage
   annotations:
+    external-dns/public: "true"
     kubernetes.io/ingress.class: "traefik-external"
     external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
-    external-dns/public: "true"
+    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
 spec:
   entryPoints:
     - websecure

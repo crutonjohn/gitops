@@ -52,14 +52,24 @@ spec:
             memory: 100Mi
     logLevel: debug
     extraArgs:
-      - --ignore-ingress-tls-spec
-      - --annotation-filter=external-dns/private in (true)
+      #- --ignore-ingress-tls-spec
+      #- --annotation-filter=external-dns/private in (true)
       - --traefik-disable-legacy
+      - --target-net-filter=${HOME_NETWORK_CIDR}
+      - --ingress-class=traefik-external
+      - --ingress-class=traefik-internal
+      - --managed-record-types=A
+      - --managed-record-types=AAAA
     policy: sync
     registry: noop
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
+    rbac:
+      additionalPermissions:
+        - apiGroups: ["traefik.containo.us", "traefik.io"]
+          resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
+          verbs: ["get", "watch", "list"]
     extraVolumes:
       - name: alloy-config
         configMap:

@@ -74,7 +74,6 @@ spec:
         cert-manager.io/issuer-group: certmanager.step.sm
         cert-manager.io/issuer-kind: StepIssuer
         cert-manager.io/issuer-name: step-issuer
-        external-dns/private: "true"
         external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
