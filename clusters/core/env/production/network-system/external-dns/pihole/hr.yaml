@@ -62,10 +62,11 @@ spec:
     logFormat: json
     sources: ["crd", "service", "ingress", "traefik-proxy"]
     extraArgs:
-      - --ignore-ingress-tls-spec
-      - --annotation-filter=external-dns/private in (true)
+      #- --ignore-ingress-tls-spec
+      #- --annotation-filter=external-dns/private in (true)
       - --pihole-api-version=6
       - --traefik-disable-legacy
+      - --target-net-filter=${HOME_NETWORK_CIDR}
     policy: upsert-only
     registry: noop
     domainFilters: ["${FAMILY_DOMAIN}"]

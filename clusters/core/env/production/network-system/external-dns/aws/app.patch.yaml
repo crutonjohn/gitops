@@ -48,5 +48,7 @@ spec:
       - --annotation-filter=external-dns/public in (true)
       - --aws-batch-change-size=1000
       - --no-aws-evaluate-target-health
-      - --ignore-ingress-tls-spec
+      #- --ignore-ingress-tls-spec
       - --traefik-disable-legacy
+      - --exclude-target-net=${HOME_NETWORK_CIDR}
+      - --ingress-class=traefik-external

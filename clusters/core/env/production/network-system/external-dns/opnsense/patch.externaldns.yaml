@@ -52,9 +52,10 @@ spec:
             memory: 100Mi
     logLevel: debug
     extraArgs:
-      - --ignore-ingress-tls-spec
-      - --annotation-filter=external-dns/private in (true)
+      #- --ignore-ingress-tls-spec
+      #- --annotation-filter=external-dns/private in (true)
       - --traefik-disable-legacy
+      - --target-net-filter=${HOME_NETWORK_CIDR}
     policy: sync
     registry: noop
     domainFilters: ["${FAMILY_DOMAIN}"]

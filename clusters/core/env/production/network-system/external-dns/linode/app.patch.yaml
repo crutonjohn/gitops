@@ -9,8 +9,10 @@ spec:
     provider: linode
     extraArgs:
       - --annotation-filter=external-dns/public in (true)
-      - --ignore-ingress-tls-spec
+      #- --ignore-ingress-tls-spec
       - --traefik-disable-legacy
+      - --exclude-target-net=${HOME_NETWORK_CIDR}
+      - --ingress-class=traefik-external
     env:
       - name: LINODE_TOKEN
         value: "${EXTERNAL_DNS_LINODE_API_TOKEN}"
