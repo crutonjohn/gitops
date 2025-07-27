@@ -103,32 +103,56 @@ spec:
                 drop:
                   - ALL
 
-        service:
-          bewcloud:
-            controller: bewcloud
-            primary: true
-            ports:
-              http:
-                port: 8000
+    ingress:
+      bewcloud:
+        enabled: false
+        nameOverride:
+        annotations: {}
+        labels: {}
+        className: traefik-external
+        #defaultBackend:
+        hosts:
+          - host: ${APP}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: bewcloud
+                  identifier: http
+                  port: 8000
 
-        persistence:
-          data:
-            existingClaim: bewcloud-data
-            advancedMounts:
-              bewcloud:
-                bewcloud:
-                  - path: /app/data-files
-          nextlcoud-data:
-            existingClaim: nextcloud-data
-            advancedMounts:
-              bewcloud:
-                bewcloud:
-                  - path: /app/nextcloud-data
-          config:
-            type: secret
-            name: bewcloud-config
-            advancedMounts:
-              bewcloud:
-                bewcloud:
-                  - path: /app/bewcloud.config.ts
-                    subPath: bewcloud.config.ts
+        # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${APP}.${FAMILY_DOMAIN}
+
+    service:
+      bewcloud:
+        controller: bewcloud
+        primary: true
+        ports:
+          http:
+            port: 8000
+
+    persistence:
+      data:
+        existingClaim: bewcloud-data
+        advancedMounts:
+          bewcloud:
+            bewcloud:
+              - path: /app/data-files
+      nextlcoud-data:
+        existingClaim: nextcloud-data
+        advancedMounts:
+          bewcloud:
+            bewcloud:
+              - path: /app/nextcloud-data
+      config:
+        type: secret
+        name: bewcloud-config
+        advancedMounts:
+          bewcloud:
+            bewcloud:
+              - path: /app/bewcloud.config.ts
+                subPath: bewcloud.config.ts
