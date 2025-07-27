@@ -58,6 +58,8 @@ spec:
       - --target-net-filter=${HOME_NETWORK_CIDR}
       - --ingress-class=traefik-external
       - --ingress-class=traefik-internal
+      - --managed-record-types=A
+      - --managed-record-types=AAAA
     policy: sync
     registry: noop
     domainFilters: ["${FAMILY_DOMAIN}"]
