@@ -67,6 +67,8 @@ spec:
       - --pihole-api-version=6
       - --traefik-disable-legacy
       - --target-net-filter=${HOME_NETWORK_CIDR}
+      - --ingress-class=traefik-external
+      - --ingress-class=traefik-internal
     policy: upsert-only
     registry: noop
     domainFilters: ["${FAMILY_DOMAIN}"]
