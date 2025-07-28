@@ -119,7 +119,6 @@ spec:
                 pathType: Prefix
                 service:
                   name: bewcloud
-                  identifier: http
                   port: 8000
         tls:
           - secretName: heyjohn-wildcard-certificate
