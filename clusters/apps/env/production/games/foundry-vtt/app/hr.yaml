@@ -10,7 +10,7 @@ spec:
     spec:
       chart: foundry-vtt/foundry-vtt
       sourceRef:
-        kind: GitRepository
+        kind: HelmRepository
         name: hugoprudente-charts
         namespace: flux-system
   values:
