@@ -8,7 +8,8 @@ spec:
   interval: 12h
   chart:
     spec:
-      chart: foundry-vtt/foundry-vtt
+      chart: foundry-vtt
+      version: 13.345.0
       sourceRef:
         kind: HelmRepository
         name: hugoprudente-charts
