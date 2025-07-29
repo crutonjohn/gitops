@@ -8,10 +8,9 @@ spec:
   interval: 12h
   chart:
     spec:
-      chart: foundry-vtt
-      version: 13.345.0
+      chart: incubator/foundry-vtt
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: hugoprudente-charts
         namespace: flux-system
   values:
