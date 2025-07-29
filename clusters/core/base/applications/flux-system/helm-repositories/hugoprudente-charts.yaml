@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: hugoprudente-charts
+  namespace: flux-system
+spec:
+  interval: 2h
+  url: https://hugoprudente.github.io/helm-charts/incubator/
+  timeout: 3m
