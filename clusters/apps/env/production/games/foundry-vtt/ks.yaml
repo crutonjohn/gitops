@@ -24,7 +24,8 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: traefik-external
+  # disabled because the 300s download link will expire before this can finish reconciling
+  #  - name: traefik-external
   postBuild:
     substitute:
       APP: *app
