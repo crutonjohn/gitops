@@ -10,7 +10,7 @@ spec:
     # exclude all
     /*
     # include chart dir
-    !/charts/
+    !/incubator/
   url: https://github.com/hugoprudente/charts
   timeout: 3m
   ref:
