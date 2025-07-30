@@ -30,6 +30,7 @@ spec:
     substitute:
       APP: *app
       APP_UID: "1488"
+      INGRESSROUTE_SUBDOMAIN: vtt
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
