@@ -113,7 +113,7 @@ spec:
         labels: {}
         className: traefik-external
         hosts:
-          - host: ${APP}.${FAMILY_DOMAIN}
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
@@ -123,7 +123,7 @@ spec:
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
-              - ${APP}.${FAMILY_DOMAIN}
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 
     service:
       bewcloud:
