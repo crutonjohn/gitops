@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
   - ./cert-manager/ks.yaml
   - ./external-dns/ks.yaml
-  - ./linode-certmanager-webhook/ks.yaml
   - ./multus/ks.yaml
   - ./step/ks.yaml
