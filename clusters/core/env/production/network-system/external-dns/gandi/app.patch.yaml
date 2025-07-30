@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+spec:
+  values:
+    domainFilters: ["${FAMILY_DOMAIN}"]
+    provider: gandi
+    extraArgs:
+      - --annotation-filter=external-dns/public in (true)
+      #- --ignore-ingress-tls-spec
+      - --traefik-disable-legacy
+      - --exclude-target-net=${HOME_NETWORK_CIDR}
+      - --ingress-class=traefik-external
+      - --managed-record-types=CNAME
+      - --managed-record-types=SRV
+      - --managed-record-types=TXT
+    env:
+      - name: GANDI_PAT
+        value: "${EXTERNAL_DNS_GANDI_PAT}"

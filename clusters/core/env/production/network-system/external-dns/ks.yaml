@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app external-dns-linode
+  name: &app external-dns-gandi
   namespace: flux-system
 spec:
   targetNamespace: network-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/core/env/production/network-system/external-dns/linode
+  path: ./clusters/core/env/production/network-system/external-dns/gandi
   prune: true
   sourceRef:
     kind: GitRepository
