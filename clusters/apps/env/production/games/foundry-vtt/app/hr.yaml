@@ -24,7 +24,7 @@ spec:
     image:
       pullPolicy: IfNotPresent
       repository: felddy/foundryvtt
-      tag: "13.345"
+      tag: "13.346"
     resources:
       requests:
         cpu: 500m
