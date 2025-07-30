@@ -19,7 +19,7 @@ spec:
     dnsPolicy: "ClusterFirst"
     threadCount: "6"
     serviceAccount:
-      create: true
+      create: false
       annotations: {}
     image:
       pullPolicy: IfNotPresent
