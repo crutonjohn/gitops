@@ -2,16 +2,16 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: cert-manager-linode-source
+  name: cert-manager-webhook-gandi
   namespace: flux-system
 spec:
   ignore: |
     # exclude all
     /*
     # path to chart
-    !/chart
-  interval: 30m
+    !/deploy/cert-manager-webhook-gandi
+  interval: 1h
   ref:
-    commit: 428e12f4a3dc47ef1d1925ae527003347afcc7f3
+    tag: v0.2.4
   timeout: 60s
-  url: https://github.com/monostream/cert-manager-linode.git
+  url: https://github.com/molnett/cert-manager-webhook-gandi.git

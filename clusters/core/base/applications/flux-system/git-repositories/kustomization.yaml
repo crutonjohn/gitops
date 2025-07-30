@@ -3,6 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
 resources:
-  - cert-manager-linode.yaml
-  - cert-manager-webhook-linode.yaml
-  - ocis.yaml
+  - cert-manager-webhook-gandi.yaml
+  - hugoprudente-charts.yaml
