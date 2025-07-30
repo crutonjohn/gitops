@@ -37,7 +37,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
+      readOnlyRootFilesystem: false
       capabilities: { drop: ["ALL"] }
     securityContext: *sc
     container:
