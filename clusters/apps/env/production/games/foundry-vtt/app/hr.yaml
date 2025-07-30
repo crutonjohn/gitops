@@ -106,7 +106,7 @@ spec:
       ## Admin password. Default: admin
       #adminPassword: ""
       ## A custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.
-      hostname: "${INGRESS_SUBDOMAIN}.${FAMILY_DOMAIN}"
+      hostname: "${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
       ## The default application language and module which provides the core translation files. Default is "en.core"
       language: en.core
       ## Set to `true` to reduce network traffic by serving minified static JavaScript and CSS files.  Enabling this setting is recommended for most users, but module developers may wish to disable it. Default is `false`.
