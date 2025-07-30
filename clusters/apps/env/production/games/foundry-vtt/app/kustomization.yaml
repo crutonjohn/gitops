@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - hr.yaml
   - secrets.enc.yaml
+  - ingress.yaml
