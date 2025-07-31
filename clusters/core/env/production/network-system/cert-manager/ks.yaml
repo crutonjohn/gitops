@@ -107,7 +107,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: cert-manager-aws
-    - name: cert-manager-linode
+    - name: cert-manager-gandi
   postBuild:
     substitute:
       APP: *app
