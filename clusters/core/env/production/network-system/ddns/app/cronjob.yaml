@@ -27,7 +27,7 @@ spec:
                 - name: ddns-config
                   mountPath: /
                   readOnly: true
-              volumes:
-                - name: ddns-config
-                  secret:
-                    secretName: ddns-config
+          volumes:
+            - name: ddns-config
+              secret:
+                secretName: ddns-config
