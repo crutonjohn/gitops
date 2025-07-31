@@ -6,3 +6,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./multus/ks.yaml
   - ./step/ks.yaml
+  - ./ddns/ks.yaml

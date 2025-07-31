@@ -1,0 +1,17 @@
+kind: Secret
+apiVersion: v1
+metadata:
+    name: ddns-config
+type: Opaque
+stringData:
+    config.json: ENC[AES256_GCM,data:loU1Hu9UICEzYJuGS6XAyJMsqAWfBWPH/omvPFjUCQoDh1YDxKo1uS/WY7kuULCXQvBjew3AMgzius4De9RZXVIWekxQ1MvA+pCxFuq2fvDewaPmZPgjgKfPdBH4/ukR8AAxQUQsknDDck79vbKl2kzUm4nMMThlwvrIQfLUdHptIR2nvf8ScuOrgr3UM1zS43EyIbYv1N2dgUGUmXXEwt1FKtkHw+xEIXrAYhMylU/NivRHqMIIDYONiLbbPLp6K5UpKm0N333+fNy5kvXDy6JRPJ4x0T1yKCWWYQWNTtJCqkElrwZPUF66VJdb+MiAfw0F8nlfoCMArzHYqc0sKRYCydFT+oHEzopC0rXNolwfsVZwsRXAdAf5NDcurHTw8LAdcu4/rzTvF7wQZHG0GtQChupvW7Wyt6Ra9S1vhdurDJ0ArI0u6LEd4WIz,iv:owvD3rN/DkubEvamPmtErpRMJEEmk7vezUfZujRLxEY=,tag:lJFCbY7BnC5+9ug38VRCYQ==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2025-07-31T03:34:04Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFdiQohC9NNA9/s0hn9C+toAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0uZCJSPc0aoLzh1uAgEQgDtNq2PXrGRBdNLlfUlVMf3lxuS3JJelBQ92mFSbwedkd1oBu+TTvX6eDhNW6aajzsQszyUghi2mgt7/Jg==
+          aws_profile: ""
+    lastmodified: "2025-07-31T03:34:05Z"
+    mac: ENC[AES256_GCM,data:odQ+zdw0/RhjSDEwb0Z0mq+4d+cuBLrhzrWkmg9B9Ct054OHSJQVDLnRCgdVgAu/jMsID5b2OlqOsbdZWeJr8RoLbwLvGv1LB0Y75WBcVAH87laPO0juqUiGjPpPpJcwXoBIThNkKnmjh6gGTK8jlQThn8mOwZZuAkhc9WuLPPE=,iv:PtybiCw+cRQIqYKDDWo747mvBjQ9VurSUklQvahIB60=,tag:lytydL1celNdkepc0JgryA==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2

@@ -1,0 +1,33 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: ddns-client
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ddns-client
+spec:
+  concurrencyPolicy: Forbid
+  schedule: '5 */1 * * *' # Every hour at 5 minutes past the hour
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          serviceAccountName: ddns-client
+          restartPolicy: Never
+          containers:
+            - name: ddns-client
+              image: ghcr.io/timothyye/godns:3.2.5@sha256:1275191af24c675123d1778397014b8504a3f31c8140f4790b0146fdbdc1d171
+              volumeMounts:
+                - name: ddns-config
+                  mountPath: /
+                  readOnly: true
+              volumes:
+                - name: ddns-config
+                  secret:
+                    secretName: ddns-config
