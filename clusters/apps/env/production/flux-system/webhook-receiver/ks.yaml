@@ -24,7 +24,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: external-dns-linode
+    - name: external-dns-gandi
     - name: external-dns-aws
     - name: traefik-external
   postBuild:

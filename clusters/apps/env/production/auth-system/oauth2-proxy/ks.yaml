@@ -25,7 +25,7 @@ spec:
       name: sops-aws
   dependsOn:
     - name: external-dns-aws
-    - name: external-dns-linode
+    - name: external-dns-gandi
     - name: external-dns-opnsense
     - name: traefik-external
   postBuild:
