@@ -20,5 +20,5 @@ spec:
       - name: GANDI_PAT
         valueFrom:
           secretKeyRef:
-            name: gandi-credentials
+            name: credentials-gandi
             key: GANDI_PAT
