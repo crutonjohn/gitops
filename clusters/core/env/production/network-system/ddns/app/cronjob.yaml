@@ -10,7 +10,7 @@ metadata:
   name: ddns-client
 spec:
   concurrencyPolicy: Forbid
-  schedule: '5 */1 * * *' # Every hour at 5 minutes past the hour
+  schedule: '*/1 * * * *' # Every hour at 5 minutes past the hour
   successfulJobsHistoryLimit: 1
   jobTemplate:
     spec:
