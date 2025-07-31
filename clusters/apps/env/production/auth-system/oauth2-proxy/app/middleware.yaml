@@ -5,7 +5,7 @@ metadata:
   name: oauth-auth
 spec:
   forwardAuth:
-    address: https://sso.${FAMILY_DOMAIN}/oauth2
+    address: https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}/oauth2
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-Access-Token

@@ -32,6 +32,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: "sso"
+      APP_UID: 7767
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

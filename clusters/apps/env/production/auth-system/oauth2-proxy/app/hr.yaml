@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: google-auth
 spec:
-  interval: 5m
+  interval: 12h
   chart:
     spec:
       chart: oauth2-proxy
@@ -13,8 +13,9 @@ spec:
         kind: HelmRepository
         name: oauth2-proxy-chart
         namespace: flux-system
-      interval: 5m
   values:
+    image:
+      repository: "quay.io/oauth2-proxy/oauth2-proxy"
     ## Override the deployment namespace
     ##
     namespaceOverride: "auth-system"
@@ -48,7 +49,7 @@ spec:
         whitelist_domains = ".${FAMILY_DOMAIN}"
         footer = "For Internal Family Use Only"
         reverse_proxy = "true"
-        redirect_url = "https://sso.${FAMILY_DOMAIN}/oauth2/callback"
+        redirect_url = "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}/oauth2/callback"
 
 
     # -- Custom labels to add into metadata
@@ -70,38 +71,42 @@ spec:
       enabled: true
       ## The name of the ServiceAccount to use.
       ## If not set and create is true, a name is generated using the fullname template
-      name:
+      name: ""
       automountServiceAccountToken: true
       annotations: {}
 
     ingress:
-      enabled: false
-      # className: nginx
+      enabled: true
+      className: traefik-external
+      annotations:
+        external-dns/public: "true"
+        external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-headers@kubernetescrd
+        traefik.ingress.kubernetes.io/router.priority: "50"
       path: /
       # Only used if API capabilities (networking.k8s.io/v1) allow it
       pathType: ImplementationSpecific
       # Used to create an Ingress record.
-      # hosts:
-        # - chart-example.local
+      hosts:
+        - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        - "*.${FAMILY_DOMAIN}"
       # Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
       # Warning! The configuration is dependant on your current k8s API version capabilities (networking.k8s.io/v1)
-      # extraPaths:
-      # - path: /*
-      #   pathType: ImplementationSpecific
-      #   backend:
-      #     service:
-      #       name: ssl-redirect
-      #       port:
-      #         name: use-annotation
+      extraPaths:
+        - path: /oauth2/*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: google-auth-oauth2-proxy
+              port:
+                number: 80
       labels: {}
-      # annotations:
-      #   kubernetes.io/ingress.class: nginx
-      #   kubernetes.io/tls-acme: "true"
-      # tls:
-        # Secrets must be manually created in the namespace.
-        # - secretName: chart-example-tls
-        #   hosts:
-        #     - chart-example.local
+      tls:
+        - secretName: heyjohn-wildcard-certificate
+          hosts:
+            - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 
     resources:
       limits:
@@ -153,7 +158,16 @@ spec:
 
     # Configure Kubernetes security context for pod
     # Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    podSecurityContext: {}
+    podSecurityContext:
+      runAsUser: ${APP_UID}
+      runAsGroup: ${APP_UID}
+      fsGroup: ${APP_UID}
+      fsGroupChangePolicy: OnRootMismatch
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+          - ALL
 
     # whether to use http or https
     httpScheme: http
