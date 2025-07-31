@@ -23,9 +23,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
-  dependsOn:
-    - name: secrets-generic
-    - name: secrets-${CLUSTER_NAME}
   postBuild:
     substitute:
       APP: *app
