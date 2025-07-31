@@ -18,7 +18,6 @@ resources:
   - flagger-charts.yaml
   - gatekeeper-charts.yaml
   - grafana-charts.yaml
-  - hugoprudente-charts.yaml
   - itzg-minecraft-charts.yaml
   - jaeger-charts.yaml
   - jameswynn-charts.yaml
