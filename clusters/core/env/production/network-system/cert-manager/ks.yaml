@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cert-manager-linode
+  name: &app cert-manager-gandi
   namespace: flux-system
 spec:
   targetNamespace: network-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/core/env/production/network-system/cert-manager/linode
+  path: ./clusters/core/env/production/network-system/cert-manager/gandi
   prune: true
   sourceRef:
     kind: GitRepository
@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: secrets-generic
     - name: secrets-${CLUSTER_NAME}
-    - name: linode-certmanager-webhook
+    - name: external-dns-gandi
   postBuild:
     substitute:
       APP: *app
@@ -67,6 +67,7 @@ spec:
   dependsOn:
     - name: secrets-generic
     - name: secrets-${CLUSTER_NAME}
+    - name: external-dns-aws
   postBuild:
     substitute:
       APP: *app

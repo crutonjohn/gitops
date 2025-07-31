@@ -18,4 +18,7 @@ spec:
       - --managed-record-types=TXT
     env:
       - name: GANDI_PAT
-        value: "${EXTERNAL_DNS_GANDI_PAT}"
+        valueFrom:
+          secretKeyRef:
+            name: gandi-credentials
+            key: GANDI_PAT

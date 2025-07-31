@@ -22,11 +22,11 @@ spec:
             - "*.${FAMILY_DOMAIN}"
             - "${FAMILY_DOMAIN}"
         dns01:
+          cnameStrategy: Follow
           webhook:
-            groupName: linode-dns.${FAMILY_DOMAIN}
-            solverName: linode
+            groupName: gandi.${FAMILY_DOMAIN}
+            solverName: gandi
             config:
-              #apiKey: ${CERT_MANAGER_LINODE_API_TOKEN}
               apiKeySecretRef:
-                name: linode-credentials
-                key: token
+                key: GANDI_PAT
+                name: credentials-gandi
