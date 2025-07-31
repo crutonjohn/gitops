@@ -4,14 +4,14 @@ metadata:
     name: ddns-config
 type: Opaque
 stringData:
-    config.json: ENC[AES256_GCM,data:Mo9cQL10L/D1JGRacEcLSFdROLxOTxS+xf8zBpIbdk5HKOwn9EbCvy+d0aPsOjuIGrxw5ooNQfc66MLKnEDNKrmfR+XKHpIrcSZiEOYm9z21UjUdxEYRLMlPbfz3oLLw49flklV2UxHzyDOAJQ3A+qNViWNxkUFu/5rGfFXw1a1RZkgX8e6/PTEEbhH9FhLRBkedCPFf6YmW0pTbeOWmcV9+uz6dqyGOSPLwFjn2/LPzrO+2coD0hpUZ+ogsfvStUl/StbwCYcs/FD0FfKVSKiCD6Ti34fezvaJx/RJ5tZkK4D4lCFWMWUcS1s+1vBH71uMwRzrw7tVSYLqdhQlETJYGQF89s2x77DzvOWZ2pvvu+W8xz+7UV5wiiwT3xtGtM+UHYMRwBEn2IF9c4VuIcwFvD4858+jTfE/+5Uy/aAqr5VhOnzDctH7tVtMkSRTuCQ099KsDXawzNMGi+G/4mqPOIB0=,iv:YXPi0xFMkwnOmbsO90QiTCxsnT2y7uYFQtdKp8vBUCo=,tag:imyGLmrq31JQlqI3ENnXYQ==,type:str]
+    config.json: ENC[AES256_GCM,data:lV4jSC0pavdrgG0QMCBkL8NAtj+rrAvxI6fTZuD+K/VcaeIM6X9K0kAkTPAAT1rU954AuYiwpKGYUQnxSCUTEScFLC/V/SaPYwWrC0baaZZK8pthO9St8bIkA6trpzAJsuGuWXvDmA8zP1kb3mNsGlL80/cKi2caQT0WN/p7XGR9Jb1tP8JLdefeIS0jC5zcjalvN9SiAgVQx6bJMDMx5Yi6y/HoV4NB7GH9EZ3O28CNSitkfVQWQwf3hx3ko5K+eKunZ4wbqKUDaGFzT7ZPYNBl9BIZKyifGwlG8s1lG2hlhNDOcTPTnPGUq8bTtxLD/iVFOQoyiQtNEjIGg5YVZvwN57/z7DOAGLEMB4A5h8d8SRp4jAJEfzs6WpYNc3V1JxHWo8q+nZQRau10lvZ3wJGIBqED5aMeRCi3duJa0QgU7u99f3XT1O8NkcZTHjha0ov8c/guoU0Mr9kHyaIxmF5faA==,iv:BX16mCqhQz8nMuUwCFSNpiRRCN2OE9sCJ2YA61zEoL8=,tag:UFguZmqBXB+swbHStAnx0Q==,type:str]
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
           created_at: "2025-07-31T03:34:04Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFdiQohC9NNA9/s0hn9C+toAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0uZCJSPc0aoLzh1uAgEQgDtNq2PXrGRBdNLlfUlVMf3lxuS3JJelBQ92mFSbwedkd1oBu+TTvX6eDhNW6aajzsQszyUghi2mgt7/Jg==
           aws_profile: ""
-    lastmodified: "2025-07-31T04:04:42Z"
-    mac: ENC[AES256_GCM,data:2haS2EgzGdzr6tSuYj4gNsx49Mcj+iU5ZKtAWmrrmhTTFNRwV+PMC6McNCeVaA73ED1/JsXjRC2ublK6JlPJQ5CDV12DeK8rUEeLpsup+L6nE7EzL9M563vnIN0s3aJ7mrRL4cglxPW1AxTjs4W4/PthN84sfxubv1VNWGmaYIQ=,iv:Zekpa+cJa0T2fzKndJbKFHYQu28Yj2oVkLkngq990aQ=,tag:A9RqLf24uawQics9ivxUlg==,type:str]
+    lastmodified: "2025-07-31T04:31:42Z"
+    mac: ENC[AES256_GCM,data:bOarnIY7a6TkGXOwM6Ik4FGKVntET4YIQWbwNsTTY9N4FtPUBs7VP6oZGpor4B744aFoAJpDbThvXnz6N+a+NtutfHc9VzNGQNS/f/lzxAYmIntGVPUXBjaT8k8dd3Yw7fSr/FCSnPjKam/tUI+gqozeciXxw5k0eHqMBzcA7+M=,iv:X/dGVDklkskzfpJ41/dltAT16Qu8hVdzTx2nGuzNQxE=,tag:v4kCmkH1pNhW9kEiO1RQxQ==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
