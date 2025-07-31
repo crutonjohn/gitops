@@ -83,7 +83,7 @@ spec:
         external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
         external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-headers@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-headers@kubernetescrd,auth-system-oauth-errors@kubernetescrd
         traefik.ingress.kubernetes.io/router.priority: "50"
       path: /
       # Only used if API capabilities (networking.k8s.io/v1) allow it
