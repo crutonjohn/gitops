@@ -25,7 +25,8 @@ spec:
               image: ghcr.io/timothyye/godns:3.2.5@sha256:1275191af24c675123d1778397014b8504a3f31c8140f4790b0146fdbdc1d171
               volumeMounts:
                 - name: ddns-config
-                  mountPath: /
+                  mountPath: /config.json
+                  subPath: config.json
                   readOnly: true
           volumes:
             - name: ddns-config
