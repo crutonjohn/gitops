@@ -7,7 +7,5 @@ configMapGenerator:
   - name: frigate-config
     files:
       - config.yml=./config/config.yml
-patches:
-  - path: patch.frigate.yaml
 generatorOptions:
   disableNameSuffixHash: true
