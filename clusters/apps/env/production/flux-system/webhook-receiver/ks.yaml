@@ -30,6 +30,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      INGRESSROUTE_SUBDOMAIN: "receiver"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
