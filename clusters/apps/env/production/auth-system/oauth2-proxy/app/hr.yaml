@@ -159,9 +159,9 @@ spec:
     # Configure Kubernetes security context for pod
     # Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     podSecurityContext:
-      runAsUser: ${APP_UID}
-      runAsGroup: ${APP_UID}
-      fsGroup: ${APP_UID}
+      runAsUser: "${APP_UID}"
+      runAsGroup: "${APP_UID}"
+      fsGroup: "${APP_UID}"
       fsGroupChangePolicy: OnRootMismatch
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
