@@ -2,9 +2,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: app-template
+  name: frigate
 spec:
-  interval: 30m
+  interval: 12h
   chart:
     spec:
       chart: app-template
@@ -41,7 +41,7 @@ spec:
         #         "ips": ["192.168.134.120/24"]
         #       }]
         containers:
-          app:
+          frigate:
             image:
               repository: ghcr.io/blakeblackshear/frigate
               tag: "0.15.1"
@@ -148,8 +148,30 @@ spec:
             protocol: HTTP
             targetPort: 1984
     ingress:
-      main:
-        enabled: false
+      frigate:
+        controller: frigate
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-auth@kubernetescrd,auth-system-oauth-errors@kubernetescrd
+          traefik.ingress.kubernetes.io/router.priority: "10"
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: frigate
+                  port: 5000
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
     persistence:
       data:
         existingClaim: frigate-data
