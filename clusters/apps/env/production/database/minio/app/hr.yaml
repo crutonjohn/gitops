@@ -2,11 +2,19 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: app-template
+  name: minio
 spec:
+  interval: 30m
+  timeout: 15m
   chart:
     spec:
+      chart: app-template
       version: 3.1.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
   values:
     defaultPodOptions:
       securityContext:
@@ -15,20 +23,9 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
-      main:
+      minio:
         type: deployment
-
         containers:
           minio:
             nameOverride: minio
@@ -42,12 +39,12 @@ spec:
                   name: minio-env
             env:
               TZ: America/New_York
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${FAMILY_DOMAIN},https://s3.${FAMILY_DOMAIN}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${FAMILY_DOMAIN}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN},https://${INGRESSROUTE_S3}.${FAMILY_DOMAIN}
+              MINIO_BROWSER_REDIRECT_URL: https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: https://prometheus.${FAMILY_DOMAIN}
               MINIO_PROMETHEUS_AUTH_TYPE: public
-              MINIO_SERVER_URL: https://s3.${FAMILY_DOMAIN}
+              MINIO_SERVER_URL: https://${INGRESSROUTE_S3}.${FAMILY_DOMAIN}
               MINIO_STORAGE_CLASS_RRS: EC:0
               MINIO_STORAGE_CLASS_STANDARD: EC:0
               MINIO_UPDATE: "off"
@@ -74,9 +71,37 @@ spec:
                 memory: 512M
               limits:
                 memory: 2Gi
+    ingress:
+      minio:
+        enabled: true
+        controller: minio
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN},${INGRESSROUTE_S3}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: ${APP}
+                  port: 9001
+          - host: ${INGRESSROUTE_S3}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: ${APP}
+                  port: 9000
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     service:
       minio:
-        controller: main
+        controller: minio
         ports:
           http:
             port: 9001
