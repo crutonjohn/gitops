@@ -2,9 +2,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: app-template
+  name: paperless
 spec:
-  interval: 30m
+  interval: 12h
   chart:
     spec:
       chart: app-template
@@ -122,8 +122,28 @@ spec:
             port: 80
             targetPort: 3000
     ingress:
-      main:
-        enabled: false
+      paperless:
+        controller: "paperless"
+        enabled: true
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        labels: {}
+        className: traefik-external
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: ${APP}
+                  port: 8000
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
     persistence:
       config:
         enabled: true
