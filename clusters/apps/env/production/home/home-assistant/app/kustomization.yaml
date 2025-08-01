@@ -2,17 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../../../../base/app-template
   - code.enc.yaml
   - hass.enc.yaml
-  - ingressroute.home-assistant.yaml
-  - ingressroute.music-assistant.yaml
-patches:
-  - path: patch.hassio.yaml
-  - patch: |-
-      - op: replace
-        path: /metadata/name
-        value: home-assistant
-    target:
-      kind: HelmRelease
-      name: .*
+  - hr.yaml
