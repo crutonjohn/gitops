@@ -5,7 +5,7 @@ resources:
   - ./esphome/ks.yaml
 #  - ./frigate/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./homepage/ks.yaml
+#  - ./homepage/ks.yaml
   - ./paperless/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mosquitto/ks.yaml
