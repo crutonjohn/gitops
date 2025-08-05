@@ -1,0 +1,20 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ "volsync-unlock-local-" + ENV.VOLNAME }}
+  namespace: {{ ENV.NS }}
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: OnFailure
+      containers:
+        - name: minio
+          image: docker.io/restic/restic:latest
+          args: ["unlock", "--remove-all"]
+          envFrom:
+            - secretRef:
+                name: {{ ENV.VOLNAME + "-local-restic" }}
+          resources: {}
