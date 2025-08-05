@@ -188,7 +188,7 @@ spec:
         # Persistent Volume size
         # size: 20Gi
         # Use an existing PVC
-        existingClaim: n8n-data
+        existingClaim: n8n-shared-data
 
       extraVolumes:
         - name: node-cache
