@@ -10,5 +10,7 @@
       ceph
       restic
       pre-commit
+      go-task
+      minijinja
     ];
 }
