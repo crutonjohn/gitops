@@ -16,8 +16,6 @@ spec:
     cacheStorageClassName: "${CACHE:=terra-blockpool}"
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "${CACHESIZE:=2Gi}"
-    cleanupCachePVC: true
-    cleanupTempPVC: true
     moverSecurityContext:
       runAsNonRoot: true
       runAsUser: ${APP_UID}
@@ -53,8 +51,6 @@ spec:
     cacheStorageClassName: "${CACHE:=terra-blockpool}"
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "${CACHESIZE:=2Gi}"
-    cleanupCachePVC: true
-    cleanupTempPVC: true
     moverSecurityContext:
       runAsNonRoot: true
       runAsUser: ${APP_UID}
