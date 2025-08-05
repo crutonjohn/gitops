@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: "${SRC_PVC}-restic-backup"
+  name: "${SRC_PVC}-b2"
 spec:
   sourcePVC: "${SRC_PVC}"
   trigger:
@@ -38,7 +38,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: "${SRC_PVC}-restic-backup-local"
+  name: "${SRC_PVC}-local"
 spec:
   sourcePVC: "${SRC_PVC}"
   trigger:
