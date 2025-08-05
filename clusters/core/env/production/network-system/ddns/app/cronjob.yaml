@@ -12,6 +12,9 @@ spec:
   concurrencyPolicy: Forbid
   schedule: '*/45 * * * *' # Every hour at 45 minutes past the hour
   successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 10
+  startingDeadlineSeconds: 60
+  timeZone: "${LOCAL_TIMEZONE}"
   jobTemplate:
     spec:
       backoffLimit: 2
