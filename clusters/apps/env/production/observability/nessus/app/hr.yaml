@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nessus
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      nessus:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          nessus:
+            image:
+              repository: tenable/nessus
+              tag: "10.9.1-ubuntu@sha256:0f3cdc8c62417baab8dbba2a22d53fa0144c296adf7574e7431add8d4c8c6a6b"
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+            envFrom:
+              - secret: nessus-env
+            securityContext:
+              fsGroup: ${APP_UID}
+              runAsNonRoot: true
+              runAsUser: ${APP_UID}
+              runAsGroup: ${APP_UID}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                memory: 128Mi
+                cpu: 100m
+              limits:
+                memory: 5Gi
+    service:
+      nessus:
+        controller: nessus
+        ports:
+          http:
+            enabled: true
+            primary: true
+            port: 8834
+            protocol: TCP
+            targetPort: 8834
+    ingress:
+      nessus:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: nessus
+                  port: 8834
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}

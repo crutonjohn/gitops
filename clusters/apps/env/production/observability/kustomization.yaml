@@ -10,3 +10,4 @@ resources:
   - ./nut-exporter/ks.yaml
   - ./prometheus/ks.yaml
   - ./pyroscope/ks.yaml
+  - ./nessus/ks.yaml
