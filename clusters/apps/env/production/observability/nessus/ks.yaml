@@ -27,3 +27,4 @@ spec:
     substitute:
       APP: *app
       APP_UID: "5120"
+      INGRESSROUTE_SUBDOMAIN: "nessus"

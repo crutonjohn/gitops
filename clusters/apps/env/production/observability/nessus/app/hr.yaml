@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: nessus
 spec:
-  interval: 30m
+  interval: 12h
   chart:
     spec:
       chart: app-template
