@@ -43,7 +43,7 @@ spec:
               runAsUser: ${APP_UID}
               runAsGroup: ${APP_UID}
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -58,12 +58,12 @@ spec:
       #     nessus:
       #       nessus:
       #         - path: /config
-      cache:
-        type: emptyDir
-        advancedMounts:
-          nessus:
-            nessus:
-              - path: /tmp
+      # cache:
+      #   type: emptyDir
+      #   advancedMounts:
+      #     nessus:
+      #       nessus:
+      #         - path: /tmp
     service:
       nessus:
         controller: nessus

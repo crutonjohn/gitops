@@ -28,3 +28,12 @@ spec:
       APP: *app
       APP_UID: "5120"
       INGRESSROUTE_SUBDOMAIN: "nessus"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
