@@ -22,3 +22,8 @@ spec:
       runAsNonRoot: true
       runAsUser: 2265
       fsGroup: 2265
+    manager:
+      image:
+        repository: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator
+      collectorImage:
+        repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s
