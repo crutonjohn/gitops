@@ -9,6 +9,7 @@ spec:
   trigger:
     schedule: "${CRON_SCHEDULE:=0 */12 * * *}" # midnight and noon every day
   restic:
+    unlock: V1gzSN61
     copyMethod: "Snapshot"
     repository: "${SRC_PVC}-b2-restic"
     volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
@@ -44,6 +45,7 @@ spec:
   trigger:
     schedule: "${LOCAL_SCHEDULE:=0 */12 * * *}" # midnight and noon every day
   restic:
+    unlock: V1gzSN61
     copyMethod: "Snapshot"
     repository: "${SRC_PVC}-local-restic"
     volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
