@@ -51,6 +51,19 @@ spec:
                 cpu: 100m
               limits:
                 memory: 5Gi
+    persistence:
+      # config:
+      #   existingClaim: esphome-config
+      #   advancedMounts:
+      #     nessus:
+      #       nessus:
+      #         - path: /config
+      cache:
+        type: emptyDir
+        advancedMounts:
+          nessus:
+            nessus:
+              - path: /tmp
     service:
       nessus:
         controller: nessus
