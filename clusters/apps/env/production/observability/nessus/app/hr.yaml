@@ -74,6 +74,19 @@ spec:
             port: 8834
             protocol: TCP
             targetPort: 8834
+      nessus-lb:
+        enabled: true
+        controller: nessus
+        primary: false
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        labels:
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-ips: "${CLUSTER_LB_NESSUS}"
+        ports:
+          http:
+            port: 8834
     ingress:
       nessus:
         enabled: true
