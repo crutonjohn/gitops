@@ -37,14 +37,14 @@ spec:
               readiness: *probes
             envFrom:
               - secret: nessus-env
-            securityContext:
-              fsGroup: ${APP_UID}
-              runAsNonRoot: true
-              runAsUser: ${APP_UID}
-              runAsGroup: ${APP_UID}
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+            # securityContext:
+            #   fsGroup: ${APP_UID}
+            #   runAsNonRoot: true
+            #   runAsUser: ${APP_UID}
+            #   runAsGroup: ${APP_UID}
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: false
+            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 memory: 128Mi
