@@ -1,13 +1,29 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: app-template
+  name: ${APP}
 spec:
+  interval: 12h
   chart:
     spec:
+      chart: app-template
       version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     defaultPodOptions:
       securityContext:
@@ -50,33 +66,31 @@ spec:
                 memory: 1000M
               limits:
                 memory: 4200M
-          # metrics:
-          #   nameOverride: metrics
-          #   dependsOn: [main]
-          #   args: [lidarr]
-          #   image:
-          #     repository: ghcr.io/onedr0p/exportarr
-          #     tag: v2.0.1
-          #     pullPolicy: IfNotPresent
-          #   env:
-          #     URL: "http://localhost"
-          #     CONFIG: /config/config.xml
-          #     PORT: "9792"
-          #     ENABLE_ADDITIONAL_METRICS: "false"
-          #     ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
-          #   probes:
-          #     liveness:
-          #       enabled: false
-          #     readiness:
-          #       enabled: false
-          #     startup:
-          #       enabled: false
-          #   resources:
-          #     requests:
-          #       cpu: 20m
-          #       memory: 40M
-          #     limits:
-          #       memory: 100M
+
+    ingress:
+      lidarr:
+        # controller: "lidarr"
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-auth@kubernetescrd,auth-system-oauth-errors@kubernetescrd
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: ${APP}
+                  port: 8686
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
 
     service:
       lidarr:
@@ -86,20 +100,6 @@ spec:
         ports:
           http:
             port: 8686
-      # metrics:
-      #   enabled: true
-      #   controller: lidarr
-      #   primary: false
-      #   ports:
-      #     metrics:
-      #       enabled: true
-      #       primary: false
-      #       protocol: HTTP
-      #       port: 9792
-      #       targetPort: 9792
-      #   annotations:
-      #     prometheus.io/scrape: 'true'
-      #     prometheus.io/port: '9792'
 
     persistence:
       config:
@@ -133,19 +133,3 @@ spec:
             lidarr:
               - path: /music
                 readOnly: false
-
-    # probes:
-    #   liveness:
-    #     enabled: true
-    #     custom: true
-    #     spec:
-    #       exec:
-    #         command:
-    #           - /usr/bin/env
-    #           - bash
-    #           - -c
-    #           - curl --fail localhost:8686/api/v1/system/status?apiKey=`IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-    #       initialDelaySeconds: 10
-    #       periodSeconds: 60
-    #       timeoutSeconds: 20
-    #       failureThreshold: 3

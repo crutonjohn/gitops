@@ -1,12 +1,29 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: app-template
+  name: ${APP}
 spec:
+  interval: 12h
   chart:
     spec:
+      chart: app-template
       version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     defaultPodOptions:
       securityContext:
@@ -15,18 +32,8 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
-      main:
+      music-assistant:
         type: deployment
 
         containers:
@@ -56,10 +63,32 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
 
-    service:
-      main:
+    ingress:
+      music-assistant:
         enabled: true
-        controller: main
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: ${APP}
+                  port: 8095
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
+    service:
+      music-assistant:
+        enabled: true
+        controller: music-assistant
         primary: true
         ports:
           http:
@@ -75,7 +104,7 @@ spec:
         enabled: true
         existingClaim: "music-library"
         advancedMounts:
-          main:
-            main:
+          music-assistant:
+            music-assistant:
               - path: /music
                 readOnly: false

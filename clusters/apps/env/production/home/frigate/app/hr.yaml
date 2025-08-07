@@ -13,14 +13,16 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+  maxHistory: 2
   install:
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
+  uninstall:
+    keepHistory: false
   dependsOn:
     - name: traefik-internal
       namespace: network-system
@@ -149,7 +151,7 @@ spec:
             targetPort: 1984
     ingress:
       frigate:
-        controller: frigate
+        # controller: frigate
         enabled: true
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}

@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../../../../base/app-template
+  - hr.yaml
   - secret.enc.yaml
 configMapGenerator:
   - name: mosquitto-configmap
@@ -10,12 +10,3 @@ configMapGenerator:
       - mosquitto.conf=./config/mosquitto.conf
 configurations:
   - ./patches/kustomizeconfig.yaml
-patches:
-  - path: patch.mosquitto.yaml
-  - patch: |-
-      - op: replace
-        path: /metadata/name
-        value: mosquitto
-    target:
-      kind: HelmRelease
-      name: .*

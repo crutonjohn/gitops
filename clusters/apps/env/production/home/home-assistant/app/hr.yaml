@@ -1,20 +1,29 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: ${APP}
 spec:
   interval: 12h
-  timeout: 15m
   chart:
     spec:
       chart: app-template
       version: 3.1.0
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       home-assistant:
@@ -101,7 +110,7 @@ spec:
 
     ingress:
       home-assistant:
-        controller: home-assistant
+        # controller: home-assistant
         enabled: true
         annotations:
           external-dns/public: "true"
@@ -129,8 +138,9 @@ spec:
           - secretName: heyjohn-wildcard-certificate
             hosts:
               - home.${FAMILY_DOMAIN}
+              - hass.${FAMILY_DOMAIN}
       music-assistant:
-        controller: home-assistant
+        # controller: home-assistant
         enabled: true
         annotations:
           external-dns.alpha.kubernetes.io/hostname: mass.${FAMILY_DOMAIN}

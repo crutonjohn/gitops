@@ -29,7 +29,7 @@ spec:
   values:
 
     controllers:
-      main:
+      zwavejs:
 
         type: deployment
 
@@ -37,7 +37,7 @@ spec:
           reloader.stakater.com/auto: "true"
 
         containers:
-          main:
+          zwavejs:
             nameOverride: zwavejs
             image:
               repository: zwavejs/zwave-js-ui
@@ -73,7 +73,7 @@ spec:
 
     ingress:
       zwavejs:
-        controller: "zwavejs"
+        # controller: "zwavejs"
         enabled: true
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
@@ -98,7 +98,7 @@ spec:
     service:
       zwavejs:
         enabled: true
-        controller: main
+        controller: zwavejs
         primary: true
         ports:
           http:

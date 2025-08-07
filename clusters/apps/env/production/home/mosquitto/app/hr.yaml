@@ -1,12 +1,29 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: app-template
+  name: ${APP}
 spec:
+  interval: 12h
   chart:
     spec:
+      chart: app-template
       version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     defaultPodOptions:
       securityContext:
@@ -15,18 +32,8 @@ spec:
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_UID}
 
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #         - matchExpressions:
-      #             - key: ${FAMILY_DOMAIN}/role
-      #               operator: In
-      #               values:
-      #                 - apps
-
     controllers:
-      main:
+      mosquitto:
         type: deployment
         initContainers:
           01-init-config:
@@ -37,7 +44,7 @@ spec:
             command: ["/bin/sh", "-c"]
             args: ["cp -v /mosquitto_secret/* /mosquitto/external_config/ && mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd"]
         containers:
-          main:
+          mosquitto:
             nameOverride: mosquitto
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
@@ -59,9 +66,9 @@ spec:
                 memory: 150Mi
 
     service:
-      main:
+      mosquitto:
         enabled: true
-        controller: main
+        controller: mosquitto
         primary: true
         type: LoadBalancer
         externalTrafficPolicy: Cluster

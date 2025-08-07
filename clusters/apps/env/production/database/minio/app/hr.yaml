@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: minio
 spec:
-  interval: 30m
+  interval: 12h
   timeout: 15m
   chart:
     spec:
@@ -74,7 +74,7 @@ spec:
     ingress:
       minio:
         enabled: true
-        controller: minio
+        # controller: minio
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN},${INGRESSROUTE_S3}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}

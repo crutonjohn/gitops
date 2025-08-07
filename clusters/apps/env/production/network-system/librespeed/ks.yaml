@@ -29,6 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: speedof
+      APP_UID: "5484"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
