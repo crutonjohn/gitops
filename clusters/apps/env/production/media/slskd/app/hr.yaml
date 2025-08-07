@@ -39,7 +39,7 @@ spec:
             nameOverride: slskd
             image:
               repository: ghcr.io/slskd/slskd
-              tag: 0.22.5@sha256:f5150c39758353c31788e8e3d6aa9f9c2910f2a46591d810fc2f4d0bac81a96a
+              tag: 0.23.1@sha256:57f87d80b882b882f72cecc0b3aa0f0adb4c7887ed278906c237ff30003ae639
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
