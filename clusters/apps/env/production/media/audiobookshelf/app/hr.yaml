@@ -101,31 +101,31 @@ spec:
         enabled: true
         existingClaim: "audiobookshelf-metadata"
         advancedMounts:
-          main:
-            main:
+          audiobookshelf:
+            audiobookshelf:
               - path: /metadata
                 readOnly: false
       audiobooks:
         enabled: true
         existingClaim: "audiobook-library"
         advancedMounts:
-          main:
-            main:
+          audiobookshelf:
+            audiobookshelf:
               - path: /audiobooks
                 readOnly: false
       ebooks:
         enabled: true
         existingClaim: "ebook-library"
         advancedMounts:
-          main:
-            main:
+          audiobookshelf:
+            audiobookshelf:
               - path: /ebooks
                 readOnly: false
       podcasts:
         enabled: true
         existingClaim: "podcast-library"
         advancedMounts:
-          main:
-            main:
+          audiobookshelf:
+            audiobookshelf:
               - path: /podcasts
                 readOnly: false
