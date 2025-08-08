@@ -89,7 +89,7 @@ spec:
           main:
             image:
               repository: "apache/tika"
-              tag: "3.1.0.0-full@sha256:1221afa48af9158e14b8d005bbcfa49f3d7fc4e5113db48cad586955bc64992b"
+              tag: "3.2.2.0-full@sha256:ffab324253edc54706e8882dd28190b1e6559c344b5315ae8a74b9efda9e7291"
             securityContext: *sc
             resources: # TODO: adjust (Java app)
               requests:
