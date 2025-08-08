@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app teamspeak
+  namespace: flux-system
+spec:
+  targetNamespace: home
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/apps/env/production/games/teamspeak/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: traefik-external
+  postBuild:
+    substitute:
+      APP: *app
+      INGRESSROUTE_SUBDOMAIN: "ts"
+      APP_UID: "2121"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app volsync-teamspeak-data-restic
+  namespace: flux-system
+spec:
+  targetNamespace: home
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: teamspeak
+      backups.${FAMILY_DOMAIN}/subsystem: data
+  path: ./clusters/apps/base/volsync/lib/restic
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: volsync
+  postBuild:
+    substitute:
+      SRC_PVC: teamspeak-data
+      # forced by upstream
+      APP_UID: "2121"
+      CRON_SCHEDULE: "55 1/12 * * *"
+      LOCAL_SCHEDULE: "50 1/12 * * *"
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
+      DST_ACCESS_MODE: ReadWriteOnce
+      SIZE: "20Gi"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}

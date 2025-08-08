@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ark-save-fjordur
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: apollo
+  nfs:
+    server: 192.168.130.50
+    path: "/mnt/apollo/games/ark/save/fjordur"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ark-save-fjordur
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: apollo
+  volumeName: ark-save-fjordur
+  resources:
+    requests:
+      storage: 10Gi
