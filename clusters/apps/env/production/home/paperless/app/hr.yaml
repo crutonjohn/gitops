@@ -35,7 +35,7 @@ spec:
               tag: "2.17.1@sha256:ab72a0ab42a792228cdbe83342b99a48acd49f7890ae54b1ae8e04401fba24ee"
             env:
               PAPERLESS_URL: "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
-              PAPERLESS_PORT: &port "8000"
+              PAPERLESS_PORT: &port 8000
               PAPERLESS_TIME_ZONE: America/New_York
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
