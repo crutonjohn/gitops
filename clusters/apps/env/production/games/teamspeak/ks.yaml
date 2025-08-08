@@ -6,7 +6,7 @@ metadata:
   name: &app teamspeak
   namespace: flux-system
 spec:
-  targetNamespace: home
+  targetNamespace: games
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
