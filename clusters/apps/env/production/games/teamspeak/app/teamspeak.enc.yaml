@@ -6,13 +6,13 @@ metadata:
 stringData:
     TZ: ENC[AES256_GCM,data:yAuLEoIYwY0wEQpPUT36Eg==,iv:vGhrlaYgOPjMp2HZ8zz0BZKghJc/WmsbiScVdhVPcwY=,tag:fi0R3d0prlGp1/q89F7v/A==,type:str]
     TSSERVER_LICENSE_ACCEPTED: ENC[AES256_GCM,data:Rn6EieT+,iv:Qiel1V47fFzEK/fYSm/pt9umiLh1E7QEXtYHO2W1Fck=,tag:XVJmtpDWgatxGlW951If1w==,type:str]
-    TSSERVER_DEFAULT_PORT: ENC[AES256_GCM,data:szJmgw==,iv:F9YNopf2dyzpjWlR9YSMvV7k8BHfX1DtUGT/iUSP+88=,tag:iepXLFc+G+JCvBaErzEeXA==,type:int]
+    TSSERVER_DEFAULT_PORT: ENC[AES256_GCM,data:yhPHtQ==,iv:IUBIv5WvGhvoVyG3D/ceQYxSEUqwYtXKmblheKPX+xM=,tag:Q45MgkfbG8fQBtF3xA1X4Q==,type:str]
     TSSERVER_VOICE_IP: ENC[AES256_GCM,data:UTDRSemjww==,iv:34cW/2yO5u5rd4pAW7Qm5c3bjT8daRA4ppd/OKdW9rQ=,tag:w/VszjefS2TgJ0VsRhok4w==,type:str]
-    TSSERVER_FILE_TRANSFER_PORT: ENC[AES256_GCM,data:Jyf8f/Q=,iv:7yQY3MkmjMuceLFPThlvKmCke8/+dex19zuzQIpELEc=,tag:u8KRFm8TKk5pKKZmJnNiKg==,type:int]
+    TSSERVER_FILE_TRANSFER_PORT: ENC[AES256_GCM,data:l9wY5xY=,iv:hgnvKl5UDkvleK9NAZhAVBM7jCZl2WnuemyZgt2tpVI=,tag:MSdbC1TLu+4+8HJ7y0T/UA==,type:str]
     TSSERVER_FILE_TRANSFER_IP: ENC[AES256_GCM,data:XaucyA6rpQ==,iv:5NlSEOQlUs6gGXVqr6TM4oAJF7a3OdAd+azvKNAiYd0=,tag:gv3yZTkTt0EXRlNf5gmg0w==,type:str]
-    TSSERVER_QUERY_HTTP_ENABLED: ENC[AES256_GCM,data:hlaPFg==,iv:iwVsCuJA0t5Td/m9N0mRyFUiFyHb/J0jEgxKnqSv1vA=,tag:E9coAh0w8T4VIrr5lOarpQ==,type:bool]
-    TSSERVER_QUERY_SSH_ENABLED: ENC[AES256_GCM,data:5ELNgyc=,iv:CG51Y5YHMwmtffO84dJLG2gYG6ipGCK1vcJd66+q/jk=,tag:GiXt6cKYswUeBBs/6cXBzQ==,type:bool]
-    TSSERVER_MACHINE_ID: ENC[AES256_GCM,data:mEySUbQHtgx8nWCpHkgKpUzJLXA=,iv:gt2hKUkvVoKWwDqBe5+RlUIeUqlwHmb/VemB34bg1rM=,tag:Lka6iF/1f28PcLPRNd43Iw==,type:str]
+    TSSERVER_QUERY_HTTP_ENABLED: ENC[AES256_GCM,data:FnYMjg==,iv:aN9lh5ctTz/vqQzcluUyaypOzP40JMaAvYUKy7EQw4E=,tag:ZwUYCSqLdDwiuuVwnj9C2g==,type:str]
+    TSSERVER_QUERY_SSH_ENABLED: ENC[AES256_GCM,data:dZfELUc=,iv:XZCueQwN5mphXxBmLwe66NxffJZycv2+ee/LA/LxAac=,tag:fh0Ob3JnMs0oxM4xdWU+Zg==,type:str]
+    TSSERVER_MACHINE_ID: ENC[AES256_GCM,data:toLJ4+7401LRXcJTW5nL0tJwoA==,iv:V2raH05I8eptloOT3tNjA9ZqfjPZULN+NXXKZwD62Kw=,tag:u4D+IO4FGHNyIkJ3Om1oig==,type:str]
     TSSERVER_LOG_PATH: ENC[AES256_GCM,data:eTzgQHsP5I+lJx9xwDy7k28B,iv:GQ2DthobRU/saP49oVrN5HjjLm91BJqcWV37dc5yy78=,tag:nThWW22I/OJYz80v/1KGhQ==,type:str]
     TSSERVER_QUERY_ADMIN_PASSWORD: ENC[AES256_GCM,data:SqWmUzsv3gJSTYFLYykitAF04DDxRs9vDOE=,iv:QiiYIj79ODeRzg5ckhPFJGtioBj8ok2eGEaRBcsjJBQ=,tag:x13Ht8aqLJAfuAiIQVHchg==,type:str]
 sops:
@@ -21,7 +21,7 @@ sops:
           created_at: "2025-01-19T16:28:02Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwH4wxHrag/qO2+78cHUSAIVAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0EOBtO5aygzwFoo4AgEQgDt6P+6g4wHPWhJyvyU2hzl4AhRsq3DFuJMH4aACWhknMNXiCtMldMISdJaPQDQryo4/fzPCun8ayeV7ng==
           aws_profile: ""
-    lastmodified: "2025-08-08T04:06:03Z"
-    mac: ENC[AES256_GCM,data:xHL0Qq0XP5nJyZNRz+eqIGfnLRPRv3Em74/2SxSV3WMZmB5VLBeaDffyi8Q5weXtV6qKR4Mkalb/vlLcfuM63QRiS9NnDVNSCCoDKqa4DjQig0tJbV92EVkfdwT/VrpJFDgTgMmkCqZjPvjUg/cc6keKj5gN86tpsZxYVPaWBLg=,iv:Q+M2a3otQFR11j8pz1rtRKKoDULrhD9AVYEDcK2saaA=,tag:99dU9ep+xFuFuszIiou6ww==,type:str]
+    lastmodified: "2025-08-08T04:26:34Z"
+    mac: ENC[AES256_GCM,data:rhrcGqrYDb1p4zb89xm7+pRO/EXEEzAPChdrGfhkmTVPmdmZJrv5PHSlR9M83opMx6QRaZRSYAfpleddJm3m9ptzupDa2n4wcoK1WhtpsuMEXOyK77E/sfmQzD+ta6NBGolLse/wOfDb5sSh4lPNomJX0dnC589T90RFqtWajo8=,iv:KtZL9X56NUF7BHgIcTqEHiP0Ce3UqiZCGSd5hfmg+pU=,tag:8BWWi6EBObybBS8OhHUa3w==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
