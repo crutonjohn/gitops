@@ -61,10 +61,10 @@ spec:
     fullnameOverride:
 
     # Add entries to a pod's /etc/hosts file, mapping custom IP addresses to hostnames.
-    hostAliases: []
-      # - ip: 8.8.8.8
-      #   hostnames:
-      #     - service-example.local
+    hostAliases:
+      - ip: 192.168.130.4
+        hostnames:
+          - s3-garage.${FAMILY_DOMAIN}
     #
     # Ingress
     #
