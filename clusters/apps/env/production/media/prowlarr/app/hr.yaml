@@ -64,7 +64,7 @@ spec:
             args: [prowlarr]
             image:
               repository: ghcr.io/onedr0p/exportarr
-              tag: v2.2.0
+              tag: v2.3.0
               pullPolicy: IfNotPresent
             env:
               URL: "http://localhost"
