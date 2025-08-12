@@ -39,8 +39,8 @@ spec:
     logFormat: json
     policy: sync
     registry: txt
-    txtOwnerId: "k8s."
-    txtPrefix: "_."
+    txtOwnerId: "k8s-aws."
+    txtPrefix: "k8s-aws."
     domainFilters:
       - ${SECRET_DOMAIN}
     provider: aws

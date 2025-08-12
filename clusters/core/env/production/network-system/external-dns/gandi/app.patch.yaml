@@ -7,6 +7,8 @@ spec:
   values:
     domainFilters: ["${FAMILY_DOMAIN}"]
     provider: gandi
+    txtOwnerId: "k8s-gandi."
+    txtPrefix: "k8s-gandi."
     extraArgs:
       - --annotation-filter=external-dns/public in (true)
       #- --ignore-ingress-tls-spec
