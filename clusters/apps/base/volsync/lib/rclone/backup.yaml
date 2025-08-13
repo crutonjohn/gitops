@@ -40,3 +40,6 @@ spec:
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
       seccompProfile: {type: "RuntimeDefault"}
+    customCA:
+      secretName: heyjohn-internal-ca
+      key: ca.crt
