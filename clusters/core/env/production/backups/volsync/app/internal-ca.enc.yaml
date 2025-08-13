@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+    ca.crt: ENC[AES256_GCM,data:InxNbTduTBJyxoPFiTopoJzgiwInQmaW6zYIbqJa+Ot7YdsFOvOJj1RyG38pzWnId96g4xlBt92PeK0XkCsR+bIHbyTm7qGg0J/bzRmzswdHlTqPitHln5KIPuvOymWikI+pkxpCMa7x2XF77v1vqAXT+NodKcWy6Ce6aJvqPtlUIz1zfJecHRjG/A/QmMssvOq5Gd4NzsMxpG2Yy+A+AuP48SJoyO4nlPZagzVc3MXpWVSXW78gXvkS0JWDPm3d3qlUBuVXK5ep0595/7XVzRYLo5+iTbXd3aAq4UD7vbBAOo2+wWle6UepFuSSkhTvnVSEuh4nOSAM5R0TEqhbEs/psLekk3GW1ls/Y2OJV2uANv35mPCttQ+wb+DLtpIzeg5XX+FfhUMT6XRXnFgi9XvCkCIvMq5OVgTwa75EHLL3FNlYgK5PebP9FImTx84wyPHYYDcvgpYD+H/ie5r6fpDkb6DsDY4U4yKUuR/xxiWjiOM9Wbxpgdo1nen0Sqp3beMb2tJ5T0UOFl7lmBQxcrW1/jRxxJQcmFzBht+NYTopHkkWVqw3PdvGOtLt49Ajzh7CAiY1SxkZ4oJhXG7G4u5Uwsdmb5JzePfvGE55V5s6ACZ7BI+qfXlnEUDXbn1iEan8oG4jyyElu7EQA1iwmlKyJTdtk32NmfDZjdc2nBEGbTur0UhIk+zR3i44Ih3tKp/7mr9GYP7ROju7YwWFIZ5eG3bqK/DfAAUjc9GQR6COdBnMAKGuph3kAPxcx7lglKRF3VGTnaVPx0VKJovlliantkX1WaAHaxJgWfvW3OQqdak=,iv:DFMZwjDjeCnlKK9dkucL74C9+vZyqPezITiTwqbD5ZI=,tag:/hEF00Dco3YyqO846cSk5w==,type:str]
+kind: Secret
+metadata:
+    name: heyjohn-internal-ca
+    annotations:
+        replicator.v1.mittwald.de/replicate-to: '*'
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2025-08-13T14:48:26Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEO1spBQBNQeec1IexH3exXAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM8GctNu4bGXrZEG/HAgEQgDts1lpEVtUe0uFqW5cb/qbcngcTUty/xOeXjSR6MUNiRS8Yo3YBh5Mu1/WMDvo0eN5OrCR+NfF1CDYLyw==
+          aws_profile: ""
+    lastmodified: "2025-08-13T14:48:26Z"
+    mac: ENC[AES256_GCM,data:c/0QoJhzlZRT1UsO99zFvfmCHcxVVDfWM3+x9JcYlfIx/E5P4pd0UQbNlChPzQT9WNb//Ppokf0smkrAPQ1jDM3j9MrSw+sxs9fjEP4358bJYIu1o3sBWzBwzvaD8XiDKbN9AxZil37LLE4K5nfkQ+vFbqLbB2hlpppxQkrgN28=,iv:xo5T2LIdgZKOnQt3VrB6ETpaSYOhzZq7bQzds4qWQqU=,tag:4cdEKu4plNXjbLDNJc5G3Q==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
