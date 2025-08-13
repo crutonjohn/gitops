@@ -33,3 +33,6 @@ spec:
       limits:
         cpu: 1
         memory: 6Gi
+    customCA:
+      secretName: heyjohn-internal-ca
+      key: ca.crt
