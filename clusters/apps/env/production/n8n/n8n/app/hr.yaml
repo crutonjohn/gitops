@@ -51,7 +51,8 @@ spec:
       url: &url https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 
     image:
-      repository: n8nio/n8n
+      repository: ghcr.io/crutonjohn/n8n-worker-latest
+      tag: 1.106.3
       pullPolicy: IfNotPresent
     imagePullSecrets: []
 
