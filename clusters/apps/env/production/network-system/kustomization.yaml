@@ -2,6 +2,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./librespeed/ks.yaml
   - ./traefik/ks.yaml
 #  - ./external-dns/ks.yaml
