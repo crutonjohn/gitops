@@ -30,7 +30,7 @@ spec:
           nessus:
             image:
               repository: tenable/nessus
-              tag: "10.9.1-ubuntu@sha256:0f3cdc8c62417baab8dbba2a22d53fa0144c296adf7574e7431add8d4c8c6a6b"
+              tag: "10.9.3-ubuntu@sha256:079f472c51245b11e4633537e45c428d48ed67551bc3a2f76022e6bc56efe9af"
             probes:
               liveness: &probes
                 enabled: false
