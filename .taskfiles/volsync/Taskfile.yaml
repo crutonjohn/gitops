@@ -62,7 +62,7 @@ tasks:
       - which kubectl
 
   snapshot:
-    desc: Snapshot an app [CLUSTER=main] [NS=default] [APP=required]
+    desc: Snapshot an app [NS=default] [APP=required]
     cmds:
       - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
       - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
@@ -71,13 +71,13 @@ tasks:
       NS: '{{.NS | default "default"}}'
       JOB: volsync-src-{{.APP}}
     requires:
-      vars: [CLUSTER, APP]
+      vars: [APP, NS]
     preconditions:
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
       - which kubectl
 
   restore:
-    desc: Restore an app [CLUSTER=main] [NS=default] [APP=required] [PREVIOUS=required]
+    desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required] [DESTPVC=required] [SRCPVC=required] [LOCATION=local]
     cmds:
       # Suspend
       - flux --namespace flux-system suspend kustomization {{.APP}}
@@ -101,19 +101,20 @@ tasks:
     env:
       NS: "{{.NS}}"
       APP: "{{.APP}}"
-      PREVIOUS: "{{.PREVIOUS}}"
+      PREVIOUS: "{{.PREVIOUS | default 1}}"
+      DESTPVC: "{{.DESTPVC}}"
+      SRCPVC: "{{.SRCPVC}}"
+      LOCATION: "{{.LOCATION | default local}}"
       CLAIM:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.sourcePVC}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.sourcePVC}"
       ACCESS_MODES:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.accessModes}"
-      STORAGE_CLASS_NAME:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.storageClassName}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.restic.accessModes}"
       PUID:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
       PGID:
-        sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     requires:
-      vars: [CLUSTER, APP, PREVIOUS]
+      vars: [APP, PREVIOUS, NS, SRCPVC, DESTPVC, LOCATION]
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2
       - which flux kubectl minijinja-cli
@@ -136,7 +137,7 @@ tasks:
       vars: [CLUSTER, NS, VOLNAME]
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/unlock-local.yaml.j2
-      - which kubectl minijinja-cli stern
+      - which kubectl minijinja-cli
 
   unlock-b2:
     desc: Unlock local Minio restic source repo from local machine [CLUSTER=mainv3] [NS=default] [VOLNAME=required]

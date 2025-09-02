@@ -17,4 +17,18 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ ENV.VOLNAME + "-local-restic" }}
+          env:
+            - name: RESTIC_CACERT
+              value: /customCA/ca.crt
           resources: {}
+          volumeMounts:
+            - mountPath: /customCA
+              name: custom-ca
+      volumes:
+        - name: custom-ca
+          secret:
+            defaultMode: 420
+            items:
+              - key: ca.crt
+                path: ca.crt
+            secretName: heyjohn-internal-ca
