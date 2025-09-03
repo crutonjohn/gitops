@@ -12,5 +12,6 @@
       pre-commit
       go-task
       minijinja
+      restic
     ];
 }
