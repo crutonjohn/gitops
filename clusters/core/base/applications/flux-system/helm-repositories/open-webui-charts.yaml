@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: open-webui-charts
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://helm.openwebui.com/
+  timeout: 5m

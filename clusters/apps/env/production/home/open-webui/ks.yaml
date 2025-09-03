@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app linkwarden
+  name: &app open-webui
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/media/linkwarden/app
+  path: ./clusters/apps/env/production/home/open-webui/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,13 +25,12 @@ spec:
       name: sops-aws
   dependsOn:
     - name: traefik-external
-    - name: traefik-internal
-    - name: cnpg-cluster
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: linkwarden
-      APP_UID: "1447"
+      INGRESSROUTE_SUBDOMAIN: "ai"
+      # forced by upstream
+      APP_UID: "1984"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
@@ -46,15 +45,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: volsync-linkwarden-config-restic
+  name: &app volsync-open-webui-data-restic
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: home
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &app linkwarden
-      backups.${FAMILY_DOMAIN}/name: *app
-      backups.${FAMILY_DOMAIN}/subsystem: music
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: open-webui
+      backups.${FAMILY_DOMAIN}/subsystem: ai
   path: ./clusters/apps/base/volsync/lib/restic
   prune: true
   sourceRef:
@@ -72,15 +71,15 @@ spec:
     - name: volsync
   postBuild:
     substitute:
-      APP: *app
-      SRC_PVC: linkwarden-data
-      APP_UID: "1447"
-      CRON_SCHEDULE: "20 2/12 * * *"
-      LOCAL_SCHEDULE: "25 2/12 * * *"
+      SRC_PVC: open-webui-data
+      # forced by upstream
+      APP_UID: "1984"
+      CRON_SCHEDULE: "30 1/12 * * *"
+      LOCAL_SCHEDULE: "35 1/12 * * *"
       STORAGE_CLASS: terra-blockpool
       SNAPSHOT_CLASS: terra-block
       DST_ACCESS_MODE: ReadWriteOnce
-      SIZE: "75Gi"
+      SIZE: "10Gi"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
