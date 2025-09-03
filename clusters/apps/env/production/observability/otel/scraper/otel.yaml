@@ -5,7 +5,7 @@ metadata:
   name: otel-scraper
 spec:
   mode: deployment
-  image: otel/opentelemetry-collector-contrib:0.126.0
+  image: otel/opentelemetry-collector-contrib:0.134.1
   volumeMounts:
     - name: certs
       mountPath: /var/lib/step
