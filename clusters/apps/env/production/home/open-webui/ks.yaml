@@ -28,8 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: "ai"
-      # forced by upstream
+      INGRESSROUTE_SUBDOMAIN: "chat"
       APP_UID: "1984"
     substituteFrom:
       - kind: Secret
@@ -72,7 +71,6 @@ spec:
   postBuild:
     substitute:
       SRC_PVC: open-webui-data
-      # forced by upstream
       APP_UID: "1984"
       CRON_SCHEDULE: "30 1/12 * * *"
       LOCAL_SCHEDULE: "35 1/12 * * *"

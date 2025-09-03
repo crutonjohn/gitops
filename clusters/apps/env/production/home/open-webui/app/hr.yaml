@@ -130,9 +130,17 @@ spec:
 
         # -- Redis security context
         securityContext:
-          {}
-          # runAsUser: 999
-          # runAsGroup: 1000
+          runAsUser: ${APP_UID}
+          runAsGroup: ${APP_UID}
+          runAsNonRoot: true
+          privileged: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+          seccompProfile:
+            type: "RuntimeDefault"
 
     # -- Value of cluster domain
     clusterDomain: cluster.local
@@ -221,17 +229,11 @@ spec:
       enabled: true
       class: "traefik-external"
       # -- Use appropriate annotations for your Ingress controller, e.g., for NGINX:
-      annotations: {}
-      #   # Example for GKE Ingress
-      #   kubernetes.io/ingress.class: "gce"
-      #   kubernetes.io/ingress.global-static-ip-name: "open-webui-external-ip"   #  you need to create this address in GCP console
-      #   # Force HTTP to redirect to HTTPS
-      #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      #   nginx.ingress.kubernetes.io/ssl-redirect: "true"
-      #   nginx.ingress.kubernetes.io/permanent-redirect: "https://chat.example.com"
-      #   networking.gke.io/managed-certificates: "mydomain-chat-cert"
-      #   # nginx.ingress.kubernetes.io/rewrite-target: /
-      host: "chat.${FAMILY_DOMAIN}" # update to your real domain
+      annotations:
+        external-dns/public: "true"
+        external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+      host: "${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}" # update to your real domain
       additionalHosts: []
       tls: true
       existingSecret: "heyjohn-wildcard-certificate"
@@ -300,8 +302,8 @@ spec:
     # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
     extraEnvVars:
       # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
-      - name: OPENAI_API_KEY
-        value: "0p3n-w3bu!"
+      # - name: OPENAI_API_KEY
+      #   value: "0p3n-w3bu!"
       # valueFrom:
       #   secretKeyRef:
       #     name: pipelines-api-key
