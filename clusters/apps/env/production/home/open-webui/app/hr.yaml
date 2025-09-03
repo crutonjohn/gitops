@@ -98,7 +98,7 @@ spec:
         # -- Redis image
         image:
           repository: redis
-          tag: 7.4.2-alpine3.21
+          tag: 7.4.5-alpine3.21
           pullPolicy: IfNotPresent
         # -- Redis command (overrides default)
         command: []
