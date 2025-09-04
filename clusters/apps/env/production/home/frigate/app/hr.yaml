@@ -46,7 +46,7 @@ spec:
           frigate:
             image:
               repository: ghcr.io/blakeblackshear/frigate
-              tag: "0.15.1"
+              tag: "0.16.1"
             env:
               TZ: America/New_York
               PLUS_API_KEY: "${FRIGATE_PLUS_API_KEY}"
