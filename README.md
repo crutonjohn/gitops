@@ -71,11 +71,9 @@ _All my nodes below are running bare metal Ubuntu or Debian_
 
 - [Opnsense DEC2750](https://shop.opnsense.com/product/dec2750-opnsense-rack-security-appliance/) Router
 - [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Core Switch
-- [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Upstairs Distribution Switch
-- [TP-Link SX3008F](https://www.tp-link.com/us/business-networking/managed-switch/tl-sx3008f/) 10Gig Distribution Switch
-- [MikroTik CRS305-1G-4S+in](https://mikrotik.com/product/crs305_1g_4s_in) 10Gig Office Distribution Switch
-- x2 [TP-Link EAP660 HD](https://www.tp-link.com/us/business-networking/omada-sdn-access-point/eap660-hd/) WAPs
-- [TP-Link EAP615-Wall](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap615-wall/) Master Bedroom
+- [TP-Link TL-SG3428XMP](https://www.omadanetworks.com/us/business-networking/omada-switch-access-max/sx3206hpp/) Garage Distribution
+- [TP-Link SX3008F](https://www.tp-link.com/us/business-networking/managed-switch/tl-sx3008f/) 10Gig Distribution
+- x3 [TP-Link EAP725-Wall](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap725-wall/) Master Bedroom
 
 ---
 
