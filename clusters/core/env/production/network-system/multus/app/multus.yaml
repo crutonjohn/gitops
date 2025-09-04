@@ -97,7 +97,7 @@ spec:
           cni-plugins-installer:
             image:
               repository: ghcr.io/angelnu/cni-plugins
-              tag: 1.7.1
+              tag: 1.8.0
             resources:
               requests:
                 cpu: "10m"
