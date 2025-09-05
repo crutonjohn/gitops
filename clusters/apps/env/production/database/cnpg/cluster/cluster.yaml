@@ -37,25 +37,25 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://cnpg/
-      endpointURL: http://minio.database.svc.cluster.local:9000
-      # Note: serverName version needs to be inclemented
+      endpointURL: https://s3.us-west-000.backblazeb2.com/${CNPG_B2_BUCKET}
+      # Note: serverName version needs to be incremented
       # when recovering from an existing cnpg cluster
       serverName: &currentCluster postgres16-v4
       s3Credentials:
         accessKeyId:
-          name: cnpg-minio
-          key: AWS_ACCESS_KEY_ID
+          name: cnpg-b2
+          key: B2_ACCESS_KEY_ID
         secretAccessKey:
-          name: cnpg-minio
-          key: AWS_SECRET_ACCESS_KEY
+          name: cnpg-b2
+          key: B2_SECRET_ACCESS_KEY
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres16-v2
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster postgres16-v2
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *previousCluster
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       <<: *barmanObjectStore
+  #       serverName: *previousCluster

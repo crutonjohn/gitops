@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: cnpg-b2
+stringData:
+    B2_ACCESS_KEY_ID: ENC[AES256_GCM,data:6PDDnR7egP0zmPWtHc64atNHYSGKNy7NpA==,iv:fXccX4IfvSEIJxmVbDJBdSmZvpV4zJivYTSPqjNQg+w=,tag:Zx4czcCx5HpWQTtyvcgSKQ==,type:str]
+    B2_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:wYxf5nsfd2OWjUeRLQberVJIzsz05ndh87qkr9qSsA==,iv:Hlm+EJxlFwCxn0TsbNXCRBkQXKC6gWOYUbMalOxja74=,tag:6xNolkfOMDVCwESMOTyrLA==,type:str]
+    B2_KEY_NAME: ENC[AES256_GCM,data:kOxDGfn+MLRTAFNupQhBVbcC3Ag=,iv:R27KoXqFV1YFFUWsJQaKtr5hIr7DKWz/RzMuV1Dir44=,tag:V3evpsRh8vEk6gaMymmtZQ==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2025-09-05T19:34:04Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwHmBWcAXM8L3qdSdU1y23WCAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMr6FOeF38aO3vuTSpAgEQgDtaHoNrPUS5WRyD9TSpKlbRVffjzNhxfsF/9o85Ey/Swit6H5+IMZV2xKpQQ6tTclc0U7jNUOUqrHtSXA==
+          aws_profile: ""
+    lastmodified: "2025-09-05T19:34:05Z"
+    mac: ENC[AES256_GCM,data:AB/rzKeoJxZhf2P43oN09VRHsbgOihVS5bDwbt67SEykv8oqIFPOzIM4kydaGsnC2HN9AN5tSYJ9wSYw4Xa6Np6B2KkvlwAt96Psst4v/VSIAB3hqrPSurcbF7DUcJB/bhmuacXMI1+1nora9k0AU2unxyIRBeRE6EVRmOwHOWE=,iv:SS26/ygCU3RhDUpG+6d8TRyFcIvvhfDa1ye9YbQdk74=,tag:t6gNa2oivoy2qmlaW8dXrQ==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
