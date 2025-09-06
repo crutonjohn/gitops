@@ -4,8 +4,8 @@ type: Opaque
 metadata:
     name: cnpg-b2
 stringData:
-    B2_ACCESS_KEY_ID: ENC[AES256_GCM,data:6PDDnR7egP0zmPWtHc64atNHYSGKNy7NpA==,iv:fXccX4IfvSEIJxmVbDJBdSmZvpV4zJivYTSPqjNQg+w=,tag:Zx4czcCx5HpWQTtyvcgSKQ==,type:str]
-    B2_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:wYxf5nsfd2OWjUeRLQberVJIzsz05ndh87qkr9qSsA==,iv:Hlm+EJxlFwCxn0TsbNXCRBkQXKC6gWOYUbMalOxja74=,tag:6xNolkfOMDVCwESMOTyrLA==,type:str]
+    B2_ACCESS_KEY_ID: ENC[AES256_GCM,data:NLcJlvdPSq2L2LmRsSp2zR/uadttvWUh4Q==,iv:gqriSgCpJI7zwqLQkQiB66iAENVmfTm6HbVRq5wxtYY=,tag:oZQmCuOxF51Zn8RmGNzmTA==,type:str]
+    B2_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:58mXcrX2eS3T1L/Oy39UDbEscaHJXsxi3HNOtiG+3w==,iv:RdnwO42RV0kUa5Zc0qoi5RtvmCU8KomkchkY8FUjWsw=,tag:+8zdbGZ6zAhzVO8Kb4OSog==,type:str]
     B2_KEY_NAME: ENC[AES256_GCM,data:kOxDGfn+MLRTAFNupQhBVbcC3Ag=,iv:R27KoXqFV1YFFUWsJQaKtr5hIr7DKWz/RzMuV1Dir44=,tag:V3evpsRh8vEk6gaMymmtZQ==,type:str]
 sops:
     kms:
@@ -13,7 +13,7 @@ sops:
           created_at: "2025-09-05T19:34:04Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwHmBWcAXM8L3qdSdU1y23WCAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMr6FOeF38aO3vuTSpAgEQgDtaHoNrPUS5WRyD9TSpKlbRVffjzNhxfsF/9o85Ey/Swit6H5+IMZV2xKpQQ6tTclc0U7jNUOUqrHtSXA==
           aws_profile: ""
-    lastmodified: "2025-09-05T19:34:05Z"
-    mac: ENC[AES256_GCM,data:AB/rzKeoJxZhf2P43oN09VRHsbgOihVS5bDwbt67SEykv8oqIFPOzIM4kydaGsnC2HN9AN5tSYJ9wSYw4Xa6Np6B2KkvlwAt96Psst4v/VSIAB3hqrPSurcbF7DUcJB/bhmuacXMI1+1nora9k0AU2unxyIRBeRE6EVRmOwHOWE=,iv:SS26/ygCU3RhDUpG+6d8TRyFcIvvhfDa1ye9YbQdk74=,tag:t6gNa2oivoy2qmlaW8dXrQ==,type:str]
+    lastmodified: "2025-09-06T17:32:25Z"
+    mac: ENC[AES256_GCM,data:jmBquFSPSyDay/eDz8n0v84sonVLZR9pKWqVGv99nDl0gVES+arLEusvyOiUEPNhpDBt/5wyNjThzawGqIRB8jkfhtRQpQcI7dOa413i/zb6C+RZp6tuDs2q4ayuiZXSJwmqtujEC4Xvcc+SVYSszxATGrA9xWC2+BC0zIyrwnQ=,iv:fG7o/3G7IZr3ppHFJ7CVOGIb7IpLJnlls03V2VGemDI=,tag:Jf75KUCpwe5XUHgAeiYEUQ==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
