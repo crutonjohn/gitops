@@ -27,6 +27,7 @@ resources:
   - k8s-sigs-descheduler-charts.yaml
   - k8s-sigs-external-dns-charts.yaml
   - kubernetes-stable-charts.yaml
+  - kubescape-charts.yaml
   - litmuschaos-charts.yaml
   - node-feature-discovery-chart.yaml
   - oauth2-proxy-chart.yaml

@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kubescape-charts
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://kubescape.github.io/helm-charts/
+  timeout: 5m

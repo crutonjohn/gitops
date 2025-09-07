@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./jaeger/ks.yaml
   - ./kube-state-metrics/ks.yaml
+  - ./kubescape/ks.yaml
   - ./otel/ks.yaml
   - ./speedtest-exporter/ks.yaml
   - ./smartctl-exporter/ks.yaml
