@@ -236,7 +236,7 @@ spec:
         apiServerPort: 443
         httpsProxyIP: ""
         httpsProxyPort: ""
-      overrideRuntimePath: ""
+      overrideRuntimePath: "/var/lib/k0s/bin/runc"
       overrideDefaultCaCertificates:
         enabled: false
         caCertificates: ""
@@ -618,7 +618,7 @@ spec:
         - mountPath: /host
           name: host
           readOnly: true
-        - mountPath: /var/lib/kubelet
+        - mountPath: /var/lib/k0s/kubelet
           name: kubeletdir
         - mountPath: /run
           name: run
@@ -656,7 +656,7 @@ spec:
             path: /
           name: host
         - hostPath:
-            path: /var/lib/kubelet
+            path: /var/lib/k0s/kubelet
           name: kubeletdir
         - hostPath:
             path: /run
