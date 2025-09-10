@@ -337,98 +337,94 @@ spec:
           - name: "lorgar"
             devices:
               # - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._23424H800848"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy0-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy0-lun-0"
                 config:
                   deviceClass: ssd
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy1-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy1-lun-0"
                 config:
                   deviceClass: ssd
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy2-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy2-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_FIKWOT_FX812_Pro_2036E4A8808A"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy3-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy3-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_WDC_WDS100T2G0A-_221901A00806"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy4-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy4-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_WDC_WDS100T2G0A-_221901A00023"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy5-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy5-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30092440397"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy6-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy6-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080659933"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy7-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy7-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660073"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy8-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy8-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660007"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy9-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy9-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_FIKWOT_FX812_Pro_2036E4AD9089"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy10-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy10-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660070"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy11-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy11-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660074"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy29-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy29-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_51A90726187D00012999"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy30-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy30-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_AAAA0000000000000575"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy31-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy31-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_AAAA0000000000006402"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy32-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy32-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_MX_00000000000080300"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy33-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy33-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_MX_00000000000090245"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy34-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy34-lun-0"
                 config:
                   deviceClass: ssd
               # this device is broke
               # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_YS202010002569AA"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy35-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy35-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_AA22081024002995"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy36-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy36-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_YS202010003737AA"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy37-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy37-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_51930726187F00018023"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy38-lun-0"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy38-lun-0"
                 config:
                   deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_MX_00000000000024368"
-              - name: "/dev/disk/by-path/pci-0000:2d:00.0-sas-exp0x500304801f6f07bf-phy39-lun-0"
-                config:
-                  deviceClass: ssd
-              # - name: "/dev/disk/by-id/scsi-SATA_Fanxiang_S101_1T_MX_00000000000010029"
-              - name: "/dev/disk/by-path/pci-0000:2c:00.0-ata-5"
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy39-lun-0"
                 config:
                   deviceClass: ssd
 
