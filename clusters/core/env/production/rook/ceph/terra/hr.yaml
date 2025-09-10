@@ -334,7 +334,7 @@ spec:
         useAllDevices: false
         onlyApplyOSDPlacement: false
         nodes:
-          - name: "lorgar"
+          - name: "fulgrim"
             devices:
               # - name: "/dev/disk/by-id/scsi-SATA_WD_Blue_SA510_2._23424H800848"
               - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy0-lun-0"
