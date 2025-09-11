@@ -9,7 +9,7 @@ spec:
   resources:
     limits:
       cpu: 200m
-      memory: 500Mi
+      memory: 1024Mi
     requests:
       cpu: 100m
       memory: 250Mi
@@ -73,7 +73,7 @@ spec:
         endpoint: "http://100.64.0.9:3100/otlp"
     processors:
       batch:
-        send_batch_max_size: 1500
+        send_batch_max_size: 5000
         send_batch_size: 1000
         timeout: 1s
       k8sattributes:
