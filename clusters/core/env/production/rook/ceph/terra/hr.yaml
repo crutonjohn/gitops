@@ -104,7 +104,7 @@ spec:
       # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
       # Use at your OWN risk
       # To understand Rook's upgrade process of Ceph, read https://rook.io/docs/rook/v1.10/Upgrade/ceph-upgrade/
-      skipUpgradeChecks: false
+      skipUpgradeChecks: true
 
       # Whether or not continue if PGs are not clean during an upgrade
       continueUpgradeAfterChecksEvenIfNotHealthy: false
@@ -127,7 +127,7 @@ spec:
         count: 1
         # The mons should be on unique nodes. For production, at least 3 nodes are recommended for this reason.
         # Mons should only be allowed on the same node for test environments where data loss is acceptable.
-        allowMultiplePerNode: false
+        allowMultiplePerNode: true
 
       mgr:
         # When higher availability of the mgr is needed, increase the count to 2.
@@ -136,10 +136,10 @@ spec:
         count: 1
         allowMultiplePerNode: true
         modules:
-        # List of modules to optionally enable or disable.
-        # Note the "dashboard" and "monitoring" modules are already configured by other settings in the cluster CR.
-        # - name: rook
-        #   enabled: true
+          # List of modules to optionally enable or disable.
+          # Note the "dashboard" and "monitoring" modules are already configured by other settings in the cluster CR.
+          - name: rook
+            enabled: true
 
       # enable the ceph dashboard for viewing cluster status
       dashboard:
@@ -192,7 +192,7 @@ spec:
 
       # enable the crash collector for ceph daemon crash collection
       crashCollector:
-        disable: false
+        disable: true
         # Uncomment daysToRetain to prune ceph crash entries older than the
         # specified number of days.
         # daysToRetain: 30
@@ -321,7 +321,7 @@ spec:
             memory: "50Mi"
 
       # The option to automatically remove OSDs that are out and are safe to destroy.
-      removeOSDsIfOutAndSafeToRemove: false
+      removeOSDsIfOutAndSafeToRemove: true
 
       # priority classes to apply to ceph resources
       priorityClassNames:
@@ -453,6 +453,15 @@ spec:
     # -- A list of CephBlockPool configurations to deploy
     # @default -- See [below](#ceph-block-pools)
     cephBlockPools:
+      - name: builtin-mgr
+        spec:
+          name: ".mgr"
+          failureDomain: osd
+          replicated:
+            size: 3
+          enableRBDStats: true
+        storageClass:
+          enabled: false
       - name: terra-blockpool
         # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Block-Storage/ceph-block-pool-crd.md#spec for available configuration
         spec:
