@@ -5,8 +5,8 @@ metadata:
   name: terra
   namespace: rook-terra
 spec:
-  interval: 30m
-  timeout: 15m
+  interval: 12h
+  timeout: 20m
   chart:
     spec:
       chart: rook-ceph-cluster
@@ -38,6 +38,8 @@ spec:
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
+      osd_pool_default_size = 1
+      mon_warn_on_pool_no_redundancy = false
 
     toolbox:
       enabled: true
@@ -93,12 +95,12 @@ spec:
         # Whether to allow unsupported versions of Ceph. Currently `quincy`, and `reef` are supported.
         # Future versions such as `squid` (v19) would require this to be set to `true`.
         # Do not set to true in production.
-        allowUnsupported: false
+        allowUnsupported: true
 
       # The path on the host where configuration files will be persisted. Must be specified.
       # Important: if you reinstall the cluster, make sure you delete this directory from each host or else the mons will fail to start on the new cluster.
       # In Minikube, the '/data' directory is configured to persist across reboots. Use "/data/rook" in Minikube environment.
-      dataDirHostPath: /var/lib/rook/terra
+      dataDirHostPath: /var/lib/rook-terra
 
       # Whether or not upgrade should continue even if a check fails
       # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
@@ -192,7 +194,7 @@ spec:
 
       # enable the crash collector for ceph daemon crash collection
       crashCollector:
-        disable: true
+        disable: false
         # Uncomment daysToRetain to prune ceph crash entries older than the
         # specified number of days.
         # daysToRetain: 30
@@ -333,6 +335,7 @@ spec:
         useAllNodes: false
         useAllDevices: false
         onlyApplyOSDPlacement: false
+        allowOsdCrushWeightUpdate: true
         nodes:
           - name: "fulgrim"
             devices:
