@@ -73,9 +73,9 @@ spec:
         endpoint: "http://100.64.0.9:3100/otlp"
     processors:
       batch:
-        send_batch_max_size: 5000
-        send_batch_size: 1000
-        timeout: 1s
+        send_batch_max_size: 8192
+        send_batch_size: 8192
+        timeout: 5s
       k8sattributes:
         extract:
           labels:
