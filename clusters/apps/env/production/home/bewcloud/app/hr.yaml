@@ -149,12 +149,6 @@ spec:
           bewcloud:
             bewcloud:
               - path: /app/data-files
-      nextlcoud-data:
-        existingClaim: nextcloud-data
-        advancedMounts:
-          bewcloud:
-            bewcloud:
-              - path: /app/nextcloud-data
       config:
         type: secret
         name: bewcloud-config
