@@ -76,35 +76,31 @@ tasks:
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
       - which kubectl
 
-  restore:
+  restore-restic:
     desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required] [DESTPVC=required] [SRCPVC=required] [LOCATION=local]
     cmds:
       # Suspend
-      - flux --namespace flux-system suspend kustomization {{.APP}}
-      - flux --namespace {{.NS}} suspend helmrelease {{.APP}}
+      #- flux --namespace flux-system suspend kustomization {{.APP}}
+      #- flux --namespace {{.NS}} suspend helmrelease {{.APP}}
       - kubectl --namespace {{.NS}} scale {{.CONTROLLER}}/{{.APP}} --replicas 0
       - kubectl --namespace {{.NS}} wait pod --for=delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
       # Restore
-      - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2 | kubectl apply --server-side --filename -
+      - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/restic-restore.yaml.j2 | kubectl apply --server-side --filename -
       - until kubectl --namespace {{.NS}} get job/volsync-dst-{{.APP}}-manual &>/dev/null; do sleep 5; done
       - kubectl --namespace {{.NS}} wait job/volsync-dst-{{.APP}}-manual --for=condition=complete --timeout=120m
       - kubectl --namespace {{.NS}} delete replicationdestination {{.APP}}-manual
       # Resume
-      - flux --namespace flux-system resume kustomization {{.APP}}
-      - flux --namespace {{.NS}} resume helmrelease {{.APP}}
-      - flux --namespace {{.NS}} reconcile helmrelease {{.APP}} --force
+      #- flux --namespace flux-system resume kustomization {{.APP}}
+      #- flux --namespace {{.NS}} resume helmrelease {{.APP}}
+      #- flux --namespace {{.NS}} reconcile helmrelease {{.APP}} --force
       - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
     vars:
-      NS: '{{.NS | default "default"}}'
-      CONTROLLER:
-        sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
-    env:
       NS: "{{.NS}}"
       APP: "{{.APP}}"
-      PREVIOUS: "{{.PREVIOUS | default 1}}"
+      PREVIOUS: '{{.PREVIOUS | default "1"}}'
       DESTPVC: "{{.DESTPVC}}"
       SRCPVC: "{{.SRCPVC}}"
-      LOCATION: "{{.LOCATION | default local}}"
+      LOCATION: '{{.LOCATION | default "local"}}'
       CLAIM:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.sourcePVC}"
       ACCESS_MODES:
@@ -113,10 +109,78 @@ tasks:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
       PGID:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-{{.LOCATION}} --output=jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
+      CONTROLLER:
+        sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
+    env:
+      NS: "{{.NS}}"
+      APP: "{{.APP}}"
+      PREVIOUS: '{{.PREVIOUS | default "1"}}'
+      DESTPVC: "{{.DESTPVC}}"
+      SRCPVC: "{{.SRCPVC}}"
+      LOCATION: '{{.LOCATION | default "local"}}'
+      CLAIM: "{{.CLAIM}}"
+      ACCESS_MODES: "{{.ACCESS_MODES}}"
+      PUID: "{{.PUID}}"
+      PGID: "{{.PGID}}"
     requires:
       vars: [APP, PREVIOUS, NS, SRCPVC, DESTPVC, LOCATION]
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2
+      - which flux kubectl minijinja-cli
+
+  restore-rclone:
+    desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required] [DESTPVC=required] [SRCPVC=required] [LOCATION=local]
+    cmds:
+      # Suspend
+      #- flux --namespace flux-system suspend kustomization {{.APP}}
+      #- flux --namespace {{.NS}} suspend helmrelease {{.APP}}
+      - kubectl --namespace {{.NS}} scale {{.CONTROLLER}}/{{.APP}} --replicas 0
+      - kubectl --namespace {{.NS}} wait pod --for=delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
+      # Restore
+      - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/rclone-restore.yaml.j2 | kubectl apply --server-side --filename -
+      - until kubectl --namespace {{.NS}} get job/volsync-dst-{{.APP}}-manual &>/dev/null; do sleep 5; done
+      - kubectl --namespace {{.NS}} wait job/volsync-dst-{{.APP}}-manual --for=condition=complete --timeout=120m
+      - kubectl --namespace {{.NS}} delete replicationdestination {{.APP}}-manual
+      # Resume
+      #- flux --namespace flux-system resume kustomization {{.APP}}
+      #- flux --namespace {{.NS}} resume helmrelease {{.APP}}
+      #- flux --namespace {{.NS}} reconcile helmrelease {{.APP}} --force
+      - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
+    vars:
+      NS: "{{.NS}}"
+      APP: "{{.APP}}"
+      PREVIOUS: '{{.PREVIOUS | default "1"}}'
+      DESTPVC: "{{.DESTPVC}}"
+      SRCPVC: "{{.SRCPVC}}"
+      LOCATION: '{{.LOCATION | default "local"}}'
+      RCLONEDESTPATH:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-rclone-{{.LOCATION}} --output=jsonpath="{.spec.rclone.rcloneDestPath}"
+      CLAIM:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-rclone-{{.LOCATION}} --output=jsonpath="{.spec.sourcePVC}"
+      ACCESS_MODES:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-rclone-{{.LOCATION}} --output=jsonpath="{.spec.rclone.accessModes}"
+      PUID:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-rclone-{{.LOCATION}} --output=jsonpath="{.spec.rclone.moverSecurityContext.runAsUser}"
+      PGID:
+        sh: kubectl --namespace {{.NS}} get replicationsources/{{.SRCPVC}}-rclone-{{.LOCATION}} --output=jsonpath="{.spec.rclone.moverSecurityContext.runAsGroup}"
+      CONTROLLER:
+        sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
+    env:
+      NS: "{{.NS}}"
+      APP: "{{.APP}}"
+      PREVIOUS: '{{.PREVIOUS | default "1"}}'
+      DESTPVC: "{{.DESTPVC}}"
+      SRCPVC: "{{.SRCPVC}}"
+      LOCATION: '{{.LOCATION | default "local"}}'
+      RCLONEDESTPATH: "{{.RCLONEDESTPATH}}"
+      CLAIM: "{{.CLAIM}}"
+      ACCESS_MODES: "{{.ACCESS_MODES}}"
+      PUID: "{{.PUID}}"
+      PGID: "{{.PGID}}"
+    requires:
+      vars: [APP, PREVIOUS, NS, SRCPVC, DESTPVC, LOCATION]
+    preconditions:
+      - test -f {{.VOLSYNC_RESOURCES_DIR}}/rclone-restore.yaml.j2
       - which flux kubectl minijinja-cli
 
   unlock-local:
@@ -178,8 +242,8 @@ tasks:
     vars:
       NS: '{{.NS | default "default"}}'
     env:
-      NS: '{{.NS}}'
-      APP: '{{.VOLNAME}}'
+      NS: "{{.NS}}"
+      APP: "{{.VOLNAME}}"
     requires:
       vars: [CLUSTER, NS, VOLNAME]
     cmds:

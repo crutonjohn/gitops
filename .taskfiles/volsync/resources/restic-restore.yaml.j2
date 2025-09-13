@@ -2,11 +2,11 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: {{ ENV.APP }}-manual
+  name: {{ ENV.APP }}-{{ ENV.DESTPVC }}-manual
   namespace: {{ ENV.NS }}
 spec:
   trigger:
-    manual: restore-once
+    manual: "restore-once"
   restic:
     repository: {{ ENV.SRCPVC }}-{{ ENV.LOCATION }}-restic
     destinationPVC: {{ ENV.DESTPVC }}
@@ -21,3 +21,12 @@ spec:
     enableFileDeletion: true
     cleanupCachePVC: true
     cleanupTempPVC: true
+    {% if ENV.LOCATION == "local" %}
+    customCA:
+      key: ca.crt
+      secretName: heyjohn-internal-ca
+    {% else %}
+    {% endif %}
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheStorageClassName: terra-blockpool

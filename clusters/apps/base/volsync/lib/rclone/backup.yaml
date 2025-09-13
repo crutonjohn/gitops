@@ -2,7 +2,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: "${SRC_PVC}-rclone"
+  name: "${SRC_PVC}-rclone-b2"
 spec:
   sourcePVC: "${SRC_PVC}"
   trigger:
@@ -18,7 +18,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
-      seccompProfile: {type: "RuntimeDefault"}
+      seccompProfile: { type: "RuntimeDefault" }
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
@@ -39,7 +39,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
-      seccompProfile: {type: "RuntimeDefault"}
+      seccompProfile: { type: "RuntimeDefault" }
     customCA:
       secretName: heyjohn-internal-ca
       key: ca.crt

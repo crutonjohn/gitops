@@ -1,0 +1,37 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: {{ ENV.APP }}-{{ ENV.DESTPVC }}-manual
+  namespace: {{ ENV.NS }}
+spec:
+  trigger:
+    manual: "restore-once"
+  rclone:
+    rcloneConfigSection: "{{ ENV.LOCATION }}-volsync"
+    destinationPVC: {{ ENV.DESTPVC }}
+    rcloneDestPath: {{ ENV.RCLONEDESTPATH }}
+    rcloneConfig: "volsync-b2-rclone-secret"
+    copyMethod: "Direct"
+    #storageClassName: {{ ENV.STORAGE_CLASS_NAME }}
+    #capacity: "${SIZE:=20Gi}"
+    #accessModes: {{ ENV.ACCESS_MODES }}
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: {{ ENV.PUID }}
+      runAsGroup: {{ ENV.PGID }}
+      fsGroup: {{ ENV.PGID }}
+      seccompProfile: {type: "RuntimeDefault"}
+    {% if ENV.LOCATION == "local" %}
+    customCA:
+      key: ca.crt
+      secretName: heyjohn-internal-ca
+    {% else %}
+    {% endif %}
+    moverResources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 6Gi
