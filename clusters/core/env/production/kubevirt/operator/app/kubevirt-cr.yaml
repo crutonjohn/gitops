@@ -8,6 +8,11 @@ spec:
   configuration:
     developerConfiguration:
       featureGates: []
-  customizeComponents: {}
+  customizeComponents:
+    patches:
+      - resourceType: DaemonSet
+        resourceName: virt-handler
+        patch: '[{"op": "replace", "path": "/spec/template/spec/volumes/0/livenessProbe"}]'
+        type: json
   imagePullPolicy: IfNotPresent
   workloadUpdateStrategy: {}

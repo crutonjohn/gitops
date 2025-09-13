@@ -5,6 +5,5 @@ resources:
   - ./cilium/ks.yaml
   - ./intel-gpu-plugin/ks.yaml
   - ./node-feature-discovery/ks.yaml
-  - ./nvidia-gpu-operator/ks.yaml
   - ./reloader/ks.yaml
   - ./replicator/ks.yaml
