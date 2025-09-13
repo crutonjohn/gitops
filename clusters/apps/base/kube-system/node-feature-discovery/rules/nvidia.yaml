@@ -1,0 +1,14 @@
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: nvidia
+spec:
+  rules:
+    - name: nvidia-3080
+      labels:
+        feature.node.kubernetes.io/nvidia-gpu: "3080"
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            vendor: { op: In, value: ["10de", "2206"] }
