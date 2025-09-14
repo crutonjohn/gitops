@@ -30,6 +30,7 @@ resources:
   - kubescape-charts.yaml
   - litmuschaos-charts.yaml
   - node-feature-discovery-chart.yaml
+  - nvidia-charts.yaml
   - oauth2-proxy-chart.yaml
   - open-webui-charts.yaml
   - openfaas-charts.yaml
