@@ -29,4 +29,4 @@ spec:
             config:
               apiKeySecretRef:
                 key: GANDI_PAT
-                name: credentials-gandi
+                name: gandi-credentials
