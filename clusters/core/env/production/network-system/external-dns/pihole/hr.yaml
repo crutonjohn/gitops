@@ -66,6 +66,9 @@ spec:
         - apiGroups: ["traefik.containo.us", "traefik.io"]
           resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
           verbs: ["get", "watch", "list"]
+        - apiGroups: [""]
+          resources: ["endpoints"]
+          verbs: ["get", "watch", "list"]
     extraArgs:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
