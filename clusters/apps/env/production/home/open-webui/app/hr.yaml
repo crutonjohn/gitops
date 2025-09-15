@@ -34,10 +34,21 @@ spec:
       fullnameOverride: "open-webui-ollama"
       # -- Example Ollama configuration with nvidia GPU enabled, automatically downloading a model, and deploying a PVC for model persistence
       ollama:
-        gpu:
-          enabled: true
-          type: "nvidia"
-          number: 1
+        image:
+          # -- Docker image registry
+          repository: ollama/ollama
+
+          # -- Docker pull policy
+          pullPolicy: IfNotPresent
+
+          # -- Docker image tag, overrides the image tag whose default is the chart appVersion.
+          tag: "0.11.11@sha256:24d41d792306fc3221de215bb6f225faf981712d1f38083d8c61301dfa2b69b3"
+        # gpu:
+        #   enabled: false
+        #   type: "nvidia"
+        #   number: 1
+        nodeSelector:
+          kubernetes.io/hostname: fulgrim
         models:
           pull:
             - qwen3:14b
@@ -75,7 +86,7 @@ spec:
             - ReadWriteOnce
           size: 100Gi
           storageClass: "terra-blockpool"
-          runtimeClassName: nvidia
+        runtimeClassName: nvidia
     pipelines:
       # -- Automatically install Pipelines chart to extend Open WebUI functionality using Pipelines: https://github.com/open-webui/pipelines
       enabled: false
