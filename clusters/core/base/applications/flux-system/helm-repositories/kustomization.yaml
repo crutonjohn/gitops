@@ -31,6 +31,7 @@ resources:
   - litmuschaos-charts.yaml
   - node-feature-discovery-chart.yaml
   - nvidia-charts.yaml
+  - nvidia-device-plugin-charts.yaml
   - oauth2-proxy-chart.yaml
   - ollama-charts.yaml
   - open-webui-charts.yaml
