@@ -29,7 +29,7 @@ spec:
     namespaceOverride: ""
     ollama:
       # -- Automatically install Ollama Helm chart from https://otwld.github.io/ollama-helm/. Use [Helm Values](https://github.com/otwld/ollama-helm/#helm-values) to configure
-      enabled: false
+      enabled: true
       # -- If enabling embedded Ollama, update fullnameOverride to your desired Ollama name value, or else it will use the default ollama.name value from the Ollama chart
       fullnameOverride: "open-webui-ollama"
       # -- Example Ollama configuration with nvidia GPU enabled, automatically downloading a model, and deploying a PVC for model persistence
@@ -49,11 +49,33 @@ spec:
             - codegemma:7b
           # run:
           #   - llama3
-      runtimeClassName: nvidia
-      persistentVolume:
-        enabled: true
-        size: "100Gi"
-        storageClass: "terra-blockpool"
+        service:
+          # -- Service type
+          type: LoadBalancer
+          # -- Service port
+          port: 11434
+          # -- Load Balancer IP address
+          loadBalancerIP: ${CLUSTER_LB_OLLAMA}
+          # -- Annotations to add to the service
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: ollama.${FAMILY_DOMAIN}
+            external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_OLLAMA}
+          # -- Labels to add to the service
+          labels: {}
+        resources:
+          requests:
+            memory: 4096Mi
+            cpu: 2000m
+          limits:
+            memory: 8192Mi
+            cpu: 4000m
+        persistentVolume:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          size: 100Gi
+          storageClass: "terra-blockpool"
+          runtimeClassName: nvidia
     pipelines:
       # -- Automatically install Pipelines chart to extend Open WebUI functionality using Pipelines: https://github.com/open-webui/pipelines
       enabled: false
@@ -248,16 +270,6 @@ spec:
       enabled: true
       # -- Use existingClaim if you want to re-use an existing Open WebUI PVC instead of creating a new one
       existingClaim: "open-webui-data"
-      # -- Subdirectory of Open WebUI PVC to mount. Useful if root directory is not empty.
-      subPath: ""
-      # -- If using multiple replicas, you must update accessModes to ReadWriteMany
-      accessModes:
-        - ReadWriteOnce
-      storageClass: ""
-      selector: {}
-      annotations: {}
-      # -- Sets the storage provider, availables values are `local`, `s3`, `gcs` or `azure`
-      provider: local
 
     # -- Node labels for pod assignment.
     nodeSelector: {}

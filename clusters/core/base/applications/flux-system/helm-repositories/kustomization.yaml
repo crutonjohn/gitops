@@ -32,6 +32,7 @@ resources:
   - node-feature-discovery-chart.yaml
   - nvidia-charts.yaml
   - oauth2-proxy-chart.yaml
+  - ollama-charts.yaml
   - open-webui-charts.yaml
   - openfaas-charts.yaml
   - opentelemetry-charts.yaml

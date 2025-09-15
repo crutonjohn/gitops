@@ -9,6 +9,7 @@ resources:
   - ./paperless/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./open-webui/ks.yaml
   - ./bewcloud/ks.yaml
 patches:
   - patch: |-
