@@ -324,20 +324,11 @@ spec:
 
     # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
     extraEnvVars:
-      # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
-      # - name: OPENAI_API_KEY
-      #   value: "0p3n-w3bu!"
-      # valueFrom:
-      #   secretKeyRef:
-      #     name: pipelines-api-key
-      #     key: api-key
-      # - name: OPENAI_API_KEY
-      #   valueFrom:
-      #     secretKeyRef:
-      #       name: openai-api-key
-      #       key: api-key
-      # - name: OLLAMA_DEBUG
-      #   value: "1"
+      - name: WEBUI_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: open-webui-secrets
+            key: WEBUI_SECRET_KEY
 
     # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
     commonEnvVars:
