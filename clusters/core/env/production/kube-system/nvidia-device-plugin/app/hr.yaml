@@ -82,11 +82,11 @@ spec:
       type: RollingUpdate
 
     podAnnotations: {}
-    podSecurityContext: {}
-    securityContext:
+    podSecurityContext:
       sysctls:
         - name: fs.file-max
           value: "9999999"
+    securityContext: {}
 
     resources: {}
     nodeSelector: {}
