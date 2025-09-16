@@ -83,7 +83,10 @@ spec:
 
     podAnnotations: {}
     podSecurityContext: {}
-    securityContext: {}
+    securityContext:
+      sysctls:
+        - name: fs.file-max
+          value: "9999999"
 
     resources: {}
     nodeSelector: {}
