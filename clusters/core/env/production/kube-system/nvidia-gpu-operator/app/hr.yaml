@@ -214,7 +214,17 @@ spec:
         version: v0.8.0
         imagePullPolicy: IfNotPresent
         env: []
-      env: []
+      env:
+        - name: ENABLE_AUTO_DRAIN
+          value: "true"
+        - name: DRAIN_USE_FORCE
+          value: "true"
+        - name: DRAIN_POD_SELECTOR_LABEL
+          value: ""
+        - name: DRAIN_TIMEOUT_SECONDS
+          value: "0s"
+        - name: DRAIN_DELETE_EMPTYDIR_DATA
+          value: "true"
       resources: {}
       # Private mirror repository configuration
       repoConfig:
@@ -242,7 +252,15 @@ spec:
       version: v1.17.8-ubuntu20.04
       imagePullPolicy: IfNotPresent
       imagePullSecrets: []
-      env: []
+      env:
+        - name: CONTAINERD_CONFIG
+          value: /etc/k0s/containerd.toml
+        - name: CONTAINERD_SOCKET
+          value: /run/k0s/containerd.sock
+        - name: CONTAINERD_RUNTIME_CLASS
+          value: nvidia
+        - name: CONTAINERD_SET_AS_DEFAULT
+          value: "true"
       resources: {}
       installDir: "/usr/local/nvidia"
 
