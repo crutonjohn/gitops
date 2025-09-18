@@ -28,65 +28,7 @@ spec:
     nameOverride: ""
     namespaceOverride: ""
     ollama:
-      # -- Automatically install Ollama Helm chart from https://otwld.github.io/ollama-helm/. Use [Helm Values](https://github.com/otwld/ollama-helm/#helm-values) to configure
-      enabled: true
-      # -- If enabling embedded Ollama, update fullnameOverride to your desired Ollama name value, or else it will use the default ollama.name value from the Ollama chart
-      fullnameOverride: "open-webui-ollama"
-      # -- Example Ollama configuration with nvidia GPU enabled, automatically downloading a model, and deploying a PVC for model persistence
-      ollama:
-        image:
-          # -- Docker image registry
-          repository: ollama/ollama
-
-          # -- Docker pull policy
-          pullPolicy: IfNotPresent
-
-          # -- Docker image tag, overrides the image tag whose default is the chart appVersion.
-          tag: "0.11.11@sha256:24d41d792306fc3221de215bb6f225faf981712d1f38083d8c61301dfa2b69b3"
-        # gpu:
-        #   enabled: false
-        #   type: "nvidia"
-        #   number: 1
-        nodeSelector:
-          kubernetes.io/hostname: fulgrim
-        models:
-          pull:
-            - qwen3:14b
-            - qwen3:1.7b
-            - gemma3:12b
-            - gemma3:4b
-            - qwen2.5-coder:14b
-            - deepseek-coder-v2:16b
-            - codegemma:7b
-          # run:
-          #   - llama3
-        service:
-          # -- Service type
-          type: LoadBalancer
-          # -- Service port
-          port: 11434
-          # -- Load Balancer IP address
-          loadBalancerIP: ${CLUSTER_LB_OLLAMA}
-          # -- Annotations to add to the service
-          annotations:
-            external-dns.alpha.kubernetes.io/hostname: ollama.${FAMILY_DOMAIN}
-            external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_OLLAMA}
-          # -- Labels to add to the service
-          labels: {}
-        resources:
-          requests:
-            memory: 4096Mi
-            cpu: 2000m
-          limits:
-            memory: 8192Mi
-            cpu: 4000m
-        persistentVolume:
-          enabled: true
-          accessModes:
-            - ReadWriteOnce
-          size: 100Gi
-          storageClass: "terra-blockpool"
-        runtimeClassName: nvidia
+      enabled: false
     pipelines:
       # -- Automatically install Pipelines chart to extend Open WebUI functionality using Pipelines: https://github.com/open-webui/pipelines
       enabled: false

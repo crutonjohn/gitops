@@ -1,0 +1,110 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: ollama
+      version: 1.29.0
+      sourceRef:
+        kind: HelmRepository
+        name: ollama-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ollama/ollama
+      pullPolicy: IfNotPresent
+      ollama:
+        port: 11434
+        gpu:
+          enabled: true
+          type: "nvidia"
+          number: 1
+          nvidiaResource: "nvidia.com/gpu"
+        models:
+          pull:
+            - qwen3:14b
+            - qwen3:1.7b
+            - gemma3:12b
+            - gemma3:4b
+            - qwen2.5-coder:14b
+            - deepseek-coder-v2:16b
+            - codegemma:7b
+          run: []
+          create: []
+          clean: false
+        mountPath: "/root/.ollama"
+      # -- Container Security Context
+      securityContext:
+        {}
+        # capabilities:
+        #  drop:
+        #   - ALL
+        # readOnlyRootFilesystem: true
+        # runAsNonRoot: true
+        # runAsUser: 1000
+      runtimeClassName: "nvidia"
+      service:
+        type: LoadBalancer
+        port: 11434
+        loadBalancerIP: ${CLUSTER_LB_OLLAMA}
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ollama.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_OLLAMA}
+        labels: {}
+      resources:
+        requests:
+          memory: 4096Mi
+          cpu: 2000m
+        limits:
+          memory: 8192Mi
+          cpu: 4000m
+      # -- Additional volumes on the output Deployment definition.
+      volumes: []
+      # -- - name: foo
+      #   secret:
+      #     secretName: mysecret
+      #     optional: false
+
+      # -- Additional volumeMounts on the output Deployment definition.
+      volumeMounts: []
+      # -- - name: foo
+      #   mountPath: "/etc/foo"
+      #   readOnly: true
+
+      # -- Additional arguments on the output Deployment definition.
+      extraArgs: []
+
+      # -- Additional environments variables on the output Deployment definition.
+      # For extra OLLAMA env, please refer to https://github.com/ollama/ollama/blob/main/envconfig/config.go
+      extraEnv: []
+      #  - name: OLLAMA_DEBUG
+      #    value: "1"
+
+      # -- Additionl environment variables from external sources (like ConfigMap)
+      extraEnvFrom: []
+      #  - configMapRef:
+      #      name: my-env-configmap
+      persistentVolume:
+        enabled: true
+        accessModes:
+          - ReadWriteOnce
+        annotations: {}
+        existingClaim: ""
+        size: 100Gi
+        storageClass: "terra-blockpool"
+      nodeSelector:
+        kubernetes.io/hostname: fulgrim
