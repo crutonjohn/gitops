@@ -100,11 +100,6 @@ spec:
       #      name: my-env-configmap
       persistentVolume:
         enabled: true
-        accessModes:
-          - ReadWriteOnce
-        annotations: {}
-        existingClaim: ""
-        size: 100Gi
-        storageClass: "terra-blockpool"
+        existingClaim: "ollama-data"
       nodeSelector:
         kubernetes.io/hostname: fulgrim
