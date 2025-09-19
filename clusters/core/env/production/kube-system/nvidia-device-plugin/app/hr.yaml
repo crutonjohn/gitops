@@ -82,10 +82,7 @@ spec:
       type: RollingUpdate
 
     podAnnotations: {}
-    podSecurityContext:
-      sysctls:
-        - name: fs.file-max
-          value: "9999999"
+    podSecurityContext: {}
     securityContext: {}
 
     resources: {}
@@ -132,7 +129,7 @@ spec:
     # See https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
     priorityClassName: "system-node-critical"
 
-    runtimeClassName: null
+    runtimeClassName: nvidia
 
     devicePlugin:
       enabled: true
