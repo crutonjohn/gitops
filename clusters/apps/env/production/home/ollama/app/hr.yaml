@@ -62,9 +62,11 @@ spec:
       port: 11434
       loadBalancerIP: ${CLUSTER_LB_OLLAMA}
       annotations:
+        io.cilium/lb-ipam-ips: ${CLUSTER_LB_OLLAMA}
         external-dns.alpha.kubernetes.io/hostname: ollama.${FAMILY_DOMAIN}
         external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_OLLAMA}
-      labels: {}
+      labels:
+        io.cilium/bgp-announce: worker
     resources:
       requests:
         memory: 4096Mi
