@@ -1,0 +1,11 @@
+# https://cloud.theodo.com/en/blog/k0s-kubernetes-gpu#Deploy_NVIDIA_GPU_Operator
+# This is the configuration for k0s managed containerD.
+# For reference see https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md
+version = 2
+
+[plugins]
+[plugins."io.containerd.grpc.v1.cri"]
+[plugins."io.containerd.grpc.v1.cri".containerd]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+runtime_type = "io.containerd.runc.v2"

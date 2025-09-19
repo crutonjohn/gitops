@@ -47,6 +47,22 @@ spec:
         - --kubelet-extra-args="--node-ip=192.168.130.133 --address=192.168.130.133 --healthz-bind-address=192.168.130.133"
         - --labels="${FAMILY_DOMAIN}/bgp=worker"
     - ssh:
+        address: 192.168.130.140
+        user: root
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      files:
+        - name: containerd-config
+          src: ./custom-containerd.toml
+          dstDir: /etc/k0s/
+          perm: 0755
+      role: worker
+      privateInterface: enp1s0
+      privateAddress: 192.168.130.140
+      installFlags:
+        - --kubelet-extra-args="--node-ip=192.168.130.140 --address=192.168.130.140 --healthz-bind-address=192.168.130.140"
+        - --labels="${FAMILY_DOMAIN}/bgp=worker,${FAMILY_DOMAIN}/ceph=terra,${FAMILY_DOMAIN}/role=nas,${FAMILY_DOMAIN}/rook=single"
+    - ssh:
         address: 192.168.130.141
         user: root
         port: 22
@@ -79,19 +95,8 @@ spec:
       installFlags:
         - --kubelet-extra-args="--node-ip=192.168.130.143 --address=192.168.130.143 --healthz-bind-address=192.168.130.143"
         - --labels="${FAMILY_DOMAIN}/bgp=worker,${FAMILY_DOMAIN}/ceph=codex,${FAMILY_DOMAIN}/rook=distributed"
-    - ssh:
-        address: 192.168.130.156
-        user: root
-        port: 22
-        keyPath: ~/.ssh/id_rsa
-      role: worker
-      privateInterface: enp1s0
-      privateAddress: 192.168.130.156
-      installFlags:
-        - --kubelet-extra-args="--node-ip=192.168.130.156 --address=192.168.130.156 --healthz-bind-address=192.168.130.156"
-        - --labels="${FAMILY_DOMAIN}/bgp=worker,${FAMILY_DOMAIN}/ceph=terra,${FAMILY_DOMAIN}/role=nas,${FAMILY_DOMAIN}/rook=single"
   k0s:
-    version: 1.30.1+k0s.0
+    version: 1.33.1+k0s.0
     dynamicConfig: false
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
@@ -99,6 +104,14 @@ spec:
       metadata:
         name: k0s-mainv3
       spec:
+        workerProfiles:
+          - name: custom-sysctls
+            values:
+              allowedUnsafeSysctls:
+                - fs.inotify.max_user_watches
+          # - name: custom-device-pluginDir
+          #   values:
+          #     volumePluginDir: /var/lib/k0s/kubelet/plugins/volume/exec
         api:
           # externalAddress: 192.168.130.130
           sans:
@@ -107,6 +120,7 @@ spec:
             - "192.168.130.132"
             - "192.168.130.133"
             - "k0s.heyjohn.family"
+            - "127.0.0.1"
           k0sApiPort: 9443
           port: 6443
         installConfig:
