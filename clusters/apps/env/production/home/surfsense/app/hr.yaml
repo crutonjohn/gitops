@@ -125,9 +125,6 @@ spec:
                   name: ${APP}-db-user
               - secretRef:
                   name: ${APP}-backend-env
-            env:
-              DATABASE_URL:
-                value: "postgresql+asyncpg://$${INIT_POSTGRES_USER}:$${INIT_POSTGRES_PASS}@$${INIT_POSTGRES_HOST}:5432/$${INIT_POSTGRES_DBNAME}"
             resources:
               requests:
                 cpu: 5m
