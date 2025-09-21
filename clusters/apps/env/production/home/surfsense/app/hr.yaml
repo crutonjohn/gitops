@@ -152,7 +152,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: surfsense-frontend
+                  name: surfsense
                   port: 3000
         tls:
           - secretName: heyjohn-wildcard-certificate
@@ -166,7 +166,8 @@ spec:
         ports:
           http:
             port: 3000
-      surfsense-backend:
+      # auto-prepends with surfsense
+      backend:
         controller: surfsense
         primary: false
         ports:
