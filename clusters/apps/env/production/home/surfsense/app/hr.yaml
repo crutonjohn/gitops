@@ -33,6 +33,14 @@ spec:
         # supplementalGroups: [7575]
         fsGroup: ${APP_UID}
         fsGroupChangePolicy: OnRootMismatch
+    initContainers:
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16
+        envFrom: &envFrom
+          - secretRef:
+              name: ${APP}-db-user
     controllers:
       surfsense:
         annotations:
@@ -112,22 +120,14 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-            env:
-              PG_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-db-user
-                    key: username
-              PG_PASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-db-user
-                    key: password
-              DATABASE_URL:
-                value: "postgresql+asyncpg://${PG_USER}:${PG_PASS}@postgres16-rw.database.svc.cluster.local:5432/${POSTGRES_DB}"
             envFrom:
               - secretRef:
+                  name: ${APP}-db-user
+              - secretRef:
                   name: ${APP}-backend-env
+            env:
+              DATABASE_URL:
+                value: "postgresql+asyncpg://${INIT_POSTGRES_USER}:${INIT_POSTGRES_PASS}@${INIT_POSTGRES_HOST}:5432/${INIT_POSTGRES_DBNAME}"
             resources:
               requests:
                 cpu: 5m
