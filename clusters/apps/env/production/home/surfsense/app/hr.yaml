@@ -75,9 +75,10 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-            envFrom:
-              - secretRef:
-                  name: ${APP}-frontend-env
+            env:
+              NEXT_PUBLIC_FASTAPI_BACKEND_URL: http://surfsense-backend:8000
+              NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: GOOGLE
+              NEXT_PUBLIC_ETL_SERVICE: DOCLING
             resources:
               requests:
                 cpu: 5m
