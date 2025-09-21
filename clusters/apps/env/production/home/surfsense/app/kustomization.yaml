@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - backend-env.enc.yaml
   - frontend-env.enc.yaml
+  - db-user.enc.yaml
   - hr.yaml
