@@ -12,6 +12,7 @@ resources:
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
   - ./bewcloud/ks.yaml
+  - ./surfsense/ks.yaml
 patches:
   - patch: |-
       - op: add

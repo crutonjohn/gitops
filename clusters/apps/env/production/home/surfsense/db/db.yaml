@@ -1,0 +1,25 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: ${APP}
+spec:
+  name: ${APP}
+  owner: ${APP}
+  cluster:
+    name: ${APP}
+  extensions:
+    - name: vector
+  managed:
+    roles:
+      - name: ${APP}
+        ensure: present
+        comment: ""
+        login: true
+        superuser: false
+        createdb: true
+        createrole: true
+        passwordSecret: "${APP}-db-user"
+        # inRoles:
+        #   - pg_monitor
+        #   - pg_signal_backend

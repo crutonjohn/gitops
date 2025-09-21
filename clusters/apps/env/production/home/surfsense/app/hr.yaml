@@ -1,0 +1,194 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        # supplementalGroups: [7575]
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      surfsense:
+        annotations:
+          secret.reloader.stakater.com/reload: bewcloud-env, bewcloud-config
+
+        containers:
+          surfsense-frontend:
+            image:
+              repository: ghcr.io/modsetter/surfsense_ui
+              tag: v1.0.29
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            envFrom:
+              - secretRef:
+                  name: ${APP}-frontend-env
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 5Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+          surfsense-backend:
+            image:
+              repository: ghcr.io/modsetter/surfsense_backend
+              tag: v1.0.29
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            env:
+              PG_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-db-user
+                    key: username
+              PG_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-db-user
+                    key: password
+              DATABASE_URL:
+                value: "postgresql+asyncpg://${PG_USER}:${PG_PASS}@postgres16-rw.database.svc.cluster.local:5432/${POSTGRES_DB}"
+            envFrom:
+              - secretRef:
+                  name: ${APP}-backend-env
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 8Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    ingress:
+      surfsense:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+        labels: {}
+        className: traefik-external
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: surfsense-frontend
+                  port: 3000
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
+    service:
+      surfsense-frontend:
+        controller: surfsense
+        primary: true
+        ports:
+          http:
+            port: 3000
+      surfsense-backend:
+        controller: surfsense
+        primary: false
+        ports:
+          http:
+            port: 8000
+
+    # persistence:
+    #   data:
+    #     existingClaim: bewcloud-data
+    #     advancedMounts:
+    #       bewcloud:
+    #         bewcloud:
+    #           - path: /app/data-files
+    #   config:
+    #     type: secret
+    #     name: bewcloud-config
+    #     advancedMounts:
+    #       bewcloud:
+    #         bewcloud:
+    #           - path: /app/bewcloud.config.ts
+    #             subPath: bewcloud.config.ts
