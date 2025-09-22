@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/common-3.1.0/charts/library/common/schemas/containers.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -33,19 +33,19 @@ spec:
     #     # supplementalGroups: [7575]
     #     fsGroup: ${APP_UID}
     #     fsGroupChangePolicy: OnRootMismatch
-    initContainers:
-      init-db:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 16
-        envFrom: &envFrom
-          - secretRef:
-              name: ${APP}-db-user
     controllers:
       surfsense:
         annotations:
           secret.reloader.stakater.com/reload: ${APP}-frontend-env, ${APP}-backend-env, ${APP}-db-user
         containers:
+          initContainers:
+            - init-db:
+              image:
+                repository: ghcr.io/onedr0p/postgres-init
+                tag: 16
+                envFrom: &envFrom
+                  - secretRef:
+                    name: ${APP}-db-user
           surfsense-frontend:
             image:
               repository: ghcr.io/modsetter/surfsense_ui
