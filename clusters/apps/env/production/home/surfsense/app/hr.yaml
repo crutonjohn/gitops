@@ -39,7 +39,7 @@ spec:
           secret.reloader.stakater.com/reload: ${APP}-frontend-env, ${APP}-backend-env, ${APP}-db-user
         containers:
           initContainers:
-            - init-db:
+            init-db:
               image:
                 repository: ghcr.io/onedr0p/postgres-init
                 tag: 16
