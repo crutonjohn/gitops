@@ -76,7 +76,7 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
             env:
-              NEXT_PUBLIC_FASTAPI_BACKEND_URL: http://surfsense-backend:8000
+              NEXT_PUBLIC_FASTAPI_BACKEND_URL: http://surfsense-backend.home.svc.cluster.local:8000
               NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: GOOGLE
               NEXT_PUBLIC_ETL_SERVICE: DOCLING
             resources:
