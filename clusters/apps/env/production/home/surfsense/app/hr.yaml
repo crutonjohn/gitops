@@ -76,7 +76,7 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
             env:
-              NEXT_PUBLIC_FASTAPI_BACKEND_URL: http://surfsense-backend.home.svc.cluster.local:8000
+              NEXT_PUBLIC_FASTAPI_BACKEND_URL: https://surfsense-backend.${FAMILY_DOMAIN}
               NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: GOOGLE
               NEXT_PUBLIC_ETL_SERVICE: DOCLING
             resources:
@@ -143,7 +143,7 @@ spec:
       surfsense:
         enabled: true
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN},surfsense-backend.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
         labels: {}
         className: traefik-internal
@@ -155,10 +155,18 @@ spec:
                 service:
                   name: surfsense
                   port: 3000
+          - host: surfsense-backend.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: surfsense-backend
+                  port: 8000
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
               - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+              - surfsense-backend.${FAMILY_DOMAIN}
 
     service:
       surfsense-frontend:
