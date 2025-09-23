@@ -146,7 +146,7 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
         labels: {}
-        className: traefik-external
+        className: traefik-internal
         hosts:
           - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
             paths:
