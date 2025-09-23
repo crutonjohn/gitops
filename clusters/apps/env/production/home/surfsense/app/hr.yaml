@@ -37,15 +37,15 @@ spec:
       surfsense:
         annotations:
           secret.reloader.stakater.com/reload: ${APP}-frontend-env, ${APP}-backend-env, ${APP}-db-user
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+              envFrom: &envFrom
+                - secretRef:
+                  name: ${APP}-db-user
         containers:
-          initContainers:
-            init-db:
-              image:
-                repository: ghcr.io/onedr0p/postgres-init
-                tag: 16
-                envFrom: &envFrom
-                  - secretRef:
-                    name: ${APP}-db-user
           surfsense-frontend:
             image:
               repository: ghcr.io/modsetter/surfsense_ui
