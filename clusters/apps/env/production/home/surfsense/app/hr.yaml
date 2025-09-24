@@ -151,17 +151,17 @@ spec:
           - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
             paths:
               - path: /
-                pathType: ImplementationSpecific
+                pathType: Prefix
                 service:
                   name: surfsense
                   port: 3000
-              - path: /auth/(.*)
-                pathType: ImplementationSpecific
+              - path: /auth
+                pathType: Prefix
                 service:
                   name: surfsense-backend
                   port: 8000
-              - path: /api/v1/auth/google/(.*)
-                pathType: ImplementationSpecific
+              - path: /api
+                pathType: Prefix
                 service:
                   name: surfsense-backend
                   port: 8000
