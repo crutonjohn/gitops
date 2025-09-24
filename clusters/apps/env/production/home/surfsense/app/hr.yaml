@@ -151,17 +151,21 @@ spec:
           - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                pathType: ImplementationSpecific
                 service:
                   name: surfsense
                   port: 3000
-          - host: surfsense-backend.${FAMILY_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
+              - path: /auth/(.*)
+                pathType: ImplementationSpecific
                 service:
                   name: surfsense-backend
                   port: 8000
+              - path: /api/v1/auth/google/(.*)
+                pathType: ImplementationSpecific
+                service:
+                  name: surfsense-backend
+                  port: 8000
+
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
