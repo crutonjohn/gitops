@@ -170,6 +170,11 @@ spec:
                 service:
                   name: surfsense-backend
                   port: 8000
+              - path: /users
+                pathType: Prefix
+                service:
+                  name: surfsense-backend
+                  port: 8000
 
         tls:
           - secretName: heyjohn-wildcard-certificate
