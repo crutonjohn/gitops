@@ -77,7 +77,7 @@ spec:
                   failureThreshold: 3
             env:
               NEXT_PUBLIC_FASTAPI_BACKEND_URL: https://notebook.${FAMILY_DOMAIN}
-              NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: LOCAL
+              NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: GOOGLE
               NEXT_PUBLIC_ETL_SERVICE: DOCLING
             resources:
               requests:
