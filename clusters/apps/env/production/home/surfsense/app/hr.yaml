@@ -155,6 +155,11 @@ spec:
                 service:
                   name: surfsense
                   port: 3000
+              - path: /auth/callback
+                pathType: Prefix
+                service:
+                  name: surfsense
+                  port: 3000
               - path: /auth
                 pathType: Prefix
                 service:
