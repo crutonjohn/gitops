@@ -148,7 +148,7 @@ spec:
       ## Allow Universal Plug and Play to automatically request port forwarding for the Foundry VTT port to your local network address. Default is true.
       upnp: false
       ## Version of Foundry VTT to install.
-      version: "13.346"
+      version: "13.348"
       ## The world startup at system start.
       world: ""
 
