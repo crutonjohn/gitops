@@ -95,7 +95,7 @@ spec:
           surfsense-backend:
             image:
               repository: ghcr.io/modsetter/surfsense_backend
-              tag: v1.0.29
+              tag: v1.0.40
             probes:
               liveness:
                 enabled: false
