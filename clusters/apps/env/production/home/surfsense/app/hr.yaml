@@ -49,7 +49,7 @@ spec:
           surfsense-frontend:
             image:
               repository: ghcr.io/modsetter/surfsense_ui
-              tag: v1.0.29
+              tag: v1.0.45
             probes:
               liveness:
                 enabled: false
