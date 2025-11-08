@@ -51,7 +51,7 @@ spec:
           bewcloud:
             image:
               repository: ghcr.io/bewcloud/bewcloud
-              tag: v2.4.7@sha256:59d30dbcccae12581e219c6f66cfe4c8b05f0e27df3cadaba78dbe5058756c12
+              tag: v2.8.1@sha256:f0e057fb88e770f430790dfd82b02d94edb8b48a31b9b8b82e880ae8c1aab022
             probes:
               liveness:
                 enabled: false
