@@ -79,7 +79,7 @@ spec:
           medium: Memory
     extraContainers:
       - name: alloy
-        image: "grafana/alloy:v1.10.2"
+        image: "grafana/alloy:v1.12.0"
         imagePullPolicy: IfNotPresent
         args:
           - "run"
