@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: step-certificates
-      version: 1.28.3
+      version: 1.29.0
       sourceRef:
         kind: HelmRepository
         name: smallstep-charts
