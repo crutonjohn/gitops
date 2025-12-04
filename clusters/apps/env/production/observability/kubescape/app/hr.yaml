@@ -871,7 +871,7 @@ spec:
         name: url-discovery
         image:
           repository: quay.io/kubescape/http-request
-          tag: v0.2.14
+          tag: v0.2.16
           pullPolicy: IfNotPresent
 
         # Skip SSL certificate verification
@@ -1004,7 +1004,7 @@ spec:
       image:
         # -- source code: https://github.com/kubescape/http-request (public repo)
         repository: quay.io/kubescape/http-request
-        tag: v0.2.14
+        tag: v0.2.16
         pullPolicy: IfNotPresent
 
       nodeSelector:
@@ -1051,7 +1051,7 @@ spec:
       image:
         # source code - https://github.com/kubescape/http-request
         repository: quay.io/kubescape/http-request
-        tag: v0.2.14
+        tag: v0.2.16
         pullPolicy: IfNotPresent
 
       nodeSelector:
@@ -1100,7 +1100,7 @@ spec:
       image:
         # -- source code: https://github.com/kubescape/http-request (public repo)
         repository: quay.io/kubescape/http-request
-        tag: v0.2.14
+        tag: v0.2.16
         pullPolicy: IfNotPresent
 
       nodeSelector:
