@@ -7,7 +7,6 @@ resources:
   - linkwarden/ks.yaml
   - prowlarr/ks.yaml
   - navidrome/ks.yaml
-  - readarr/ks.yaml
   - slskd/ks.yaml
   - syncthing/ks.yaml
   - deemix/ks.yaml
