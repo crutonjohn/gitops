@@ -497,7 +497,7 @@ spec:
     cephFileSystemVolumeSnapshotClass:
       enabled: true
       name: codex-file
-      isDefault: true
+      isDefault: false
       deletionPolicy: Delete
       annotations: {}
       labels: {}

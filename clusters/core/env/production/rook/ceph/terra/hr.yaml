@@ -583,7 +583,7 @@ spec:
     cephFileSystemVolumeSnapshotClass:
       enabled: true
       name: terra-file
-      isDefault: true
+      isDefault: false
       deletionPolicy: Delete
       annotations: {}
       labels: {}

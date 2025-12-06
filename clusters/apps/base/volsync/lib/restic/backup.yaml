@@ -22,7 +22,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
-      seccompProfile: {type: "RuntimeDefault"}
+      seccompProfile: { type: "RuntimeDefault" }
     pruneIntervalDays: ${PRUNE:=14}
     retain: # keep all backups within 1 week (7 days), keep latest snapshot from each day within 2 weeks
       daily: ${DAILY:=14}
@@ -58,7 +58,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
-      seccompProfile: {type: "RuntimeDefault"}
+      seccompProfile: { type: "RuntimeDefault" }
     pruneIntervalDays: ${PRUNE:=14}
     retain: # keep all backups within 1 week (7 days), keep latest snapshot from each day within 2 weeks
       daily: ${DAILY:=14}
