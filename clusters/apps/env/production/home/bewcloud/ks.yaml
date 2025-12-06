@@ -80,6 +80,7 @@ spec:
       SNAPSHOT_CLASS: terra-file
       DST_ACCESS_MODE: ReadWriteMany
       SIZE: "2Ti"
+      CACHE: terra-blockpool
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
