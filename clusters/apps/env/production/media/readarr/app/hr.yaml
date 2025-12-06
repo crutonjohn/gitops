@@ -68,7 +68,7 @@ spec:
             env:
               URL: "http://localhost"
               CONFIG: /config/config.xml
-              PORT: "9792"
+              PORT: "8787"
               ENABLE_ADDITIONAL_METRICS: "true"
               ENABLE_UNKNOWN_QUEUE_ITEMS: "false"
             probes:
@@ -103,7 +103,7 @@ spec:
                 pathType: Prefix
                 service:
                   name: ${APP}
-                  port: 9696
+                  port: 8787
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
@@ -113,7 +113,7 @@ spec:
       readarr:
         enabled: true
         controller: readarr
-        primary: false
+        primary: true
         ports:
           http:
             port: 8787
@@ -129,8 +129,8 @@ spec:
             port: 9792
             targetPort: 9792
         annotations:
-          prometheus.io/scrape: 'true'
-          prometheus.io/port: '9792'
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9792"
 
     persistence:
       config:
