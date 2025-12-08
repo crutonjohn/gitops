@@ -26,6 +26,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      INGRESSROUTE_SUBDOMAIN: pyro
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
