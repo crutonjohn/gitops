@@ -11,7 +11,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/crutonjohn/external-dns-opnsense-webhook
-          tag: pr-29@sha256:be9dba76644664a939dc152c4fcd86a39d7933874104120eba31f846d518b96e
+          tag: v1.0.0
         env:
           - name: OPNSENSE_API_SECRET
             valueFrom:
@@ -60,8 +60,9 @@ spec:
       - --ingress-class=traefik-internal
       - --managed-record-types=A
       - --managed-record-types=AAAA
+      - --managed-record-types=TXT
     policy: sync
-    registry: noop
+    registry: txt
     domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
@@ -70,28 +71,28 @@ spec:
         - apiGroups: ["traefik.containo.us", "traefik.io"]
           resources: ["ingressroutes", "ingressroutetcps", "ingressrouteudps"]
           verbs: ["get", "watch", "list"]
-    extraVolumes:
-      - name: alloy-config
-        configMap:
-          name: alloy-config
-      - name: data
-        emptyDir:
-          medium: Memory
-    extraContainers:
-      - name: alloy
-        image: "grafana/alloy:v1.10.2"
-        imagePullPolicy: IfNotPresent
-        args:
-          - "run"
-          - "--server.http.listen-addr=0.0.0.0:12345"
-          - "--storage.path=/var/lib/alloy/data"
-          - "/etc/alloy/config/config.alloy"
-        volumeMounts:
-          - name: alloy-config
-            mountPath: "/etc/alloy/config"
-          - name: data
-            mountPath: "/var/lib/alloy"
-        securityContext:
-          runAsUser: 65532
-          runAsGroup: 65532
-          fsGroup: 65532
+    #extraVolumes:
+    #  - name: alloy-config
+    #    configMap:
+    #      name: alloy-config
+    #  - name: data
+    #    emptyDir:
+    #      medium: Memory
+    #extraContainers:
+    #  - name: alloy
+    #    image: "grafana/alloy:v1.10.2"
+    #    imagePullPolicy: IfNotPresent
+    #    args:
+    #      - "run"
+    #      - "--server.http.listen-addr=0.0.0.0:12345"
+    #      - "--storage.path=/var/lib/alloy/data"
+    #      - "/etc/alloy/config/config.alloy"
+    #    volumeMounts:
+    #      - name: alloy-config
+    #        mountPath: "/etc/alloy/config"
+    #      - name: data
+    #        mountPath: "/var/lib/alloy"
+    #    securityContext:
+    #      runAsUser: 65532
+    #      runAsGroup: 65532
+    #      fsGroup: 65532
