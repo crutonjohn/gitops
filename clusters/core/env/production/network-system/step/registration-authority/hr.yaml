@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: step-certificates
-      version: 1.28.3
+      version: 1.29.0
       sourceRef:
         kind: HelmRepository
         name: smallstep-charts
@@ -48,6 +48,7 @@ spec:
               cipherSuites:
                 - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
                 - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+                - TLS_AES_128_GCM_SHA256
               maxVersion: 1.3
               minVersion: 1.2
               renegotiation: false
