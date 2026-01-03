@@ -73,26 +73,51 @@ spec:
           io.cilium/lb-ipam-ips: "${CLUSTER_LB_MEDIAMTX}"
         externalTrafficPolicy: Local
         ports:
-          rtsp-alt:
+          rtsp:
             enabled: true
             port: 8554
             protocol: TCP
             targetPort: 8554
-          rtsp:
+          rtsps:
+            enabled: true
+            port: 8322
+            protocol: TCP
+            targetPort: 8322
+          rtmp:
             enabled: true
             port: 1935
             protocol: TCP
             targetPort: 1935
-          app1:
+          rtmps:
+            enabled: true
+            port: 1936
+            protocol: TCP
+            targetPort: 1936
+          hls:
             enabled: true
             port: 8888
             protocol: TCP
             targetPort: 8888
-          app2:
+          webrtc:
             enabled: true
             port: 8889
             protocol: TCP
             targetPort: 8889
+          metrics:
+            enabled: true
+            port: 9998
+            protocol: TCP
+            targetPort: 9998
+          pprof:
+            enabled: true
+            port: 9999
+            protocol: TCP
+            targetPort: 9999
+          playback:
+            enabled: true
+            port: 9996
+            protocol: TCP
+            targetPort: 9996
       mediamtx-udp:
         enabled: true
         controller: mediamtx
@@ -104,12 +129,37 @@ spec:
           io.cilium/lb-ipam-ips: "${CLUSTER_LB_MEDIAMTX}"
         externalTrafficPolicy: Local
         ports:
-          app3:
+          api:
+            enabled: true
+            port: 9997
+            protocol: UDP
+            targetPort: 9997
+          rtp:
+            enabled: true
+            port: 8000
+            protocol: UDP
+            targetPort: 8000
+          rtcp:
+            enabled: true
+            port: 8001
+            protocol: UDP
+            targetPort: 8001
+          srtp:
+            enabled: true
+            port: 8004
+            protocol: UDP
+            targetPort: 8004
+          srtcp:
+            enabled: true
+            port: 8005
+            protocol: UDP
+            targetPort: 8005
+          srt:
             enabled: true
             port: 8890
             protocol: UDP
             targetPort: 8890
-          app4:
+          webrtc:
             enabled: true
             port: 8189
             protocol: UDP
@@ -140,9 +190,13 @@ spec:
               - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 
     persistence:
-      # config:
-      #   enabled: true
-      #   existingClaim: "audiobookshelf-config"
+      config:
+        type: configMap
+        name: mediamtx-config
+        globalMounts:
+          - path: /mediamtx.yml
+            subPath: mediamtx.yml
+            readOnly: true
       recordings:
         enabled: true
         existingClaim: "mediamtx-recordings"
