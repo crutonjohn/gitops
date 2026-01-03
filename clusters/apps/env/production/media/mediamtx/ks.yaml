@@ -23,9 +23,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
-  dependsOn:
-    - name: traefik-external
-    - name: mediamtx-config
   postBuild:
     substitute:
       APP: *app
