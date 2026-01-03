@@ -5,6 +5,7 @@ resources:
   - audiobookshelf/ks.yaml
   - lidarr/ks.yaml
   - linkwarden/ks.yaml
+  - mediamtx/ks.yaml
   - prowlarr/ks.yaml
   - navidrome/ks.yaml
   - slskd/ks.yaml

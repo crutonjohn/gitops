@@ -1,0 +1,153 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+
+    controllers:
+      audiobookshelf:
+        type: deployment
+
+        containers:
+          mediamtx:
+            nameOverride: mediamtx
+            image:
+              repository: bluenviron/mediamtx
+              tag: 1-ffmpeg@sha256:25cb92c02c7d3767e8f626274048fce643da3dbc3354532b0c251e4c55175a46
+            env:
+              TZ: Amertica/New_York
+              MTX_RTSPTRANSPORTS: "tcp"
+              MTX_WEBRTCADDITIONALHOSTS: "${CLUSTER_LB_MEDIAMTX}"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 1
+                memory: 1254M
+              limits:
+                memory: 8Gi
+
+    service:
+      mediamtx-tcp:
+        enabled: true
+        controller: mediamtx
+        primary: true
+        type: LoadBalancer
+        labels:
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-sharing-key: mediamtx
+          io.cilium/lb-ipam-ips: "${CLUSTER_LB_MEDIAMTX}"
+        externalTrafficPolicy: Local
+        ports:
+          rtsp-alt:
+            enabled: true
+            port: 8554
+            protocol: TCP
+            targetPort: 8554
+          rtsp:
+            enabled: true
+            port: 1935
+            protocol: TCP
+            targetPort: 1935
+          app1:
+            enabled: true
+            port: 8888
+            protocol: TCP
+            targetPort: 8888
+          app2:
+            enabled: true
+            port: 8889
+            protocol: TCP
+            targetPort: 8889
+      mediamtx-udp:
+        enabled: true
+        controller: mediamtx
+        type: LoadBalancer
+        labels:
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-sharing-key: mediamtx
+          io.cilium/lb-ipam-ips: "${CLUSTER_LB_MEDIAMTX}"
+        externalTrafficPolicy: Local
+        ports:
+          app3:
+            enabled: true
+            port: 8890
+            protocol: UDP
+            targetPort: 8890
+          app4:
+            enabled: true
+            port: 8189
+            protocol: UDP
+            targetPort: 8189
+
+    ingress:
+      mediamtx:
+        # controller: mediamtx
+        enabled: false
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        labels: {}
+        className: traefik-external
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: mediamtx
+                  port: 0000
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
+    persistence:
+      # config:
+      #   enabled: true
+      #   existingClaim: "audiobookshelf-config"
+      recordings:
+        enabled: true
+        existingClaim: "mediamtx-recordings"
+        advancedMounts:
+          mediamtx:
+            mediamtx:
+              - path: /recordings
+                readOnly: false
