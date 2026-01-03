@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: mediamtx-config
     files:
-      - mediamtx.yaml
+      - mediamtx.yml
 generatorOptions:
   disableNameSuffixHash: true
