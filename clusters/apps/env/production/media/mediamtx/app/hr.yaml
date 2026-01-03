@@ -33,7 +33,7 @@ spec:
         runAsGroup: ${APP_UID}
 
     controllers:
-      audiobookshelf:
+      mediamtx:
         type: deployment
 
         containers:
