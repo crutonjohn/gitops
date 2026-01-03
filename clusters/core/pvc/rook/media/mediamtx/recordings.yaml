@@ -9,5 +9,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 400Gi
-  storageClassName: terra-block
+      storage: 300Gi
+  storageClassName: terra-blockpool

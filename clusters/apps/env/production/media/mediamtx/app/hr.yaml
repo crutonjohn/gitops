@@ -71,6 +71,8 @@ spec:
         annotations:
           io.cilium/lb-ipam-sharing-key: mediamtx
           io.cilium/lb-ipam-ips: "${CLUSTER_LB_MEDIAMTX}"
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9998"
         externalTrafficPolicy: Local
         ports:
           rtsp:

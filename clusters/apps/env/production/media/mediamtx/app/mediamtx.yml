@@ -65,6 +65,7 @@ authInternalUsers:
     # IPs or networks allowed to use this user. An empty list means any IP.
     ips:
       - 192.168.128.3
+      - 192.168.128.8
     # List of permissions.
     permissions:
       # Available actions are: publish, read, playback, api, metrics, pprof.
