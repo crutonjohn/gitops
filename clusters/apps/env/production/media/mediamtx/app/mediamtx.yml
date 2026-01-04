@@ -61,12 +61,12 @@ authInternalUsers:
     pass:
     ips: []
     permissions:
-    - action: publish
-      path:
-    - action: read
-      path:
-    - action: playback
-      path:
+      - action: publish
+        path:
+      - action: read
+        path:
+      - action: playback
+        path:
   #- user: crutonjohn
   #  pass: password
   #  ips:
@@ -92,7 +92,10 @@ authInternalUsers:
   #      path: kat
   - user: any
     pass:
-    ips: ["127.0.0.1", "::1"]
+    ips:
+      - "127.0.0.1"
+      - "::1"
+      - ${CLUSTER_POD_CIDR}
     permissions:
       - action: api
       - action: metrics
