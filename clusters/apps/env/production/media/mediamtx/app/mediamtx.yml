@@ -66,6 +66,7 @@ authInternalUsers:
     ips:
       - 192.168.128.3
       - 192.168.128.8
+      - 192.168.128.35
     # List of permissions.
     permissions:
       # Available actions are: publish, read, playback, api, metrics, pprof.
