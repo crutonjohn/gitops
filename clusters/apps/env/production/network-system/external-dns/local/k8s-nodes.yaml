@@ -42,8 +42,8 @@ spec:
       recordType: A
       targets:
         - 192.168.130.143
-    - dnsName: lorgar.${FAMILY_DOMAIN}
+    - dnsName: fulgrim.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 192.168.130.156
+        - 192.168.130.140
