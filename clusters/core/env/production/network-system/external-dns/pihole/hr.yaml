@@ -75,6 +75,7 @@ spec:
       - --pihole-api-version=6
       - --traefik-disable-legacy
       - --target-net-filter=${HOME_NETWORK_CIDR}
+      - --target-net-filter=${HEADSCALE_NETWORK_CIDR}
       - --ingress-class=traefik-external
       - --ingress-class=traefik-internal
       - --managed-record-types=A
