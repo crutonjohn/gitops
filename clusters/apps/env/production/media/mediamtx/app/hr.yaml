@@ -44,7 +44,7 @@ spec:
               tag: 1-ffmpeg@sha256:25cb92c02c7d3767e8f626274048fce643da3dbc3354532b0c251e4c55175a46
             env:
               TZ: Amertica/New_York
-              MTX_RTSPTRANSPORTS: "tcp"
+              MTX_RTSPTRANSPORTS: "tcp,udp"
               MTX_WEBRTCADDITIONALHOSTS: "${CLUSTER_LB_MEDIAMTX}"
             probes:
               liveness:
