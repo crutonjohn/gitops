@@ -58,7 +58,7 @@ authMethod: internal
 # list of users.
 authInternalUsers:
   - user: crutonjohn
-    pass: C7EBvzW6qJm27xEAt7xL
+    pass:
     ips:
       - 192.168.128.3
       - 192.168.128.8
