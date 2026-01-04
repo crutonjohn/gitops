@@ -57,30 +57,39 @@ authMethod: internal
 # Internal authentication.
 # list of users.
 authInternalUsers:
-  - user: crutonjohn
+  - user: any
     pass:
-    ips:
-      - 192.168.128.3
-      - 192.168.128.8
-      - 192.168.128.35
+    ips: []
     permissions:
-      - action: publish
-        path: crutonjohn
-      - action: read
-        path: crutonjohn
-      - action: playback
-        path: crutonjohn
-  - user: kat
-    pass: X4o8f2N32jcUTTg4vKZE
-    ips:
-      - 192.168.128.6
-    permissions:
-      - action: publish
-        path: kat
-      - action: read
-        path: kat
-      - action: playback
-        path: kat
+    - action: publish
+      path:
+    - action: read
+      path:
+    - action: playback
+      path:
+  #- user: crutonjohn
+  #  pass: password
+  #  ips:
+  #    - 192.168.128.3
+  #    - 192.168.128.8
+  #  permissions:
+  #    - action: publish
+  #      path: crutonjohn
+  #    - action: read
+  #      path: crutonjohn
+  #    - action: playback
+  #      path: crutonjohn
+  #- user: kat
+  #  pass: X4o8f2N32jcUTTg4vKZE
+  #  ips:
+  #    - 192.168.128.6
+  #  permissions:
+  #    - action: publish
+  #      path: kat
+  #    - action: read
+  #      path: kat
+  #    - action: playback
+  #      path: kat
   - user: any
     pass:
     ips: ["127.0.0.1", "::1"]
