@@ -25,6 +25,8 @@ spec:
       name: sops-aws
   dependsOn:
     - name: external-dns-opnsense
+    - name: external-dns-pihole-primary
+    - name: external-dns-pihole-secondary
   postBuild:
     substitute:
       APP: *app
