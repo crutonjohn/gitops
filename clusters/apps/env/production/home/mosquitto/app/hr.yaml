@@ -50,7 +50,7 @@ spec:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
             env:
-              TZ: Amertica/New_York
+              TZ: America/New_York
             probes:
               liveness:
                 enabled: false
