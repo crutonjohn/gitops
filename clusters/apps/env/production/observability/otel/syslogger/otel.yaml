@@ -98,7 +98,7 @@ spec:
 
     exporters:
       otlphttp:
-        endpoint: "http://100.64.0.9:3100/otlp"
+        endpoint: "http://100.64.0.11:3100/otlp"
         timeout: 60s
       debug:
         verbosity: detailed
