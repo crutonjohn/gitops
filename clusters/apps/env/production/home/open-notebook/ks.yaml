@@ -29,7 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: "notebook"
-      # APP_UID: "1977"
+      APP_UID: "1977"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
