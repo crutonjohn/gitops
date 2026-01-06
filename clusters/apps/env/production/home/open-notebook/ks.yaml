@@ -29,7 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: "notebook"
-      APP_UID: "1977"
+      # APP_UID: "1977"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
@@ -71,7 +71,7 @@ spec:
 #   postBuild:
 #     substitute:
 #       SRC_PVC: open-notebook-data
-#       APP_UID: "1977"
+#       # APP_UID: "1977"
 #       CRON_SCHEDULE: "30 1/12 * * *"
 #       LOCAL_SCHEDULE: "35 1/12 * * *"
 #       STORAGE_CLASS: codex-block

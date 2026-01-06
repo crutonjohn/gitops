@@ -144,7 +144,7 @@ spec:
           - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                pathType: ImplementationSpecific
                 service:
                   name: open-notebook
                   port: 8502
