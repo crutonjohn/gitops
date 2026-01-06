@@ -26,76 +26,22 @@ spec:
     keepHistory: false
 
   values:
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsUser: ${APP_UID}
-    #     runAsGroup: ${APP_UID}
-    #     # supplementalGroups: [7575]
-    #     fsGroup: ${APP_UID}
-    #     fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        # supplementalGroups: [7575]
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
-      surfsense:
+      open-notebook:
         annotations:
-          secret.reloader.stakater.com/reload: ${APP}-frontend-env, ${APP}-backend-env, ${APP}-db-user
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: ${APP}-db-user
+          secret.reloader.stakater.com/reload: ${APP}-env
         containers:
-          surfsense-frontend:
+          open-notebook:
             image:
-              repository: ghcr.io/modsetter/surfsense_ui
-              tag: v1.0.29
-            probes:
-              liveness:
-                enabled: false
-                type: TCP
-                spec:
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness:
-                enabled: false
-                type: TCP
-                spec:
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              startup:
-                enabled: false
-                type: TCP
-                spec:
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-            env:
-              NEXT_PUBLIC_FASTAPI_BACKEND_URL: https://notebook.${FAMILY_DOMAIN}
-              NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: GOOGLE
-              NEXT_PUBLIC_ETL_SERVICE: DOCLING
-            resources:
-              requests:
-                cpu: 5m
-                memory: 512Mi
-              limits:
-                memory: 5Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities:
-                drop:
-                  - ALL
-
-          surfsense-backend:
-            image:
-              repository: ghcr.io/modsetter/surfsense_backend
-              tag: v1.0.29
+              repository: lfnovo/open_notebook
+              tag: v1-latest@sha256:c6d21cfadc9ee6e309f5e4e5a1fe5cc426ec40bf53c2d03fc0ad615bf9fd3cde
             probes:
               liveness:
                 enabled: false
@@ -123,9 +69,55 @@ spec:
                   failureThreshold: 3
             envFrom:
               - secretRef:
-                  name: ${APP}-db-user
+                  name: ${APP}-env
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 5Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+      surrealdb:
+        annotations:
+          secret.reloader.stakater.com/reload: ${APP}-env
+        containers:
+          surrealdb:
+            image:
+              repository: surrealdb/surrealdb
+              tag: v2@sha256:421b7661c3174f51fd70f36abe9ee1e48e5fd684fadc1e362d232ee3b51b1b72
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            envFrom:
               - secretRef:
-                  name: ${APP}-backend-env
+                  name: ${APP}-env
             resources:
               requests:
                 cpu: 5m
@@ -140,10 +132,10 @@ spec:
                   - ALL
 
     ingress:
-      surfsense:
+      open-notebook:
         enabled: true
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN},surfsense-backend.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
         labels: {}
         className: traefik-internal
@@ -153,57 +145,49 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: surfsense
-                  port: 3000
-              - path: /auth/callback
-                pathType: Prefix
-                service:
-                  name: surfsense
-                  port: 3000
-              - path: /auth
-                pathType: Prefix
-                service:
-                  name: surfsense-backend
-                  port: 8000
+                  name: open-notebook
+                  port: 8502
               - path: /api
                 pathType: Prefix
                 service:
-                  name: surfsense-backend
-                  port: 8000
-              - path: /users
-                pathType: Prefix
-                service:
-                  name: surfsense-backend
-                  port: 8000
+                  name: open-notebook
+                  port: 5055
 
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
               - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-              - surfsense-backend.${FAMILY_DOMAIN}
 
     service:
-      surfsense-frontend:
-        controller: surfsense
+      open-notebook:
+        controller: open-notebook
         primary: true
         ports:
-          http:
-            port: 3000
-      # auto-prepends with surfsense
-      backend:
-        controller: surfsense
+          webui:
+            port: 8502
+          api:
+            port: 5055
+      # auto-prepends with open-notebook
+      surrealdb:
+        controller: surrealdb
         primary: false
         ports:
           http:
             port: 8000
 
     # persistence:
-    #   data:
-    #     existingClaim: bewcloud-data
+    #   database:
+    #     existingClaim: surrealdb-data
     #     advancedMounts:
-    #       bewcloud:
-    #         bewcloud:
-    #           - path: /app/data-files
+    #       surrealdb:
+    #         surrealdb:
+    #           - path: /mydata
+    #   data:
+    #     existingClaim: open-notebook-data
+    #     advancedMounts:
+    #       open-notebook:
+    #         open-notebook:
+    #           - path: /app/data
     #   config:
     #     type: secret
     #     name: bewcloud-config
