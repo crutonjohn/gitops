@@ -26,13 +26,13 @@ spec:
     keepHistory: false
 
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
-        # supplementalGroups: [7575]
-        fsGroup: ${APP_UID}
-        fsGroupChangePolicy: OnRootMismatch
+    # defaultPodOptions:
+    #   securityContext:
+    #     runAsUser: ${APP_UID}
+    #     runAsGroup: ${APP_UID}
+    #     # supplementalGroups: [7575]
+    #     fsGroup: ${APP_UID}
+    #     fsGroupChangePolicy: OnRootMismatch
     controllers:
       open-notebook:
         annotations:
