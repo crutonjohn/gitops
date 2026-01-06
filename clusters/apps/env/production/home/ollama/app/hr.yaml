@@ -44,6 +44,7 @@ spec:
           - deepseek-coder-v2:16b
           - codegemma:7b
           - mxbai-embed-large:335m
+          - deepseek-r1:14b
         run: []
         create: []
         clean: false
