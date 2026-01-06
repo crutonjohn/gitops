@@ -176,19 +176,19 @@ spec:
           http:
             port: 8000
 
-    # persistence:
-    #   database:
-    #     existingClaim: surrealdb-data
-    #     advancedMounts:
-    #       surrealdb:
-    #         surrealdb:
-    #           - path: /mydata
-    #   data:
-    #     existingClaim: open-notebook-data
-    #     advancedMounts:
-    #       open-notebook:
-    #         open-notebook:
-    #           - path: /app/data
+    persistence:
+      data:
+        existingClaim: open-notebook-data
+        advancedMounts:
+          open-notebook:
+            open-notebook:
+              - path: /app/data
+      database:
+        existingClaim: surrealdb-data
+        advancedMounts:
+          surrealdb:
+            surrealdb:
+              - path: /mydata
     #   config:
     #     type: secret
     #     name: bewcloud-config
