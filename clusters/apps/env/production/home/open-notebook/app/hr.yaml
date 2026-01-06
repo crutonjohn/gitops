@@ -90,6 +90,7 @@ spec:
             image:
               repository: surrealdb/surrealdb
               tag: v2@sha256:421b7661c3174f51fd70f36abe9ee1e48e5fd684fadc1e362d232ee3b51b1b72
+            command: ["start"]
             probes:
               liveness:
                 enabled: false
