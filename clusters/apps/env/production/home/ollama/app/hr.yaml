@@ -43,13 +43,13 @@ spec:
           - qwen2.5-coder:14b
           - deepseek-coder-v2:16b
           - codegemma:7b
+          - mxbai-embed-large:335m
         run: []
         create: []
         clean: false
       mountPath: "/root/.ollama"
     # -- Container Security Context
-    securityContext:
-      {}
+    securityContext: {}
       # capabilities:
       #  drop:
       #   - ALL
