@@ -146,11 +146,11 @@ web:
     # jwt:
     #   key: ~
     #   ttl: 604800000
-    # api_keys:
-    #   my_api_key:
-    #     key: <some example string between 16 and 255 characters>
-    #     role: readonly # readonly, readwrite, administrator
-    #     cidr: 0.0.0.0/0,::/0
+    api_keys:
+      my_api_key:
+        key: ${SLSKD_API_KEY}
+        role: readwrite # readonly, readwrite, administrator
+        cidr: ${CLUSTER_POD_CIDR}, ${CLUSTER_SVC_CIDR}
 retention:
   search: 10080 # 7 days, in minutes
   transfers:
@@ -224,68 +224,68 @@ soulseek:
 #       timeout: 5000 # in milliseconds
 #       retry:
 #         attempts: 3
-  # scripts:
-  #   run_command_with_linux_system_shell: # automatically uses the executable defined in $SHELL
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       command: 'echo "$SLSKD_SCRIPT_DATA" >> linux_system_shell.txt'
-  #   run_with_sh:
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       executable: /bin/sh
-  #       args: '-c "echo $SLSKD_SCRIPT_DATA >> linux_sh.txt"'
-  #   run_with_sh_and_args_list:
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       executable: /bin/sh
-  #       arglist:
-  #         - -c
-  #         - echo $SLSKD_SCRIPT_DATA >> linux_sh_and_args_list.txt
-  #   run_command_with_windows_system_shell: # automatically uses cmd.exe (included with all Windows installs)
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       command: 'echo "%SLSKD_SCRIPT_DATA%" >> windows_system_shell.txt'
-  #   run_with_windows_cmd:
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       executable: cmd.exe
-  #       args: '/c "echo "%SLSKD_SCRIPT_DATA%" >> windows_cmd.txt"'
-  #   run_with_windows_git_bash:
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       executable: C:\Program Files\Git\bin\bash.exe
-  #       args: '-c "echo "$SLSKD_SCRIPT_DATA" >> windows_git_bash.txt"'
-  #   run_with_windows_cmd_and_args_list:
-  #     on:
-  #       - DownloadFileComplete
-  #     run:
-  #       executable: cmd.exe
-  #       arglist:
-  #         - /c
-  #         - 'echo "%SLSKD_SCRIPT_DATA%" >> windows_cmd_and_args_list.txt'
-  # ftp:
-  #   enabled: false
-  #   address: ~
-  #   port: ~
-  #   username: ~
-  #   password: ~
-  #   remote_path: /
-  #   encryption_mode: auto
-  #   ignore_certificate_errors: false
-  #   overwrite_existing: true
-  #   connection_timeout: 5000
-  #   retry_attempts: 3
-  # pushbullet:
-  #   enabled: false
-  #   access_token: ~
-  #   notification_prefix: "From slskd:"
-  #   notify_on_private_message: true
-  #   notify_on_room_mention: true
-  #   retry_attempts: 3
-  #   cooldown_time: 900000
+# scripts:
+#   run_command_with_linux_system_shell: # automatically uses the executable defined in $SHELL
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       command: 'echo "$SLSKD_SCRIPT_DATA" >> linux_system_shell.txt'
+#   run_with_sh:
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       executable: /bin/sh
+#       args: '-c "echo $SLSKD_SCRIPT_DATA >> linux_sh.txt"'
+#   run_with_sh_and_args_list:
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       executable: /bin/sh
+#       arglist:
+#         - -c
+#         - echo $SLSKD_SCRIPT_DATA >> linux_sh_and_args_list.txt
+#   run_command_with_windows_system_shell: # automatically uses cmd.exe (included with all Windows installs)
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       command: 'echo "%SLSKD_SCRIPT_DATA%" >> windows_system_shell.txt'
+#   run_with_windows_cmd:
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       executable: cmd.exe
+#       args: '/c "echo "%SLSKD_SCRIPT_DATA%" >> windows_cmd.txt"'
+#   run_with_windows_git_bash:
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       executable: C:\Program Files\Git\bin\bash.exe
+#       args: '-c "echo "$SLSKD_SCRIPT_DATA" >> windows_git_bash.txt"'
+#   run_with_windows_cmd_and_args_list:
+#     on:
+#       - DownloadFileComplete
+#     run:
+#       executable: cmd.exe
+#       arglist:
+#         - /c
+#         - 'echo "%SLSKD_SCRIPT_DATA%" >> windows_cmd_and_args_list.txt'
+# ftp:
+#   enabled: false
+#   address: ~
+#   port: ~
+#   username: ~
+#   password: ~
+#   remote_path: /
+#   encryption_mode: auto
+#   ignore_certificate_errors: false
+#   overwrite_existing: true
+#   connection_timeout: 5000
+#   retry_attempts: 3
+# pushbullet:
+#   enabled: false
+#   access_token: ~
+#   notification_prefix: "From slskd:"
+#   notify_on_private_message: true
+#   notify_on_room_mention: true
+#   retry_attempts: 3
+#   cooldown_time: 900000
