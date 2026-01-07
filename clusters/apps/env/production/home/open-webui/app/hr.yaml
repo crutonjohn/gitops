@@ -110,7 +110,7 @@ spec:
           runAsNonRoot: true
           privileged: false
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: false
           capabilities:
             drop:
               - ALL
@@ -256,8 +256,7 @@ spec:
     openaiBaseApiUrl: "https://api.openai.com/v1"
 
     # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
-    openaiBaseApiUrls:
-      []
+    openaiBaseApiUrls: []
       # - "https://api.openai.com/v1"
       # - "https://api.company.openai.com/v1"
 
@@ -273,14 +272,12 @@ spec:
             key: WEBUI_SECRET_KEY
 
     # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
-    commonEnvVars:
-      []
+    commonEnvVars: []
       # - name: RAG_EMBEDDING_ENGINE
       #   value: "openai"
 
     # -- Env vars added from configmap or secret to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: `extraEnvVars` will take precedence over the value from `extraEnvFrom`)
-    extraEnvFrom:
-      []
+    extraEnvFrom: []
       # - configMapRef:
       #     name: my-config
       # - secretRef:
@@ -395,8 +392,7 @@ spec:
         nameHeader: ""
 
     # -- Extra resources to deploy with Open WebUI
-    extraResources:
-      []
+    extraResources: []
       # - apiVersion: v1
       #   kind: ConfigMap
       #   metadata:
