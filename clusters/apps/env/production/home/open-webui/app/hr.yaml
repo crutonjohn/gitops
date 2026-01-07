@@ -293,9 +293,9 @@ spec:
       initContainer: []
       # - name: ""
       #   mountPath: ""
-      container: []
-      # - name: ""
-      #   mountPath: ""
+      container:
+        - name: "tmpdir"
+          mountPath: "/var/tmp"
 
     # -- Additional init containers to add to the deployment/statefulset
     # ref: <https://kubernetes.io/docs/concepts/workloads/pods/init-containers/>
@@ -309,12 +309,12 @@ spec:
 
     # -- Configure pod volumes
     # ref: <https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/>
-    volumes: []
-    # - name: ""
-    #   configMap:
-    #     name: ""
-    # - name: ""
-    #   emptyDir: {}
+    volumes:
+      # - name: ""
+      #   configMap:
+      #     name: ""
+      - name: "tmpdir"
+        emptyDir: {}
 
     # -- Configure pod security context
     # ref: <https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container>
