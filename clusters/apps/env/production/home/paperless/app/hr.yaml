@@ -32,7 +32,7 @@ spec:
           paperless:
             image:
               repository: "ghcr.io/paperless-ngx/paperless-ngx"
-              tag: "2.18.3@sha256:6dbe57d8198fa117158ba9e867e2d45280b65e9c37ea54c1df7b34c4085a564c"
+              tag: "2.20.3@sha256:57ad9565bff3bdf2378ab1dcc21ea649dfd68ee58e0eeca2bfba0120a26563e8"
             env:
               PAPERLESS_URL: "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}"
               PAPERLESS_PORT: &port 8000
