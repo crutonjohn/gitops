@@ -52,7 +52,7 @@ spec:
           uninstall:
             image:
               repository: docker.io/library/alpine
-              tag: "3.22"
+              tag: "3.23"
 
             command:
               - /bin/sh
@@ -78,7 +78,7 @@ spec:
           multus-daemon:
             image: &image
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-              tag: v4.2.2-thick
+              tag: v4.2.3-thick
             env:
               MULTUS_NODE_NAME:
                 valueFrom:
@@ -97,7 +97,7 @@ spec:
           cni-plugins-installer:
             image:
               repository: ghcr.io/angelnu/cni-plugins
-              tag: 1.8.0
+              tag: 1.9.0
             resources:
               requests:
                 cpu: "10m"

@@ -11,29 +11,29 @@ spec:
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.9
+        - 100.64.0.11
     - dnsName: alerts.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.9
+        - 100.64.0.11
     - dnsName: alertmanager.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.9
+        - 100.64.0.11
     - dnsName: prom-ord.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.9
+        - 100.64.0.11
     - dnsName: grafana.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.9
+        - 100.64.0.11
     - dnsName: loki.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
-        - 100.64.0.9
+        - 100.64.0.11

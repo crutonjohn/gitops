@@ -3,42 +3,6 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: "${SRC_PVC}-b2"
-spec:
-  sourcePVC: "${SRC_PVC}"
-  trigger:
-    schedule: "${CRON_SCHEDULE:=0 */12 * * *}" # midnight and noon every day
-  restic:
-    unlock: V1gzSN61
-    copyMethod: "Snapshot"
-    repository: "${SRC_PVC}-b2-restic"
-    volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
-    storageClassName: "${STORAGE_CLASS}"
-    cacheStorageClassName: "${CACHE:=terra-blockpool}"
-    cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: "${CACHESIZE:=2Gi}"
-    moverSecurityContext:
-      runAsNonRoot: true
-      runAsUser: ${APP_UID}
-      runAsGroup: ${APP_UID}
-      fsGroup: ${APP_UID}
-      seccompProfile: { type: "RuntimeDefault" }
-    pruneIntervalDays: ${PRUNE:=14}
-    retain: # keep all backups within 1 week (7 days), keep latest snapshot from each day within 2 weeks
-      daily: ${DAILY:=14}
-      within: ${WITHIN:=7d}
-    moverResources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 500m
-        memory: 6Gi
----
-# yaml-language-server: $schema=https://crds.jank.ing/volsync.backube/replicationsource_v1alpha1.json
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
   name: "${SRC_PVC}-local"
 spec:
   sourcePVC: "${SRC_PVC}"

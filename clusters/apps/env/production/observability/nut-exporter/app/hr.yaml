@@ -30,7 +30,7 @@ spec:
           nut-exporter:
             image:
               repository: ghcr.io/druggeri/nut_exporter
-              tag: "3.2.1@sha256:3b452a9f29c50cad2909a9815ff8cf13b1f1079a641492bf7d06063725846e28"
+              tag: "3.2.3@sha256:a9e6c0100ebc0e8ec2c7a46de8af1366df8abd5d794f175b8ee6b2361819ee6e"
             probes:
               liveness: &probes
                 enabled: false

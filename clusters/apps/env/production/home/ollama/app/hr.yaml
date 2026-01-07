@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: ollama
-      version: 1.29.0
+      version: 1.36.0
       sourceRef:
         kind: HelmRepository
         name: ollama-charts
@@ -43,13 +43,14 @@ spec:
           - qwen2.5-coder:14b
           - deepseek-coder-v2:16b
           - codegemma:7b
+          - mxbai-embed-large:335m
+          - deepseek-r1:14b
         run: []
         create: []
         clean: false
       mountPath: "/root/.ollama"
     # -- Container Security Context
-    securityContext:
-      {}
+    securityContext: {}
       # capabilities:
       #  drop:
       #   - ALL

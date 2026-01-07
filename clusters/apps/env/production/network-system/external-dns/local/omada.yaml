@@ -22,7 +22,7 @@ spec:
       recordType: A
       targets:
         - 192.168.133.22
-    - dnsName: DOWNSTAIRS.${FAMILY_DOMAIN}
+    - dnsName: INWALL-LIVING.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
@@ -32,7 +32,7 @@ spec:
       recordType: A
       targets:
         - 192.168.133.24
-    - dnsName: INWALL-LANDING.${FAMILY_DOMAIN}
+    - dnsName: INWALL-LOFT.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
@@ -42,3 +42,8 @@ spec:
       recordType: A
       targets:
         - 192.168.133.26
+    - dnsName: RACK-25G-DIST.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.133.27

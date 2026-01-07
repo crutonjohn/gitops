@@ -7,16 +7,6 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: tubeszb.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 192.168.130.120
-    - dnsName: ratgdo.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 192.168.134.84
     - dnsName: dreame-upstairs.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A

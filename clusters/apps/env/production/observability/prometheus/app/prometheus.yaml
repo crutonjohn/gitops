@@ -5,14 +5,14 @@ global:
   external_labels:
     datacenter: lyh
 remote_write:
-  - url: http://100.64.0.9:9090/api/v1/write
+  - url: http://100.64.0.11:9090/api/v1/write
 rule_files:
   - /etc/prometheus/alerts/*.yaml
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - 100.64.0.9:9093
+            - 100.64.0.11:9093
 scrape_configs:
   - job_name: 'hass'
     scrape_interval: 60s
