@@ -52,7 +52,7 @@ spec:
 
     image:
       repository: ghcr.io/crutonjohn/n8n-worker-latest
-      tag: 1.109.2
+      tag: 1.114.4
       pullPolicy: IfNotPresent
     imagePullSecrets: []
 
