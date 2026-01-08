@@ -1,0 +1,88 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/b732974574feddffd85a2f759d9c156e6cb06ddb/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app grocy
+  namespace: flux-system
+spec:
+  targetNamespace: home
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/apps/env/production/home/grocy/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  dependsOn:
+    - name: traefik-external
+  postBuild:
+    substitute:
+      APP: *app
+      INGRESSROUTE_SUBDOMAIN: "grocy"
+      APP_UID: "2353"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+# ---
+# # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/b732974574feddffd85a2f759d9c156e6cb06ddb/kustomization-kustomize-v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &app volsync-grocy-data-restic
+#   namespace: flux-system
+# spec:
+#   targetNamespace: home
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: *app
+#       backups.${FAMILY_DOMAIN}/name: grocy
+#   path: ./clusters/apps/base/volsync/lib/restic
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+#   decryption:
+#     provider: sops
+#     secretRef:
+#       name: sops-aws
+#   dependsOn:
+#     - name: volsync
+#   postBuild:
+#     substitute:
+#       SRC_PVC: grocy-data
+#       # APP_UID: "2353"
+#       CRON_SCHEDULE: "30 4/12 * * *"
+#       LOCAL_SCHEDULE: "35 4/12 * * *"
+#       STORAGE_CLASS: codex-block
+#       SNAPSHOT_CLASS: codex-block
+#       DST_ACCESS_MODE: ReadWriteOnce
+#       SIZE: "40Gi"
+#     substituteFrom:
+#       - kind: Secret
+#         name: secrets-${CLUSTER_NAME}
+#       - kind: Secret
+#         name: secrets-generic
+#       - kind: ConfigMap
+#         name: settings-generic
+#       - kind: ConfigMap
+#         name: settings-${CLUSTER_NAME}
