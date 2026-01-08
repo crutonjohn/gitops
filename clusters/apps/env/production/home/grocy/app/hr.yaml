@@ -67,12 +67,13 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 2Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities:
-                drop:
-                  - ALL
+            # LSIO so it's insecure
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: false
+            #   capabilities:
+            #     drop:
+            #       - ALL
 
     ingress:
       grocy:
