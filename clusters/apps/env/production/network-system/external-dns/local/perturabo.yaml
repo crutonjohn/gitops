@@ -7,7 +7,17 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: workbench.${FAMILY_DOMAIN}
+    - dnsName: perturabo.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
+    - dnsName: minio-perturabo.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
+    - dnsName: s3-perturabo.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:

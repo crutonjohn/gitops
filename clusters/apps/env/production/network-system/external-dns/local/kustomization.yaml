@@ -6,7 +6,7 @@ resources:
   - ./omada.yaml
   - ./monitoring.yaml
   - ./home-automation.yaml
-  - ./workbench.yaml
+  - ./perturabo.yaml
   - ./workstations.yaml
   - ./pihole.yaml
   - ./gaming.yaml
