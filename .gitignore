@@ -43,3 +43,7 @@ cert-sync-kubeconfig
 
 # cloud stuff
 ./cloud/
+
+# talos stuff
+talos/main/out
+talos/main/pxe

@@ -15,15 +15,13 @@ tasks:
       - gen-worker
       - gen-talosconfig
     cmds:
-      - mkdir -p {{.OUTPUT_DIR}}
-      - |
-        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
-          --with-secrets <(sops -d secrets.enc.yaml) \
-          --config-patch @all.patch.yaml \
-          --config-patch @controlplane/cp.patch.yaml \
-          --config-patch @controlplane/horus.patch.yaml \
-          --output-types controlplane
-          --output horus.yaml
+      - mv out/dorn.yaml pxe/00:e0:4c:38:72:38
+      - mv out/fulgrim.yaml pxe/98:b7:85:1e:d8:ad
+      - mv out/guilliman.yaml pxe/58:47:ca:77:75:22
+      - mv out/horus.yaml pxe/00:e0:4c:38:72:38
+      - mv out/lion.yaml pxe/00:e0:4c:38:75:a7
+      - mv out/magnus.yaml pxe/00:e0:4c:38:78:14
+      - mv out/sanguinius.yaml pxe/58:47:ca:76:b6:f1
     preconditions:
       - which talosctl sops
 
