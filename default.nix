@@ -13,5 +13,6 @@
       go-task
       minijinja
       restic
+      talosctl
     ];
 }
