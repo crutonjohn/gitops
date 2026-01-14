@@ -6,9 +6,9 @@
       - interface: enp0s1
         mtu: 9000
         deviceSelector:
-          hardwareAddr: "58:47:ca:77:75:22"
+          hardwareAddr: "98:b7:85:1e:d8:ad"
         dhcp: true
 - op: add
   path: /machine/install
   value:
-    disk: /dev/disk/by-id/nvme-CT1000P3SSD8_24244963F4C8
+    disk: /dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200660
