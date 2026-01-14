@@ -1,10 +1,16 @@
-machine:
-  network:
+---
+- op: add
+  path: /machine/network
+  value:
     interfaces:
       - interface: enp0s1
         mtu: 9000
         deviceSelector:
           hardwareAddr: "00:e0:4c:38:72:38"
         dhcp: true
-  install:
+        vip:
+          ip: 192.168.130.130
+- op: add
+  path: /machine/install
+  value:
     disk: /dev/disk/by-id/ata-HOGE_SSD_256GB_H67124100300043

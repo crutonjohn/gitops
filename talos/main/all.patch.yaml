@@ -1,19 +1,7 @@
----
-- op: add
-  path: /machine/kubelet/extraArgs
-  value: {}
-- op: add
-  path: /machine/kubelet/extraArgs/rotate-server-certificates
-  value: true
-- op: add
-  path: /cluster/network/cni
-  value: {}
-- op: add
-  path: /cluster/network/cni/name
-  value: none
-- op: add
-  path: /machine/network
-  value:
+machine:
+  kubelet:
+    extraArgs: {}
+  network:
     nameservers:
       - 192.168.130.2
       - 192.168.130.3
@@ -46,3 +34,6 @@
         aliases:
           - guilliman
           - guilliman.heyjohn.family
+cluster:
+  network:
+    cni: {}

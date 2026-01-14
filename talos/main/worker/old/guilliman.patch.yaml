@@ -1,10 +1,14 @@
-machine:
-  network:
+---
+- op: add
+  path: /machine/network
+  value:
     interfaces:
       - interface: enp0s1
         mtu: 9000
         deviceSelector:
           hardwareAddr: "58:47:ca:77:75:22"
         dhcp: true
-  install:
+- op: add
+  path: /machine/install
+  value:
     disk: /dev/disk/by-id/nvme-CT1000P3SSD8_24244963F4C8

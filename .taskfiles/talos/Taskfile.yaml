@@ -1,0 +1,131 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+vars:
+  TALOS_RESOURCES_DIR: "{{.ROOT_DIR}}/talos/main"
+  TALOS_KUBE_VIP: "192.168.130.130"
+  OUTPUT_DIR: "{{.TALOS_RESOURCES_DIR}}/out"
+
+tasks:
+  gen-all:
+    desc: Generate machine configs
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - gen-controlplane
+      - gen-worker
+      - gen-talosconfig
+    cmds:
+      - mkdir -p {{.OUTPUT_DIR}}
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @controlplane/cp.patch.yaml \
+          --config-patch @controlplane/horus.patch.yaml \
+          --output-types controlplane
+          --output horus.yaml
+    preconditions:
+      - which talosctl sops
+
+  gen-controlplane:
+    desc: Generate Control Plane Configs
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - make-output
+    cmds:
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @controlplane/cp.patch.yaml \
+          --config-patch @controlplane/horus.patch.yaml \
+          --output-types controlplane \
+          --output {{.OUTPUT_DIR}}/horus.yaml
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @controlplane/cp.patch.yaml \
+          --config-patch @controlplane/magnus.patch.yaml \
+          --output-types controlplane \
+          --output {{.OUTPUT_DIR}}/magnus.yaml
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @controlplane/cp.patch.yaml \
+          --config-patch @controlplane/lion.patch.yaml \
+          --output-types controlplane \
+          --output {{.OUTPUT_DIR}}/lion.yaml
+    preconditions:
+      - which talosctl sops
+
+  gen-worker:
+    desc: Generate Worker Configs
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - make-output
+    cmds:
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @worker/worker.patch.yaml \
+          --config-patch @worker/dorn.patch.yaml \
+          --output-types worker \
+          --output {{.OUTPUT_DIR}}/dorn.yaml
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @worker/worker.patch.yaml \
+          --config-patch @worker/fulgrim.patch.yaml \
+          --output-types worker \
+          --output {{.OUTPUT_DIR}}/fulgrim.yaml
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @worker/worker.patch.yaml \
+          --config-patch @worker/guilliman.patch.yaml \
+          --output-types worker \
+          --output {{.OUTPUT_DIR}}/guilliman.yaml
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --config-patch @all.patch.yaml \
+          --config-patch @worker/worker.patch.yaml \
+          --config-patch @worker/sanguinius.patch.yaml \
+          --output-types worker \
+          --output {{.OUTPUT_DIR}}/sanguinius.yaml
+    preconditions:
+      - which talosctl sops
+
+  gen-talosconfig:
+    desc: Generate Talos Config
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - make-output
+    cmds:
+      - |
+        talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
+          --with-secrets <(sops -d secrets.enc.yaml) \
+          --output-types talosconfig \
+          --output {{.OUTPUT_DIR}}/talosconfig
+    preconditions:
+      - which talosctl sops
+
+  rotate-secrets:
+    desc: Destroys and creates new secrets
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - talosctl gen secrets -o secrets.enc.yaml --force
+      - sops -e -i secrets.enc.yaml
+    preconditions:
+      - which talosctl sops
+
+  make-output:
+    desc: make output dir
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - mkdir -p {{.OUTPUT_DIR}}

@@ -1,11 +1,13 @@
 ---
 creation_rules:
-        - path_regex: clusters/.*.yaml
-          encrypted_regex: ^(data|stringData)$
-          kms: 'arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130'
-        - path_regex: sops-aws.enc.yaml
-          encrypted_regex: ^(data|stringData)$
-          kms: 'arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130'
-        - path_regex: provision/cilium/(production|home-automation).yaml
-          encrypted_regex: ^(key)$
-          kms: 'arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130'
+  - path_regex: clusters/.*.yaml
+    encrypted_regex: ^(data|stringData)$
+    kms: "arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130"
+  - path_regex: sops-aws.enc.yaml
+    encrypted_regex: ^(data|stringData)$
+    kms: "arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130"
+  - path_regex: provision/cilium/(production|home-automation).yaml
+    encrypted_regex: ^(key)$
+    kms: "arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130"
+  - path_regex: talos/main/secrets.enc.yaml
+    kms: "arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130"
