@@ -1,0 +1,19 @@
+---
+- op: add
+  path: /cluster
+  value:
+    controlPlane:
+      endpoint: https://192.168.130.130:6443
+    clusterName: main
+    network:
+      podSubnets:
+        - 10.42.0.0/16
+      serviceSubnets:
+        - 10.43.0.0/16
+    apiServer:
+      image: registry.k8s.io/kube-apiserver:v1.34.1
+      certSANs:
+        - 192.168.130.130
+        - 192.168.130.131
+        - 192.168.130.132
+        - 192.168.130.133

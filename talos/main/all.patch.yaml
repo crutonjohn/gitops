@@ -1,0 +1,48 @@
+---
+- op: add
+  path: /machine/kubelet/extraArgs
+  value: {}
+- op: add
+  path: /machine/kubelet/extraArgs/rotate-server-certificates
+  value: true
+- op: add
+  path: /cluster/network/cni
+  value: {}
+- op: add
+  path: /cluster/network/cni/name
+  value: none
+- op: add
+  path: /machine/network
+  value:
+    nameservers:
+      - 192.168.130.2
+      - 192.168.130.3
+    extraHostEntries:
+      - ip: 192.168.130.131
+        aliases:
+          - horus
+          - horus.heyjohn.family
+      - ip: 192.168.130.132
+        aliases:
+          - lion
+          - lion.heyjohn.family
+      - ip: 192.168.130.133
+        aliases:
+          - magnus
+          - magnus.heyjohn.family
+      - ip: 192.168.130.140
+        aliases:
+          - fulgrim
+          - fulgrim.heyjohn.family
+      - ip: 192.168.130.141
+        aliases:
+          - dorn
+          - dorn.heyjohn.family
+      - ip: 192.168.130.142
+        aliases:
+          - sanguinius
+          - sanguinius.heyjohn.family
+      - ip: 192.168.130.143
+        aliases:
+          - guilliman
+          - guilliman.heyjohn.family
