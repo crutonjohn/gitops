@@ -52,3 +52,13 @@ spec:
       recordType: A
       targets:
         - 192.168.130.4
+    - dnsName: volsync.s3.garage.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
+    - dnsName: volsync.s3.garage.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
