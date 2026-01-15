@@ -17,6 +17,13 @@ tasks:
       - gen-worker
       # - gen-talosconfig
     cmds:
+      - talosctl validate -m metal -c out/dorn.yaml
+      - talosctl validate -m metal -c out/fulgrim.yaml
+      - talosctl validate -m metal -c out/guilliman.yaml
+      - talosctl validate -m metal -c out/horus.yaml
+      - talosctl validate -m metal -c out/lion.yaml
+      - talosctl validate -m metal -c out/magnus.yaml
+      - talosctl validate -m metal -c out/sanguinius.yaml
       - mv out/dorn.yaml pxe/00:e0:4c:38:72:38
       - mv out/fulgrim.yaml pxe/98:b7:85:1e:d8:ad
       - mv out/guilliman.yaml pxe/58:47:ca:77:75:22
