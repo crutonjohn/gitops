@@ -1,0 +1,9 @@
+# for Bmax B3 control plane nodes
+customization:
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/i915
+      - siderolabs/intel-ucode
+      - siderolabs/nut-client
+      - siderolabs/iscsi-tools
+      - siderolabs/nvme-cli

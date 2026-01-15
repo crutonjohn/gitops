@@ -1,0 +1,11 @@
+# extensions for fulgrim
+customization:
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/gasket-driver
+      - siderolabs/amd-ucode
+      - siderolabs/nut-client
+      - siderolabs/nvidia-container-toolkit-production
+      - siderolabs/nonfree-kmod-nvidia-production
+      - siderolabs/iscsi-tools
+      - siderolabs/nvme-cli
