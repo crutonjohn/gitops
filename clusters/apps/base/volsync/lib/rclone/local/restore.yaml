@@ -7,9 +7,9 @@ spec:
   trigger:
     manual: "restore-once-bootstrap"
   rclone:
-    rcloneConfigSection: "local-volsync"
+    rcloneConfigSection: "garage-volsync"
     destinationPVC: "${SRC_PVC}"
-    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/${APP}/${SRC_PVC}"
+    rcloneDestPath: "rclone/${APP}/${SRC_PVC}"
     rcloneConfig: "volsync-b2-rclone-secret"
     copyMethod: "Direct"
     storageClassName: "${STORAGE_CLASS}"
@@ -20,7 +20,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
-      seccompProfile: {type: "RuntimeDefault"}
+      seccompProfile: { type: "RuntimeDefault" }
     moverResources:
       requests:
         cpu: 100m

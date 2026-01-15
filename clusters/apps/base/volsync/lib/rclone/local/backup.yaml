@@ -9,7 +9,7 @@ spec:
     schedule: "${CRON_SCHEDULE:=0 */12 * * *}" # midnight and noon every day
   rclone:
     rcloneConfigSection: "garage-volsync"
-    rcloneDestPath: "${VOLSYNC_LOCAL_BUCKET}/rclone/${APP}/${SRC_PVC}"
+    rcloneDestPath: "rclone/${APP}/${SRC_PVC}"
     rcloneConfig: "volsync-local-rclone-secret"
     copyMethod: Direct
     storageClassName: "${STORAGE_CLASS}"
