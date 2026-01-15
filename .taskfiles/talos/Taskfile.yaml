@@ -5,6 +5,8 @@ vars:
   TALOS_RESOURCES_DIR: "{{.ROOT_DIR}}/talos/main"
   TALOS_KUBE_VIP: "192.168.130.130"
   OUTPUT_DIR: "{{.TALOS_RESOURCES_DIR}}/out"
+  TALOS_VERSION: "v1.12.1"
+  REMOTE_ASSETS_DIR: "/mnt/olympia/docker/netbootxyz/assets/talos"
 
 tasks:
   gen-all:
@@ -13,7 +15,7 @@ tasks:
     deps:
       - gen-controlplane
       - gen-worker
-      - gen-talosconfig
+      # - gen-talosconfig
     cmds:
       - mv out/dorn.yaml pxe/00:e0:4c:38:72:38
       - mv out/fulgrim.yaml pxe/98:b7:85:1e:d8:ad
@@ -22,6 +24,7 @@ tasks:
       - mv out/lion.yaml pxe/00:e0:4c:38:75:a7
       - mv out/magnus.yaml pxe/00:e0:4c:38:78:14
       - mv out/sanguinius.yaml pxe/58:47:ca:76:b6:f1
+      - scp -r pxe/* perturabo:{{.REMOTE_ASSETS_DIR}}/machineconfig/
     preconditions:
       - which talosctl sops
 
@@ -127,3 +130,33 @@ tasks:
     dir: "{{.TALOS_RESOURCES_DIR}}"
     cmds:
       - mkdir -p {{.OUTPUT_DIR}}
+
+  fetch-assets:
+    desc: pull boot assets for talos
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    vars:
+      FULGRIM_SCHEMATIC_ID:
+        sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/fulgrim.yaml https://factory.talos.dev/schematics | jq -r '.id'
+      MS01_SCHEMATIC_ID:
+        sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/ms01.yaml https://factory.talos.dev/schematics | jq -r '.id'
+      BMAXB3_SCHEMATIC_ID:
+        sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/bmaxb3.yaml https://factory.talos.dev/schematics | jq -r '.id'
+    cmds:
+      - |
+        ssh perturabo \
+        "curl -o {{.REMOTE_ASSETS_DIR}}/boot/fulgrim/kernel-amd64 https://factory.talos.dev/image/{{.FULGRIM_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/kernel-amd64"
+      - |
+        ssh perturabo \
+        "curl -o {{.REMOTE_ASSETS_DIR}}/boot/fulgrim/initramfs-amd64.xz https://factory.talos.dev/image/{{.FULGRIM_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/initramfs-amd64.xz"
+      - |
+        ssh perturabo \
+        "curl -o {{.REMOTE_ASSETS_DIR}}/boot/ms01/kernel-amd64 https://factory.talos.dev/image/{{.MS01_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/kernel-amd64"
+      - |
+        ssh perturabo \
+        "curl -o {{.REMOTE_ASSETS_DIR}}/boot/ms01/initramfs-amd64.xz https://factory.talos.dev/image/{{.MS01_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/initramfs-amd64.xz"
+      - |
+        ssh perturabo \
+        "curl -o {{.REMOTE_ASSETS_DIR}}/boot/bmaxb3/kernel-amd64 https://factory.talos.dev/image/{{.BMAXB3_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/kernel-amd64"
+      - |
+        ssh perturabo \
+        "curl -o {{.REMOTE_ASSETS_DIR}}/boot/bmaxb3/initramfs-amd64.xz https://factory.talos.dev/image/{{.BMAXB3_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/initramfs-amd64.xz"
