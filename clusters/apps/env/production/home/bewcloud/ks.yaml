@@ -74,8 +74,8 @@ spec:
       SRC_PVC: bewcloud-data
       # forced by upstream
       APP_UID: "1993"
-      CRON_SCHEDULE: "30 1/12 * * *"
-      LOCAL_SCHEDULE: "35 1/12 * * *"
+      CRON_SCHEDULE: "11 6/12 * * *"
+      LOCAL_SCHEDULE: "15 6/12 * * *"
       STORAGE_CLASS: terra-filesystem
       SNAPSHOT_CLASS: terra-file
       DST_ACCESS_MODE: ReadWriteMany

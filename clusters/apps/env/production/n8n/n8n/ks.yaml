@@ -72,8 +72,8 @@ spec:
     substitute:
       SRC_PVC: n8n-data
       APP_UID: "1000"
-      CRON_SCHEDULE: "10 2/14 * * *"
-      LOCAL_SCHEDULE: "15 2/14 * * *"
+      CRON_SCHEDULE: "36 4/12 * * *"
+      LOCAL_SCHEDULE: "39 4/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce

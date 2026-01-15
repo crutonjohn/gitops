@@ -71,8 +71,8 @@ spec:
     substitute:
       SRC_PVC: grocy-data
       APP_UID: "2353"
-      CRON_SCHEDULE: "20 8/12 * * *"
-      LOCAL_SCHEDULE: "28 8/12 * * *"
+      CRON_SCHEDULE: "1 5/12 * * *"
+      LOCAL_SCHEDULE: "5 5/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce

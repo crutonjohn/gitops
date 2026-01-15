@@ -75,8 +75,8 @@ spec:
       APP: *app
       SRC_PVC: zwavejs-config
       APP_UID: "994"
-      CRON_SCHEDULE: "50 1/12 * * *"
-      LOCAL_SCHEDULE: "55 1/12 * * *"
+      CRON_SCHEDULE: "41 2/12 * * *"
+      LOCAL_SCHEDULE: "45 2/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce

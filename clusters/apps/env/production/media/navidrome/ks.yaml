@@ -75,8 +75,8 @@ spec:
       APP: *app
       SRC_PVC: navidrome-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "30 2/12 * * *"
-      LOCAL_SCHEDULE: "35 2/12 * * *"
+      CRON_SCHEDULE: "51 3/12 * * *"
+      LOCAL_SCHEDULE: "55 3/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
@@ -124,8 +124,8 @@ spec:
       APP: *app
       SRC_PVC: music-library
       APP_UID: "1177"
-      CRON_SCHEDULE: "0 0 * * 2"
-      LOCAL_SCHEDULE: "0 0 * * 3"
+      CRON_SCHEDULE: "0 8 * * 2/20"
+      LOCAL_SCHEDULE: "0 8 * * 3"
       STORAGE_CLASS: terra-filesystem
       SNAPSHOT_CLASS: terra-file
       DST_ACCESS_MODE: ReadWriteMany

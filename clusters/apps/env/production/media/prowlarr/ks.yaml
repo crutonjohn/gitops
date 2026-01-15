@@ -73,8 +73,8 @@ spec:
       APP: *app
       SRC_PVC: prowlarr-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "40 2/12 * * *"
-      LOCAL_SCHEDULE: "45 2/12 * * *"
+      CRON_SCHEDULE: "41 3/12 * * *"
+      LOCAL_SCHEDULE: "45 3/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce

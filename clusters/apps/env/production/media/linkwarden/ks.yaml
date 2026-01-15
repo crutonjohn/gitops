@@ -75,8 +75,8 @@ spec:
       APP: *app
       SRC_PVC: linkwarden-data
       APP_UID: "1447"
-      CRON_SCHEDULE: "20 2/12 * * *"
-      LOCAL_SCHEDULE: "25 2/12 * * *"
+      CRON_SCHEDULE: "51 2/12 * * *"
+      LOCAL_SCHEDULE: "55 2/12 * * *"
       STORAGE_CLASS: terra-blockpool
       SNAPSHOT_CLASS: terra-block
       DST_ACCESS_MODE: ReadWriteOnce

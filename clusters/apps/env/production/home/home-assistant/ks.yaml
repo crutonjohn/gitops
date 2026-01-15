@@ -77,8 +77,8 @@ spec:
     substitute:
       SRC_PVC: home-assistant-config
       APP_UID: "994"
-      CRON_SCHEDULE: "20 1/12 * * *"
-      LOCAL_SCHEDULE: "25 1/12 * * *"
+      CRON_SCHEDULE: "1 2/12 * * *"
+      LOCAL_SCHEDULE: "5 2/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce

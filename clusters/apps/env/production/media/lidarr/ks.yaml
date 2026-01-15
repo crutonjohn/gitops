@@ -76,8 +76,8 @@ spec:
     substitute:
       SRC_PVC: lidarr-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "10 2/12 * * *"
-      LOCAL_SCHEDULE: "15 2/12 * * *"
+      CRON_SCHEDULE: "10 5/12 * * *"
+      LOCAL_SCHEDULE: "15 5/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce

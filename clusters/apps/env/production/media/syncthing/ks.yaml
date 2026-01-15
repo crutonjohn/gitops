@@ -74,8 +74,8 @@ spec:
       APP: *app
       SRC_PVC: syncthing-config
       APP_UID: "1177"
-      CRON_SCHEDULE: "0 3/12 * * *"
-      LOCAL_SCHEDULE: "5 3/12 * * *"
+      CRON_SCHEDULE: "26 3/12 * * *"
+      LOCAL_SCHEDULE: "29 3/12 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
