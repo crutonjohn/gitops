@@ -43,6 +43,8 @@ spec:
                   allow:
                     dns:
                       - "*.${FAMILY_DOMAIN}"
+                      - "*.*.${FAMILY_DOMAIN}"
+                      - "*.*.*.${FAMILY_DOMAIN}"
                     ip:
                       - "192.168.128.0/20"
                   allowWildcardNames: false
