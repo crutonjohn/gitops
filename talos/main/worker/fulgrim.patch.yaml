@@ -8,3 +8,11 @@ machine:
         dhcp: true
   install:
     disk: /dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200660
+  kernel:
+    modules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
+      - name: nvidia_modeset
+  sysctls:
+    net.core.bpf_jit_harden: 1
