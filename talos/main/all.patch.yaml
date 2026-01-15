@@ -36,4 +36,5 @@ machine:
           - guilliman.heyjohn.family
 cluster:
   network:
-    cni: {}
+    cni:
+      name: none

@@ -1,8 +1,7 @@
 machine:
   network:
     interfaces:
-      - interface: enp0s1
-        mtu: 9000
+      - mtu: 9000
         deviceSelector:
           hardwareAddr: "00:e0:4c:38:75:a7"
         dhcp: true
