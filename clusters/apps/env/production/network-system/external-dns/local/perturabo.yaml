@@ -32,3 +32,23 @@ spec:
       recordType: A
       targets:
         - 192.168.130.4
+    - dnsName: admin.garage.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
+    - dnsName: s3.garage.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
+    - dnsName: web.garage.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
+    - dnsName: ui.garage.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.130.4
