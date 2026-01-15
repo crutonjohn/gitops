@@ -23,8 +23,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
-  dependsOn:
-    - name: minio
   postBuild:
     substitute:
       APP: *app
