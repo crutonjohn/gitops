@@ -1,6 +1,10 @@
 machine:
   kubelet:
-    extraArgs: {}
+    extraArgs:
+      feature-gates: ServerSideApply=true
+    nodeIP:
+      validSubnets:
+        - 192.168.130.0/24
   network:
     nameservers:
       - 192.168.130.2
@@ -38,3 +42,6 @@ cluster:
   network:
     cni:
       name: none
+  etcd:
+    advertisedSubnets:
+      - 192.168.130.0/24

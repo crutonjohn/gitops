@@ -1,5 +1,6 @@
 # for ms-01 nodes
 customization:
+  bootloader: sd-boot
   systemExtensions:
     officialExtensions:
       - siderolabs/gasket-driver

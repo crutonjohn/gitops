@@ -1,5 +1,6 @@
 # extensions for fulgrim
 customization:
+  bootloader: sd-boot
   systemExtensions:
     officialExtensions:
       - siderolabs/gasket-driver

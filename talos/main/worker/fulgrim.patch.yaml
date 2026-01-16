@@ -5,6 +5,21 @@ machine:
         deviceSelector:
           hardwareAddr: "98:b7:85:1e:d8:ad"
         dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.130.1
+            metric: 100
+          - network: 192.168.130.1/24
+            gateway: 192.168.130.1
+            metric: 99
+      - mtu: 1500
+        deviceSelector:
+          hardwareAddr: "90:5a:08:75:a3:ba"
+        dhcp: true
+        routes:
+          - network: 192.168.134.1/24
+            gateway: 192.168.134.1
+            metric: 99
   install:
     disk: /dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200660
   kernel:

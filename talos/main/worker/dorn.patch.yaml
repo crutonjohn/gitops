@@ -5,5 +5,20 @@ machine:
         deviceSelector:
           hardwareAddr: "58:47:ca:76:b7:85"
         dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.130.1
+            metric: 100
+          - network: 192.168.130.1/24
+            gateway: 192.168.130.1
+            metric: 99
+      - mtu: 1500
+        deviceSelector:
+          hardwareAddr: "58:47:ca:76:b7:87"
+        dhcp: true
+        routes:
+          - network: 192.168.134.1/24
+            gateway: 192.168.134.1
+            metric: 99
   install:
     disk: /dev/disk/by-id/nvme-CT1000P3SSD8_2424496417ED
