@@ -25,6 +25,15 @@ scrape_configs:
     relabel_configs:
       - target_label: instance
         replacement: home-assistant
+  - job_name: 'garage'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets: ['admin.garage.${FAMILY_DOMAIN}']
+    relabel_configs:
+      - target_label: instance
+        replacement: admin.garage.${FAMILY_DOMAIN}
   - job_name: nut-exporter
     static_configs:
       - targets: ['peanut1.${FAMILY_DOMAIN}', 'peanut2.${FAMILY_DOMAIN}'] # nut exporter
