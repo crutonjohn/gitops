@@ -46,6 +46,7 @@ spec:
                       - "*.garage.${FAMILY_DOMAIN}"
                       - "*.s3.garage.${FAMILY_DOMAIN}"
                       - "*.web.garage.${FAMILY_DOMAIN}"
+                      - "*.ord.${FAMILY_DOMAIN}"
                     ip:
                       - "${HEADSCALE_NETWORK_CIDR}"
                       - "${HOME_NETWORK_CIDR}"
