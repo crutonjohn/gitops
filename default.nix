@@ -1,18 +1,25 @@
 # shell.nix
-{ pkgs ? import <nixpkgs> {} }:
-  pkgs.mkShell {
-    # nativeBuildInputs is usually what you want -- tools you need to run
-    nativeBuildInputs = with pkgs.buildPackages; [
-      cilium-cli
-      k0sctl
-      android-tools
-      envsubst
-      ceph
-      restic
-      pre-commit
-      go-task
-      minijinja
-      restic
-      talosctl
+
+let
+  unstableTarball =
+    fetchTarball
+      https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
+  pkgs = import <nixpkgs> {};
+  unstable = import unstableTarball {};
+
+  shell = pkgs.mkShell {
+    buildInputs = [
+      pkgs.cilium-cli
+      pkgs.k0sctl
+      pkgs.android-tools
+      pkgs.envsubst
+      pkgs.ceph
+      pkgs.restic
+      pkgs.pre-commit
+      pkgs.go-task
+      pkgs.minijinja
+      pkgs.restic
+      unstable.talosctl
     ];
-}
+  };
+in shell
