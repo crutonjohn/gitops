@@ -47,9 +47,10 @@ spec:
                       - "*.s3.garage.${FAMILY_DOMAIN}"
                       - "*.web.garage.${FAMILY_DOMAIN}"
                     ip:
-                      - "192.168.128.0/20"
+                      - "${HEADSCALE_NETWORK_CIDR}"
+                      - "${HOME_NETWORK_CIDR}"
                   allowWildcardNames: false
-            crt: ''
+            crt: ""
             dnsNames:
               - ra.${FAMILY_DOMAIN}
               - step-request-authority-step-certificates.network-system.svc.cluster.local
@@ -67,7 +68,7 @@ spec:
           defaults.json:
             ca-url: ${SMALLSTEP_CA_URL}
             fingerprint: ${SMALLSTEP_CA_FINGERPRINT}
-            redirect-url: ''
+            redirect-url: ""
       enabled: true
       secrets:
         certificate_issuer:
@@ -110,5 +111,5 @@ spec:
     #   port: 443
     #   targetPort: 9000
     #   type: LoadBalancer
-      # annotations:
-      #   io.cilium/lb-ipam-ips: ${CLUSTER_LB_SMALLSTEP}
+    # annotations:
+    #   io.cilium/lb-ipam-ips: ${CLUSTER_LB_SMALLSTEP}
