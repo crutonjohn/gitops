@@ -11,7 +11,7 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
   decryption:
     provider: sops
     secretRef:
@@ -32,7 +32,7 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
   decryption:
     provider: sops
     secretRef:
@@ -52,7 +52,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
   decryption:
     provider: sops
     secretRef:
@@ -85,7 +85,7 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
   decryption:
     provider: sops
     secretRef:
@@ -115,7 +115,7 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -127,7 +127,7 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -139,4 +139,4 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main

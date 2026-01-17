@@ -15,7 +15,7 @@ spec:
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
     namespace: flux-system
   targetNamespace: actions-runner-system
   timeout: 5m
@@ -43,7 +43,7 @@ spec:
       name: sops-aws
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: gitops-main
     namespace: flux-system
   targetNamespace: actions-runner-system
   timeout: 5m
