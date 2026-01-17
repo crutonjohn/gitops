@@ -55,72 +55,72 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/master
-                operator: Exists
-            - matchExpressions:
-              - key: node-role.kubernetes.io/control-plane
-                operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
       nodeSelector:
         node-role.kubernetes.io/control-plane: "true"
       containers:
-      - args:
-        - manager
-        env:
-        - name: vip_arp
-          value: "false"
-        - name: port
-          value: "6443"
-        - name: vip_nodename
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: vip_interface
-          value: lo
-        - name: address
-          value: "192.168.130.130"
-        - name: vip_cidr
-          value: "32"
-        - name: dns_mode
-          value: first
-        - name: cp_enable
-          value: "true"
-        - name: cp_namespace
-          value: kube-system
-        - name: svc_enable
-          value: "false"
-        - name: bgp_enable
-          value: "true"
-        - name: bgp_routerid
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        - name: bgp_routerinterface
-          value: "enp1s0"
-        - name: bgp_as
-          value: "64514"
-        - name: bgp_peeraddress
-        - name: bgp_peerpass
-        - name: bgp_peeras
-          value: "64514"
-        - name: bgp_peers
-          value: 192.168.130.131:64514::false,192.168.130.132:64514::false,192.168.130.133:64514::false
-        - name: prometheus_server
-          value: :2112
-        image: ghcr.io/kube-vip/kube-vip:v0.8.2@sha256:a48dc8d85c7d36876dcc8c0661ac225603936065e51e2e3a92978f036877dcb2
-        imagePullPolicy: IfNotPresent
-        name: kube-vip
-        resources: {}
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-            - NET_RAW
+        - args:
+            - manager
+          env:
+            - name: vip_arp
+              value: "false"
+            - name: port
+              value: "6443"
+            - name: vip_nodename
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: vip_interface
+              value: lo
+            - name: address
+              value: "192.168.130.130"
+            - name: vip_cidr
+              value: "32"
+            - name: dns_mode
+              value: first
+            - name: cp_enable
+              value: "true"
+            - name: cp_namespace
+              value: kube-system
+            - name: svc_enable
+              value: "false"
+            - name: bgp_enable
+              value: "true"
+            - name: bgp_routerid
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: bgp_routerinterface
+              value: "net0"
+            - name: bgp_as
+              value: "64514"
+            - name: bgp_peeraddress
+            - name: bgp_peerpass
+            - name: bgp_peeras
+              value: "64514"
+            - name: bgp_peers
+              value: 192.168.130.131:64514::false,192.168.130.132:64514::false,192.168.130.133:64514::false
+            - name: prometheus_server
+              value: :2112
+          image: ghcr.io/kube-vip/kube-vip:v0.8.2@sha256:a48dc8d85c7d36876dcc8c0661ac225603936065e51e2e3a92978f036877dcb2
+          imagePullPolicy: IfNotPresent
+          name: kube-vip
+          resources: {}
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
       hostNetwork: true
       serviceAccountName: kube-vip
       tolerations:
-      - effect: NoSchedule
-        operator: Exists
-      - effect: NoExecute
-        operator: Exists
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
   updateStrategy: {}
