@@ -41,6 +41,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: kube-vip-ds
+      app.kubernetes.io/version: v1.0.3
   template:
     metadata:
       creationTimestamp: null
@@ -53,13 +54,15 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: node-role.kubernetes.io/master
-                    operator: Exists
-              - matchExpressions:
                   - key: node-role.kubernetes.io/control-plane
                     operator: Exists
       nodeSelector:
-        node-role.kubernetes.io/control-plane: "true"
+        heyjohn.family/role: control-plane
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
       containers:
         - args:
             - manager

@@ -9,12 +9,6 @@ cluster:
       - 192.168.130.0/24
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-  clusterName: main
-  # network:
-  #   podSubnets:
-  #     - 10.42.0.0/16
-  #   serviceSubnets:
-  #     - 10.43.0.0/16
   apiServer:
     image: registry.k8s.io/kube-apiserver:v1.34.1
     certSANs:
@@ -61,3 +55,11 @@ apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 200GiB

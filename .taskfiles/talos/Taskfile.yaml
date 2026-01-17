@@ -8,6 +8,12 @@ vars:
   OUTPUT_PXE_DIR: "{{.TALOS_RESOURCES_DIR}}/pxe"
   TALOS_VERSION: "v1.12.1"
   REMOTE_ASSETS_DIR: "/mnt/olympia/docker/netbootxyz/assets/talos"
+  FULGRIM_SCHEMATIC_ID:
+    sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/fulgrim.yaml https://factory.talos.dev/schematics | jq -r '.id'
+  MS01_SCHEMATIC_ID:
+    sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/ms01.yaml https://factory.talos.dev/schematics | jq -r '.id'
+  BMAXB3_SCHEMATIC_ID:
+    sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/bmaxb3.yaml https://factory.talos.dev/schematics | jq -r '.id'
 
 tasks:
   gen-all:
@@ -17,6 +23,7 @@ tasks:
       - gen-controlplane
       - gen-worker
       - gen-talosconfig
+      - gen-assets
     cmds:
       # Workers
       ## 1g
@@ -26,7 +33,7 @@ tasks:
       ## 1g
       # - cp out/fulgrim.yaml pxe/90:5a:08:75:a3:ba
       ## 10g
-      - cp out/fulgrim.yaml pxe/98:b7:85:1e:d8:ad
+      - cp out/fulgrim.yaml pxe/90:5a:08:75:a3:ba
       ## 1g
       # - cp out/guilliman.yaml pxe/58:47:ca:77:75:24
       ## 10g
@@ -76,7 +83,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/horus.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.BMAXB3_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/horus.yaml
       - |
         talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
@@ -89,7 +97,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/magnus.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.BMAXB3_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/magnus.yaml
       - |
         talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
@@ -102,7 +111,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/lion.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.BMAXB3_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/lion.yaml
     preconditions:
       - which talosctl sops
@@ -124,7 +134,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/dorn.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.MS01_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/dorn.yaml
       - |
         talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
@@ -137,7 +148,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/fulgrim.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.FULGRIM_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/fulgrim.yaml
       - |
         talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
@@ -150,7 +162,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/guilliman.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.MS01_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/guilliman.yaml
       - |
         talosctl gen config main https://{{.TALOS_KUBE_VIP}}:6443 \
@@ -163,7 +176,8 @@ tasks:
           --output {{.OUTPUT_DIR}}/sanguinius.yaml \
           --force \
           --with-docs=false \
-          --with-examples=false
+          --with-examples=false \
+          --install-image="factory.talos.dev/installer/{{.MS01_SCHEMATIC_ID}}:{{.TALOS_VERSION}}"
       - talosctl validate -m metal -c {{.OUTPUT_DIR}}/sanguinius.yaml
     preconditions:
       - which talosctl sops
@@ -200,16 +214,29 @@ tasks:
       - mkdir -p {{.OUTPUT_DIR}}
       - mkdir -p {{.OUTPUT_PXE_DIR}}
 
-  fetch-assets:
+  full-cluster-reset:
+    desc: resets all talos hosts and nukes boot disk
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - talosctl reset -e 192.168.130.140 -n 192.168.130.140 --wipe-mode system-disk --reboot=true
+      - talosctl reset -e 192.168.130.141 -n 192.168.130.141 --wipe-mode system-disk --reboot=true
+      - talosctl reset -e 192.168.130.142 -n 192.168.130.142 --wipe-mode system-disk --reboot=true
+      - talosctl reset -e 192.168.130.143 -n 192.168.130.143 --wipe-mode system-disk --reboot=true
+      - talosctl reset -e 192.168.130.131 -n 192.168.130.131 --wipe-mode system-disk --reboot=true
+      - talosctl reset -e 192.168.130.132 -n 192.168.130.132 --wipe-mode system-disk --reboot=true
+      - talosctl reset -e 192.168.130.133 -n 192.168.130.133 --wipe-mode system-disk --reboot=true
+
+  force-reset:
+    desc: forcefully resets a node, nuke boot (task talos:force-reset -- 192.168.130.141)
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - echo "talosctl reset -e {{.CLI_ARGS}} -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=false --reboot=true"
+      - sleep 5
+      - talosctl reset -e {{.CLI_ARGS}} -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=false --reboot=true
+
+  gen-assets:
     desc: pull boot assets for talos
     dir: "{{.TALOS_RESOURCES_DIR}}"
-    vars:
-      FULGRIM_SCHEMATIC_ID:
-        sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/fulgrim.yaml https://factory.talos.dev/schematics | jq -r '.id'
-      MS01_SCHEMATIC_ID:
-        sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/ms01.yaml https://factory.talos.dev/schematics | jq -r '.id'
-      BMAXB3_SCHEMATIC_ID:
-        sh: curl -s -X POST --data-binary @{{.TALOS_RESOURCES_DIR}}/img/bmaxb3.yaml https://factory.talos.dev/schematics | jq -r '.id'
     cmds:
       - ssh perturabo \
         "mkdir -p {{.REMOTE_ASSETS_DIR}}/boot/{{.TALOS_VERSION}}/fulgrim"

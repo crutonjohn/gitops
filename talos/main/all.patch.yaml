@@ -1,7 +1,6 @@
 machine:
   kubelet:
     extraArgs:
-      enable-aggregator-routing: "true"
       feature-gates: "MutatingAdmissionPolicy=true"
     nodeIP:
       validSubnets:
@@ -20,6 +19,7 @@ machine:
     net.ipv4.tcp_fastopen: "3"
     user.max_user_namespaces: "11255"
     net.ipv4.tcp_congestion_control: bbr
+    kernel.kexec_load_disabled: "1"
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -39,6 +39,7 @@ machine:
         nconnect=16
         noatime=True
 cluster:
+  clusterName: mainv2
   network:
     cni:
       name: none

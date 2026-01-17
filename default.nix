@@ -20,6 +20,7 @@ let
       pkgs.minijinja
       pkgs.restic
       unstable.talosctl
+      unstable.fluxcd
     ];
   };
 in shell

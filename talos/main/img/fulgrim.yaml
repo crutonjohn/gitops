@@ -1,12 +1,22 @@
 # extensions for fulgrim
 customization:
-  bootloader: sd-boot
+  extraKernelArgs:
+    - -init_on_alloc
+    - -init_on_free
+    - -selinux
+    - apparmor=0
+    - init_on_alloc=0
+    - init_on_free=0
+    - mitigations=off
+    - security=none
+    - talos.auditd.disabled=1
   systemExtensions:
     officialExtensions:
-      - siderolabs/gasket-driver
       - siderolabs/amd-ucode
+      - siderolabs/gasket-driver
+      - siderolabs/iscsi-tools
+      - siderolabs/nonfree-kmod-nvidia-production
       - siderolabs/nut-client
       - siderolabs/nvidia-container-toolkit-production
-      - siderolabs/nonfree-kmod-nvidia-production
-      - siderolabs/iscsi-tools
       - siderolabs/nvme-cli
+  bootloader: sd-boot
