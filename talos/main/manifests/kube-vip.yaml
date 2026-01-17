@@ -32,7 +32,7 @@ subjects:
     name: kube-vip
     namespace: kube-system
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: kube-vip
