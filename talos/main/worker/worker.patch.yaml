@@ -1,3 +1,35 @@
 machine:
   nodeLabels:
     heyjohn.family/bgp: worker
+    node.kubernetes.io/gpu: "true"
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 400GiB
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: net0
+up: true
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: net0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: net0.3002
+vlanID: 3002
+parent: net0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m

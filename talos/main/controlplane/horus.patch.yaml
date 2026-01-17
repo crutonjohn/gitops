@@ -1,9 +1,12 @@
 machine:
-  network:
-    interfaces:
-      - mtu: 9000
-        deviceSelector:
-          hardwareAddr: "00:e0:4c:38:72:38"
-        dhcp: true
+  certSANs:
+    - 192.168.130.131
+    - horus.heyjohn.family
   install:
     disk: /dev/disk/by-id/ata-HOGE_SSD_256GB_H67124100300043
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: mac(link.permanent_addr).matches("00:e0:4c:38:72:38")

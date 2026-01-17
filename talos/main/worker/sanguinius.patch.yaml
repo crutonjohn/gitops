@@ -1,24 +1,12 @@
 machine:
-  network:
-    interfaces:
-      - mtu: 9000
-        deviceSelector:
-          hardwareAddr: "58:47:ca:76:b6:f1"
-        dhcp: true
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.130.1
-            metric: 100
-          - network: 192.168.130.1/24
-            gateway: 192.168.130.1
-            metric: 99
-      - mtu: 1500
-        deviceSelector:
-          hardwareAddr: "58:47:ca:76:b6:f3"
-        dhcp: true
-        routes:
-          - network: 192.168.134.1/24
-            gateway: 192.168.134.1
-            metric: 99
+  certSANs:
+    - 192.168.130.142
+    - sanguinius.heyjohn.family
   install:
     disk: /dev/disk/by-id/nvme-CT1000P3SSD8_24244963E274
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: mac(link.permanent_addr).matches("58:47:ca:76:b6:f1")

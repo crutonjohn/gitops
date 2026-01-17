@@ -1,47 +1,107 @@
 machine:
   kubelet:
     extraArgs:
-      feature-gates: ServerSideApply=true
+      enable-aggregator-routing: "true"
+      feature-gates: "MutatingAdmissionPolicy=true"
     nodeIP:
       validSubnets:
         - 192.168.130.0/24
-  network:
-    nameservers:
-      - 192.168.130.2
-      - 192.168.130.3
-    extraHostEntries:
-      - ip: 192.168.130.131
-        aliases:
-          - horus
-          - horus.heyjohn.family
-      - ip: 192.168.130.132
-        aliases:
-          - lion
-          - lion.heyjohn.family
-      - ip: 192.168.130.133
-        aliases:
-          - magnus
-          - magnus.heyjohn.family
-      - ip: 192.168.130.140
-        aliases:
-          - fulgrim
-          - fulgrim.heyjohn.family
-      - ip: 192.168.130.141
-        aliases:
-          - dorn
-          - dorn.heyjohn.family
-      - ip: 192.168.130.142
-        aliases:
-          - sanguinius
-          - sanguinius.heyjohn.family
-      - ip: 192.168.130.143
-        aliases:
-          - guilliman
-          - guilliman.heyjohn.family
+  kernel:
+    modules:
+      - name: nbd
+  sysctls:
+    fs.inotify.max_user_instances: "8192"
+    fs.inotify.max_user_watches: "1048576"
+    net.core.rmem_max: "67108864"
+    net.core.wmem_max: "67108864"
+    net.ipv4.neigh.default.gc_thresh1: "4096"
+    net.ipv4.neigh.default.gc_thresh2: "8192"
+    net.ipv4.neigh.default.gc_thresh3: "16384"
+    net.ipv4.tcp_fastopen: "3"
+    user.max_user_namespaces: "11255"
+    net.ipv4.tcp_congestion_control: bbr
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.cri.v1.runtime"]
+          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
+          device_ownership_from_security_context = true
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        nconnect=16
+        noatime=True
 cluster:
   network:
     cni:
       name: none
-  etcd:
-    advertisedSubnets:
-      - 192.168.130.0/24
+    podSubnets:
+      - 10.42.0.0/16
+    serviceSubnets:
+      - 10.43.0.0/16
+  controlPlane:
+    endpoint: https://192.168.130.130:6443
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.131
+hostnames:
+  - horus
+  - horus.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.132
+hostnames:
+  - lion
+  - lion.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.133
+hostnames:
+  - magnus
+  - magnus.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.140
+hostnames:
+  - fulgrim
+  - fulgrim.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.141
+hostnames:
+  - dorn
+  - dorn.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.142
+hostnames:
+  - sanguinius
+  - sanguinius.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: StaticHostConfig
+name: 192.168.130.143
+hostnames:
+  - guilliman
+  - guilliman.heyjohn.family
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+  - address: 192.168.130.2
+  - address: 192.168.130.3
+searchDomains:
+  disableDefault: true

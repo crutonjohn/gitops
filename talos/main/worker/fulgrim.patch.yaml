@@ -1,25 +1,7 @@
 machine:
-  network:
-    interfaces:
-      - mtu: 9000
-        deviceSelector:
-          hardwareAddr: "98:b7:85:1e:d8:ad"
-        dhcp: true
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.130.1
-            metric: 100
-          - network: 192.168.130.1/24
-            gateway: 192.168.130.1
-            metric: 99
-      - mtu: 1500
-        deviceSelector:
-          hardwareAddr: "90:5a:08:75:a3:ba"
-        dhcp: true
-        routes:
-          - network: 192.168.134.1/24
-            gateway: 192.168.134.1
-            metric: 99
+  certSANs:
+    - 192.168.130.140
+    - fulgrim.heyjohn.family
   install:
     disk: /dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200660
   kernel:
@@ -30,3 +12,9 @@ machine:
       - name: nvidia_modeset
   sysctls:
     net.core.bpf_jit_harden: 1
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: mac(link.permanent_addr).matches("98:b7:85:1e:d8:ad")

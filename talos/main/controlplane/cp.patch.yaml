@@ -1,12 +1,20 @@
+machine:
+  nodeLabels:
+    heyjohn.family/role: control-plane
 cluster:
   controlPlane:
     endpoint: https://192.168.130.130:6443
+  etcd:
+    advertisedSubnets:
+      - 192.168.130.0/24
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
   clusterName: main
-  network:
-    podSubnets:
-      - 10.42.0.0/16
-    serviceSubnets:
-      - 10.43.0.0/16
+  # network:
+  #   podSubnets:
+  #     - 10.42.0.0/16
+  #   serviceSubnets:
+  #     - 10.43.0.0/16
   apiServer:
     image: registry.k8s.io/kube-apiserver:v1.34.1
     certSANs:
@@ -14,6 +22,42 @@ cluster:
       - 192.168.130.131
       - 192.168.130.132
       - 192.168.130.133
+  scheduler:
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+    extraArgs:
+      bind-address: 0.0.0.0
   extraManifests:
     # Kube VIP
     - https://raw.githubusercontent.com/crutonjohn/gitops/refs/heads/main/talos/main/manifests/kube-vip.yaml
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: net0
+up: true
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: net0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
