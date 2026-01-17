@@ -1,135 +1,95 @@
+# https://docs.cilium.io/en/v1.15/helm-reference/
 cluster:
-    id: 1
-    name: production
+  id: 1
+  name: main
 k8sServiceHost: localhost
-k8sServicePort: 7443
+k8sServicePort: 7445
 kubeProxyReplacement: strict
 l7Proxy: false
 l2announcements:
-    enabled: false
+  enabled: false
 loadBalancer:
-    algorithm: maglev
-devices: enp1s0
+  algorithm: maglev
+# devices: enp1s0
 bgpControlPlane:
-    enabled: true
+  enabled: true
 externalIPs:
-    enabled: true
+  enabled: true
 bpf:
-    masquerade: true
-podAnnotations:
-    container.apparmor.security.beta.kubernetes.io/cilium-agent: unconfined
-    container.apparmor.security.beta.kubernetes.io/clean-cilium-state: unconfined
-    container.apparmor.security.beta.kubernetes.io/mount-cgroup: unconfined
-    container.apparmor.security.beta.kubernetes.io/apply-sysctl-overwrites: unconfined
+  masquerade: true
+# podAnnotations:
+#     container.apparmor.security.beta.kubernetes.io/cilium-agent: unconfined
+#     container.apparmor.security.beta.kubernetes.io/clean-cilium-state: unconfined
+#     container.apparmor.security.beta.kubernetes.io/mount-cgroup: unconfined
+#     container.apparmor.security.beta.kubernetes.io/apply-sysctl-overwrites: unconfined
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
 cni:
-    exclusive: false
+  exclusive: false
 hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+    serviceMonitor:
+      enabled: false
+  relay:
     enabled: true
-    metrics:
-        enabled:
-            - dns:query;ignoreAAAA
-            - drop
-            - tcp
-            - flow
-            - port-distribution
-            - icmp
-            - http
-        serviceMonitor:
-            enabled: false
-    relay:
-        enabled: true
-        rollOutPods: true
-        prometheus:
-            serviceMonitor:
-                enabled: false
-    ui:
-        enabled: true
-        rollOutPods: true
-        ingress:
-            enabled: false
-ipam:
-    mode: kubernetes
-operator:
-    replicas: 1
     rollOutPods: true
     prometheus:
-        enabled: true
-        serviceMonitor:
-            enabled: false
-prometheus:
+      serviceMonitor:
+        enabled: false
+  ui:
+    enabled: true
+    rollOutPods: true
+    ingress:
+      enabled: false
+ipam:
+  mode: kubernetes
+operator:
+  replicas: 1
+  rollOutPods: true
+  prometheus:
     enabled: true
     serviceMonitor:
-        enabled: false
+      enabled: false
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: false
 rollOutCiliumPods: true
 encryption:
-    enabled: false
-    type: wireguard
-    nodeEncryption: false
+  enabled: false
 egressGateway:
-    enabled: false
+  enabled: false
 serviceAccounts:
-    cilium:
-        name: cilium
-    operator:
-        name: cilium-operator
-tls:
-    ca:
-        cert: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFekNDQWZ1Z0F3SUJBZ0lRYVgzKy9EL0tacHdaSy9UYm5sSWVDVEFOQmdrcWhraUc5dzBCQVFzRkFEQVUKTVJJd0VBWURWUVFERXdsRGFXeHBkVzBnUTBFd0hoY05NalF3TWpFMU1UWTBNRFUxV2hjTk1qY3dNakUwTVRZMApNRFUxV2pBVU1SSXdFQVlEVlFRREV3bERhV3hwZFcwZ1EwRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCCkR3QXdnZ0VLQW9JQkFRRGhLNFNPelpnRmhabVpIWjZHTDFOTks4WUxHQnIrU2hNdXIrMEJKM01mcXlSblRzUWUKNld4MmkwbEJ2ZjkrMkNOcUdvYUpUSGtVWDltQWVsWG9uYUQ2NktWTUtjaXhjZzl0cGNFZHlwekpCRzlpUVBZaQpWUE5RZ0NURE0vK0tZcmwyai9IcUF2VVFyaTh3a2JwQTFpeFpjbWRLWUluZEh6amRwcjJMd3VNdzdaRFVvMlEwCnlwN25nMHVINXhqVEF0UGs5K1BsM1NhSk1wa0VETUt6QytBZ2NBZm5MTGZJWDNYNjh3ZndVTWNCWWlTNXlsWlMKamJ3c2w3U0cwNFErTmxyVlRBbkVFNGQyRGpXa2x2aW1xaXcrSVNUWmRaQ1ZNYythRXVmY2R1V1F4VEdnZmgwVgpJbDZsSnVTZWdVVzEyRk9pbldLVVYyaEtTN1BYS0RpUXlTNy9BZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFCkF3SUNwREFkQmdOVkhTVUVGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0R3WURWUjBUQVFIL0JBVXcKQXdFQi96QWRCZ05WSFE0RUZnUVVxMVFGT1BlWEpaYVVza3ljdXczRGEwQVZKK1l3RFFZSktvWklodmNOQVFFTApCUUFEZ2dFQkFHeVc3WXl0SmpNUVpabW5DRVhsbUFHTzBIMytpMXNicnpHdnd0MVQ5bmFqbC9JLy9hK2pWQmUvCnBsVXNwVWduMTh0RU9ySFVUTUNmWlNDWnpITUUzby83cWNVSHNNZ2h4OC9YZG12Qm1ld1E0MXVxYzNvNjdKSS8KUWlGRkZOZzBsZTdCNlhrWHRqT1k3dmM2TlFSUWVxdW9KZjRYZ0FGNXNWMUVFLzUvc0txTkU2dGlxNnlFbVhPNgprRzA3N3RLcDQ4MzBBaFlTWTFiTkZ5T3R2MFZDUGxRTE9PQW5aUXAwdDBlYm5zZWVabS9kUFJ4TnArdkRJU0t2CnRpWlBjNkJJWnZXK01UaEFRMkN3VmZYMDIzR3lvWTFJclFObzRiTnFKUDZWSUQ5U3V3WllFa2pHTnVkenhOMUcKbGtrdTErY3FZZDFiT2VjenhyYjVDVzB1QitscXI3cz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
-        key: ENC[AES256_GCM,data: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,iv:zGLmvFD0xLAeMzbuazc5MrA8aS6+/JYaI40GXdsNWZw=,tag:GpWivgQySg06jYf1tiUCqg==,type:str]
-clustermesh:
-    useAPIServer: false
-    maxConnectedClusters: 255
-    config:
-        enabled: false
-        domain: mesh.cilium.io
-        clusters:
-            - name: home-automation
-              address: home-automation.mesh.cilium.io
-              port: 32002
-              ips:
-                - 192.168.130.56
-              tls:
-                cert: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNmRENDQVdTZ0F3SUJBZ0lVRk4zeW9sRGltR21Kdm9DSCtJUzRFRkZIS1Frd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0ZERVNNQkFHQTFVRUF4TUpRMmxzYVhWdElFTkJNQjRYRFRJME1ESXhOekExTkRRd01Gb1hEVEkzTURJeApOakExTkRRd01Gb3dFVEVQTUEwR0ExVUVBeE1HY21WdGIzUmxNRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBECkFRY0RRZ0FFMnQ1V0xCSW5LQlpSWGd2c2Y3ZU42ZFIvNnZtRnM0VTVxcEIxSjZNL04zc2gzMXA4bUoyMTlldGcKeGZNbFd4Vm5qZWJCNXNxc0dzYUJMVkVZSllOVHBLT0JrekNCa0RBT0JnTlZIUThCQWY4RUJBTUNCYUF3SFFZRApWUjBsQkJZd0ZBWUlLd1lCQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQXdHQTFVZEV3RUIvd1FDTUFBd0hRWURWUjBPCkJCWUVGT2VwSTdLY0NqVDdZWFRWTmpFNDlKdHFNVWI5TUI4R0ExVWRJd1FZTUJhQUZLdFVCVGozbHlXV2xMSk0KbkxzTncydEFGU2ZtTUJFR0ExVWRFUVFLTUFpQ0JuSmxiVzkwWlRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQQp0Y3hrY0VVN3VtaUVLMkxoMGxWYWJydmVDVzdRVlZ0ekFOTDRGWkJ1RHQvcWlYYWpaTEpWTWx2aDc0bmRwQTBsCkZhSFlBS203NktUOFNad001SjJLWFFKWTlSVkpuZkFRdzVoMnBrOXNiQTF2ckN1RUw1STNTWUpwMGVjZzlPR3MKMFl2aS8yaWIrM2xUdmxkc2pMZEhsSklZNFRrOG1CdVl2L04zUkVkUndGVTVvZjRPa1dWUnpVc25FVVNTUVcrSQpEWmZxbE9jM2xFNkIrV002dXJUMVRSaktoUTVMcGtDcXc5RWh5OWZnOHNOVzUydFl6NVNpTkV4MFdhMk9TT3NzCi9pZDdUbks1cUFVWndOSGlNTGtOc2RUTEFQWk4zclpLQlNVbVBVcER0SVhlRVowYXR1S3FiWGIrZTlQZE5NODAKNytnbzNNd1ZpL3RsQUhhYnBYVldKUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-                key: ENC[AES256_GCM,data:xgTSVgEPPxjKNggEGLLOE1jgyBDAXJLaSOFHkRFWE46TOe94ibaRVWzarldalyJWVbvE3H+B72Jo9J6DoxTz8WzzNcJR2C7k65IfstuSjXjhujDYI/HO/QJPvCqjZYG/1fwR1tilZ/byDr0GkuU5du7N9ducNgXb0SGkSf6XlZoYfVk5E8jVcAzv+akgNaAJLrrwqx4R7rVVT2VvYovRHyVm9PtYTX5YT5afup32l4e7jrcQjrGOwLcIsqa/bcXUv1wiIeuVpMJLHcq/I1QGUXioAAlxGE+00B1+6/V1tojcfAzD/2VVEgfrkllhEus3aKwK5WRH0RmJKZOHdHBygcnhB2HqMvDN5QVt7UL/sRoXP1zFa+pFDWhqnrdcUCwGiQyIqSM9XyT9eW58Hl90dA==,iv:eCW+iXRKFim5ArK14wjTSIoLawhtO15JB2Zed14TPL0=,tag:JElOaguTDpw7TCeWXIb0Sg==,type:str]
-                caCert: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFekNDQWZ1Z0F3SUJBZ0lRYVgzKy9EL0tacHdaSy9UYm5sSWVDVEFOQmdrcWhraUc5dzBCQVFzRkFEQVUKTVJJd0VBWURWUVFERXdsRGFXeHBkVzBnUTBFd0hoY05NalF3TWpFMU1UWTBNRFUxV2hjTk1qY3dNakUwTVRZMApNRFUxV2pBVU1SSXdFQVlEVlFRREV3bERhV3hwZFcwZ1EwRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCCkR3QXdnZ0VLQW9JQkFRRGhLNFNPelpnRmhabVpIWjZHTDFOTks4WUxHQnIrU2hNdXIrMEJKM01mcXlSblRzUWUKNld4MmkwbEJ2ZjkrMkNOcUdvYUpUSGtVWDltQWVsWG9uYUQ2NktWTUtjaXhjZzl0cGNFZHlwekpCRzlpUVBZaQpWUE5RZ0NURE0vK0tZcmwyai9IcUF2VVFyaTh3a2JwQTFpeFpjbWRLWUluZEh6amRwcjJMd3VNdzdaRFVvMlEwCnlwN25nMHVINXhqVEF0UGs5K1BsM1NhSk1wa0VETUt6QytBZ2NBZm5MTGZJWDNYNjh3ZndVTWNCWWlTNXlsWlMKamJ3c2w3U0cwNFErTmxyVlRBbkVFNGQyRGpXa2x2aW1xaXcrSVNUWmRaQ1ZNYythRXVmY2R1V1F4VEdnZmgwVgpJbDZsSnVTZWdVVzEyRk9pbldLVVYyaEtTN1BYS0RpUXlTNy9BZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFCkF3SUNwREFkQmdOVkhTVUVGakFVQmdnckJnRUZCUWNEQVFZSUt3WUJCUVVIQXdJd0R3WURWUjBUQVFIL0JBVXcKQXdFQi96QWRCZ05WSFE0RUZnUVVxMVFGT1BlWEpaYVVza3ljdXczRGEwQVZKK1l3RFFZSktvWklodmNOQVFFTApCUUFEZ2dFQkFHeVc3WXl0SmpNUVpabW5DRVhsbUFHTzBIMytpMXNicnpHdnd0MVQ5bmFqbC9JLy9hK2pWQmUvCnBsVXNwVWduMTh0RU9ySFVUTUNmWlNDWnpITUUzby83cWNVSHNNZ2h4OC9YZG12Qm1ld1E0MXVxYzNvNjdKSS8KUWlGRkZOZzBsZTdCNlhrWHRqT1k3dmM2TlFSUWVxdW9KZjRYZ0FGNXNWMUVFLzUvc0txTkU2dGlxNnlFbVhPNgprRzA3N3RLcDQ4MzBBaFlTWTFiTkZ5T3R2MFZDUGxRTE9PQW5aUXAwdDBlYm5zZWVabS9kUFJ4TnArdkRJU0t2CnRpWlBjNkJJWnZXK01UaEFRMkN3VmZYMDIzR3lvWTFJclFObzRiTnFKUDZWSUQ5U3V3WllFa2pHTnVkenhOMUcKbGtrdTErY3FZZDFiT2VjenhyYjVDVzB1QitscXI3cz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
-    apiserver:
-        kvstoremesh:
-            enabled: false
-        service:
-            type: NodePort
-            nodePort: 32001
-            externalTrafficPolicy: Cluster
-            internalTrafficPolicy: Cluster
-        tls:
-            authMode: legacy
-            auto:
-                enabled: true
-                method: cronJob
-                certValidityDuration: 1095
-            server:
-                cert: ""
-                key: ""
-            admin:
-                cert: ""
-                key: ""
-            client:
-                cert: ""
-                key: ""
-            remote:
-                cert: ""
-                key: ""
-sops:
-    kms:
-        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
-          created_at: "2024-02-18T19:53:01Z"
-          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwHEOmqJhZLDvALLwPCFrreGAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMUK2dEM3YCp+C1UrRAgEQgDseFQFIr2fxiIjp5CSOMbjped2GKTNUg1wli1Ooa/9uFWeTCqxUupuey/I/bJXeUsRKzfBk2aIQIaGt5A==
-          aws_profile: ""
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2024-09-10T03:54:43Z"
-    mac: ENC[AES256_GCM,data:b0ungD1VdUTy40O8b83OMiP9nuXv5LtWLYPlPz3kPJWq29+7MGwi35Tu0WybFHqx+lhRZekRhFLLy2WOCJGY0pgO95A2IwmoghVV5/6ZD5nwIm4WWtpOEyYj79jocDvbGGo4ydsEVmYVcHmbU5R3yz/oHxm3M38mUIjFexJ8GvI=,iv:QAKOpsHi+yCsKpV5Ltp8+yNYtqNxckv/wLIFoVD5h4o=,tag:kqcrTzpgE7pSbeoGPfOKXQ==,type:str]
-    pgp: []
-    encrypted_regex: ^(key)$
-    version: 3.9.0
+  cilium:
+    name: cilium
+  operator:
+    name: cilium-operator
