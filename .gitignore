@@ -47,3 +47,4 @@ cert-sync-kubeconfig
 # talos stuff
 talos/main/out
 talos/main/pxe
+talosconfig
