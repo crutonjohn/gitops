@@ -101,7 +101,7 @@ spec:
             - name: bgp_peeraddress
             - name: bgp_peerpass
             - name: bgp_peeras
-              # value: "64514"
+              value: "64514"
             - name: bgp_peers
               value: 192.168.130.131:64514::false,192.168.130.132:64514::false,192.168.130.133:64514::false
             - name: address
@@ -119,9 +119,6 @@ spec:
                 - NET_RAW
               drop:
                 - ALL
-          volumeMounts:
-            - mountPath: /etc/kubernetes/admin.conf
-              name: kubeconfig
       hostAliases:
         - hostnames:
             - kubernetes
