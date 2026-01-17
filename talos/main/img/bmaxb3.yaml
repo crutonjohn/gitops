@@ -1,6 +1,16 @@
 # for Bmax B3 control plane nodes
 customization:
   bootloader: sd-boot
+  extraKernelArgs:
+    - -init_on_alloc # Less security, faster puter
+    - -init_on_free # Less security, faster puter
+    - -selinux # Less security, faster puter
+    - apparmor=0 # Less security, faster puter
+    - init_on_alloc=0 # Less security, faster puter
+    - init_on_free=0 # Less security, faster puter
+    - mitigations=off # Less security, faster puter
+    - security=none # Less security, faster puter
+    - talos.auditd.disabled=1 # Less security, faster puter
   systemExtensions:
     officialExtensions:
       - siderolabs/i915
@@ -8,3 +18,4 @@ customization:
       - siderolabs/nut-client
       - siderolabs/iscsi-tools
       - siderolabs/nvme-cli
+      - siderolabs/realtek-firmware
