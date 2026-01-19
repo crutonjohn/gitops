@@ -52,6 +52,14 @@ tasks:
     preconditions:
       - which talosctl sops
 
+  apply-config:
+    desc: apply a config to a node [task talos:apply-config -- horus]
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - curl http://boot.heyjohn.family/talos/machineconfig/{{.CLI_ARGS}} > tmp.yaml
+      - talosctl apply-config -e 192.168.130.131 -n {{.CLI_ARGS}} -f tmp.yaml
+      - rm -f tmp.yaml
+
   push-configs:
     desc: Push configs to Perturabo
     dir: "{{.TALOS_RESOURCES_DIR}}"

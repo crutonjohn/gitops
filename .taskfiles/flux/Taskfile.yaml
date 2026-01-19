@@ -2,6 +2,19 @@
 version: "3"
 
 tasks:
+  bootstrap:
+    desc: bootstrap main cluster
+    cmds:
+      - flux install
+      - |
+        flux create source git gitops-main \
+          --url=https://github.com/crutonjohn/gitops \
+          --branch=main \
+          --interval=3m \
+          --namespace flux-system
+      - sops -d sops-aws.enc.yaml | k apply -f -
+      - kubectl apply -f https://raw.githubusercontent.com/crutonjohn/gitops/refs/heads/main/clusters/env/production/bootstrap.yaml
+
   gr-sync:
     desc: Sync all Flux GitRepositories
     cmds:

@@ -18,7 +18,7 @@ env:
 includes:
   flux: .taskfiles/flux
   # k0s: .taskfiles/k0s
-  # rook: .taskfiles/rook
+  rook: ".taskfiles/rook"
   volsync: ".taskfiles/volsync"
   talos: ".taskfiles/talos"
 

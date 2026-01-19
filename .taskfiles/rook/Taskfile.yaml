@@ -1,0 +1,184 @@
+---
+version: "3"
+
+x-task-vars: &task-vars
+  node: "{{.node}}"
+  ceph_disk: "{{.ceph_disk}}"
+  ts: "{{.ts}}"
+  jobName: "{{.jobName}}"
+
+vars:
+  # waitForJobScript: "../_scripts/wait-for-k8s-job.sh"
+  ts:
+    sh: "date +%s"
+  ROOK_WORKING_DIR: "{{.ROOT_DIR}}/.taskfiles/rook"
+
+tasks:
+  wipe-node-fulgrim:
+    desc: Trigger a wipe of Rook-Ceph data on node "fulgrim"
+    vars:
+      node: fulgrim
+    cmds:
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sda"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdb"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdc"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdd"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sde"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdh"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdi"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdj"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdk"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdl"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdm"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdn"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdo"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdp"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdq"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdr"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdr"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdt"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdu"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdv"
+      # - task: wipe-disk
+      #   vars:
+      #     node: "{{.node}}"
+      #     ceph_disk: "/dev/sdw"
+
+      - task: wipe-data
+        vars:
+          node: "{{.node}}"
+
+  wipe-node-dorn:
+    desc: Trigger a wipe of Rook-Ceph data on node "dorn"
+    cmds:
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/nvme0n1"
+    vars:
+      node: dorn
+
+  wipe-node-sanguinius:
+    desc: Trigger a wipe of Rook-Ceph data on node "sanguinius"
+    cmds:
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/nvme1n1"
+    vars:
+      node: sanguinius
+
+  wipe-node-guilliman:
+    desc: Trigger a wipe of Rook-Ceph data on node "guilliman"
+    cmds:
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/nvme0n1"
+    vars:
+      node: guilliman
+
+  wipe-disk:
+    desc: Wipe all remnants of rook-ceph from a given disk (ex. task rook:wipe-disk node=node-0 ceph_disk="/dev/sdb")
+    silent: true
+    internal: true
+    dir: "{{.ROOK_WORKING_DIR}}"
+    cmds:
+      - envsubst < <(cat {{.wipeRookDiskJobTemplate}}) | kubectl apply -f -
+      # - bash {{.waitForJobScript}} {{.jobName}} default
+      - kubectl -n kube-system wait job/{{.jobName}} --for condition=complete --timeout=7m
+      - kubectl -n kube-system logs job/{{.jobName}}
+      - kubectl -n kube-system delete job {{.jobName}}
+    vars:
+      node: '{{ or .node (fail "`node` is required") }}'
+      ceph_disk: '{{ or .ceph_disk (fail "`ceph_disk` is required") }}'
+      jobName: 'wipe-disk-{{- .node -}}-{{- .ceph_disk | replace "/" "-" -}}-{{- .ts -}}'
+      wipeRookDiskJobTemplate: "WipeDiskJob.tmpl.yaml"
+    env: *task-vars
+    preconditions:
+      # - sh: test -f {{.waitForJobScript}}
+      - sh: test -f {{.wipeRookDiskJobTemplate}}
+      - sh: which envsubst
+      - sh: which kubectl
+
+  wipe-data:
+    desc: Wipe all remnants of rook-ceph from a given disk (ex. task rook:wipe-data node=delta)
+    silent: true
+    internal: true
+    dir: "{{.ROOK_WORKING_DIR}}"
+    cmds:
+      - envsubst < <(cat {{.wipeRookDataJobTemplate}}) | kubectl apply -f -
+      # - bash {{.waitForJobScript}} {{.jobName}} default
+      - kubectl -n default wait job/{{.jobName}} --for condition=complete --timeout=1m
+      - kubectl -n default logs job/{{.jobName}}
+      - kubectl -n default delete job {{.jobName}}
+    vars:
+      node: '{{ or .node (fail "`node` is required") }}'
+      jobName: "wipe-rook-data-{{- .node -}}-{{- .ts -}}"
+      wipeRookDataJobTemplate: "WipeRookDataJob.tmpl.yaml"
+    env: *task-vars
+    preconditions:
+      # - sh: test -f {{.waitForJobScript}}
+      - sh: test -f {{.wipeRookDataJobTemplate}}
+      - sh: which envsubst
+      - sh: which kubectl
