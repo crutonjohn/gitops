@@ -19,90 +19,90 @@ tasks:
     vars:
       node: fulgrim
     cmds:
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sda"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdb"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdc"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdd"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sde"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdh"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdi"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdj"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdk"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdl"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdm"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdn"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdo"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdp"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdq"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdr"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdr"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdt"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdu"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdv"
-      # - task: wipe-disk
-      #   vars:
-      #     node: "{{.node}}"
-      #     ceph_disk: "/dev/sdw"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sda"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdb"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdc"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdd"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sde"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdh"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdi"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdj"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdk"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdl"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdm"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdn"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdo"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdp"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdq"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdr"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdr"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdt"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdu"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdv"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdw"
 
       - task: wipe-data
         vars:

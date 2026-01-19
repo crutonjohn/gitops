@@ -5,6 +5,7 @@ machine:
   certSANs:
     - 192.168.130.143
     - guilliman.heyjohn.family
+    - guilliman
   install:
     disk: /dev/disk/by-id/nvme-CT1000P3SSD8_24244963F4C8
 ---

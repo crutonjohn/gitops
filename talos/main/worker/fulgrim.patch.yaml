@@ -6,6 +6,7 @@ machine:
   certSANs:
     - 192.168.130.140
     - fulgrim.heyjohn.family
+    - fulgrim
   install:
     disk: /dev/disk/by-id/nvme-TEAM_TM8FP6001T_TPBF2110010090200660
   kernel:

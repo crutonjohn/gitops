@@ -5,6 +5,7 @@ machine:
   certSANs:
     - 192.168.130.141
     - dorn.heyjohn.family
+    - dorn
   install:
     disk: /dev/disk/by-id/nvme-CT1000P3SSD8_2424496417ED
 ---

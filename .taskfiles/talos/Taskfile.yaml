@@ -17,13 +17,48 @@ vars:
 
 tasks:
   gen-all:
-    desc: Generate machine configs
+    desc: Generate machine configs and assets
     dir: "{{.TALOS_RESOURCES_DIR}}"
     deps:
       - gen-controlplane
       - gen-worker
       - gen-talosconfig
       - gen-assets
+    cmds:
+      # Workers
+      ## 1g
+      # - cp out/dorn.yaml pxe/58:47:ca:76:b7:87
+      ## 10g
+      - cp out/dorn.yaml pxe/58:47:ca:76:b7:85
+      ## 1g
+      # - cp out/fulgrim.yaml pxe/90:5a:08:75:a3:ba
+      ## 10g
+      - cp out/fulgrim.yaml pxe/90:5a:08:75:a3:ba
+      ## 1g
+      # - cp out/guilliman.yaml pxe/58:47:ca:77:75:24
+      ## 10g
+      - cp out/guilliman.yaml pxe/58:47:ca:77:75:22
+      ## 1g
+      # - cp out/sanguinius.yaml pxe/58:47:ca:76:b6:f3
+      ## 10g
+      - cp out/sanguinius.yaml pxe/58:47:ca:76:b6:f1
+      # Control Plane
+      - cp out/horus.yaml pxe/00:e0:4c:38:72:38
+      - cp out/lion.yaml pxe/00:e0:4c:38:75:a7
+      - cp out/magnus.yaml pxe/00:e0:4c:38:78:14
+      # Copy to simple nginx webserver
+      - scp -r pxe/* perturabo:{{.REMOTE_ASSETS_DIR}}/machineconfig/
+      - rm -f out/*
+    preconditions:
+      - which talosctl sops
+
+  gen-config:
+    desc: Generate machine configs
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - gen-controlplane
+      - gen-worker
+      - gen-talosconfig
     cmds:
       # Workers
       ## 1g

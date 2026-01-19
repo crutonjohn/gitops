@@ -2,6 +2,7 @@ machine:
   certSANs:
     - 192.168.130.132
     - lion.heyjohn.family
+    - lion
   install:
     disk: /dev/disk/by-id/ata-HOGE_SSD_256GB_H67124100300413
 ---
