@@ -19,7 +19,8 @@ spec:
           resources: {}
           command: ["/bin/sh", "-c"]
           args:
-            - rm -rf /mnt/host_var/lib/rook/*
+            - echo "deleting /mnt/host_var/lib/rook-*"
+            - rm -rfv /mnt/host_var/lib/rook-*
           volumeMounts:
             - mountPath: /mnt/host_var
               name: host-var
