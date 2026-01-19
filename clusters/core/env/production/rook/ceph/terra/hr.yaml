@@ -385,6 +385,9 @@ spec:
               - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy11-lun-0"
                 config:
                   deviceClass: ssd
+              - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy28-lun-0"
+                config:
+                  deviceClass: ssd
               # - name: "/dev/disk/by-id/scsi-SATA_SPCC_Solid_State_30080660074"
               - name: "/dev/disk/by-path/pci-0000:41:00.0-sas-exp0x500304801f6f07bf-phy29-lun-0"
                 config:
@@ -433,8 +436,7 @@ spec:
 
     ingress:
       # -- Enable an ingress for the ceph-dashboard
-      dashboard:
-        {}
+      dashboard: {}
         # annotations:
         #   external-dns.alpha.kubernetes.io/hostname: dashboard.example.com
         #   nginx.ingress.kubernetes.io/rewrite-target: /ceph-dashboard/$2
