@@ -1,4 +1,8 @@
 machine:
+  nodeLabels:
+    heyjohn.family/ceph: terra
+    heyjohn.family/role: nas
+    heyjohn.family/rook: single
   certSANs:
     - 192.168.130.140
     - fulgrim.heyjohn.family

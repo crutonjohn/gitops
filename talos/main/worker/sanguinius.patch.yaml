@@ -1,4 +1,7 @@
 machine:
+  nodeLabels:
+    heyjohn.family/ceph: codex
+    heyjohn.family/rook: distributed
   certSANs:
     - 192.168.130.142
     - sanguinius.heyjohn.family
