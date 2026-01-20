@@ -14,11 +14,44 @@ vars:
   ROOK_WORKING_DIR: "{{.ROOT_DIR}}/.taskfiles/rook"
 
 tasks:
+  wipe-meta-fulgrim:
+    vars:
+      node: fulgrim
+    cmds:
+      - task: wipe-data
+        vars:
+          node: "{{.node}}"
+
   wipe-node-fulgrim:
     desc: Trigger a wipe of Rook-Ceph data on node "fulgrim"
     vars:
       node: fulgrim
     cmds:
+      # - talosctl wipe disk --drop-partition -n fulgrim
+      #   sda
+      #   sdb
+      #   sdc
+      #   sdd
+      #   sde
+      #   sdf
+      #   sdg
+      #   sdh
+      #   sdi
+      #   sdj
+      #   sdk
+      #   sdl
+      #   sdm
+      #   sdn
+      #   sdo
+      #   sdp
+      #   sdq
+      #   sdr
+      #   sds
+      #   sdt
+      #   sdu
+      #   sdv
+      #   sdw
+      #   sdx
       - task: wipe-disk
         vars:
           node: "{{.node}}"
@@ -103,6 +136,10 @@ tasks:
         vars:
           node: "{{.node}}"
           ceph_disk: "/dev/sdw"
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/sdx"
 
       - task: wipe-data
         vars:
@@ -115,6 +152,9 @@ tasks:
         vars:
           node: "{{.node}}"
           ceph_disk: "/dev/nvme0n1"
+      - task: wipe-data
+        vars:
+          node: "{{.node}}"
     vars:
       node: dorn
 
@@ -125,6 +165,9 @@ tasks:
         vars:
           node: "{{.node}}"
           ceph_disk: "/dev/nvme1n1"
+      - task: wipe-data
+        vars:
+          node: "{{.node}}"
     vars:
       node: sanguinius
 
@@ -135,6 +178,9 @@ tasks:
         vars:
           node: "{{.node}}"
           ceph_disk: "/dev/nvme0n1"
+      - task: wipe-data
+        vars:
+          node: "{{.node}}"
     vars:
       node: guilliman
 
@@ -169,9 +215,9 @@ tasks:
     cmds:
       - envsubst < <(cat {{.wipeRookDataJobTemplate}}) | kubectl apply -f -
       # - bash {{.waitForJobScript}} {{.jobName}} default
-      - kubectl -n default wait job/{{.jobName}} --for condition=complete --timeout=1m
-      - kubectl -n default logs job/{{.jobName}}
-      - kubectl -n default delete job {{.jobName}}
+      - kubectl -n kube-system wait job/{{.jobName}} --for condition=complete --timeout=1m
+      - kubectl -n kube-system logs job/{{.jobName}}
+      - kubectl -n kube-system delete job {{.jobName}}
     vars:
       node: '{{ or .node (fail "`node` is required") }}'
       jobName: "wipe-rook-data-{{- .node -}}-{{- .ts -}}"

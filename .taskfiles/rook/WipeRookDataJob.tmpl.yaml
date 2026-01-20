@@ -19,12 +19,18 @@ spec:
           resources: {}
           command: ["/bin/sh", "-c"]
           args:
-            - echo "deleting /mnt/host_var/lib/rook-*"
-            - rm -rfv /mnt/host_var/lib/rook-*
+            - echo "deleting /mnt/host_var/rook-*";
+              echo "before:";
+              ls /mnt/host_var_lib/;
+              ls /mnt/host_var_lib/rook-*;
+              stat /mnt/host_var_lib/rook-*;
+              rm -rf /mnt/host_var_lib/rook-*;
+              echo "after:";
+              ls /mnt/host_var_lib/;
           volumeMounts:
-            - mountPath: /mnt/host_var
-              name: host-var
+            - mountPath: /mnt/host_var_lib
+              name: host-var-lib
       volumes:
-        - name: host-var
+        - name: host-var-lib
           hostPath:
-            path: /var
+            path: /var/lib
