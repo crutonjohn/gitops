@@ -17,6 +17,7 @@ spec:
     cacheStorageClassName: "${CACHE:=terra-block}"
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "${CACHESIZE:=2Gi}"
+    cleanupCachePVC: true
     moverSecurityContext:
       runAsNonRoot: true
       runAsUser: ${APP_UID}

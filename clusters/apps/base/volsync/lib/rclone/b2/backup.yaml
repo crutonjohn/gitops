@@ -11,6 +11,7 @@ spec:
     rcloneConfigSection: "b2-volsync"
     rcloneDestPath: "${VOLSYNC_B2_BUCKET}/${APP}/${SRC_PVC}"
     rcloneConfig: "volsync-b2-rclone-secret"
+    cleanupCachePVC: true
     copyMethod: Direct
     storageClassName: "${STORAGE_CLASS}"
     moverSecurityContext:
