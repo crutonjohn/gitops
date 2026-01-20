@@ -49,7 +49,7 @@ spec:
       - --aws-batch-change-size=1000
       - --no-aws-evaluate-target-health
       #- --ignore-ingress-tls-spec
-      - --traefik-disable-legacy
+      # - --traefik-disable-legacy
       - --exclude-target-net=${HOME_NETWORK_CIDR}
       - --exclude-target-net=${HEADSCALE_NETWORK_CIDR}
       - --ingress-class=traefik-external

@@ -30,10 +30,10 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    image:
-      repository: gcr.io/k8s-staging-external-dns/external-dns
-      tag: v20250507-v0.16.1-133-g923a6d95
-      pullPolicy: IfNotPresent
+    # image:
+    #   repository: gcr.io/k8s-staging-external-dns/external-dns
+    #   tag: v20250507-v0.16.1-133-g923a6d95
+    #   pullPolicy: IfNotPresent
     resources:
       requests:
         cpu: 10m
@@ -76,7 +76,7 @@ spec:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
       - --pihole-api-version=6
-      - --traefik-disable-legacy
+      # - --traefik-disable-legacy
       - --target-net-filter=${HOME_NETWORK_CIDR}
       - --target-net-filter=${HEADSCALE_NETWORK_CIDR}
       - --ingress-class=traefik-external

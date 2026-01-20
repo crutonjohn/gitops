@@ -54,7 +54,7 @@ spec:
     extraArgs:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
-      - --traefik-disable-legacy
+      # - --traefik-disable-legacy
       - --target-net-filter=${HOME_NETWORK_CIDR}
       - --target-net-filter=${HEADSCALE_NETWORK_CIDR}
       - --ingress-class=traefik-external
