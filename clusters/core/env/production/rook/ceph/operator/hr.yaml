@@ -465,7 +465,7 @@ spec:
 
       # -- Kubelet root directory path (if the Kubelet uses a different path for the `--root-dir` flag)
       # @default -- `/var/lib/kubelet`
-      kubeletDirPath: /var/lib/k0s/kubelet
+      # kubeletDirPath: /var/lib/k0s/kubelet
 
       # -- Duration in seconds that non-leader candidates will wait to force acquire leadership.
       # @default -- `137s`
