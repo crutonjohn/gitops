@@ -14,7 +14,7 @@ spec:
     repository: "${SRC_PVC}-local-restic"
     volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
     storageClassName: "${STORAGE_CLASS}"
-    cacheStorageClassName: "${CACHE:=terra-blockpool}"
+    cacheStorageClassName: "${CACHE:=terra-block}"
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "${CACHESIZE:=2Gi}"
     moverSecurityContext:

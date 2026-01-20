@@ -205,7 +205,7 @@ spec:
       # -- persistence storage class
       #    ref: https://kubernetes.io/docs/concepts/storage/storage-classes/
       #    note: set to "-" (dash) for default storage class
-      storageClass: "terra-blockpool"
+      storageClass: "terra-block"
 
       # -- persistence access mode
       #    ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
@@ -427,7 +427,7 @@ spec:
 
       tmpDirPersistence:
         enabled: false
-        storageClassName: "terra-blockpool"
+        storageClassName: "terra-block"
         accessModes:
           - ReadWriteOnce
         size: 50Gi

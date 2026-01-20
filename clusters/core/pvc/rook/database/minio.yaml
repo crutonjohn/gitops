@@ -7,7 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: terra-blockpool
+  storageClassName: terra-block
   resources:
     requests:
       storage: 150Gi

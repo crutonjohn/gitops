@@ -126,7 +126,7 @@ spec:
       APP_UID: "1177"
       CRON_SCHEDULE: "0 8 * * 2/20"
       LOCAL_SCHEDULE: "0 8 * * 3"
-      STORAGE_CLASS: terra-filesystem
+      STORAGE_CLASS: terra-file
       SNAPSHOT_CLASS: terra-file
       DST_ACCESS_MODE: ReadWriteMany
       SIZE: "1Ti"

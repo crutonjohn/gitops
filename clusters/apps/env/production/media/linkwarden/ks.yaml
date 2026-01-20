@@ -77,7 +77,7 @@ spec:
       APP_UID: "1447"
       CRON_SCHEDULE: "51 2/12 * * *"
       LOCAL_SCHEDULE: "55 2/12 * * *"
-      STORAGE_CLASS: terra-blockpool
+      STORAGE_CLASS: terra-block
       SNAPSHOT_CLASS: terra-block
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "75Gi"

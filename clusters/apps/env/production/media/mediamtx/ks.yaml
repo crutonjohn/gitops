@@ -68,7 +68,7 @@ spec:
 #       APP_UID: "8008"
 #       SRC_PVC: mediamtx-recordings
 #       LOCAL_SCHEDULE: "0 5 * * *"
-#       STORAGE_CLASS: terra-blockpool
+#       STORAGE_CLASS: terra-block
 #       SNAPSHOT_CLASS: terra-block
 #       DST_ACCESS_MODE: ReadWriteOnce
 #       SIZE: "300Gi"

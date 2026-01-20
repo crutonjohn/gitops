@@ -7,7 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: terra-filesystem
+  storageClassName: terra-file
   resources:
     requests:
       storage: 1024Gi

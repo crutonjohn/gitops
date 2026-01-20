@@ -16,7 +16,7 @@ spec:
     destinationPVC: ${SRC_PVC}
     volumeSnapshotClassName: "${SNAPSHOT_CLASS:=block}"
     storageClassName: "${STORAGE_CLASS}"
-    cacheStorageClassName: "${CACHE:=terra-blockpool}"
+    cacheStorageClassName: "${CACHE:=terra-block}"
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "${CACHESIZE:=2Gi}"
     capacity: "${SIZE:=20Gi}"
@@ -25,7 +25,7 @@ spec:
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}
-      seccompProfile: {type: "RuntimeDefault"}
+      seccompProfile: { type: "RuntimeDefault" }
     moverResources:
       requests:
         cpu: 100m

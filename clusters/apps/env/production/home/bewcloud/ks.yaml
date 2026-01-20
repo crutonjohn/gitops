@@ -76,11 +76,11 @@ spec:
       APP_UID: "1993"
       CRON_SCHEDULE: "11 6/12 * * *"
       LOCAL_SCHEDULE: "15 6/12 * * *"
-      STORAGE_CLASS: terra-filesystem
+      STORAGE_CLASS: terra-file
       SNAPSHOT_CLASS: terra-file
       DST_ACCESS_MODE: ReadWriteMany
       SIZE: "2Ti"
-      CACHE: terra-blockpool
+      CACHE: terra-block
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
