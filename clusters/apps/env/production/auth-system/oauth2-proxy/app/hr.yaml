@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: "quay.io/oauth2-proxy/oauth2-proxy"
+      repository: "oauth2-proxy/oauth2-proxy"
     ## Override the deployment namespace
     ##
     namespaceOverride: "auth-system"
@@ -50,7 +50,6 @@ spec:
         footer = "For Internal Family Use Only"
         reverse_proxy = "true"
         redirect_url = "https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}/oauth2/callback"
-
 
     # -- Custom labels to add into metadata
     customLabels: {}
