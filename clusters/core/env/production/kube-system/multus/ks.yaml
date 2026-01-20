@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/core/env/production/network-system/multus/app
+  path: ./clusters/core/env/production/kube-system/multus/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -50,7 +50,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/core/env/production/network-system/multus/config
+  path: ./clusters/core/env/production/kube-system/multus/config
   prune: true
   sourceRef:
     kind: GitRepository
