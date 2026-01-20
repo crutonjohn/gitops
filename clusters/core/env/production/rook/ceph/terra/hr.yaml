@@ -467,7 +467,7 @@ spec:
       #     enableRBDStats: false
       #   storageClass:
       #     enabled: false
-      - name: terra-blockpool
+      - name: terra-block
         # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Block-Storage/ceph-block-pool-crd.md#spec for available configuration
         spec:
           failureDomain: osd
@@ -559,7 +559,7 @@ spec:
         storageClass:
           enabled: true
           isDefault: false
-          name: terra-filesystem
+          name: terra-file
           # (Optional) specify a data pool to use, must be the name of one of the data pools above, 'data0' by default
           pool: data0
           reclaimPolicy: Delete
