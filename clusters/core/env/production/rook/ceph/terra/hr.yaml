@@ -100,7 +100,7 @@ spec:
       # The path on the host where configuration files will be persisted. Must be specified.
       # Important: if you reinstall the cluster, make sure you delete this directory from each host or else the mons will fail to start on the new cluster.
       # In Minikube, the '/data' directory is configured to persist across reboots. Use "/data/rook" in Minikube environment.
-      dataDirHostPath: /var/lib/rook-terra
+      dataDirHostPath: /var/lib/rook/terra
 
       # Whether or not upgrade should continue even if a check fails
       # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
@@ -481,7 +481,7 @@ spec:
           enableRBDStats: true
         storageClass:
           enabled: true
-          name: terra-blockpool
+          name: terra-block
           isDefault: false
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -533,7 +533,7 @@ spec:
     # -- A list of CephFileSystem configurations to deploy
     # @default -- See [below](#ceph-file-systems)
     cephFileSystems:
-      - name: terra-filesystem
+      - name: terra-file
         # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Shared-Filesystem/ceph-filesystem-crd.md#filesystem-settings for available configuration
         spec:
           metadataPool:
@@ -606,53 +606,7 @@ spec:
 
     # -- A list of CephObjectStore configurations to deploy
     # @default -- See [below](#ceph-object-stores)
-    cephObjectStores:
-      - name: terra-objectstore
-        # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
-        spec:
-          metadataPool:
-            failureDomain: osd
-            replicated:
-              size: 3
-          dataPool:
-            failureDomain: osd
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
-          preservePoolsOnDelete: true
-          gateway:
-            port: 80
-            resources:
-              limits:
-                memory: "2Gi"
-              requests:
-                cpu: "1000m"
-                memory: "1Gi"
-            # securePort: 443
-            # sslCertificateRef:
-            instances: 1
-            priorityClassName: system-cluster-critical
-        storageClass:
-          enabled: true
-          name: terra-bucket
-          reclaimPolicy: Delete
-          volumeBindingMode: "Immediate"
-          # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
-          parameters:
-            # note: objectStoreNamespace and objectStoreName are configured by the chart
-            region: us-east-107
-        ingress:
-          # Enable an ingress for the ceph-objectstore
-          enabled: false
-          # annotations: {}
-          # host:
-          #   name: objectstore.example.com
-          #   path: /
-          # tls:
-          # - hosts:
-          #     - objectstore.example.com
-          #   secretName: ceph-objectstore-tls
-          # ingressClassName: nginx
+    cephObjectStores: {}
     ## cephECBlockPools are disabled by default, please remove the comments and set desired values to enable it
     ## For erasure coded a replicated metadata pool is required.
     ## https://rook.io/docs/rook/latest/CRDs/Shared-Filesystem/ceph-filesystem-crd/#erasure-coded
