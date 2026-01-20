@@ -3,6 +3,7 @@
 version: "3"
 vars:
   TALOS_RESOURCES_DIR: "{{.ROOT_DIR}}/talos/main"
+  GIT_IGNORE_DIR: "{{.ROOT_DIR}}/gitignore"
   TALOS_KUBE_VIP: "192.168.130.130"
   OUTPUT_DIR: "{{.TALOS_RESOURCES_DIR}}/out"
   OUTPUT_PXE_DIR: "{{.TALOS_RESOURCES_DIR}}/pxe"
@@ -237,7 +238,7 @@ tasks:
           --talos-version {{.TALOS_VERSION}} \
           --output-types talosconfig \
           --force \
-          --output {{.TALOS_RESOURCES_DIR}}/talosconfig
+          --output {{.GIT_IGNORE_DIR}}/talosconfig
     preconditions:
       - which talosctl sops
 
@@ -256,6 +257,7 @@ tasks:
     cmds:
       - mkdir -p {{.OUTPUT_DIR}}
       - mkdir -p {{.OUTPUT_PXE_DIR}}
+      - mkdir -p {{.GIT_IGNORE_DIR}}
 
   full-cluster-reset:
     desc: resets all talos hosts and nukes boot disk
@@ -305,3 +307,22 @@ tasks:
       - |
         ssh perturabo \
         "curl -L -o {{.REMOTE_ASSETS_DIR}}/boot/{{.TALOS_VERSION}}/bmaxb3/initramfs-x86_64.xz https://factory.talos.dev/image/{{.BMAXB3_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/initramfs-amd64.xz"
+
+  kubeconfig:
+    desc: get kubeconfig from talos
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - make-output
+    cmds:
+      - talosctl -e 192.168.130.131 -n horus kubeconfig {{.GIT_IGNORE_DIR}}/kubeconfig
+    preconditions:
+      - which talosctl
+
+  install-cilium:
+    desc: install cilium to talos cluster
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - helm install -n kube-system cilium cilium/cilium -f cilium/values.yaml
+    preconditions:
+      - which talosctl helm
+      - test -f {{.TALOS_RESOURCES_DIR}}/cilium/values.yaml
