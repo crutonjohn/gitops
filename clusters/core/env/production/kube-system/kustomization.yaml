@@ -8,3 +8,4 @@ resources:
   - ./nvidia-device-plugin/ks.yaml
   - ./reloader/ks.yaml
   - ./replicator/ks.yaml
+  - ./multus/ks.yaml
