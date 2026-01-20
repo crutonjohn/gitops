@@ -5,7 +5,7 @@ metadata:
   name: pod-logging
 spec:
   mode: daemonset
-  image: otel/opentelemetry-collector-contrib:0.134.1
+  image: otel/opentelemetry-collector-contrib:0.144.0
   resources:
     limits:
       cpu: 200m
