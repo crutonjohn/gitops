@@ -340,17 +340,17 @@ spec:
         nodes:
           - name: "guilliman"
             devices:
-              - name: "/dev/disk/by-path/pci-0000:01:00.0-nvme-1"
+              - name: "/dev/nvme0n1"
                 config:
                   deviceClass: ssd
           - name: "sanguinius"
             devices:
-              - name: "/dev/disk/by-path/pci-0000:01:00.0-nvme-1"
+              - name: "/dev/nvme1n1"
                 config:
                   deviceClass: ssd
           - name: "dorn"
             devices:
-              - name: "/dev/disk/by-path/pci-0000:01:00.0-nvme-1"
+              - name: "/dev/nvme0n1"
                 config:
                   deviceClass: ssd
 
