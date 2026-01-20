@@ -28,36 +28,47 @@ tasks:
         vars:
           node: "{{.node}}"
 
+  wipe-target-fulgrim:
+    desc: wipe a specific disk on fulgrim (task rook:wipe-target-fulgrim -- sda)
+    vars:
+      node: fulgrim
+      disk: "{{.CLI_ARGS}}"
+    cmds:
+      - task: wipe-disk
+        vars:
+          node: "{{.node}}"
+          ceph_disk: "/dev/{{.disk}}"
+
   wipe-node-fulgrim:
     desc: Trigger a wipe of Rook-Ceph data on node "fulgrim"
     vars:
       node: fulgrim
     cmds:
-      - talosctl wipe disk --drop-partition -n fulgrim
-        sda
-        sdb
-        sdc
-        sdd
-        sde
-        sdf
-        sdg
-        sdh
-        sdi
-        sdj
-        sdk
-        sdl
-        sdm
-        sdn
-        sdo
-        sdp
-        sdq
-        sdr
-        sds
-        sdt
-        sdu
-        sdv
-        sdw
-        sdx
+      # - talosctl wipe disk --drop-partition -n fulgrim
+      #   sda
+      #   sdb
+      #   sdc
+      #   sdd
+      #   sde
+      #   sdf
+      #   sdg
+      #   sdh
+      #   sdi
+      #   sdj
+      #   sdk
+      #   sdl
+      #   sdm
+      #   sdn
+      #   sdo
+      #   sdp
+      #   sdq
+      #   sdr
+      #   sds
+      #   sdt
+      #   sdu
+      #   sdv
+      #   sdw
+      #   sdx
       # - task: wipe-disk
       #   vars:
       #     node: "{{.node}}"
