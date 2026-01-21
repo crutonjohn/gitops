@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./hr.yaml
   - ./step-issuer-provisioner-password.enc.yaml
-  - ./step-issuer.yaml
