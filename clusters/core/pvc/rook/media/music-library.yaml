@@ -9,5 +9,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1024Gi
+      storage: 1512Gi
   storageClassName: terra-file
