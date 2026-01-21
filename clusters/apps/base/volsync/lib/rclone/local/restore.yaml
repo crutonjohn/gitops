@@ -9,7 +9,7 @@ spec:
   rclone:
     rcloneConfigSection: "garage-volsync"
     destinationPVC: "${SRC_PVC}"
-    rcloneDestPath: "rclone/${APP}/${SRC_PVC}"
+    rcloneDestPath: "${VOLSYNC_LOCAL_GARAGE_BUCKET}/rclone/${APP}/${SRC_PVC}"
     rcloneConfig: "volsync-local-rclone-secret"
     copyMethod: "Direct"
     storageClassName: "${STORAGE_CLASS}"
