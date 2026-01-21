@@ -4,6 +4,7 @@ kind: HelmRelease
 metadata:
   name: ${APP}
 spec:
+  timeout: 15m
   interval: 12h
   chart:
     spec:
