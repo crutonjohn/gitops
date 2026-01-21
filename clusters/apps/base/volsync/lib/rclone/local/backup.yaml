@@ -11,7 +11,6 @@ spec:
     rcloneConfigSection: "garage-volsync"
     rcloneDestPath: "rclone/${APP}/${SRC_PVC}"
     rcloneConfig: "volsync-local-rclone-secret"
-    cleanupCachePVC: true
     copyMethod: Direct
     storageClassName: "${STORAGE_CLASS}"
     moverSecurityContext:
