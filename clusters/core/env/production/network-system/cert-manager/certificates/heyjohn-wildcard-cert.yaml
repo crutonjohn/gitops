@@ -8,8 +8,7 @@ spec:
   secretName: heyjohn-wildcard-certificate
   secretTemplate:
     annotations:
-      replicator.v1.mittwald.de/replication-allowed: "true"
-      replicator.v1.mittwald.de/replication-allowed-namespaces: "auth-system,flux-system,media,network-system,observability,home,kube-system,rook-ceph,database,games"
+      replicator.v1.mittwald.de/replicate-to: "*"
   duration: 2160h
   renewBefore: 360h
   subject:
