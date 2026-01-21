@@ -5,7 +5,7 @@ metadata:
   name: syslog
 spec:
   mode: deployment
-  image: otel/opentelemetry-collector-contrib:0.134.1
+  image: otel/opentelemetry-collector-contrib:0.144.0
   volumeMounts:
     - name: scratchdir
       mountPath: /var/lib/otelcol
