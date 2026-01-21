@@ -35,8 +35,8 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"iot-garbage-apps",
-                "namespace": "network-system",
+                "name":"iot-garbage",
+                "namespace": "kube-system",
                 "mac": "02:0d:1c:2e:64:c5",
                 "ips": ["192.168.134.110/24"]
               }]
