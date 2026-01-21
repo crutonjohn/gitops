@@ -62,7 +62,7 @@ spec:
               certificateAuthority: ${SMALLSTEP_CA_URL}
               certificateAuthorityFingerprint: ${SMALLSTEP_CA_FINGERPRINT}
               certificateIssuer:
-                provisioner: registration-authority
+                provisioner: k8s-registration-authority
                 type: jwk
               provisioners:
                 - name: acme
