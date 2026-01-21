@@ -23,8 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   dependsOn:
-    - name: minio
-      namespace: database
     - name: codex
       namespace: rook-codex
   values:

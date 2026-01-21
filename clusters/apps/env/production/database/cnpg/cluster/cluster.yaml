@@ -40,7 +40,7 @@ spec:
       endpointURL: https://s3.us-west-000.backblazeb2.com
       # Note: serverName version needs to be incremented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster postgres16-v4
+      serverName: &currentCluster postgres16-v5
       s3Credentials:
         accessKeyId:
           name: cnpg-b2
@@ -50,12 +50,12 @@ spec:
           key: B2_SECRET_ACCESS_KEY
   # Note: previousCluster needs to be set to the name of the previous
   # cluster when recovering from an existing cnpg cluster
-  # bootstrap:
-  #   recovery:
-  #     source: &previousCluster postgres16-v2
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres16-v4
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  externalClusters:
-    - name: *currentCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *currentCluster
+  # externalClusters:
+  #   - name: *currentCluster
+  #     barmanObjectStore:
+  #       <<: *barmanObjectStore
+  #       serverName: *currentCluster
