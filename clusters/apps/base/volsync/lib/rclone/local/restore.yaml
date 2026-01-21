@@ -10,7 +10,7 @@ spec:
     rcloneConfigSection: "garage-volsync"
     destinationPVC: "${SRC_PVC}"
     rcloneDestPath: "rclone/${APP}/${SRC_PVC}"
-    rcloneConfig: "volsync-b2-rclone-secret"
+    rcloneConfig: "volsync-local-rclone-secret"
     copyMethod: "Direct"
     storageClassName: "${STORAGE_CLASS}"
     capacity: "${SIZE:=20Gi}"
