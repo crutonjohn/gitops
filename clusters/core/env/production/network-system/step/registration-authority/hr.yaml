@@ -14,6 +14,13 @@ spec:
         name: smallstep-charts
         namespace: flux-system
   values:
+    podSecurityContext:
+      runAsUser: 8833
+      runAsNonRoot: true
+      runAsGroup: 8833
+      fsGroup: 8833
+      seccompProfile:
+        type: RuntimeDefault
     autocert:
       enabled: false
     bootstrap:
@@ -23,6 +30,29 @@ spec:
         enabled: true
         persistent: true
         existingClaim: step-request-authority-db
+      init:
+        containerSecurityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsUser: 8833
+          capabilities:
+            drop: ["ALL"]
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        runAsUser: 8833
+        # runAsRoot: 0 runs the ca as root instead of the step user. This is required in
+        # some storage provisioners.
+        # runAsUser: 0
+        capabilities:
+          drop: ["ALL"]
+          add: ["NET_BIND_SERVICE"]
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
     inject:
       config:
         files:
@@ -74,7 +104,7 @@ spec:
       secrets:
         certificate_issuer:
           enabled: true
-          password: ${SMALLSTEP_CA_JWK_PASS_B64}
+          password: ${SMALLSTEP_K8S_REGISTRATION_AUTHORITY_PASS_B64}
         ssh:
           enabled: false
         x509:
@@ -108,9 +138,3 @@ spec:
       nodePort: ""
       annotations: {}
       externalIPs: []
-    # service:
-    #   port: 443
-    #   targetPort: 9000
-    #   type: LoadBalancer
-    # annotations:
-    #   io.cilium/lb-ipam-ips: ${CLUSTER_LB_SMALLSTEP}
