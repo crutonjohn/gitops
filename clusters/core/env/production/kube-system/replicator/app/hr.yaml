@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: replicator
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: kubernetes-replicator
+      version: 2.12.2
+      sourceRef:
+        kind: HelmRepository
+        name: kube-system-replicator
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: quay.io/mittwald/kubernetes-replicator
+      pullPolicy: IfNotPresent
+    grantClusterAdmin: false
+    automountServiceAccountToken: true
+    args:
+      - -resync-period=3m
+    namespacesPrivileges:
+      - get
+      - watch
+      - list
+    replicationEnabled:
+      secrets: true
+      configMaps: true
+      roles: true
+      roleBindings: true
+      serviceAccounts: true
+      privileges:
+        - get
+        - watch
+        - list
+        - create
+        - update
+        - patch
+        - delete
+      rolesPrivileges:
+        - get
+        - watch
+        - list
+        - create
+        - update
+        - patch
+        - delete
+
+    serviceAccount:
+      create: true
+      annotations: {}
+      name:
+      privileges: []
+      automountServiceAccountToken: true
+      # create: true
+      # name: replicator-kubernetes-replicator
+      # privileges:
+      #   - apiGroups: [""]
+      #     resources: ["namespaces"]
+      #   - apiGroups: [""]
+      #     resources: ["secrets", "configmaps"]
+      #   - apiGroups: ["rbac.authorization.k8s.io"]
+      #     resources: ["roles", "rolebindings"]
+
+    podSecurityContext:
+      fsGroup: 7821
+
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 7281
+
+    priorityClassName: ""
+
+    resources:
+      requests:
+        cpu: 15m
+        memory: 53M
+      limits:
+        cpu: 32m
+        memory: 145M
+    revisionHistoryLimit: 5
