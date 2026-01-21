@@ -54,8 +54,8 @@ spec:
     recovery:
       source: &previousCluster postgres16-v4
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  # externalClusters:
-  #   - name: *currentCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *currentCluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
