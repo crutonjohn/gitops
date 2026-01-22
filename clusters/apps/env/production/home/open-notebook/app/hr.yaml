@@ -41,7 +41,7 @@ spec:
           open-notebook:
             image:
               repository: ghcr.io/lfnovo/open-notebook
-              tag: 1.6.0@sha256:1a0fc02e6adc34ac3162ab5a03919fbc40e1a49344778c7b2d46d01598093087
+              tag: 1.6.0@sha256:0176fc5e31485c9ceee64ee5a0358c687266f0f2adde5f7fe8aa3106837384f8
             probes:
               liveness:
                 enabled: false
