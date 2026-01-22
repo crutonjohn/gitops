@@ -70,7 +70,7 @@ spec:
     - name: volsync
   postBuild:
     substitute:
-      SRC_PVC: n8n-data
+      SRC_PVC: n8n-shared-data
       APP_UID: "1000"
       CRON_SCHEDULE: "36 4/12 * * *"
       LOCAL_SCHEDULE: "39 4/12 * * *"
