@@ -66,9 +66,7 @@ spec:
       - ip: 192.168.130.4
         hostnames:
           - s3-garage.${FAMILY_DOMAIN}
-    #
-    # Ingress
-    #
+
     ingress:
       enabled: true
       annotations:
@@ -83,7 +81,8 @@ spec:
       hosts:
         - host: *hostname
           paths:
-            - /
+            - path: /
+              pathType: Prefix
       tls:
         - hosts:
             - *hostname
@@ -317,7 +316,6 @@ spec:
       #        - name: data
       #          mountPath: /home/node/.n8n
 
-
       service:
         annotations: {}
         # -- Service types allow you to specify what kind of Service you want.
@@ -533,7 +531,6 @@ spec:
       extraEnv: *extraEnv
       #   WEBHOOK_URL:
       #   value: "http://webhook.domain.tld"
-
 
       #
       # Webhook Kubernetes specific settings
