@@ -2,7 +2,20 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ollama-data
+  name: ollama-models
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: terra-block
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: llama-models
   namespace: home
 spec:
   accessModes:

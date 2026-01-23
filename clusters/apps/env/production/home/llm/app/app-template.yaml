@@ -63,7 +63,8 @@ spec:
               startup:
                 enabled: false
             args:
-              - "-config /config/config.yaml"
+              - "-config"
+              - "/config/config.yaml"
               - "-watch-config"
             resources:
               requests:
