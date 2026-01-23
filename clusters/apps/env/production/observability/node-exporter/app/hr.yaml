@@ -251,7 +251,7 @@ spec:
 
     # Annotations to be added to node exporter pods
     podAnnotations:
-      prometheus.io/scrape: "true"
+      prometheus.io/scrape: "false"
       prometheus.io/port: "9100"
       prometheus.io/job: "node"
 
