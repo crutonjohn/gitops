@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      tolerations:
+        - effect: NoSchedule
+          key: nvidia.com/gpu
+          operator: Exists
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 300
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 300
+      securityContext:
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+
+    controllers:
+      llm:
+        type: deployment
+        containers:
+          llama:
+            nameOverride: llama
+            image:
+              repository: ghcr.io/ggml-org/llama.cpp
+              tag: full-cuda@sha256:566ee03c8f7b7ceb8bce2515088311dba73bd96f84726db3ef4257822d45e4c6
+            env:
+              TZ: America/New_York
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            args:
+              - "--port 8080"
+              - "--host 0.0.0.0"
+              - "-n 512"
+              - "--all-in-one"
+              - "/models/"
+              - "12B"
+            resources:
+              requests:
+                cpu: 2
+                memory: 12Gi
+                nvidia.com/gpu: "1"
+          ollama:
+            nameOverride: ollama
+            image:
+              repository: ollama/ollama
+              tag: 0.14.2
+            env:
+              TZ: America/New_York
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 2
+                memory: 12Gi
+                nvidia.com/gpu: "1"
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - |
+                      while ! /bin/ollama ps > /dev/null 2>&1; do
+                        sleep 5
+                      done
+
+                      /bin/ollama pull  qwen3:14b
+
+                      /bin/ollama pull  qwen3:1.7b
+
+                      /bin/ollama pull  gemma3:12b
+
+                      /bin/ollama pull  gemma3:4b
+
+                      /bin/ollama pull  qwen2.5-coder:14b
+
+                      /bin/ollama pull  deepseek-coder-v2:16b
+
+                      /bin/ollama pull  codegemma:7b
+
+                      /bin/ollama pull  mxbai-embed-large:335m
+
+                      /bin/ollama pull  deepseek-r1:14b
+
+    service:
+      ollama:
+        enabled: true
+        controller: llm
+        primary: true
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        labels:
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-ips: "${CLUSTER_LB_OLLAMA}"
+        ports:
+          http:
+            port: 11434
+
+    ingress:
+      main:
+        enabled: false
+        hosts: []
+
+    persistence:
+      ollama-models:
+        enabled: true
+        existingClaim: "ollama-models"
+        globalMounts:
+          - path: /root/.ollama
+            readOnly: false
+      llama-models:
+        enabled: true
+        existingClaim: "llama-models"
+        globalMounts:
+          - path: /models
+            readOnly: false
