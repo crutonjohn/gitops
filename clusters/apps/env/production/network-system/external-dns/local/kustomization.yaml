@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./k8s-nodes.yaml
   - ./omada.yaml
-  - ./monitoring.yaml
+  - ./nord.yaml
   - ./home-automation.yaml
   - ./perturabo.yaml
   - ./workstations.yaml
