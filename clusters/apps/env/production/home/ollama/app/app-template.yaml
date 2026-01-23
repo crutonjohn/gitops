@@ -80,7 +80,7 @@ spec:
             nameOverride: ollama
             image:
               repository: ollama/ollama
-              tag: 0.14.2
+              tag: 0.14.3
             env:
               TZ: America/New_York
             probes:
