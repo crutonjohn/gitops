@@ -74,6 +74,8 @@ spec:
                 cpu: 2
                 memory: 12Gi
                 nvidia.com/gpu: "1"
+              limits:
+                nvidia.com/gpu: "1"
           ollama:
             nameOverride: ollama
             image:
@@ -92,6 +94,8 @@ spec:
               requests:
                 cpu: 2
                 memory: 12Gi
+                nvidia.com/gpu: "1"
+              limits:
                 nvidia.com/gpu: "1"
             lifecycle:
               postStart:
