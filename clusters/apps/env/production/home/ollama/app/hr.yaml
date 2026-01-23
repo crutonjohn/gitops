@@ -71,11 +71,11 @@ spec:
         io.cilium/bgp-announce: worker
     resources:
       requests:
-        memory: 4096Mi
+        memory: 12Gi
         cpu: 2000m
-      limits:
-        memory: 8192Mi
-        cpu: 4000m
+      limits: {}
+        # memory: 8192Mi
+        # cpu: 4000m
     # -- Additional volumes on the output Deployment definition.
     volumes: []
     # -- - name: foo
