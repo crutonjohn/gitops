@@ -7,7 +7,7 @@ resources:
   - ./grocy/ks.yaml
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./ollama/ks.yaml
+  - ./llm/ks.yaml
   - ./open-webui/ks.yaml
   - ./open-notebook/ks.yaml
   - ./paperless/ks.yaml

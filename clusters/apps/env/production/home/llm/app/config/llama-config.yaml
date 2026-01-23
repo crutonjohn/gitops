@@ -1,0 +1,3 @@
+models:
+  model1:
+    cmd: llama-server --port ${PORT} --model /models/something

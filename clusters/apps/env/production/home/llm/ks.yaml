@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/ollama/app
+  path: ./clusters/apps/env/production/home/llm/app
   prune: true
   sourceRef:
     kind: GitRepository
