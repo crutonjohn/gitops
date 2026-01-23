@@ -76,55 +76,55 @@ spec:
                 nvidia.com/gpu: "1"
               limits:
                 nvidia.com/gpu: "1"
-          ollama:
-            nameOverride: ollama
-            image:
-              repository: ollama/ollama
-              tag: 0.14.2
-            env:
-              TZ: America/New_York
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            resources:
-              requests:
-                cpu: 2
-                memory: 12Gi
-                nvidia.com/gpu: "1"
-              limits:
-                nvidia.com/gpu: "1"
-            lifecycle:
-              postStart:
-                exec:
-                  command:
-                    - /bin/sh
-                    - -c
-                    - |
-                      while ! /bin/ollama ps > /dev/null 2>&1; do
-                        sleep 5
-                      done
+          # ollama:
+          #   nameOverride: ollama
+          #   image:
+          #     repository: ollama/ollama
+          #     tag: 0.14.2
+          #   env:
+          #     TZ: America/New_York
+          #   probes:
+          #     liveness:
+          #       enabled: false
+          #     readiness:
+          #       enabled: false
+          #     startup:
+          #       enabled: false
+          #   resources:
+          #     requests:
+          #       cpu: 2
+          #       memory: 12Gi
+          #       nvidia.com/gpu: "1"
+          #     limits:
+          #       nvidia.com/gpu: "1"
+          #   lifecycle:
+          #     postStart:
+          #       exec:
+          #         command:
+          #           - /bin/sh
+          #           - -c
+          #           - |
+          #             while ! /bin/ollama ps > /dev/null 2>&1; do
+          #               sleep 5
+          #             done
 
-                      /bin/ollama pull  qwen3:14b
+          #             /bin/ollama pull  qwen3:14b
 
-                      /bin/ollama pull  qwen3:1.7b
+          #             /bin/ollama pull  qwen3:1.7b
 
-                      /bin/ollama pull  gemma3:12b
+          #             /bin/ollama pull  gemma3:12b
 
-                      /bin/ollama pull  gemma3:4b
+          #             /bin/ollama pull  gemma3:4b
 
-                      /bin/ollama pull  qwen2.5-coder:14b
+          #             /bin/ollama pull  qwen2.5-coder:14b
 
-                      /bin/ollama pull  deepseek-coder-v2:16b
+          #             /bin/ollama pull  deepseek-coder-v2:16b
 
-                      /bin/ollama pull  codegemma:7b
+          #             /bin/ollama pull  codegemma:7b
 
-                      /bin/ollama pull  mxbai-embed-large:335m
+          #             /bin/ollama pull  mxbai-embed-large:335m
 
-                      /bin/ollama pull  deepseek-r1:14b
+          #             /bin/ollama pull  deepseek-r1:14b
 
     service:
       ollama:
