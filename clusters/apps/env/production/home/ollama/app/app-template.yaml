@@ -52,7 +52,7 @@ spec:
             nameOverride: llama
             image:
               repository: ghcr.io/ggml-org/llama.cpp
-              tag: full-cuda@sha256:566ee03c8f7b7ceb8bce2515088311dba73bd96f84726db3ef4257822d45e4c6
+              tag: full-cuda@sha256:3af49db6a68a63a5cd5abc47093030542199638f71e366574881af70c15248fd
             env:
               TZ: America/New_York
             probes:
