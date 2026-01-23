@@ -1,0 +1,366 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: prometheus-community-node
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.51.0
+  url: oci://ghcr.io/prometheus-community/charts/prometheus-node-exporter
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.raspbernetes.com/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: node-exporter
+spec:
+  interval: 12h
+  chartRef:
+    kind: OCIRepository
+    name: prometheus-community-node
+  install:
+    timeout: 10m
+    replace: true
+    crds: CreateReplace
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+      retries: 3
+      strategy: rollback
+    cleanupOnFail: true
+    crds: CreateReplace
+  test:
+    enable: true
+  rollback:
+    recreate: true
+    force: true
+    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
+  maxHistory: 3
+  values:
+    # Default values for prometheus-node-exporter.
+    # This is a YAML-formatted file.
+    # Declare variables to be passed into your templates.
+    image:
+      registry: quay.io
+      repository: prometheus/node-exporter
+      # Overrides the image tag whose default is {{ printf "v%s" .Chart.AppVersion }}
+      tag: ""
+      pullPolicy: IfNotPresent
+      digest: ""
+
+    imagePullSecrets: []
+    # - name: "image-pull-secret"
+    nameOverride: ""
+    fullnameOverride: ""
+
+    # Number of old history to retain to allow rollback
+    # Default Kubernetes value is set to 10
+    revisionHistoryLimit: 10
+
+    global:
+      # To help compatibility with other charts which use global.imagePullSecrets.
+      # Allow either an array of {name: pullSecret} maps (k8s-style), or an array of strings (more common helm-style).
+      # global:
+      #   imagePullSecrets:
+      #   - name: pullSecret1
+      #   - name: pullSecret2
+      # or
+      # global:
+      #   imagePullSecrets:
+      #   - pullSecret1
+      #   - pullSecret2
+      imagePullSecrets: []
+      #
+      # Allow parent charts to override registry hostname
+      imageRegistry: ""
+
+    ## Service configuration
+    service:
+      ## Creating a service is enabled by default
+      enabled: false
+    prometheus:
+      monitor:
+        enabled: false
+        additionalLabels: {}
+        namespace: ""
+
+        jobLabel: ""
+
+        # List of pod labels to add to node exporter metrics
+        # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#servicemonitor
+        podTargetLabels: []
+
+        # List of target labels to add to node exporter metrics
+        # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#servicemonitor
+        targetLabels: []
+
+        scheme: http
+        basicAuth: {}
+        bearerTokenFile:
+        tlsConfig: {}
+
+        ## proxyUrl: URL of a proxy that should be used for scraping.
+        ##
+        proxyUrl: ""
+
+        ## Override serviceMonitor selector
+        ##
+        selectorOverride: {}
+
+        ## Attach node metadata to discovered targets. Requires Prometheus v2.35.0 and above.
+        ##
+        attachMetadata:
+          node: false
+
+        relabelings: []
+        metricRelabelings: []
+        interval: ""
+        scrapeTimeout: 10s
+        ## prometheus.monitor.apiVersion ApiVersion for the serviceMonitor Resource(defaults to "monitoring.coreos.com/v1")
+        apiVersion: ""
+
+        ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
+        ##
+        sampleLimit: 0
+
+        ## TargetLimit defines a limit on the number of scraped targets that will be accepted.
+        ##
+        targetLimit: 0
+
+        ## Per-scrape limit on number of labels that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        ##
+        labelLimit: 0
+
+        ## Per-scrape limit on length of labels name that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        ##
+        labelNameLengthLimit: 0
+
+        ## Per-scrape limit on length of labels value that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        ##
+        labelValueLengthLimit: 0
+
+    ## Customize the updateStrategy if set
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1
+
+    resources: {}
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #   cpu: 200m
+      #   memory: 50Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 30Mi
+
+    # Specify the container restart policy passed to the Node Export container
+    # Possible Values: Always (default)|OnFailure|Never
+    restartPolicy: null
+
+    serviceAccount:
+      # Specifies whether a ServiceAccount should be created
+      create: true
+      # The name of the ServiceAccount to use.
+      # If not set and create is true, a name is generated using the fullname template
+      name:
+      annotations: {}
+      imagePullSecrets: []
+      automountServiceAccountToken: false
+
+    securityContext:
+      fsGroup: 65534
+      runAsGroup: 65534
+      runAsNonRoot: true
+      runAsUser: 65534
+
+    containerSecurityContext:
+      readOnlyRootFilesystem: true
+      # capabilities:
+      #   add:
+      #   - SYS_TIME
+
+    rbac:
+      ## If true, create & use RBAC resources
+      ##
+      create: true
+
+    # for deployments that have node_exporter deployed outside of the cluster, list
+    # their addresses here
+    endpoints: []
+
+    # Expose the service to the host network
+    hostNetwork: true
+
+    # hostUsers should be `true` or `~` if hostNetwork is true
+    # for more information on the limitations of hostUsers
+    # see https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/#limitations
+    hostUsers: ~
+
+    # Share the host process ID namespace
+    hostPID: true
+
+    # Share the host ipc namespace
+    hostIPC: false
+
+    # Mount the node's root file system (/) at /host/root in the container
+    hostRootFsMount:
+      enabled: true
+      # Defines how new mounts in existing mounts on the node or in the container
+      # are propagated to the container or node, respectively. Possible values are
+      # None, HostToContainer, and Bidirectional. If this field is omitted, then
+      # None is used. More information on:
+      # https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation
+      mountPropagation: HostToContainer
+
+    # Mount the node's proc file system (/proc) at /host/proc in the container
+    hostProcFsMount:
+      # Possible values are None, HostToContainer, and Bidirectional
+      mountPropagation: ""
+
+    # Mount the node's sys file system (/sys) at /host/sys in the container
+    hostSysFsMount:
+      # Possible values are None, HostToContainer, and Bidirectional
+      mountPropagation: ""
+
+    ## Assign a group of affinity scheduling rules
+    ## The default nodeAffinity excludes Fargate nodes and virtual kubelets from scheduling
+    ## unless overriden by hard node affinity set in the field.
+    affinity: {}
+    #   nodeAffinity:
+    #     requiredDuringSchedulingIgnoredDuringExecution:
+    #       nodeSelectorTerms:
+    #         - matchFields:
+    #             - key: metadata.name
+    #               operator: In
+    #               values:
+    #                 - target-host-name
+
+    # Annotations to be added to node exporter pods
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9100"
+      prometheus.io/job: "node"
+
+    # Extra labels to add to node exporter pods (can be templated)
+    podLabels: {}
+
+    ## Extra labels to attach to all resources (can be templated)
+    commonLabels: {}
+
+    # Annotations to be added to node exporter daemonset
+    daemonsetAnnotations: {}
+
+    ## set to true to add the release label so scraping of the servicemonitor with kube-prometheus-stack works out of the box
+    releaseLabel: false
+
+    # DNS policy for prometheus-node-exporter pods
+    # When hostNetwork is true, you typically want "Default" or "ClusterFirstWithHostNet"
+    # Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+    dnsPolicy: ""
+
+    # Custom DNS configuration to be added to prometheus-node-exporter pods
+    dnsConfig: {}
+    # nameservers:
+    #   - 1.2.3.4
+    # searches:
+    #   - ns1.svc.cluster-domain.example
+    #   - my.dns.search.suffix
+    # options:
+    #   - name: ndots
+    #     value: "2"
+    #   - name: edns0
+
+    ## Assign a nodeSelector if operating a hybrid cluster
+    ##
+    nodeSelector:
+      kubernetes.io/os: linux
+      #  kubernetes.io/arch: amd64
+
+    # Specify grace period for graceful termination of pods. Defaults to 30 if null or not specified
+    terminationGracePeriodSeconds: null
+
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+
+    # Enable or disable container termination message settings
+    # https://kubernetes.io/docs/tasks/debug/debug-application/determine-reason-pod-failure/
+    terminationMessageParams:
+      enabled: false
+      # If enabled, specify the path for termination messages
+      terminationMessagePath: /dev/termination-log
+      # If enabled, specify the policy for termination messages
+      terminationMessagePolicy: File
+
+    ## Assign a PriorityClassName to pods if set
+    # priorityClassName: ""
+
+    ## Additional container arguments
+    ##
+    extraArgs: []
+    #   - --collector.diskstats.ignored-devices=^(ram|loop|fd|(h|s|v)d[a-z]|nvme\\d+n\\d+p)\\d+$
+    #   - --collector.textfile.directory=/run/prometheus
+
+    ## Additional mounts from the host to node-exporter container
+    ##
+    extraHostVolumeMounts: []
+    #  - name: <mountName>
+    #    hostPath: <hostPath>
+    #    https://kubernetes.io/docs/concepts/storage/volumes/#hostpath-volume-types
+    #    type: "" (Default)|DirectoryOrCreate|Directory|FileOrCreate|File|Socket|CharDevice|BlockDevice
+    #    mountPath: <mountPath>
+    #    readOnly: true|false
+    #    mountPropagation: None|HostToContainer|Bidirectional
+
+    ## Additional configmaps to be mounted.
+    ##
+    configmaps: []
+    # - name: <configMapName>
+    #   mountPath: <mountPath>
+
+    secrets: []
+    # - name: <secretName>
+    #   mountPath: <mountPatch>
+
+    ## Override the deployment namespace
+    ##
+    namespaceOverride: ""
+
+    ## Additional containers for export metrics to text file; fields image,imagePullPolicy,securityContext take default value from main container
+    ##
+    sidecars: []
+    #  - name: nvidia-dcgm-exporter
+    #    image: nvidia/dcgm-exporter:1.4.3
+    #    volumeMounts:
+    #     - name: tmp
+    #       mountPath: /tmp
+
+    ## Volume for sidecar containers
+    ##
+    sidecarVolumeMount: []
+    #  - name: collector-textfiles
+    #    mountPath: /run/prometheus
+    #    readOnly: false
+
+    ## Additional mounts from the host to sidecar containers
+    ##
+    sidecarHostVolumeMounts: []
+    #  - name: <mountName>
+    #    hostPath: <hostPath>
+    #    mountPath: <mountPath>
+    #    readOnly: true|false
+    #    mountPropagation: None|HostToContainer|Bidirectional

@@ -14,29 +14,29 @@ alerting:
         - targets:
             - 100.64.0.11:9093
 scrape_configs:
-  - job_name: 'hass'
+  - job_name: "hass"
     scrape_interval: 60s
     metrics_path: /api/prometheus
     authorization:
       credentials: "${PROMETHEUS_HOME_ASSISTANT_TOKEN}"
     scheme: http
     static_configs:
-      - targets: ['home-assistant.home.svc.cluster.local:8123']
+      - targets: ["home-assistant.home.svc.cluster.local:8123"]
     relabel_configs:
       - target_label: instance
         replacement: home-assistant
-  - job_name: 'garage'
+  - job_name: "garage"
     scrape_interval: 60s
     metrics_path: /metrics
     scheme: http
     static_configs:
-      - targets: ['admin.garage.${FAMILY_DOMAIN}']
+      - targets: ["admin.garage.${FAMILY_DOMAIN}"]
     relabel_configs:
       - target_label: instance
         replacement: admin.garage.${FAMILY_DOMAIN}
   - job_name: nut-exporter
     static_configs:
-      - targets: ['peanut1.${FAMILY_DOMAIN}', 'peanut2.${FAMILY_DOMAIN}'] # nut exporter
+      - targets: ["peanut1.${FAMILY_DOMAIN}", "peanut2.${FAMILY_DOMAIN}"] # nut exporter
     metrics_path: /ups_metrics
     relabel_configs:
       - source_labels: [__address__]
@@ -119,25 +119,29 @@ scrape_configs:
     relabel_configs:
       # Example relabel to scrape only endpoints that have
       # "prometheus.io/scrape = true" annotation.
-      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+      - source_labels:
+          [__meta_kubernetes_service_annotation_prometheus_io_scrape]
         action: keep
         regex: true
       # Example relabel to customize metric path based on endpoints
       # "prometheus.io/metric_path = <metric path>" annotation.
-      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_metric_path]
+      - source_labels:
+          [__meta_kubernetes_service_annotation_prometheus_io_metric_path]
         action: replace
         target_label: __metrics_path__
         regex: (.+)
       # Example relabel to scrape only single, desired port for the service based
       # on endpoints "prometheus.io/port = <port>" annotation.
-      - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+      - source_labels:
+          [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
         action: replace
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
       # Example relabel to configure scrape scheme for all service scrape targets
       # based on endpoints "example.io/scrape_scheme = <scheme>" annotation.
-      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_scheme]
+      - source_labels:
+          [__meta_kubernetes_service_annotation_prometheus_io_scrape_scheme]
         action: replace
         target_label: __scheme__
         regex: (https?)
@@ -166,20 +170,23 @@ scrape_configs:
         regex: true
       # Example relabel to customize metric path based on pod
       # "prometheus.io/metric_path = <metric path>" annotation.
-      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_metric_path]
+      - source_labels:
+          [__meta_kubernetes_pod_annotation_prometheus_io_metric_path]
         action: replace
         target_label: __metrics_path__
         regex: (.+)
       # Example relabel to scrape only single, desired port for the pod based
       # on "prometheus.io/port = <port>" annotation.
-      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      - source_labels:
+          [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
         action: replace
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
       # Example relabel to configure scrape scheme for all service scrape targets
       # based on endpoints "example.io/scrape_scheme = <scheme>" annotation.
-      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape_scheme]
+      - source_labels:
+          [__meta_kubernetes_pod_annotation_prometheus_io_scrape_scheme]
         action: replace
         target_label: __scheme__
         regex: (https?)
@@ -188,6 +195,9 @@ scrape_configs:
       - source_labels: [__meta_kubernetes_namespace]
         action: replace
         target_label: namespace
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_job]
+        action: replace
+        target_label: job
       - source_labels: [__meta_kubernetes_pod_name]
         action: replace
         target_label: pod
@@ -203,25 +213,29 @@ scrape_configs:
     relabel_configs:
       # Example relabel to scrape only endpoints that have
       # "prometheus.io/scrape = true" annotation.
-      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+      - source_labels:
+          [__meta_kubernetes_service_annotation_prometheus_io_scrape]
         action: keep
         regex: super_slow
       # Example relabel to customize metric path based on endpoints
       # "prometheus.io/metric_path = <metric path>" annotation.
-      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_metric_path]
+      - source_labels:
+          [__meta_kubernetes_service_annotation_prometheus_io_metric_path]
         action: replace
         target_label: __metrics_path__
         regex: (.+)
       # Example relabel to scrape only single, desired port for the service based
       # on endpoints "prometheus.io/port = <port>" annotation.
-      - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+      - source_labels:
+          [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
         action: replace
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
       # Example relabel to configure scrape scheme for all service scrape targets
       # based on endpoints "example.io/scrape_scheme = <scheme>" annotation.
-      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_scheme]
+      - source_labels:
+          [__meta_kubernetes_service_annotation_prometheus_io_scrape_scheme]
         action: replace
         target_label: __scheme__
         regex: (https?)
