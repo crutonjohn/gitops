@@ -190,14 +190,16 @@ scrape_configs:
         action: replace
         target_label: __scheme__
         regex: (https?)
+      # Example relabel to configure scrape job name for all pod scrape targets
+      # based on endpoints "prometheus.io/job = <scheme>" annotation.
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_job]
+        action: replace
+        target_label: job
       - action: labelmap
         regex: __meta_kubernetes_pod_label_(.+)
       - source_labels: [__meta_kubernetes_namespace]
         action: replace
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_job]
-        action: replace
-        target_label: job
       - source_labels: [__meta_kubernetes_pod_name]
         action: replace
         target_label: pod
