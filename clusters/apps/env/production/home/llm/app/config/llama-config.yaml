@@ -1,3 +1,4 @@
 models:
   model1:
     cmd: llama-server --port 8080 --model /models/
+    proxy: http://127.0.0.1:8080

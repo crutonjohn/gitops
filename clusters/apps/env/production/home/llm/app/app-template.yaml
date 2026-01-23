@@ -55,6 +55,7 @@ spec:
               tag: cuda-non-root@sha256:a13530cceadcd577d0874f4d79e1e83a5c39f3ec691878cc483b99d7ceda9b48
             env:
               TZ: America/New_York
+              LLAMA_ARG_MODELS_DIR: /models
             probes:
               liveness:
                 enabled: false
