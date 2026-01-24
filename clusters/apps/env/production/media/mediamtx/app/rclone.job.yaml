@@ -33,6 +33,8 @@ spec:
                 - "-P"
                 - "--config"
                 - "/rclone.conf"
+                - "--ca-cert"
+                - "/ca.crt"
                 - "--include"
                 - "'*.mp4'"
                 - "/recordings/"
@@ -44,7 +46,14 @@ spec:
                   readOnly: true
                 - name: mediamtx-recordings
                   mountPath: /recordings
+                - name: heyjohn-internal-ca
+                  mountPath: /ca.crt
+                  subPath: ca.crt
+                  readOnly: true
           volumes:
+            - name: heyjohn-internal-ca
+              secret:
+                secretName: heyjohn-internal-ca
             - name: mediamtx-rclone-config
               secret:
                 secretName: mediamtx-rclone-config
