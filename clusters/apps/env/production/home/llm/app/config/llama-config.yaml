@@ -2,3 +2,9 @@ models:
   StableDiffusion:
     cmd: llama-server --port 8999 --model /app/.cache/llama.cpp/StableDiffusionVN_Flux_Clip_t5-v1_1-xxl-encoder-Q4_K_S.gguf
     proxy: http://127.0.0.1:8999
+  Qwen3-14b:
+    cmd: llama-server --port 8998 --model /app/.cache/llama.cpp/MaziyarPanahi_Qwen3-14B-GGUF_Qwen3-14B.Q4_K_M.gguf
+    proxy: http://127.0.0.1:8998
+  NeuTTS:
+    cmd: llama-server --port 8997 --model /app/.cache/llama.cpp/neuphonic_neutts-air_neutss-air-BF16.gguf
+    proxy: http://127.0.0.1:8997
