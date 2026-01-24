@@ -10,7 +10,7 @@ metadata:
   name: mediamtx-rclone
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 2 * * *" # Every day at 2am
+  schedule: "0 5 * * *" # Every day at 5am
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 10
   startingDeadlineSeconds: 60
