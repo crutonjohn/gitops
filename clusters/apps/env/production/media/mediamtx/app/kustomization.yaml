@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - hr.yaml
   - dns.yaml
+  - rclone.enc.yaml
+  - rclone.job.yaml
 configMapGenerator:
   - name: mediamtx-config
     files:

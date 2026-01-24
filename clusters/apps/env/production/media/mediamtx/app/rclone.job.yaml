@@ -1,0 +1,53 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: mediamtx-rclone
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mediamtx-rclone
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 2 * * *" # Every day at 2am
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 10
+  startingDeadlineSeconds: 60
+  timeZone: "${LOCAL_TIMEZONE}"
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          serviceAccountName: mediamtx-rclone
+          restartPolicy: Never
+          containers:
+            - name: rclone
+              image: rclone/rclone:latest@sha256:0eb18825ac9732c21c11d654007170572bbd495352bb6dbb624f18e4f462c496
+              command: ["rclone"]
+              args:
+                - "move"
+                - "--transfers=1"
+                - "-P"
+                - "--config"
+                - "/rclone.conf"
+                - "--include"
+                - "'*.mp4'"
+                - "/recordings/"
+                - "garage-stream-recordings:stream-recordings/crutonjohn/"
+              volumeMounts:
+                - name: mediamtx-rclone-config
+                  mountPath: /rclone.conf
+                  subPath: rclone.conf
+                  readOnly: true
+                - name: mediamtx-recordings
+                  mountPath: /recordings
+          volumes:
+            - name: mediamtx-rclone-config
+              secret:
+                secretName: mediamtx-rclone-config
+            - name: mediamtx-recordings
+              persistentVolumeClaim:
+                claimName: mediamtx-recordings
