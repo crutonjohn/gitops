@@ -26,6 +26,7 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
+      runtimeClassName: "nvidia"
       tolerations:
         - effect: NoSchedule
           key: nvidia.com/gpu
