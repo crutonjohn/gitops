@@ -1,4 +1,4 @@
 models:
-  model1:
-    cmd: llama-server --port 8080 --model /models/
+  StableDiffusion:
+    cmd: llama-server --port 8080 --model /app/.cache/llama.cpp/StableDiffusionVN_Flux_Clip_t5-v1_1-xxl-encoder-Q4_K_S.gguf
     proxy: http://127.0.0.1:8080
