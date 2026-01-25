@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: vllm-charts
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  ignore: |
+    # exclude all
+    /*
+    # include chart dir
+    !/examples/online_serving/chart-helm
+  url: https://github.com/vllm-project/vllm
+  ref:
+    tag: v0.14.1
