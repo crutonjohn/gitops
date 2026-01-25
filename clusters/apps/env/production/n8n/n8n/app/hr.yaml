@@ -99,7 +99,7 @@ spec:
               active: true
           bull:
             redis:
-              host: n8n-valkey-primary
+              host: n8n-valkey
               port: 6379
 
       # Dictionary for secrets, unlike config:, the values here will end up in the secret file.
