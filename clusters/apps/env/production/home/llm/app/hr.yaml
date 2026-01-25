@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: GitRepository
         name: vllm-charts
-        namespace: flux-system
+        namespace: home
   maxHistory: 2
   install:
     remediation:
