@@ -8,3 +8,6 @@ models:
   NeuTTS:
     cmd: llama-server --port 8997 --model /app/.cache/llama.cpp/neuphonic_neutts-air_neutss-air-BF16.gguf
     proxy: http://127.0.0.1:8997
+  Qwen3-Video:
+    cmd: llama-server --port 8996 --model /app/.cache/llama.cpp/prithivMLmods_SAGE-MM-Qwen3-VL-4B-SFT-GGUF_SAGE-MM-Qwen3-VL-4B-SFT.mmproj-Q8_0.gguf
+    proxy: http://127.0.0.1:8996
