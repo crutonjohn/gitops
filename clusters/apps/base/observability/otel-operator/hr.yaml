@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: opentelemetry-operator
-      version: 0.93.1
+      version: 0.105.0
       sourceRef:
         kind: HelmRepository
         name: opentelemetry-charts
