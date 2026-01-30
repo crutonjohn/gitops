@@ -95,7 +95,7 @@ spec:
           # -- Image repository
           repository: "amazon/aws-cli"
           # -- Image tag
-          tag: "2.6.4"
+          tag: "2.33.12"
           # -- Image pull policy
           pullPolicy: "IfNotPresent"
         # -- Wait container configuration (init container that waits for model to be ready)
