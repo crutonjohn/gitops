@@ -32,11 +32,6 @@ spec:
       recordType: A
       targets:
         - 100.64.0.11
-    - dnsName: headscale.${FAMILY_DOMAIN}
-      recordTTL: 300
-      recordType: A
-      targets:
-        - 100.64.0.11
     - dnsName: nixos-ord.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
