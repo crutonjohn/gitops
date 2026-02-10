@@ -1,0 +1,150 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      mealie:
+        annotations:
+          secret.reloader.stakater.com/reload: mealie-env
+
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: mealie-env
+
+        containers:
+          mealie:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v3.10.12@sha256:58b54bca4c729fcc7f272cfac5086623866430956838de3f5d763fcaf9e64115
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            env:
+              POSTGRESQL_SERVER:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-env
+                    key: INIT_POSTGRES_HOST
+              POSTGRESQL_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-env
+                    key: INIT_POSTGRES_USER
+              POSTGRESQL_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-env
+                    key: INIT_POSTGRES_PASS
+              POSTGRESQL_DBNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-env
+                    key: INIT_POSTGRES_DBNAME
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 5Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    ingress:
+      mealie:
+        enabled: true
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+        labels: {}
+        className: traefik-external
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: mealie
+                  port: 9000
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
+    service:
+      mealie:
+        controller: mealie
+        primary: true
+        ports:
+          http:
+            port: 9000
+
+    persistence:
+      data:
+        existingClaim: mealie-data
+        advancedMounts:
+          mealie:
+            mealie:
+              - path: /app/data/

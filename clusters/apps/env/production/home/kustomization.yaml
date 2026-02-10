@@ -12,6 +12,7 @@ resources:
   - ./open-notebook/ks.yaml
   - ./paperless/ks.yaml
   - ./zwavejs/ks.yaml
+  - ./mealie/ks.yaml
 patches:
   - patch: |-
       - op: add
