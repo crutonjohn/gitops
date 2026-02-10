@@ -77,26 +77,31 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
             env:
-              POSTGRESQL_SERVER:
+              POSTGRES_SERVER:
                 valueFrom:
                   secretKeyRef:
                     name: mealie-env
                     key: INIT_POSTGRES_HOST
-              POSTGRESQL_USER:
+              POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
                     name: mealie-env
                     key: INIT_POSTGRES_USER
-              POSTGRESQL_PASSWORD:
+              POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: mealie-env
                     key: INIT_POSTGRES_PASS
-              POSTGRESQL_DBNAME:
+              POSTGRES_DBNAME:
                 valueFrom:
                   secretKeyRef:
                     name: mealie-env
                     key: INIT_POSTGRES_DBNAME
+              POSTGRES_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-env
+                    key: POSTGRESQL_PORT
             envFrom: *envFrom
             resources:
               requests:
