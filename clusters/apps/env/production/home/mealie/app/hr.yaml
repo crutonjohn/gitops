@@ -35,7 +35,7 @@ spec:
     controllers:
       mealie:
         annotations:
-          secret.reloader.stakater.com/reload: mealie-env, mealie-config
+          secret.reloader.stakater.com/reload: mealie-env
 
         initContainers:
           init-db:
