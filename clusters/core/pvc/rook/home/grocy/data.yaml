@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mealie-data
+  name: grocy-data
   namespace: home
 spec:
   accessModes:
@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 50Gi
-  storageClassName: terra-block
+  storageClassName: codex-block
