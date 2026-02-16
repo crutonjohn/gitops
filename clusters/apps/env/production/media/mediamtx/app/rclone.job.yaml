@@ -29,14 +29,14 @@ spec:
               command: ["rclone"]
               args:
                 - "move"
-                - "--transfers=1"
+                - "--transfers=2"
                 - "-P"
                 - "--config"
                 - "/rclone.conf"
                 - "--ca-cert"
                 - "/ca.crt"
                 - "--include"
-                - "'*.mp4'"
+                - "*.mp4"
                 - "/recordings/"
                 - "garage-stream-recordings:stream-recordings/crutonjohn/"
               volumeMounts:
