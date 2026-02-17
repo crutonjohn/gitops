@@ -18,7 +18,7 @@ spec:
   jobTemplate:
     spec:
       backoffLimit: 2
-      activeDeadlineSeconds: 600
+      activeDeadlineSeconds: 12000
       template:
         spec:
           serviceAccountName: mediamtx-rclone
