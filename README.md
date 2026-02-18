@@ -67,6 +67,7 @@ _All my nodes below are running bare metal Talos_
 - [TP-Link TL-SG3428XMP](https://www.tp-link.com/us/business-networking/omada-sdn-switch/tl-sg3428xmp/) Core Switch
 - [TP-Link SX3206HPP](https://www.omadanetworks.com/us/business-networking/omada-switch-access-max/sx3206hpp/) Garage Distribution
 - [TP-Link SX3008F](https://www.tp-link.com/us/business-networking/managed-switch/tl-sx3008f/) 10Gig Distribution
+- [TP-Link SG2210XMP-M2](https://www.omadanetworks.com/my/business-networking/omada-switch-l3-l2-managed/sg2210xmp-m2/) 2.5Gig Managed Access
 - x3 [TP-Link EAP725-Wall](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap725-wall/) Wi-Fi 7 Access Points
 - x2 [TP-Link TL-SG105S-M2](https://www.tp-link.com/us/business-networking/soho-switch-unmanaged/tl-sg105s-m2/) Desktop Access Switch
   - x2 [TL-PD30G-M2](https://www.tp-link.com/us/business-networking/soho-accessory/tl-pd30g-m2/) 2.5Gig PoE Splitter for power
