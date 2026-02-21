@@ -29,16 +29,16 @@ spec:
               command: ["rclone"]
               args:
                 - "move"
-                - "--transfers=2"
-                - "-P"
+                # - "--transfers=2"
+                - "-v"
                 - "--config"
                 - "/rclone.conf"
-                - "--ca-cert"
-                - "/ca.crt"
-                - "--include"
-                - "*.mp4"
+                # - "--ca-cert"
+                # - "/ca.crt"
+                # - "--include"
+                # - "*.mp4"
                 - "/recordings/"
-                - "garage-stream-recordings:stream-recordings/crutonjohn/"
+                - "perturabo-smb-video-talos:/videos/games/"
               volumeMounts:
                 - name: mediamtx-rclone-config
                   mountPath: /rclone.conf
