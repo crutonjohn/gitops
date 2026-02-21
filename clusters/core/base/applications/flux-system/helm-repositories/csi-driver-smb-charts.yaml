@@ -3,8 +3,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: cloudnative-pg
+  name: csi-driver-smb-charts
   namespace: flux-system
 spec:
   interval: 24h
-  url: https://cloudnative-pg.github.io/charts
+  url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts

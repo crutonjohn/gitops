@@ -5,6 +5,6 @@ metadata:
   name: jaeger-charts
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 24h
   url: https://jaegertracing.github.io/helm-charts
   timeout: 3m

@@ -5,6 +5,6 @@ metadata:
   name: signoz-charts
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 24h
   url: https://charts.signoz.io
   timeout: 3m

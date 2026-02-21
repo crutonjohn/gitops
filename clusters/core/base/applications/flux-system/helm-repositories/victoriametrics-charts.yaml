@@ -5,6 +5,6 @@ metadata:
   name: victoriametrics-charts
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 24h
   url: https://victoriametrics.github.io/helm-charts/
   timeout: 3m
