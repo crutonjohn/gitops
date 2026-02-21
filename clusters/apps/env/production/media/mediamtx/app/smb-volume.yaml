@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: game-recordings
+  name: game-recordings-smb
 spec:
   storageClassName: "perturabo-smb"
   capacity:
@@ -17,9 +17,9 @@ spec:
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
-    volumeHandle: $VOLUMEID # make sure it's a unique id in the cluster
+    volumeHandle: perturabo.${FAMILY_DOMAIN}/videos##
     volumeAttributes:
-      source: $SOURCE
+      source: //perturabo.${FAMILY_DOMAIN}/videos
     nodeStageSecretRef:
-      name: smb-creds
-      namespace: smb-test
+      name: talos-smb-cred
+      namespace: media
