@@ -38,6 +38,7 @@ tasks:
         vars:
           node: "{{.node}}"
           ceph_disk: "/dev/{{.disk}}"
+      - talosctl wipe disk --drop-partition -n fulgrim {{.disk}}
 
   wipe-node-fulgrim:
     desc: Trigger a wipe of Rook-Ceph data on node "fulgrim"
