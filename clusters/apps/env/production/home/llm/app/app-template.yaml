@@ -39,11 +39,11 @@ spec:
           key: node.kubernetes.io/unreachable
           operator: Exists
           tolerationSeconds: 300
-      securityContext:
-        fsGroup: ${APP_UID}
-        runAsNonRoot: true
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
+      # securityContext:
+      #   fsGroup: ${APP_UID}
+      #   runAsNonRoot: true
+      #   runAsUser: ${APP_UID}
+      #   runAsGroup: ${APP_UID}
 
     controllers:
       vllm:
