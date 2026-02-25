@@ -67,10 +67,11 @@ spec:
               [
                 "vllm",
                 "serve",
-                "/data/",
-                "--served-model-name",
-                "opt-125m",
-                "--enforce-eager",
+                "--download-dir",
+                "/data",
+                "--model",
+                "Qwen/Qwen3-14B-AWQ",
+                "--no-enforce-eager",
                 "--dtype",
                 "bfloat16",
                 "--block-size",
@@ -108,6 +109,12 @@ spec:
         hosts: []
 
     persistence:
+      shm:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 10Gi
+        globalMounts:
+          - path: /dev/shm
       vllm-data:
         enabled: true
         existingClaim: "vllm-data"
