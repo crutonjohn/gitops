@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      runtimeClassName: "nvidia"
+      tolerations:
+        - effect: NoSchedule
+          key: nvidia.com/gpu
+          operator: Exists
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 300
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 300
+      securityContext:
+        fsGroup: ${APP_UID}
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+
+    controllers:
+      vllm:
+        type: deployment
+        containers:
+          vllm:
+            nameOverride: vllm
+            image:
+              repository: vllm/vllm-openai
+              tag: latest@sha256:6bf34e50e2387dc46dc87a9d6a945fdd616a022bccfddd949052f54063ebcb8c
+            env:
+              TZ: America/New_York
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            args:
+              [
+                "vllm",
+                "serve",
+                "/data/",
+                "--served-model-name",
+                "opt-125m",
+                "--enforce-eager",
+                "--dtype",
+                "bfloat16",
+                "--block-size",
+                "16",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000",
+              ]
+            resources:
+              requests:
+                cpu: 4
+                memory: 24Gi
+                nvidia.com/gpu: "1"
+              limits:
+                nvidia.com/gpu: "1"
+    service:
+      vllm:
+        enabled: true
+        controller: vllm
+        primary: true
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        labels:
+          io.cilium/bgp-announce: worker
+        annotations:
+          io.cilium/lb-ipam-ips: "${CLUSTER_LB_OLLAMA}"
+        ports:
+          vllm:
+            port: 8000
+
+    ingress:
+      main:
+        enabled: false
+        hosts: []
+
+    persistence:
+      vllm-data:
+        enabled: true
+        existingClaim: "vllm-data"
+        globalMounts:
+          - path: /data
+            readOnly: false
