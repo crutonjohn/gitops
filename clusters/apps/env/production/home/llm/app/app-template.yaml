@@ -63,24 +63,7 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            args:
-              [
-                "vllm",
-                "serve",
-                "--download-dir",
-                "/data",
-                "--model",
-                "Qwen/Qwen3-14B-AWQ",
-                "--no-enforce-eager",
-                "--dtype",
-                "bfloat16",
-                "--block-size",
-                "16",
-                "--host",
-                "0.0.0.0",
-                "--port",
-                "8000",
-              ]
+            args: ["vllm", "serve", "--config", "/config/vllm.yaml"]
             resources:
               requests:
                 cpu: 4
@@ -119,5 +102,12 @@ spec:
         enabled: true
         existingClaim: "vllm-data"
         globalMounts:
-          - path: /data
+          - path: /root/.cache/huggingface
             readOnly: false
+      config-file:
+        type: configMap
+        name: vllm-config
+        globalMounts:
+          - path: /config/vllm.yaml
+            subPath: vllm.yaml
+            readOnly: true
