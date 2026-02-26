@@ -15,8 +15,8 @@ customization:
       - siderolabs/amd-ucode
       - siderolabs/gasket-driver
       - siderolabs/iscsi-tools
-      - siderolabs/nonfree-kmod-nvidia-production
+      - siderolabs/nonfree-kmod-nvidia-lts
       - siderolabs/nut-client
-      - siderolabs/nvidia-container-toolkit-production
+      - siderolabs/nvidia-container-toolkit-lts
       - siderolabs/nvme-cli
   bootloader: sd-boot
