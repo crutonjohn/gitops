@@ -104,7 +104,7 @@ spec:
       app.kubernetes.io/name: &app navidrome
       backups.${FAMILY_DOMAIN}/name: *app
       backups.${FAMILY_DOMAIN}/subsystem: music
-  path: ./clusters/apps/base/volsync/lib/rclone
+  path: ./clusters/apps/base/volsync/lib/rclone/b2
   prune: true
   sourceRef:
     kind: GitRepository

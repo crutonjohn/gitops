@@ -80,7 +80,7 @@ spec:
                 readOnly: false
       music:
         enabled: true
-        existingClaim: "music-library"
+        existingClaim: "music-library-smb"
 
     ingress:
       navidrome:
