@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ebook-library-smb
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 100Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: ebook-library-smb
+    namespace: media
+  csi:
+    driver: smb.csi.k8s.io
+    nodeStageSecretRef:
+      name: talos-smb-cred
+      namespace: media
+    volumeAttributes:
+      source: //perturabo.heyjohn.family/ebooks
+    volumeHandle: perturabo.heyjohn.family/ebooks##
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - vers=3.0
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: perturabo-smb
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebook-library-smb
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: perturabo-smb
+  volumeMode: Filesystem
+  volumeName: ebook-library-smb
+status:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 1512Gi
