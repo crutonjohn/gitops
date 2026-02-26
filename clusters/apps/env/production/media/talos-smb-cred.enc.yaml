@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: talos-smb-cred
+    namespace: media
 type: Opaque
 stringData:
     username: ENC[AES256_GCM,data:LOQWz3U=,iv:vVI21fzkQFHCVjq8R3Ci258YPt9vDHjuZNe7cilWlFo=,tag:DDHXRnpalqK4IvCJ+F/D4Q==,type:str]
@@ -13,7 +14,7 @@ sops:
           created_at: "2026-02-21T20:50:30Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFt8+LD3tHexo6iZsywnocaAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMVjqFBNa/3d8YapnGAgEQgDuPJdkbUYdJ9iE/sEvrIIXOwaRTdfusC+tNBIWS4dkVlDz43NyDhMQ/pK4W6G97VQANHAqOkHhzow4rNQ==
           aws_profile: ""
-    lastmodified: "2026-02-21T20:50:30Z"
-    mac: ENC[AES256_GCM,data:ObErytlvHhVEzrgsc4cJ2VMj25K+keidqy36cGegB24GH2nOy0sHBqZrIWYXZUAynDLq7xcnGwOVUbhsBUcXRV0/XCWJSpPqxtvIcdS4U/rSwq8RHFJbl7E9dX0Hpd+ZpcDn69ueYbYe1RT9UlKk17Y9YZJFfqTowvo3CXG5S4o=,iv:ezr3sBnS1k6+v0vrryPJNDUzXirkWQm59MPAeoQDOno=,tag:1IBIDDJ2Ic9C/h0vI789EA==,type:str]
+    lastmodified: "2026-02-26T23:17:08Z"
+    mac: ENC[AES256_GCM,data:VOYw8hVcNi5294Ez2rvdY350s9RujjniKnkudRvlCms2DvsKupHWqXbi0gg/w/Y/TQzXHktk5IEIro6W0Wc3qwxCkD+/KPODthzMM9Zwwhl7qB+yrj6fA5ssZ8SH3wQNl2TqyJW4mP5ieokKD9n9q4dmrAa4NSYd54RAHeexQAU=,iv:AqYq7p7d6KGRiPHjg+CW8e6mL4e3Lo4tjOcvGjEcqvo=,tag:Jq2bvorSxzvWJOjMXqPbjg==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0

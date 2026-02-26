@@ -11,3 +11,4 @@ resources:
   - slskd/ks.yaml
   - syncthing/ks.yaml
   - deemix/ks.yaml
+  - talos-smb-cred.enc.yaml
