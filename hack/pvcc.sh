@@ -31,20 +31,15 @@ spec:
         command: [ "/bin/bash", "-c" ]
         args:
           -
-            apt-get update && apt-get install -y rsync &&
-            ls -lah /src_vol /dst_vol &&
-            df -h &&
-            rsync -avPS --delete /src_vol/ /dst_vol/ &&
-            ls -lah /dst_vol/ &&
-            du -shxc /src_vol/ /dst_vol/
+	    apt-get update && apt-get install -y rclone &&
+	    rclone copy -PM /src_vol/ /dst_vol/ &&
+	    du -shxc /src_vol/ /dst_vol/
         volumeMounts:
         - mountPath: /src_vol
           name: src
           readOnly: true
         - mountPath: /dst_vol
           name: dst
-      nodeSelector:
-        kubernetes.io/arch: "amd64"
       restartPolicy: Never
       volumes:
       - name: src
