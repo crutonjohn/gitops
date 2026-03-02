@@ -107,7 +107,7 @@ spec:
                 readOnly: false
       audiobooks:
         enabled: true
-        existingClaim: "audiobook-library"
+        existingClaim: "audiobook-library-smb"
         advancedMounts:
           audiobookshelf:
             audiobookshelf:
@@ -115,7 +115,7 @@ spec:
                 readOnly: false
       ebooks:
         enabled: true
-        existingClaim: "ebook-library"
+        existingClaim: "ebook-library-smb"
         advancedMounts:
           audiobookshelf:
             audiobookshelf:
