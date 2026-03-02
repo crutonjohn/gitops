@@ -13,6 +13,7 @@ resources:
   - ./paperless/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mealie/ks.yaml
+  - talos-smb-cred.enc.yaml
 patches:
   - patch: |-
       - op: add
