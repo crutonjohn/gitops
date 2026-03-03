@@ -22,14 +22,6 @@ machine:
     net.ipv4.tcp_congestion_control: bbr
     kernel.kexec_load_disabled: "1"
   files:
-    - op: create
-      path: /etc/cri/conf.d/20-customization.part
-      content: |
-        [plugins."io.containerd.cri.v1.images"]
-          discard_unpacked_layers = false
-        [plugins."io.containerd.cri.v1.runtime"]
-          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
-          device_ownership_from_security_context = true
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0644

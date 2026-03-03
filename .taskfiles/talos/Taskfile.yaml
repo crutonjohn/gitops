@@ -53,13 +53,21 @@ tasks:
     preconditions:
       - which talosctl sops
 
+  gen-remotes:
+    desc: Generate machine configs & boot assets
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    deps:
+      - gen-controlplane
+      - gen-worker
+      - gen-assets
+
   gen-config:
     desc: Generate machine configs
     dir: "{{.TALOS_RESOURCES_DIR}}"
     deps:
       - gen-controlplane
       - gen-worker
-      - gen-talosconfig
+      # - gen-talosconfig
     cmds:
       # Workers
       ## 1g
@@ -100,13 +108,6 @@ tasks:
     desc: Push configs to Perturabo
     dir: "{{.TALOS_RESOURCES_DIR}}"
     cmds:
-      # - cp out/dorn.yaml pxe/58:47:ca:76:b7:85
-      # - cp out/fulgrim.yaml pxe/98:b7:85:1e:d8:ad
-      # - cp out/guilliman.yaml pxe/58:47:ca:77:75:22
-      # - cp out/sanguinius.yaml pxe/58:47:ca:76:b6:f1
-      # - cp out/horus.yaml pxe/00:e0:4c:38:72:38
-      # - cp out/lion.yaml pxe/00:e0:4c:38:75:a7
-      # - cp out/magnus.yaml pxe/00:e0:4c:38:78:14
       # Copy to simple nginx webserver
       - scp -r pxe/* perturabo:{{.REMOTE_ASSETS_DIR}}/machineconfig/
 
@@ -271,13 +272,20 @@ tasks:
       - talosctl reset -e 192.168.130.132 -n 192.168.130.132 --wipe-mode system-disk --reboot=true
       - talosctl reset -e 192.168.130.133 -n 192.168.130.133 --wipe-mode system-disk --reboot=true
 
+  graceful-reset:
+    desc: gracefully resets a node, nuke boot (task talos:force-reset -- 192.168.130.141)
+    dir: "{{.TALOS_RESOURCES_DIR}}"
+    cmds:
+      - echo "talosctl reset -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=true --reboot=true"
+      - sleep 5
+      - talosctl reset -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=true --reboot=true
   force-reset:
     desc: forcefully resets a node, nuke boot (task talos:force-reset -- 192.168.130.141)
     dir: "{{.TALOS_RESOURCES_DIR}}"
     cmds:
-      - echo "talosctl reset -e {{.CLI_ARGS}} -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=false --reboot=true"
+      - echo "talosctl reset -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=false --reboot=true"
       - sleep 5
-      - talosctl reset -e {{.CLI_ARGS}} -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=false --reboot=true
+      - talosctl reset -n {{.CLI_ARGS}} --wipe-mode system-disk --graceful=false --reboot=true
 
   gen-assets:
     desc: pull boot assets for talos

@@ -8,6 +8,15 @@ machine:
     - sanguinius
   install:
     disk: /dev/disk/by-id/nvme-CT1000P3SSD8_24244963E274
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.cri.v1.runtime"]
+          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
+          device_ownership_from_security_context = true
 ---
 apiVersion: v1alpha1
 kind: LinkAliasConfig
