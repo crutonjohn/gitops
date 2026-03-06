@@ -9,5 +9,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 75Gi
-  storageClassName: terra-block
+      storage: 25Gi
+  storageClassName: codex-block
