@@ -53,7 +53,7 @@ spec:
             nameOverride: vllm
             image:
               repository: vllm/vllm-openai
-              tag: latest@sha256:6bf34e50e2387dc46dc87a9d6a945fdd616a022bccfddd949052f54063ebcb8c
+              tag: latest@sha256:2296a2a7e1ce1dc59c6577ba5900f4e9910b76c4a0cb134833a8137f92404dfa
             env:
               TZ: America/New_York
             probes:
