@@ -17,7 +17,7 @@ spec:
     driver: smb.csi.k8s.io
     nodeStageSecretRef:
       name: talos-smb-cred
-      namespace: media
+      namespace: home
     volumeAttributes:
       source: //perturabo.heyjohn.family/bewcloud
     volumeHandle: perturabo.heyjohn.family/bewcloud##

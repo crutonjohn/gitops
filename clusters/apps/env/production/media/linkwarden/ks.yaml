@@ -77,10 +77,10 @@ spec:
       APP_UID: "1447"
       CRON_SCHEDULE: "51 2/12 * * *"
       LOCAL_SCHEDULE: "55 2/12 * * *"
-      STORAGE_CLASS: terra-block
-      SNAPSHOT_CLASS: terra-block
+      STORAGE_CLASS: codex-block
+      SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
-      SIZE: "75Gi"
+      SIZE: "20Gi"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}

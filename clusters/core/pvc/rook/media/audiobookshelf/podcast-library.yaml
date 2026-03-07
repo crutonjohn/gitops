@@ -6,8 +6,8 @@ metadata:
   namespace: media
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: terra-file
+    - ReadWriteOnce
+  storageClassName: codex-block
   resources:
     requests:
-      storage: 40Gi
+      storage: 10Gi

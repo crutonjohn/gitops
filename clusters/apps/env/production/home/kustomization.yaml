@@ -10,7 +10,6 @@ resources:
   - ./llm/ks.yaml
   - ./open-webui/ks.yaml
   - ./open-notebook/ks.yaml
-  - ./paperless/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mealie/ks.yaml
   - talos-smb-cred.enc.yaml
