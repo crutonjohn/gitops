@@ -63,7 +63,8 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            args: ["vllm", "serve", "--config", "/config/vllm.yaml"]
+            args: ["serve", "--config", "/config/vllm.yaml"]
+            command: ["vllm"]
             resources:
               requests:
                 cpu: 4
