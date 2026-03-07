@@ -56,6 +56,7 @@ spec:
               tag: latest@sha256:6bf34e50e2387dc46dc87a9d6a945fdd616a022bccfddd949052f54063ebcb8c
             env:
               TZ: America/New_York
+              HF_TOKEN: ${VLLM_HF_TOKEN}
             probes:
               liveness:
                 enabled: false
