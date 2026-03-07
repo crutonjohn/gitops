@@ -63,15 +63,7 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            args:
-              [
-                "vllm",
-                "serve",
-                "--config",
-                "/config/vllm.yaml",
-                "--quantization",
-                "awq",
-              ]
+            args: ["vllm", "serve", "--config", "/config/vllm.yaml"]
             resources:
               requests:
                 cpu: 4
