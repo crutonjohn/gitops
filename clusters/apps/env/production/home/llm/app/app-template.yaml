@@ -52,8 +52,10 @@ spec:
           vllm:
             nameOverride: vllm
             image:
-              repository: vllm/vllm-openai
-              tag: latest@sha256:6bf34e50e2387dc46dc87a9d6a945fdd616a022bccfddd949052f54063ebcb8c
+              # repository: vllm/vllm-openai
+              # tag: latest@sha256:6bf34e50e2387dc46dc87a9d6a945fdd616a022bccfddd949052f54063ebcb8c
+              repository: vllm/vllm-omni
+              tag: v0.16.0@sha256:33b1ed6505f67fa080297002b9df02dc2b6ad6b745787f3d04981f007f82f491
             env:
               TZ: America/New_York
               HF_TOKEN: ${VLLM_HF_TOKEN}
@@ -64,7 +66,7 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            args: ["serve", "--config", "/config/vllm.yaml"]
+            args: ["serve", "--omni", "--config", "/config/vllm.yaml"]
             command: ["vllm"]
             resources:
               requests:
