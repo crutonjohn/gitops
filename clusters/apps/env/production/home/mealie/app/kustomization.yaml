@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - hr.yaml
   - mealie.enc.yaml
+  - mealie-cors-middleware.yaml

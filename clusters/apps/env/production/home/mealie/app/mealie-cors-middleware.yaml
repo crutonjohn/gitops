@@ -1,0 +1,20 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: mealie-cors
+  namespace: home
+spec:
+  headers:
+    accessControlAllowOriginList:
+      - "https://home.heyjohn.family"
+    accessControlAllowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+    accessControlAllowHeaders:
+      - Authorization
+      - Content-Type
+    accessControlMaxAge: 100
+    addVaryHeader: true
