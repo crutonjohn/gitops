@@ -2,11 +2,10 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: mealie-cors
-  namespace: home
 spec:
   headers:
     accessControlAllowOriginList:
-      - "https://home.heyjohn.family"
+      - "https://home.${FAMILY_DOMAIN}"
     accessControlAllowMethods:
       - GET
       - POST
