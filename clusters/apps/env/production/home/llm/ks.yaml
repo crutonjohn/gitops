@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vllm
+  name: &app ollama
   namespace: flux-system
 spec:
   targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/llm/app
+  path: ./clusters/apps/env/production/home/llm/app/ollama
   prune: true
   sourceRef:
     kind: GitRepository
