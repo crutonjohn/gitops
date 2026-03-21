@@ -40,9 +40,9 @@ spec:
           - qwen3:14b
           - qwen3:1.7b
           - gemma3:12b
-          - gemma3:4b
           - qwen2.5-coder:14b
           - deepseek-coder-v2:16b
+          - hf.co/bartowski/burtenshaw_GemmaCoder3-12B-GGUF:Q4_K_M
           - codegemma:7b
           - mxbai-embed-large:335m
           - deepseek-r1:14b
