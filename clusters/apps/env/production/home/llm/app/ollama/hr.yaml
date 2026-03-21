@@ -42,9 +42,9 @@ spec:
           - qwen2.5-coder:14b
           - hf.co/bartowski/burtenshaw_GemmaCoder3-12B-GGUF:Q4_K_M
           - hf.co/tomasmcm/gpt-oss-11.4b-specialized-all-pruned-moe-only-16-experts-Q4_K_M-GGUF-Q4_K_M-GGU:latest
+          - hf.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF:Q6_K_L
           - codegemma:7b
           - mxbai-embed-large:335m
-          - deepseek-r1:14b
         run: []
         create: []
         clean: false
