@@ -25,7 +25,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: rclone
-              image: rclone/rclone:latest@sha256:0eb18825ac9732c21c11d654007170572bbd495352bb6dbb624f18e4f462c496
+              image: rclone/rclone:latest@sha256:66af24d7c8809af336dc16068149257cf447c80f8c60aa9f5679153f42017b85
               command: ["rclone"]
               args:
                 - "move"
