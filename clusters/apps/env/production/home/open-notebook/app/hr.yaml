@@ -96,7 +96,7 @@ spec:
           surrealdb:
             image:
               repository: surrealdb/surrealdb
-              tag: v2@sha256:cb06f83535d4b7790f16e1632cef2347718d62d18629d595383f43ff9e0ee794
+              tag: v2@sha256:d653f6c8a89e81f865ee31cd2f587c50f50ace922175e04150b1e385d2f86011
             args: ["start", "rocksdb:/db/open-notebook.db"]
             probes:
               liveness:
