@@ -31,9 +31,9 @@ spec:
         command: [ "/bin/bash", "-c" ]
         args:
           -
-	    apt-get update && apt-get install -y rclone &&
-	    rclone copy -PM /src_vol/ /dst_vol/ &&
-	    du -shxc /src_vol/ /dst_vol/
+            apt-get update && apt-get install -y rclone &&
+            rclone copy -PM /src_vol/ /dst_vol/ &&
+            du -shxc /src_vol/ /dst_vol/
         volumeMounts:
         - mountPath: /src_vol
           name: src
