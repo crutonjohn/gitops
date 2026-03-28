@@ -86,7 +86,7 @@ tasks:
       - kubectl --namespace {{.NS}} wait pod --for=delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
       # Restore
       - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/restic-restore.yaml.j2 | kubectl apply --server-side --filename -
-      - until kubectl --namespace {{.NS}} get job/volsync-dst-{{.APP}}-manual &>/dev/null; do sleep 5; done
+      - until kubectl --namespace {{.NS}} get job/{{.APP}}-{{.APP}}-data-manual &>/dev/null; do sleep 5; done
       - kubectl --namespace {{.NS}} wait job/volsync-dst-{{.APP}}-manual --for=condition=complete --timeout=120m
       - kubectl --namespace {{.NS}} delete replicationdestination {{.APP}}-manual
       # Resume
@@ -125,7 +125,7 @@ tasks:
     requires:
       vars: [APP, PREVIOUS, NS, SRCPVC, DESTPVC, LOCATION]
     preconditions:
-      - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2
+      - test -f {{.VOLSYNC_RESOURCES_DIR}}/restic-restore.yaml.j2
       - which flux kubectl minijinja-cli
 
   restore-rclone:
