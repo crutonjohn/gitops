@@ -45,31 +45,31 @@ tasks:
     vars:
       node: fulgrim
     cmds:
-      # - talosctl wipe disk --drop-partition -n fulgrim
-      #   sda
-      #   sdb
-      #   sdc
-      #   sdd
-      #   sde
-      #   sdf
-      #   sdg
-      #   sdh
-      #   sdi
-      #   sdj
-      #   sdk
-      #   sdl
-      #   sdm
-      #   sdn
-      #   sdo
-      #   sdp
-      #   sdq
-      #   sdr
-      #   sds
-      #   sdt
-      #   sdu
-      #   sdv
-      #   sdw
-      #   sdx
+      - talosctl wipe disk --drop-partition -n fulgrim
+        sda
+        sdb
+        sdc
+        sdd
+        sde
+        sdf
+        sdg
+        sdh
+        sdi
+        sdj
+        sdk
+        sdl
+        sdm
+        sdn
+        sdo
+        sdp
+        sdq
+        sdr
+        sds
+        sdt
+        sdu
+        sdv
+        sdw
+        sdx
       # - task: wipe-disk
       #   vars:
       #     node: "{{.node}}"
