@@ -41,7 +41,7 @@ spec:
             nameOverride: navidrome
             image:
               repository: ghcr.io/navidrome/navidrome
-              tag: 0.59.0@sha256:4edc8a1de3e042f30b78a478325839f4395177eb8201c27543dccc0eba674f23
+              tag: 0.61.0@sha256:b14a6acb5cd5ee73f3a13d63d8d68ede82dedb796aa522fbada94769d990cf0b
             env:
               ND_SCANINTERVAL: 15m
               ND_LOGLEVEL: debug
