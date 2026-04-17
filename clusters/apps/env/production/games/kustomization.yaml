@@ -5,3 +5,4 @@ resources:
   # - ./ark/ks.yaml
   - ./foundry-vtt/ks.yaml
   # - ./teamspeak/ks.yaml
+  - ./windrose/ks.yaml
