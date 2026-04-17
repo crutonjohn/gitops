@@ -34,7 +34,7 @@ spec:
             nameOverride: windrose
             image:
               repository: ghcr.io/uberdudepl/windrose-dedicated-server-docker
-              tag: v1.1.13
+              tag: v1.1.14
             envFrom:
               - secretRef:
                   name: windrose-env
@@ -42,7 +42,7 @@ spec:
               TZ: ${LOCAL_TIMEZONE}
               # Host user id for mounted files
               PUID: ${APP_UID}
-              # Host group id for mounted files                    
+              # Host group id for mounted files
               PGID: ${APP_UID}
               # SteamCMD login
               STEAM_LOGIN: "anonymous"
