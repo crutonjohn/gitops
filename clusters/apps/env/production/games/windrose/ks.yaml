@@ -73,8 +73,8 @@ spec:
       APP: *app
       SRC_PVC: windrose-save
       APP_UID: "1660"
-      CRON_SCHEDULE: "51 3/12 * * *"
-      LOCAL_SCHEDULE: "55 3/12 * * *"
+      CRON_SCHEDULE: "51 */1 * * *"
+      LOCAL_SCHEDULE: "51 */1 * * *"
       STORAGE_CLASS: codex-block
       SNAPSHOT_CLASS: codex-block
       DST_ACCESS_MODE: ReadWriteOnce
