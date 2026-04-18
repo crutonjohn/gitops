@@ -51,7 +51,7 @@ spec:
               # Steam AppID for Windrose Dedicated Server
               WINDROSE_APP_ID: "4129620"
               # Set false to skip update on container restart
-              UPDATE_ON_START: "false"
+              UPDATE_ON_START: "true"
               # Set false to skip env-based JSON patching
               GENERATE_SETTINGS: "true"
               # Optional invite code
