@@ -127,7 +127,7 @@ spec:
         enabled: true
         controller: windrose
         primary: true
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_WINDROSE}
