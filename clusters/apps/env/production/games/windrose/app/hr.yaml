@@ -25,6 +25,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      nodeSelector:
+        kubernetes.io/hostname: fulgrim
     controllers:
       windrose:
         type: deployment
@@ -79,7 +82,6 @@ spec:
                 cpu: 4
                 memory: 8Gi
 
-
     persistence:
       data:
         enabled: true
@@ -120,7 +122,6 @@ spec:
           - secretName: heyjohn-wildcard-certificate
             hosts:
               - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-
 
     service:
       windrose:
