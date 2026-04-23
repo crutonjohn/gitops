@@ -55,7 +55,7 @@ spec:
               # repository: vllm/vllm-openai
               # tag: latest@sha256:6bf34e50e2387dc46dc87a9d6a945fdd616a022bccfddd949052f54063ebcb8c
               repository: vllm/vllm-omni
-              tag: v0.16.0@sha256:33b1ed6505f67fa080297002b9df02dc2b6ad6b745787f3d04981f007f82f491
+              tag: v0.18.0@sha256:6412a0c6cb03321761a40a65301cdcd87a4ef6bc7a75510c69b039c301cdbf8f
             env:
               TZ: America/New_York
               HF_TOKEN: ${VLLM_HF_TOKEN}
