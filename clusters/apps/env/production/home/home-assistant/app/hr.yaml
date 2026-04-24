@@ -44,7 +44,7 @@ spec:
           home-assistant:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: rolling@sha256:9587276dcc680f8210115015508cd02d19f6921cdbff6bf119453fc4a8e10969
+              tag: rolling@sha256:589e4c1c93025d01320c14329427197c8b52d4f2e241a6bc1d6207837e07b4a7
             env:
               TZ: America/New_York
             envFrom:
