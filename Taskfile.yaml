@@ -21,6 +21,7 @@ includes:
   rook: ".taskfiles/rook"
   volsync: ".taskfiles/volsync"
   talos: ".taskfiles/talos"
+  nvidia: ".taskfiles/nvidia"
 
 tasks:
   default:

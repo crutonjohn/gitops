@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  run:
+    desc: Run nvidia-smi on fulgrim
+    cmds:
+      - |
+        kubectl run nvidia-smi \
+          --image=nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04 \
+          --restart=Never \
+          --overrides='
+          {
+            "spec": {
+              "nodeSelector": {
+                "kubernetes.io/hostname": "fulgrim"
+              },
+              "runtimeClassName": "nvidia",
+              "containers": [
+                {
+                  "name": "nvidia-smi-test",
+                  "image": "nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04",
+                  "args": ["nvidia-smi"],
+                  "resources": {
+                    "limits": {
+                    }
+                  }
+                }
+              ]
+            }
+          }'
+      - kubectl wait pod/nvidia-smi --for condition=complete --timeout=5m
+      - kubectl logs nvidia-smi
+      - kubectl delete po nvidia-smi
+    preconditions:
+      - which kubectl
