@@ -37,7 +37,7 @@ spec:
             nameOverride: windrose
             image:
               repository: ghcr.io/uberdudepl/windrose-dedicated-server-docker
-              tag: v1.1.14
+              tag: v1.5.0
             envFrom:
               - secretRef:
                   name: windrose-env
