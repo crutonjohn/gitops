@@ -183,6 +183,11 @@ scrape_configs:
         action: replace
         target_label: __metrics_path__
         regex: (.+)
+      # Optional relabel to a manual IP address
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_address]
+        action: replace
+        target_label: __address__
+        regex: (.+)
       # Example relabel to scrape only single, desired port for the pod based
       # on "prometheus.io/port = <port>" annotation.
       - source_labels:
