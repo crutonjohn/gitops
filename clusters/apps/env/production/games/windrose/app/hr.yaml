@@ -56,11 +56,9 @@ spec:
               # Set false to skip update on container restart
               UPDATE_ON_START: "true"
               # Set false to skip env-based JSON patching
-              GENERATE_SETTINGS: "false"
-              # Optional invite code
-              INVITE_CODE: ""
+              GENERATE_SETTINGS: "true"
               # Optional server name
-              SERVER_NAME: "RG_WINDROSE"
+              SERVER_NAME: "Lagoon of the Dead Kraken"
               # Optional public server note/description
               SERVER_NOTE: ""
               # Recommended for stability

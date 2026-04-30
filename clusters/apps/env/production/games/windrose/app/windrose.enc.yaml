@@ -5,13 +5,14 @@ metadata:
     name: windrose-env
 stringData:
     SERVER_PASSWORD: ENC[AES256_GCM,data:strAlmzhSGUBahsg,iv:fT/UppTGaM5NuqfPD+HqoAU7x2I6bY0n4de3Z4dIPlM=,tag:mmspcMJEkBMwdracRRwvvA==,type:str]
+    INVITE_CODE: ENC[AES256_GCM,data:9qbDzZz5Bao=,iv:IGc11ngRZo70G+b1oT3/P0FHwG36GWZ2lZ4SuL58qhw=,tag:62GPYbQUZTd+tsMbRA1yhQ==,type:str]
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
           created_at: "2026-04-17T23:41:08Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEswnvIqR8R+4fysdi0iKZ3AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMGonofo56Sfp+iwS2AgEQgDulM+9aCT7hUfYCG0W3CMK8x26rtf07zT9vUyzTVbBg/wztYSNYG74A9mQ/9Omr0HjniQVdsO6i/mQbXQ==
           aws_profile: ""
-    lastmodified: "2026-04-17T23:41:08Z"
-    mac: ENC[AES256_GCM,data:IiLmvkp1pEiqQFK4PFioQb+UIJcRo4KJXfxxKyBhabwog7bKXIP+RmJh1bwkQfiTekxIEAZcW4NU/dxwRZWBiCgLlnX9/WZ6wUFv/Klg0hZlteMbm95g+TKLPH9PmLzEzsRzKbNVqFH16yBTgAnQ0dK6hHBLVBiscdBcjugon24=,iv:xwiIrj5i/MPpZx16qrBoWi/rYOFYorxYfkb5OR/ej6k=,tag:fnYQMKjfEOvXgfWxBCaP/A==,type:str]
+    lastmodified: "2026-04-30T22:50:53Z"
+    mac: ENC[AES256_GCM,data:ysAy9fwJ1PWHERriIQgenkxs+hid/Mg/b7eGADRtBuAmq/lfcC5P3rP+GtdUP615Me8UrZHubIeaAXiVq5JVREo0Mq0Cnt0jAwPFGSDXpSvqLTIAAKSkIijt1wAl5ousw3BArTVMSy46jL01aGg4dzPHYGow3+2kY2mBjcsfFkQ=,iv:BcbcIcIXp9PmpM027FF4+EFz5h5HkzNOoM8NGw83hIY=,tag:033Cg+1iWMG+IRJEuSXJkw==,type:str]
     encrypted_regex: ^(data|stringData)$
-    version: 3.11.0
+    version: 3.12.1
