@@ -130,7 +130,7 @@ spec:
         externalTrafficPolicy: Cluster
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_WINDROSE}
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_WINDROSE}
           io.cilium/lb-ipam-sharing-key: WINDROSE
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_WINDROSE}
         labels:
