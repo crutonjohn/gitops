@@ -129,6 +129,11 @@ spec:
                 service:
                   name: bewcloud
                   port: 8000
+              - path: /dav
+                pathType: ImplementationSpecific
+                service:
+                  name: bewcloud
+                  port: 8000
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
