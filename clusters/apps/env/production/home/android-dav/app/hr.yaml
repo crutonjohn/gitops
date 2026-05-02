@@ -26,12 +26,12 @@ spec:
     keepHistory: false
 
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
-        fsGroup: ${APP_UID}
-        fsGroupChangePolicy: OnRootMismatch
+    # defaultPodOptions:
+    #   securityContext:
+    #     runAsUser: ${APP_UID}
+    #     runAsGroup: ${APP_UID}
+    #     fsGroup: ${APP_UID}
+    #     fsGroupChangePolicy: OnRootMismatch
     controllers:
       android-dav:
         annotations:
@@ -76,12 +76,12 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 1Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities:
-                drop:
-                  - ALL
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: false
+            #   capabilities:
+            #     drop:
+            #       - ALL
 
     ingress:
       android-dav:
