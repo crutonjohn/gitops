@@ -65,6 +65,8 @@ spec:
               MAX_PLAYERS: "8"
               # Keep default unless you know you need a change
               P2P_PROXY_ADDRESS: "127.0.0.1"
+              USE_DIRECT_CONNECTION: "true"
+              DIRECT_CONNECTION_SERVER_PORT: "7777"
               PORT: "7777"
               QUERYPORT: "7778"
               MULTIHOME: "0.0.0.0"
@@ -129,6 +131,7 @@ spec:
         primary: true
         externalTrafficPolicy: Cluster
         annotations:
+          external-dns/public: "true"
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_WINDROSE}
           io.cilium/lb-ipam-sharing-key: WINDROSE
