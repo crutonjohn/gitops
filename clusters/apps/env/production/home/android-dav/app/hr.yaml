@@ -118,4 +118,4 @@ spec:
         advancedMounts:
           android-dav:
             android-dav:
-              - path: /android-dav
+              - path: /var/lib/dav/data
