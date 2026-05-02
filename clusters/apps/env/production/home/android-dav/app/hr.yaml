@@ -33,7 +33,7 @@ spec:
         fsGroup: ${APP_UID}
         fsGroupChangePolicy: OnRootMismatch
     controllers:
-      bewcloud:
+      android-dav:
         annotations:
           secret.reloader.stakater.com/reload: android-dav-env
 
