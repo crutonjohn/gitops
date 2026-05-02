@@ -11,8 +11,15 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: minio
-          image: docker.io/restic/restic:latest
+        - name: restic
+          image: docker.io/restic/restic:0.18.1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
           args: ["unlock", "--remove-all"]
           envFrom:
             - secretRef:
