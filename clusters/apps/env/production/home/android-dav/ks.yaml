@@ -24,7 +24,7 @@ spec:
     secretRef:
       name: sops-aws
   dependsOn:
-    - name: traefik-external
+    - name: traefik-internal
   postBuild:
     substitute:
       APP: *app
