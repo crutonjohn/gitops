@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: android-dav-env
+stringData:
+    BASIC_AUTH_ENABLED: ENC[AES256_GCM,data:dHbl3rE=,iv:c/achV0ebvhIIWpR88ewtP99U3FhJYIPfmTiOWZ+j5U=,tag:a1sLcKlgtLjNRBI/Pr4nCg==,type:str]
+    DIGEST_AUTH_ENABLED: ENC[AES256_GCM,data:O1YrwA==,iv:5GBFeqBSZjNVRzi/OStw7SLDfB0Qg1MMu8nt0wggKSo=,tag:086J7e/eHDmad0CNsy8GCw==,type:str]
+    BASIC_USERS: ENC[AES256_GCM,data:198kpS9Lw5ky2cjVo2vX7MPhDB/hjccLKt63eQJtLsBKti1E,iv:ClFkrzqnBgD0KocH4QuJ+gEAhETzihnI04gN6//uVGc=,tag:MXTOtUEfPIPWasu3MGO+8A==,type:str]
+    RO_METHODS: ENC[AES256_GCM,data:MEE7b43d2OyliaC4y+3KwDB/Yxqk6zEOgA==,iv:xFrQaQpMODNlC8/zFMHYGI2ActpaxfTZlnvIaIHGLwM=,tag:CYznZQDEQl9gps1Q+3ex+g==,type:str]
+    RW_METHODS: ENC[AES256_GCM,data:/mwszV6bHN0HXwdM+bVMfBWbFwmIIx0+9cI0P/jTVrCMMixW/HI7EHHzGqd1t+y2UutZTRhcEE1kQnZ7UaqgzqSeR4y42IC2GH0=,iv:enR7lAEqfpZMFrq6oL0qrlpbfqUa5kJBzj5Hfed2EeI=,tag:ixT+QgkbC44va9SOMRCELw==,type:str]
+    SERVER_NAME: ENC[AES256_GCM,data:V6E+OdV+ndFuTFk=,iv:lXfgoEufG3i9XrjNjdA0oY4sees1DxbP/InYCcQzbr4=,tag:roAgBq6I0jWRZEXJBrstQw==,type:str]
+    HEALTH_CHECK_ENABLED: ENC[AES256_GCM,data:I+3nyOA=,iv:ziWOogichoQFb86KfHuzxCa3o8C27ZoM+9Q+0pgXCfY=,tag:NpC9/GnY6mxbd/c/MY5Qdg==,type:str]
+    FOLDER_PERMISSIONS: ENC[AES256_GCM,data:ExeEHofLIlnVpJ8GePiHo6I=,iv:8c6KaKPgIh3SWpjI7Fba0lH3qqQAepVDaFhk/phY47c=,tag:jzwG2scB2Rf2la8ktXKBbA==,type:str]
+    AUTO_CREATE_FOLDERS: ENC[AES256_GCM,data:iG9eqw==,iv:d3qR2zzG2lkMjbT7w8s+y+s+eZlq1SYYZTANl4JdsyE=,tag:synUfrXBJKmO7xLHYLLOQg==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2026-05-02T19:57:18Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFrmzSKZZ/Jr6v5snBQ+8uxAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMVg/0BuAh6epgmkFtAgEQgDuaxRoO65axz90oDH0zEjLxXp0F6fCqGM1hWQlR7b1S2uJ2QNu6qNjCUY7YpAtlR4tS7osJ7JYQeJ0NMQ==
+          aws_profile: ""
+    lastmodified: "2026-05-02T19:57:18Z"
+    mac: ENC[AES256_GCM,data:ir+ny1aisb0J5qNi6PQVZXCmCYI5NAMbDDVjjdTfY8BlBS5zV4Mh7Sb1lgA7IwnZhcr5ydJxp2fKpFk5bnIcaPuE0u7UEvzrU9uOlljlHQA3JrgvrZHrCeifSWAvAbdrCyfdbHxxxf2lNljNtEaZJCEdb/58FHcYCLpV2rbHESg=,iv:Ep/YN++f/QnSMqYYD8vHvWUB/5qO3cyrTetj7Wxl2vY=,tag:H6KbVEH7T5QTNHEDsMnM9g==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.1
