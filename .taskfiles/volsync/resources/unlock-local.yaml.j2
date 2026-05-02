@@ -11,7 +11,7 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: restic
+        - name: local
           image: docker.io/restic/restic:0.18.1
           securityContext:
             allowPrivilegeEscalation: false
