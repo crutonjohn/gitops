@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: traefik
 spec:
-  interval: 5m
+  interval: 12h
   chart:
     spec:
       chart: traefik
@@ -127,5 +127,5 @@ spec:
           - labelSelector:
               matchLabels:
                 app.kubernetes.io/name: '{{ template "traefik.name" . }}'
-                app.kubernetes.io/instance: '{{ .Release.Name }}-{{ .Release.Namespace }}'
+                app.kubernetes.io/instance: "{{ .Release.Name }}-{{ .Release.Namespace }}"
             topologyKey: kubernetes.io/hostname
