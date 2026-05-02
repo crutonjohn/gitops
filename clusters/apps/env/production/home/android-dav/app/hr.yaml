@@ -98,7 +98,7 @@ spec:
                 pathType: ImplementationSpecific
                 service:
                   name: android-dav
-                  port: 80
+                  port: 8080
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
@@ -110,7 +110,7 @@ spec:
         primary: true
         ports:
           http:
-            port: 80
+            port: 8080
 
     persistence:
       data:
