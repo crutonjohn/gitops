@@ -69,7 +69,7 @@ spec:
                   failureThreshold: 3
             envFrom:
               - secretRef:
-                  name: bewcloud-env
+                  name: android-dav-env
             resources:
               requests:
                 cpu: 5m
