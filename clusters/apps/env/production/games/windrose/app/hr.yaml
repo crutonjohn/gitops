@@ -56,7 +56,7 @@ spec:
               # Set false to skip update on container restart
               UPDATE_ON_START: "true"
               # Set false to skip env-based JSON patching
-              GENERATE_SETTINGS: "true"
+              GENERATE_SETTINGS: "false"
               # Optional server name
               SERVER_NAME: "Lagoon of the Dead Kraken"
               # Optional public server note/description
