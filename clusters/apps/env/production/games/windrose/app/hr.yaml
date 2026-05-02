@@ -124,7 +124,7 @@ spec:
               - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 
     service:
-      windrose:
+      windrose-udp:
         enabled: true
         controller: windrose
         type: LoadBalancer
@@ -145,3 +145,21 @@ spec:
           query:
             port: 7778
             protocol: UDP
+      windrose-tcp:
+        enabled: true
+        controller: windrose
+        type: LoadBalancer
+        primary: false
+        externalTrafficPolicy: Cluster
+        annotations:
+          io.cilium/lb-ipam-sharing-key: WINDROSE
+          io.cilium/lb-ipam-ips: ${CLUSTER_LB_WINDROSE}
+        labels:
+          io.cilium/bgp-announce: worker
+        ports:
+          connect:
+            port: 7777
+            protocol: TCP
+          query:
+            port: 7778
+            protocol: TCP
