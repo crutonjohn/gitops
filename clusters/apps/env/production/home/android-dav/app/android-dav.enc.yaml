@@ -9,7 +9,7 @@ stringData:
     BASIC_USERS: ENC[AES256_GCM,data:198kpS9Lw5ky2cjVo2vX7MPhDB/hjccLKt63eQJtLsBKti1E,iv:ClFkrzqnBgD0KocH4QuJ+gEAhETzihnI04gN6//uVGc=,tag:MXTOtUEfPIPWasu3MGO+8A==,type:str]
     RO_METHODS: ENC[AES256_GCM,data:MEE7b43d2OyliaC4y+3KwDB/Yxqk6zEOgA==,iv:xFrQaQpMODNlC8/zFMHYGI2ActpaxfTZlnvIaIHGLwM=,tag:CYznZQDEQl9gps1Q+3ex+g==,type:str]
     RW_METHODS: ENC[AES256_GCM,data:/mwszV6bHN0HXwdM+bVMfBWbFwmIIx0+9cI0P/jTVrCMMixW/HI7EHHzGqd1t+y2UutZTRhcEE1kQnZ7UaqgzqSeR4y42IC2GH0=,iv:enR7lAEqfpZMFrq6oL0qrlpbfqUa5kJBzj5Hfed2EeI=,tag:ixT+QgkbC44va9SOMRCELw==,type:str]
-    SERVER_NAME: ENC[AES256_GCM,data:V6E+OdV+ndFuTFk=,iv:lXfgoEufG3i9XrjNjdA0oY4sees1DxbP/InYCcQzbr4=,tag:roAgBq6I0jWRZEXJBrstQw==,type:str]
+    SERVER_NAME: ENC[AES256_GCM,data:0fW4C9DWmLxx,iv:7XOyjwman8m0w2ZqSBT4TUZEarWVdnfZldxJprA+bts=,tag:90qcHfw4Vv9mMAcnbOiqxw==,type:str]
     HEALTH_CHECK_ENABLED: ENC[AES256_GCM,data:I+3nyOA=,iv:ziWOogichoQFb86KfHuzxCa3o8C27ZoM+9Q+0pgXCfY=,tag:NpC9/GnY6mxbd/c/MY5Qdg==,type:str]
     FOLDER_PERMISSIONS: ENC[AES256_GCM,data:ExeEHofLIlnVpJ8GePiHo6I=,iv:8c6KaKPgIh3SWpjI7Fba0lH3qqQAepVDaFhk/phY47c=,tag:jzwG2scB2Rf2la8ktXKBbA==,type:str]
     AUTO_CREATE_FOLDERS: ENC[AES256_GCM,data:iG9eqw==,iv:d3qR2zzG2lkMjbT7w8s+y+s+eZlq1SYYZTANl4JdsyE=,tag:synUfrXBJKmO7xLHYLLOQg==,type:str]
@@ -19,7 +19,7 @@ sops:
           created_at: "2026-05-02T19:57:18Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFrmzSKZZ/Jr6v5snBQ+8uxAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMVg/0BuAh6epgmkFtAgEQgDuaxRoO65axz90oDH0zEjLxXp0F6fCqGM1hWQlR7b1S2uJ2QNu6qNjCUY7YpAtlR4tS7osJ7JYQeJ0NMQ==
           aws_profile: ""
-    lastmodified: "2026-05-02T19:57:18Z"
-    mac: ENC[AES256_GCM,data:ir+ny1aisb0J5qNi6PQVZXCmCYI5NAMbDDVjjdTfY8BlBS5zV4Mh7Sb1lgA7IwnZhcr5ydJxp2fKpFk5bnIcaPuE0u7UEvzrU9uOlljlHQA3JrgvrZHrCeifSWAvAbdrCyfdbHxxxf2lNljNtEaZJCEdb/58FHcYCLpV2rbHESg=,iv:Ep/YN++f/QnSMqYYD8vHvWUB/5qO3cyrTetj7Wxl2vY=,tag:H6KbVEH7T5QTNHEDsMnM9g==,type:str]
+    lastmodified: "2026-05-02T20:42:36Z"
+    mac: ENC[AES256_GCM,data:sTlYGnTLPM0y832SqpHU/XZYahOS+pEZ2T554FBnfYalWCBuEp4hpxixRj5424B79mKXHEdHka3Me0pc7qPXwl+TaUVlDOrvzb/1FUnN+akX2adZa/zBzpW5N5NfiFfotUoCm8iiieS3pOnxdPymUcMfq4FyILOiJagCMAuDszk=,iv:tQ2dUOem8M0WahAeC0kEJ4O+9tVOiq9P+xjiD1Yv3UA=,tag:4l6sPDU90oWRpNf8vvnfiQ==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.12.1
