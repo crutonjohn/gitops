@@ -28,18 +28,21 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        # supplementalGroups: [7575]
         fsGroup: ${APP_UID}
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       android-dav:
         annotations:
-          secret.reloader.stakater.com/reload: android-dav-env
+          secret.reloader.stakater.com/reload: android-dav-config
 
         containers:
           android-dav:
             image:
-              repository: ghcr.io/vaggeliskls/webdav-server
-              tag: 2.3.0@sha256:4b966d6041c070d394bbf783091354512780627533717e3b3b0ab5be72cc74ee
+              repository: ghcr.io/hacdias/webdav
+              tag: v5.11.7@sha256:d0d08a826ba1be03226becb818d3405f71c23d879ae709c6c8926ffcb3fc9f44
             probes:
               liveness:
                 enabled: false
@@ -74,12 +77,12 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 1Gi
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: false
-            #   capabilities:
-            #     drop:
-            #       - ALL
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
 
     ingress:
       android-dav:
@@ -96,7 +99,7 @@ spec:
                 pathType: ImplementationSpecific
                 service:
                   name: android-dav
-                  port: 8080
+                  port: 6065
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
@@ -108,7 +111,7 @@ spec:
         primary: true
         ports:
           http:
-            port: 8080
+            port: 6065
 
     persistence:
       data:
@@ -116,4 +119,12 @@ spec:
         advancedMounts:
           android-dav:
             android-dav:
-              - path: /var/lib/dav
+              - path: /data
+      config:
+        type: secret
+        name: android-dav-config
+        advancedMounts:
+          bewcloud:
+            bewcloud:
+              - path: /config.yml
+                subPath: config.yml

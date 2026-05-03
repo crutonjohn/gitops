@@ -29,7 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: "android-dav"
-      APP_UID: "999"
+      APP_UID: "1488"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
