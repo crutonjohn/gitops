@@ -10,7 +10,7 @@ resources:
   - ./mosquitto/ks.yaml
   - ./llm/ks.yaml
   - ./open-webui/ks.yaml
-  - ./open-notebook/ks.yaml
+  # - ./open-notebook/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mealie/ks.yaml
   - talos-smb-cred.enc.yaml
