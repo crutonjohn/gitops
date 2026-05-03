@@ -116,7 +116,7 @@ spec:
         advancedMounts:
           android-dav:
             android-dav:
-              - path: /data
+              - path: /data/crutonjohn
       config:
         type: secret
         name: android-dav-config
