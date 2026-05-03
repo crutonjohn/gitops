@@ -4,8 +4,8 @@ type: Opaque
 metadata:
     name: android-dav-env
 stringData:
-    BASIC_AUTH_ENABLED: ENC[AES256_GCM,data:dHbl3rE=,iv:c/achV0ebvhIIWpR88ewtP99U3FhJYIPfmTiOWZ+j5U=,tag:a1sLcKlgtLjNRBI/Pr4nCg==,type:str]
-    DIGEST_AUTH_ENABLED: ENC[AES256_GCM,data:O1YrwA==,iv:5GBFeqBSZjNVRzi/OStw7SLDfB0Qg1MMu8nt0wggKSo=,tag:086J7e/eHDmad0CNsy8GCw==,type:str]
+    BASIC_AUTH_ENABLED: ENC[AES256_GCM,data:2CCFEA==,iv:A0K/K1M2TMoEs7395YfWwlBs5ox+Q3Bm6CILFrytozU=,tag:CGBw1qaFKBiGDa93rwRHLw==,type:str]
+    DIGEST_AUTH_ENABLED: ENC[AES256_GCM,data:YrZmufk=,iv:H910kcJgb4ONS4J3IVUGdLrTi91lQ13M2d2eoSTDmqQ=,tag:xyDCAHNzbC/jiWe/gAq2ww==,type:str]
     BASIC_USERS: ENC[AES256_GCM,data:198kpS9Lw5ky2cjVo2vX7MPhDB/hjccLKt63eQJtLsBKti1E,iv:ClFkrzqnBgD0KocH4QuJ+gEAhETzihnI04gN6//uVGc=,tag:MXTOtUEfPIPWasu3MGO+8A==,type:str]
     RO_METHODS: ENC[AES256_GCM,data:MEE7b43d2OyliaC4y+3KwDB/Yxqk6zEOgA==,iv:xFrQaQpMODNlC8/zFMHYGI2ActpaxfTZlnvIaIHGLwM=,tag:CYznZQDEQl9gps1Q+3ex+g==,type:str]
     RW_METHODS: ENC[AES256_GCM,data:/mwszV6bHN0HXwdM+bVMfBWbFwmIIx0+9cI0P/jTVrCMMixW/HI7EHHzGqd1t+y2UutZTRhcEE1kQnZ7UaqgzqSeR4y42IC2GH0=,iv:enR7lAEqfpZMFrq6oL0qrlpbfqUa5kJBzj5Hfed2EeI=,tag:ixT+QgkbC44va9SOMRCELw==,type:str]
@@ -21,7 +21,7 @@ sops:
           created_at: "2026-05-02T19:57:18Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwFrmzSKZZ/Jr6v5snBQ+8uxAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMVg/0BuAh6epgmkFtAgEQgDuaxRoO65axz90oDH0zEjLxXp0F6fCqGM1hWQlR7b1S2uJ2QNu6qNjCUY7YpAtlR4tS7osJ7JYQeJ0NMQ==
           aws_profile: ""
-    lastmodified: "2026-05-03T00:44:46Z"
-    mac: ENC[AES256_GCM,data:nWjdaraxF90nHh4krj2NH7leywIToWitmUCKVKUyR2zj185Y1OcvpKayrtOfuzZbkJ+5e/jLxpo9DdCLicbbBm+yBG4YdYX92JvjVE0LTUdc82dnS6cSj8HO3zMXPbikwg0hXHQKzKaIYfAr8FjsMKoj9K96jukGxycwlMVB0Bg=,iv:gvtJ2G+oUYsj2/QRj5suUu6ARx0rQk6kbA8ONtL6q+o=,tag:7vUbS0hh/+08831zb/OmKA==,type:str]
+    lastmodified: "2026-05-03T00:51:16Z"
+    mac: ENC[AES256_GCM,data:I0AKf0fRZTkFwrpEmDFzfAPJ7vgqkNt8zIjFaTZlFzKcHroEAN0hC1mCOuRbOPXvC4gPraTqhBSA4biI6RqIABw5wDKZ3NLRpnJBxjlX/VefWUPUQtCjz3sCEoL+RYnbZwXtZu526YfHV+GDPCquXOtM06K0kz1G+pk+wy3st6E=,iv:vY6k968E6l1lFAuB/JzCF7NnDrimY2sXxsKER7/b1Xs=,tag:O0YkYTqUPFb6LoFQuJ/V7Q==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.12.1
