@@ -23,8 +23,8 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
-  dependsOn:
-    - name: traefik-internal
+  # dependsOn:
+  #   - name: traefik-internal
   postBuild:
     substitute:
       APP: *app

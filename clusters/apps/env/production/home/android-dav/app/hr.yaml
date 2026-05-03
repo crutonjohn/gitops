@@ -68,9 +68,6 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-            envFrom:
-              - secretRef:
-                  name: android-dav-env
             resources:
               requests:
                 cpu: 5m
