@@ -124,7 +124,7 @@ spec:
         type: secret
         name: android-dav-config
         advancedMounts:
-          bewcloud:
-            bewcloud:
+          android-dav:
+            android-dav:
               - path: /config.yml
                 subPath: config.yml
