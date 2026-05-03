@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: android-dav
+  name: android-dav-crutonjohn
   namespace: home
 spec:
   accessModes:
