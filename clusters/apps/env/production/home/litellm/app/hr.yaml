@@ -156,7 +156,7 @@ spec:
         advancedMounts:
           ${APP}:
             ${APP}:
-              - path: /app/proxy_server_config.yaml
+              - path: /app/proxy_config.yaml
                 subPath: config.yaml
                 readOnly: true
       db-data:

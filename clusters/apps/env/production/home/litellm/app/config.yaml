@@ -11,4 +11,3 @@ model_list:
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
-  database_url: "postgresql://llmproxy:dbpassword9090@db:5432/litellm"
