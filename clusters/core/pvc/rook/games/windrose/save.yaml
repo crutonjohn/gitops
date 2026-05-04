@@ -10,4 +10,4 @@ spec:
   storageClassName: codex-block
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
