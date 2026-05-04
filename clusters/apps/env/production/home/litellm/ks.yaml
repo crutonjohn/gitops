@@ -23,10 +23,8 @@ spec:
     provider: sops
     secretRef:
       name: sops-aws
-  dependsOn:
-    - name: mosquitto
-    - name: traefik-internal
-    - name: oauth2-proxy
+  # dependsOn:
+  #   - name: traefik-internal
   postBuild:
     substitute:
       APP: *app
