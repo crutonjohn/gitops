@@ -6,3 +6,9 @@ model_list:
       api_base: "http://ollama:11434"
     model_info:
       supports_function_calling: false
+      api_base: os.environ/AZURE_API_BASE
+      api_key: os.environ/AZURE_API_KEY
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: "postgresql://llmproxy:dbpassword9090@db:5432/litellm"
