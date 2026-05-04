@@ -81,7 +81,7 @@ spec:
             nameOverride: ${APP}-db
             image:
               repository: postgres
-              tag: "16"
+              tag: "18"
             env:
               TZ: ${LOCAL_TIMEZONE}
             envFrom:
