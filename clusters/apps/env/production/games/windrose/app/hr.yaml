@@ -91,6 +91,14 @@ spec:
             windrose:
               - path: /data
                 readOnly: false
+      steam:
+        enabled: true
+        existingClaim: "windrose-steam"
+        advancedMounts:
+          windrose:
+            windrose:
+              - path: /home/steam
+                readOnly: false
       save:
         enabled: true
         existingClaim: "windrose-save"
