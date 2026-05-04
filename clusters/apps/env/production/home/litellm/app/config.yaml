@@ -1,0 +1,8 @@
+model_list:
+  - model_name: "qwen3.5:2b"
+    litellm_params:
+      model: "ollama_chat/qwen3.5:2b"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+    model_info:
+      supports_function_calling: false
