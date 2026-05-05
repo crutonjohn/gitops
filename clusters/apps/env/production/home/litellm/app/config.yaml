@@ -8,6 +8,3 @@ model_list:
       supports_function_calling: false
       api_base: os.environ/AZURE_API_BASE
       api_key: os.environ/AZURE_API_KEY
-
-general_settings:
-  master_key: os.environ/LITELLM_MASTER_KEY
