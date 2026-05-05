@@ -69,8 +69,8 @@ spec:
             - name: OPS_API_SECRET_FILE
               value: /etc/opnsense-exporter/creds/api-secret
             # Only enable if using self-signed cert
-            # - name: OPNSENSE_EXPORTER_OPS_INSECURE
-            #   value: "true"
+            - name: OPNSENSE_EXPORTER_OPS_INSECURE
+              value: "true"
           resources:
             requests:
               memory: 64Mi
