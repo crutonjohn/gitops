@@ -31,6 +31,15 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: ${APP}-env
+
         containers:
           ${APP}:
             nameOverride: ${APP}
@@ -42,9 +51,7 @@ spec:
               tag: v1.83.14-stable@sha256:c81eb79cd4333c6cfe374c0ec929110fd23f0ee5f7fd198855a6fbddc77b83ba
             env:
               TZ: ${LOCAL_TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: ${APP}-env
+            envFrom: *envFrom
             probes:
               liveness:
                 enabled: true
@@ -77,28 +84,6 @@ spec:
                 cpu: 47m
               limits:
                 memory: 8Gi
-          ${APP}-db:
-            nameOverride: ${APP}-db
-            image:
-              repository: postgres
-              tag: "16"
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: ${APP}-env
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            resources:
-              requests:
-                cpu: 47m
-              limits:
-                memory: 1Gi
 
     # defaultPodOptions:
     #   securityContext:
