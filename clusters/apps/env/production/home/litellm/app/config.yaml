@@ -1,10 +1,78 @@
 model_list:
-  - model_name: "qwen3.5:2b"
+  ## Fabius models
+  - model_name: "Fabius Qwen3:14b"
     litellm_params:
-      model: "ollama_chat/qwen3.5:2b"
+      model: "ollama/qwen3:14b"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  - model_name: "Fabius Qwen3.5:9b"
+    litellm_params:
+      model: "ollama/qwen3.5:9b"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  - model_name: "Fabius Qwen3.5:2b"
+    litellm_params:
+      model: "ollama/qwen3.5:2b"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  - model_name: "Fabius Qwen2.5-coder:7b"
+    litellm_params:
+      model: "ollama/qwen2.5-coder:7b"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  - model_name: "Fabius burtenshaw_GemmaCoder3-12B"
+    litellm_params:
+      model: "ollama/hf.co/bartowski/burtenshaw_GemmaCoder3-12B-GGUF:Q4_K_M"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  - model_name: "Fabius codegemma:7b"
+    litellm_params:
+      model: "ollama/codegemma:7b"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  - model_name: "Fabius gemma3:4b"
+    litellm_params:
+      model: "ollama/gemma3:4b"
+      keep_alive: "2m"
+      api_base: "http://192.168.128.3:11434"
+  ##
+  ## Talos models
+  - model_name: "Talos mxbai-embed-large:335m"
+    litellm_params:
+      model: "ollama/mxbai-embed-large:335m"
       keep_alive: "2m"
       api_base: "http://ollama:11434"
-    model_info:
-      supports_function_calling: false
-      api_base: os.environ/AZURE_API_BASE
-      api_key: os.environ/AZURE_API_KEY
+  - model_name: "Talos codegemma:7b"
+    litellm_params:
+      model: "ollama/codegemma:7b"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+  - model_name: "Talos Qwen3.5:2b"
+    litellm_params:
+      model: "ollama/qwen3.5:2b"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+  - model_name: "Talos Qwen3.5:9b"
+    litellm_params:
+      model: "ollama/qwen3.5:9b"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+  - model_name: "Talos DeepSeek-R1-Distill-Qwen-7B"
+    litellm_params:
+      model: "ollama/hf.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF:Q6_K_L"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+  - model_name: "Talos burtenshaw_GemmaCoder3-12B"
+    litellm_params:
+      model: "ollama/hf.co/bartowski/burtenshaw_GemmaCoder3-12B-GGUF:Q4_K_M"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+  - model_name: "Talos burtenshaw_GemmaCoder3-12B"
+    litellm_params:
+      model: "ollama/hf.co/bartowski/burtenshaw_GemmaCoder3-12B-GGUF:Q4_K_M"
+      keep_alive: "2m"
+      api_base: "http://ollama:11434"
+    # model_info:
+    #   supports_function_calling: false
+    # api_base: os.environ/AZURE_API_BASE
+    # api_key: os.environ/AZURE_API_KEY
