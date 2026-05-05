@@ -1,24 +1,14 @@
 model_list:
   ## Fabius models
-  - model_name: "Fabius Qwen3:14b"
+  - model_name: "Fabius DeepSeek-Coder-V2-Lite"
     litellm_params:
-      model: "ollama/qwen3:14b"
-      keep_alive: "2m"
+      model: "ollama/hf.co/bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF:Q6_K"
+      keep_alive: "5m"
       api_base: "http://192.168.128.3:11434"
-  - model_name: "Fabius Qwen3.5:9b"
+  - model_name: "Fabius deepseek-moe-base"
     litellm_params:
-      model: "ollama/qwen3.5:9b"
-      keep_alive: "2m"
-      api_base: "http://192.168.128.3:11434"
-  - model_name: "Fabius Qwen3.5:2b"
-    litellm_params:
-      model: "ollama/qwen3.5:2b"
-      keep_alive: "2m"
-      api_base: "http://192.168.128.3:11434"
-  - model_name: "Fabius Qwen2.5-coder:7b"
-    litellm_params:
-      model: "ollama/qwen2.5-coder:7b"
-      keep_alive: "2m"
+      model: "ollama/hf.co/mradermacher/deepseek-moe-16b-base-GGUF:Q6_K"
+      keep_alive: "5m"
       api_base: "http://192.168.128.3:11434"
   - model_name: "Fabius burtenshaw_GemmaCoder3-12B"
     litellm_params:
@@ -28,11 +18,6 @@ model_list:
   - model_name: "Fabius codegemma:7b"
     litellm_params:
       model: "ollama/codegemma:7b"
-      keep_alive: "2m"
-      api_base: "http://192.168.128.3:11434"
-  - model_name: "Fabius gemma3:4b"
-    litellm_params:
-      model: "ollama/gemma3:4b"
       keep_alive: "2m"
       api_base: "http://192.168.128.3:11434"
   ##
