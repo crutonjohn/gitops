@@ -126,13 +126,6 @@ spec:
         ports:
           http:
             port: 4000
-      ${APP}-db:
-        enabled: true
-        controller: ${APP}
-        primary: false
-        ports:
-          db:
-            port: 5432
 
     persistence:
       config-file:
@@ -144,9 +137,3 @@ spec:
               - path: /app/proxy_config.yaml
                 subPath: config.yaml
                 readOnly: true
-      db-data:
-        existingClaim: ${APP}-db-data
-        advancedMounts:
-          ${APP}:
-            ${APP}-db:
-              - path: /var/lib/postgresql/data
