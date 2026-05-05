@@ -1,0 +1,107 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ${APP}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ${APP}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ${APP}
+    spec:
+      containers:
+        - name: ${APP}
+          image: ghcr.io/athennamind/opnsense-exporter:latest
+          imagePullPolicy: Always
+          # In pod, mount OPNSense API credentials as files
+          volumeMounts:
+            # name must match the volume name below
+            - name: api-key-vol
+              mountPath: /etc/opnsense-exporter/creds
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65534
+          ports:
+            # Default value for --web.listen-address= is 8080
+            - name: metrics-http
+              containerPort: 8080
+          # If /metrics returns 200/OK, we can assume pod is OK to take traffic
+          # Note: this will NOT catch issues with exporter/config itself.
+          # e.g.: exporter comes up with _some_ metrics even if invalid API key...
+          livenessProbe:
+            httpGet:
+              path: /
+              port: metrics-http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: metrics-http
+          # See main readme; some configuration options can be set via env-vars
+          ##
+          args:
+            - "--log.level=info"
+            - "--log.format=json"
+          env:
+            - name: OPNSENSE_EXPORTER_INSTANCE_LABEL
+              value: "opnsense"
+            - name: OPNSENSE_EXPORTER_OPS_API
+              valueFrom:
+                secretKeyRef:
+                  name: opnsense-exporter-cfg
+                  key: host
+            - name: OPNSENSE_EXPORTER_OPS_PROTOCOL
+              valueFrom:
+                secretKeyRef:
+                  name: opnsense-exporter-cfg
+                  key: protocol
+            # Env var points to a location on disk, make sure the value set here matches the volumeMount path
+            - name: OPS_API_KEY_FILE
+              value: /etc/opnsense-exporter/creds/api-key
+            - name: OPS_API_SECRET_FILE
+              value: /etc/opnsense-exporter/creds/api-secret
+            # Only enable if using self-signed cert
+            # - name: OPNSENSE_EXPORTER_OPS_INSECURE
+            #   value: "true"
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 100m
+            limits:
+              memory: 128Mi
+              cpu: 500m
+      volumes:
+        - name: api-key-vol
+          secret:
+            secretName: opnsense-exporter-cfg
+            items:
+              - key: key
+                path: api-key
+              - key: secret
+                path: api-secret
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${APP}
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: "8080"
+    prometheus.io/scrape: "true"
+spec:
+  selector:
+    app.kubernetes.io/name: ${APP}
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,0 +1,19 @@
+apiVersion: v1
+stringData:
+    key: ENC[AES256_GCM,data:aPThNb8nyboXW0Zl/XrRZ/P+kPMvQfN3/CPCpkL9eW/WNGozgOdrlFwXNlvChEn+MOcD11ods4FFtXFvF+E8Zy74oSxXiJOQ7oAs6IO6OM8=,iv:rmbwYGmbKSNqCWfnk1DdALnzG/LK9fL0DsVL4ksYCJ8=,tag:hoLjozvTEFH4L128NehfnA==,type:str]
+    secret: ENC[AES256_GCM,data:5obqss5JidYgm9GpdBvDFVucGnbokMMzVXRWEsx545A1H7AFKm0jzI3pkM7PA0eGuIajsspOeijQgAXxPdA644OAuwvUvY+9v4XmykqH+8w=,iv:VJK2hy+ey/ss6pP8C9Ds+NPaKtuWtgjD/4rcPA/M9tY=,tag:/ineIvqUdMh2ndiNt0p2CA==,type:str]
+    host: ENC[AES256_GCM,data:OV2d1ocveve3KB4flz6Z3HEl1CeW,iv:Uq8e+G4ygzb0M9TkDfS1TReqOML2MpPz3GiF/WGiKzA=,tag:S84HMx5jnwvL8xiacHNPcQ==,type:str]
+    protocol: ENC[AES256_GCM,data:S6g8wPU=,iv:FwHnBTyPtiLxQMYM0ZHrus7pmbP8dqIfEURktvplH0Q=,tag:eHZwk2TC6G5D5ZkzVlDbpA==,type:str]
+kind: Secret
+metadata:
+    name: opnsense-exporter-cfg
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2026-05-05T14:36:56Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEI0mvwQWfSHpQlcLIkT7UXAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMTxp1d+PKpQL6PIa9AgEQgDuY3GyABQndxMbmdk1vPZ/SwGvIOMxRUAQfX7JfdpvKiJaxfYqzX6hRZC7s0AfI27MALv3tVVhPnSjgEA==
+          aws_profile: ""
+    lastmodified: "2026-05-05T14:36:56Z"
+    mac: ENC[AES256_GCM,data:I/GUc9X1t19xq9JvH4W/X4miQp32Sr0G4FAAljwsfvERFnJEeVC2/ORV/hD3J+0PzKebIzxDSg3sE17cOONPG7VL38YwDSlfBHBvqfNod7fP7OLGqIGRUyvkHSc1+Cy5ZQO0dgGJ8rhkV2tgPhgX9JaUOajqq75eL6nGtz0VGPI=,iv:ixAs9NALI1Qr7Q6/xl4Q/pHFHoHEEv1aZHEIdlEpLvg=,tag:Cwmwur+6QeG65DcXrmyOZg==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.1
