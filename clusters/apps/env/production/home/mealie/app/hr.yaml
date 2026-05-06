@@ -50,7 +50,7 @@ spec:
           mealie:
             image:
               repository: ghcr.io/mealie-recipes/mealie
-              tag: v3.10.12@sha256:58b54bca4c729fcc7f272cfac5086623866430956838de3f5d763fcaf9e64115
+              tag: v3.17.0@sha256:d570139f1891346131d02f8e4d1853100ae4846474958ca6c68cfe1648058467
             probes:
               liveness:
                 enabled: false
