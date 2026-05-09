@@ -427,7 +427,7 @@ spec:
         primary: true
         ports:
           mysql:
-            port: 3306
+            port: 33060
             protocol: TCP
       ${APP}-world:
         enabled: true
