@@ -123,7 +123,7 @@ spec:
               [
                 "sh",
                 "-c",
-                "echo -e 'check connection'; while ! nc -z acore 3306; do sleep 1; printf '-'; done; echo -e '>> MySQL up!';",
+                "echo -e 'check connection'; while ! nc -z acore.games.svc.cluster.local 3306; do sleep 1; printf '-'; done; echo -e '>> MySQL up!';",
               ]
             envFrom:
               - secretRef:
@@ -427,7 +427,7 @@ spec:
         primary: true
         ports:
           mysql:
-            port: 33060
+            port: 3306
             protocol: TCP
       ${APP}-world:
         enabled: true
