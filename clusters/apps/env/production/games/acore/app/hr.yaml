@@ -60,6 +60,24 @@ spec:
               limits:
                 memory: 2Gi
 
+      ${APP}-db-import:
+        initContainers:
+          wait-db: &mysqlWait
+            image:
+              repository: busybox
+              tag: "1.37.0"
+            command:
+              [
+                "sh",
+                "-c",
+                "echo -e 'check connection'; while ! nc -z acore.games.svc.cluster.local 3306; do sleep 1; printf '-'; done; echo -e '>> MySQL up!';",
+              ]
+            envFrom:
+              - secretRef:
+                  name: ${APP}-env
+
+        type: deployment
+        containers:
           ${APP}-db-import:
             nameOverride: ${APP}-db-import
             image:
@@ -115,19 +133,7 @@ spec:
 
       ${APP}-world:
         initContainers:
-          wait-db: &mysqlWait
-            image:
-              repository: busybox
-              tag: "1.37.0"
-            command:
-              [
-                "sh",
-                "-c",
-                "echo -e 'check connection'; while ! nc -z acore.games.svc.cluster.local 3306; do sleep 1; printf '-'; done; echo -e '>> MySQL up!';",
-              ]
-            envFrom:
-              - secretRef:
-                  name: ${APP}-env
+          wait-db: *mysqlWait
           # build-modules:
           #   image:
           #     repository: acore/eluna-ts
@@ -346,7 +352,7 @@ spec:
         enabled: true
         existingClaim: "${APP}-client-data"
         advancedMounts:
-          ${APP}-db:
+          ${APP}-db-import:
             ${APP}-db-import:
               - path: /azerothcore/env/dist/data
                 readOnly: true
@@ -362,6 +368,13 @@ spec:
                 subPath: etc
           ${APP}-client-data:
             ${APP}-client-data:
+              - path: /azerothcore/env/dist/data
+                readOnly: false
+                subPath: data
+              - path: /azerothcore/env/dist/etc
+                subPath: etc
+          ${APP}-auth:
+            ${APP}-auth:
               - path: /azerothcore/env/dist/data
                 readOnly: false
                 subPath: data
