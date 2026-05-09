@@ -128,19 +128,20 @@ spec:
             envFrom:
               - secretRef:
                   name: ${APP}-env
-          build-modules:
-            image:
-              repository: acore/eluna-ts
-              tag: "master@sha256:0fc67693b3162cfe963dfdf5443adffdf50c62deb6ac231b31665cff548bcf6f"
-            command:
-              [
-                "sh",
-                "-c",
-                "cd /eluna-ts/modules/eluna-ts && npm run build:lib && npm run build",
-              ]
+          # build-modules:
+          #   image:
+          #     repository: acore/eluna-ts
+          #     tag: "master@sha256:0fc67693b3162cfe963dfdf5443adffdf50c62deb6ac231b31665cff548bcf6f"
+          #   command:
+          #     [
+          #       "sh",
+          #       "-c",
+          #       "cd /eluna-ts/modules/eluna-ts && npm run build:lib && npm run build",
+          #     ]
         type: deployment
         containers:
           ${APP}-eluna-ts:
+            enabled: false
             nameOverride: ${APP}-eluna-modules
             image:
               repository: acore/eluna-ts
