@@ -355,14 +355,14 @@ spec:
           ${APP}-db-import:
             ${APP}-db-import:
               - path: /azerothcore/env/dist/data
-                readOnly: true
+                readOnly: false
                 subPath: data
               - path: /azerothcore/env/dist/etc
                 subPath: etc
           ${APP}-world:
             ${APP}-world:
               - path: /azerothcore/env/dist/data
-                readOnly: true
+                readOnly: false
                 subPath: data
               - path: /azerothcore/env/dist/etc
                 subPath: etc

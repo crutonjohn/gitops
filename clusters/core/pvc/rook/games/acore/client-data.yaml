@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: acore-client-data
+  namespace: games
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: codex-file
+  resources:
+    requests:
+      storage: 30Gi
