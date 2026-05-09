@@ -335,6 +335,12 @@ spec:
             ${APP}-db:
               - path: /var/lib/mysql
                 readOnly: false
+      logs:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 6Gi
+        globalMounts:
+          - path: /azerothcore/env/dist/logs
       ${APP}-client-data:
         enabled: true
         existingClaim: "${APP}-client-data"
@@ -343,14 +349,23 @@ spec:
             ${APP}-world:
               - path: /azerothcore/env/dist/data
                 readOnly: true
+                subPath: data
+              - path: /azerothcore/env/dist/etc
+                subPath: etc
           ${APP}-client-data:
             ${APP}-client-data:
               - path: /azerothcore/env/dist/data
                 readOnly: false
+                subPath: data
+              - path: /azerothcore/env/dist/etc
+                subPath: etc
           ${APP}-phpmyadmin:
             codeserver:
               - path: /azerothcore/env/dist/data
                 readOnly: false
+                subPath: data
+              - path: /azerothcore/env/dist/etc
+                subPath: etc
       scripts:
         enabled: true
         existingClaim: ${APP}-scripts
