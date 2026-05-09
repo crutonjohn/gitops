@@ -1,0 +1,435 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
+    #   nodeSelector:
+    #     kubernetes.io/hostname: fulgrim
+    controllers:
+      ${APP}-db:
+        type: deployment
+        containers:
+          ${APP}-db:
+            nameOverride: ${APP}-db
+            image:
+              repository: mysql
+              tag: "8.4@sha256:d7e6f0ea71aa7ded43d3ba8cafb13429f6cc7b5fddb67565f80e75c87f3783c1"
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+              MYSQL_ROOT_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: MYSQL_ROOT_PASSWORD
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              limits:
+                memory: 2Gi
+
+          ${APP}-db-import:
+            nameOverride: ${APP}-db-import
+            image:
+              repository: acore/ac-wotlk-db-import
+              tag: "master@sha256:d3780267578a1ad255cad33f5b711ea72cca69514f22f186fc2ef25652b45009"
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+              AC_DISABLE_INTERACTIVE:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_DISABLE_INTERACTIVE
+              AC_DATA_DIR:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_DATA_DIR
+              AC_LOGS_DIR:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_LOGS_DIR
+              AC_LOGIN_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_LOGIN_DATABASE_INFO
+              AC_WORLD_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_WORLD_DATABASE_INFO
+              AC_CHARACTER_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_CHARACTER_DATABASE_INFO
+              AC_CLOSE_IDLE_CONNECTIONS:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_CLOSE_IDLE_CONNECTIONS
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              limits:
+                memory: 512Mi
+
+      ${APP}-world:
+        initContainers:
+          wait-db: &mysqlWait
+            image:
+              repository: busybox
+              tag: "1.37@sha256:a91d3f23f20f9ab231ebefa0acf1799dd7dbad424fa4dca099762790e900f4f7"
+            command:
+              [
+                "sh",
+                "-c",
+                "echo -e 'check connection'; while ! nc -z ${APP}-db 3306; do sleep 1; printf '-'; done; echo -e '>> MySQL up!';",
+              ]
+            envFrom:
+              - secretRef:
+                  name: ${APP}-env
+          build-modules:
+            image:
+              repository: acore/eluna-ts
+              tag: "master@sha256:0fc67693b3162cfe963dfdf5443adffdf50c62deb6ac231b31665cff548bcf6f"
+            command:
+              [
+                "sh",
+                "-c",
+                "cd /eluna-ts/modules/eluna-ts && npm run build:lib && npm run build",
+              ]
+        type: deployment
+        containers:
+          ${APP}-eluna-ts:
+            nameOverride: ${APP}-eluna-modules
+            image:
+              repository: acore/eluna-ts
+              tag: "master@sha256:0fc67693b3162cfe963dfdf5443adffdf50c62deb6ac231b31665cff548bcf6f"
+            command:
+              [
+                "sh",
+                "-c",
+                "cd /eluna-ts/modules && touch index.ts && npm install && cd /eluna-ts && npm run dev",
+              ]
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+          ${APP}-world:
+            nameOverride: ${APP}-world
+            image:
+              repository: acore/ac-wotlk-worldserver
+              tag: "master@sha256:14183e6c16f8bac5c0dca9b4ae006c91076714b22f088bcdbc97ab6c9d3c2bee"
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+              AC_DATA_DIR:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_DATA_DIR
+              AC_LOGS_DIR:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_LOGS_DIR
+              AC_LOGIN_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_LOGIN_DATABASE_INFO
+              AC_WORLD_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_WORLD_DATABASE_INFO
+              AC_CHARACTER_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_CHARACTER_DATABASE_INFO
+              AC_CLOSE_IDLE_CONNECTIONS:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_CLOSE_IDLE_CONNECTIONS
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            # resources:
+            #   limits:
+            #     memory: 512Mi
+
+      ${APP}-auth:
+        initContainers:
+          wait-db: *mysqlWait
+        type: deployment
+        containers:
+          ${APP}-auth:
+            nameOverride: ${APP}-auth
+            image:
+              repository: acore/ac-wotlk-authserver
+              tag: "master@sha256:cda38f674976444abbda15897ea4249f6976a4aacea05453a6796a155a6bace2"
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+              AC_TEMP_DIR:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_TEMP_DIR
+              AC_LOGS_DIR:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_LOGS_DIR
+              AC_LOGIN_DATABASE_INFO:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_LOGIN_DATABASE_INFO
+              AC_SQLDRIVER_LOG_FILE:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_SQLDRIVER_LOG_FILE
+              AC_SQLDRIVER_QUERY_LOGGING:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-env
+                    key: AC_SQLDRIVER_QUERY_LOGGING
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            # resources:
+            #   limits:
+            #     memory: 512Mi
+
+      ${APP}-client-data:
+        initContainers:
+          wait-db: *mysqlWait
+        type: deployment
+        containers:
+          ${APP}-client-data:
+            nameOverride: ${APP}-client-data
+            image:
+              repository: acore/ac-wotlk-client-data
+              tag: "master@sha256:8fb26ae4b0f4d67a87f60b0acc2f9ed761e5d83e6833e64f5022a2d8a26c35ab"
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            # resources:
+            #   limits:
+            #     memory: 512Mi
+
+      ${APP}-phpmyadmin:
+        initContainers:
+          wait-db: *mysqlWait
+        type: deployment
+        containers:
+          ${APP}-phpmyadmin:
+            nameOverride: ${APP}-phpmyadmin
+            image:
+              repository: phpmyadmin
+              tag: "latest@sha256:83d9571310392de676d3d9fe4fec92a0e28a562847b0b018823c312abd819b8a"
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+              PMA_ARBITRARY: "1"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            # resources:
+            #   limits:
+            #     memory: 512Mi
+          code-server:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.108.1@sha256:867b9a9dedd68f1b46e308cad9525e419db7b0ce0c83831f6a350f37ee7ff6fd
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+            args:
+              - --auth
+              - none
+              - --disable-telemetry
+              - --disable-update-check
+              - --user-data-dir
+              - /eluna-ts/modules/.code-server
+              - --extensions-dir
+              - /eluna-ts/modules/.code-server
+              - --port
+              - "12321"
+              - /eluna-ts/modules
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+
+    persistence:
+      ${APP}-db-data:
+        enabled: true
+        existingClaim: "${APP}-db-data"
+        advancedMounts:
+          ${APP}-db:
+            ${APP}-db:
+              - path: /var/lib/mysql
+                readOnly: false
+      ${APP}-client-data:
+        enabled: true
+        existingClaim: "${APP}-client-data"
+        advancedMounts:
+          ${APP}-world:
+            ${APP}-world:
+              - path: /azerothcore/env/dist/data
+                readOnly: true
+          ${APP}-client-data:
+            ${APP}-client-data:
+              - path: /azerothcore/env/dist/data
+                readOnly: false
+          ${APP}-phpmyadmin:
+            codeserver:
+              - path: /azerothcore/env/dist/data
+                readOnly: false
+      scripts:
+        enabled: true
+        existingClaim: ${APP}-scripts
+        advancedMounts:
+          ${APP}-world:
+            ${APP}-world:
+              - path: /azerothcore/env/dist/bin/lua_scripts/scripts
+                subPath: lua
+            build-modules:
+              - path: /eluna-ts/dist
+                subPath: lua
+              - path: /eluna-ts/modules
+                subPath: typescript
+          ${APP}-phpmyadmin:
+            codeserver:
+              - path: /eluna-ts/dist
+                subPath: lua
+              - path: /eluna-ts/modules
+                subPath: typescript
+    ingress:
+      ${APP}-phpmyadmin:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+                service:
+                  name: ${APP}-phpmyadmin
+                  port: 8080
+              - path: /code
+                pathType: ImplementationSpecific
+                service:
+                  name: ${APP}-phpmyadmin
+                  port: 12321
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
+    service:
+      ${APP}-db:
+        enabled: true
+        controller: ${APP}-db
+        primary: true
+        ports:
+          mysql:
+            port: 3306
+            protocol: TCP
+      ${APP}-world:
+        enabled: true
+        controller: ${APP}-world
+        primary: false
+        ports:
+          world:
+            port: 8085
+            protocol: TCP
+      ${APP}-auth:
+        enabled: true
+        controller: ${APP}-auth
+        primary: false
+        ports:
+          auth:
+            port: 3724
+            protocol: TCP
+      ${APP}-phpmyadmin:
+        enabled: true
+        controller: ${APP}-phpmyadmin
+        primary: false
+        ports:
+          admin:
+            port: 8080
+            protocol: TCP
+          code:
+            port: 12321
+            protocol: TCP

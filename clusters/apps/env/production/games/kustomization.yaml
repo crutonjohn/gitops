@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # - ./ark/ks.yaml
+  - ./acore/ks.yaml
   - ./foundry-vtt/ks.yaml
   # - ./teamspeak/ks.yaml
   - ./windrose/ks.yaml
