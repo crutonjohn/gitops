@@ -41,7 +41,7 @@ spec:
             nameOverride: ${APP}-db
             image:
               repository: mysql
-              tag: "8.4@sha256:d7e6f0ea71aa7ded43d3ba8cafb13429f6cc7b5fddb67565f80e75c87f3783c1"
+              tag: "8.4"
             env:
               TZ: ${LOCAL_TIMEZONE}
               MYSQL_ROOT_PASSWORD:
