@@ -345,6 +345,13 @@ spec:
         enabled: true
         existingClaim: "${APP}-client-data"
         advancedMounts:
+          ${APP}-db:
+            ${APP}-db-import:
+              - path: /azerothcore/env/dist/data
+                readOnly: true
+                subPath: data
+              - path: /azerothcore/env/dist/etc
+                subPath: etc
           ${APP}-world:
             ${APP}-world:
               - path: /azerothcore/env/dist/data
