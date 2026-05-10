@@ -337,7 +337,7 @@ spec:
                 memory: 512Mi
 
     persistence:
-      ${APP}-db-data:
+      db-data:
         enabled: true
         existingClaim: "${APP}-db-data"
         advancedMounts:
@@ -358,7 +358,7 @@ spec:
         globalMounts:
           - path: /azerothcore/env/dist/temp
 
-      ${APP}-client-data:
+      client-data:
         enabled: true
         existingClaim: "${APP}-client-data"
         advancedMounts:
@@ -390,6 +390,12 @@ spec:
               - path: /azerothcore/env/dist/etc
                 subPath: etc
           ${APP}-phpmyadmin:
+            ${APP}-phpmyadmin:
+              - path: /azerothcore/env/dist/data
+                readOnly: false
+                subPath: data
+              - path: /azerothcore/env/dist/etc
+                subPath: etc
             codeserver:
               - path: /azerothcore/env/dist/data
                 readOnly: false
