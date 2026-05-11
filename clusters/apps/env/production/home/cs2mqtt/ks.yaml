@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/apps/env/production/home/cs2mqtt
+  path: ./clusters/apps/env/production/home/cs2mqtt/app
   prune: true
   sourceRef:
     kind: GitRepository
