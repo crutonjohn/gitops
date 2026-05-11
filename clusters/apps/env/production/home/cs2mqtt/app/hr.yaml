@@ -110,10 +110,10 @@ spec:
                 pathType: ImplementationSpecific
                 service:
                   name: ${APP}
-                  port: 5000
+                  port: 8080
     service:
       ${APP}:
         controller: ${APP}
         ports:
           http:
-            port: 5000
+            port: 8080
