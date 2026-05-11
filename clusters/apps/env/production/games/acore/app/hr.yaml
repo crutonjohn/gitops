@@ -126,7 +126,7 @@ spec:
           client-data-init:
             image:
               repository: acore/ac-wotlk-client-data
-              tag: "master@sha256:8fb26ae4b0f4d67a87f60b0acc2f9ed761e5d83e6833e64f5022a2d8a26c35ab"
+              tag: "master@sha256:3d9e6c61bd60f12676a42a05da477353a8b32a163c57c2beca8cc27b939ce4fa"
             env:
               TZ: ${LOCAL_TIMEZONE}
 
