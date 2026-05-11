@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./android-dav/ks.yaml
   - ./bewcloud/ks.yaml
+  - ./cs2mqtt/ks.yaml
   - ./esphome/ks.yaml
   - ./grocy/ks.yaml
   - ./home-assistant/ks.yaml

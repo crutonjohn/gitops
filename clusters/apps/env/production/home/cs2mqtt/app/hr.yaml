@@ -1,0 +1,119 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      ${APP}:
+        annotations:
+          secret.reloader.stakater.com/reload: mosquitto-secret
+        containers:
+          ${APP}:
+            image:
+              repository: ghcr.io/lupusbytes/cs2mqtt
+              tag: 1.11.2@sha256:5aad81ea02e9bedd958f480809725ed18d1ac31b7edb340f1f5ebbf6de801b82
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            env:
+              MQTT__Host: mosquitto.home.svc.cluster.local
+              MQTT__Port: "1883"
+              MQTT__ClientId: cs2mqtt
+              MQTT__ProtocolVersion: 5.0.0
+              MQTT__Username:
+                valueFrom:
+                  secretKeyRef:
+                    name: mosquitto-secret
+                    key: username
+              MQTT__Password:
+                valueFrom:
+                  secretKeyRef:
+                    name: mosquitto-secret
+                    key: password
+            resources:
+              requests:
+                cpu: 5m
+                memory: 100Mi
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    ingress:
+      ${APP}:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          traefik.ingress.kubernetes.io/router.entrypoints: web
+        labels: {}
+        className: traefik-internal
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+                service:
+                  name: ${APP}
+                  port: 5000
+    service:
+      ${APP}:
+        controller: ${APP}
+        ports:
+          http:
+            port: 5000
