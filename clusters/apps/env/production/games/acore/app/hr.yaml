@@ -157,7 +157,7 @@ spec:
             nameOverride: ${APP}-world
             image:
               repository: acore/ac-wotlk-worldserver
-              tag: "master@sha256:14183e6c16f8bac5c0dca9b4ae006c91076714b22f088bcdbc97ab6c9d3c2bee"
+              tag: "master@sha256:427aa8a6a3b1a83e19c0ee0b969ab984949723f3d58271318060392c3af3f0d8"
             env:
               TZ: ${LOCAL_TIMEZONE}
               CTYPE:
