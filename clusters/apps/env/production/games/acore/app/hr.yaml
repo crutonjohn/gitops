@@ -85,7 +85,7 @@ spec:
           db-import:
             image:
               repository: acore/ac-wotlk-db-import
-              tag: "master@sha256:d3780267578a1ad255cad33f5b711ea72cca69514f22f186fc2ef25652b45009"
+              tag: "master@sha256:6bc70426932e2f53ed4b87fc2f2e611862b2561a0bcfb0ca6a79545980519a66"
             env:
               TZ: ${LOCAL_TIMEZONE}
               AC_DISABLE_INTERACTIVE:
