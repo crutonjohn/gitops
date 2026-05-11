@@ -235,7 +235,7 @@ spec:
             nameOverride: ${APP}-auth
             image:
               repository: acore/ac-wotlk-authserver
-              tag: "master@sha256:cda38f674976444abbda15897ea4249f6976a4aacea05453a6796a155a6bace2"
+              tag: "master@sha256:9d0146d27f03837653fce3d7b4efae1db73292024d2265b9bcea5aef3400fd77"
             env:
               TZ: ${LOCAL_TIMEZONE}
               CTYPE:
