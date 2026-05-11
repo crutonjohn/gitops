@@ -100,7 +100,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
-          traefik.ingress.kubernetes.io/router.entrypoints: web
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
         labels: {}
         className: traefik-internal
         hosts:
@@ -111,6 +111,11 @@ spec:
                 service:
                   name: ${APP}
                   port: 8080
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
     service:
       ${APP}:
         controller: ${APP}
