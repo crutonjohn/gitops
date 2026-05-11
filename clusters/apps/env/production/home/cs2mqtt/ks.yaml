@@ -28,6 +28,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "730"
+      INGRESSROUTE_SUBDOMAIN: "cs2mqtt"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
