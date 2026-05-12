@@ -41,7 +41,7 @@ spec:
             nameOverride: syncthing
             image:
               repository: syncthing/syncthing
-              tag: 1.29.6@sha256:82e1abb0307008263b8287813a4367efee9db4f877759f8d41f0485ce2658e90
+              tag: 2.1.0@sha256:7c60eb0ec887696c8684de88aea2dfe39a7391184b29d33c0aad778c99c7683e
               pullPolicy: IfNotPresent
             env:
               TZ: America/New_York
