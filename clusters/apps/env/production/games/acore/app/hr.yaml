@@ -518,7 +518,7 @@ spec:
         annotations:
           external-dns/public: "true"
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_WINDROSE}
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_ACORE}
           io.cilium/lb-ipam-sharing-key: ACORE
           io.cilium/lb-ipam-ips: ${CLUSTER_LB_ACORE}
         labels:
