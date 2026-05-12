@@ -25,12 +25,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    # defaultPodOptions:
-    #   securityContext:
-    #     runAsUser: ${APP_UID}
-    #     runAsGroup: ${APP_UID}
-    #     fsGroup: ${APP_UID}
-    #     fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        # fsGroupChangePolicy: OnRootMismatch
     #   nodeSelector:
     #     kubernetes.io/hostname: fulgrim
     controllers:
