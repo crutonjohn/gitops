@@ -82,7 +82,7 @@ spec:
               [
                 "sh",
                 "-c",
-                'until mysql -h azerothcore-database -u root -ppassword -e "SELECT 1 FROM acore_auth.realmlist LIMIT 1" 2>/dev/null; do echo "Waiting for db-import to populate databases..."; sleep 10; done',
+                'until mysql -h ${APP}-database -u root -ppassword -e "SELECT 1 FROM acore_auth.realmlist LIMIT 1" 2>/dev/null; do echo "Waiting for db-import to populate databases..."; sleep 10; done',
               ]
         containers:
           ${APP}-authserver:
@@ -91,7 +91,7 @@ spec:
               tag: f9bcdac1895f78e50a63e8e93f09ce0d723cf938
             env:
               TZ: ${LOCAL_TIMEZONE}
-              AC_LOGIN_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_auth"
+              AC_LOGIN_DATABASE_INFO: "${APP}-database;3306;root;password;acore_auth"
               AC_CLOSE_IDLE_CONNECTIONS: "0"
             probes:
               liveness:
@@ -146,9 +146,9 @@ spec:
               - sh
               - -c
               - |
-                until mysqladmin ping -h azerothcore-database -u root -ppassword --silent; do sleep 2; done
+                until mysqladmin ping -h ${APP}-database -u root -ppassword --silent; do sleep 2; done
                 echo "Creating databases..."
-                mysql -h azerothcore-database -u root -ppassword -e "
+                mysql -h ${APP}-database -u root -ppassword -e "
                   CREATE DATABASE IF NOT EXISTS acore_auth;
                   CREATE DATABASE IF NOT EXISTS acore_world;
                   CREATE DATABASE IF NOT EXISTS acore_characters;
@@ -160,10 +160,10 @@ spec:
               repository: ghcr.io/xunholy/azerothcore-wotlk-db-import
               tag: f9bcdac1895f78e50a63e8e93f09ce0d723cf938
             env:
-              AC_LOGIN_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_auth"
-              AC_WORLD_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_world"
-              AC_CHARACTER_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_characters"
-              AC_PLAYERBOTS_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_playerbots"
+              AC_LOGIN_DATABASE_INFO: "${APP}-database;3306;root;password;acore_auth"
+              AC_WORLD_DATABASE_INFO: "${APP}-database;3306;root;password;acore_world"
+              AC_CHARACTER_DATABASE_INFO: "${APP}-database;3306;root;password;acore_characters"
+              AC_PLAYERBOTS_DATABASE_INFO: "${APP}-database;3306;root;password;acore_playerbots"
               AC_CLOSE_IDLE_CONNECTIONS: "0"
               AC_UPDATES_ENABLE_DATABASES: "7"
               AC_PLAYERBOTS_UPDATES_ENABLE_DATABASES: "1"
@@ -182,7 +182,7 @@ spec:
                   local db="$1" pattern="$2"
                   find /azerothcore/modules -path "$pattern" -name "*.sql" 2>/dev/null | sort | while read -r f; do
                     echo "  $(basename "$f") -> $db"
-                    mysql -h azerothcore-database -u root -ppassword "$db" < "$f" 2>/dev/null || true
+                    mysql -h ${APP}-database -u root -ppassword "$db" < "$f" 2>/dev/null || true
                   done
                 }
                 echo "=== Applying module SQL ==="
@@ -289,10 +289,10 @@ spec:
               # Enable interactive console so preStop can inject commands via FIFO
               AC_DISABLE_INTERACTIVE: "0"
               # Database connections
-              AC_LOGIN_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_auth"
-              AC_WORLD_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_world"
-              AC_CHARACTER_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_characters"
-              AC_PLAYERBOTS_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_playerbots"
+              AC_LOGIN_DATABASE_INFO: "${APP}-database;3306;root;password;acore_auth"
+              AC_WORLD_DATABASE_INFO: "${APP}-database;3306;root;password;acore_world"
+              AC_CHARACTER_DATABASE_INFO: "${APP}-database;3306;root;password;acore_characters"
+              AC_PLAYERBOTS_DATABASE_INFO: "${APP}-database;3306;root;password;acore_playerbots"
               AC_PLAYERBOTS_UPDATES_ENABLE_DATABASES: "0"
               AC_PLAYERBOTS_DATABASE_WORKER_THREADS: "1"
               AC_PLAYERBOTS_DATABASE_SYNCH_THREADS: "1"
