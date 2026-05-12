@@ -506,22 +506,22 @@ spec:
                 drop: ["ALL"]
     service:
       database:
-        controller: ${APP}-database
+        controller: database
         ports:
           mysql:
             port: 3306
       auth:
-        controller: ${APP}-authserver
+        controller: authserver
         ports:
           auth:
             port: 3724
       world:
-        controller: ${APP}-worldserver
+        controller: worldserver
         ports:
           world:
             port: 8085
       soap:
-        controller: ${APP}-worldserver
+        controller: worldserver
         ports:
           soap:
             port: 7878
@@ -529,13 +529,13 @@ spec:
       database:
         existingClaim: azerothcore-database
         advancedMounts:
-          ${APP}-database:
+          database:
             ${APP}-database:
               - path: /var/lib/mysql
       client-data:
         existingClaim: azerothcore-client-data
         advancedMounts:
-          ${APP}-worldserver:
+          worldserver:
             02-db-import:
               - path: /azerothcore/env/dist/data
             03-client-data:
