@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/tags/common-3.1.0/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.1.0
+      version: 4.6.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,465 +25,541 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
-        fsGroup: ${APP_UID}
-        # fsGroupChangePolicy: OnRootMismatch
-    #   nodeSelector:
-    #     kubernetes.io/hostname: fulgrim
     controllers:
-      ${APP}-db:
-        type: deployment
+      database:
         containers:
-          ${APP}-db:
-            nameOverride: ${APP}-db
+          ${APP}-database:
             image:
               repository: mysql
-              tag: "8.4"
+              tag: "9.6"
+            args:
+              - --skip-log-bin
             env:
               TZ: ${LOCAL_TIMEZONE}
-              MYSQL_ROOT_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: MYSQL_ROOT_PASSWORD
+              MYSQL_ROOT_PASSWORD: password
+              MYSQL_DATABASE: acore_auth
             probes:
               liveness:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command: ["mysqladmin", "ping", "-h", "localhost"]
+                  periodSeconds: 30
+                  timeoutSeconds: 3
+                  failureThreshold: 3
               readiness:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command: ["mysqladmin", "ping", "-h", "localhost"]
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
               startup:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command: ["mysqladmin", "ping", "-h", "localhost"]
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 30
             resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
               limits:
                 memory: 2Gi
-
-      ${APP}-world:
+      authserver:
         initContainers:
-          wait-db: &mysqlWait
+          wait-db-ready:
             image:
-              repository: busybox
-              tag: "1.37.0"
+              repository: mysql
+              tag: "9.6"
             command:
               [
                 "sh",
                 "-c",
-                "echo -e 'check connection'; while ! nc -z acore.games.svc.cluster.local 3306; do sleep 1; printf '-'; done; echo -e '>> MySQL up!';",
+                'until mysql -h azerothcore-database -u root -ppassword -e "SELECT 1 FROM acore_auth.realmlist LIMIT 1" 2>/dev/null; do echo "Waiting for db-import to populate databases..."; sleep 10; done',
               ]
-          # build-modules:
-          #   image:
-          #     repository: acore/eluna-ts
-          #     tag: "master@sha256:0fc67693b3162cfe963dfdf5443adffdf50c62deb6ac231b31665cff548bcf6f"
-          #   command:
-          #     [
-          #       "sh",
-          #       "-c",
-          #       "cd /eluna-ts/modules/eluna-ts && npm run build:lib && npm run build",
-          #     ]
-          db-import:
-            image:
-              repository: acore/ac-wotlk-db-import
-              tag: "master@sha256:d3780267578a1ad255cad33f5b711ea72cca69514f22f186fc2ef25652b45009"
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-              AC_DISABLE_INTERACTIVE:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_DISABLE_INTERACTIVE
-              AC_DATA_DIR:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_DATA_DIR
-              AC_LOGS_DIR:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_LOGS_DIR
-              AC_LOGIN_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_LOGIN_DATABASE_INFO
-              AC_WORLD_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_WORLD_DATABASE_INFO
-              AC_CHARACTER_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_CHARACTER_DATABASE_INFO
-              AC_CLOSE_IDLE_CONNECTIONS:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_CLOSE_IDLE_CONNECTIONS
-          client-data-init:
-            image:
-              repository: acore/ac-wotlk-client-data
-              tag: "master@sha256:8fb26ae4b0f4d67a87f60b0acc2f9ed761e5d83e6833e64f5022a2d8a26c35ab"
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-
-        type: deployment
         containers:
-          ${APP}-eluna-ts:
-            enabled: false
-            nameOverride: ${APP}-eluna-modules
+          ${APP}-authserver:
             image:
-              repository: acore/eluna-ts
-              tag: "master@sha256:0fc67693b3162cfe963dfdf5443adffdf50c62deb6ac231b31665cff548bcf6f"
-            command:
-              [
-                "sh",
-                "-c",
-                "cd /eluna-ts/modules && touch index.ts && npm install && cd /eluna-ts && npm run dev",
-              ]
+              repository: ghcr.io/xunholy/azerothcore-wotlk-authserver
+              tag: f9bcdac1895f78e50a63e8e93f09ce0d723cf938
             env:
               TZ: ${LOCAL_TIMEZONE}
+              AC_LOGIN_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_auth"
+              AC_CLOSE_IDLE_CONNECTIONS: "0"
             probes:
               liveness:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3724
+                  periodSeconds: 30
+                  timeoutSeconds: 3
+                  failureThreshold: 3
               readiness:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3724
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
               startup:
-                enabled: false
-          ${APP}-world:
-            nameOverride: ${APP}-world
-            image:
-              repository: acore/ac-wotlk-worldserver
-              tag: "master@sha256:14183e6c16f8bac5c0dca9b4ae006c91076714b22f088bcdbc97ab6c9d3c2bee"
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-              CTYPE:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: CTYPE
-              CSCRIPTS:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: CSCRIPTS
-              AC_CCACHE:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_CCACHE
-              USER_CONF_PATH:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: USER_CONF_PATH
-              DATAPATH:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: DATAPATH
-              AC_DATA_DIR:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_DATA_DIR
-              AC_LOGS_DIR:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_LOGS_DIR
-              AC_LOGIN_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_LOGIN_DATABASE_INFO
-              AC_WORLD_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_WORLD_DATABASE_INFO
-              AC_CHARACTER_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_CHARACTER_DATABASE_INFO
-              AC_CLOSE_IDLE_CONNECTIONS:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_CLOSE_IDLE_CONNECTIONS
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            # resources:
-            #   limits:
-            #     memory: 512Mi
-
-      ${APP}-auth:
-        initContainers:
-          wait-db: *mysqlWait
-        type: deployment
-        containers:
-          ${APP}-auth:
-            nameOverride: ${APP}-auth
-            image:
-              repository: acore/ac-wotlk-authserver
-              tag: "master@sha256:cda38f674976444abbda15897ea4249f6976a4aacea05453a6796a155a6bace2"
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-              CTYPE:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: CTYPE
-              CSCRIPTS:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: CSCRIPTS
-              AC_CCACHE:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_CCACHE
-              USER_CONF_PATH:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: USER_CONF_PATH
-              DATAPATH:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: DATAPATH
-              AC_TEMP_DIR:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_TEMP_DIR
-              AC_LOGS_DIR:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_LOGS_DIR
-              AC_LOGIN_DATABASE_INFO:
-                valueFrom:
-                  secretKeyRef:
-                    name: ${APP}-env
-                    key: AC_LOGIN_DATABASE_INFO
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            # resources:
-            #   limits:
-            #     memory: 512Mi
-
-      ${APP}-phpmyadmin:
-        initContainers:
-          wait-db: *mysqlWait
-        type: deployment
-        containers:
-          ${APP}-phpmyadmin:
-            nameOverride: ${APP}-phpmyadmin
-            image:
-              repository: phpmyadmin
-              tag: "latest@sha256:83d9571310392de676d3d9fe4fec92a0e28a562847b0b018823c312abd819b8a"
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-              PMA_ARBITRARY: "1"
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            # resources:
-            #   limits:
-            #     memory: 512Mi
-          code-server:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.108.1@sha256:867b9a9dedd68f1b46e308cad9525e419db7b0ce0c83831f6a350f37ee7ff6fd
-            env:
-              TZ: ${LOCAL_TIMEZONE}
-            args:
-              - --auth
-              - none
-              - --disable-telemetry
-              - --disable-update-check
-              - --user-data-dir
-              - /eluna-ts/modules/.code-server
-              - --extensions-dir
-              - /eluna-ts/modules/.code-server
-              - --port
-              - "12321"
-              - /eluna-ts/modules
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 3724
+                  periodSeconds: 5
+                  timeoutSeconds: 3
+                  failureThreshold: 60
             resources:
               requests:
                 cpu: 10m
+                memory: 64Mi
               limits:
-                memory: 512Mi
-
-    persistence:
-      db-data:
-        enabled: true
-        existingClaim: "${APP}-db-data"
-        advancedMounts:
-          ${APP}-db:
-            ${APP}-db:
-              - path: /var/lib/mysql
-                readOnly: false
-      logs:
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 6Gi
-        globalMounts:
-          - path: /azerothcore/env/dist/logs
-      temp:
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 2Gi
-        globalMounts:
-          - path: /azerothcore/env/dist/temp
-
-      client-data:
-        enabled: true
-        existingClaim: "${APP}-client-data"
-        advancedMounts:
-          ${APP}-world:
-            ${APP}-world:
-              - path: /azerothcore/env/dist/data
-                readOnly: true
-                subPath: data
-              - path: /azerothcore/env/dist/etc
-                subPath: etc
-            db-import:
-              - path: /azerothcore/env/dist/data
-                readOnly: false
-                subPath: data
-              - path: /azerothcore/env/dist/etc
-                subPath: etc
-            client-data-init:
-              - path: /azerothcore/env/dist/data
-                readOnly: false
-                subPath: data
-              - path: /azerothcore/env/dist/etc
-                subPath: etc
-
-          ${APP}-auth:
-            ${APP}-auth:
-              # - path: /azerothcore/env/dist/data
-              #   readOnly: false
-              #   subPath: data
-              - path: /azerothcore/env/dist/etc
-                subPath: etc
-          ${APP}-phpmyadmin:
-            ${APP}-phpmyadmin:
-              - path: /azerothcore/env/dist/data
-                readOnly: false
-                subPath: data
-              - path: /azerothcore/env/dist/etc
-                subPath: etc
-            codeserver:
-              - path: /azerothcore/env/dist/data
-                readOnly: false
-                subPath: data
-              - path: /azerothcore/env/dist/etc
-                subPath: etc
-      scripts:
-        enabled: true
-        existingClaim: ${APP}-scripts
-        advancedMounts:
-          ${APP}-world:
-            ${APP}-world:
-              - path: /azerothcore/env/dist/bin/lua_scripts/scripts
-                subPath: lua
-            build-modules:
-              - path: /eluna-ts/dist
-                subPath: lua
-              - path: /eluna-ts/modules
-                subPath: typescript
-          ${APP}-phpmyadmin:
-            codeserver:
-              - path: /eluna-ts/dist
-                subPath: lua
-              - path: /eluna-ts/modules
-                subPath: typescript
-    ingress:
-      ${APP}-phpmyadmin:
-        enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        labels: {}
-        className: traefik-internal
-        hosts:
-          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-                service:
-                  name: ${APP}-phpmyadmin
-                  port: 8080
-              - path: /code
-                pathType: ImplementationSpecific
-                service:
-                  name: ${APP}-phpmyadmin
-                  port: 12321
-        tls:
-          - secretName: heyjohn-wildcard-certificate
-            hosts:
-              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-
+                memory: 256Mi
+      worldserver:
+        pod:
+          terminationGracePeriodSeconds: 960
+          # fsGroup makes the mounted cores PVC group-owned by acore (gid 1000)
+          # so the worldserver process can drop core files into it on crash.
+          # Without this, kubelet creates the mount point as root:root and the
+          # acore user can't write there.
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+        initContainers:
+          01-wait-db:
+            image:
+              repository: mysql
+              tag: "9.6"
+            command:
+              - sh
+              - -c
+              - |
+                until mysqladmin ping -h azerothcore-database -u root -ppassword --silent; do sleep 2; done
+                echo "Creating databases..."
+                mysql -h azerothcore-database -u root -ppassword -e "
+                  CREATE DATABASE IF NOT EXISTS acore_auth;
+                  CREATE DATABASE IF NOT EXISTS acore_world;
+                  CREATE DATABASE IF NOT EXISTS acore_characters;
+                  CREATE DATABASE IF NOT EXISTS acore_playerbots;
+                "
+                echo "All databases ready."
+          02-db-import:
+            image:
+              repository: ghcr.io/xunholy/azerothcore-wotlk-db-import
+              tag: f9bcdac1895f78e50a63e8e93f09ce0d723cf938
+            env:
+              AC_LOGIN_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_auth"
+              AC_WORLD_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_world"
+              AC_CHARACTER_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_characters"
+              AC_PLAYERBOTS_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_playerbots"
+              AC_CLOSE_IDLE_CONNECTIONS: "0"
+              AC_UPDATES_ENABLE_DATABASES: "7"
+              AC_PLAYERBOTS_UPDATES_ENABLE_DATABASES: "1"
+              AC_PLAYERBOTS_DATABASE_WORKER_THREADS: "1"
+              AC_PLAYERBOTS_DATABASE_SYNCH_THREADS: "1"
+              AC_DATA_DIR: /azerothcore/env/dist/data
+          025-module-sql:
+            image:
+              repository: ghcr.io/xunholy/azerothcore-wotlk-db-import
+              tag: f9bcdac1895f78e50a63e8e93f09ce0d723cf938
+            command:
+              - /bin/bash
+              - -c
+              - |
+                import_sql() {
+                  local db="$1" pattern="$2"
+                  find /azerothcore/modules -path "$pattern" -name "*.sql" 2>/dev/null | sort | while read -r f; do
+                    echo "  $(basename "$f") -> $db"
+                    mysql -h azerothcore-database -u root -ppassword "$db" < "$f" 2>/dev/null || true
+                  done
+                }
+                echo "=== Applying module SQL ==="
+                echo "World database:"
+                import_sql acore_world "*/data/sql/db-world/*"
+                import_sql acore_world "*/data/sql/world/base/*"
+                echo "Characters database:"
+                import_sql acore_characters "*/data/sql/db-characters/*"
+                import_sql acore_characters "*/data/sql/characters/base/*"
+                echo "Auth database:"
+                import_sql acore_auth "*/data/sql/db-auth/*"
+                import_sql acore_auth "*/data/sql/auth/base/*"
+                echo "Playerbots database:"
+                import_sql acore_playerbots "*/data/sql/playerbots/base/*"
+                echo "=== Module SQL complete ==="
+          03-client-data:
+            image:
+              repository: acore/ac-wotlk-client-data
+              tag: master
+        containers:
+          ${APP}-worldserver:
+            image:
+              repository: ghcr.io/xunholy/azerothcore-wotlk-worldserver
+              tag: f9bcdac1895f78e50a63e8e93f09ce0d723cf938
+            tty: true
+            stdin: true
+            # Override the image ENTRYPOINT so we can:
+            #   - enable core dumps (ulimit -c) and chdir into the cores PVC
+            #   - patch mod_ahbot.conf with our AHBot Account/GUID before the
+            #     worldserver reads it. (The AC_* env vars in this HR don't
+            #     translate to .conf — the upstream entrypoint has no env
+            #     substitution. Settings only stick when written to the conf
+            #     file directly. ConfigMap subPath at .../modules/<f> won't
+            #     work because k8s shadows the parent dir as root-owned and
+            #     hides the sibling .conf.dist files the wrapper needs.)
+            # The wrapper at /azerothcore/entrypoint.sh is no-clobber for
+            # files we wrote, so we replicate just its conf-materialization
+            # step, sed the override, then hand off.
+            command:
+              - /bin/bash
+              - -c
+              # Flux post-build substitution eats `${VAR}` tokens; escape any
+              # parameter-expansion / suffix-strip below as `$${VAR}` so bash
+              # sees them at runtime. Plain `$VAR` (no braces) is fine.
+              - |
+                set -euo pipefail
+                ulimit -c unlimited
+                mkdir -p /azerothcore/env/dist/cores
+                cd /azerothcore/env/dist/cores
+                ref=/azerothcore/env/ref/etc/modules
+                dist=/azerothcore/env/dist/etc/modules
+                if [ -d "$ref" ]; then
+                  mkdir -p "$dist"
+                  for src in "$ref"/*.conf.dist; do
+                    [ -f "$src" ] || continue
+                    target="$dist/$(basename "$${src%.dist}")"
+                    [ -f "$target" ] || cp "$src" "$target"
+                  done
+                fi
+                if [ -f "$dist/mod_ahbot.conf" ]; then
+                  # AHBot owner + volume tuning. account 199 = AHBOT,
+                  # guid 1006 = Auctioneer. Profession + vendor trade goods
+                  # turned on so the world has crafted gear, bolts of cloth,
+                  # potions etc. on top of the loot-only seed. Duplicates=3
+                  # gives popular items multiple listings; ItemsPerCycle=400
+                  # roughly doubles fill+rotation rate.
+                  sed -i \
+                    -e 's|^AuctionHouseBot\.EnableSeller *=.*|AuctionHouseBot.EnableSeller = 1|' \
+                    -e 's|^AuctionHouseBot\.EnableBuyer *=.*|AuctionHouseBot.EnableBuyer = 1|' \
+                    -e 's|^AuctionHouseBot\.Account *=.*|AuctionHouseBot.Account = 199|' \
+                    -e 's|^AuctionHouseBot\.GUID *=.*|AuctionHouseBot.GUID = 1006|' \
+                    -e 's|^AuctionHouseBot\.UseMarketPriceForSeller *=.*|AuctionHouseBot.UseMarketPriceForSeller = 1|' \
+                    -e 's|^AuctionHouseBot\.ItemsPerCycle *=.*|AuctionHouseBot.ItemsPerCycle = 400|' \
+                    -e 's|^AuctionHouseBot\.ProfessionItems *=.*|AuctionHouseBot.ProfessionItems = 1|' \
+                    -e 's|^AuctionHouseBot\.VendorTradeGoods *=.*|AuctionHouseBot.VendorTradeGoods = 1|' \
+                    -e 's|^AuctionHouseBot\.DuplicatesCount *=.*|AuctionHouseBot.DuplicatesCount = 3|' \
+                    "$dist/mod_ahbot.conf"
+                fi
+                if [ -f "$dist/playerbots.conf" ]; then
+                  # Aliveness pass: more bots, faster RPG-state transitions,
+                  # busier world/general/trade chat, more loot/kill broadcast
+                  # spam. Explicitly NOT touched: RandomBotInvitePlayer (0),
+                  # InviteChat (0), RandomBotGuildNearby (0) — real players
+                  # should not be DM'd, group-invited, or auto-recruited into
+                  # bot guilds.
+                  sed -i \
+                    -e 's|^AiPlayerbot\.MinRandomBots *=.*|AiPlayerbot.MinRandomBots = 800|' \
+                    -e 's|^AiPlayerbot\.MaxRandomBots *=.*|AiPlayerbot.MaxRandomBots = 800|' \
+                    -e 's|^AiPlayerbot\.RpgDelay *=.*|AiPlayerbot.RpgDelay = 5000|' \
+                    -e 's|^AiPlayerbot\.BroadcastToWorldGlobalChance *=.*|AiPlayerbot.BroadcastToWorldGlobalChance = 90000|' \
+                    -e 's|^AiPlayerbot\.BroadcastToGeneralGlobalChance *=.*|AiPlayerbot.BroadcastToGeneralGlobalChance = 90000|' \
+                    -e 's|^AiPlayerbot\.BroadcastToTradeGlobalChance *=.*|AiPlayerbot.BroadcastToTradeGlobalChance = 90000|' \
+                    -e 's|^AiPlayerbot\.BroadcastToLFGGlobalChance *=.*|AiPlayerbot.BroadcastToLFGGlobalChance = 60000|' \
+                    -e 's|^AiPlayerbot\.BroadcastChanceLootingItemRare *=.*|AiPlayerbot.BroadcastChanceLootingItemRare = 40000|' \
+                    -e 's|^AiPlayerbot\.BroadcastChanceLootingItemEpic *=.*|AiPlayerbot.BroadcastChanceLootingItemEpic = 60000|' \
+                    -e 's|^AiPlayerbot\.BroadcastChanceKillRare *=.*|AiPlayerbot.BroadcastChanceKillRare = 20000|' \
+                    -e 's|^AiPlayerbot\.BroadcastChanceKillRareelite *=.*|AiPlayerbot.BroadcastChanceKillRareelite = 6000|' \
+                    -e 's|^AiPlayerbot\.BroadcastChanceKillWorldboss *=.*|AiPlayerbot.BroadcastChanceKillWorldboss = 40000|' \
+                    "$dist/playerbots.conf"
+                fi
+                exec /azerothcore/entrypoint.sh /azerothcore/env/dist/bin/worldserver
+            env:
+              TZ: ${LOCAL_TIMEZONE}
+              # Enable interactive console so preStop can inject commands via FIFO
+              AC_DISABLE_INTERACTIVE: "0"
+              # Database connections
+              AC_LOGIN_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_auth"
+              AC_WORLD_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_world"
+              AC_CHARACTER_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_characters"
+              AC_PLAYERBOTS_DATABASE_INFO: "azerothcore-database;3306;root;password;acore_playerbots"
+              AC_PLAYERBOTS_UPDATES_ENABLE_DATABASES: "0"
+              AC_PLAYERBOTS_DATABASE_WORKER_THREADS: "1"
+              AC_PLAYERBOTS_DATABASE_SYNCH_THREADS: "1"
+              AC_CLOSE_IDLE_CONNECTIONS: "0"
+              AC_UPDATES_ENABLE_DATABASES: "7"
+              AC_DATA_DIR: /azerothcore/env/dist/data
+              AC_LOGS_DIR: /azerothcore/env/dist/logs
+              # Server identity
+              AC_GAME_TYPE: "0"
+              AC_REALM_ZONE: "8"
+              AC_WORLD_SERVER_PORT: "8085"
+              AC_PLAYER_LIMIT: "100"
+              AC_MOTD: "Why did i do this???????????"
+              # SOAP remote admin
+              AC_SOAP_ENABLED: "1"
+              AC_SOAP_IP: "0.0.0.0"
+              AC_SOAP_PORT: "7878"
+              # -- 3x rates: faster than vanilla but tiers still feel earned --
+              AC_RATE_XP_KILL: "3"
+              AC_RATE_XP_QUEST: "3"
+              AC_RATE_XP_EXPLORE: "3"
+              AC_RATE_XP_BG_KILL: "3"
+              AC_RATE_XP_PET: "3"
+              # -- Drops --
+              AC_RATE_DROP_ITEM_POOR: "3"
+              AC_RATE_DROP_ITEM_NORMAL: "3"
+              AC_RATE_DROP_ITEM_UNCOMMON: "3"
+              AC_RATE_DROP_ITEM_RARE: "3"
+              AC_RATE_DROP_ITEM_EPIC: "2"
+              AC_RATE_DROP_ITEM_LEGENDARY: "2"
+              AC_RATE_DROP_ITEM_QUEST: "3"
+              AC_RATE_DROP_MONEY: "3"
+              # -- Reputation and honor --
+              AC_RATE_REPUTATION_GAIN: "3"
+              AC_RATE_HONOR: "3"
+              AC_RATE_ARENA_POINTS: "3"
+              # -- Profession skill-ups --
+              AC_SKILL_GAIN_CRAFTING: "3"
+              AC_SKILL_GAIN_GATHERING: "3"
+              AC_SKILL_GAIN_WEAPON: "3"
+              AC_SKILL_GAIN_DEFENSE: "3"
+              AC_RATE_SKILL_DISCOVERY: "3"
+              # -- Quality of life (kept; QoL that doesn't fight IP) --
+              AC_RATE_REST_INGAME: "3"
+              AC_RATE_REST_OFFLINE_IN_TAVERN_OR_CITY: "3"
+              AC_DEATH_SICKNESS_LEVEL: "1"
+              AC_SKIP_CINEMATICS: "1"
+              AC_PLAYER_SAVE_INTERVAL: "60000"
+              # NOTE: removed ALL_FLIGHT_PATHS, INSTANT_FLIGHT_PATHS, MAIL_DELIVERY_DELAY=0,
+              # START_PLAYER_MONEY=100000 — these undermine IP's "the world is bigger again" design.
+              # -- Health and mana regen --
+              AC_RATE_HEALTH: "3"
+              AC_RATE_MANA: "3"
+              AC_RATE_POWER_RAGE_INCOME: "3"
+              AC_RATE_POWER_RAGE_LOSS: "1"
+              AC_RATE_POWER_ENERGY: "3"
+              AC_RATE_POWER_FOCUS: "3"
+              # -- Ghost run speed for less death penalty --
+              AC_GHOST_RUN_SPEED_WORLD: "3"
+              AC_GHOST_RUN_SPEED_BG: "3"
+              # ==============================================
+              # Module: mod-playerbots (AI player bots)
+              # ==============================================
+              AC_AIPLAYERBOT_ENABLED: "1"
+              AC_AIPLAYERBOT_RANDOMBOTAUTOCREATE: "1"
+              AC_AIPLAYERBOT_RANDOMBOTAUTOLOGIN: "1"
+              AC_AIPLAYERBOT_LOGINATEACHPLAYERLEVELBOT: "1"
+              AC_AIPLAYERBOT_RANDOMBOTACCOUNTPREFIX: "rndbot"
+              AC_AIPLAYERBOT_RANDOMBOTACCOUNTCOUNT: "200"
+              AC_AIPLAYERBOT_MINRANDOMBOTS: "500"
+              AC_AIPLAYERBOT_MAXRANDOMBOTS: "1000"
+              AC_AIPLAYERBOT_RANDOMBOTMINLEVEL: "1"
+              AC_AIPLAYERBOT_RANDOMBOTMAXLEVEL: "80"
+              AC_AIPLAYERBOT_RANDOMBOTMAPS: "0,1,530,571"
+              AC_AIPLAYERBOT_AUTODOQUESTS: "1"
+              AC_AIPLAYERBOT_AUTOPICKREWARD: "yes"
+              AC_AIPLAYERBOT_AUTOEQUIPUPGRADELOOT: "1"
+              AC_AIPLAYERBOT_AUTOLEARNTRAINERSPELLS: "1"
+              AC_AIPLAYERBOT_AUTOLEARNQUESTSPELLS: "1"
+              AC_AIPLAYERBOT_RANDOMGEARUPGRADEENABLED: "1"
+              AC_AIPLAYERBOT_RANDOMBOTTELEPORTNEARPLAYER: "1"
+              AC_AIPLAYERBOT_SYNCQUESTWITHPLAYER: "1"
+              AC_AIPLAYERBOT_RANDOMBOTJOINBG: "1"
+              AC_AIPLAYERBOT_RANDOMBOTAUTOJOINBG: "1"
+              AC_AIPLAYERBOT_RANDOMBOTGROUPNEARBY: "1"
+              AC_AIPLAYERBOT_SYNCLEVELWITHPLAYERS: "1"
+              AC_AIPLAYERBOT_SYNCLEVELMAXABOVE: "2"
+              AC_AIPLAYERBOT_AUTOPICKTALENTS: "full"
+              AC_AIPLAYERBOT_AUTOTRAINSPELLS: "free"
+              # ==============================================
+              # Module: mod-autobalance (instance scaling)
+              # Disabled: IP wants raids to require a raid; autobalance with MINPLAYERS=1
+              # would let you solo MC and defeat the gating experience.
+              # ==============================================
+              AC_AUTOBALANCE_ENABLE: "0"
+              # ==============================================
+              # Module: mod-transmog (transmogrification)
+              # ==============================================
+              AC_TRANSMOGRIFICATION_ENABLE: "1"
+              AC_TRANSMOGRIFICATION_SETNSETHINGS_ENABLE: "1"
+              # ==============================================
+              # Module: mod-ah-bot (auction house bot)
+              # ==============================================
+              AC_AUCTIONHOUSEBOT_ENABLESELLER: "1"
+              AC_AUCTIONHOUSEBOT_ENABLEBUYER: "1"
+              # ==============================================
+              # Module: mod-cfbg (cross-faction battlegrounds)
+              # ==============================================
+              AC_CFBG_ENABLE: "1"
+              # ==============================================
+              # Module: mod-solo-lfg (solo dungeon finder)
+              # Disabled: trivializes early-game dungeons that IP wants to feel earned.
+              # Playerbots fill the dungeon-group role instead.
+              # ==============================================
+              AC_SOLOLFG_ENABLE: "0"
+              # ==============================================
+              # IP requires these for stat-scaling to take effect. The module's
+              # SimpleConfigOverride is supposed to force them at runtime but
+              # observation showed the on-disk worldserver.conf still has the
+              # AC defaults, so set them explicitly to be safe.
+              # ==============================================
+              AC_ENABLE_PLAYER_SETTINGS: "1"
+              AC_DBC_ENFORCE_ITEM_ATTRIBUTES: "0"
+              # ==============================================
+              # Module: mod-individual-progression (per-character expansion gating)
+              # Power/healing scalars at IP author's recommended values for
+              # "Vanilla feels like Vanilla, TBC feels like TBC" — without these,
+              # gating works but content does WotLK-tier damage values.
+              # Other defaults are sane (StartingProgression=0 -> achievements
+              # scanned on login, ExcludedAccountsRegex='^RNDBOT.*' -> auto-excludes
+              # our playerbots).
+              # ==============================================
+              AC_INDIVIDUAL_PROGRESSION_ENABLE: "1"
+              AC_INDIVIDUAL_PROGRESSION_VANILLA_POWER_ADJUSTMENT: "0.5"
+              AC_INDIVIDUAL_PROGRESSION_VANILLA_HEALING_ADJUSTMENT: "0.5"
+              AC_INDIVIDUAL_PROGRESSION_TBCPOWER_ADJUSTMENT: "0.6"
+              AC_INDIVIDUAL_PROGRESSION_TBCHEALING_ADJUSTMENT: "0.6"
+            lifecycle:
+              preStop:
+                exec:
+                  command:
+                    - /bin/sh
+                    - -c
+                    - |
+                      echo "server restart 900" > /tmp/worldserver-stdin
+                      sleep 910
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8085
+                  periodSeconds: 30
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8085
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 8085
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 180
+            resources:
+              requests:
+                cpu: "2"
+                memory: 4Gi
+              limits:
+                memory: 12Gi
+          # Prune /azerothcore/env/dist/cores so a runaway crash loop can't
+          # fill the 40Gi PVC. Keeps the 2 newest non-zero cores by mtime
+          # and deletes the rest every 10 min. Mirrors the cmangos pattern.
+          cores-pruner:
+            image:
+              repository: busybox
+              tag: latest
+            command:
+              - /bin/sh
+              - -c
+              - |
+                while true; do
+                  if cd /azerothcore/env/dist/cores 2>/dev/null; then
+                    find . -maxdepth 1 -name 'core*' -size 0 -delete 2>/dev/null
+                    # shellcheck disable=SC2012
+                    ls -1t core* 2>/dev/null | tail -n +3 | xargs -r rm -f --
+                  fi
+                  sleep 600
+                done
+            resources:
+              requests:
+                cpu: 5m
+                memory: 8Mi
+              limits:
+                memory: 32Mi
+            securityContext:
+              runAsNonRoot: false
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
     service:
-      ${APP}-db:
-        enabled: true
-        controller: ${APP}-db
-        primary: true
+      database:
+        controller: ${APP}-database
         ports:
           mysql:
             port: 3306
-            protocol: TCP
-      ${APP}-world:
-        enabled: true
-        controller: ${APP}-world
-        primary: false
-        ports:
-          world:
-            port: 8085
-            protocol: TCP
-          soap:
-            port: 7878
-            protocol: TCP
-      ${APP}-auth:
-        enabled: true
-        controller: ${APP}-auth
-        primary: false
+      auth:
+        controller: ${APP}-authserver
         ports:
           auth:
             port: 3724
-            protocol: TCP
-      ${APP}-phpmyadmin:
-        enabled: true
-        controller: ${APP}-phpmyadmin
-        primary: false
+      world:
+        controller: ${APP}-worldserver
         ports:
-          admin:
-            port: 8080
-            protocol: TCP
-          code:
-            port: 12321
-            protocol: TCP
+          world:
+            port: 8085
+      soap:
+        controller: ${APP}-worldserver
+        ports:
+          soap:
+            port: 7878
+    persistence:
+      database:
+        existingClaim: azerothcore-database
+        advancedMounts:
+          ${APP}-database:
+            ${APP}-database:
+              - path: /var/lib/mysql
+      client-data:
+        existingClaim: azerothcore-client-data
+        advancedMounts:
+          ${APP}-worldserver:
+            02-db-import:
+              - path: /azerothcore/env/dist/data
+            03-client-data:
+              - path: /azerothcore/env/dist/data
+            ${APP}-worldserver:
+              - path: /azerothcore/env/dist/data
+                readOnly: true
+      worldserver-logs:
+        type: emptyDir
+        advancedMounts:
+          worldserver:
+            ${APP}-worldserver:
+              - path: /azerothcore/env/dist/logs
+      authserver-logs:
+        type: emptyDir
+        advancedMounts:
+          authserver:
+            ${APP}-authserver:
+              - path: /azerothcore/env/dist/logs
+      cores:
+        existingClaim: azerothcore-cores
+        advancedMounts:
+          worldserver:
+            ${APP}-worldserver:
+              - path: /azerothcore/env/dist/cores
+            cores-pruner:
+              - path: /azerothcore/env/dist/cores

@@ -29,7 +29,7 @@ spec:
     substitute:
       APP: *app
       INGRESSROUTE_SUBDOMAIN: acore
-      APP_UID: "2701"
+      APP_UID: "1000"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
