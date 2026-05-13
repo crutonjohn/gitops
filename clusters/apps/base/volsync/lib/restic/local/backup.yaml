@@ -18,7 +18,7 @@ spec:
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: "${CACHESIZE:=2Gi}"
     moverSecurityContext:
-      runAsNonRoot: true
+      runAsNonRoot: ${RUN_AS_NON_ROOT:=true}
       runAsUser: ${APP_UID}
       runAsGroup: ${APP_UID}
       fsGroup: ${APP_UID}

@@ -72,6 +72,7 @@ spec:
     substitute:
       APP: *app
       SRC_PVC: azerothcore-database
+      RUN_AS_NON_ROOT: "false"
       APP_UID: "0"
       CRON_SCHEDULE: "51 */4 * * *"
       LOCAL_SCHEDULE: "51 */4 * * *"
