@@ -42,7 +42,7 @@ spec:
           android-dav:
             image:
               repository: ghcr.io/hacdias/webdav
-              tag: v5.11.7@sha256:d0d08a826ba1be03226becb818d3405f71c23d879ae709c6c8926ffcb3fc9f44
+              tag: v5.11.9@sha256:2f04f5c86d743c99a8739b4e7007395ee314d8ea636816e960ab8f2483a43d25
             probes:
               liveness:
                 enabled: false
