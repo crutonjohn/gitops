@@ -125,8 +125,8 @@ spec:
       APP_UID: "1000"
       CRON_SCHEDULE: "33 */4 * * *"
       LOCAL_SCHEDULE: "44 */4 * * *"
-      STORAGE_CLASS: codex-block
-      SNAPSHOT_CLASS: codex-block
+      STORAGE_CLASS: codex-file
+      SNAPSHOT_CLASS: codex-file
       DST_ACCESS_MODE: ReadWriteOnce
       SIZE: "10Gi"
     substituteFrom:
