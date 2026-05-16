@@ -25,7 +25,6 @@ spec:
       name: sops-aws
   dependsOn:
     - name: traefik-external
-    - name: syncthing
     - name: prowlarr
     - name: oauth2-proxy
     - name: cnpg-cluster
