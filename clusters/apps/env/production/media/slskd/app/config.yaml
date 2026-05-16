@@ -110,18 +110,20 @@ groups:
   #     - <username to blacklist>
   #   cidrs:
   #     - <CIDR to blacklist, e.g. 255.255.255.255/32>
-  # user_defined:
-  #   my_buddies:
-  #     upload:
-  #       priority: 250
-  #       strategy: firstinfirstout
-  #       slots: 10
-  #     limits:
-  #       queued:
-  #         files: 1000 # override global default
-  #     members:
-  #       - alice
-  #       - bob
+  user_defined:
+    my_buddies:
+      upload:
+        priority: 250
+        strategy: firstinfirstout
+        slots: 10
+      limits:
+        queued:
+          files: 1000 # override global default
+          megabytes: 3000
+        daily: ~
+        weekly: ~
+      members:
+        - extra_medium
 # blacklist:
 #   enabled: true
 #   file: <path to file containing CIDRs to blacklist>
