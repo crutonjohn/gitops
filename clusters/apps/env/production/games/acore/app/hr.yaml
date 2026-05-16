@@ -306,7 +306,7 @@ spec:
               AC_REALM_ZONE: "8"
               AC_WORLD_SERVER_PORT: "8085"
               AC_PLAYER_LIMIT: "100"
-              AC_MOTD: "Why did i do this???????????"
+              AC_MOTD: "Welcome to RGCraft"
               # SOAP remote admin
               AC_SOAP_ENABLED: "1"
               AC_SOAP_IP: "0.0.0.0"
