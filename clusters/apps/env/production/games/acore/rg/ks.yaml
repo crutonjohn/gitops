@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app acore
+  name: &app rg-craft
   namespace: flux-system
 spec:
   targetNamespace: games
@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
       backups.${FAMILY_DOMAIN}/name: *app
       backups.${FAMILY_DOMAIN}/subsystem: game-server
-  path: ./clusters/apps/env/production/games/acore/app
+  path: ./clusters/apps/env/production/games/acore/rg/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -44,7 +44,49 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: volsync-acore-db-restic
+  name: &app rg-craft-site
+  namespace: flux-system
+spec:
+  targetNamespace: games
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+      backups.${FAMILY_DOMAIN}/name: *app
+      backups.${FAMILY_DOMAIN}/subsystem: game-server
+  path: ./clusters/apps/env/production/games/acore/rg/web
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: gitops-main
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-aws
+  postBuild:
+    substitute:
+      APP: *app
+      INGRESSROUTE_SUBDOMAIN: rgcraft
+      APP_UID: "1000"
+    substituteFrom:
+      - kind: Secret
+        name: secrets-${CLUSTER_NAME}
+      - kind: Secret
+        name: secrets-generic
+      - kind: ConfigMap
+        name: settings-generic
+      - kind: ConfigMap
+        name: settings-${CLUSTER_NAME}
+
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/b732974574feddffd85a2f759d9c156e6cb06ddb/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: volsync-rg-craft-db-restic
   namespace: flux-system
 spec:
   targetNamespace: games
@@ -94,7 +136,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: volsync-acore-client-data-restic
+  name: volsync-rg-craft-client-data-restic
   namespace: flux-system
 spec:
   targetNamespace: games

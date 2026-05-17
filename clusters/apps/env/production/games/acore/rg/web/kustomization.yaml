@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - hr.yaml
+
+configMapGenerator:
+  - name: azerothcore-registration-config
+    files:
+      - config.php=./resources/config.php
+      - posts.php=./resources/posts.php
+      - howtoconnect.php=./resources/howtoconnect.php
+      - header.php=./resources/header.php
+      - footer.php=./resources/footer.php
+
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+
+configurations:
+  - kustomizeconfig.yaml
