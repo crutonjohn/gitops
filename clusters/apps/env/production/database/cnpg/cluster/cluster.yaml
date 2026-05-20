@@ -10,7 +10,7 @@ metadata:
 spec:
   instances: 2
   env:
-    TZ: "${LOCAL_TIMEZONE}"
+    - TZ: "${LOCAL_TIMEZONE}"
   # imageName: ghcr.io/cloudnative-pg/postgresql:18.3
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.3
   primaryUpdateStrategy: unsupervised
