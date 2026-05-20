@@ -9,6 +9,8 @@ metadata:
     prometheus.io/port: "9187"
 spec:
   instances: 2
+  env:
+    TZ: ${LOCAL_TIMEZONE}
   # imageName: ghcr.io/cloudnative-pg/postgresql:18.3
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.3
   primaryUpdateStrategy: unsupervised
@@ -40,11 +42,6 @@ spec:
       parameters:
         barmanObjectName: b2-${CLUSTER_ITERATION_PRESENT}
   bootstrap:
-    # initdb:
-    #   postInitApplicationSQL:
-    #     # Commands based on: https://immich.app/docs/administration/postgres-standalone/#without-superuser-permission
-    #     - CREATE EXTENSION vchord CASCADE;
-    #     - CREATE EXTENSION earthdistance CASCADE;
     recovery:
       source: previous
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
