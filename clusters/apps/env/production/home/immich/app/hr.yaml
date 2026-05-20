@@ -41,7 +41,8 @@ spec:
               IMMICH_HOST: "::"
               IMMICH_TRUSTED_PROXIES: "${CLUSTER_SVC_CIDR}"
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
-              IMMICH_ALLOW_SETUP: "true"
+              IMMICH_ALLOW_SETUP: "false"
+              IMMICH_MACHINE_LEARNING_URL: "http://immich-ml.home.svc.cluster.local:3003"
               DB_HOSTNAME:
                 valueFrom:
                   secretKeyRef:
@@ -83,12 +84,18 @@ spec:
               tag: v1.38.1@sha256:baf70ba7ad182a992b988497cfa31a488978c8fab7712079784c2401f447e402
             env:
               TZ: "${LOCAL_TIMEZONE}"
+            args:
+              - --maxmemory=4Gi
+              - --cluster_mode=emulated
+              - --proactor_threads=1
+              # SEE: https://github.com/immich-app/immich/issues/2542#issuecomment-2564396901
+              - --default_lua_flags=allow-undeclared-keys
             resources:
               requests:
                 cpu: 100m
                 memory: 256Mi
               limits:
-                memory: 8Gi
+                memory: 4Gi
             probes:
               liveness: &dflyProbes
                 enabled: true
