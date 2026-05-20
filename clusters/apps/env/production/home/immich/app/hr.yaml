@@ -171,6 +171,14 @@ spec:
             port: 8081
           metrics-ms:
             port: 8082
+      ${APP}-metrics-ms:
+        controller: ${APP}
+        annotations:
+          prometheus.io/port: "8082"
+          prometheus.io/scrape: "true"
+        ports:
+          metrics-ms:
+            port: 8082
       ${APP}-dragonfly:
         controller: dragonfly
         annotations:
