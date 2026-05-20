@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ${APP}
+  name: immich
 spec:
   interval: 12h
   chartRef:
     kind: OCIRepository
-    name: ${APP}
+    name: immich
   values:
     defaultPodOptions:
       securityContext:
@@ -18,7 +18,7 @@ spec:
         fsGroup: ${APP_UID}
         fsGroupChangePolicy: OnRootMismatch
     controllers:
-      ${APP}:
+      immich:
         initContainers:
           init-db:
             image:
@@ -32,7 +32,7 @@ spec:
           annotations:
             reloader.stakater.com/auto: "true"
         containers:
-          ${APP}:
+          immich:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v2.7.5@sha256:c15bff75068effb03f4355997d03dc7e0fc58720c2b54ad6f7f10d1bc57efaa5
@@ -113,13 +113,13 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 60
-      ${APP}-ml:
+      ml:
         strategy: RollingUpdate
         pod:
           annotations:
             reloader.stakater.com/auto: "true"
         containers:
-          ${APP}-ml:
+          immich-ml:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v2.7.5@sha256:a2501141440f10516d329fdfba2c68082e19eb9ba6016c061ac80d23beadf7f3
@@ -159,8 +159,8 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 60
     service:
-      ${APP}:
-        controller: ${APP}
+      immich:
+        controller: immich
         annotations:
           prometheus.io/port: "8081"
           prometheus.io/scrape: "true"
@@ -171,15 +171,15 @@ spec:
             port: 8081
           metrics-ms:
             port: 8082
-      ${APP}-metrics-ms:
-        controller: ${APP}
+      metrics-ms:
+        controller: immich
         annotations:
           prometheus.io/port: "8082"
           prometheus.io/scrape: "true"
         ports:
           metrics-ms:
             port: 8082
-      ${APP}-dragonfly:
+      dragonfly:
         controller: dragonfly
         annotations:
           prometheus.io/port: "6379"
@@ -187,13 +187,13 @@ spec:
         ports:
           http:
             port: 6379
-      ${APP}-ml:
-        controller: ${APP}-ml
+      ml:
+        controller: ml
         ports:
           http:
             port: *mlPort
     ingress:
-      ${APP}:
+      immich:
         enabled: true
         annotations:
           external-dns/public: "true"
@@ -207,7 +207,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: ${APP}
+                  name: immich
                   port: *port
         tls:
           - secretName: heyjohn-wildcard-certificate
@@ -218,8 +218,8 @@ spec:
       matplotlib:
         type: emptyDir
         advancedMounts:
-          ${APP}:
-            ${APP}:
+          immich:
+            immich:
               - path: /config/matplotlib
       dragonfly:
         type: persistentVolumeClaim
@@ -231,7 +231,7 @@ spec:
             dragonfly:
               - path: /data
       library:
-        existingClaim: ${APP}-library
+        existingClaim: immich-library
         globalMounts:
           - path: *mediaLocation
       cache:
@@ -240,8 +240,8 @@ spec:
         accessMode: ReadWriteOnce
         size: 10Gi
         advancedMounts:
-          ${APP}-ml:
-            ${APP}-ml:
+          ml:
+            immich-ml:
               - path: /cache
                 subPath: cache
               - path: /.cache
@@ -249,8 +249,8 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          ${APP}:
-            ${APP}:
+          immich:
+            immich:
               - path: /usr/src/app/.reverse-geocoding-dump
                 subPath: geocoding
               - path: /usr/src/app/.transformers_cache
