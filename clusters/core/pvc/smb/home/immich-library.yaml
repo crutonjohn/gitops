@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-library
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 2Ti
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: immich-library
+    namespace: home
+  csi:
+    driver: smb.csi.k8s.io
+    nodeStageSecretRef:
+      name: talos-smb-cred
+      namespace: home
+    volumeAttributes:
+      source: //perturabo.heyjohn.family/immich
+    volumeHandle: perturabo.heyjohn.family/immich##
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - vers=3.0
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: perturabo-smb
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-library
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Ti
+  storageClassName: perturabo-smb
+  volumeMode: Filesystem
+  volumeName: immich-library
+status:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 2Ti

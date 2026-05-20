@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: immich-env
+stringData:
+    TZ: ENC[AES256_GCM,data:W1+O5GjRVEi3n+1rTDfF3Q==,iv:xzuqCEvzeO+12cOO4JctlIx9UvrqWscRA3hI2Gg01Vw=,tag:Pr5KtmeV/G5e2EN5Xk/LWw==,type:str]
+    POSTGRESQL_PORT: ENC[AES256_GCM,data:buyDVQ==,iv:EqvCb98ufY6R2fPK0xG0+lqyPxnylSxGtZENkgyLTHg=,tag:2pbv3ZVZOz8gCC5t1Jno9w==,type:str]
+    INIT_POSTGRES_DBNAME: ENC[AES256_GCM,data:K15Dhgi+,iv:MQqgcRFG+OOaCQEDpKcYuHeK76xOLRDj56/toe0E53A=,tag:5HVhpA3JaqALWo2X3Lwoow==,type:str]
+    INIT_POSTGRES_HOST: ENC[AES256_GCM,data:0qUk+uo5Fq7Z08MjPQYEG2wfD7Jhn+quJ/hiF/34Bb980dtU+dCDHg==,iv:oN6EC+4VIr51KcqCNUbO+NQIxzpzSfUu7aUmUTmrcJU=,tag:Q4BKYATJ7p5zipKnXMaUCg==,type:str]
+    INIT_POSTGRES_USER: ENC[AES256_GCM,data:37icYtss,iv:sV4ZQeqih33/556rudUEOX6sI2OG53ZzlpRLIDcSFNI=,tag:COHN4CfKcc78YCP58h5H0Q==,type:str]
+    INIT_POSTGRES_PASS: ENC[AES256_GCM,data:7oOitUR9AGGE5lX4IdcSARsMqXOkNB1r3EA9VTWd,iv:L/qzSSIFB6FWTkz1k/xyg54sIgjMevYrTrS7a3KdWOE=,tag:IaOW08Y+8Mz189XoZswHVw==,type:str]
+    INIT_POSTGRES_SUPER_PASS: ENC[AES256_GCM,data:fOs1S0pmKMMr3VkqBXGXIK+lWZxvI6Y01zUwJ1HWEHEg5w2baEDby7q4Al6KJBORTtUxeoaityJZ4WeCubMWHw==,iv:VJZtrNVgZEvwR02EcCbKbCrbbVLm6UBo0dtZIYRahHk=,tag:idT+she++Y3OvbwlSYp6OQ==,type:str]
+sops:
+    kms:
+        - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          created_at: "2026-05-20T17:49:59Z"
+          enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwEthHmwagpWut7qYcgjl+JgAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMppZJQlKij0WZj3BKAgEQgDvzOfih5Vg+/DFMebov/rQuB3cfNFiyyxUYhdlKc44369NN8qj3sjT2rQrlfHHcs5OlGoxMxLvLFHdO3A==
+          aws_profile: ""
+    lastmodified: "2026-05-20T17:49:59Z"
+    mac: ENC[AES256_GCM,data:idlFKxNwqeMgXjtdIdUFv0tB9sICgyoxxFR1WNOQ8kh/OSQYfrhMo1YUWUeDkqDxFpkd0Up9+aoFYPYqzrgAsAvp27GIiE6iQuk/uGseNIDp1CuyVLkSHSU/RfG8q+mwwXnwGNmT+8hKvCIs0x9qLSdhK8apcc3nv+yScHq++cY=,iv:NbMyCCSeXlEY06SAPn2K7i7W6eIBrw6jS3gJoY3hIzc=,tag:uPadYQgOS6sCN4xSV6GO1w==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.1

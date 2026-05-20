@@ -1,0 +1,257 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chartRef:
+    kind: OCIRepository
+    name: ${APP}
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      ${APP}:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 17.4
+            envFrom:
+              - secretRef:
+                  name: immich-env
+        strategy: RollingUpdate
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          ${APP}:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v2.7.5@sha256:c15bff75068effb03f4355997d03dc7e0fc58720c2b54ad6f7f10d1bc57efaa5
+            env:
+              TZ: "${LOCAL_TIMEZONE}"
+              IMMICH_HOST: "::"
+              IMMICH_TRUSTED_PROXIES: "${CLUSTER_SVC_CIDR}"
+              IMMICH_MEDIA_LOCATION: &mediaLocation /library
+              IMMICH_ALLOW_SETUP: "true"
+              DB_HOSTNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-env
+                    key: INIT_POSTGRES_HOST
+              DB_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-env
+                    key: POSTGRESQL_PORT
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-env
+                    key: INIT_POSTGRES_USER
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-env
+                    key: INIT_POSTGRES_PASS
+              DB_DATABASE_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-env
+                    key: INIT_POSTGRES_DBNAME
+              REDIS_HOSTNAME: &redisHostname "immich-dragonfly.home.svc.cluster.local"
+              IMMICH_TELEMETRY_INCLUDE: "all"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 6G
+      dragonfly:
+        containers:
+          dragonfly:
+            image:
+              repository: docker.dragonflydb.io/dragonflydb/dragonfly
+              tag: v1.38.1@sha256:baf70ba7ad182a992b988497cfa31a488978c8fab7712079784c2401f447e402
+            env:
+              TZ: "${LOCAL_TIMEZONE}"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+            probes:
+              liveness: &dflyProbes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /metrics
+                    port: 6379
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *dflyProbes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /metrics
+                    port: 6379
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 60
+      ${APP}-ml:
+        strategy: RollingUpdate
+        pod:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        containers:
+          ${APP}-ml:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v2.7.5@sha256:a2501141440f10516d329fdfba2c68082e19eb9ba6016c061ac80d23beadf7f3
+            env:
+              TZ: "${LOCAL_TIMEZONE}"
+              REDIS_HOSTNAME: *redisHostname
+              MPLCONFIGDIR: "/cache/matplotlib"
+              IMMICH_MEDIA_LOCATION: *mediaLocation
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 4G
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &mlPort 3003
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *mlPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 60
+    service:
+      ${APP}:
+        controller: ${APP}
+        annotations:
+          prometheus.io/port: "8081"
+          prometheus.io/scrape: "true"
+        ports:
+          http:
+            port: &port 2283
+          metrics-api:
+            port: 8081
+          metrics-ms:
+            port: 8082
+      ${APP}-metrics-ms:
+        controller: ${APP}
+        annotations:
+          prometheus.io/port: "8082"
+          prometheus.io/scrape: "true"
+        ports:
+          metrics-ms:
+            port: 8082
+      ${APP}-dragonfly:
+        controller: dragonfly
+        annotations:
+          prometheus.io/port: "6379"
+          prometheus.io/scrape: "true"
+        ports:
+          http:
+            port: 6379
+      ${APP}-ml:
+        controller: ${APP}-ml
+        ports:
+          http:
+            port: *mlPort
+    ingress:
+      ${APP}:
+        enabled: true
+        annotations:
+          external-dns/public: "true"
+          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+        labels: {}
+        className: traefik-external
+        hosts:
+          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: ${APP}
+                  port: *port
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+
+    persistence:
+      matplotlib:
+        type: emptyDir
+        advancedMounts:
+          ${APP}:
+            ${APP}:
+              - path: /config/matplotlib
+      dragonfly:
+        type: persistentVolumeClaim
+        storageClass: terra-block
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        advancedMounts:
+          dragonfly:
+            dragonfly:
+              - path: /data
+      library:
+        existingClaim: ${APP}-library
+        globalMounts:
+          - path: *mediaLocation
+      cache:
+        type: persistentVolumeClaim
+        storageClass: terra-block
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        advancedMounts:
+          ${APP}-ml:
+            ${APP}-ml:
+              - path: /cache
+                subPath: cache
+              - path: /.cache
+                subPath: dotCache
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          ${APP}:
+            ${APP}:
+              - path: /usr/src/app/.reverse-geocoding-dump
+                subPath: geocoding
+              - path: /usr/src/app/.transformers_cache
+                subPath: transformers

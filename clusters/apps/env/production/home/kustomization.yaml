@@ -8,11 +8,11 @@ resources:
   - ./esphome/ks.yaml
   - ./grocy/ks.yaml
   - ./home-assistant/ks.yaml
+  - ./immich/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./litellm/ks.yaml
+  - ./immich/ks.yaml
   - ./llm/ks.yaml
   - ./open-webui/ks.yaml
-  # - ./open-notebook/ks.yaml
   - ./zwavejs/ks.yaml
   - ./mealie/ks.yaml
   - talos-smb-cred.enc.yaml
