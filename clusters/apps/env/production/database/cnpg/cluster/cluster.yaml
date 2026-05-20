@@ -3,19 +3,24 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres16
+  name: postgres18
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9187"
 spec:
   instances: 2
-  # imageName: ghcr.io/cloudnative-pg/postgresql:16.4-4
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.3
+  # imageName: ghcr.io/cloudnative-pg/postgresql:18.3
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.3
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 60Gi
+    size: 30Gi
     storageClass: codex-block
   enableSuperuserAccess: true
   superuserSecret:
     name: cnpg-superuser
   postgresql:
+    shared_preload_libraries:
+      - "vchord.so"
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
@@ -29,34 +34,24 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: false
-  backup:
-    retentionPolicy: 30d
-    barmanObjectStore: &barmanObjectStore
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://${CNPG_B2_BUCKET}/cnpg/
-      endpointURL: https://s3.us-west-000.backblazeb2.com
-      # Note: serverName version needs to be incremented
-      # when recovering from an existing cnpg cluster
-      serverName: &currentCluster postgres16-v5
-      s3Credentials:
-        accessKeyId:
-          name: cnpg-b2
-          key: B2_ACCESS_KEY_ID
-        secretAccessKey:
-          name: cnpg-b2
-          key: B2_SECRET_ACCESS_KEY
-  # Note: previousCluster needs to be set to the name of the previous
-  # cluster when recovering from an existing cnpg cluster
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: b2-${CLUSTER_ITERATION_PRESENT}
   bootstrap:
+    initdb:
+      postInitApplicationSQL:
+        # Commands based on: https://immich.app/docs/administration/postgres-standalone/#without-superuser-permission
+        - CREATE EXTENSION vchord CASCADE;
+        - CREATE EXTENSION earthdistance CASCADE;
     recovery:
-      source: &previousCluster postgres16-v4
+      source: previous
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *previousCluster
+    - name: previous
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: b2-${CLUSTER_ITERATION_PREVIOUS}
+          serverName: ${CLUSTER_ITERATION_PREVIOUS}

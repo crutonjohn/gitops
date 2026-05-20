@@ -1,0 +1,40 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: b2-${CLUSTER_ITERATION_PRESENT}
+spec:
+  retentionPolicy: "30d"
+  configuration:
+    destinationPath: s3://${CNPG_B2_BUCKET}/cnpg/
+    endpointURL: https://s3.us-west-000.backblazeb2.com
+    s3Credentials:
+      accessKeyId:
+        name: cnpg-b2
+        key: B2_ACCESS_KEY_ID
+      secretAccessKey:
+        name: cnpg-b2
+        key: B2_SECRET_ACCESS_KEY
+    wal:
+      compression: bzip2
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: b2-${CLUSTER_ITERATION_PREVIOUS}
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  retentionPolicy: "30d"
+  configuration:
+    destinationPath: s3://${CNPG_B2_BUCKET}/cnpg/
+    endpointURL: https://s3.us-west-000.backblazeb2.com
+    s3Credentials:
+      accessKeyId:
+        name: cnpg-b2
+        key: B2_ACCESS_KEY_ID
+      secretAccessKey:
+        name: cnpg-b2
+        key: B2_SECRET_ACCESS_KEY
+    wal:
+      compression: bzip2

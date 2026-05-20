@@ -32,11 +32,9 @@ spec:
       podMonitorEnabled: false
       grafanaDashboard:
         create: false
-    # -- Annotations to be added to all other resources.
-    # used for propigating prometheus annotations
-    commonAnnotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "9187"
+    config:
+      data:
+        INHERITED_ANNOTATIONS: prometheus.io/*
     podAnnotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "8080"
