@@ -41,7 +41,7 @@ spec:
               IMMICH_HOST: "::"
               IMMICH_TRUSTED_PROXIES: "${CLUSTER_SVC_CIDR}"
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
-              IMMICH_ALLOW_SETUP: "false"
+              IMMICH_ALLOW_SETUP: "true"
               DB_HOSTNAME:
                 valueFrom:
                   secretKeyRef:
