@@ -1,19 +1,20 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/cloudnative-pg-v0.28.2/charts/cluster/values.schema.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres16
 spec:
   instances: 2
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.4-4
+  # imageName: ghcr.io/cloudnative-pg/postgresql:16.4-4
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3
   primaryUpdateStrategy: unsupervised
   storage:
     size: 60Gi
     storageClass: codex-block
+  enableSuperuserAccess: true
   superuserSecret:
     name: cnpg-superuser
-  enableSuperuserAccess: true
   postgresql:
     parameters:
       max_connections: "400"
