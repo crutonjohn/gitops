@@ -18,7 +18,7 @@ spec:
     kind: GitRepository
     name: gitops-main
   wait: false
-  interval: 30m
+  interval: 12h
   retryInterval: 1m
   timeout: 5m
   decryption:
@@ -28,7 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      APP_UID: "1000"
+      APP_UID: "1226"
       INGRESSROUTE_SUBDOMAIN: "photos"
     substituteFrom:
       - kind: Secret
