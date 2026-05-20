@@ -174,7 +174,7 @@ spec:
       ${APP}-dragonfly:
         controller: dragonfly
         annotations:
-          prometheus.io/port: 6379
+          prometheus.io/port: "6379"
           prometheus.io/scrape: "true"
         ports:
           http:
