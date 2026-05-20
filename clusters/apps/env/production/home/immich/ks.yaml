@@ -29,6 +29,7 @@ spec:
     substitute:
       APP: *app
       APP_UID: "1000"
+      INGRESSROUTE_SUBDOMAIN: "photos"
     substituteFrom:
       - kind: Secret
         name: secrets-${CLUSTER_NAME}
