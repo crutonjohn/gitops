@@ -39,6 +39,8 @@ spec:
             env:
               TZ: "${LOCAL_TIMEZONE}"
               IMMICH_HOST: "::"
+              NO_COLOR: "true"
+              IMMICH_LOG_FORMAT: json
               IMMICH_TRUSTED_PROXIES: "${CLUSTER_SVC_CIDR},${CLUSTER_POD_CIDR}"
               IMMICH_MEDIA_LOCATION: &mediaLocation /library
               IMMICH_ALLOW_SETUP: "false"
@@ -135,6 +137,7 @@ spec:
               REDIS_HOSTNAME: *redisHostname
               MPLCONFIGDIR: "/cache/matplotlib"
               IMMICH_MEDIA_LOCATION: *mediaLocation
+              NO_COLOR: "true"
             resources:
               requests:
                 cpu: 100m

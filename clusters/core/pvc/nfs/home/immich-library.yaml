@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-library
+spec:
+  capacity:
+    storage: 2Ti
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: perturabo-nfs
+  nfs:
+    server: 192.168.130.4
+    path: "/mnt/olympia/immich"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-library
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: perturabo-nfs
+  volumeName: immich-library
+  resources:
+    requests:
+      storage: 2Ti
