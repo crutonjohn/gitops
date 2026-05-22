@@ -1,0 +1,11 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: immich-buffering
+spec:
+  buffering:
+    maxRequestBodyBytes: 0 # No limit on request body size
+    memRequestBodyBytes: 524288000 # 500MB in memory
+    maxResponseBodyBytes: 0 # No limit on response body size
+    memResponseBodyBytes: 524288000 # 500MB in memory
+    retryExpression: "IsNetworkError() && Attempts() < 3"

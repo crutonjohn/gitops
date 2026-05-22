@@ -210,6 +210,7 @@ spec:
           external-dns/public: "true"
           external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
           external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+          traefik.ingress.kubernetes.io/router.middlewares: home-immich-buffering@kubernetescrd
         labels: {}
         className: traefik-external
         hosts:

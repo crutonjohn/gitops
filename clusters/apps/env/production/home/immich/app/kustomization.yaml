@@ -5,3 +5,4 @@ resources:
   - hr.yaml
   - immich.enc.yaml
   - repo.yaml
+  - middleware.yaml
