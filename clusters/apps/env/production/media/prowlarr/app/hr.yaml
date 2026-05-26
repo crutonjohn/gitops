@@ -91,8 +91,10 @@ spec:
         # controller: "prowlarr"
         enabled: true
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          opn.internal-dns.kubernetes.io/target: &target internal-ingress.${SECRET_DOMAIN}
+          opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          pi.internal-dns.kubernetes.io/target: *target
+          pi.internal-dns.kubernetes.io/hostname: *hostname
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-auth@kubernetescrd,auth-system-oauth-errors@kubernetescrd
         labels: {}
@@ -130,8 +132,8 @@ spec:
             port: 9792
             targetPort: 9792
         annotations:
-          prometheus.io/scrape: 'true'
-          prometheus.io/port: '9792'
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "9792"
 
     persistence:
       config:
