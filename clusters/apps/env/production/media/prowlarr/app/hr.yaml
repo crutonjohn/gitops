@@ -100,7 +100,7 @@ spec:
         labels: {}
         className: traefik-internal
         hosts:
-          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          - host: *hostname
             paths:
               - path: /
                 pathType: Prefix
@@ -110,7 +110,7 @@ spec:
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
-              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+              - *hostname
 
     service:
       prowlarr:
