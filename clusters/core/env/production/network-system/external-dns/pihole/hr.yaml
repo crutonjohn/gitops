@@ -85,5 +85,8 @@ spec:
     policy: upsert-only
     registry: noop
     # domainFilters: ["${FAMILY_DOMAIN}"]
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "7979"
     serviceMonitor:
       enabled: false
