@@ -8,57 +8,57 @@ metadata:
 spec:
   endpoints:
     - dnsName: &aRecord perturabo.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.4
     - dnsName: minio-perturabo.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: s3-perturabo.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: netboot.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: boot.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: admin.garage.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: s3.garage.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: web.garage.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: ui.garage.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: volsync.s3.garage.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord
     - dnsName: volsync.web.garage.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord

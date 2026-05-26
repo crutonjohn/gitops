@@ -8,42 +8,42 @@ metadata:
 spec:
   endpoints:
     - dnsName: k8s.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.130
     - dnsName: horus.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.131
     - dnsName: lion.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.132
     - dnsName: magnus.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.133
     - dnsName: dorn.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.141
     - dnsName: sanguinius.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.142
     - dnsName: guilliman.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.143
     - dnsName: fulgrim.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.140

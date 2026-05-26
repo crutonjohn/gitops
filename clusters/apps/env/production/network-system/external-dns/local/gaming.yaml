@@ -8,12 +8,12 @@ metadata:
 spec:
   endpoints:
     - dnsName: &aRecord cs-us-ord.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 172.232.28.169
     - dnsName: cs2.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *aRecord

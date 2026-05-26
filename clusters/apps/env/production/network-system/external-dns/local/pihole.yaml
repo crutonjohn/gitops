@@ -8,22 +8,22 @@ metadata:
 spec:
   endpoints:
     - dnsName: &pi1 peanut1.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.2
     - dnsName: &pi2 peanut2.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.130.3
     - dnsName: pihole1.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *pi1
     - dnsName: pihole2.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: CNAME
       targets:
         - *pi2

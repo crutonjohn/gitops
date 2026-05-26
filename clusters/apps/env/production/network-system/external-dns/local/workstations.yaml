@@ -8,22 +8,22 @@ metadata:
 spec:
   endpoints:
     - dnsName: buck-desktop.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.128.3
     - dnsName: jacob-desktop.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.128.4
     - dnsName: kat-desktop.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.128.6
     - dnsName: wayward.${FAMILY_DOMAIN}
-      recordTTL: 300
+      recordTTL: 0
       recordType: A
       targets:
         - 192.168.128.8
