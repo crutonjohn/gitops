@@ -7,8 +7,13 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: cs-us-ord.${FAMILY_DOMAIN}
+    - dnsName: &aRecord cs-us-ord.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
         - 172.232.28.169
+    - dnsName: cs2.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - *aRecord

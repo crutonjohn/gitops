@@ -7,58 +7,58 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: perturabo.${FAMILY_DOMAIN}
+    - dnsName: &aRecord perturabo.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
         - 192.168.130.4
     - dnsName: minio-perturabo.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: s3-perturabo.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: netboot.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: boot.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: admin.garage.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: s3.garage.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: web.garage.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: ui.garage.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: volsync.s3.garage.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord
     - dnsName: volsync.web.garage.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 192.168.130.4
+        - *aRecord

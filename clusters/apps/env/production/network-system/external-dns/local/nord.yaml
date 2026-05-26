@@ -7,43 +7,48 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
+    - dnsName: &aRecord nixos-ord.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 100.64.0.11
     - dnsName: prometheus.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord
     - dnsName: alerts.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord
     - dnsName: alertmanager.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord
     - dnsName: prom-ord.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord
     - dnsName: prometheus.ord.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
-    - dnsName: nixos-ord.${FAMILY_DOMAIN}
+        - *aRecord
+    - dnsName: nord.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord
     - dnsName: grafana.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord
     - dnsName: loki.${FAMILY_DOMAIN}
       recordTTL: 300
-      recordType: A
+      recordType: CNAME
       targets:
-        - 100.64.0.11
+        - *aRecord

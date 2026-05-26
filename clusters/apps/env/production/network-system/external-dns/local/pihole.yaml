@@ -7,13 +7,23 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: peanut1.${FAMILY_DOMAIN}
+    - dnsName: &pi1 peanut1.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
         - 192.168.130.2
-    - dnsName: peanut2.${FAMILY_DOMAIN}
+    - dnsName: &pi2 peanut2.${FAMILY_DOMAIN}
       recordTTL: 300
       recordType: A
       targets:
         - 192.168.130.3
+    - dnsName: pihole1.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - *pi1
+    - dnsName: pihole2.${FAMILY_DOMAIN}
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - *pi2
