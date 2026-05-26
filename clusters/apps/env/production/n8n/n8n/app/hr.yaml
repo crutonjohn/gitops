@@ -73,7 +73,10 @@ spec:
         cert-manager.io/issuer-group: certmanager.step.sm
         cert-manager.io/issuer-kind: StepIssuer
         cert-manager.io/issuer-name: step-issuer
-        external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+        opn.internal-dns.kubernetes.io/target: &target internal-ingress.${SECRET_DOMAIN}
+        opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        pi.internal-dns.kubernetes.io/target: *target
+        pi.internal-dns.kubernetes.io/hostname: *hostname
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
       # define a custom ingress class Name, like "traefik" or "nginx"

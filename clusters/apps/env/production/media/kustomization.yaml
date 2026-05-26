@@ -9,5 +9,4 @@ resources:
   - prowlarr/ks.yaml
   - navidrome/ks.yaml
   - slskd/ks.yaml
-  - deemix/ks.yaml
   - talos-smb-cred.enc.yaml

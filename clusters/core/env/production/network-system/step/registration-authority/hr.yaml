@@ -119,10 +119,15 @@ spec:
         # cert-manager.io/issuer-group: "certmanager.step.sm"
         # traefik.ingress.kubernetes.io/router.entrypoints: websecure
         # traefik.ingress.kubernetes.io/router.tls: "true"
-        external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+        opn.internal-dns.kubernetes.io/target: &target internal-ingress.${SECRET_DOMAIN}
+        opn.internal-dns.kubernetes.io/hostname: &hostname ra.${FAMILY_DOMAIN}
+        pi.internal-dns.kubernetes.io/target: *target
+        pi.internal-dns.kubernetes.io/hostname: *hostname
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
       ingressClassName: "traefik-internal"
       hosts:
-        - host: ra.${FAMILY_DOMAIN}
+        - host: *hostname
           paths:
             - path: /
               service:
@@ -130,7 +135,7 @@ spec:
                 port: https
       tls:
         - hosts:
-            - ra.${FAMILY_DOMAIN}
+            - *hostname
           secretName: registration-authority-tls
     service:
       type: ClusterIP

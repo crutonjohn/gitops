@@ -114,8 +114,12 @@ spec:
         enabled: true
         annotations:
           external-dns/public: "true"
-          external-dns.alpha.kubernetes.io/hostname: hass.${FAMILY_DOMAIN},home.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_INGRESS_EXTERNAL}
+          opn.internal-dns.kubernetes.io/target: &target external-ingress.${SECRET_DOMAIN}
+          opn.internal-dns.kubernetes.io/hostname: &hostname hass.${FAMILY_DOMAIN},home.${FAMILY_DOMAIN}
+          pi.internal-dns.kubernetes.io/target: *target
+          pi.internal-dns.kubernetes.io/hostname: *hostname
+          gandi.external-dns.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+          gandi.external-dns.kubernetes.io/hostname: *hostname
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
         labels: {}
         className: traefik-external
@@ -139,29 +143,6 @@ spec:
             hosts:
               - home.${FAMILY_DOMAIN}
               - hass.${FAMILY_DOMAIN}
-      music-assistant:
-        # controller: home-assistant
-        enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: mass.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-auth@kubernetescrd,auth-system-oauth-errors@kubernetescrd
-          traefik.ingress.kubernetes.io/router.priority: "10"
-        labels: {}
-        className: traefik-internal
-        hosts:
-          - host: mass.${FAMILY_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  name: home-assistant
-                  port: 8095
-        tls:
-          - secretName: heyjohn-wildcard-certificate
-            hosts:
-              - mass.${FAMILY_DOMAIN}
 
     persistence:
       config:

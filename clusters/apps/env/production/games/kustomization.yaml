@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ./acore
   - ./foundry-vtt/ks.yaml
-  # - ./teamspeak/ks.yaml
   - ./windrose/ks.yaml

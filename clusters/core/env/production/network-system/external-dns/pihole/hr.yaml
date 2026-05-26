@@ -76,15 +76,14 @@ spec:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
       - --pihole-api-version=6
-      # - --traefik-disable-legacy
-      - --target-net-filter=${HOME_NETWORK_CIDR}
-      - --target-net-filter=${HEADSCALE_NETWORK_CIDR}
+      - --annotation-prefix=pi.internal-dns.kubernetes.io/
       - --ingress-class=traefik-external
       - --ingress-class=traefik-internal
       - --managed-record-types=A
       - --managed-record-types=AAAA
+      - --managed-record-types=CNAME
     policy: upsert-only
     registry: noop
-    domainFilters: ["${FAMILY_DOMAIN}"]
+    # domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false

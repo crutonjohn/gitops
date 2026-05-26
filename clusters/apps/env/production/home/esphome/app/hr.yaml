@@ -95,15 +95,17 @@ spec:
       esphome:
         enabled: true
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+          opn.internal-dns.kubernetes.io/target: &target internal-ingress.${SECRET_DOMAIN}
+          opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          pi.internal-dns.kubernetes.io/target: *target
+          pi.internal-dns.kubernetes.io/hostname: *hostname
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: auth-system-oauth-auth@kubernetescrd,auth-system-oauth-errors@kubernetescrd
           traefik.ingress.kubernetes.io/router.priority: "10"
         labels: {}
         className: traefik-internal
         hosts:
-          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          - host: *hostname
             paths:
               - path: /
                 pathType: Prefix
@@ -118,7 +120,7 @@ spec:
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
-              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+              - *hostname
 
     service:
       app:

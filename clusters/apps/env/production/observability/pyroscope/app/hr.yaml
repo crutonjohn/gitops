@@ -56,8 +56,11 @@ spec:
         cert-manager.io/issuer-name: "step-issuer"
         cert-manager.io/issuer-kind: "StepIssuer"
         cert-manager.io/issuer-group: "certmanager.step.sm"
-        external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
-        external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        # internal-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+        opn.internal-dns.kubernetes.io/target: &target internal-ingress.${SECRET_DOMAIN}
+        opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        pi.internal-dns.kubernetes.io/target: *target
+        pi.internal-dns.kubernetes.io/hostname: *hostname
       tls:
         - secretName: pyroscope-tls
           hosts:

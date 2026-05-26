@@ -140,10 +140,14 @@ spec:
         externalTrafficPolicy: Cluster
         annotations:
           external-dns/public: "true"
-          external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-          external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN},${CLUSTER_LB_WINDROSE}
           io.cilium/lb-ipam-sharing-key: WINDROSE
-          io.cilium/lb-ipam-ips: ${CLUSTER_LB_WINDROSE}
+          io.cilium/lb-ipam-ips: &target ${CLUSTER_LB_WINDROSE}
+          opn.internal-dns.kubernetes.io/target: *target
+          opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          pi.internal-dns.kubernetes.io/target: *target
+          pi.internal-dns.kubernetes.io/hostname: *hostname
+          gandi.external-dns.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+          gandi.external-dns.kubernetes.io/hostname: *hostname
         labels:
           io.cilium/bgp-announce: worker
         ports:

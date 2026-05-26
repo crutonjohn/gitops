@@ -6,8 +6,8 @@ metadata:
   namespace: rook-ceph
   annotations:
     kubernetes.io/ingress.class: "traefik-internal"
-    external-dns.alpha.kubernetes.io/hostname: ceph.${FAMILY_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
+    internal-dns.alpha.kubernetes.io/hostname: ceph.${FAMILY_DOMAIN}
+    internal-dns.alpha.kubernetes.io/target: ${CLUSTER_LB_INGRESS_INTERNAL}
 spec:
   entryPoints:
     - websecure

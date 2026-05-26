@@ -3,14 +3,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
-    external-dns.alpha.kubernetes.io/target: ${DYNAMIC_DOMAIN}
     external-dns/public: "true"
+    opn.internal-dns.kubernetes.io/target: &target external-ingress.${SECRET_DOMAIN}
+    opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+    pi.internal-dns.kubernetes.io/target: *target
+    pi.internal-dns.kubernetes.io/hostname: *hostname
+    gandi.external-dns.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+    gandi.external-dns.kubernetes.io/hostname: *hostname
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
   name: flux-webhook-receiver
 spec:
   ingressClassName: traefik-external
   rules:
-    - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+    - host: *hostname
       http:
         paths:
           - backend:
@@ -22,5 +27,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+        - *hostname
       secretName: heyjohn-wildcard-certificate

@@ -50,21 +50,27 @@ spec:
             cpu: 10m
           limits:
             memory: 100Mi
+        sources: ["crd", "service", "ingress", "traefik-proxy"]
     logLevel: debug
+    logFormat: json
+    sources: ["crd", "service", "ingress", "traefik-proxy"]
     extraArgs:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
       # - --traefik-disable-legacy
-      - --target-net-filter=${HOME_NETWORK_CIDR}
-      - --target-net-filter=${HEADSCALE_NETWORK_CIDR}
+      # - --domain-filter=${FAMILY_DOMAIN}
+      # - --target-net-filter=${HOME_NETWORK_CIDR}
+      # - --target-net-filter=${HEADSCALE_NETWORK_CIDR}
+      - --annotation-prefix=opn.internal-dns.kubernetes.io/
       - --ingress-class=traefik-external
       - --ingress-class=traefik-internal
       - --managed-record-types=A
       - --managed-record-types=AAAA
       - --managed-record-types=TXT
+      - --managed-record-types=CNAME
     policy: sync
     registry: txt
-    domainFilters: ["${FAMILY_DOMAIN}"]
+    # domainFilters: ["${FAMILY_DOMAIN}"]
     serviceMonitor:
       enabled: false
     rbac:

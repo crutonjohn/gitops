@@ -5,6 +5,10 @@ metadata:
   name: prometheus
   annotations:
     io.cilium/lb-ipam-ips: ${CLUSTER_LB_PROMETHEUS}
+    opn.internal-dns.kubernetes.io/target: &target ${CLUSTER_LB_PROMETHEUS}
+    opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+    pi.internal-dns.kubernetes.io/target: *target
+    pi.internal-dns.kubernetes.io/hostname: *hostname
   labels:
     io.cilium/bgp-announce: worker
 spec:

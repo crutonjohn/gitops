@@ -35,8 +35,9 @@ spec:
       limits:
         cpu: 32m
         memory: 148M
-    logLevel: debug
+    # logLevel: debug
     logFormat: json
+    sources: ["ingress", "traefik-proxy"]
     policy: sync
     registry: txt
     txtOwnerId: "k8s-aws."
@@ -50,8 +51,7 @@ spec:
       - --no-aws-evaluate-target-health
       #- --ignore-ingress-tls-spec
       # - --traefik-disable-legacy
-      - --exclude-target-net=${HOME_NETWORK_CIDR}
-      - --exclude-target-net=${HEADSCALE_NETWORK_CIDR}
+      - --annotation-prefix=aws.external-dns.kubernetes.io/
       - --ingress-class=traefik-external
       - --managed-record-types=CNAME
       - --managed-record-types=SRV
