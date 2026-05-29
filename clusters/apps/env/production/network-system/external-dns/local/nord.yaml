@@ -27,7 +27,7 @@ spec:
       recordType: CNAME
       targets:
         - *aRecord
-    - dnsName: prom-ord.${FAMILY_DOMAIN}
+    - dnsName: prom.ord.${FAMILY_DOMAIN}
       recordTTL: 0
       recordType: CNAME
       targets:
@@ -47,7 +47,17 @@ spec:
       recordType: CNAME
       targets:
         - *aRecord
+    - dnsName: grafana.ord.${FAMILY_DOMAIN}
+      recordTTL: 0
+      recordType: CNAME
+      targets:
+        - *aRecord
     - dnsName: loki.${FAMILY_DOMAIN}
+      recordTTL: 0
+      recordType: CNAME
+      targets:
+        - *aRecord
+    - dnsName: loki.ord.${FAMILY_DOMAIN}
       recordTTL: 0
       recordType: CNAME
       targets:
