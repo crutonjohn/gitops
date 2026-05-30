@@ -7,6 +7,16 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
+    - dnsName: internal-ingress.${FAMILY_DOMAIN}
+      recordTTL: 0
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_INTERNAL}
+    - dnsName: external-ingress.${FAMILY_DOMAIN}
+      recordTTL: 0
+      recordType: A
+      targets:
+        - ${CLUSTER_LB_INGRESS_EXTERNAL}
     - dnsName: k8s.${FAMILY_DOMAIN}
       recordTTL: 0
       recordType: A
