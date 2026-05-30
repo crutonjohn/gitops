@@ -22,6 +22,11 @@ spec:
       recordType: CNAME
       targets:
         - *aRecord
+    - dnsName: alerts.ord.${FAMILY_DOMAIN}
+      recordTTL: 0
+      recordType: CNAME
+      targets:
+        - *aRecord
     - dnsName: alertmanager.${FAMILY_DOMAIN}
       recordTTL: 0
       recordType: CNAME
