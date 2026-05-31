@@ -50,3 +50,4 @@ spec:
     podAnnotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "9633"
+      prometheus.io/job: "smartctl_exporter"

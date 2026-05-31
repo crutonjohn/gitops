@@ -25,6 +25,7 @@ scrape_configs:
     relabel_configs:
       - target_label: instance
         replacement: home-assistant
+
   - job_name: "garage"
     scrape_interval: 60s
     metrics_path: /metrics
@@ -46,6 +47,7 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: nut-exporter.observability.svc.cluster.local:9199
+
   - job_name: nut-exporter-perturabo # renamed to nut-exporter
     static_configs:
       - targets: ["perturabo.${FAMILY_DOMAIN}:9199"] # nut exporter
@@ -56,6 +58,7 @@ scrape_configs:
     params:
       username: ["observer"]
       password: ["${NUT_OBSERVER_PASSWORD}"]
+
   - job_name: "k8s_apiservers"
     kubernetes_sd_configs:
       - role: endpoints
@@ -85,6 +88,7 @@ scrape_configs:
       - source_labels: ["__name__"]
         regex: "(apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket|apiserver_request_body_size_bytes_bucket)"
         action: drop
+
   - job_name: "kubelet"
     scheme: https
     tls_config:
@@ -105,6 +109,7 @@ scrape_configs:
       - source_labels: ["node"]
         target_label: instance
         action: replace
+
   - job_name: "cadvisor"
     scheme: https
     metrics_path: /metrics/cadvisor
@@ -118,6 +123,7 @@ scrape_configs:
     relabel_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)
+
   - job_name: "k8s_services"
     honor_labels: true
     metrics_path: /metrics
@@ -165,6 +171,7 @@ scrape_configs:
       - source_labels: ["__name__"]
         regex: "(hubble_port_distribution_total)"
         action: drop
+
   - job_name: "k8s_pods"
     scrape_interval: 30s
     kubernetes_sd_configs:
@@ -220,6 +227,7 @@ scrape_configs:
       - source_labels: [__meta_kubernetes_pod_node_name]
         action: replace
         target_label: node
+
   - job_name: "k8s_services_super_slow"
     scrape_timeout: 60s
     scrape_interval: 1500s
