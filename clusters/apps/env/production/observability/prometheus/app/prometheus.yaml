@@ -137,6 +137,10 @@ scrape_configs:
           [__meta_kubernetes_service_annotation_prometheus_io_scrape]
         action: keep
         regex: true
+      # drop unused stuff
+      - source_labels: [__address__]
+        regex: (postgres18-ro.database.svc:5432|postgres18-r.database.svc:5432|cilium-agent.kube-system.svc:9964|postgres18-rw.database.svc:5432|step-issuer.network-system.svc:8443)
+        action: drop
       # Example relabel to customize metric path based on endpoints
       # "prometheus.io/metric_path = <metric path>" annotation.
       - source_labels:
