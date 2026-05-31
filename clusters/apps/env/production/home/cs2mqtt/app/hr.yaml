@@ -96,7 +96,7 @@ spec:
 
     ingress:
       ${APP}:
-        enabled: false
+        enabled: true
         annotations:
           opn.internal-dns.kubernetes.io/target: &target internal-ingress.${SECRET_DOMAIN}
           opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
@@ -106,7 +106,7 @@ spec:
         labels: {}
         className: traefik-internal
         hosts:
-          - host: ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          - host: *hostname
             paths:
               - path: /
                 pathType: ImplementationSpecific
@@ -116,7 +116,7 @@ spec:
         tls:
           - secretName: heyjohn-wildcard-certificate
             hosts:
-              - ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+              - *hostname
 
     service:
       ${APP}:
