@@ -7,7 +7,7 @@ metadata:
     external-dns/private: "true"
 spec:
   endpoints:
-    - dnsName: buck-desktop.${FAMILY_DOMAIN}
+    - dnsName: fabius.${FAMILY_DOMAIN}
       recordTTL: 0
       recordType: A
       targets:
@@ -17,7 +17,7 @@ spec:
       recordType: A
       targets:
         - 192.168.128.4
-    - dnsName: kat-desktop.${FAMILY_DOMAIN}
+    - dnsName: cawl.${FAMILY_DOMAIN}
       recordTTL: 0
       recordType: A
       targets:
