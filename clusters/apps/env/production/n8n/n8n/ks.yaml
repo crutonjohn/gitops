@@ -74,9 +74,9 @@ spec:
       APP_UID: "1000"
       CRON_SCHEDULE: "36 4/12 * * *"
       LOCAL_SCHEDULE: "39 4/12 * * *"
-      STORAGE_CLASS: codex-block
-      SNAPSHOT_CLASS: codex-block
-      DST_ACCESS_MODE: ReadWriteOnce
+      STORAGE_CLASS: codex-file
+      SNAPSHOT_CLASS: codex-file
+      DST_ACCESS_MODE: ReadWriteMany
       SIZE: "30Gi"
     substituteFrom:
       - kind: Secret
