@@ -22,6 +22,10 @@ spec:
       source: //perturabo.heyjohn.family/immich
     volumeHandle: perturabo.heyjohn.family/immich##
   mountOptions:
+    - noperm
+    - iocharset=utf8
+    - forceuid
+    - forcegid
     - dir_mode=0777
     - file_mode=0777
     - vers=3.0
