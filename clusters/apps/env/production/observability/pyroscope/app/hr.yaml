@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      version: 2.0.1
+      version: 2.0.3
       chart: pyroscope
       sourceRef:
         kind: HelmRepository
