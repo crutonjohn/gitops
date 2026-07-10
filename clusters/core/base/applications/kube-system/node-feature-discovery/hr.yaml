@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: gcr.io/k8s-staging-nfd/node-feature-discovery
-      tag: v0.18.3
+      tag: v0.19.0
     master:
       replicaCount: 1
       crdController: true
