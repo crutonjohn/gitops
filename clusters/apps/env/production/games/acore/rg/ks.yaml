@@ -69,7 +69,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: rgcraft
+      INGRESSROUTE_SUBDOMAIN: wow
       APP_UID: "1000"
     substituteFrom:
       - kind: Secret
