@@ -1,17 +1,17 @@
 apiVersion: v1
 stringData:
-    GANDI_PAT: ENC[AES256_GCM,data:NEVCsixf+aKW4/Z9aSamJPI2yb/3NZeQvn5sVJPJVo6X4KeAj+UuAg==,iv:pvSINXfKqi4OIwcGnNpw1DM60lTI75FoKMHbLlI2WVE=,tag:BIcebsBx/v4XPi+2k6eiVA==,type:str]
+    GANDI_PAT: ENC[AES256_GCM,data:hJi+DsxKXYn7BBpE0kmTxgmStd08JsgWvX8AhDLMfogdCZEpsEePvA==,iv:XrpDR7wbZBoNdGGfcBKsw0NXzp3oZkgkZYO+7BJ+7sA=,tag:2CmTK0dJIbbx4Cmhzmmmqg==,type:str]
 kind: Secret
 metadata:
     name: credentials
 type: Opaque
 sops:
+    encrypted_regex: ^(data|stringData)$
     kms:
         - arn: arn:aws:kms:us-east-2:300851077188:key/b797e748-1c53-462c-9c4c-50eebebc3130
+          aws_profile: ""
           created_at: "2025-07-31T00:01:08Z"
           enc: AQICAHjVtcO/v540ZKcn1JNHjpqxHudubzP0wst32mS/Cuj1RwH/E+AGrJLwcVeaufmIGURcAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMg6Km5j/jhnGtKIJ6AgEQgDvEjtr3CvZ+oLbzwHrj2vz6wGHJU5q5Hb5joHGg+Vbbo9K8hzZbI9T0TBdVfkdQiCK5VAo+UoBhRAh8rw==
-          aws_profile: ""
-    lastmodified: "2025-07-31T00:01:08Z"
-    mac: ENC[AES256_GCM,data:0srUwg1WDD7/n3PomVNIgwTiRNLfTzDGgYLZuX9+nP5J9NKrpCR8Y21LrNn3ESc+X3i64mVExAn3l2Gf8Ta+MM6Ol2pNa0rt3c64IdEmcBfsqKWjn2eOYVsgmGrjSNur6ittXIQR1WOX0AArv66ZWEOofExhhoaW68YdKz6ASWU=,iv:ScLCNw3XimpMm4GTWmciEB0dLHjbZ/26HhFVj0vXUuU=,tag:5MPkBvd1x37afEu3Wzok3Q==,type:str]
-    encrypted_regex: ^(data|stringData)$
-    version: 3.10.2
+    lastmodified: "2026-08-12T02:18:05Z"
+    mac: ENC[AES256_GCM,data:U26pULAGwibul9CLYc+2YYSzGT0AxM91dCH5iBvy/bwYRqyEWY62IufRjr/1QRU9SMffaKv2NdnfQ7KvsOFfAurikE+/C/q9/BeHvM9Wkhh6eWibQ+EMinyEofIBYHK/otx/DxyRQucgjNceHt5fgxGLH92SZAzcFDdce9cYO1I=,iv:06Ri6+4fqGcRJ04Xkvw2XDvaiUzB46KR5WijwcXb7eA=,tag:L+g6x6t4r3FBF7Yop4yMHA==,type:str]
+    version: 3.13.1
