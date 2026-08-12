@@ -6,7 +6,7 @@ $config["supported_langs"] = [
   "english" => "English",
 ];
 $config["debug_mode"] = false;
-$config["realmlist"] = "acore.heyjohn.family:3725";
+$config["realmlist"] = "rgcraft.heyjohn.family:3724";
 $config["patch_location"] = "";
 $config["game_version"] = "3.3.5a";
 $config["expansion"] = "2";

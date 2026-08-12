@@ -28,7 +28,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      INGRESSROUTE_SUBDOMAIN: acore
+      INGRESSROUTE_SUBDOMAIN: rgcraft
       APP_UID: "1000"
     substituteFrom:
       - kind: Secret
