@@ -32,7 +32,7 @@ spec:
           ${APP}-database:
             image:
               repository: mysql
-              tag: "9.6"
+              tag: "9.7"
             args:
               - --skip-log-bin
             env:
@@ -89,7 +89,7 @@ spec:
           01-wait-db:
             image:
               repository: mysql
-              tag: "9.6"
+              tag: "9.7"
             command:
               - sh
               - -c
