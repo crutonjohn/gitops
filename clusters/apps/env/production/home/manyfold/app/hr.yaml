@@ -216,12 +216,12 @@ spec:
       plugins:
         existingClaim: manyfold-plugins
         advancedMounts:
-          manyfold:
+          manyfold-app:
             manyfold:
               - path: /usr/src/app/plugins
       models:
         existingClaim: manyfold-models
         advancedMounts:
-          manyfold:
+          manyfold-app:
             manyfold:
               - path: /models
