@@ -220,7 +220,7 @@ spec:
             manyfold:
               - path: /usr/src/app/plugins
       models:
-        existingClaim: manyfold-models
+        existingClaim: manyfold-models-smb
         advancedMounts:
           manyfold-app:
             manyfold:
