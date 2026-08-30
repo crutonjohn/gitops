@@ -28,11 +28,8 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_UID}
         fsGroup: ${APP_UID}
         supplementalGroups: [7575]
-        fsGroupChangePolicy: OnRootMismatch
     controllers:
       manyfold-valkey:
         containers:
@@ -123,6 +120,7 @@ spec:
             env:
               PUID: ${APP_UID}
               GUID: ${APP_UID}
+              S6_READ_ONLY_ROOT: "1"
 
               DATABASE_ADAPTER:
                 valueFrom:
