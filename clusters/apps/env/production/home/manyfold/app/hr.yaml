@@ -125,6 +125,7 @@ spec:
               PUID: ${APP_UID}
               GUID: ${APP_UID}
               S6_READ_ONLY_ROOT: "1"
+              MULTIUSER: "enabled"
 
               DATABASE_ADAPTER:
                 valueFrom:
