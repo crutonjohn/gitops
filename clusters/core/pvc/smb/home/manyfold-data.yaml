@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: manyfold-models-smb
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 2Ti
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: manyfold-models-smb
+    namespace: home
+  csi:
+    driver: smb.csi.k8s.io
+    nodeStageSecretRef:
+      name: talos-smb-cred
+      namespace: home
+    volumeAttributes:
+      source: "//perturabo.heyjohn.family/bewcloud/f1804a91-31b9-4254-b98e-bd0ae5ec1aa1/Documents/3D\ Printing"
+    volumeHandle: perturabo.heyjohn.family/manyfold-models##
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - vers=3.0
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: perturabo-smb
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: manyfold-models-smb
+  namespace: home
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Ti
+  storageClassName: perturabo-smb
+  volumeMode: Filesystem
+  volumeName: manyfold-models-smb
+status:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 2Ti
