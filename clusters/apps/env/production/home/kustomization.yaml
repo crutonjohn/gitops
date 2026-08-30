@@ -10,6 +10,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
   - ./immich/ks.yaml
+  - ./manyfold/ks.yaml
   - ./llm/ks.yaml
   - ./open-webui/ks.yaml
   - ./zwavejs/ks.yaml

@@ -1,0 +1,227 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 12h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_UID}
+        fsGroup: ${APP_UID}
+        supplementalGroups: [7575]
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      manyfold-valkey:
+        containers:
+          valkey:
+            image:
+              repository: ghcr.io/valkey-io/valkey
+              tag: 9.1.1-trixie@sha256:70739f85ad2ee01a726a965584a0f94895f01b0c60b3cc8b0aeef11eaa6888cf
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            env:
+              DEPLOYMENT_MODE: Web
+              VALKEY_PORT: 6379
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 6Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+      manyfold-app:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: manyfold-env
+
+        containers:
+          manyfold:
+            image:
+              repository: manyfold3d/manyfold
+              tag: 0.148.0@sha256:7b4fdd373759b4ae0802487277801626bda6df8b2fba2ddb1d4aeb56bbf24af6
+            probes:
+              liveness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
+                type: TCP
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            env:
+              PUID: ${APP_UID}
+              GUID: ${APP_UID}
+
+              DATABASE_ADAPTER:
+                valueFrom:
+                  secretKeyRef:
+                    name: manyfold-env
+                    key: DB_ENGINE
+              DATABASE_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: manyfold-env
+                    key: INIT_POSTGRES_HOST
+              DATABASE_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: manyfold-env
+                    key: INIT_POSTGRES_USER
+              DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: manyfold-env
+                    key: INIT_POSTGRES_PASS
+              DATABASE_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: manyfold-env
+                    key: INIT_POSTGRES_DBNAME
+              DATABASE_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: manyfold-env
+                    key: POSTGRESQL_PORT
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 5Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - CHOWN
+                  - DAC_OVERRIDE
+                  - SETUID
+                  - SETGID
+
+    ingress:
+      manyfold:
+        enabled: true
+        annotations:
+          external-dns/public: "true"
+          opn.internal-dns.kubernetes.io/target: &target external-ingress.${SECRET_DOMAIN}
+          opn.internal-dns.kubernetes.io/hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
+          pi.internal-dns.kubernetes.io/target: *target
+          pi.internal-dns.kubernetes.io/hostname: *hostname
+          gandi.external-dns.kubernetes.io/target: ${DYNAMIC_DOMAIN}
+          gandi.external-dns.kubernetes.io/hostname: *hostname
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        labels: {}
+        className: traefik-external
+        hosts:
+          - host: *hostname
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: manyfold
+                  port: 3214
+        tls:
+          - secretName: heyjohn-wildcard-certificate
+            hosts:
+              - *hostname
+
+    service:
+      manyfold:
+        controller: manyfold-app
+        primary: true
+        ports:
+          http:
+            port: 3214
+      valkey:
+        controller: manyfold-valkey
+        ports:
+          http:
+            port: 6379
+    persistence:
+      plugins:
+        existingClaim: manyfold-plugins
+        advancedMounts:
+          manyfold:
+            manyfold:
+              - path: /usr/src/app/plugins
+      models:
+        existingClaim: manyfold-models
+        advancedMounts:
+          manyfold:
+            manyfold:
+              - path: /models
