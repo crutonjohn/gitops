@@ -50,10 +50,10 @@ spec:
       hostname: &hostname ${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
       url: &url https://${INGRESSROUTE_SUBDOMAIN}.${FAMILY_DOMAIN}
 
-    image:
-      repository: ghcr.io/crutonjohn/n8n-worker-latest
-      tag: 1.114.4
-      pullPolicy: IfNotPresent
+    #image:
+    #  repository: ghcr.io/crutonjohn/n8n-worker-latest
+    #  tag: 1.114.4
+    #  pullPolicy: IfNotPresent
     imagePullSecrets: []
 
     # The Name to use for the chart. Will be the prefix of all resources aka. The Chart.Name (default is 'n8n')
