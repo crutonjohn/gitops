@@ -40,7 +40,7 @@ spec:
           ${APP}:
             image:
               repository: ghcr.io/lupusbytes/cs2mqtt
-              tag: 1.12.0@sha256:7632beb8ab6a8e47bb624aa4dc93738aeb1ec0b74b3d043b7d6b342e7768bf5e
+              tag: 1.12.2@sha256:eda5e6ae0717cff68a9f2464dc304ef6f2550ac75beeee13c9452a0bdd234e07
             probes:
               liveness:
                 enabled: false
