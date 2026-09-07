@@ -41,7 +41,7 @@ spec:
             nameOverride: audiobookshelf
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.34.0@sha256:4143292c530f6ac6700afd13360c04f477e4f1a81c1c97c4224b1c7e4330c5c4
+              tag: 2.36.0@sha256:180acad33d69c99ed208676465d8edcb268fa46967735579a7810859885b1a8e
             env:
               TZ: America/New_York
               PORT: 13378
