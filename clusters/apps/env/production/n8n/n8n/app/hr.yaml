@@ -119,6 +119,8 @@ spec:
 
       # Extra environmental variables, so you can reference other configmaps and secrets into n8n as env vars.
       extraEnv: &extraEnv
+        TZ:
+          value: "America/New_York"
         EXECUTIONS_MODE:
           value: "queue"
         OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS:
