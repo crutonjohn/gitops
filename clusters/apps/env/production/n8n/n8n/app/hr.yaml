@@ -131,6 +131,8 @@ spec:
           value: "true"
         N8N_RUNNERS_ENABLED:
           value: "true"
+        N8N_ENABLED_MODULES:
+          value: "data-table"
         N8N_ENCRYPTION_KEY:
           valueFrom:
             secretKeyRef:
