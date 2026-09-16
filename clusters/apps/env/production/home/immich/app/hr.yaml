@@ -84,7 +84,7 @@ spec:
           dragonfly:
             image:
               repository: docker.dragonflydb.io/dragonflydb/dragonfly
-              tag: v1.38.1@sha256:baf70ba7ad182a992b988497cfa31a488978c8fab7712079784c2401f447e402
+              tag: v2.0.0@sha256:7426fdb31ddcf7bd9499b4205f36ebaa83b26149ba1609a0d5f8f474b3631233
             env:
               TZ: "${LOCAL_TIMEZONE}"
             args:
