@@ -57,73 +57,73 @@ transfers:
       files: 5000
       megabytes: 50000
       failures: 1000
-
-groups:
-  default:
-    upload:
-      priority: 500
-      strategy: roundrobin
-      slots: 10
-    limits:
-      queued:
-        files: 150
-        megabytes: 1500
-      daily: ~ # no daily limits (weekly still apply)
-      weekly:
-        files: 2000
-        megabytes: 15000
-        failures: 150
-  leechers:
-    thresholds:
-      files: 1
-      directories: 1
-    upload:
-      priority: 999
-      strategy: roundrobin
-      slots: 1
-      speed_limit: 100
-    limits:
-      queued:
-        files: 15
-        megabytes: 150
-      daily:
-        files: 30
-        megabytes: 300
-        failures: 10
-      weekly:
-        files: 150
-        megabytes: 1500
-        failures: 30
-  # user_defined:
-  #   unlimited:
-  #     upload:
-  #       priority: 250
-  #       queue_strategy: firstinfirstout
-  #       slots: 20
-  #       speed_limit: 100000
-  #     limits:
-  #       queued:
-  #         files: 10000 # override global default
-  #     members: []
-  # blacklisted:
-  #   members:
-  #     - <username to blacklist>
-  #   cidrs:
-  #     - <CIDR to blacklist, e.g. 255.255.255.255/32>
-  user_defined:
-    my_buddies:
+  groups:
+    default:
       upload:
-        priority: 250
-        strategy: firstinfirstout
+        priority: 500
+        strategy: roundrobin
         slots: 10
       limits:
         queued:
-          files: 1000 # override global default
-          megabytes: 3000
-        daily: ~
-        weekly: ~
-      members:
-        - extra_medium
+          files: 150
+          megabytes: 1500
+        daily: ~ # no daily limits (weekly still apply)
+        weekly:
+          files: 2000
+          megabytes: 15000
+          failures: 150
+    leechers:
+      thresholds:
+        files: 1
+        directories: 1
+      upload:
+        priority: 999
+        strategy: roundrobin
+        slots: 1
+        speed_limit: 100
+      limits:
+        queued:
+          files: 15
+          megabytes: 150
+        daily:
+          files: 30
+          megabytes: 300
+          failures: 10
+        weekly:
+          files: 150
+          megabytes: 1500
+          failures: 30
+    # user_defined:
+    #   unlimited:
+    #     upload:
+    #       priority: 250
+    #       queue_strategy: firstinfirstout
+    #       slots: 20
+    #       speed_limit: 100000
+    #     limits:
+    #       queued:
+    #         files: 10000 # override global default
+    #     members: []
+    # blacklisted:
+    #   members:
+    #     - <username to blacklist>
+    #   cidrs:
+    #     - <CIDR to blacklist, e.g. 255.255.255.255/32>
+    user_defined:
+      my_buddies:
+        upload:
+          priority: 250
+          strategy: firstinfirstout
+          slots: 10
+        limits:
+          queued:
+            files: 1000 # override global default
+            megabytes: 3000
+          daily: ~
+          weekly: ~
+        members:
+          - extra_medium
+
 # blacklist:
 #   enabled: true
 #   file: <path to file containing CIDRs to blacklist>
