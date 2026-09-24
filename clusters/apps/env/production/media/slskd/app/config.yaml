@@ -17,9 +17,6 @@ flags:
   case_sensitive_reg_ex: false
   legacy_windows_tcp_keepalive: false
   optimistic_relay_file_info: false
-permissions:
-  file:
-    mode: 644
 directories:
   incomplete: /app/incomplete
   downloads: /app/downloads
@@ -38,13 +35,16 @@ shares:
     retention: 40320
 rooms:
   - ~
-global:
+transfers:
   upload:
     slots: 20
     speed_limit: 5000
   download:
     slots: 500
     speed_limit: 5000 # in kibibytes
+    destination:
+      permissions:
+        mode: 644
   limits:
     queued:
       files: 500
