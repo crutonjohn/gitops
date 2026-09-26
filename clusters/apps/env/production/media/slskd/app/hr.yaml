@@ -162,6 +162,9 @@ spec:
               - path: /app/scripts
                 readOnly: false
                 subPath: scripts
+              - path: /app
+                readOnly: false
+                subPath: app
       config:
         type: configMap
         name: slskd-config
