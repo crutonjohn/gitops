@@ -33,7 +33,7 @@ spec:
       crdController: true
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "8081"
+        prometheus.io/port: "8080"
     worker:
       annotations:
         prometheus.io/scrape: "true"
