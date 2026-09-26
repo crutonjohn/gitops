@@ -37,7 +37,7 @@ spec:
     worker:
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "8081"
+        prometheus.io/port: "8080"
       config:
         core:
           sources: ["custom", "pci", "usb"]
