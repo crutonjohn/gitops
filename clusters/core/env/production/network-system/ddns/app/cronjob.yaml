@@ -25,7 +25,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: ddns-client
-              image: ghcr.io/timothyye/godns:v3.4.3@sha256:a7d25a3ff6bcea88a6cc88e2f24689cbeca65b8359537f433b7c6eac2b81a6f1
+              image: ghcr.io/timothyye/godns:v3.4.5@sha256:7434500de5657d426abd6394b01d7991ce8a8f75be8582e9122bfa500652c511
               volumeMounts:
                 - name: ddns-config
                   mountPath: /config.json
