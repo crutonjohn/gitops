@@ -35,7 +35,7 @@ spec:
           immich:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v3.1.0@sha256:b434cb9287eea1471c9974845914d4dd328c9c2d652e446ed4930f99944f0ceb
+              tag: v3.3.3@sha256:bae7664ff3aa4c2c1fcbdcdd86b40b105643c5f861f3e6a770fc760089f25862
             env:
               TZ: "${LOCAL_TIMEZONE}"
               IMMICH_HOST: "::"
@@ -132,7 +132,7 @@ spec:
           immich-ml:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v3.1.0@sha256:5a0839dc5303cd7215bcd2180a26aed3af41675aefb3e75e5157e9f10ad16e6e
+              tag: v3.3.3@sha256:73915f07e1f4289ba45b174c58443db74cef47ddf502613f475fc5e52458ea42
             env:
               TZ: "${LOCAL_TIMEZONE}"
               REDIS_HOSTNAME: *redisHostname
