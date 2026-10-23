@@ -4,14 +4,10 @@ kind: HelmRelease
 metadata:
   name: cert-manager
 spec:
+  chartRef:
+    kind: OCIRepository
+    name: cert-manager
   interval: 12h
-  chart:
-    spec:
-      chart: cert-manager
-      version: v1.21.3
-      sourceRef:
-        kind: OCIRepository
-        name: cert-manager
   values:
     crds:
       enabled: true
