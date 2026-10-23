@@ -75,7 +75,6 @@ spec:
     extraArgs:
       #- --ignore-ingress-tls-spec
       #- --annotation-filter=external-dns/private in (true)
-      - --pihole-api-version=6
       - --annotation-prefix=pi.internal-dns.kubernetes.io/
       - --ingress-class=traefik-external
       - --ingress-class=traefik-internal
