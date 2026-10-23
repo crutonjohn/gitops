@@ -95,7 +95,7 @@ spec:
           manyfold:
             image:
               repository: manyfold3d/manyfold
-              tag: 0.148.0@sha256:7b4fdd373759b4ae0802487277801626bda6df8b2fba2ddb1d4aeb56bbf24af6
+              tag: 0.153.0@sha256:f69029a8f21b76de0b1558f175de19009324f96e4ecd80143997e97174c08fa4
             probes:
               liveness:
                 enabled: false
