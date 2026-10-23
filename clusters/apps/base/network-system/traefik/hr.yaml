@@ -26,16 +26,16 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
-    rollingUpdate:
+    podDisruptionBudget:
+      enabled: true
       maxUnavailable: 1
-      maxSurge: 1
-    logs:
-      general:
-        format: json
-        level: DEBUG
-      access:
-        enabled: true
-        format: json
+      minAvailable: 1
+    log:
+      format: json
+      level: DEBUG
+    accessLog:
+      enabled: true
+      format: json
     metrics:
       prometheus:
         entryPoint: metrics
@@ -59,17 +59,19 @@ spec:
         expose:
           default: false
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            permanent: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
         containerPort: 8000
       websecure:
         containerPort: 8443
-        tls:
-          enabled: true
-          options: "default"
+        http:
+          tls:
+            enabled: true
+            options: "default"
       metrics:
         port: 9100
     tlsOptions:
