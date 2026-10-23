@@ -39,7 +39,7 @@ spec:
             nameOverride: zwavejs
             image:
               repository: zwavejs/zwave-js-ui
-              tag: 11.23.0@sha256:86f418050ce658cb6b9a5b17c33065b113376f9ccef98b36b3f2c42050b59672
+              tag: 11.25.1@sha256:52462f5cb50bd877f257947fa7c8c14c1b4f57140fc1043175c5742a3f18586e
             env:
               TZ: America/New_York
               ZWAVEJS_DATA: /usr/src/app/store
