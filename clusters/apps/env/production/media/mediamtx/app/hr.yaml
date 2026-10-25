@@ -41,7 +41,7 @@ spec:
             nameOverride: mediamtx
             image:
               repository: bluenviron/mediamtx
-              tag: 1-ffmpeg@sha256:c0feb4acc548d5f410d57d9046f62dfa355e2abc4098f5243de9e86430c77a95
+              tag: 1-ffmpeg@sha256:208e9f1740a09a5ee63b6308e77ce0d54fce0456462f640e6bd9acfc62ebb5a2
             env:
               TZ: America/New_York
               MTX_RTSPTRANSPORTS: "tcp,udp"
