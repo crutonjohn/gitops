@@ -31,7 +31,7 @@ spec:
           grocy:
             image:
               repository: linuxserver/grocy
-              tag: 4.7.1@sha256:d63bffe9afb2ef1a23fa7ce0749cdaeba9c169fb644b16eed270884a1b2f4ac9
+              tag: 4.7.1@sha256:ef5ea5094aa2ed32df74528c4bdd94713679038c97add02045d881550c2a59a8
             probes:
               liveness:
                 enabled: false
