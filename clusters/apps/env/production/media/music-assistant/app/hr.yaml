@@ -40,7 +40,7 @@ spec:
           music-assistant:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: 2.10.8@sha256:661e88bea76a9e79f38feca791f6c7373376ab60766ee01f56b66418ca243b68
+              tag: 2.10.13@sha256:7510aaa7ee5fc85b34fd0de17992bd14473895b23ce3eb9b310092743f4dbb84
             resources:
               requests:
                 cpu: 30m
