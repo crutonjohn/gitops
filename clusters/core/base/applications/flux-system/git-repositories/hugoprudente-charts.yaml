@@ -14,4 +14,4 @@ spec:
   url: https://github.com/hugoprudente/charts
   timeout: 3m
   ref:
-    commit: ed6b001ee064d02c2085190a176aee46880d8a28
+    commit: 9254591fb42149c29401b77fe0b0c953c30e4c20
