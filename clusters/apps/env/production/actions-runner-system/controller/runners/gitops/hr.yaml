@@ -31,7 +31,7 @@ spec:
     remediation:
       retries: 3
   values:
-    githubConfigUrl: https://github.com/crutonjohn/gitops
+    githubConfigUrl: https://github.com/crutonjohn/leetish
     githubConfigSecret: gitops-runner-secret
     minRunners: 1
     maxRunners: 3
